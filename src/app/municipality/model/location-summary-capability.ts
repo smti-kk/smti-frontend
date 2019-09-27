@@ -1,4 +1,4 @@
-import Coordinate from '../access-points/interface/coordinate';
+import Coordinate from '../../access-points/interface/coordinate';
 
 interface LocationSummaryCapabilityProperties {
   name: string;
@@ -186,8 +186,8 @@ export default class LocationSummaryCapability {
       apiModel.ats,
       apiModel.district,
       {
-        lat: apiModel.geometry.coordinates[1],
-        lng: apiModel.geometry.coordinates[0]
+        lat: apiModel.geometry ? apiModel.geometry.coordinates[1] : null,
+        lng: apiModel.geometry ? apiModel.geometry.coordinates[0] : null
       },
       apiModel.id,
       apiModel.informat,
@@ -200,8 +200,8 @@ export default class LocationSummaryCapability {
       apiModel.petitions,
       apiModel.project_down_analog,
       {
-        name: apiModel.properties.name,
-        type: apiModel.properties.type
+        name: apiModel.properties ? apiModel.properties.name : null,
+        type: apiModel.properties ? apiModel.properties.type : null
       },
       apiModel.radio,
       apiModel.tv,

@@ -6,6 +6,7 @@ import { MapComponent } from './components/map/map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { AccessPointsModule } from '../access-points/access-points.module';
+import { MunicipalityModule } from '../municipality/municipality.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AccessPointsModule } from '../access-points/access-points.module';
     SharedModule,
     LeafletModule.forRoot(),
     LeafletMarkerClusterModule.forRoot(),
-    AccessPointsModule
+    AccessPointsModule,
+    MunicipalityModule
   ],
   exports: [
     CoreComponent,

@@ -1,6 +1,9 @@
 <div leaflet
      [leafletLayersControl]="layersControl"
+     [leafletLayersControlOptions]="{position: 'bottomleft'}"
      [leafletOptions]="options"
+     (leafletMapReady)="onMapReady($event)"
+     locationCapabilities
      accessPoints
      class="map">
 </div>

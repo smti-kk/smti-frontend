@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { latLng, MapOptions, tileLayer } from 'leaflet';
+import { latLng, Map, MapOptions, tileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import 'leaflet.markercluster';
+import 'leaflet-search';
 
 @Component({
   selector: 'app-map',
@@ -9,8 +10,9 @@ import 'leaflet.markercluster';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  options: MapOptions;
-  layersControl: LeafletControlLayersConfig;
+  private readonly options: MapOptions;
+  private readonly layersControl: LeafletControlLayersConfig;
+  private leaflet: Map;
 
   constructor() {
     this.options = {
@@ -25,9 +27,13 @@ export class MapComponent implements OnInit {
       baseLayers: {},
       overlays: {}
     };
+
   }
 
   ngOnInit() {
   }
 
+  onMapReady(leaflet: Map) {
+    this.leaflet = leaflet;
+  }
 }
