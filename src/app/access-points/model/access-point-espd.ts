@@ -13,7 +13,7 @@ export default class AccessPointEspd extends AccessPoint {
               private _connection: string,
               private _definedSpeed: string,
               private _description: string) {
-    super(_pk, _point);
+    super(_pk, _point, _orgName);
   }
 
 

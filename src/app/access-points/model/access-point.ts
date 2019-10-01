@@ -2,7 +2,12 @@ import Coordinate from '../interface/coordinate';
 
 export default class AccessPoint {
   protected constructor(private _pk: number,
-                        private _point: Coordinate) {
+                        private _point: Coordinate,
+                        private _name: string) {
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get pk(): number {

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import MunicipalityService from './service/municipality.serivice';
+import MunicipalityService from '../shared/services/municipality.serivice';
 import { HttpClientModule } from '@angular/common/http';
-import MunicipalityDirective from './municipality.directive';
+import { MunicipalityDirective } from './municipality.directive';
 
 
 @NgModule({

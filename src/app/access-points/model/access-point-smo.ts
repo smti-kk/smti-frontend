@@ -15,7 +15,7 @@ export default class AccessPointSmo extends AccessPoint {
               _pk: number,
               _point: Coordinate,
               private _visible: boolean) {
-    super(_pk, _point);
+    super(_pk, _point, _orgName);
   }
 
 

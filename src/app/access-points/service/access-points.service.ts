@@ -6,10 +6,22 @@ import AccessPointSmo from '../model/access-point-smo';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from 'leaflet';
+import AdministrativeCenterPoint, { MobileType, Operator } from '../model/administrative-center-point';
+import { MOBILE_TYPE_URL, OPERATOR_URL } from './api.constants';
+import MunicipalityService from '../../shared/services/municipality.serivice';
 
 @Injectable()
 export default class AccessPointsService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private municipalityService: MunicipalityService) {
+  }
+
+  async getMobileType(): Promise<MobileType[]> {
+    return this.http.get<MobileType[]>(MOBILE_TYPE_URL).toPromise();
+  }
+
+  async getOperators(): Promise<Operator[]> {
+    return this.http.get<Operator[]>(OPERATOR_URL).toPromise();
   }
 
   getUpdatedEspdPoints(interval: number, forceUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
@@ -18,6 +30,22 @@ export default class AccessPointsService {
 
   getUpdatedSmoPoints(interval: number, forceUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointSmo[]> {
     return this.getUpdatedPoints<AccessPointSmo>(interval, AccessPointSmo.createFromApiModel, AccessPointType.SMO, forceUpdate, bounds);
+  }
+
+  async getAdministrativePoints(): Promise<Subject<AdministrativeCenterPoint[]>> {
+    const mobileType = await this.getMobileType();
+    const operators = await this.getOperators();
+    const locationArea = await this.municipalityService.getMunicipalitiesArea().toPromise();
+
+    const administrativeCentersObserver = new Subject<AdministrativeCenterPoint[]>();
+
+    this.municipalityService.getLocationCapabilities(false).subscribe(lc => {
+      administrativeCentersObserver.next(lc
+        .map(locationCapability => AdministrativeCenterPoint.create(locationArea, locationCapability, mobileType, operators))
+        .filter(locationCapability => locationCapability !== undefined));
+    });
+
+    return administrativeCentersObserver;
   }
 
   private getUpdatedPoints<T>(interval: number,
@@ -39,6 +67,8 @@ export default class AccessPointsService {
           timer = this.startUpdateAccessPoints(points, interval, mapper, accessPointType, bounds());
         }
       });
+    } else {
+      this.startUpdateAccessPoints(points, interval, mapper, accessPointType, bounds());
     }
 
     return points;

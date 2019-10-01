@@ -3,7 +3,12 @@
      [leafletLayersControlOptions]="{position: 'bottomleft'}"
      [leafletOptions]="options"
      (leafletMapReady)="onMapReady($event)"
-     locationCapabilities
-     accessPoints
+     accessPointsEspd
+     accessPointSmo
+
+     municipalities
+     (municipalityLayerReady)="onMunicipalitiesLayerReady()"
+     administrativeCenters
+     (administrativeCentersLayerReady)="onAdministrativeLayerReady($event)"
      class="map">
 </div>
