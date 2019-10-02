@@ -6,7 +6,8 @@ import 'leaflet.markercluster';
 import 'leaflet-search';
 import { ESPD_LAYER_NAME } from '../../../access-points/access-point-espd-layer.directive';
 import { SMO_LAYER_NAME } from '../../../access-points/access-point-smo-layer.directive';
-import { MUNICIPALITIES_LAYER_TITLE } from '../../../municipality/municipality.directive';
+
+const COUNT_LAYERS = 4;
 
 @Component({
   selector: 'app-map',
@@ -17,7 +18,8 @@ export class MapComponent {
   private readonly options: MapOptions;
   private readonly layersControl: LeafletControlLayersConfig;
   private leaflet: Map;
-  private administrativeCentersLayer: Layer;
+  private layers: Layer[] = [];
+  private searchableLayers: Layer[] = [];
 
   constructor() {
     this.options = {
@@ -39,15 +41,10 @@ export class MapComponent {
     this.leaflet = leaflet;
   }
 
-  private initSearchControl() {
+  private initSearchControl(layers: Layer[]) {
     // @ts-ignore
     const search = new L.Control.Search({
-      layer: layerGroup([
-        this.layersControl.overlays[ESPD_LAYER_NAME],
-        this.layersControl.overlays[SMO_LAYER_NAME],
-        this.administrativeCentersLayer,
-        this.layersControl.overlays[MUNICIPALITIES_LAYER_TITLE]
-      ]),
+      layer: layerGroup(layers),
       textPlaceholder: 'Найти...',
       propertyName: 'name',
       position: 'topleft',
@@ -68,11 +65,28 @@ export class MapComponent {
     this.leaflet.removeLayer(this.layersControl.overlays[SMO_LAYER_NAME]);
   }
 
-  onAdministrativeLayerReady(layer: Layer) {
-    this.administrativeCentersLayer = layer;
+  private onLayerReady(layer: Layer) {
+    this.layers.push(layer);
+
+    if (this.layers.length === COUNT_LAYERS) {
+      const searchableLayers = this.layers;
+      this.initSearchControl(searchableLayers);
+      this.layers.forEach(l => {
+        l.on('add', () => {
+          searchableLayers.push(l);
+        });
+        l.on('remove', () => {
+          searchableLayers.splice(searchableLayers.indexOf(l, 1));
+        });
+      });
+    }
   }
 
-  onMunicipalitiesLayerReady() {
-    this.initSearchControl();
+  private addLayerToSearchControl(layer: Layer) {
+
+  }
+
+  private removeLayerFromSearchControl(layer: Layer) {
+
   }
 }

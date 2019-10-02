@@ -73,9 +73,9 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
           popupAnchor: [-1, -25],
         });
 
-        const pointMarker: any = marker([point.point.lat, point.point.lng], {icon})
-          .bindPopup(this.renderPopup(point));
-        pointMarker.id = point.pk;
+        const pointMarker: Marker = marker([point.point.lat, point.point.lng], {icon})
+          .bindPopup(this.renderPopup(point))
+          .id = point.pk;
 
         pointMarker.feature = {
           properties: {

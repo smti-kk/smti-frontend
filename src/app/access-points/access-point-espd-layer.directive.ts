@@ -1,5 +1,5 @@
 import AccessPointLayer from './components/access-point-layer';
-import { Directive, EventEmitter, Input } from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { LatLngBounds, Layer, Map } from 'leaflet';
 import { Subject } from 'rxjs';
 import AccessPointsService from './service/access-points.service';
@@ -15,6 +15,7 @@ export const ESPD_LAYER_NAME = 'ЕСПД Точки';
 export class AccessPointEspdLayerDirective extends AccessPointLayer<AccessPointEspd> {
 
   @Input() leafletLayersControl: LeafletControlLayersConfig;
+  @Output() accessPointEspdLayerReady: EventEmitter<any> = new EventEmitter();
 
   constructor(private accessPointsService: AccessPointsService,
               private leafletDirective: LeafletDirective) {
@@ -27,6 +28,7 @@ export class AccessPointEspdLayerDirective extends AccessPointLayer<AccessPointE
 
   addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
     layersControl.overlays[ESPD_LAYER_NAME] = layer;
+    this.accessPointEspdLayerReady.emit(this.layer);
   }
 
   renderPopup(point: AccessPointEspd): string {

@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input } from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { LeafletControlLayersConfig, LeafletDirective } from '@asymmetrik/ngx-leaflet';
 import AccessPointsService from './service/access-points.service';
 import { LatLngBounds, Layer, Map } from 'leaflet';
@@ -14,6 +14,7 @@ export const SMO_LAYER_NAME = 'СЗО Точки';
 })
 export class AccessPointSmoLayerDirective extends AccessPointLayer<AccessPointSmo> {
   @Input() leafletLayersControl: LeafletControlLayersConfig;
+  @Output() accessPointSmoLayerDirectiveReady: EventEmitter<Layer>;
 
   constructor(private accessPointsService: AccessPointsService, private leafletDirective: LeafletDirective) {
     super();
@@ -29,6 +30,7 @@ export class AccessPointSmoLayerDirective extends AccessPointLayer<AccessPointSm
 
   addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
     layersControl.overlays[SMO_LAYER_NAME] = layer;
+    this.accessPointSmoLayerDirectiveReady.emit(layer);
   }
 
   renderPopup(point: AccessPointSmo): string {
