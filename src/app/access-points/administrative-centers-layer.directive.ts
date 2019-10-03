@@ -14,12 +14,12 @@ const MAX_ZOOM = 12;
 })
 export class AdministrativeCentersLayerDirective<T> extends AccessPointLayer<AdministrativeCenterPoint> implements OnInit {
   @Input() leafletLayersControl: LeafletControlLayersConfig;
-  @Output() administrativeCentersLayerReady: EventEmitter<Layer>;
+  @Output() layerReady: EventEmitter<Layer>;
 
   constructor(private leafletDirective: LeafletDirective,
               private accessPointsService: AccessPointsService) {
     super();
-    this.administrativeCentersLayerReady = new EventEmitter<Layer>();
+    this.layerReady = new EventEmitter<Layer>();
   }
 
   ngOnInit(): void {
@@ -86,7 +86,7 @@ export class AdministrativeCentersLayerDirective<T> extends AccessPointLayer<Adm
 
   addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
     this.layer.addTo(this.leafletDirective.map);
-    this.administrativeCentersLayerReady.emit(layer);
+    this.layerReady.emit(layer);
   }
 
   getLayersControl(): LeafletControlLayersConfig {

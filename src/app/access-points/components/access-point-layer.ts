@@ -9,14 +9,17 @@ const TIMER_INTERVAL = 10 * 60 * 1000;
 
 export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup implements OnInit {
   protected layer: L.MarkerClusterGroup;
-  public feature: any = {};
+  public feature: any = {
+    properties: {
+      name: ''
+    }
+  };
 
   protected constructor() {
     super();
-    this.feature.properties = {
-      name: ''
-    };
-    this.layer = L.markerClusterGroup();
+    L.DomUtil.TRANSITION = 'any 0.5s';
+
+    this.layer = L.markerClusterGroup({animate: true});
   }
 
   ngOnInit(): void {
@@ -49,23 +52,22 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
   }
 
   private updateMarkers(points: T[]) {
-    this.layer.getAllChildMarkers()
+    const markers = this.layer.getLayers() as Marker[];
+    markers
       .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.id))
       .forEach(pointMarker => this.layer.removeLayer(pointMarker));
 
     points.forEach(point => {
-      let pointMarker = this.layer.getAllChildMarkers().find(pm => pm.feature.properties.id === point.pk);
-
-      if (pointMarker && pointMarker.getLatLng() !== point.point) {
-        pointMarker.setLatLng(point.point);
-      } else {
+      let pointMarker = markers.find(pm => pm.feature.properties.id === point.pk);
+      if (pointMarker && (pointMarker.getLatLng().lng !== point.point.lng || pointMarker.getLatLng().lat !== point.point.lat)) {
+        pointMarker.setLatLng({lat: point.point.lat, lng: point.point.lng});
+      } else if (!pointMarker) {
         pointMarker = this.createMarker(point);
+        if (pointMarker.getLatLng()) {
+          this.layer.addLayer(pointMarker);
+        }
       }
-
-      if (pointMarker.getLatLng()) {
-        pointMarker.bindPopup(this.renderPopup(point));
-        this.layer.addLayer(pointMarker);
-      }
+      pointMarker.bindPopup(this.renderPopup(point));
     });
   }
 

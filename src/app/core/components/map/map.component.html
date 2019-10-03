@@ -4,12 +4,9 @@
      [leafletOptions]="options"
      (leafletMapReady)="onMapReady($event)"
      accessPointsEspd
-     (accessPointSmoLayerDirectiveReady)="onLayerReady($event)"
      accessPointSmo
-     (accessPointEspdLayerReady)="onLayerReady($event)"
      municipalities
-     (municipalityLayerReady)="onLayerReady($event)"
      administrativeCenters
-     (administrativeCentersLayerReady)="onLayerReady($event)"
+     (layerReady)="onLayerReady($event)"
      class="map">
 </div>

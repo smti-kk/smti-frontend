@@ -15,11 +15,12 @@ export const ESPD_LAYER_NAME = 'ЕСПД Точки';
 export class AccessPointEspdLayerDirective extends AccessPointLayer<AccessPointEspd> {
 
   @Input() leafletLayersControl: LeafletControlLayersConfig;
-  @Output() accessPointEspdLayerReady: EventEmitter<any> = new EventEmitter();
+  @Output() layerReady: EventEmitter<Layer>;
 
   constructor(private accessPointsService: AccessPointsService,
               private leafletDirective: LeafletDirective) {
     super();
+    this.layerReady = new EventEmitter<Layer>();
   }
 
   getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
@@ -28,7 +29,7 @@ export class AccessPointEspdLayerDirective extends AccessPointLayer<AccessPointE
 
   addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
     layersControl.overlays[ESPD_LAYER_NAME] = layer;
-    this.accessPointEspdLayerReady.emit(this.layer);
+    this.layerReady.emit(this.layer);
   }
 
   renderPopup(point: AccessPointEspd): string {

@@ -14,7 +14,7 @@ export const SMO_LAYER_NAME = 'СЗО Точки';
 })
 export class AccessPointSmoLayerDirective extends AccessPointLayer<AccessPointSmo> {
   @Input() leafletLayersControl: LeafletControlLayersConfig;
-  @Output() accessPointSmoLayerDirectiveReady: EventEmitter<Layer>;
+  @Output() layerReady: EventEmitter<Layer> = new EventEmitter<Layer>();
 
   constructor(private accessPointsService: AccessPointsService, private leafletDirective: LeafletDirective) {
     super();
@@ -30,7 +30,7 @@ export class AccessPointSmoLayerDirective extends AccessPointLayer<AccessPointSm
 
   addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
     layersControl.overlays[SMO_LAYER_NAME] = layer;
-    this.accessPointSmoLayerDirectiveReady.emit(layer);
+    this.layerReady.emit(layer);
   }
 
   renderPopup(point: AccessPointSmo): string {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import * as L from 'leaflet';
-import { latLng, Layer, layerGroup, Map, MapOptions, tileLayer } from 'leaflet';
+import { latLng, Layer, LayerGroup, layerGroup, Map, MapOptions, tileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import 'leaflet.markercluster';
 import 'leaflet-search';
@@ -19,7 +19,6 @@ export class MapComponent {
   private readonly layersControl: LeafletControlLayersConfig;
   private leaflet: Map;
   private layers: Layer[] = [];
-  private searchableLayers: Layer[] = [];
 
   constructor() {
     this.options = {
@@ -41,13 +40,22 @@ export class MapComponent {
     this.leaflet = leaflet;
   }
 
-  private initSearchControl(layers: Layer[]) {
+  private initSearchControl(layers: LayerGroup) {
     // @ts-ignore
     const search = new L.Control.Search({
-      layer: layerGroup(layers),
+      layer: layers,
       textPlaceholder: 'Найти...',
       propertyName: 'name',
       position: 'topleft',
+      filterData: (textSearch: string, allRecords) => {
+        const results = {};
+        for (const key in allRecords) {
+          if (allRecords.hasOwnProperty(key) && key.toLowerCase().includes(textSearch.toLowerCase())) {
+            results[key] = allRecords[key];
+          }
+        }
+        return  results;
+      },
       buildTip: (text, val) => {
         let type;
         if (!val.layer.feature.properties.type) {
@@ -69,24 +77,16 @@ export class MapComponent {
     this.layers.push(layer);
 
     if (this.layers.length === COUNT_LAYERS) {
-      const searchableLayers = this.layers;
+      const searchableLayers = layerGroup(this.layers);
       this.initSearchControl(searchableLayers);
       this.layers.forEach(l => {
         l.on('add', () => {
-          searchableLayers.push(l);
+          searchableLayers.addLayer(l);
         });
         l.on('remove', () => {
-          searchableLayers.splice(searchableLayers.indexOf(l, 1));
+          searchableLayers.removeLayer(l);
         });
       });
     }
-  }
-
-  private addLayerToSearchControl(layer: Layer) {
-
-  }
-
-  private removeLayerFromSearchControl(layer: Layer) {
-
   }
 }

@@ -12,7 +12,7 @@ export const MUNICIPALITIES_LAYER_TITLE = 'Средняя оценка связ�
 @Injectable()
 export class MunicipalityDirective implements OnInit {
   @Input() leafletLayersControl: LeafletControlLayersConfig;
-  @Output() municipalityLayerReady: EventEmitter<Layer> = new EventEmitter<Layer>();
+  @Output() layerReady: EventEmitter<Layer> = new EventEmitter<Layer>();
 
   constructor(private leafletDirective: LeafletDirective,
               private municipalityService: MunicipalityService) {
@@ -28,7 +28,7 @@ export class MunicipalityDirective implements OnInit {
       this.municipalityService.getLocationCapabilities(false).subscribe(lc => {
         municipalitiesLayer.addInfoControlToMap(lc, this.leafletDirective.map);
         this.leafletLayersControl.overlays[MUNICIPALITIES_LAYER_TITLE] = municipalitiesLayer;
-        this.municipalityLayerReady.emit(municipalitiesLayer);
+        this.layerReady.emit(municipalitiesLayer);
       });
     });
   }
