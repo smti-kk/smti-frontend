@@ -24,5 +24,5 @@ import { AdministrativeCentersLayerDirective } from './administrative-centers-la
   ],
   providers: [AccessPointsService]
 })
-export class AccessPointsModule {
+export class PointLayersModule {
 }

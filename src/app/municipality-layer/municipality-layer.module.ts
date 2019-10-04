@@ -16,5 +16,5 @@ import { MunicipalityDirective } from './municipality.directive';
   providers: [MunicipalityService],
   exports: [MunicipalityDirective]
 })
-export class MunicipalityModule {
+export class MunicipalityLayerModule {
 }

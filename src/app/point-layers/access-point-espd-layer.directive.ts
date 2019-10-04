@@ -23,7 +23,7 @@ export class AccessPointEspdLayerDirective extends AccessPointLayer<AccessPointE
     this.layerReady = new EventEmitter<Layer>();
   }
 
-  getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
+  getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
     return this.accessPointsService.getUpdatedEspdPoints(interval, startStopUpdate, bounds);
   }
 

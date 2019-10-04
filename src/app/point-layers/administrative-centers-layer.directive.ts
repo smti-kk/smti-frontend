@@ -41,7 +41,7 @@ export class AdministrativeCentersLayerDirective<T> extends AccessPointLayer<Adm
                    bounds?: () => LatLngBounds): Subject<AdministrativeCenterPoint[]> {
     const locationCapabilities = new Subject<AdministrativeCenterPoint[]>();
 
-    this.accessPointsService.getAdministrativePoints().then(pointsObserver => {
+    this.accessPointsService.getAdministrativePointsSubject(startStopUpdate).then(pointsObserver => {
       pointsObserver.subscribe(ap => {
         locationCapabilities.next(ap);
       });

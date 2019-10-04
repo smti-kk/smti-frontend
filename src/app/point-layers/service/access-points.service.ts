@@ -24,20 +24,34 @@ export default class AccessPointsService {
     return this.http.get<Operator[]>(OPERATOR_URL).toPromise();
   }
 
-  getUpdatedEspdPoints(interval: number, forceUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
-    return this.getUpdatedPoints<AccessPointEspd>(interval, AccessPointEspd.createFromApiModel, AccessPointType.ESPD, forceUpdate, bounds);
+  getUpdatedEspdPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
+    return this.getUpdatedPoints<AccessPointEspd>(
+      interval,
+      AccessPointEspd.createFromApiModel,
+      AccessPointType.ESPD,
+      startStopUpdate,
+      bounds
+    );
   }
 
-  getUpdatedSmoPoints(interval: number, forceUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointSmo[]> {
-    return this.getUpdatedPoints<AccessPointSmo>(interval, AccessPointSmo.createFromApiModel, AccessPointType.SMO, forceUpdate, bounds);
+  getUpdatedSmoPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointSmo[]> {
+    return this.getUpdatedPoints<AccessPointSmo>(interval, AccessPointSmo.createFromApiModel, AccessPointType.SMO, startStopUpdate, bounds);
   }
 
-  async getAdministrativePoints(): Promise<Subject<AdministrativeCenterPoint[]>> {
+  async getAdministrativePointsSubject(startStop: EventEmitter<boolean>): Promise<Subject<AdministrativeCenterPoint[]>> {
     const mobileType = await this.getMobileType();
     const operators = await this.getOperators();
     const locationArea = await this.municipalityService.getMunicipalitiesArea().toPromise();
 
     const administrativeCentersObserver = new Subject<AdministrativeCenterPoint[]>();
+
+    this.getAdministrativePoints().then(ap => administrativeCentersObserver.next(ap));
+
+    startStop.subscribe(start => {
+      if (start) {
+        this.getAdministrativePoints().then(ap => administrativeCentersObserver.next(ap));
+      }
+    });
 
     this.municipalityService.getLocationCapabilities(false).subscribe(lc => {
       administrativeCentersObserver.next(lc
@@ -48,23 +62,31 @@ export default class AccessPointsService {
     return administrativeCentersObserver;
   }
 
+  private async getAdministrativePoints() {
+    const mobileType = await this.getMobileType();
+    const operators = await this.getOperators();
+    const locationArea = await this.municipalityService.getMunicipalitiesArea().toPromise();
+    const locationCapabilities = await this.municipalityService.getLocationCapabilities(false).toPromise();
+
+    return locationCapabilities
+      .map(lc => AdministrativeCenterPoint.create(locationArea, lc, mobileType, operators))
+      .filter(lc => lc !== undefined);
+  }
+
   private getUpdatedPoints<T>(interval: number,
                               mapper: (dataFromApi) => T,
                               accessPointType: AccessPointType,
-                              startStop?: EventEmitter<any>,
+                              startUpdate?: EventEmitter<boolean>,
                               bounds?: () => LatLngBounds): Subject<T[]> {
     const points: Subject<T[]> = new Subject<T[]>();
     let timer;
 
-    if (startStop) {
-      let start = false;
-      startStop.subscribe(() => {
+    if (startUpdate) {
+      startUpdate.subscribe((start) => {
         if (start) {
-          start = false;
-          clearInterval(timer);
-        } else {
-          start = true;
           timer = this.startUpdateAccessPoints(points, interval, mapper, accessPointType, bounds());
+        } else {
+          clearInterval(timer);
         }
       });
     } else {

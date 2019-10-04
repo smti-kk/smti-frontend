@@ -1,4 +1,3 @@
-import Coordinate from '../../access-points/interface/coordinate';
 import { Point } from 'geojson';
 
 interface LocationSummaryCapabilityProperties {
@@ -12,7 +11,7 @@ export default class LocationSummaryCapability {
               private _area: number,
               private _ats: any,
               private _district: string,
-              private _geometry: Coordinate,
+              private _geometry: {lat: number, lng: number},
               private _id: number,
               private _informat: number,
               private _internet: any,
@@ -50,7 +49,7 @@ export default class LocationSummaryCapability {
     return this._district;
   }
 
-  get geometry(): Coordinate {
+  get geometry(): {lat: number, lng: number} {
     return this._geometry;
   }
 

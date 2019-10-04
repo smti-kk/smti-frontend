@@ -26,6 +26,7 @@ export default class MunicipalitiesLayer extends GeoJSON<LocationArea> {
         mouseover: event => {
           event.target.setStyle(HIGHLIGHT_FEATURE);
           info.show(layer.feature);
+          layer.bringToFront();
         },
         mouseout: event => {
           event.target.setStyle(MAP_TERRITORIES_STYLE);

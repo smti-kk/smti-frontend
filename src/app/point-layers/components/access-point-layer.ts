@@ -8,6 +8,7 @@ import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 const TIMER_INTERVAL = 10 * 60 * 1000;
 
 export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup implements OnInit {
+  private startUpdateSwitch = new EventEmitter<boolean>();
   protected layer: L.MarkerClusterGroup;
   public feature: any = {
     properties: {
@@ -17,8 +18,6 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
   protected constructor() {
     super();
-    L.DomUtil.TRANSITION = 'any 0.5s';
-
     this.layer = L.markerClusterGroup({animate: true});
   }
 
@@ -29,24 +28,27 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
       throw new Error('Required leaflet directive from @asymmetrik/ngx-leaflet');
     }
 
-    const startStopUpdateSwitch = new EventEmitter<any>();
-
-    this.getUpdatedPoints(TIMER_INTERVAL, startStopUpdateSwitch, this.getMap().getBounds.bind(this.getMap())).subscribe(points => {
+    this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, this.getMap().getBounds.bind(this.getMap())).subscribe(points => {
       this.updateMarkers(points);
     });
 
     this.layer.on('add', () => {
-      startStopUpdateSwitch.emit();
+      if (this.getMap().getZoom() >= 12) {
+        this.startUpdateSwitch.emit(true);
+      } else {
+        this.clearLayer();
+      }
     });
 
     this.layer.on('remove', () => {
-      startStopUpdateSwitch.emit();
+      this.startUpdateSwitch.emit(false);
     });
 
     this.getMap().on('moveend', () => {
-      if (this.getMap().hasLayer(this.layer)) {
-        startStopUpdateSwitch.emit();
-        startStopUpdateSwitch.emit();
+      if (this.getMap().hasLayer(this.layer) && this.getMap().getZoom() >= 12) {
+        this.startUpdateSwitch.emit(true);
+      } else {
+        this.clearLayer();
       }
     });
   }
@@ -94,7 +96,11 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     return pointMarker;
   }
 
-  abstract getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<T[]>;
+  private clearLayer() {
+    this.layer.getLayers().forEach(l => this.layer.removeLayer(l));
+  }
+
+  abstract getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<T[]>;
 
   abstract renderPopup(point: T): string;
 
