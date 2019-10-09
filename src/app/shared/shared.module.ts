@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import MunicipalityService from './services/municipality.serivice';
 
 
 @NgModule({
@@ -10,10 +9,8 @@ import MunicipalityService from './services/municipality.serivice';
     CommonModule,
     HttpClientModule
   ],
-  providers: [
-    MunicipalityService
-  ],
-  exports: [
-  ]
+  providers: [],
+  exports: []
 })
-export class SharedModule { }
+export class SharedModule {
+}

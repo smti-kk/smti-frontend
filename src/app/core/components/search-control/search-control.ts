@@ -1,6 +1,6 @@
 import * as L from 'leaflet';
 import { Control, LayerGroup } from 'leaflet';
-import { filterByFields } from '../../../utils/utils';
+
 
 export default class SearchControl {
   static create(layers: LayerGroup): Control {
@@ -10,7 +10,7 @@ export default class SearchControl {
       textPlaceholder: 'Найти...',
       propertyName: 'name',
       position: 'topleft',
-      filterData: (textSearch: string, allRecords) => filterByFields(textSearch, allRecords),
+      filterData: (textSearch: string, allRecords) => SearchControl.filterByFields(textSearch, allRecords),
       buildTip: (text, val) => SearchControl.buildTip(text, val)
     });
   }
@@ -23,5 +23,15 @@ export default class SearchControl {
       type = '<i class="fa fa-map-marker icon-search" aria-hidden="true" title="Населенный пункт"></i>';
     }
     return '<a style="width: 230px;" href="#">' + text + type + '</a>';
+  }
+
+  private static filterByFields(text: string, map: {[name: string]: any}) {
+    const results = {};
+    for (const key in map) {
+      if (map.hasOwnProperty(key) && key.toLowerCase().includes(text.toLowerCase())) {
+        results[key] = text[key];
+      }
+    }
+    return  results;
   }
 }

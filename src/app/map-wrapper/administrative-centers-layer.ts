@@ -1,53 +1,26 @@
-import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import AccessPointLayer from './components/access-point-layer';
-import { Subject } from 'rxjs';
-import { LatLngBounds, Layer, Map } from 'leaflet';
-import { LeafletControlLayersConfig, LeafletDirective } from '@asymmetrik/ngx-leaflet';
+import { Observable } from 'rxjs';
+import { LatLngBounds } from 'leaflet';
 import AccessPointsService from './service/access-points.service';
 import AdministrativeCenterPoint from './model/administrative-center-point';
 
 const MARKER_ICON_DEFAULT = '../../../../assets/marker-icon-default.png';
-const MAX_ZOOM = 12;
 
-@Directive({
-  selector: '[administrativeCenters]'
-})
-export class AdministrativeCentersLayerDirective<T> extends AccessPointLayer<AdministrativeCenterPoint> implements OnInit {
-  @Input() leafletLayersControl: LeafletControlLayersConfig;
-  @Output() layerReady: EventEmitter<Layer>;
-
-  constructor(private leafletDirective: LeafletDirective,
-              private accessPointsService: AccessPointsService) {
+@Injectable()
+export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeCenterPoint> {
+  constructor(private accessPointsService: AccessPointsService) {
     super();
-    this.layerReady = new EventEmitter<Layer>();
-  }
-
-  ngOnInit(): void {
-    super.ngOnInit();
-    this.getMap().on('zoomend', () => {
-      if (this.getMap().getZoom() < MAX_ZOOM) {
-        this.getMap().removeLayer(this.layer);
-      } else {
-        this.getMap().addLayer(this.layer);
-      }
-    });
   }
 
   getIconUrl(): string {
     return MARKER_ICON_DEFAULT;
   }
 
-  getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<any>,
-                   bounds?: () => LatLngBounds): Subject<AdministrativeCenterPoint[]> {
-    const locationCapabilities = new Subject<AdministrativeCenterPoint[]>();
-
-    this.accessPointsService.getAdministrativePointsSubject(startStopUpdate).then(pointsObserver => {
-      pointsObserver.subscribe(ap => {
-        locationCapabilities.next(ap);
-      });
-    });
-
-    return locationCapabilities;
+  getUpdatedPoints(interval: number,
+                   startStopUpdate?: EventEmitter<any>,
+                   bounds?: () => LatLngBounds): Observable<AdministrativeCenterPoint[]> {
+    return this.accessPointsService.getUpdatedAdministrativeCenterPoints(interval, startStopUpdate);
   }
 
   renderPopup(point: AdministrativeCenterPoint) {
@@ -82,18 +55,5 @@ export class AdministrativeCentersLayerDirective<T> extends AccessPointLayer<Adm
     });
 
     return str.join(' ');
-  }
-
-  addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
-    this.layer.addTo(this.leafletDirective.map);
-    this.layerReady.emit(layer);
-  }
-
-  getLayersControl(): LeafletControlLayersConfig {
-    return this.leafletLayersControl;
-  }
-
-  getMap(): Map {
-    return this.leafletDirective.map;
   }
 }

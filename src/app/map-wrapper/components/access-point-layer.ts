@@ -1,15 +1,13 @@
-import { EventEmitter, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
-import { Icon, LatLngBounds, Layer, Map, Marker, marker } from 'leaflet';
-import { Subject } from 'rxjs';
+import { Icon, LatLngBounds, Map, Marker, marker } from 'leaflet';
+import { Observable, Subject } from 'rxjs';
 import AccessPoint from '../model/access-point';
-import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 
 const TIMER_INTERVAL = 10 * 60 * 1000;
 
-export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup implements OnInit {
+export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup {
   private startUpdateSwitch = new EventEmitter<boolean>();
-  protected layer: L.MarkerClusterGroup;
   public feature: any = {
     properties: {
       name: ''
@@ -18,57 +16,58 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
   protected constructor() {
     super();
-    this.layer = L.markerClusterGroup({animate: true});
   }
 
-  ngOnInit(): void {
-    this.addToLayersControl(this.getLayersControl(), this.layer);
+  onAdd(map: Map): this {
 
-    if (!this.getMap()) {
-      throw new Error('Required leaflet directive from @asymmetrik/ngx-leaflet');
-    }
+    super.onAdd(map);
 
-    this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, this.getMap().getBounds.bind(this.getMap())).subscribe(points => {
+    this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
       this.updateMarkers(points);
     });
 
-    this.layer.on('add', () => {
-      if (this.getMap().getZoom() >= 12) {
+    this.on('add', () => {
+      if (map.getZoom() >= 12) {
         this.startUpdateSwitch.emit(true);
       } else {
         this.clearLayer();
       }
     });
 
-    this.layer.on('remove', () => {
+    this.on('remove', () => {
       this.startUpdateSwitch.emit(false);
     });
 
-    this.getMap().on('moveend', () => {
-      if (this.getMap().hasLayer(this.layer) && this.getMap().getZoom() >= 12) {
+    map.on('moveend', () => {
+      if (map.hasLayer(this) && map.getZoom() >= 12) {
         this.startUpdateSwitch.emit(true);
       } else {
         this.clearLayer();
       }
     });
+
+    return this;
   }
 
   private updateMarkers(points: T[]) {
-    const markers = this.layer.getLayers() as Marker[];
+    const markers = this.getLayers() as Marker[];
     markers
       .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.id))
-      .forEach(pointMarker => this.layer.removeLayer(pointMarker));
+      .forEach(pointMarker => this.removeLayer(pointMarker));
 
     points.forEach(point => {
       let pointMarker = markers.find(pm => pm.feature.properties.id === point.pk);
+
       if (pointMarker && (pointMarker.getLatLng().lng !== point.point.lng || pointMarker.getLatLng().lat !== point.point.lat)) {
-        pointMarker.setLatLng({lat: point.point.lat, lng: point.point.lng});
+        pointMarker.setLatLng({
+          lat: point.point.lat,
+          lng: point.point.lng
+        });
       } else if (!pointMarker) {
         pointMarker = this.createMarker(point);
-        if (pointMarker.getLatLng()) {
-          this.layer.addLayer(pointMarker);
-        }
+        this.addLayer(pointMarker);
       }
+
       pointMarker.bindPopup(this.renderPopup(point));
     });
   }
@@ -97,19 +96,15 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
   }
 
   private clearLayer() {
-    this.layer.getLayers().forEach(l => this.layer.removeLayer(l));
+    this.getLayers().forEach(l => this.removeLayer(l));
   }
 
-  abstract getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<T[]>;
+  abstract getUpdatedPoints(interval: number,
+                            startStopUpdate?: EventEmitter<boolean>,
+                            bounds?: () => LatLngBounds): Subject<T[]> | Observable<T[]>;
 
   abstract renderPopup(point: T): string;
 
   abstract getIconUrl(): string;
-
-  abstract addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer);
-
-  abstract getLayersControl(): LeafletControlLayersConfig;
-
-  abstract getMap(): Map;
 }
 

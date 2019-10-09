@@ -5,9 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MapComponent } from './components/map/map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
-import { PointLayersModule } from '../point-layers/point-layers.module';
-import { MunicipalityLayerModule } from '../municipality-layer/municipality-layer.module';
-
+import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
 
 @NgModule({
   declarations: [
@@ -19,8 +17,7 @@ import { MunicipalityLayerModule } from '../municipality-layer/municipality-laye
     SharedModule,
     LeafletModule.forRoot(),
     LeafletMarkerClusterModule.forRoot(),
-    PointLayersModule,
-    MunicipalityLayerModule
+    MapWrapperModule
   ],
   exports: [
     CoreComponent,

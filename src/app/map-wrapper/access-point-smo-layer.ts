@@ -1,7 +1,6 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { LeafletControlLayersConfig, LeafletDirective } from '@asymmetrik/ngx-leaflet';
+import { EventEmitter, Injectable } from '@angular/core';
 import AccessPointsService from './service/access-points.service';
-import { LatLngBounds, Layer, Map } from 'leaflet';
+import { LatLngBounds } from 'leaflet';
 import { Subject } from 'rxjs';
 import AccessPointLayer from './components/access-point-layer';
 import AccessPointSmo from './model/access-point-smo';
@@ -9,14 +8,9 @@ import AccessPointSmo from './model/access-point-smo';
 const SMO_MARKER_PATH = '../../../../assets/map_marker-red1.png';
 export const SMO_LAYER_NAME = 'СЗО Точки';
 
-@Directive({
-  selector: '[accessPointSmo]'
-})
-export class AccessPointSmoLayerDirective extends AccessPointLayer<AccessPointSmo> {
-  @Input() leafletLayersControl: LeafletControlLayersConfig;
-  @Output() layerReady: EventEmitter<Layer> = new EventEmitter<Layer>();
-
-  constructor(private accessPointsService: AccessPointsService, private leafletDirective: LeafletDirective) {
+@Injectable()
+export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
+  constructor(private accessPointsService: AccessPointsService) {
     super();
   }
 
@@ -28,11 +22,6 @@ export class AccessPointSmoLayerDirective extends AccessPointLayer<AccessPointSm
     return SMO_MARKER_PATH;
   }
 
-  addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
-    layersControl.overlays[SMO_LAYER_NAME] = layer;
-    this.layerReady.emit(layer);
-  }
-
   renderPopup(point: AccessPointSmo): string {
     return '<strong>Наименование организации: </strong>' + (point.orgName ? point.orgName : '?')
       + '<br />' + '<strong>Адрес точки подключения: </strong>' + (point.actualAddress ? point.actualAddress : '?')
@@ -42,13 +31,5 @@ export class AccessPointSmoLayerDirective extends AccessPointLayer<AccessPointSm
       + '<br />' + '<strong>Вид СЗО: </strong>' + (point.cmoType ? point.cmoType : '?')
       + '<br />' + '<strong>Тип учреждения: </strong>' + (point.institutionType ? point.institutionType : '?')
       + '<br />' + '<strong>Примечание: </strong>' + (point.description ? point.description : '---');
-  }
-
-  getLayersControl(): LeafletControlLayersConfig {
-    return this.leafletLayersControl;
-  }
-
-  getMap(): Map {
-    return this.leafletDirective.map;
   }
 }

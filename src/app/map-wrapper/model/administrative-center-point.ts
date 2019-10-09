@@ -1,7 +1,7 @@
 import AccessPoint from './access-point';
 import Coordinate from '../interface/coordinate';
-import LocationArea from '../../shared/model/location-area';
-import LocationSummaryCapability from '../../shared/model/location-summary-capability';
+import LocationArea from './location-area';
+import LocationSummaryCapability from './location-summary-capability';
 
 export interface InfoRow {
   type: string;

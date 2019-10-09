@@ -1,35 +1,21 @@
 import AccessPointLayer from './components/access-point-layer';
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { LatLngBounds, Layer, Map } from 'leaflet';
+import { EventEmitter, Injectable } from '@angular/core';
+import { LatLngBounds } from 'leaflet';
 import { Subject } from 'rxjs';
 import AccessPointsService from './service/access-points.service';
 import AccessPointEspd from './model/access-point-espd';
-import { LeafletControlLayersConfig, LeafletDirective } from '@asymmetrik/ngx-leaflet';
 
 const ESPD_MARKER_PATH = '../../../../assets/map-marker-2.png';
-export const ESPD_LAYER_NAME = 'ЕСПД Точки';
 
-@Directive({
-  selector: '[accessPointsEspd]'
-})
-export class AccessPointEspdLayerDirective extends AccessPointLayer<AccessPointEspd> {
+@Injectable()
+export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
 
-  @Input() leafletLayersControl: LeafletControlLayersConfig;
-  @Output() layerReady: EventEmitter<Layer>;
-
-  constructor(private accessPointsService: AccessPointsService,
-              private leafletDirective: LeafletDirective) {
+  constructor(private accessPointsService: AccessPointsService) {
     super();
-    this.layerReady = new EventEmitter<Layer>();
   }
 
   getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
     return this.accessPointsService.getUpdatedEspdPoints(interval, startStopUpdate, bounds);
-  }
-
-  addToLayersControl(layersControl: LeafletControlLayersConfig, layer: Layer) {
-    layersControl.overlays[ESPD_LAYER_NAME] = layer;
-    this.layerReady.emit(this.layer);
   }
 
   renderPopup(point: AccessPointEspd): string {
@@ -45,13 +31,4 @@ export class AccessPointEspdLayerDirective extends AccessPointLayer<AccessPointE
   getIconUrl() {
     return ESPD_MARKER_PATH;
   }
-
-  getLayersControl(): LeafletControlLayersConfig {
-    return this.leafletLayersControl;
-  }
-
-  getMap(): Map {
-    return this.leafletDirective.map;
-  }
-
 }

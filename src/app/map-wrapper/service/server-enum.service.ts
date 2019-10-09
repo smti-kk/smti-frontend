@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { SharedModule } from '../shared.module';
 import { HttpClient } from '@angular/common/http';
+import { MapWrapperModule } from '../map-wrapper.module';
 
 @Injectable({
-  providedIn: SharedModule
+  providedIn: MapWrapperModule
 })
-export default class MapService {
+export default class ServerEnumService {
   constructor(private http: HttpClient) {
   }
 

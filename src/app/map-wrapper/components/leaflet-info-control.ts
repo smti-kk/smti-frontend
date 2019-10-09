@@ -1,6 +1,6 @@
 import { Control, ControlOptions, DomUtil } from 'leaflet';
-import LocationSummaryCapability from '../../shared/model/location-summary-capability';
-import LocationArea from '../../shared/model/location-area';
+import LocationSummaryCapability from '../model/location-summary-capability';
+import LocationArea from '../model/location-area';
 
 export default class LeafletInfoControl extends Control {
   constructor(private locationSummaryCapabilities: LocationSummaryCapability[], options?: ControlOptions) {

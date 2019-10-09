@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import LocationArea from '../model/location-area';
 import { HttpClient } from '@angular/common/http';
-import { LOCATION_AREA_URL, LOCATION_SUMMARY_CAPABILITIES_URL } from './api.constants';
+import { LOCATION_AREA_URL, LOCATION_SUMMARY_CAPABILITIES_URL } from '../constants/api.constants';
 import LocationSummaryCapability from '../model/location-summary-capability';
 
 @Injectable()
