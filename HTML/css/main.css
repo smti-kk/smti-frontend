@@ -163,7 +163,6 @@ h1 span {
 .accordion-title.green {
 	color: #35a584;
 }
-
 .accordion-title.green div:first-child::before,
 .accordion-title.blue div:first-child::before {
 	display: inline-block;
@@ -329,9 +328,6 @@ h1 span {
 	width: 15px;
 	height: 11px;
 }
-/*-------------------------------------------------------*/
-/*--- Оформление select, input, label -------------------*/
-/*---begin ----------------------------------------------*/
 form {
 	width: 100%;
 	font-size: 14px;
@@ -385,10 +381,6 @@ input[type="text"]:focus {
 input[type="text"]:focus::placeholder {
 	color: transparent;
 }
-/*-------------------------------------------------------*/
-/*--- Оформление select, input, label -------------------*/
-/*--- end -----------------------------------------------*/
-
 .opacity .image {
 	opacity: 0.2;
 }
