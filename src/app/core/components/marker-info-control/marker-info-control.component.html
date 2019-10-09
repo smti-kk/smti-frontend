@@ -22,38 +22,18 @@
       <div class="accordion-btn"></div>
     </div>
     <div class="accordion-body">
-      <div class="peoples"><span>11 512</span> чел.</div>
+      <div class="peoples"><span>{{location.information.population}}</span> чел.</div>
       <div class="item">
         <div class="name">Сотовая связь:</div>
         <div class="value position-status">
-          <div class="value-item">
+          <div class="value-item" *ngFor="let mobileOperator of location.information.cellular">
             <div class="logo">
-              <div class="image"><img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
-              <div class="status">3G</div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
-              <div class="status">4G</div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
-              <div class="status">2G</div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
-              <div class="status">3G</div>
-            </div>
-          </div>
-          <div class="value-item opacity">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-              <div class="status">3G</div>
+              <div class="image">
+                <img [src]="mobileOperator.provider.icon"
+                     [alt]="mobileOperator.provider.name"
+                     [title]="mobileOperator.provider.name">
+              </div>
+              <div class="status">{{mobileOperator.mobileGeneration}}</div>
             </div>
           </div>
         </div>
@@ -61,46 +41,12 @@
       <div class="item">
         <div class="name">Интернет:</div>
         <div class="value">
-          <div class="value-item">
+          <div class="value-item" *ngFor="let internet of location.information.internet">
             <div class="logo">
-              <div class="image"><img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
+              <div class="image"><img [src]="internet.provider.icon"
+                                      [alt]="internet.provider.name"
+                                      [title]="internet.provider.name"></div>
               <div class="status vols" title="ВОЛС"></div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
-              <div class="status med" title="Медь"></div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
-              <div class="status vols" title="ВОЛС"></div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
-              <div class="status med" title="Медь"></div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-              <div class="status radio" title="Радио"></div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/iskra.png" alt="Искра" title="Искра"></div>
-              <div class="status sputnik" title="Спутник"></div>
-            </div>
-          </div>
-          <div class="value-item gray-filter">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/ttk.png" alt="ТТК" title="ТТК"></div>
-              <div class="status"></div>
             </div>
           </div>
         </div>
@@ -108,22 +54,12 @@
       <div class="item">
         <div class="name">ТВ:</div>
         <div class="value position-status">
-          <div class="value-item">
+          <div class="value-item" *ngFor="let tv of location.information.tv">
             <div class="logo">
-              <div class="image"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
-              <div class="status">АТВ</div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-              <div class="status">АТВ</div>
-            </div>
-          </div>
-          <div class="value-item">
-            <div class="logo">
-              <div class="image"><img src="../../../../assets/img/telsputnik.png" alt="ТелСпутник" title="ТелСпутник"></div>
-              <div class="status">ЦТВ</div>
+              <div class="image"><img [src]="tv.provider.icon"
+                                      [alt]="tv.provider.name"
+                                      [title]="tv.provider.name"></div>
+              <div class="status">{{tv.type}}</div>
             </div>
           </div>
         </div>
@@ -138,9 +74,11 @@
         <div class="name">Радио:</div>
         <div class="value">
           <div class="check"></div>
-          <div class="value-item">
+          <div class="value-item" *ngFor="let radio of location.information.radio">
             <div class="logo">
-              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="image"><img [src]="radio.provider.icon"
+                                      [alt]="radio.provider.name"
+                                      [title]="radio.provider.name"></div>
               <div class="status"></div>
             </div>
           </div>
@@ -149,10 +87,12 @@
       <div class="item line">
         <div class="name">Таксофон:</div>
         <div class="value">
-          <div class="value-item">
+          <div class="value-item" *ngFor="let payphone of location.information.payphone">
             <div class="logo">
-              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-              <div class="status">5</div>
+              <div class="image"><img [src]="payphone.provider.icon"
+                                      [alt]="payphone.provider.name"
+                                      [title]="payphone.provider.name"></div>
+              <div class="status">{{payphone.count}}</div>
             </div>
           </div>
         </div>
@@ -161,9 +101,11 @@
         <div class="name">Телефон:</div>
         <div class="value">
           <div class="check"></div>
-          <div class="value-item">
+          <div class="value-item" *ngFor="let telephone of location.information.telephone">
             <div class="logo">
-              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="image"><img [src]="telephone.provider.icon"
+                                      [alt]="telephone.provider.name"
+                                      [title]="telephone.provider.name"></div>
               <div class="status"></div>
             </div>
           </div>
@@ -171,13 +113,13 @@
       </div>
       <div class="item line">
         <div class="name">Инфомат:</div>
-        <div class="value">0</div>
+        <div class="value">{{location.information.informat ? 1 : 0}}</div>
       </div>
     </div>
   </div>
   <div class="accordion green">
     <div class="accordion-title">
-      <div>Организации (4)</div>
+      <div>Организации ({{location.organizations.length}})</div>
       <div class="accordion-btn"></div>
     </div>
     <div class="accordion-body">
@@ -188,59 +130,45 @@
         </div>
         <div class="accordion-body"></div>
       </div>
-      <div class="accordion">
+      <div class="accordion" *ngFor="let organization of location.organizations">
         <div class="accordion-title blue green-dot">
-          <div>МБОУ СОШ №30</div>
+          <div>{{organization.name}}</div>
           <div class="accordion-btn"></div>
         </div>
         <div class="accordion-body">
           <div class="item line">
             <div class="name">Адрес точки подключения:</div>
-            <div class="value">с.Богучаны, ул. Лесная, 147</div>
+            <div class="value">{{organization.connectionPointAddress}}</div>
           </div>
           <div class="item line">
             <div class="name">Заказчик:</div>
-            <div class="value">МЦР</div>
+            <div class="value">{{organization.customer}}</div>
           </div>
           <div class="item line">
             <div class="name">Подрядчик:</div>
-            <div class="value">МТС</div>
+            <div class="value">{{organization.contractor}}</div>
           </div>
           <div class="item line">
             <div class="name">Технология подключения:</div>
-            <div class="value">3G/4G</div>
+            <div class="value">{{organization.connectionTechnology}}</div>
           </div>
           <div class="item line">
             <div class="name">Точка подключения:</div>
-            <div class="value">---</div>
+            <div class="value">{{organization.connectionPoint}}</div>
           </div>
           <div class="item line">
             <div class="name">Скорость по тарифу:</div>
-            <div class="value">10 Мбит</div>
+            <div class="value">{{organization.connectionSpeed}}</div>
           </div>
           <div class="item line">
             <div class="name">Состояние:</div>
-            <div class="value">Доступно (01.10.2019 16:00:14)</div>
+            <div class="value">{{organization.state}}</div>
           </div>
           <div class="item line">
             <div class="name">Входящий трафик:</div>
-            <div class="value">0.00 Gb (29.09.2019)</div>
+            <div class="value">{{organization.traffic}}</div>
           </div>
         </div>
-      </div>
-      <div class="accordion">
-        <div class="accordion-title blue gray-dot">
-          <div>Наименование 3</div>
-          <div class="accordion-btn"></div>
-        </div>
-        <div class="accordion-body"></div>
-      </div>
-      <div class="accordion">
-        <div class="accordion-title green red-dot">
-          <div>Наименование 4</div>
-          <div class="accordion-btn"></div>
-        </div>
-        <div class="accordion-body"></div>
       </div>
     </div>
   </div>

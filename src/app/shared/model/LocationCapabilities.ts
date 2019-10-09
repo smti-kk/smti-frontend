@@ -74,12 +74,13 @@ interface LocationCapabilitiesInformation {
 }
 
 interface Organization {
+  name: string;
   connectionPointAddress: string;
   customer: string;
   contractor: string;
   connectionTechnology: string;
   connectionPoint: string;
-  speed: string;
+  connectionSpeed: string;
   state: string;
   traffic: string;
 }
