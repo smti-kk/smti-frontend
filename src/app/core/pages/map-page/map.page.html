@@ -1,0 +1,15 @@
+<main>
+  <div leaflet
+       [leafletLayersControl]="layersControl"
+       [leafletLayersControlOptions]="{position: 'bottomleft'}"
+       [leafletOptions]="options"
+       (leafletMapReady)="onMapReady($event)"
+       class="map">
+  </div>
+  <marker-info-control [locations]="municipalitiesLayer.getLayers()"
+                       [location]="location"
+                       (selectLocation)="onSelectLocation($event)"></marker-info-control>
+</main>
+
+
+

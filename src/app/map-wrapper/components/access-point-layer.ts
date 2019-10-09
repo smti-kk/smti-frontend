@@ -3,11 +3,14 @@ import * as L from 'leaflet';
 import { Icon, LatLngBounds, Map, Marker, marker } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
 import AccessPoint from '../model/access-point';
+import 'leaflet.markercluster';
 
 const TIMER_INTERVAL = 10 * 60 * 1000;
 
 export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup {
+  public onMarkerAdded: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();
+
   public feature: any = {
     properties: {
       name: ''
@@ -66,9 +69,10 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
       } else if (!pointMarker) {
         pointMarker = this.createMarker(point);
         this.addLayer(pointMarker);
+        this.onMarkerAdded.emit(pointMarker);
       }
 
-      pointMarker.bindPopup(this.renderPopup(point));
+      // pointMarker.bindPopup(this.renderPopup(point));
     });
   }
 
@@ -106,5 +110,6 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
   abstract renderPopup(point: T): string;
 
   abstract getIconUrl(): string;
+
 }
 

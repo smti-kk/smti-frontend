@@ -1,0 +1,247 @@
+<div class="sidebar">
+  <div class="select-location">
+    <form action="" [formGroup]="searchForm">
+      <select name="" id="" (change)="onSelectLocation()" formControlName="area">
+        <option value="" disabled selected style="display:none;">Выберите район</option>
+        <option *ngFor="let location of locations" [ngValue]="location">{{location.feature.properties.name}}</option>
+      </select>
+      <div class="search-location">
+        <div class="icon-location"></div>
+        <input type="text" placeholder="Поиск по населенным пунктам">
+        <input type="submit" value="">
+      </div>
+    </form>
+  </div>
+  <div class="name-location">
+    <div>{{location.name}}</div>
+    <div>{{location.area}}</div>
+  </div>
+  <div class="accordion blue">
+    <div class="accordion-title">
+      <div>Информация</div>
+      <div class="accordion-btn"></div>
+    </div>
+    <div class="accordion-body">
+      <div class="peoples"><span>11 512</span> чел.</div>
+      <div class="item">
+        <div class="name">Сотовая связь:</div>
+        <div class="value position-status">
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
+              <div class="status">3G</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
+              <div class="status">4G</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
+              <div class="status">2G</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
+              <div class="status">3G</div>
+            </div>
+          </div>
+          <div class="value-item opacity">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="status">3G</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">Интернет:</div>
+        <div class="value">
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
+              <div class="status vols" title="ВОЛС"></div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
+              <div class="status med" title="Медь"></div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
+              <div class="status vols" title="ВОЛС"></div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
+              <div class="status med" title="Медь"></div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="status radio" title="Радио"></div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/iskra.png" alt="Искра" title="Искра"></div>
+              <div class="status sputnik" title="Спутник"></div>
+            </div>
+          </div>
+          <div class="value-item gray-filter">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/ttk.png" alt="ТТК" title="ТТК"></div>
+              <div class="status"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="name">ТВ:</div>
+        <div class="value position-status">
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
+              <div class="status">АТВ</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="status">АТВ</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/telsputnik.png" alt="ТелСпутник" title="ТелСпутник"></div>
+              <div class="status">ЦТВ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item line">
+        <div class="name">Почта:</div>
+        <div class="value">
+          <div class="check"></div>
+        </div>
+      </div>
+      <div class="item line">
+        <div class="name">Радио:</div>
+        <div class="value">
+          <div class="check"></div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="status"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item line">
+        <div class="name">Таксофон:</div>
+        <div class="value">
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="status">5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item line">
+        <div class="name">Телефон:</div>
+        <div class="value">
+          <div class="check"></div>
+          <div class="value-item">
+            <div class="logo">
+              <div class="image"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="status"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item line">
+        <div class="name">Инфомат:</div>
+        <div class="value">0</div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion green">
+    <div class="accordion-title">
+      <div>Организации (4)</div>
+      <div class="accordion-btn"></div>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion">
+        <div class="accordion-title green green-dot">
+          <div>Наименование 1</div>
+          <div class="accordion-btn"></div>
+        </div>
+        <div class="accordion-body"></div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-title blue green-dot">
+          <div>МБОУ СОШ №30</div>
+          <div class="accordion-btn"></div>
+        </div>
+        <div class="accordion-body">
+          <div class="item line">
+            <div class="name">Адрес точки подключения:</div>
+            <div class="value">с.Богучаны, ул. Лесная, 147</div>
+          </div>
+          <div class="item line">
+            <div class="name">Заказчик:</div>
+            <div class="value">МЦР</div>
+          </div>
+          <div class="item line">
+            <div class="name">Подрядчик:</div>
+            <div class="value">МТС</div>
+          </div>
+          <div class="item line">
+            <div class="name">Технология подключения:</div>
+            <div class="value">3G/4G</div>
+          </div>
+          <div class="item line">
+            <div class="name">Точка подключения:</div>
+            <div class="value">---</div>
+          </div>
+          <div class="item line">
+            <div class="name">Скорость по тарифу:</div>
+            <div class="value">10 Мбит</div>
+          </div>
+          <div class="item line">
+            <div class="name">Состояние:</div>
+            <div class="value">Доступно (01.10.2019 16:00:14)</div>
+          </div>
+          <div class="item line">
+            <div class="name">Входящий трафик:</div>
+            <div class="value">0.00 Gb (29.09.2019)</div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-title blue gray-dot">
+          <div>Наименование 3</div>
+          <div class="accordion-btn"></div>
+        </div>
+        <div class="accordion-body"></div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-title green red-dot">
+          <div>Наименование 4</div>
+          <div class="accordion-btn"></div>
+        </div>
+        <div class="accordion-body"></div>
+      </div>
+    </div>
+  </div>
+</div>

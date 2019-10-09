@@ -1,35 +1,37 @@
 import { Component } from '@angular/core';
-import { latLng, LayerGroup, Map, MapOptions, TileLayer } from 'leaflet';
+import { latLng, LayerGroup, Map, MapOptions, Marker, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
-import 'leaflet.markercluster';
-import 'leaflet-search';
+import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
 import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
-import SearchControl from '../search-control/search-control';
-import AccessPointLayer from '@map-wrapper/components/access-point-layer';
-import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
+import SearchControl from '../../components/search-control/search-control';
+import { LocationCapabilitiesService } from '../../../shared/services/location-capabilities.service';
+import { LocationCapabilities } from '../../../shared/model/LocationCapabilities';
 
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  selector: 'app-map-page',
+  templateUrl: './map.page.html',
+  styleUrls: ['./map.page.scss']
 })
-export class MapComponent {
+export class MapPage {
+
   private readonly options: MapOptions;
   private layersControl: LeafletControlLayersConfig;
   private defaultTile;
   private leaflet: Map;
-  private pointLayers: LayerGroup = new LayerGroup<AccessPointLayer<any>>();
+  private location: LocationCapabilities = new LocationCapabilities();
 
-  constructor(private municipalitiesLayer: MunicipalitiesLayer,
+  constructor(private locationCapabilitiesService: LocationCapabilitiesService,
+              private municipalitiesLayer: MunicipalitiesLayer,
               private espdLayer: AccessPointEspdLayer,
               private smoLayer: AccessPointSmoLayer,
               private administrativeLayer: AdministrativeCentersLayer) {
     this.initLayersControl();
+    this.initInformationControl();
 
     this.options = {
       layers: [municipalitiesLayer, administrativeLayer],
@@ -48,11 +50,11 @@ export class MapComponent {
 
   private initSearchControl(layers: LayerGroup) {
     layers.eachLayer(l => {
-      l.on('add', () => this.pointLayers.addLayer(l));
-      l.on('remove', () => this.pointLayers.removeLayer(l));
+      l.on('add', () => layers.addLayer(l));
+      l.on('remove', () => layers.removeLayer(l));
     });
 
-    const search = SearchControl.create(this.pointLayers);
+    const search = SearchControl.create(layers);
     search.addTo(this.leaflet);
 
     this.leaflet.removeLayer(this.layersControl.overlays[ESPD_LAYER_NAME]);
@@ -72,5 +74,22 @@ export class MapComponent {
         [SMO_LAYER_NAME]: this.smoLayer
       }
     };
+  }
+
+  private initInformationControl() {
+    this.administrativeLayer.onMarkerAdded.subscribe((marker: Marker) => {
+      marker.on({
+        click: () => {
+          this.locationCapabilitiesService.getById(marker.feature.properties.id).subscribe(location => {
+            this.location = location;
+          });
+        }
+      });
+    });
+  }
+
+  onSelectLocation(location) {
+    console.log(location);
+    this.leaflet.fitBounds(location.getBounds());
   }
 }

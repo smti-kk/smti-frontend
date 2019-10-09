@@ -1,5 +1,6 @@
 import * as L from 'leaflet';
 import { Control, LayerGroup } from 'leaflet';
+import 'leaflet-search';
 
 
 export default class SearchControl {
