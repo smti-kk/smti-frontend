@@ -65,7 +65,7 @@ export default class AccessPointsService {
       accessPoints.next(data);
     });
 
-    return setInterval(() => {
+    return window.setInterval(() => {
       getData().subscribe(data => {
         accessPoints.next(data);
       });

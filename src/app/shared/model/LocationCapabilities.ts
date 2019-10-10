@@ -1,11 +1,19 @@
 export class LocationCapabilities {
-  constructor(private _name?: string,
-              private _area?: string,
-              private _information?: LocationCapabilitiesInformation,
-              private _organizations?: Organization[]) {
+  constructor(private _name: string = '',
+              private _area: string = '',
+              private _information: LocationCapabilitiesInformation = {
+                tv: [],
+                radio: [],
+                payphone: [],
+                internet: [],
+                informat: false,
+                cellular: [],
+                telephone: [],
+                population: 0
+              },
+              private _organizations: Organization[] = []) {
 
   }
-
 
   get name(): string {
     return this._name;

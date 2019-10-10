@@ -8,7 +8,7 @@ import 'leaflet.markercluster';
 const TIMER_INTERVAL = 10 * 60 * 1000;
 
 export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup {
-  public onMarkerAdded: EventEmitter<Marker> = new EventEmitter<Marker>();
+  public onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();
 
   public feature: any = {
@@ -69,10 +69,9 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
       } else if (!pointMarker) {
         pointMarker = this.createMarker(point);
         this.addLayer(pointMarker);
-        this.onMarkerAdded.emit(pointMarker);
       }
 
-      // pointMarker.bindPopup(this.renderPopup(point));
+      pointMarker.bindPopup(this.renderPopup(point));
     });
   }
 
@@ -96,6 +95,8 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
       geometry: null
     };
 
+    pointMarker.on('click', () => this.onMarkerClick.emit(pointMarker));
+
     return pointMarker;
   }
 
@@ -107,9 +108,8 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
                             startStopUpdate?: EventEmitter<boolean>,
                             bounds?: () => LatLngBounds): Subject<T[]> | Observable<T[]>;
 
-  abstract renderPopup(point: T): string;
-
   abstract getIconUrl(): string;
 
+  abstract renderPopup(point: T): string;
 }
 

@@ -6,9 +6,9 @@
        (leafletMapReady)="onMapReady($event)"
        class="map">
   </div>
-  <marker-info-control [locations]="municipalitiesLayer.getLayers()"
-                       [location]="location"
-                       (selectLocation)="onSelectLocation($event)"></marker-info-control>
+  <marker-info-bar [locations]="municipalitiesLayer.getLayers()"
+                   [leafletMap]="leaflet"
+                   [administrativeLayer]="administrativeLayer"></marker-info-bar>
 </main>
 
 

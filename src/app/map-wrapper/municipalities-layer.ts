@@ -21,26 +21,19 @@ export default class MunicipalitiesLayer extends GeoJSON<LocationArea> {
     });
   }
 
-  addInfoControlToMap(map: Map) {
-    this.municipalityService.getLocationCapabilities(false).subscribe(lc => {
-      // const info = new LeafletInfoControl(lc).addTo(map);
-
-      this.eachLayer((layer: any) => {
-        layer.on({
-          mouseover: event => {
-            event.target.setStyle(HIGHLIGHT_FEATURE);
-            // info.show(layer.feature);
-            layer.bringToFront();
-          },
-          mouseout: event => {
-            event.target.setStyle(MAP_TERRITORIES_STYLE);
-            // info.hide();
-          },
-          click: event => {
-            map.fitBounds(event.target.getBounds());
-            console.log(event.target);
-          }
-        });
+  addStylesToMap(map: Map) {
+    this.eachLayer((layer: any) => {
+      layer.on({
+        mouseover: event => {
+          event.target.setStyle(HIGHLIGHT_FEATURE);
+          layer.bringToFront();
+        },
+        mouseout: event => {
+          event.target.setStyle(MAP_TERRITORIES_STYLE);
+        },
+        click: event => {
+          map.fitBounds(event.target.getBounds());
+        }
       });
     });
   }

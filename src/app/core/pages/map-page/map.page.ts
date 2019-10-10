@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { latLng, LayerGroup, Map, MapOptions, Marker, TileLayer } from 'leaflet';
+import { latLng, LayerGroup, Map, MapOptions, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
 import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
 import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
 import SearchControl from '../../components/search-control/search-control';
-import { LocationCapabilitiesService } from '../../../shared/services/location-capabilities.service';
-import { LocationCapabilities } from '../../../shared/model/LocationCapabilities';
 
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
@@ -23,15 +21,12 @@ export class MapPage {
   private layersControl: LeafletControlLayersConfig;
   private defaultTile;
   private leaflet: Map;
-  private location: LocationCapabilities = new LocationCapabilities();
 
-  constructor(private locationCapabilitiesService: LocationCapabilitiesService,
-              private municipalitiesLayer: MunicipalitiesLayer,
+  constructor(private municipalitiesLayer: MunicipalitiesLayer,
               private espdLayer: AccessPointEspdLayer,
               private smoLayer: AccessPointSmoLayer,
               private administrativeLayer: AdministrativeCentersLayer) {
     this.initLayersControl();
-    this.initInformationControl();
 
     this.options = {
       layers: [municipalitiesLayer, administrativeLayer],
@@ -44,7 +39,7 @@ export class MapPage {
   onMapReady(leaflet: Map) {
     this.leaflet = leaflet;
     this.defaultTile.addTo(leaflet);
-    this.municipalitiesLayer.addInfoControlToMap(leaflet);
+    this.municipalitiesLayer.addStylesToMap(leaflet);
     this.initSearchControl(new LayerGroup([this.espdLayer, this.smoLayer, this.administrativeLayer, this.municipalitiesLayer]));
   }
 
@@ -74,22 +69,5 @@ export class MapPage {
         [SMO_LAYER_NAME]: this.smoLayer
       }
     };
-  }
-
-  private initInformationControl() {
-    this.administrativeLayer.onMarkerAdded.subscribe((marker: Marker) => {
-      marker.on({
-        click: () => {
-          this.locationCapabilitiesService.getById(marker.feature.properties.id).subscribe(location => {
-            this.location = location;
-          });
-        }
-      });
-    });
-  }
-
-  onSelectLocation(location) {
-    console.log(location);
-    this.leaflet.fitBounds(location.getBounds());
   }
 }

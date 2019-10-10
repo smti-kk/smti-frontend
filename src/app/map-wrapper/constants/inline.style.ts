@@ -9,9 +9,8 @@ export const MAP_TERRITORIES_STYLE = {
 
 export const HIGHLIGHT_FEATURE = {
   weight: 5,
-  color: '#666',
   dashArray: '',
-  fillOpacity: 0.4,
   zIndex: 1000,
-  position: 'relative'
+  position: 'relative',
+  color: '#35a584'
 };

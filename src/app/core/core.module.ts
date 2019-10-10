@@ -4,14 +4,14 @@ import { SharedModule } from '../shared/shared.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
-import { MarkerInfoControlComponent } from './components/marker-info-control/marker-info-control.component';
+import { MarkerInfoBarComponent } from './components/marker-info-control/marker-info-bar.component';
 import { MapPage } from './pages/map-page/map.page';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     MapPage,
-    MarkerInfoControlComponent
+    MarkerInfoBarComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [
-    MarkerInfoControlComponent
+    MarkerInfoBarComponent
   ]
 })
 export class CoreModule {
