@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { latLng, LayerGroup, Map, MapOptions, TileLayer } from 'leaflet';
+import { latLng, Map, MapOptions, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
-import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
 import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
-import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
-import SearchControl from '../../components/search-control/search-control';
+import { LayersService } from '@map-wrapper/service/layers.service';
 
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
@@ -22,14 +20,13 @@ export class MapPage {
   private defaultTile;
   private leaflet: Map;
 
-  constructor(private municipalitiesLayer: MunicipalitiesLayer,
-              private espdLayer: AccessPointEspdLayer,
+  constructor(private espdLayer: AccessPointEspdLayer,
               private smoLayer: AccessPointSmoLayer,
-              private administrativeLayer: AdministrativeCentersLayer) {
+              private layersService: LayersService) {
     this.initLayersControl();
 
     this.options = {
-      layers: [municipalitiesLayer, administrativeLayer],
+      layers: [layersService.getAdministrativeCenters()],
       zoom: 12,
       center: latLng(56.01839, 92.86717),
       maxZoom: 18
@@ -39,21 +36,10 @@ export class MapPage {
   onMapReady(leaflet: Map) {
     this.leaflet = leaflet;
     this.defaultTile.addTo(leaflet);
-    this.municipalitiesLayer.addStylesToMap(leaflet);
-    this.initSearchControl(new LayerGroup([this.espdLayer, this.smoLayer, this.administrativeLayer, this.municipalitiesLayer]));
-  }
-
-  private initSearchControl(layers: LayerGroup) {
-    layers.eachLayer(l => {
-      l.on('add', () => layers.addLayer(l));
-      l.on('remove', () => layers.removeLayer(l));
+    this.layersService.getMunicipalities().subscribe(m => {
+      // m.addStylesToMap(leaflet);
+      leaflet.addLayer(m);
     });
-
-    const search = SearchControl.create(layers);
-    search.addTo(this.leaflet);
-
-    this.leaflet.removeLayer(this.layersControl.overlays[ESPD_LAYER_NAME]);
-    this.leaflet.removeLayer(this.layersControl.overlays[SMO_LAYER_NAME]);
   }
 
   private initLayersControl() {

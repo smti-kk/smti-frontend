@@ -13,7 +13,7 @@ export default class AccessPointEspd extends AccessPoint {
               private _connection: string,
               private _definedSpeed: string,
               private _description: string) {
-    super(_pk, _point, _orgName);
+    super(_pk, _point, _orgName, '');
   }
 
 
@@ -50,6 +50,10 @@ export default class AccessPointEspd extends AccessPoint {
   }
 
   static createFromApiModel(apiModel): AccessPointEspd {
+    if (apiModel.avstate !== null) {
+      console.log(apiModel);
+    }
+
     return new AccessPointEspd(
       apiModel.pk,
       {

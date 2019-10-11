@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import AccessPointsService from './service/access-points.service';
 import AccessPointEspd from './model/access-point-espd';
 
-const ESPD_MARKER_PATH = '../../../../assets/img/Ресурс 6.svg';
+const ESPD_MARKER_PATH = '../../../../assets/img/Ресурс 5.svg';
 
 @Injectable()
 export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {

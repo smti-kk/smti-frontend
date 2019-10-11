@@ -3,12 +3,18 @@ import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 import MunicipalityService from '@map-wrapper/service/municipality.service';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
+import AccessPointsService from '@map-wrapper/service/access-points.service';
+import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
+import { Marker } from 'leaflet';
 
 @Injectable()
 export class LayersService {
   private municipalitiesLayer: MunicipalitiesLayer;
+  private administrativeCentersLayer: AdministrativeCentersLayer;
 
-  constructor(private municipalitiesService: MunicipalityService) {
+  constructor(private municipalitiesService: MunicipalityService,
+              private accessPointsService: AccessPointsService) {
 
   }
 
@@ -26,7 +32,37 @@ export class LayersService {
       }));
   }
 
-  // getAdministrativeCenters(): Observable<AdministrativeCentersLayer> {
-  //
-  // }
+  getAdministrativeCenters(): AdministrativeCentersLayer {
+    if (!this.administrativeCentersLayer) {
+      this.administrativeCentersLayer = new AdministrativeCentersLayer(this.accessPointsService);
+    }
+    return this.administrativeCentersLayer;
+  }
+
+  getAdministrativePointsByArea(area: any): AdministrativeCenterPoint[] {
+    if (this.administrativeCentersLayer) {
+      this.administrativeCentersLayer.setMaxZoom(1);
+
+      const resultPoints = [];
+
+      this.administrativeCentersLayer.setFilter((points) => {
+        resultPoints.splice(0, resultPoints.length);
+
+        const administrativeCenterPoints = points.filter(p => p.area === area.feature.properties.name);
+        administrativeCenterPoints.forEach(p => resultPoints.push(p));
+
+        return administrativeCenterPoints;
+      });
+
+      return resultPoints;
+    } else {
+      return [];
+    }
+  }
+
+  getAdministrativeMarker(administrativePoint: AdministrativeCenterPoint): Marker {
+    return this.administrativeCentersLayer
+      .getLayers()
+      .find((layer: Marker) => layer.feature.properties.id === administrativePoint.pk) as Marker;
+  }
 }

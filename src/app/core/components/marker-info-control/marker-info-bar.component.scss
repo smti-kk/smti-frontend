@@ -375,3 +375,16 @@ input[type="text"]:focus::placeholder {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
+
+.search-result {
+  max-height: 100px;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin-left: 28px;
+}
+
+.search-item {
+  cursor: pointer;
+}

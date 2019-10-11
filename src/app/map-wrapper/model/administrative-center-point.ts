@@ -31,7 +31,7 @@ export default class AdministrativeCenterPoint extends AccessPoint {
   constructor(_pk: number,
               _coordinate: Coordinate,
               private _center: string,
-              private _area: string,
+              _area: string,
               private _population: number,
               private _mobileConnection: InfoRow[],
               private _mobileLevel: string,
@@ -39,11 +39,7 @@ export default class AdministrativeCenterPoint extends AccessPoint {
               private _tv: Tv[],
               private _radio: InfoRow[]) {
 
-    super(_pk, _coordinate, _center);
-  }
-
-  get area(): string {
-    return this._area;
+    super(_pk, _coordinate, _center, _area);
   }
 
   get center(): string {

@@ -7,8 +7,13 @@
       </select>
       <div class="search-location">
         <div class="icon-location"></div>
-        <input type="text" placeholder="Поиск по населенным пунктам">
+        <input #locationSearch type="text" placeholder="Поиск по населенным пунктам"
+               (input)="onSearch($event)">
         <input type="submit" value="">
+      </div>
+      <div class="search-result" *ngIf="searchAdministrativePoints.length > 0 && locationSearch.value.length > 0">
+        <div class="search-item" *ngFor="let administrativePoint of searchAdministrativePoints "
+             (click)="setSelectedPoint(administrativePoint, locationSearch)">{{administrativePoint.name}}</div>
       </div>
     </form>
   </div>

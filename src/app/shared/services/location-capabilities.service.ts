@@ -20,8 +20,8 @@ export class LocationCapabilitiesService {
 }
 
 const TEST_LOCATION = new LocationCapabilities(
-  'с. Богучаны',
-  'Богучанский район',
+  'г. Красноряск',
+  'Красноярский Край',
   {
     population: 11512,
     cellular: [],
@@ -36,8 +36,8 @@ const TEST_LOCATION = new LocationCapabilities(
 );
 
 const TEST_LOCATION2 = new LocationCapabilities(
-  'с. Небогучаны',
-  'НеБогучанский район',
+  'Все кроме Красноярска',
+  'Все районы',
   {
     population: 11512,
     cellular: [

@@ -10,6 +10,8 @@ const TIMER_INTERVAL = 10 * 60 * 1000;
 export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup {
   public onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();
+  private filter: (points: T[]) => T[];
+  private maxZoom = 12;
 
   public feature: any = {
     properties: {
@@ -30,7 +32,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     });
 
     this.on('add', () => {
-      if (map.getZoom() >= 12) {
+      if (map.getZoom() >= this.maxZoom) {
         this.startUpdateSwitch.emit(true);
       } else {
         this.clearLayer();
@@ -42,7 +44,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     });
 
     map.on('moveend', () => {
-      if (map.hasLayer(this) && map.getZoom() >= 12) {
+      if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
         this.startUpdateSwitch.emit(true);
       } else {
         this.clearLayer();
@@ -53,7 +55,12 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
   }
 
   private updateMarkers(points: T[]) {
+    if (this.filter) {
+      points = this.filter(points);
+    }
+
     const markers = this.getLayers() as Marker[];
+
     markers
       .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.id))
       .forEach(pointMarker => this.removeLayer(pointMarker));
@@ -89,7 +96,8 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     pointMarker.feature = {
       properties: {
         name: point.name,
-        id: point.pk
+        id: point.pk,
+        area: point.area
       },
       type: 'Feature',
       geometry: null
@@ -98,6 +106,16 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     pointMarker.on('click', () => this.onMarkerClick.emit(pointMarker));
 
     return pointMarker;
+  }
+
+  setFilter(filter: (points: T[]) => T[]) {
+    this.filter = filter;
+    this.startUpdateSwitch.emit(true);
+    this.startUpdateSwitch.emit(false);
+  }
+
+  setMaxZoom(zoom: number) {
+    this.maxZoom = zoom;
   }
 
   private clearLayer() {
