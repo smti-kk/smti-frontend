@@ -6,7 +6,7 @@ import { AccessPointSmoLayer } from './access-point-smo-layer';
 import { AccessPointEspdLayer } from './access-point-espd-layer';
 import { AdministrativeCentersLayer } from './administrative-centers-layer';
 import MunicipalitiesLayer from './municipalities-layer';
-import MunicipalityService from './service/municipality.serivice';
+import MunicipalityService from './service/municipality.service';
 
 
 @NgModule({

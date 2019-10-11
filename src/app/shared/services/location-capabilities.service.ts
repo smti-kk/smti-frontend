@@ -12,7 +12,6 @@ export class LocationCapabilitiesService {
 
   getById(id: number): Observable<LocationCapabilities> {
     if (id === 2419) {
-      console.log(1);
       return of(TEST_LOCATION);
     } else {
       return of(TEST_LOCATION2);

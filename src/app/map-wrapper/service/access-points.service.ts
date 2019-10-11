@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from 'leaflet';
 import AdministrativeCenterPoint, { MobileType, Operator } from '../model/administrative-center-point';
 import { ACCESS_POINT_ESPD_URL, ACCESS_POINT_SMO_URL, MOBILE_TYPE_URL, OPERATOR_URL } from '../constants/api.constants';
-import MunicipalityService from './municipality.serivice';
+import MunicipalityService from './municipality.service';
 import LocationArea from '../model/location-area';
 import LocationSummaryCapability from '../model/location-summary-capability';
 

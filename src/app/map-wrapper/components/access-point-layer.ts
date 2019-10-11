@@ -77,7 +77,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
   private createMarker(point: T): Marker {
     const icon = new Icon({
-      iconUrl: this.getIconUrl(),
+      iconUrl: this.getIconUrl(point),
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       shadowAnchor: [4, 62],
@@ -108,7 +108,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
                             startStopUpdate?: EventEmitter<boolean>,
                             bounds?: () => LatLngBounds): Subject<T[]> | Observable<T[]>;
 
-  abstract getIconUrl(): string;
+  abstract getIconUrl(point: AccessPoint): string;
 
   abstract renderPopup(point: T): string;
 }

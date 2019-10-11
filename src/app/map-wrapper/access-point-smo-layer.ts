@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import AccessPointLayer from './components/access-point-layer';
 import AccessPointSmo from './model/access-point-smo';
 
-const SMO_MARKER_PATH = '../../../../assets/map_marker-red1.png';
+const SMO_MARKER_PATH = '../../../../assets/img/Ресурс 5.svg';
 export const SMO_LAYER_NAME = 'СЗО Точки';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
     return this.accessPointsService.getUpdatedSmoPoints(interval, startStopUpdate, bounds);
   }
 
-  getIconUrl(): string {
+  getIconUrl(point: AccessPointSmo): string {
     return SMO_MARKER_PATH;
   }
 
