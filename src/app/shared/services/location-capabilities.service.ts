@@ -30,7 +30,8 @@ const TEST_LOCATION = new LocationCapabilities(
     telephone: [],
     payphone: [],
     radio: [],
-    tv: []
+    tv: [],
+    mail: []
   },
   []
 );
@@ -45,7 +46,7 @@ const TEST_LOCATION2 = new LocationCapabilities(
         provider: {
           name: 'МТС',
           icon: '../../../../assets/img/mts.png',
-          isActive: true
+          isActive: false
         },
         mobileGeneration: '3G',
         quality: ''
@@ -62,7 +63,7 @@ const TEST_LOCATION2 = new LocationCapabilities(
       {
         provider: {
           name: 'Мегафон',
-          icon: '../../../../assets/img/beeline.png',
+          icon: '../../../../assets/img/megafon.png',
           isActive: true
         },
         mobileGeneration: '2G',
@@ -71,7 +72,7 @@ const TEST_LOCATION2 = new LocationCapabilities(
       {
         provider: {
           name: 'Теле2',
-          icon: '../../../../assets/img/beeline.png',
+          icon: '../../../../assets/img/tele2.png',
           isActive: true
         },
         mobileGeneration: '3G',
@@ -80,7 +81,7 @@ const TEST_LOCATION2 = new LocationCapabilities(
       {
         provider: {
           name: 'РосТелеком',
-          icon: '../../../../assets/img/beeline.png',
+          icon: '../../../../assets/img/rostelecom.png',
           isActive: true
         },
         mobileGeneration: '3G',
@@ -88,13 +89,22 @@ const TEST_LOCATION2 = new LocationCapabilities(
       },
     ],
     informat: false,
-    telephone: [],
+    telephone: [
+      {
+        count: 5,
+        provider: {
+          name: 'РосТелеком',
+          isActive: true,
+          icon: '../../../../assets/img/rostelecom.png'
+        }
+      }
+    ],
     internet: [
       {
         provider: {
           name: 'МТС',
           icon: '../../../../assets/img/mts.png',
-          isActive: true
+          isActive: false
         },
         quality: '',
         type: 'ВОЛС'
@@ -154,8 +164,26 @@ const TEST_LOCATION2 = new LocationCapabilities(
         type: 'ВОЛС'
       }
     ],
-    payphone: [],
-    radio: [],
+    payphone: [
+      {
+        count: 5,
+        provider: {
+          icon: '../../../../assets/img/rostelecom.png',
+          isActive: true,
+          name: 'РосТелеком'
+        }
+      }
+    ],
+    radio: [
+      {
+        type: '',
+        provider: {
+          icon: '../../../../assets/img/rostelecom.png',
+          isActive: true,
+          name: 'РосТелеком'
+        }
+      }
+    ],
     tv: [
       {
         provider: {
@@ -180,6 +208,15 @@ const TEST_LOCATION2 = new LocationCapabilities(
           isActive: true
         },
         type: 'ЦТВ'
+      }
+    ],
+    mail: [
+      {
+        provider: {
+          name: 'УПС',
+          isActive: true,
+          icon: '',
+        }
       }
     ]
   },

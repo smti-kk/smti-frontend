@@ -9,6 +9,7 @@ export class LocationCapabilities {
                 informat: false,
                 cellular: [],
                 telephone: [],
+                mail: [],
                 population: 0
               },
               private _organizations: Organization[] = []) {
@@ -70,6 +71,10 @@ interface Telephone {
   provider: Provider;
 }
 
+interface Mail {
+  provider: Provider;
+}
+
 interface LocationCapabilitiesInformation {
   population: number;
   cellular: Mobile[];
@@ -79,6 +84,7 @@ interface LocationCapabilitiesInformation {
   payphone: Payphone[];
   telephone: Telephone[];
   informat: boolean;
+  mail: Mail[];
 }
 
 interface Organization {

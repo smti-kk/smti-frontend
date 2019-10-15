@@ -12,10 +12,14 @@ export default class AccessPointEspd extends AccessPoint {
               private _mediumType: string,
               private _connection: string,
               private _definedSpeed: string,
-              private _description: string) {
+              private _description: string,
+              private _avstate: string) {
     super(_pk, _point, _orgName, '');
   }
 
+  get avstate(): string {
+    return this._avstate;
+  }
 
   get description(): string {
     return this._description;
@@ -50,8 +54,11 @@ export default class AccessPointEspd extends AccessPoint {
   }
 
   static createFromApiModel(apiModel): AccessPointEspd {
-    if (apiModel.avstate !== null) {
-      console.log(apiModel);
+    let avstate;
+    if (!apiModel.avstate) {
+      avstate = null;
+    } else {
+      avstate = !apiModel.avstate.includes('Не доступно');
     }
 
     return new AccessPointEspd(
@@ -67,7 +74,8 @@ export default class AccessPointEspd extends AccessPoint {
       apiModel.defined_speed,
       apiModel.cmo_type,
       apiModel.institution_type,
-      apiModel.description
+      apiModel.description,
+      avstate
     );
   }
 }

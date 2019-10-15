@@ -5,7 +5,9 @@ import { Subject } from 'rxjs';
 import AccessPointsService from './service/access-points.service';
 import AccessPointEspd from './model/access-point-espd';
 
-const ESPD_MARKER_PATH = '../../../../assets/img/Ресурс 5.svg';
+const ESPD_MARKER_ACTIVE = '../../../../assets/img/Ресурс 5.svg';
+const ESPD_MARKER_UNDEFINED = '../../../../assets/img/Ресурс 4.svg';
+const ESPD_MARKER_DISABLED = '../../../../assets/img/Ресурс 3.svg';
 
 @Injectable()
 export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
@@ -29,6 +31,12 @@ export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
   }
 
   getIconUrl(point: AccessPointEspd) {
-    return ESPD_MARKER_PATH;
+    if (point.avstate === null) {
+      return ESPD_MARKER_UNDEFINED;
+    } else if (point.avstate) {
+      return ESPD_MARKER_ACTIVE;
+    } else {
+      return ESPD_MARKER_DISABLED;
+    }
   }
 }

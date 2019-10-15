@@ -253,28 +253,28 @@
   font-weight: 600;
 }
 
-.vols {
+.ВОЛС {
   background: url('../../../../assets/img/vols.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.med {
+.Медь {
   background: url('../../../../assets/img/med.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.radio {
+.Радио {
   background: url('../../../../assets/img/radio.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.sputnik {
+.Спутник {
   background: url('../../../../assets/img/sputnik.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
@@ -383,8 +383,15 @@ input[type="text"]:focus::placeholder {
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   margin-left: 28px;
+  position: absolute;
+  width: 317px;
+  background: white;
 }
 
 .search-item {
   cursor: pointer;
+}
+
+.search-item:hover {
+  background-color: #35a584;
 }

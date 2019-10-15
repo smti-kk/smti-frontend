@@ -28,16 +28,16 @@ export interface Tv {
 }
 
 export default class AdministrativeCenterPoint extends AccessPoint {
-  constructor(_pk: number,
-              _coordinate: Coordinate,
-              private _center: string,
-              _area: string,
-              private _population: number,
-              private _mobileConnection: InfoRow[],
-              private _mobileLevel: string,
-              private _internet: { name: string, icon: string }[],
-              private _tv: Tv[],
-              private _radio: InfoRow[]) {
+  constructor(_pk?: number,
+              _coordinate?: Coordinate,
+              private _center?: string,
+              _area?: string,
+              private _population?: number,
+              private _mobileConnection?: InfoRow[],
+              private _mobileLevel?: string,
+              private _internet?: { name: string, icon: string }[],
+              private _tv?: Tv[],
+              private _radio?: InfoRow[]) {
 
     super(_pk, _coordinate, _center, _area);
   }

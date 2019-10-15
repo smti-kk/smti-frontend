@@ -7,6 +7,7 @@ import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-
 import AccessPointsService from '@map-wrapper/service/access-points.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
 import { Marker } from 'leaflet';
+import { MAX_ZOOM } from '@map-wrapper/components/access-point-layer';
 
 @Injectable()
 export class LayersService {
@@ -40,7 +41,7 @@ export class LayersService {
   }
 
   getAdministrativePointsByArea(area: any): AdministrativeCenterPoint[] {
-    if (this.administrativeCentersLayer) {
+    if (this.administrativeCentersLayer && area) {
       this.administrativeCentersLayer.setMaxZoom(1);
 
       const resultPoints = [];
@@ -55,6 +56,10 @@ export class LayersService {
       });
 
       return resultPoints;
+    } else if (this.administrativeCentersLayer && !area) {
+      this.administrativeCentersLayer.setMaxZoom(MAX_ZOOM);
+      this.administrativeCentersLayer.setFilter(null);
+      return [];
     } else {
       return [];
     }
@@ -64,5 +69,11 @@ export class LayersService {
     return this.administrativeCentersLayer
       .getLayers()
       .find((layer: Marker) => layer.feature.properties.id === administrativePoint.pk) as Marker;
+  }
+
+  getPointArea(point: Marker) {
+    if (this.municipalitiesLayer) {
+      return this.municipalitiesLayer.getLayers().find((ml: any) => ml.feature.properties.name === point.feature.properties.area);
+    }
   }
 }

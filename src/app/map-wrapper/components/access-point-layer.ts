@@ -6,12 +6,13 @@ import AccessPoint from '../model/access-point';
 import 'leaflet.markercluster';
 
 const TIMER_INTERVAL = 10 * 60 * 1000;
+export const MAX_ZOOM = 12;
 
 export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup {
   public onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();
   private filter: (points: T[]) => T[];
-  private maxZoom = 12;
+  private maxZoom = MAX_ZOOM;
 
   public feature: any = {
     properties: {
@@ -28,7 +29,11 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     super.onAdd(map);
 
     this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
-      this.updateMarkers(points);
+      if (map.getZoom() >= this.maxZoom) {
+        this.updateMarkers(points);
+      } else {
+        this.clearLayer();
+      }
     });
 
     this.on('add', () => {
