@@ -31,6 +31,130 @@ export class LocationCapabilities {
   get organizations(): Organization[] {
     return this._organizations;
   }
+
+  private static getNotExistedProviders(allProviders: any[], existedProviders: any[], result: any[]) {
+    return allProviders
+      .filter(provider => !existedProviders.find(ep => ep.name === provider.name))
+      .forEach(provider => result.push({
+        provider: {
+          name: provider.name,
+          isActive: false,
+          icon: provider.icon
+        }
+      }));
+  }
+
+  static createFromApiModel(apiModel): LocationCapabilities {
+    const telephone = apiModel.ats.map(ats => {
+      return {
+        provider: {
+          name: ats.operator.name,
+          isActive: true,
+          icon: ats.operator.icon
+        },
+        count: 5
+      };
+    });
+
+    const cellular = apiModel.cellular.map(cellularItem => {
+      return {
+        provider: {
+          name: cellularItem.operator.name,
+          icon: cellularItem.operator.icon,
+          isActive: true
+        },
+        mobileGeneration: cellularItem.type.name,
+        quality: ''
+      };
+    });
+
+    const internet = apiModel.internet.map(internetItem => {
+      return {
+        provider: {
+          isActive: true,
+          name: internetItem.operator.name,
+          icon: internetItem.operator.icon
+        },
+        type: 'ВОЛС',
+        quality: ''
+      };
+    });
+
+    const tv = apiModel.television.map(tvItem => {
+      return {
+        provider: {
+          isActive: true,
+          name: tvItem.operator.name,
+          icon: tvItem.operator.icon
+        },
+        // type: tv.type.map(type => type.name).join('/')
+        type: 'АТВ'
+      };
+    });
+
+    this.getNotExistedProviders(apiModel.operators.ats, apiModel.ats.map(atsItem => atsItem.operator), telephone);
+
+    this.getNotExistedProviders(apiModel.operators.cellurar, apiModel.cellular.map(cellularItem => cellularItem.operator), cellular);
+
+    this.getNotExistedProviders(apiModel.operators.internet, apiModel.internet.map(internetItem => internetItem.operator), internet);
+
+    this.getNotExistedProviders(apiModel.operators.television, apiModel.television.map(televisionItem => televisionItem.operator), tv);
+
+    return new LocationCapabilities(
+      apiModel.location.type_location + ' ' + apiModel.location.name,
+      '',
+      {
+        population: apiModel.location.people_count,
+        cellular,
+        mail: [
+          {
+            provider: {
+              name: 'УПС',
+              isActive: true,
+              icon: '',
+            }
+          }
+        ],
+        telephone,
+        informat: false,
+        internet,
+        payphone: [
+          {
+            count: 5,
+            provider: {
+              icon: '../../../../assets/img/rostelecom.png',
+              isActive: true,
+              name: 'РосТелеком'
+            }
+          }
+        ],
+        radio: [
+          {
+            type: '',
+            provider: {
+              icon: '../../../../assets/img/rostelecom.png',
+              isActive: true,
+              name: 'РосТелеком'
+            }
+          }
+        ],
+        tv
+      },
+      [
+        {
+          name: 'МБОУ СОШ №30',
+          connectionPointAddress: 'с.Богучаны, ул. Лесная, 147',
+          customer: 'МЦР',
+          contractor: 'МТС',
+          connectionTechnology: '3G/4G',
+          connectionPoint: '---',
+          connectionSpeed: '10 Мбит',
+          state: 'Доступно (01.10.2019 16:00:14)',
+          traffic: '0.00 Gb (29.09.2019)'
+        }
+      ]
+    );
+  }
 }
 
 interface Provider {

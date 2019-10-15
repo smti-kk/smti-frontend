@@ -52,7 +52,9 @@
         <div class="item">
           <div class="name">Интернет:</div>
           <div class="value">
-            <div class="value-item" *ngFor="let internet of currentPointCapabilities.information.internet">
+            <div class="value-item"
+                 [class.opacity]="!internet.provider.isActive"
+                 *ngFor="let internet of currentPointCapabilities.information.internet">
               <div class="logo">
                 <div class="image"><img [src]="internet.provider.icon"
                                         [alt]="internet.provider.name"
@@ -68,7 +70,9 @@
         <div class="item">
           <div class="name">ТВ:</div>
           <div class="value position-status">
-            <div class="value-item" *ngFor="let tv of currentPointCapabilities.information.tv">
+            <div class="value-item"
+                 [class.opacity]="!tv.provider.isActive"
+                 *ngFor="let tv of currentPointCapabilities.information.tv">
               <div class="logo">
                 <div class="image"><img [src]="tv.provider.icon"
                                         [alt]="tv.provider.name"
@@ -116,7 +120,9 @@
           <div class="name">Телефон:</div>
           <div class="value">
             <div class="check"></div>
-            <div class="value-item" *ngFor="let telephone of currentPointCapabilities.information.telephone">
+            <div class="value-item"
+                 [class.opacity]="!telephone.provider.isActive"
+                 *ngFor="let telephone of currentPointCapabilities.information.telephone">
               <div class="logo">
                 <div class="image"><img [src]="telephone.provider.icon"
                                         [alt]="telephone.provider.name"
