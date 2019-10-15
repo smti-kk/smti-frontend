@@ -38,6 +38,7 @@
   flex-wrap: nowrap;
   align-items: center;
   cursor: pointer;
+  font-size: 14px;
 }
 .user-avatar {
   width: 24px;

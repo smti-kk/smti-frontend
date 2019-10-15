@@ -5,3 +5,9 @@ accordBtn.forEach(function(btn){
 		this.nextElementSibling.classList.toggle('open');
 	});
 });
+
+var close = document.querySelector('.close');
+close.addEventListener('click', function(){
+	var modal = document.querySelector('.modal');
+	modal.classList.add('hide');
+});
