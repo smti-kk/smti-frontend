@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
+import { MarkerInfoBarComponent } from './marker-info-bar.component';
 
-describe('LeafletComponent', () => {
-  let component: MapComponent;
-  let fixture: ComponentFixture<MapComponent>;
+describe('MarkerInfoControlComponent', () => {
+  let component: MarkerInfoBarComponent;
+  let fixture: ComponentFixture<MarkerInfoBarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ MarkerInfoBarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapComponent);
+    fixture = TestBed.createComponent(MarkerInfoBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

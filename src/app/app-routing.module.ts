@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CoreComponent } from './core/components/core.component';
+import { MapPage } from './core/pages/map-page/map.page';
 
 
 const routes: Routes = [
-  {path: '', component: CoreComponent}
+  {path: '', component: MapPage}
 ];
 
 @NgModule({

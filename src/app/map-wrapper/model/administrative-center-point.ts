@@ -28,22 +28,18 @@ export interface Tv {
 }
 
 export default class AdministrativeCenterPoint extends AccessPoint {
-  constructor(_pk: number,
-              _coordinate: Coordinate,
-              private _center: string,
-              private _area: string,
-              private _population: number,
-              private _mobileConnection: InfoRow[],
-              private _mobileLevel: string,
-              private _internet: { name: string, icon: string }[],
-              private _tv: Tv[],
-              private _radio: InfoRow[]) {
+  constructor(_pk?: number,
+              _coordinate?: Coordinate,
+              private _center?: string,
+              _area?: string,
+              private _population?: number,
+              private _mobileConnection?: InfoRow[],
+              private _mobileLevel?: string,
+              private _internet?: { name: string, icon: string }[],
+              private _tv?: Tv[],
+              private _radio?: InfoRow[]) {
 
-    super(_pk, _coordinate, _center);
-  }
-
-  get area(): string {
-    return this._area;
+    super(_pk, _coordinate, _center, _area);
   }
 
   get center(): string {
@@ -82,28 +78,28 @@ export default class AdministrativeCenterPoint extends AccessPoint {
       return;
     }
     const maxType = [];
-    const mobileConnection: InfoRow[] = locationCapability.mobile.data.map(lc => {
+    const mobileConnection: InfoRow[] = locationCapability.mobile ? locationCapability.mobile.data.map(lc => {
       maxType.push(lc.mobile_type);
       return {
         type: mobileType[mobileType.findIndex(x => x.id === lc.mobile_type)].name,
         icon: operators[operators.findIndex(x => x.id === lc.operator)].icon,
         name: operators[operators.findIndex(x => x.id === lc.operator)].name
       };
-    });
+    }) : [];
 
     const value = Math.max.apply(Math, maxType);
     const mediumValueType = mobileType[mobileType.findIndex(x => x.id === value)]
       ? mobileType[mobileType.findIndex(x => x.id === value)].name
       : ' ';
 
-    const internet = locationCapability.internet.data.map(element => {
+    const internet = locationCapability.internet ? locationCapability.internet.data.map(element => {
       return {
         icon: operators[operators.findIndex(x => x.id === element.operator)].icon,
         name: operators[operators.findIndex(x => x.id === element.operator)].name
       };
-    });
+    }) : [];
 
-    const tv = locationCapability.tv.data.map(element => {
+    const tv = locationCapability.tv ? locationCapability.tv.data.map(element => {
       let tvType = '/';
       element.signal_type.forEach(type => {
         tvType += type === '1' ? 'АТВ ' : type === '2' ? 'ЦТВ ' : '';
@@ -114,9 +110,9 @@ export default class AdministrativeCenterPoint extends AccessPoint {
         title: operators[operators.findIndex(x => x.id === element.operator)].name,
         type: tvType
       };
-    });
+    }) : [];
 
-    const radio = locationCapability.radio.data.map(element => {
+    const radio = locationCapability.radio ? locationCapability.radio.data.map(element => {
       let radioType = '/';
       radioType += element.signal_type === '1' ? 'АТВ ' : element.signal_type === '2' ? 'ЦТВ ' : '';
 
@@ -125,7 +121,7 @@ export default class AdministrativeCenterPoint extends AccessPoint {
         icon: operators[operators.findIndex(x => x.id === element.operator)].icon,
         type: radioType
       };
-    });
+    }) : [];
 
 
     return new AdministrativeCenterPoint(

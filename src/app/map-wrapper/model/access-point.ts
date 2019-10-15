@@ -3,7 +3,13 @@ import Coordinate from '../interface/coordinate';
 export default class AccessPoint {
   protected constructor(private _pk: number,
                         private _point: Coordinate,
-                        private _name: string) {
+                        private _name: string,
+                        private _area: string) {
+  }
+
+
+  get area(): string {
+    return this._area;
   }
 
   get name(): string {

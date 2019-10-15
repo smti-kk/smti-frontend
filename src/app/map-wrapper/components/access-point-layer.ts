@@ -3,11 +3,17 @@ import * as L from 'leaflet';
 import { Icon, LatLngBounds, Map, Marker, marker } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
 import AccessPoint from '../model/access-point';
+import 'leaflet.markercluster';
 
 const TIMER_INTERVAL = 10 * 60 * 1000;
+export const MAX_ZOOM = 12;
 
 export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup {
+  public onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();
+  private filter: (points: T[]) => T[];
+  private maxZoom = MAX_ZOOM;
+
   public feature: any = {
     properties: {
       name: ''
@@ -23,11 +29,15 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     super.onAdd(map);
 
     this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
-      this.updateMarkers(points);
+      if (map.getZoom() >= this.maxZoom) {
+        this.updateMarkers(points);
+      } else {
+        this.clearLayer();
+      }
     });
 
     this.on('add', () => {
-      if (map.getZoom() >= 12) {
+      if (map.getZoom() >= this.maxZoom) {
         this.startUpdateSwitch.emit(true);
       } else {
         this.clearLayer();
@@ -39,7 +49,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     });
 
     map.on('moveend', () => {
-      if (map.hasLayer(this) && map.getZoom() >= 12) {
+      if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
         this.startUpdateSwitch.emit(true);
       } else {
         this.clearLayer();
@@ -50,7 +60,12 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
   }
 
   private updateMarkers(points: T[]) {
+    if (this.filter) {
+      points = this.filter(points);
+    }
+
     const markers = this.getLayers() as Marker[];
+
     markers
       .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.id))
       .forEach(pointMarker => this.removeLayer(pointMarker));
@@ -74,7 +89,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
   private createMarker(point: T): Marker {
     const icon = new Icon({
-      iconUrl: this.getIconUrl(),
+      iconUrl: this.getIconUrl(point),
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       shadowAnchor: [4, 62],
@@ -86,13 +101,26 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     pointMarker.feature = {
       properties: {
         name: point.name,
-        id: point.pk
+        id: point.pk,
+        area: point.area
       },
       type: 'Feature',
       geometry: null
     };
 
+    pointMarker.on('click', () => this.onMarkerClick.emit(pointMarker));
+
     return pointMarker;
+  }
+
+  setFilter(filter: (points: T[]) => T[]) {
+    this.filter = filter;
+    this.startUpdateSwitch.emit(true);
+    this.startUpdateSwitch.emit(false);
+  }
+
+  setMaxZoom(zoom: number) {
+    this.maxZoom = zoom;
   }
 
   private clearLayer() {
@@ -103,8 +131,8 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
                             startStopUpdate?: EventEmitter<boolean>,
                             bounds?: () => LatLngBounds): Subject<T[]> | Observable<T[]>;
 
-  abstract renderPopup(point: T): string;
+  abstract getIconUrl(point: AccessPoint): string;
 
-  abstract getIconUrl(): string;
+  abstract renderPopup(point: T): string;
 }
 
