@@ -10,11 +10,22 @@ export default class AccessPointEspd extends AccessPoint {
               private _customer: string,
               private _contractor: string,
               private _mediumType: string,
-              private _connection: string,
               private _definedSpeed: string,
+              private _connection: string,
               private _description: string,
-              private _avstate: string) {
+              private _avstate: string,
+              private _avstateStr,
+              private _traffic) {
     super(_pk, _point, _orgName, '');
+  }
+
+
+  get traffic() {
+    return this._traffic;
+  }
+
+  get avstateStr() {
+    return this._avstateStr;
   }
 
   get avstate(): string {
@@ -70,12 +81,14 @@ export default class AccessPointEspd extends AccessPoint {
       apiModel.org_name,
       apiModel.actual_address,
       apiModel.network_provider,
+      apiModel.contractor,
       apiModel.medium_type,
       apiModel.defined_speed,
-      apiModel.cmo_type,
-      apiModel.institution_type,
+      apiModel.node,
       apiModel.description,
-      avstate
+      avstate,
+      apiModel.avstate,
+      apiModel.traffic
     );
   }
 }
