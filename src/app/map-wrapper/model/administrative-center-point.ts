@@ -1,22 +1,16 @@
 import AccessPoint from './access-point';
-import LocationArea from '@map-wrapper/model/location-area';
-import LocationSummaryCapability from '@map-wrapper/model/location-summary-capability';
 
 export default class AdministrativeCenterPoint extends AccessPoint {
 
-  static create(locationArea: LocationArea[], locationCapability: LocationSummaryCapability): AdministrativeCenterPoint {
-    if (!locationCapability.administrativeCenter) {
-      return;
-    }
-
+  static create(apiModel): AdministrativeCenterPoint {
     return new AdministrativeCenterPoint(
-      locationCapability.id,
+      apiModel.pk,
       {
-        lng: locationCapability.administrativeCenter.coordinates[0],
-        lat: locationCapability.administrativeCenter.coordinates[1],
+        lng: apiModel.geo_data.coordinates[0],
+        lat: apiModel.geo_data.coordinates[1]
       },
-      locationCapability.locality,
-      locationArea[locationArea.findIndex(x => x.id === locationCapability.area)].properties.name,
+      apiModel.full_name,
+      apiModel.district
     );
   }
 }

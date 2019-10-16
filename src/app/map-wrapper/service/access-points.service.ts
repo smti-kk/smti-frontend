@@ -1,20 +1,16 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { forkJoin, Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import AccessPointEspd from '../model/access-point-espd';
 import AccessPointSmo from '../model/access-point-smo';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from 'leaflet';
 import AdministrativeCenterPoint from '../model/administrative-center-point';
-import { ACCESS_POINT_ESPD_URL, ACCESS_POINT_SMO_URL } from '../constants/api.constants';
-import LocationSummaryCapability from '@map-wrapper/model/location-summary-capability';
-import LocationArea from '@map-wrapper/model/location-area';
-import MunicipalityService from '@map-wrapper/service/municipality.service';
+import { ACCESS_POINT_ESPD_URL, ACCESS_POINT_SMO_URL, LOCATION_URL } from '../constants/api.constants';
 
 @Injectable()
 export default class AccessPointsService {
-  constructor(private http: HttpClient,
-              private municipalityService: MunicipalityService) {
+  constructor(private http: HttpClient) {
   }
 
   getUpdatedEspdPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
@@ -92,15 +88,18 @@ export default class AccessPointsService {
     }
   }
 
+  // tslint:disable-next-line:member-ordering
+  private administrativePoints: AdministrativeCenterPoint[];
+
   private getAdministrativePoints(): Observable<AdministrativeCenterPoint[]> {
-    return forkJoin<LocationArea[], LocationSummaryCapability[]>(
-      this.municipalityService.getMunicipalitiesArea(),
-      this.municipalityService.getLocationCapabilities(false)
-    )
-      .pipe(
-        map(
-          results => results[1].map(lc => AdministrativeCenterPoint.create(results[0], lc))
-            .filter(lc => lc !== undefined)
-        ));
+    if (!this.administrativePoints) {
+      return this.http.get<any[]>(LOCATION_URL)
+        .pipe(map(locations => {
+          this.administrativePoints = locations.map(location => AdministrativeCenterPoint.create(location));
+          return this.administrativePoints;
+        }));
+    } else {
+      return of(this.administrativePoints);
+    }
   }
 }
