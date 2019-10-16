@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import LocationArea from '../model/location-area';
 import { HttpClient } from '@angular/common/http';
 import { LOCATION_AREA_URL, LOCATION_SUMMARY_CAPABILITIES_URL } from '../constants/api.constants';
-import LocationSummaryCapability from '../model/location-summary-capability';
+import LocationSummaryCapability from '@map-wrapper/model/location-summary-capability';
 
 @Injectable()
 export default class MunicipalityService {
-  private locationAreas: LocationArea[];
+  private _municipalitiesAreas: Subject<LocationArea[]> = new Subject<LocationArea[]>();
   private locationCapabilities: LocationSummaryCapability[];
 
   constructor(private http: HttpClient) {
+    this.getMunicipalitiesArea().subscribe(municipalitiesArea => this.municipalitiesAreas.next(municipalitiesArea));
   }
 
-  getMunicipalitiesArea(ifCached = true): Observable<LocationArea[]> {
-    if (!this.locationAreas || !ifCached) {
-      return this.http.get<any[]>(LOCATION_AREA_URL)
-        .pipe(map(locationAreas => {
-          this.locationAreas = locationAreas.map(la => LocationArea.createFromApiModel(la));
-          return this.locationAreas;
-        }));
-    } else {
-      return of(this.locationAreas);
-    }
+
+  get municipalitiesAreas(): Subject<LocationArea[]> {
+    return this._municipalitiesAreas;
+  }
+
+  getMunicipalitiesArea(): Observable<LocationArea[]> {
+    return this.http
+      .get<any[]>(LOCATION_AREA_URL)
+      .pipe(map(locationAreas => locationAreas.map(la => LocationArea.createFromApiModel(la))));
   }
 
   getLocationCapabilities(showEmpty = true, ifCached = true): Observable<LocationSummaryCapability[]> {
@@ -38,3 +38,5 @@ export default class MunicipalityService {
     }
   }
 }
+
+

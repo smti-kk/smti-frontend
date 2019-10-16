@@ -1,8 +1,4 @@
 .sidebar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
   width: 400px;
   height: 100%;
   padding-top: 1rem;
@@ -253,6 +249,12 @@
   font-weight: 600;
 }
 
+.item .value .value-item .status-2 {
+  font-size: 7px;
+  text-align: right;
+  font-weight: 600;
+}
+
 .ВОЛС {
   background: url('../../../../assets/img/vols.png') no-repeat;
   background-position-y: 50%;
@@ -260,21 +262,21 @@
   height: 5px;
 }
 
-.Медь {
+.медь {
   background: url('../../../../assets/img/med.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.Радио {
+.радиоканал {
   background: url('../../../../assets/img/radio.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.Спутник {
+.спутник {
   background: url('../../../../assets/img/sputnik.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
@@ -294,7 +296,19 @@
   right: -11px;
 }
 
+.item .value.position-status .status-2 {
+  position: absolute;
+  bottom: -4px;
+  right: -11px;
+}
+
 .item.line .status {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+}
+
+.item.line .status-2 {
   position: absolute;
   bottom: 0;
   right: 5px;

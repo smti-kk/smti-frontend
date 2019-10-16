@@ -32,7 +32,12 @@ export class MarkerInfoBarComponent implements OnInit {
       locality: ['']
     });
 
-    layersService.getMunicipalities().subscribe(m => this.locations = m.getLayers());
+    this.searchForm.get('locality').disable();
+
+    layersService.municipalitiesLayer.subscribe(m => {
+      this.locations = m.getLayers().sort(MarkerInfoBarComponent.sortByAreaName());
+    });
+
     this.onSearchFormChanges();
   }
 
@@ -41,19 +46,16 @@ export class MarkerInfoBarComponent implements OnInit {
       this.locationCapabilitiesService.getById(marker.feature.properties.id).subscribe(location => {
         this.currentPointCapabilities = location;
 
-        this.ref.detectChanges();
+        this.searchAdministrativePoints = [];
 
         this.searchForm.setValue({
-          area: this.layersService.getPointArea(marker),
+          area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.area),
           locality: marker.feature.properties.name
         });
+
+        this.ref.detectChanges();
       });
     });
-  }
-
-  onSearchFormChanges() {
-    this.searchForm.get('area').valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
-    this.searchForm.get('locality').valueChanges.subscribe(locality => this.filterLocalities(locality));
   }
 
   openAccordion($event, clazz) {
@@ -79,6 +81,16 @@ export class MarkerInfoBarComponent implements OnInit {
     this.searchAdministrativePoints = [];
   }
 
+  onSearchSubmit() {
+    if (this.searchAdministrativePoints.length > 0) {
+      this.searchForm.get('locality').patchValue(this.searchAdministrativePoints[0].name);
+    }
+  }
+
+  hasProvider(telephone: any[]) {
+    return telephone.find(t => t.provider.isActive === true);
+  }
+
   private toggleClass(item: Element, clazz: any) {
     const hasClass = item.classList.contains(clazz);
 
@@ -87,6 +99,18 @@ export class MarkerInfoBarComponent implements OnInit {
     } else {
       this.renderer.addClass(item, clazz);
     }
+  }
+
+  private onSearchFormChanges() {
+    this.searchForm.get('area').valueChanges.subscribe(selectedArea => {
+      if (selectedArea) {
+        this.searchForm.get('locality').enable();
+      } else {
+        this.searchForm.get('locality').disable();
+      }
+      this.selectArea(selectedArea);
+    });
+    this.searchForm.get('locality').valueChanges.subscribe(locality => this.filterLocalities(locality));
   }
 
   private selectArea(selectedArea: any) {
@@ -105,6 +129,8 @@ export class MarkerInfoBarComponent implements OnInit {
       if (this.lastActiveLocation !== selectedArea) {
         this.leafletMap.fitBounds(selectedArea.getBounds());
       }
+    } else {
+      this.currentPointCapabilities = null;
     }
 
     this.lastActiveLocation = selectedArea;
@@ -112,7 +138,20 @@ export class MarkerInfoBarComponent implements OnInit {
 
   private filterLocalities(locality: string) {
     if (this.administrativePoints) {
-      this.searchAdministrativePoints = this.administrativePoints.filter(ap => ap.name.includes(locality));
+      this.searchAdministrativePoints = this.administrativePoints.filter(ap => ap.name.includes(locality) && ap.name !== locality);
+      this.ref.detectChanges();
     }
+  }
+
+  static sortByAreaName() {
+    return (layer1: any, layer2: any) => {
+      if (layer1.feature.properties.name < layer2.feature.properties.name) {
+        return -1;
+      }
+      if (layer1.feature.properties.name > layer2.feature.properties.name) {
+        return 1;
+      }
+      return 0;
+    };
   }
 }

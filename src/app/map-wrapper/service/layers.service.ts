@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 import MunicipalityService from '@map-wrapper/service/municipality.service';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
 import AccessPointsService from '@map-wrapper/service/access-points.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
@@ -11,26 +10,19 @@ import { MAX_ZOOM } from '@map-wrapper/components/access-point-layer';
 
 @Injectable()
 export class LayersService {
-  private municipalitiesLayer: MunicipalitiesLayer;
+  private _municipalitiesLayer: Subject<MunicipalitiesLayer> = new Subject<MunicipalitiesLayer>();
   private administrativeCentersLayer: AdministrativeCentersLayer;
 
   constructor(private municipalitiesService: MunicipalityService,
               private accessPointsService: AccessPointsService) {
-
+    municipalitiesService.municipalitiesAreas.subscribe(ma => {
+      this.municipalitiesLayer.next(new MunicipalitiesLayer(ma));
+    });
   }
 
-  getMunicipalities(): Observable<MunicipalitiesLayer> {
-    if (this.municipalitiesLayer) {
-      return of(this.municipalitiesLayer);
-    }
 
-    return this.municipalitiesService.getMunicipalitiesArea()
-      .pipe(map(ma => {
-        if (!this.municipalitiesLayer) {
-          this.municipalitiesLayer = new MunicipalitiesLayer(ma);
-        }
-        return this.municipalitiesLayer;
-      }));
+  get municipalitiesLayer(): Subject<MunicipalitiesLayer> {
+    return this._municipalitiesLayer;
   }
 
   getAdministrativeCenters(): AdministrativeCentersLayer {
@@ -69,11 +61,5 @@ export class LayersService {
     return this.administrativeCentersLayer
       .getLayers()
       .find((layer: Marker) => layer.feature.properties.id === administrativePoint.pk) as Marker;
-  }
-
-  getPointArea(point: Marker) {
-    if (this.municipalitiesLayer) {
-      return this.municipalitiesLayer.getLayers().find((ml: any) => ml.feature.properties.name === point.feature.properties.area);
-    }
   }
 }

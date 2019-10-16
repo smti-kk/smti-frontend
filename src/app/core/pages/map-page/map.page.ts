@@ -36,7 +36,7 @@ export class MapPage {
   onMapReady(leaflet: Map) {
     this.leaflet = leaflet;
     this.defaultTile.addTo(leaflet);
-    this.layersService.getMunicipalities().subscribe(m => {
+    this.layersService.municipalitiesLayer.subscribe(m => {
       // m.addStylesToMap(leaflet);
       leaflet.addLayer(m);
     });

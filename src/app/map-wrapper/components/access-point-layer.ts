@@ -13,6 +13,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
   private startUpdateSwitch = new EventEmitter<boolean>();
   private filter: (points: T[]) => T[];
   private maxZoom = MAX_ZOOM;
+  private isInit = false;
 
   public feature: any = {
     properties: {
@@ -28,33 +29,37 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
     super.onAdd(map);
 
-    this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
-      if (map.getZoom() >= this.maxZoom) {
-        this.updateMarkers(points);
-      } else {
-        this.clearLayer();
-      }
-    });
+    if (!this.isInit) {
+      this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
+        if (map.getZoom() >= this.maxZoom) {
+          this.updateMarkers(points);
+        } else {
+          this.clearLayer();
+        }
+      });
 
-    this.on('add', () => {
-      if (map.getZoom() >= this.maxZoom) {
-        this.startUpdateSwitch.emit(true);
-      } else {
-        this.clearLayer();
-      }
-    });
+      this.on('add', () => {
+        if (map.getZoom() >= this.maxZoom) {
+          this.startUpdateSwitch.emit(true);
+        } else {
+          this.clearLayer();
+        }
+      });
 
-    this.on('remove', () => {
-      this.startUpdateSwitch.emit(false);
-    });
+      this.on('remove', () => {
+        this.startUpdateSwitch.emit(false);
+      });
 
-    map.on('moveend', () => {
-      if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
-        this.startUpdateSwitch.emit(true);
-      } else {
-        this.clearLayer();
-      }
-    });
+      map.on('moveend', () => {
+        if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
+          this.startUpdateSwitch.emit(true);
+        } else {
+          this.clearLayer();
+        }
+      });
+
+      this.isInit = true;
+    }
 
     return this;
   }

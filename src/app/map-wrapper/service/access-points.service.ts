@@ -5,24 +5,16 @@ import AccessPointSmo from '../model/access-point-smo';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from 'leaflet';
-import AdministrativeCenterPoint, { MobileType, Operator } from '../model/administrative-center-point';
-import { ACCESS_POINT_ESPD_URL, ACCESS_POINT_SMO_URL, MOBILE_TYPE_URL, OPERATOR_URL } from '../constants/api.constants';
-import MunicipalityService from './municipality.service';
-import LocationArea from '../model/location-area';
-import LocationSummaryCapability from '../model/location-summary-capability';
+import AdministrativeCenterPoint from '../model/administrative-center-point';
+import { ACCESS_POINT_ESPD_URL, ACCESS_POINT_SMO_URL } from '../constants/api.constants';
+import LocationSummaryCapability from '@map-wrapper/model/location-summary-capability';
+import LocationArea from '@map-wrapper/model/location-area';
+import MunicipalityService from '@map-wrapper/service/municipality.service';
 
 @Injectable()
 export default class AccessPointsService {
   constructor(private http: HttpClient,
               private municipalityService: MunicipalityService) {
-  }
-
-  getMobileType(): Observable<MobileType[]> {
-    return this.http.get<MobileType[]>(MOBILE_TYPE_URL);
-  }
-
-  getOperators(): Observable<Operator[]> {
-    return this.http.get<Operator[]>(OPERATOR_URL);
   }
 
   getUpdatedEspdPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointEspd[]> {
@@ -101,15 +93,13 @@ export default class AccessPointsService {
   }
 
   private getAdministrativePoints(): Observable<AdministrativeCenterPoint[]> {
-    return forkJoin<LocationArea[], Operator[], MobileType[], LocationSummaryCapability[]>(
+    return forkJoin<LocationArea[], LocationSummaryCapability[]>(
       this.municipalityService.getMunicipalitiesArea(),
-      this.getMobileType(),
-      this.getOperators(),
       this.municipalityService.getLocationCapabilities(false)
     )
       .pipe(
         map(
-          results => results[3].map(lc => AdministrativeCenterPoint.create(results[0], lc, results[1], results[2]))
+          results => results[1].map(lc => AdministrativeCenterPoint.create(results[0], lc))
             .filter(lc => lc !== undefined)
         ));
   }

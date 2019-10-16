@@ -1,7 +1,7 @@
 export const MAP_TERRITORIES_STYLE = {
-  weight: 2,
-  color: '#ccc',
-  dashArray: '3',
+  weight: 3,
+  color: 'green',
+  fillColor: 'none'
 };
 
 export const HIGHLIGHT_FEATURE = {
@@ -9,5 +9,6 @@ export const HIGHLIGHT_FEATURE = {
   dashArray: '',
   zIndex: 1000,
   position: 'relative',
-  color: '#35a584'
+  color: '#35a584',
+  fillColor: '#35a584'
 };

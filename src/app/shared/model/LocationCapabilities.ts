@@ -75,7 +75,7 @@ export class LocationCapabilities {
           name: internetItem.operator.name,
           icon: internetItem.operator.icon
         },
-        type: 'ВОЛС',
+        type: internetItem.type_trunkchannel.name === 'медный кабель' ? 'медь' : internetItem.type_trunkchannel.name,
         quality: ''
       };
     });
@@ -87,8 +87,7 @@ export class LocationCapabilities {
           name: tvItem.operator.name,
           icon: tvItem.operator.icon
         },
-        // type: tv.type.map(type => type.name).join('/')
-        type: 'АТВ'
+        type: '/' + tvItem.type.map(type => type.id === 1 ? 'АТВ ' : type.id === 2 ? 'ЦТВ ' : '').join(' ')
       };
     });
 
