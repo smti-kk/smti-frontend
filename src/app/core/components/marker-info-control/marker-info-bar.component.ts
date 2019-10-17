@@ -1,12 +1,17 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { LocationCapabilities } from '../../../shared/model/LocationCapabilities';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Map, Marker } from 'leaflet';
 import { LocationCapabilitiesService } from '../../../shared/services/location-capabilities.service';
 import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '@map-wrapper/constants/inline.style';
 import { LayersService } from '@map-wrapper/service/layers.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
 import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
+
+const FORM_PARAMS = {
+  area: 'area',
+  locality: 'locality'
+};
 
 @Component({
   selector: 'marker-info-bar',
@@ -33,8 +38,8 @@ export class MarkerInfoBarComponent implements OnInit {
               private readonly ref: ChangeDetectorRef,
               private readonly renderer: Renderer2) {
     this.searchForm = this.fb.group({
-      area: [null, Validators.required],
-      locality: ['']
+      [FORM_PARAMS.area]: [null],
+      [FORM_PARAMS.locality]: ['']
     });
 
     layersService.municipalitiesLayer.subscribe(m => {
@@ -47,7 +52,7 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchForm.get('locality').disable();
+    this.searchForm.get(FORM_PARAMS.locality).disable();
     this.layersService.getAdministrativeCenters()
       .onMarkerClick
       .subscribe((marker: Marker) => {
@@ -73,14 +78,14 @@ export class MarkerInfoBarComponent implements OnInit {
 
     this.leafletMap.flyTo(this.layersService.getAdministrativeMarker(point).getLatLng(), 18);
 
-    this.searchForm.get('locality').reset(point.name);
+    this.searchForm.get(FORM_PARAMS.locality).reset(point.name);
 
     this.searchAdministrativePoints = [];
   }
 
   onSearchSubmit() {
     if (this.searchAdministrativePoints.length > 0) {
-      this.searchForm.get('locality').patchValue(this.searchAdministrativePoints[0].name);
+      this.searchForm.get(FORM_PARAMS.locality).patchValue(this.searchAdministrativePoints[0].name);
     }
   }
 
@@ -99,8 +104,8 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   private onSearchFormChanges() {
-    this.searchForm.get('area').valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
-    this.searchForm.get('locality').valueChanges.subscribe(locality => this.filterLocalities(locality));
+    this.searchForm.get(FORM_PARAMS.area).valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
+    this.searchForm.get(FORM_PARAMS.locality).valueChanges.subscribe(locality => this.filterLocalities(locality));
   }
 
   private selectArea(selectedArea: any) {
@@ -108,9 +113,9 @@ export class MarkerInfoBarComponent implements OnInit {
     this.layersService.smoLayer.removeFilter();
 
     if (selectedArea) {
-      this.searchForm.get('locality').enable();
+      this.searchForm.get(FORM_PARAMS.locality).enable();
     } else {
-      this.searchForm.get('locality').disable();
+      this.searchForm.get(FORM_PARAMS.locality).disable();
     }
 
     if (this.lastActiveLocation) {
@@ -119,7 +124,7 @@ export class MarkerInfoBarComponent implements OnInit {
     }
 
     this.searchAdministrativePoints = [];
-    this.searchForm.get('locality').reset('');
+    this.searchForm.get(FORM_PARAMS.locality).reset('');
     this.administrativePoints = this.layersService.getAdministrativePointsByArea(selectedArea);
 
     if (selectedArea) {
@@ -146,7 +151,7 @@ export class MarkerInfoBarComponent implements OnInit {
 
   private setClickEmitter(m: MunicipalitiesLayer) {
     m.onMunicipalityClick.subscribe(layer => {
-      this.searchForm.get('area').patchValue(layer);
+      this.searchForm.get(FORM_PARAMS.area).patchValue(layer);
     });
   }
 
