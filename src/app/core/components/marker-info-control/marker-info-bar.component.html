@@ -189,43 +189,43 @@
 <!--        </div>-->
 <!--      </div>-->
       <div class="accordion-body">
-        <div class="accordion" *ngFor="let point of layersService.espdLayer.getPoints()">
+        <div class="accordion" *ngFor="let point of layersService.espdLayer.getLayers()">
           <div class="accordion-title blue green-dot" (click)="openAccordion($event, 'open')">
-            <div>{{point.name}}</div>
+            <div>{{point.feature.properties.point.name}}</div>
             <div class="accordion-btn"></div>
           </div>
           <div class="accordion-body">
             <div class="item line">
               <div class="name">Адрес точки подключения:</div>
-              <div class="value">{{point.actualAddress}}</div>
+              <div class="value">{{point.feature.properties.point.actualAddress}}</div>
             </div>
             <div class="item line">
               <div class="name">Заказчик:</div>
-              <div class="value">{{point.customer}}</div>
+              <div class="value">{{point.feature.properties.point.customer}}</div>
             </div>
             <div class="item line">
               <div class="name">Подрядчик:</div>
-              <div class="value">{{point.contractor}}</div>
+              <div class="value">{{point.feature.properties.point.contractor}}</div>
             </div>
             <div class="item line">
               <div class="name">Технология подключения:</div>
-              <div class="value">{{point.mediumType}}</div>
+              <div class="value">{{point.feature.properties.point.mediumType}}</div>
             </div>
             <div class="item line">
               <div class="name">Точка подключения:</div>
-              <div class="value">{{point.connection}}</div>
+              <div class="value">{{point.feature.properties.point.connection}}</div>
             </div>
             <div class="item line">
               <div class="name">Скорость по тарифу:</div>
-              <div class="value">{{point.definedSpeed}}</div>
+              <div class="value">{{point.feature.properties.point.definedSpeed}}</div>
             </div>
             <div class="item line">
               <div class="name">Состояние:</div>
-              <div class="value">{{point.avstateStr}}</div>
+              <div class="value">{{point.feature.properties.point.avstateStr}}</div>
             </div>
             <div class="item line">
               <div class="name">Входящий трафик:</div>
-              <div class="value">{{point.traffic}}</div>
+              <div class="value">{{point.feature.properties.point.traffic}}</div>
             </div>
           </div>
         </div>

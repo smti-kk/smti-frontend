@@ -1,10 +1,11 @@
-import { EventEmitter } from '@angular/core';
+import {EventEmitter} from '@angular/core';
 import * as L from 'leaflet';
-import { Icon, LatLngBounds, Map, Marker, marker } from 'leaflet';
-import { Observable, Subject } from 'rxjs';
+import {LatLngBounds, Map, Marker} from 'leaflet';
+import {Observable, Subject} from 'rxjs';
 import AccessPoint from '../model/access-point';
 import 'leaflet.markercluster';
-import { LocationCapabilities } from '../../shared/model/LocationCapabilities';
+import {LocationCapabilities} from '../../shared/model/LocationCapabilities';
+import {AccessPointMarker} from '@map-wrapper/components/access-point-marker';
 
 const TIMER_INTERVAL = 10 * 60 * 1000;
 export const MAX_ZOOM = 12;
@@ -15,12 +16,6 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
   private filter: (points: T[]) => T[];
   private maxZoom = MAX_ZOOM;
   private isInit = false;
-
-  public feature: any = {
-    properties: {
-      name: ''
-    }
-  };
 
   protected constructor() {
     super();
@@ -33,7 +28,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     if (!this.isInit) {
       this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
         if (map.getZoom() >= this.maxZoom) {
-          this.updateMarkers(points);
+          this.setPoints(points);
         } else {
           this.clearLayer();
         }
@@ -65,62 +60,34 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     return this;
   }
 
-  public getPoints(): T[] {
-    return this.getLayers().map((markerPoint: Marker) => markerPoint.feature.properties.point);
+  public getLayers(): AccessPointMarker<T>[] {
+    return super.getLayers() as AccessPointMarker<T>[];
   }
 
-  private updateMarkers(points: T[]) {
+  public addLayer(layer: AccessPointMarker<T>): this {
+    return super.addLayer(layer);
+  }
+
+  private setPoints(points: T[]) {
     if (this.filter) {
       points = this.filter(points);
     }
 
-    const markers = this.getLayers() as Marker[];
-
-    markers
-      .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.point.pk))
-      .forEach(pointMarker => this.removeLayer(pointMarker));
+    this.removeIrrelevantMarkers(points);
 
     points.forEach(point => {
-      let pointMarker = markers.find(pm => pm.feature.properties.point.pk === point.pk);
+      const pointMarker = this.getLayers().find(pm => pm.feature.properties.point.pk === point.pk);
 
-      if (pointMarker && (pointMarker.getLatLng().lng !== point.point.lng || pointMarker.getLatLng().lat !== point.point.lat)) {
-        pointMarker.setLatLng({
-          lat: point.point.lat,
-          lng: point.point.lng
-        });
-      } else if (!pointMarker) {
-        pointMarker = this.createMarker(point);
-        this.addLayer(pointMarker);
+      if (pointMarker) {
+        pointMarker.updateLatLng(point.point.lng, point.point.lat);
+      } else {
+        this.addLayer(this.createMarker(point));
       }
 
       if (this.renderPopup) {
         pointMarker.bindPopup(this.renderPopup(point));
       }
     });
-  }
-
-  private createMarker(point: T): Marker {
-    const icon = new Icon({
-      iconUrl: this.getIconUrl(point),
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      shadowAnchor: [4, 62],
-      popupAnchor: [-1, -25],
-    });
-
-    const pointMarker = marker([point.point.lat, point.point.lng], {icon});
-
-    pointMarker.feature = {
-      properties: {
-        point
-      },
-      type: 'Feature',
-      geometry: null
-    };
-
-    pointMarker.on('click', () => this.onMarkerClick.emit(pointMarker));
-
-    return pointMarker;
   }
 
   setFilter(filter: (points: T[]) => T[]) {
@@ -147,6 +114,16 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     this.setFilter(null);
   }
 
+  renderPopup?(point: T): string;
+
+  private createMarker(point: T): AccessPointMarker<T> {
+    return new AccessPointMarker<T>(point, this.getIconUrl(point))
+      .on(
+        'click',
+        (event) => this.onMarkerClick.emit(event.target)
+      );
+  }
+
   private filterByLocationAddress(location, points: any[]) {
     return points.filter(point => point.actualAddress
       .includes(
@@ -163,7 +140,11 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     this.getLayers().forEach(l => this.removeLayer(l));
   }
 
-  renderPopup?(point: T): string;
+  private removeIrrelevantMarkers(points: T[]) {
+    this.getLayers()
+      .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.point.pk))
+      .forEach(pointMarker => this.removeLayer(pointMarker));
+  }
 
   abstract getUpdatedPoints(interval: number,
                             startStopUpdate?: EventEmitter<boolean>,
