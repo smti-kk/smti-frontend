@@ -6,6 +6,7 @@ import { LocationCapabilitiesService } from '../../../shared/services/location-c
 import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '@map-wrapper/constants/inline.style';
 import { LayersService } from '@map-wrapper/service/layers.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
+import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 
 @Component({
   selector: 'marker-info-bar',
@@ -15,47 +16,41 @@ import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-
 export class MarkerInfoBarComponent implements OnInit {
 
   @Input() leafletMap: Map;
-  locations: any[];
-  lastActiveLocation;
-  searchForm: FormGroup;
-  currentPointCapabilities: LocationCapabilities;
-  administrativePoints: AdministrativeCenterPoint[];
-  searchAdministrativePoints: AdministrativeCenterPoint[] = [];
 
-  constructor(private fb: FormBuilder,
-              private locationCapabilitiesService: LocationCapabilitiesService,
-              private layersService: LayersService,
-              private ref: ChangeDetectorRef,
-              private renderer: Renderer2) {
+  private readonly searchForm: FormGroup;
+
+  private locations: any[];
+  private lastActiveLocation;
+  private currentPointCapabilities: LocationCapabilities;
+  private administrativePoints: AdministrativeCenterPoint[];
+  private searchAdministrativePoints: AdministrativeCenterPoint[] = [];
+
+  constructor(private readonly fb: FormBuilder,
+              private readonly locationCapabilitiesService: LocationCapabilitiesService,
+              private readonly layersService: LayersService,
+              private readonly ref: ChangeDetectorRef,
+              private readonly renderer: Renderer2) {
     this.searchForm = this.fb.group({
       area: [null, Validators.required],
       locality: ['']
     });
 
-    this.searchForm.get('locality').disable();
-
     layersService.municipalitiesLayer.subscribe(m => {
+      this.setClickEmitter(m);
       this.locations = m.getLayers().sort(MarkerInfoBarComponent.sortByAreaName());
     });
 
     this.onSearchFormChanges();
+
   }
 
   ngOnInit() {
-    this.layersService.getAdministrativeCenters().onMarkerClick.subscribe((marker: Marker) => {
-      this.locationCapabilitiesService.getById(marker.feature.properties.id).subscribe(location => {
-        this.currentPointCapabilities = location;
-
-        this.searchAdministrativePoints = [];
-
-        this.searchForm.setValue({
-          area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.area),
-          locality: marker.feature.properties.name
-        });
-
-        this.ref.detectChanges();
+    this.searchForm.get('locality').disable();
+    this.layersService.getAdministrativeCenters()
+      .onMarkerClick
+      .subscribe((marker: Marker) => {
+        this.onMunicipalityMarkerClick(marker);
       });
-    });
   }
 
   openAccordion($event, clazz) {
@@ -102,20 +97,20 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   private onSearchFormChanges() {
-    this.searchForm.get('area').valueChanges.subscribe(selectedArea => {
-      if (selectedArea) {
-        this.searchForm.get('locality').enable();
-      } else {
-        this.searchForm.get('locality').disable();
-      }
-      this.selectArea(selectedArea);
-    });
+    this.searchForm.get('area').valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
     this.searchForm.get('locality').valueChanges.subscribe(locality => this.filterLocalities(locality));
   }
 
   private selectArea(selectedArea: any) {
+    if (selectedArea) {
+      this.searchForm.get('locality').enable();
+    } else {
+      this.searchForm.get('locality').disable();
+    }
+
     if (this.lastActiveLocation) {
       this.lastActiveLocation.setStyle(MAP_TERRITORIES_STYLE);
+      MunicipalitiesLayer.addEventListeners(this.lastActiveLocation);
     }
 
     this.searchAdministrativePoints = [];
@@ -125,6 +120,7 @@ export class MarkerInfoBarComponent implements OnInit {
     if (selectedArea) {
       selectedArea.setStyle(HIGHLIGHT_FEATURE);
       selectedArea.bringToFront();
+      MunicipalitiesLayer.removeEventListeners(selectedArea);
 
       if (this.lastActiveLocation !== selectedArea) {
         this.leafletMap.fitBounds(selectedArea.getBounds());
@@ -141,6 +137,27 @@ export class MarkerInfoBarComponent implements OnInit {
       this.searchAdministrativePoints = this.administrativePoints.filter(ap => ap.name.includes(locality) && ap.name !== locality);
       this.ref.detectChanges();
     }
+  }
+
+  private setClickEmitter(m: MunicipalitiesLayer) {
+    m.onMunicipalityClick.subscribe(layer => {
+      this.searchForm.get('area').patchValue(layer);
+    });
+  }
+
+  private onMunicipalityMarkerClick(marker: Marker) {
+    this.locationCapabilitiesService.getById(marker.feature.properties.id).subscribe(location => {
+      this.currentPointCapabilities = location;
+
+      this.searchAdministrativePoints = [];
+
+      this.searchForm.setValue({
+        area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.area),
+        locality: marker.feature.properties.name
+      });
+
+      this.ref.detectChanges();
+    });
   }
 
   static sortByAreaName() {

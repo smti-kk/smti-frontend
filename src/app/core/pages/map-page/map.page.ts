@@ -37,7 +37,6 @@ export class MapPage {
     this.leaflet = leaflet;
     this.defaultTile.addTo(leaflet);
     this.layersService.municipalitiesLayer.subscribe(m => {
-      // m.addStylesToMap(leaflet);
       leaflet.addLayer(m);
     });
   }

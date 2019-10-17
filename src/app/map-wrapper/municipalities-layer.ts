@@ -1,11 +1,13 @@
-import { GeoJSON, Map } from 'leaflet';
+import { GeoJSON } from 'leaflet';
 import { FeatureCollection } from 'geojson';
 import LocationArea from './model/location-area';
 import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from './constants/inline.style';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable()
 export default class MunicipalitiesLayer extends GeoJSON<LocationArea> {
+  public onMunicipalityClick: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(private municipalities: LocationArea[]) {
     super();
 
@@ -16,22 +18,32 @@ export default class MunicipalitiesLayer extends GeoJSON<LocationArea> {
 
     this.addData(communicationScoreFeature);
     this.setStyle(MAP_TERRITORIES_STYLE);
+    this.addStyles();
   }
 
-  addStylesToMap(map: Map) {
+  private addStyles() {
     this.eachLayer((layer: any) => {
-      layer.on({
-        mouseover: event => {
-          event.target.setStyle(HIGHLIGHT_FEATURE);
-          layer.bringToFront();
-        },
-        mouseout: event => {
-          event.target.setStyle(MAP_TERRITORIES_STYLE);
-        },
-        click: event => {
-          map.fitBounds(event.target.getBounds());
-        }
-      });
+      MunicipalitiesLayer.addEventListeners(layer);
+      layer.on('click', () => this.onMunicipalityClick.emit(layer));
     });
+  }
+
+  public static addEventListeners(layer) {
+    layer.on('mouseover', MunicipalitiesLayer.mouseOver);
+    layer.on('mouseout', MunicipalitiesLayer.mouseOut);
+  }
+
+  public static removeEventListeners(layer) {
+    layer.removeEventListener('mouseover', MunicipalitiesLayer.mouseOver);
+    layer.removeEventListener('mouseout', MunicipalitiesLayer.mouseOut);
+  }
+
+  private static mouseOver(event) {
+    event.target.setStyle(HIGHLIGHT_FEATURE);
+    event.target.bringToFront();
+  }
+
+  private static mouseOut(event) {
+    event.target.setStyle(MAP_TERRITORIES_STYLE);
   }
 }
