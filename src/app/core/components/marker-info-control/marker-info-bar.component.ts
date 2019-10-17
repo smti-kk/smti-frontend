@@ -22,8 +22,10 @@ export class MarkerInfoBarComponent implements OnInit {
   private locations: any[];
   private lastActiveLocation;
   private currentPointCapabilities: LocationCapabilities;
+
   private administrativePoints: AdministrativeCenterPoint[];
   private searchAdministrativePoints: AdministrativeCenterPoint[] = [];
+
 
   constructor(private readonly fb: FormBuilder,
               private readonly locationCapabilitiesService: LocationCapabilitiesService,
@@ -102,6 +104,9 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   private selectArea(selectedArea: any) {
+    this.layersService.espdLayer.removeFilter();
+    this.layersService.smoLayer.removeFilter();
+
     if (selectedArea) {
       this.searchForm.get('locality').enable();
     } else {
@@ -146,17 +151,18 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   private onMunicipalityMarkerClick(marker: Marker) {
-    this.locationCapabilitiesService.getById(marker.feature.properties.id).subscribe(location => {
+    this.locationCapabilitiesService.getById(marker.feature.properties.point.pk).subscribe(location => {
       this.currentPointCapabilities = location;
 
       this.searchAdministrativePoints = [];
 
       this.searchForm.setValue({
-        area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.area),
-        locality: marker.feature.properties.name
+        area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.point.area),
+        locality: marker.feature.properties.point.name
       });
 
-      this.ref.detectChanges();
+      this.layersService.smoLayer.setFilterByLocation(location, () => this.ref.detectChanges());
+      this.layersService.espdLayer.setFilterByLocation(location, () => this.ref.detectChanges());
     });
   }
 

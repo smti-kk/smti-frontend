@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { latLng, Map, MapOptions, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
-import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
 import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
 import { LayersService } from '@map-wrapper/service/layers.service';
 
@@ -20,8 +19,7 @@ export class MapPage {
   private defaultTile;
   private leaflet: Map;
 
-  constructor(private espdLayer: AccessPointEspdLayer,
-              private smoLayer: AccessPointSmoLayer,
+  constructor(private smoLayer: AccessPointSmoLayer,
               private layersService: LayersService) {
     this.initLayersControl();
 
@@ -50,8 +48,8 @@ export class MapPage {
         openstreetmap: new TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '...'})
       },
       overlays: {
-        [ESPD_LAYER_NAME]: this.espdLayer,
-        [SMO_LAYER_NAME]: this.smoLayer
+        [ESPD_LAYER_NAME]: this.layersService.espdLayer,
+        [SMO_LAYER_NAME]: this.layersService.smoLayer
       }
     };
   }

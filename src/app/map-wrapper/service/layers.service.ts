@@ -7,10 +7,14 @@ import AccessPointsService from '@map-wrapper/service/access-points.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
 import { Marker } from 'leaflet';
 import { MAX_ZOOM } from '@map-wrapper/components/access-point-layer';
+import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
+import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
 
 @Injectable()
 export class LayersService {
   private _municipalitiesLayer: Subject<MunicipalitiesLayer> = new Subject<MunicipalitiesLayer>();
+  private _espdLayer: AccessPointEspdLayer;
+  private _smoLayer: AccessPointSmoLayer;
   private administrativeCentersLayer: AdministrativeCentersLayer;
 
   constructor(private municipalitiesService: MunicipalityService,
@@ -23,6 +27,20 @@ export class LayersService {
 
   get municipalitiesLayer(): Subject<MunicipalitiesLayer> {
     return this._municipalitiesLayer;
+  }
+
+  get espdLayer(): AccessPointEspdLayer {
+    if (!this._espdLayer) {
+      this._espdLayer = new AccessPointEspdLayer(this.accessPointsService);
+    }
+    return this._espdLayer;
+  }
+
+  get smoLayer(): AccessPointSmoLayer {
+    if (!this._smoLayer) {
+      this._smoLayer = new AccessPointSmoLayer(this.accessPointsService);
+    }
+    return this._smoLayer;
   }
 
   getAdministrativeCenters(): AdministrativeCentersLayer {
@@ -60,6 +78,6 @@ export class LayersService {
   getAdministrativeMarker(administrativePoint: AdministrativeCenterPoint): Marker {
     return this.administrativeCentersLayer
       .getLayers()
-      .find((layer: Marker) => layer.feature.properties.id === administrativePoint.pk) as Marker;
+      .find((layer: Marker) => layer.feature.properties.point.pk === administrativePoint.pk) as Marker;
   }
 }

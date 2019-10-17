@@ -22,8 +22,5 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
                    bounds?: () => LatLngBounds): Observable<AdministrativeCenterPoint[]> {
     return this.accessPointsService.getUpdatedAdministrativeCenterPoints(interval, startStopUpdate);
   }
-
-  renderPopup(point: AdministrativeCenterPoint) {
-    return point.name;
-  }
 }
+

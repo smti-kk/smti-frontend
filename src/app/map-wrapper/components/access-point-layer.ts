@@ -4,6 +4,7 @@ import { Icon, LatLngBounds, Map, Marker, marker } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
 import AccessPoint from '../model/access-point';
 import 'leaflet.markercluster';
+import { LocationCapabilities } from '../../shared/model/LocationCapabilities';
 
 const TIMER_INTERVAL = 10 * 60 * 1000;
 export const MAX_ZOOM = 12;
@@ -64,6 +65,10 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     return this;
   }
 
+  public getPoints(): T[] {
+    return this.getLayers().map((markerPoint: Marker) => markerPoint.feature.properties.point);
+  }
+
   private updateMarkers(points: T[]) {
     if (this.filter) {
       points = this.filter(points);
@@ -72,11 +77,11 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     const markers = this.getLayers() as Marker[];
 
     markers
-      .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.id))
+      .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.point.pk))
       .forEach(pointMarker => this.removeLayer(pointMarker));
 
     points.forEach(point => {
-      let pointMarker = markers.find(pm => pm.feature.properties.id === point.pk);
+      let pointMarker = markers.find(pm => pm.feature.properties.point.pk === point.pk);
 
       if (pointMarker && (pointMarker.getLatLng().lng !== point.point.lng || pointMarker.getLatLng().lat !== point.point.lat)) {
         pointMarker.setLatLng({
@@ -88,7 +93,9 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
         this.addLayer(pointMarker);
       }
 
-      pointMarker.bindPopup(this.renderPopup(point));
+      if (this.renderPopup) {
+        pointMarker.bindPopup(this.renderPopup(point));
+      }
     });
   }
 
@@ -105,9 +112,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
     pointMarker.feature = {
       properties: {
-        name: point.name,
-        id: point.pk,
-        area: point.area
+        point
       },
       type: 'Feature',
       geometry: null
@@ -128,16 +133,42 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     this.maxZoom = zoom;
   }
 
+  setFilterByLocation(location: LocationCapabilities, afterFilter: () => void) {
+    this.setMaxZoom(1);
+    this.setFilter(points => {
+      const result = this.filterByLocationAddress(location, points);
+      afterFilter();
+      return result;
+    });
+  }
+
+  removeFilter() {
+    this.setMaxZoom(MAX_ZOOM);
+    this.setFilter(null);
+  }
+
+  private filterByLocationAddress(location, points: any[]) {
+    return points.filter(point => point.actualAddress
+      .includes(
+        location.name
+          .replace('г ', '')
+          .replace('д ', '')
+          .replace('п ', '')
+          .replace('c ', '')
+      )
+    );
+  }
+
   private clearLayer() {
     this.getLayers().forEach(l => this.removeLayer(l));
   }
+
+  renderPopup?(point: T): string;
 
   abstract getUpdatedPoints(interval: number,
                             startStopUpdate?: EventEmitter<boolean>,
                             bounds?: () => LatLngBounds): Subject<T[]> | Observable<T[]>;
 
   abstract getIconUrl(point: AccessPoint): string;
-
-  abstract renderPopup(point: T): string;
 }
 
