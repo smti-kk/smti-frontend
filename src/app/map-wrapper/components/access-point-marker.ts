@@ -17,6 +17,7 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     );
 
     this.feature = {
+      id: point.pk,
       properties: {
         point
       },
@@ -25,12 +26,17 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     };
   }
 
-  public updateLatLng(lng: number, lat: number) {
-    if (this.getLatLng().lng !== lng ||
-      this.getLatLng().lat !== lat
+  public update(point: T) {
+    if (this.getLatLng().lng !== point.point.lng ||
+      this.getLatLng().lat !== point.point.lat
     ) {
-      this.setLatLng({lat, lng});
+      this.setLatLng({
+        lat: point.point.lat,
+        lng: point.point.lng
+      });
     }
+
+    this.feature.properties.point = point;
   }
 
   private static createIcon(iconUrl): Icon {

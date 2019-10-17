@@ -64,6 +64,10 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     return super.getLayers() as AccessPointMarker<T>[];
   }
 
+  public getLayer(id: number): AccessPointMarker<T> {
+    return super.getLayer(id) as AccessPointMarker<T>;
+  }
+
   public addLayer(layer: AccessPointMarker<T>): this {
     return super.addLayer(layer);
   }
@@ -76,10 +80,10 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     this.removeIrrelevantMarkers(points);
 
     points.forEach(point => {
-      const pointMarker = this.getLayers().find(pm => pm.feature.properties.point.pk === point.pk);
+      const pointMarker = this.getLayer(point.pk);
 
       if (pointMarker) {
-        pointMarker.updateLatLng(point.point.lng, point.point.lat);
+        pointMarker.update(point);
       } else {
         this.addLayer(this.createMarker(point));
       }
@@ -118,10 +122,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
   private createMarker(point: T): AccessPointMarker<T> {
     return new AccessPointMarker<T>(point, this.getIconUrl(point))
-      .on(
-        'click',
-        (event) => this.onMarkerClick.emit(event.target)
-      );
+      .on('click', (event) => this.onMarkerClick.emit(event.target));
   }
 
   private filterByLocationAddress(location, points: any[]) {
