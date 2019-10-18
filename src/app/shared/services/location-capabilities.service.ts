@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { SharedModule } from '../shared.module';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { LocationCapabilities } from '../model/LocationCapabilities';
 import { HttpClient } from '@angular/common/http';
-import { TECHNICAL_CAPABILITIES } from '../constants/api';
+import { PSEUDO, TECHNICAL_CAPABILITIES } from '../constants/api';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -14,9 +14,11 @@ export class LocationCapabilitiesService {
   }
 
   getById(id: number): Observable<LocationCapabilities> {
-    return this.http
-      .get(TECHNICAL_CAPABILITIES + id)
-      .pipe(map(tc => LocationCapabilities.createFromApiModel(tc)));
+    return forkJoin([
+      this.http.get(TECHNICAL_CAPABILITIES.replace(':id', `${id}`)),
+      this.http.get(PSEUDO.replace(':id', `${id}`))
+    ])
+      .pipe(map(data => LocationCapabilities.createFromApiModel(data[0], data[1])));
   }
 }
 

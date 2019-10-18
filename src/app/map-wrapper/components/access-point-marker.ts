@@ -13,7 +13,9 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
   constructor(point: T, iconUrl: string) {
     super(
       [point.point.lat, point.point.lng],
-      {icon: AccessPointMarker.createIcon(iconUrl)}
+      {
+        icon: AccessPointMarker.createIcon(iconUrl)
+      }
     );
 
     this.feature = {
@@ -26,7 +28,7 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     };
   }
 
-  public update(point: T) {
+  public updateData(point: T) {
     if (this.getLatLng().lng !== point.point.lng ||
       this.getLatLng().lat !== point.point.lat
     ) {
@@ -42,7 +44,7 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
   private static createIcon(iconUrl): Icon {
     return new Icon({
       iconUrl,
-      iconSize: [25, 41],
+      iconSize: [30, 41],
       iconAnchor: [12, 41],
       shadowAnchor: [4, 62],
       popupAnchor: [-1, -25],

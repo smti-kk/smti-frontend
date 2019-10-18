@@ -1,23 +1,25 @@
-import {EventEmitter} from '@angular/core';
-import * as L from 'leaflet';
-import {LatLngBounds, Map, Marker} from 'leaflet';
-import {Observable, Subject} from 'rxjs';
+import { EventEmitter } from '@angular/core';
+import { DivIcon, divIcon, Icon, LatLngBounds, Map, Marker, MarkerCluster, MarkerClusterGroup } from 'leaflet';
+import { Observable, Subject } from 'rxjs';
 import AccessPoint from '../model/access-point';
 import 'leaflet.markercluster';
-import {LocationCapabilities} from '../../shared/model/LocationCapabilities';
-import {AccessPointMarker} from '@map-wrapper/components/access-point-marker';
+import { AccessPointMarker } from '@map-wrapper/components/access-point-marker';
 
 const TIMER_INTERVAL = 10 * 60 * 1000;
 export const MAX_ZOOM = 12;
 
-export default abstract class AccessPointLayer<T extends AccessPoint> extends L.MarkerClusterGroup {
+
+export default abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClusterGroup {
   public onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();
   private filter: (points: T[]) => T[];
   private maxZoom = MAX_ZOOM;
   private isInit = false;
+  private layers: { [key: number]: AccessPointMarker<T> } = {};
 
   protected constructor() {
+    // @ts-ignore
+    // super({iconCreateFunction: AccessPointLayer.iconCreateFunction});
     super();
   }
 
@@ -56,7 +58,6 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
 
       this.isInit = true;
     }
-
     return this;
   }
 
@@ -64,12 +65,18 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     return super.getLayers() as AccessPointMarker<T>[];
   }
 
-  public getLayer(id: number): AccessPointMarker<T> {
-    return super.getLayer(id) as AccessPointMarker<T>;
+  public getLayerByPointId(id: number) {
+    return this.layers[id];
   }
 
   public addLayer(layer: AccessPointMarker<T>): this {
+    this.layers[layer.feature.properties.point.pk] = layer;
     return super.addLayer(layer);
+  }
+
+  removeLayer(layer: AccessPointMarker<T>): this {
+    this.layers[layer.feature.properties.point.pk] = null;
+    return super.removeLayer(layer);
   }
 
   private setPoints(points: T[]) {
@@ -80,18 +87,21 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     this.removeIrrelevantMarkers(points);
 
     points.forEach(point => {
-      const pointMarker = this.getLayer(point.pk);
+      let pointMarker = this.getLayerByPointId(point.pk);
 
       if (pointMarker) {
-        pointMarker.update(point);
+        pointMarker.updateData(point);
       } else {
-        this.addLayer(this.createMarker(point));
+        pointMarker = this.createMarker(point);
+        this.addLayer(pointMarker);
       }
 
       if (this.renderPopup) {
         pointMarker.bindPopup(this.renderPopup(point));
       }
     });
+
+    super.refreshClusters(this.getLayers());
   }
 
   setFilter(filter: (points: T[]) => T[]) {
@@ -104,37 +114,14 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
     this.maxZoom = zoom;
   }
 
-  setFilterByLocation(location: LocationCapabilities, afterFilter: () => void) {
-    this.setMaxZoom(1);
-    this.setFilter(points => {
-      const result = this.filterByLocationAddress(location, points);
-      afterFilter();
-      return result;
-    });
-  }
-
-  removeFilter() {
-    this.setMaxZoom(MAX_ZOOM);
-    this.setFilter(null);
-  }
-
   renderPopup?(point: T): string;
 
   private createMarker(point: T): AccessPointMarker<T> {
     return new AccessPointMarker<T>(point, this.getIconUrl(point))
-      .on('click', (event) => this.onMarkerClick.emit(event.target));
-  }
-
-  private filterByLocationAddress(location, points: any[]) {
-    return points.filter(point => point.actualAddress
-      .includes(
-        location.name
-          .replace('г ', '')
-          .replace('д ', '')
-          .replace('п ', '')
-          .replace('c ', '')
-      )
-    );
+      .on('click', (event) => {
+        console.log(point);
+        this.onMarkerClick.emit(event.target);
+      });
   }
 
   private clearLayer() {
@@ -152,5 +139,9 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends L.
                             bounds?: () => LatLngBounds): Subject<T[]> | Observable<T[]>;
 
   abstract getIconUrl(point: AccessPoint): string;
-}
 
+  static iconCreateFunction(cluster: MarkerCluster): Icon | DivIcon {
+    console.log(cluster);
+    return divIcon({html: '<div class="cluster cluster-green">' + cluster.getChildCount() + '</div>'});
+  }
+}

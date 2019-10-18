@@ -12,8 +12,18 @@ export class LocationCapabilities {
                 mail: [],
                 population: 0
               },
-              private _organizations: Organization[] = []) {
+              private _espd: any[] = [],
+              private _smo: any[]) {
 
+  }
+
+
+  get espd(): any[] {
+    return this._espd;
+  }
+
+  get smo(): any[] {
+    return this._smo;
   }
 
   get name(): string {
@@ -28,10 +38,6 @@ export class LocationCapabilities {
     return this._information;
   }
 
-  get organizations(): Organization[] {
-    return this._organizations;
-  }
-
   private static getNotExistedProviders(allProviders: any[], existedProviders: any[], result: any[]) {
     return allProviders
       .filter(provider => !existedProviders.find(ep => ep.name === provider.name))
@@ -44,8 +50,8 @@ export class LocationCapabilities {
       }));
   }
 
-  static createFromApiModel(apiModel): LocationCapabilities {
-    const telephone = apiModel.ats.map(ats => {
+  static createFromApiModel(tcApi, pseudoApi): LocationCapabilities {
+    const telephone = tcApi.ats.map(ats => {
       return {
         provider: {
           name: ats.operator.name,
@@ -56,7 +62,7 @@ export class LocationCapabilities {
       };
     });
 
-    const cellular = apiModel.cellular.map(cellularItem => {
+    const cellular = tcApi.cellular.map(cellularItem => {
       return {
         provider: {
           name: cellularItem.operator.name,
@@ -68,7 +74,7 @@ export class LocationCapabilities {
       };
     });
 
-    const internet = apiModel.internet.map(internetItem => {
+    const internet = tcApi.internet.map(internetItem => {
       return {
         provider: {
           isActive: true,
@@ -80,7 +86,7 @@ export class LocationCapabilities {
       };
     });
 
-    const tv = apiModel.television.map(tvItem => {
+    const tv = tcApi.television.map(tvItem => {
       return {
         provider: {
           isActive: true,
@@ -91,19 +97,19 @@ export class LocationCapabilities {
       };
     });
 
-    this.getNotExistedProviders(apiModel.operators.ats, apiModel.ats.map(atsItem => atsItem.operator), telephone);
+    this.getNotExistedProviders(tcApi.operators.ats, tcApi.ats.map(atsItem => atsItem.operator), telephone);
 
-    this.getNotExistedProviders(apiModel.operators.cellurar, apiModel.cellular.map(cellularItem => cellularItem.operator), cellular);
+    this.getNotExistedProviders(tcApi.operators.cellurar, tcApi.cellular.map(cellularItem => cellularItem.operator), cellular);
 
-    this.getNotExistedProviders(apiModel.operators.internet, apiModel.internet.map(internetItem => internetItem.operator), internet);
+    this.getNotExistedProviders(tcApi.operators.internet, tcApi.internet.map(internetItem => internetItem.operator), internet);
 
-    this.getNotExistedProviders(apiModel.operators.television, apiModel.television.map(televisionItem => televisionItem.operator), tv);
+    this.getNotExistedProviders(tcApi.operators.television, tcApi.television.map(televisionItem => televisionItem.operator), tv);
 
     return new LocationCapabilities(
-      apiModel.location.type_location + ' ' + apiModel.location.name,
+      tcApi.location.type_location + ' ' + tcApi.location.name,
       '',
       {
-        population: apiModel.location.people_count,
+        population: tcApi.location.people_count,
         cellular,
         mail: [
           {
@@ -139,22 +145,37 @@ export class LocationCapabilities {
         ],
         tv
       },
-      [
-        {
-          name: 'МБОУ СОШ №30',
-          connectionPointAddress: 'с.Богучаны, ул. Лесная, 147',
-          customer: 'МЦР',
-          contractor: 'МТС',
-          connectionTechnology: '3G/4G',
-          connectionPoint: '---',
-          connectionSpeed: '10 Мбит',
-          state: 'Доступно (01.10.2019 16:00:14)',
-          traffic: '0.00 Gb (29.09.2019)'
-        }
-      ]
+      pseudoApi.accesspointespd,
+      pseudoApi.accesspointsmo
     );
   }
 }
+
+/*
+"radio": [
+        {
+            "id": 8572,
+            "operator": {
+                "id": 7,
+                "name": "РТРС",
+                "icon": "/media/rtrs.png"
+            },
+            "state": null,
+            "completed": null,
+            "quality": "normal",
+            "technical_status": "confirmed",
+            "requests": null,
+            "functional_customer": null,
+            "commissioning": null,
+            "dismiss_date": null,
+            "type": 2,
+            "government_program": null,
+            "location": 2100,
+            "clarify_petition": null,
+            "previous": null,
+            "contract": null
+        }
+ */
 
 interface Provider {
   name: string;

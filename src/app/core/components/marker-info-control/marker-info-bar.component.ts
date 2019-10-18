@@ -93,6 +93,7 @@ export class MarkerInfoBarComponent implements OnInit {
     return telephone.find(t => t.provider.isActive === true);
   }
 
+
   private toggleClass(item: Element, clazz: any) {
     const hasClass = item.classList.contains(clazz);
 
@@ -109,9 +110,6 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   private selectArea(selectedArea: any) {
-    this.layersService.espdLayer.removeFilter();
-    this.layersService.smoLayer.removeFilter();
-
     if (selectedArea) {
       this.searchForm.get(FORM_PARAMS.locality).enable();
     } else {
@@ -165,9 +163,6 @@ export class MarkerInfoBarComponent implements OnInit {
         area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.point.area),
         locality: marker.feature.properties.point.name
       });
-
-      this.layersService.smoLayer.setFilterByLocation(location, () => this.ref.detectChanges());
-      this.layersService.espdLayer.setFilterByLocation(location, () => this.ref.detectChanges());
     });
   }
 

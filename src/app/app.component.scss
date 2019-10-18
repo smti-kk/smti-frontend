@@ -1,3 +1,14 @@
+.core-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  height: 100%;
+}
+
+.router-container {
+  flex-grow: 1;
+}
+
 .header {
   padding: 10px 0 10px;
   background-color: #35a584;
