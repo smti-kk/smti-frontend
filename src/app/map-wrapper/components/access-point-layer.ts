@@ -5,8 +5,8 @@ import AccessPoint from '../model/access-point';
 import 'leaflet.markercluster';
 import { AccessPointMarker } from '@map-wrapper/components/access-point-marker';
 
-// const TIMER_INTERVAL = 10 * 60 * 1000;
-const TIMER_INTERVAL = 10 * 1000;
+export const TIMER_INTERVAL = 10 * 60 * 1000;
+// const TIMER_INTERVAL = 10 * 1000;
 export const MAX_ZOOM = 12;
 
 
