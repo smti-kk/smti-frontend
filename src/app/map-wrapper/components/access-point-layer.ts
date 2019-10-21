@@ -39,6 +39,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
 
       this.on('add', () => {
         if (map.getZoom() >= this.maxZoom) {
+          this.startUpdateSwitch.emit(false);
           this.startUpdateSwitch.emit(true);
         } else {
           this.clearLayer();
@@ -51,6 +52,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
 
       map.on('moveend', () => {
         if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
+          this.startUpdateSwitch.emit(false);
           this.startUpdateSwitch.emit(true);
         } else {
           this.clearLayer();
