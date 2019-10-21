@@ -7,6 +7,7 @@ import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '@map-wrapper/constants
 import { LayersService } from '@map-wrapper/service/layers.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
 import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
+import { TIMER_INTERVAL } from '@map-wrapper/components/access-point-layer';
 
 const FORM_PARAMS = {
   area: 'area',
@@ -52,11 +53,24 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    let interval;
+
     this.searchForm.get(FORM_PARAMS.locality).disable();
     this.layersService.getAdministrativeCenters()
       .onMarkerClick
       .subscribe((marker: Marker) => {
         this.onMunicipalityMarkerClick(marker);
+
+        if (interval) {
+          window.clearInterval(interval);
+        }
+
+        interval = window.setInterval(() => {
+          this.locationCapabilitiesService.getById(marker.feature.properties.point.pk).subscribe(location => {
+            this.currentPointCapabilities = location;
+            this.ref.detectChanges();
+          });
+        }, TIMER_INTERVAL);
       });
   }
 
