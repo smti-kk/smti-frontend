@@ -8,6 +8,8 @@ import { LayersService } from '@map-wrapper/service/layers.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
 import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
 import { TIMER_INTERVAL } from '@map-wrapper/components/access-point-layer';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 const FORM_PARAMS = {
   area: 'area',
@@ -59,7 +61,8 @@ export class MarkerInfoBarComponent implements OnInit {
     this.layersService.getAdministrativeCenters()
       .onMarkerClick
       .subscribe((marker: Marker) => {
-        this.onMunicipalityMarkerClick(marker);
+        (this.leafletMap as any).spin(true);
+        this.onMunicipalityMarkerClick(marker).subscribe(() => (this.leafletMap as any).spin(false));
 
         if (interval) {
           window.clearInterval(interval);
@@ -167,17 +170,18 @@ export class MarkerInfoBarComponent implements OnInit {
     });
   }
 
-  private onMunicipalityMarkerClick(marker: Marker) {
-    this.locationCapabilitiesService.getById(marker.feature.properties.point.pk).subscribe(location => {
-      this.currentPointCapabilities = location;
+  private onMunicipalityMarkerClick(marker: Marker): Observable<LocationCapabilities> {
+    return this.locationCapabilitiesService.getById(marker.feature.properties.point.pk)
+      .pipe(tap(location => {
+        this.currentPointCapabilities = location;
 
-      this.searchAdministrativePoints = [];
+        this.searchAdministrativePoints = [];
 
-      this.searchForm.setValue({
-        area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.point.area),
-        locality: marker.feature.properties.point.name
-      });
-    });
+        this.searchForm.setValue({
+          area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.point.area),
+          locality: marker.feature.properties.point.name
+        });
+      }));
   }
 
   static sortByAreaName() {

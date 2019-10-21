@@ -4,6 +4,9 @@ import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
 import { LayersService } from '@map-wrapper/service/layers.service';
 
+import 'leaflet-spin/example/spin/dist/spin';
+import 'leaflet-spin';
+
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
 
