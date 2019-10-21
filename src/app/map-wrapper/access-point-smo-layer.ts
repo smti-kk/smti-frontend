@@ -5,9 +5,6 @@ import { Subject } from 'rxjs';
 import AccessPointLayer from './components/access-point-layer';
 import AccessPointSmo from './model/access-point-smo';
 
-const SMO_MARKER_PATH = '../../../../assets/img/Ресурс 6.svg';
-export const SMO_LAYER_NAME = 'СЗО Точки';
-
 @Injectable()
 export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
   constructor(private accessPointsService: AccessPointsService) {
@@ -16,10 +13,6 @@ export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
 
   getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointSmo[]> {
     return this.accessPointsService.getUpdatedSmoPoints(interval, startStopUpdate, bounds);
-  }
-
-  getIconUrl(point: AccessPointSmo): string {
-    return SMO_MARKER_PATH;
   }
 
   renderPopup(point: AccessPointSmo): string {

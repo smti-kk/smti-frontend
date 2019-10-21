@@ -5,16 +5,11 @@ import { LatLngBounds } from 'leaflet';
 import AccessPointsService from './service/access-points.service';
 import AdministrativeCenterPoint from './model/administrative-center-point';
 
-const MARKER_ICON_DEFAULT = '../../../../assets/img/Ресурс 8.svg';
 
 @Injectable()
 export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeCenterPoint> {
   constructor(private accessPointsService: AccessPointsService) {
     super();
-  }
-
-  getIconUrl(point: AdministrativeCenterPoint): string {
-    return MARKER_ICON_DEFAULT;
   }
 
   getUpdatedPoints(interval: number,

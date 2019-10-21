@@ -1,4 +1,4 @@
-import {Icon, Marker} from 'leaflet';
+import { Icon, Marker } from 'leaflet';
 import * as geojson from 'geojson';
 import AccessPoint from '@map-wrapper/model/access-point';
 
@@ -10,11 +10,11 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
 
   feature: geojson.Feature<geojson.Point, AccessPointMarkerProperties<T>>;
 
-  constructor(point: T, iconUrl: string) {
+  constructor(point: T) {
     super(
       [point.point.lat, point.point.lng],
       {
-        icon: AccessPointMarker.createIcon(iconUrl)
+        icon: AccessPointMarker.createIcon(point)
       }
     );
 
@@ -38,12 +38,16 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
       });
     }
 
+    if (this.feature.properties.point.iconUrl !== point.iconUrl) {
+      this.setIcon(AccessPointMarker.createIcon(point));
+    }
+
     this.feature.properties.point = point;
   }
 
-  private static createIcon(iconUrl): Icon {
+  private static createIcon(point: AccessPoint): Icon {
     return new Icon({
-      iconUrl,
+      iconUrl: point.iconUrl,
       iconSize: [30, 41],
       iconAnchor: [12, 41],
       shadowAnchor: [4, 62],

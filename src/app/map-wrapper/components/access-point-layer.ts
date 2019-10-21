@@ -5,7 +5,8 @@ import AccessPoint from '../model/access-point';
 import 'leaflet.markercluster';
 import { AccessPointMarker } from '@map-wrapper/components/access-point-marker';
 
-const TIMER_INTERVAL = 10 * 60 * 1000;
+// const TIMER_INTERVAL = 10 * 60 * 1000;
+const TIMER_INTERVAL = 10 * 1000;
 export const MAX_ZOOM = 12;
 
 
@@ -23,7 +24,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
     super();
   }
 
-  onAdd(map: Map): this {
+  public onAdd(map: Map): this {
 
     super.onAdd(map);
 
@@ -74,7 +75,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
     return super.addLayer(layer);
   }
 
-  removeLayer(layer: AccessPointMarker<T>): this {
+  public removeLayer(layer: AccessPointMarker<T>): this {
     this.layers[layer.feature.properties.point.pk] = null;
     return super.removeLayer(layer);
   }
@@ -100,28 +101,23 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
         pointMarker.bindPopup(this.renderPopup(point));
       }
     });
-
-    super.refreshClusters(this.getLayers());
   }
 
-  setFilter(filter: (points: T[]) => T[]) {
+  public setFilter(filter: (points: T[]) => T[]) {
     this.filter = filter;
     this.startUpdateSwitch.emit(true);
     this.startUpdateSwitch.emit(false);
   }
 
-  setMaxZoom(zoom: number) {
+  public setMaxZoom(zoom: number) {
     this.maxZoom = zoom;
   }
 
-  renderPopup?(point: T): string;
+  public renderPopup?(point: T): string;
 
   private createMarker(point: T): AccessPointMarker<T> {
-    return new AccessPointMarker<T>(point, this.getIconUrl(point))
-      .on('click', (event) => {
-        console.log(point);
-        this.onMarkerClick.emit(event.target);
-      });
+    return new AccessPointMarker<T>(point)
+      .on('click', (event) => this.onMarkerClick.emit(event.target));
   }
 
   private clearLayer() {
@@ -137,8 +133,6 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
   abstract getUpdatedPoints(interval: number,
                             startStopUpdate?: EventEmitter<boolean>,
                             bounds?: () => LatLngBounds): Subject<T[]> | Observable<T[]>;
-
-  abstract getIconUrl(point: AccessPoint): string;
 
   static iconCreateFunction(cluster: MarkerCluster): Icon | DivIcon {
     console.log(cluster);
