@@ -32,6 +32,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
       this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
         if (map.getZoom() >= this.maxZoom) {
           this.setPoints(points);
+          (map as any).spin(false);
         } else {
           this.clearLayer();
         }
@@ -39,8 +40,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
 
       this.on('add', () => {
         if (map.getZoom() >= this.maxZoom) {
-          this.startUpdateSwitch.emit(false);
-          this.startUpdateSwitch.emit(true);
+          this.reloadPoints(map);
         } else {
           this.clearLayer();
         }
@@ -52,8 +52,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
 
       map.on('moveend', () => {
         if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
-          this.startUpdateSwitch.emit(false);
-          this.startUpdateSwitch.emit(true);
+          this.reloadPoints(map);
         } else {
           this.clearLayer();
         }
@@ -130,6 +129,12 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
     this.getLayers()
       .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.point.pk))
       .forEach(pointMarker => this.removeLayer(pointMarker));
+  }
+
+  private reloadPoints(map: Map) {
+    (map as any).spin(true);
+    this.startUpdateSwitch.emit(true);
+    this.startUpdateSwitch.emit(false);
   }
 
   abstract getUpdatedPoints(interval: number,
