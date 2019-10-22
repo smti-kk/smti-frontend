@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "normalize";
 
 @font-face {
@@ -23,8 +22,13 @@
   font-style: normal;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
+  height: 100%;
 }
 
 .leaflet-info-control {
@@ -93,3 +97,28 @@ h1 span {
   padding-right: 15px;
   margin: 0 auto;
 }
+
+.cluster {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 15px;
+  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.cluster-green {
+  background-color: rgba(110, 204, 57, 0.6);
+}
+
+.marker-cluster {
+  margin-left: -20px;
+  margin-top: -20px;
+  width: 40px;
+  height: 40px;
+  transform: translate3d(454px, 565px, 0px);
+  z-index: 565;
+  outline: none;
+}
+

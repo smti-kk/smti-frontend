@@ -1,6 +1,6 @@
 import Coordinate from '../interface/coordinate';
 
-export default class AccessPoint {
+export default abstract class AccessPoint {
   protected constructor(private _pk: number,
                         private _point: Coordinate,
                         private _name: string,
@@ -31,4 +31,6 @@ export default class AccessPoint {
   set point(value: Coordinate) {
     this._point = value;
   }
+
+  abstract get iconUrl();
 }

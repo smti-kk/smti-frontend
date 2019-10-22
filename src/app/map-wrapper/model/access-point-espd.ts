@@ -1,6 +1,10 @@
 import AccessPoint from './access-point';
 import Coordinate from '../interface/coordinate';
 
+const ESPD_MARKER_ACTIVE = '../../../../assets/img/Ресурс 5.svg';
+const ESPD_MARKER_UNDEFINED = '../../../../assets/img/Ресурс 4.svg';
+const ESPD_MARKER_DISABLED = '../../../../assets/img/Ресурс 3.svg';
+
 export default class AccessPointEspd extends AccessPoint {
 
   constructor(_pk: number,
@@ -62,6 +66,16 @@ export default class AccessPointEspd extends AccessPoint {
 
   get definedSpeed(): string {
     return this._definedSpeed;
+  }
+
+  get iconUrl(): string {
+    if (this.avstate === null) {
+      return ESPD_MARKER_UNDEFINED;
+    } else if (this.avstate) {
+      return ESPD_MARKER_ACTIVE;
+    } else {
+      return ESPD_MARKER_DISABLED;
+    }
   }
 
   static createFromApiModel(apiModel): AccessPointEspd {

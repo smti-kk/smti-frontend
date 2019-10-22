@@ -1,7 +1,10 @@
 import Coordinate from '../interface/coordinate';
 import AccessPoint from './access-point';
 
+const SMO_MARKER_PATH = '../../../../assets/img/Ресурс 6.svg';
+
 export default class AccessPointSmo extends AccessPoint {
+
   constructor(private _actualAddress: string,
               private _address: string,
               private _cmoType: string,
@@ -16,6 +19,10 @@ export default class AccessPointSmo extends AccessPoint {
               _point: Coordinate,
               private _visible: boolean) {
     super(_pk, _point, _orgName, '');
+  }
+
+  get iconUrl() {
+    return SMO_MARKER_PATH;
   }
 
 

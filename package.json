@@ -24,6 +24,7 @@
     "@types/leaflet.markercluster": "^1.4.0",
     "leaflet": "^1.5.1",
     "leaflet-search": "^2.9.8",
+    "leaflet-spin": "^1.1.0",
     "leaflet.markercluster": "^1.4.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

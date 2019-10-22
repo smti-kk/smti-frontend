@@ -7,6 +7,9 @@ import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '@map-wrapper/constants
 import { LayersService } from '@map-wrapper/service/layers.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
 import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
+import { TIMER_INTERVAL } from '@map-wrapper/components/access-point-layer';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 const FORM_PARAMS = {
   area: 'area',
@@ -52,11 +55,25 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    let interval;
+
     this.searchForm.get(FORM_PARAMS.locality).disable();
     this.layersService.getAdministrativeCenters()
       .onMarkerClick
       .subscribe((marker: Marker) => {
-        this.onMunicipalityMarkerClick(marker);
+        (this.leafletMap as any).spin(true);
+        this.onMunicipalityMarkerClick(marker).subscribe(() => (this.leafletMap as any).spin(false));
+
+        if (interval) {
+          window.clearInterval(interval);
+        }
+
+        interval = window.setInterval(() => {
+          this.locationCapabilitiesService.getById(marker.feature.properties.point.pk).subscribe(location => {
+            this.currentPointCapabilities = location;
+            this.ref.detectChanges();
+          });
+        }, TIMER_INTERVAL);
       });
   }
 
@@ -93,6 +110,7 @@ export class MarkerInfoBarComponent implements OnInit {
     return telephone.find(t => t.provider.isActive === true);
   }
 
+
   private toggleClass(item: Element, clazz: any) {
     const hasClass = item.classList.contains(clazz);
 
@@ -109,9 +127,6 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   private selectArea(selectedArea: any) {
-    this.layersService.espdLayer.removeFilter();
-    this.layersService.smoLayer.removeFilter();
-
     if (selectedArea) {
       this.searchForm.get(FORM_PARAMS.locality).enable();
     } else {
@@ -155,20 +170,18 @@ export class MarkerInfoBarComponent implements OnInit {
     });
   }
 
-  private onMunicipalityMarkerClick(marker: Marker) {
-    this.locationCapabilitiesService.getById(marker.feature.properties.point.pk).subscribe(location => {
-      this.currentPointCapabilities = location;
+  private onMunicipalityMarkerClick(marker: Marker): Observable<LocationCapabilities> {
+    return this.locationCapabilitiesService.getById(marker.feature.properties.point.pk)
+      .pipe(tap(location => {
+        this.currentPointCapabilities = location;
 
-      this.searchAdministrativePoints = [];
+        this.searchAdministrativePoints = [];
 
-      this.searchForm.setValue({
-        area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.point.area),
-        locality: marker.feature.properties.point.name
-      });
-
-      this.layersService.smoLayer.setFilterByLocation(location, () => this.ref.detectChanges());
-      this.layersService.espdLayer.setFilterByLocation(location, () => this.ref.detectChanges());
-    });
+        this.searchForm.setValue({
+          area: this.locations.find((ml: any) => ml.feature.properties.name === marker.feature.properties.point.area),
+          locality: marker.feature.properties.point.name
+        });
+      }));
   }
 
   static sortByAreaName() {

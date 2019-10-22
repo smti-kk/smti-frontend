@@ -142,90 +142,89 @@
     <div class="accordion green">
       <div class="accordion-title" (click)="openAccordion($event, 'open')">
         <div>
-          Организации ({{this.layersService.espdLayer.getLayers().length + this.layersService.smoLayer.getLayers().length}})
+          Организации ({{currentPointCapabilities.espd.length + currentPointCapabilities.smo.length}})
         </div>
         <div class="accordion-btn"></div>
       </div>
-<!--      <div class="accordion-body">-->
-<!--        <div class="accordion" *ngFor="let organization of currentPointCapabilities.organizations">-->
-<!--          <div class="accordion-title blue green-dot" (click)="openAccordion($event, 'open')">-->
-<!--            <div>{{organization.name}}</div>-->
-<!--            <div class="accordion-btn"></div>-->
-<!--          </div>-->
-<!--          <div class="accordion-body">-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Адрес точки подключения:</div>-->
-<!--              <div class="value">{{organization.connectionPointAddress}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Заказчик:</div>-->
-<!--              <div class="value">{{organization.customer}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Подрядчик:</div>-->
-<!--              <div class="value">{{organization.contractor}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Технология подключения:</div>-->
-<!--              <div class="value">{{organization.connectionTechnology}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Точка подключения:</div>-->
-<!--              <div class="value">{{organization.connectionPoint}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Скорость по тарифу:</div>-->
-<!--              <div class="value">{{organization.connectionSpeed}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Состояние:</div>-->
-<!--              <div class="value">{{organization.state}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Входящий трафик:</div>-->
-<!--              <div class="value">{{organization.traffic}}</div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
       <div class="accordion-body">
-        <div class="accordion" *ngFor="let point of layersService.espdLayer.getLayers()">
-          <div class="accordion-title blue green-dot" (click)="openAccordion($event, 'open')">
-            <div>{{point.feature.properties.point.name}}</div>
+        <div class="accordion" *ngFor="let organization of currentPointCapabilities.espd">
+          <div class="accordion-title green"
+               (click)="openAccordion($event, 'open')"
+               [class.gray-dot]="!organization.avstate"
+               [class.red-dot]="organization.avstate && organization.avstate.includes('Не доступно')"
+               [class.green-dot]="organization.avstate && !organization.avstate.includes('Не доступно')"
+          >
+            <div>{{organization.label}}</div>
             <div class="accordion-btn"></div>
           </div>
           <div class="accordion-body">
             <div class="item line">
               <div class="name">Адрес точки подключения:</div>
-              <div class="value">{{point.feature.properties.point.actualAddress}}</div>
+              <div class="value">{{organization.address}}</div>
             </div>
             <div class="item line">
               <div class="name">Заказчик:</div>
-              <div class="value">{{point.feature.properties.point.customer}}</div>
+              <div class="value">{{organization.customer}}</div>
             </div>
             <div class="item line">
               <div class="name">Подрядчик:</div>
-              <div class="value">{{point.feature.properties.point.contractor}}</div>
+              <div class="value">{{organization.contractor}}</div>
             </div>
             <div class="item line">
               <div class="name">Технология подключения:</div>
-              <div class="value">{{point.feature.properties.point.mediumType}}</div>
+              <div class="value">{{organization.medium_type}}</div>
             </div>
             <div class="item line">
               <div class="name">Точка подключения:</div>
-              <div class="value">{{point.feature.properties.point.connection}}</div>
+              <div class="value">{{organization.node}}</div>
             </div>
             <div class="item line">
-              <div class="name">Скорость по тарифу:</div>
-              <div class="value">{{point.feature.properties.point.definedSpeed}}</div>
+              <div class="name">Скорость по контракту:</div>
+              <div class="value">{{organization.defined_speed}}</div>
             </div>
             <div class="item line">
               <div class="name">Состояние:</div>
-              <div class="value">{{point.feature.properties.point.avstateStr}}</div>
+              <div class="value">{{organization.avstate}}</div>
             </div>
             <div class="item line">
               <div class="name">Входящий трафик:</div>
-              <div class="value">{{point.feature.properties.point.traffic}}</div>
+              <div class="value">{{organization.traffic}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion" *ngFor="let organization of currentPointCapabilities.smo">
+          <div class="accordion-title blue" (click)="openAccordion($event, 'open')">
+            <div>{{organization.label}}</div>
+            <div class="accordion-btn"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="item line">
+              <div class="name">Адрес точки подключения:</div>
+              <div class="value">{{organization.address}}</div>
+            </div>
+            <div class="item line">
+              <div class="name">Поставщик интернета:</div>
+              <div class="value">{{organization.network_provider}}</div>
+            </div>
+            <div class="item line">
+              <div class="name">Технология подключения:</div>
+              <div class="value">{{organization.medium_type}}</div>
+            </div>
+            <div class="item line">
+              <div class="name">Скорость по контракту:</div>
+              <div class="value">{{organization.defined_speed}}</div>
+            </div>
+            <div class="item line">
+              <div class="name">Вид СЗО:</div>
+              <div class="value">{{organization.cmo_type}}</div>
+            </div>
+            <div class="item line">
+              <div class="name">Тип учреждения:</div>
+              <div class="value">{{organization.institution_type}}</div>
+            </div>
+            <div class="item line">
+              <div class="name">Примечания:</div>
+              <div class="value">{{organization.description}}</div>
             </div>
           </div>
         </div>

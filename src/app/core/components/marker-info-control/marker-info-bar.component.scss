@@ -63,8 +63,6 @@
   display: none;
   padding-top: 0.5rem;
   padding-bottom: 1.2rem;
-  overflow: auto;
-  height: 630px;
 }
 
 .accordion-body.open {
@@ -78,7 +76,7 @@
 
 .accordion .accordion .accordion-btn {
   background: url('../../../../assets/img/arrow-grnsmall-bottom.png');
-  width: 9px;
+  min-width: 9px;
   height: 5px;
 }
 
@@ -129,6 +127,7 @@
 }
 
 .accordion-title.blue div:first-child::before {
+  content: '';
   background: url('../../../../assets/img/building.png') no-repeat;
   vertical-align: middle;
 }
