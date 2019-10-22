@@ -25,7 +25,7 @@ export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
       + '<br />' + '<strong>Подрядчик: </strong>' + (point.contractor ? point.contractor : '---')
       + '<br />' + '<strong>Технология подключения: </strong>' + (point.mediumType ? point.mediumType : '---')
       + '<br />' + '<strong>Точка подключения: </strong>' + (point.connection ? point.connection : '---')
-      + '<br />' + '<strong>Скорость по тарифу: </strong>' + (point.definedSpeed ? point.definedSpeed : '---')
+      + '<br />' + '<strong>Скорость по контракту: </strong>' + (point.definedSpeed ? point.definedSpeed : '---')
       + '<br />' + '<strong>Состояние: </strong>' + (point.avstateStr ? point.avstateStr : '---')
       + '<br />' + '<strong>Входящий траффик: </strong>' + (point.traffic ? point.traffic : '---');
   }

@@ -1,7 +1,7 @@
 {
   "/api/*": {
-    "target": "http://localhost:8000/api",
     "secure": false,
+    "target": "http://0.0.0.0:8000/api",
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
@@ -9,7 +9,7 @@
     }
   },
   "/media/*": {
-    "target": "http://localhost:8000/media",
+    "target": "http://0.0.0.0:8000/media",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
