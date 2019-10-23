@@ -8,7 +8,6 @@ import { AccessPointMarker } from '@map-wrapper/components/access-point-marker';
 export const TIMER_INTERVAL = 5 * 60 * 1000;
 export const MAX_ZOOM = 12;
 
-
 export default abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClusterGroup {
   public onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();

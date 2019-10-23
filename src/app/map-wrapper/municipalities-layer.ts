@@ -2,10 +2,9 @@ import { GeoJSON } from 'leaflet';
 import { FeatureCollection } from 'geojson';
 import LocationArea from './model/location-area';
 import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from './constants/inline.style';
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
-@Injectable()
-export default class MunicipalitiesLayer extends GeoJSON<LocationArea> {
+export class MunicipalitiesLayer extends GeoJSON<LocationArea> {
   public onMunicipalityClick: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private municipalities: LocationArea[]) {

@@ -5,9 +5,12 @@ import LocationArea from '../model/location-area';
 import { HttpClient } from '@angular/common/http';
 import { LOCATION_AREA_URL, LOCATION_SUMMARY_CAPABILITIES_URL } from '../constants/api.constants';
 import LocationSummaryCapability from '@map-wrapper/model/location-summary-capability';
+import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
 
-@Injectable()
-export default class MunicipalityService {
+@Injectable({
+  providedIn: MapWrapperModule
+})
+export class MunicipalityService {
   private _municipalitiesAreas: Subject<LocationArea[]> = new Subject<LocationArea[]>();
   private locationCapabilities: LocationSummaryCapability[];
 

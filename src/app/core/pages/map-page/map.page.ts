@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { latLng, Map, MapOptions, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
-import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
 import { LayersService } from '@map-wrapper/service/layers.service';
 
 import 'leaflet-spin/example/spin/dist/spin';
@@ -17,13 +16,13 @@ const SMO_LAYER_NAME = 'СЗО Точки';
 })
 export class MapPage {
 
-  private readonly options: MapOptions;
-  private layersControl: LeafletControlLayersConfig;
   private defaultTile;
-  private leaflet: Map;
 
-  constructor(private smoLayer: AccessPointSmoLayer,
-              private layersService: LayersService) {
+  options: MapOptions;
+  layersControl: LeafletControlLayersConfig;
+  leaflet: Map;
+
+  constructor(private layersService: LayersService) {
     this.initLayersControl();
 
     this.options = {

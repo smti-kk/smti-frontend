@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
-import MunicipalityService from '@map-wrapper/service/municipality.service';
+import { MunicipalitiesLayer } from '@map-wrapper/municipalities-layer';
+import { MunicipalityService } from '@map-wrapper/service/municipality.service';
 import { Subject } from 'rxjs';
 import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
-import AccessPointsService from '@map-wrapper/service/access-points.service';
+import { AccessPointsService } from '@map-wrapper/service/access-points.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
 import { Marker } from 'leaflet';
 import { MAX_ZOOM } from '@map-wrapper/components/access-point-layer';
 import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
 import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
+import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
 
-@Injectable()
+@Injectable({
+  providedIn: MapWrapperModule
+})
 export class LayersService {
   private _municipalitiesLayer: Subject<MunicipalitiesLayer> = new Subject<MunicipalitiesLayer>();
   private _espdLayer: AccessPointEspdLayer;

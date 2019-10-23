@@ -7,9 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from 'leaflet';
 import AdministrativeCenterPoint from '../model/administrative-center-point';
 import { ACCESS_POINT_ESPD_URL, ACCESS_POINT_SMO_URL, LOCATION_URL } from '../constants/api.constants';
+import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
 
-@Injectable()
-export default class AccessPointsService {
+@Injectable({
+  providedIn: MapWrapperModule
+})
+export class AccessPointsService {
   constructor(private http: HttpClient) {
   }
 
