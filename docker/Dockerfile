@@ -1,13 +1,14 @@
-FROM node:8 AS front-builder
+FROM node:10.16-alpine AS front-builder
 WORKDIR /opt/front
+ADD ./tsconfig.app.json /opt/front
+ADD ./tsconfig.json /opt/front
 ADD ./package.json /opt/front
-# ADD ./package-lock.json /opt/front
-RUN npm install
-# ADD ./tsconfig.json /opt/front
-# ADD ./tslint.json /opt/front
-# ADD ./.angular-cli.json /opt/front
+ADD ./angular.json /opt/front
 ADD ./src /opt/front/src
-RUN npm run build
+RUN npm install
+RUN npm install -g @angular/cli@8.2.2
+RUN ng build
+RUN ls -l
 
 FROM nginx:1.13-alpine
 RUN mkdir -p /var/www/frontend
