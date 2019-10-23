@@ -6,9 +6,7 @@ ADD ./package.json /opt/front
 ADD ./angular.json /opt/front
 ADD ./src /opt/front/src
 RUN npm install
-RUN npm install -g @angular/cli@8.2.2
-RUN ng build
-RUN ls -l
+RUN npm run build
 
 FROM nginx:1.13-alpine
 RUN mkdir -p /var/www/frontend
