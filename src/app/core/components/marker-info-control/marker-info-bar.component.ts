@@ -6,7 +6,7 @@ import { LocationCapabilitiesService } from '../../../shared/services/location-c
 import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '@map-wrapper/constants/inline.style';
 import { LayersService } from '@map-wrapper/service/layers.service';
 import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
-import MunicipalitiesLayer from '@map-wrapper/municipalities-layer';
+import { MunicipalitiesLayer } from '@map-wrapper/municipalities-layer';
 import { TIMER_INTERVAL } from '@map-wrapper/components/access-point-layer';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -25,14 +25,14 @@ export class MarkerInfoBarComponent implements OnInit {
 
   @Input() leafletMap: Map;
 
-  private readonly searchForm: FormGroup;
+  readonly searchForm: FormGroup;
 
-  private locations: any[];
   private lastActiveLocation;
-  private currentPointCapabilities: LocationCapabilities;
-
   private administrativePoints: AdministrativeCenterPoint[];
-  private searchAdministrativePoints: AdministrativeCenterPoint[] = [];
+
+  locations: any[];
+  currentPointCapabilities: LocationCapabilities;
+  searchAdministrativePoints: AdministrativeCenterPoint[] = [];
 
 
   constructor(private readonly fb: FormBuilder,

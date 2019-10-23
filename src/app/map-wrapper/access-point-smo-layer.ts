@@ -1,11 +1,11 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import AccessPointsService from './service/access-points.service';
+import { EventEmitter } from '@angular/core';
+import { AccessPointsService } from './service/access-points.service';
 import { LatLngBounds } from 'leaflet';
 import { Subject } from 'rxjs';
 import AccessPointLayer from './components/access-point-layer';
 import AccessPointSmo from './model/access-point-smo';
 
-@Injectable()
+
 export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
   constructor(private accessPointsService: AccessPointsService) {
     super();

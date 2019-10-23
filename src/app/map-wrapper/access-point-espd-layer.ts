@@ -1,13 +1,12 @@
 import AccessPointLayer from './components/access-point-layer';
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { LatLngBounds } from 'leaflet';
 import { Subject } from 'rxjs';
-import AccessPointsService from './service/access-points.service';
+import { AccessPointsService } from './service/access-points.service';
 import AccessPointEspd from './model/access-point-espd';
 
 
 
-@Injectable()
 export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
 
   constructor(private accessPointsService: AccessPointsService) {
