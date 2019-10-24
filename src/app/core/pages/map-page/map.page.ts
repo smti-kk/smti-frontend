@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
-import { latLng, Map, MapOptions, TileLayer } from 'leaflet';
+import { latLng, MapOptions, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import { LayersService } from '@map-wrapper/service/layers.service';
 
 import 'leaflet-spin/example/spin/dist/spin';
 import 'leaflet-spin';
+import { ExtendedMap } from '../../../declarations/leaflet';
+import { Map } from 'leaflet';
 
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
+const KRASNOYARSK_CENTER_LAT = 56.01839;
+const KRASNOYARSK_CENTER_LNG = 92.86717;
 
 @Component({
   selector: 'app-map-page',
@@ -20,7 +24,7 @@ export class MapPage {
 
   options: MapOptions;
   layersControl: LeafletControlLayersConfig;
-  leaflet: Map;
+  leaflet: ExtendedMap;
 
   constructor(private layersService: LayersService) {
     this.initLayersControl();
@@ -28,13 +32,13 @@ export class MapPage {
     this.options = {
       layers: [layersService.getAdministrativeCenters()],
       zoom: 12,
-      center: latLng(56.01839, 92.86717),
+      center: latLng(KRASNOYARSK_CENTER_LAT, KRASNOYARSK_CENTER_LNG),
       maxZoom: 18
     };
   }
 
   onMapReady(leaflet: Map) {
-    this.leaflet = leaflet;
+    this.leaflet = leaflet as ExtendedMap;
     this.defaultTile.addTo(leaflet);
     this.layersService.municipalitiesLayer.subscribe(m => {
       leaflet.addLayer(m);

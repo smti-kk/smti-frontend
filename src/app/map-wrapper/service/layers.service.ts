@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { MunicipalitiesLayer } from '@map-wrapper/municipalities-layer';
+import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '@map-wrapper/municipalities-layer';
 import { MunicipalityService } from '@map-wrapper/service/municipality.service';
 import { Subject } from 'rxjs';
 import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
 import { AccessPointsService } from '@map-wrapper/service/access-points.service';
-import AdministrativeCenterPoint from '@map-wrapper/model/administrative-center-point';
+import { AdministrativeCenterPoint } from '@map-wrapper/model/administrative-center-point';
 import { Marker } from 'leaflet';
 import { MAX_ZOOM } from '@map-wrapper/components/access-point-layer';
 import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
@@ -53,11 +53,11 @@ export class LayersService {
     return this.administrativeCentersLayer;
   }
 
-  getAdministrativePointsByArea(area: any): AdministrativeCenterPoint[] {
+  getAdministrativePoints(area: MunicipalitiesLayerGeoJson, name?: string): AdministrativeCenterPoint[] {
     if (this.administrativeCentersLayer && area) {
       this.administrativeCentersLayer.setMaxZoom(1);
 
-      const resultPoints = [];
+      const resultPoints: AdministrativeCenterPoint[] = [];
 
       this.administrativeCentersLayer.setFilter((points) => {
         resultPoints.splice(0, resultPoints.length);
@@ -68,7 +68,11 @@ export class LayersService {
         return administrativeCenterPoints;
       });
 
-      return resultPoints;
+      if (name) {
+        return resultPoints.filter(rp => rp.name.toLowerCase().includes(name));
+      } else {
+        return resultPoints;
+      }
     } else if (this.administrativeCentersLayer && !area) {
       this.administrativeCentersLayer.setMaxZoom(MAX_ZOOM);
       this.administrativeCentersLayer.setFilter(null);

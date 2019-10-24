@@ -1,8 +1,8 @@
-import AccessPoint from './access-point';
+import { AccessPoint } from './access-point';
 
 const MARKER_ICON_DEFAULT = '../../../../assets/img/Ресурс 8.svg';
 
-export default class AdministrativeCenterPoint extends AccessPoint {
+export class AdministrativeCenterPoint extends AccessPoint {
 
   static create(apiModel): AdministrativeCenterPoint {
     return new AdministrativeCenterPoint(

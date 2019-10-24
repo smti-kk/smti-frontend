@@ -7,11 +7,13 @@ import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
 import { MarkerInfoBarComponent } from './components/marker-info-control/marker-info-bar.component';
 import { MapPage } from './pages/map-page/map.page';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LocationCapabilitiesSearchComponent } from './components/location-capabilities-search/location-capabilities-search.component';
 
 @NgModule({
   declarations: [
     MapPage,
-    MarkerInfoBarComponent
+    MarkerInfoBarComponent,
+    LocationCapabilitiesSearchComponent
   ],
   imports: [
     CommonModule,

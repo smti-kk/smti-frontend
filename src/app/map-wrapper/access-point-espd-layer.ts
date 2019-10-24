@@ -1,9 +1,9 @@
-import AccessPointLayer from './components/access-point-layer';
+import { AccessPointLayer } from './components/access-point-layer';
 import { EventEmitter } from '@angular/core';
 import { LatLngBounds } from 'leaflet';
 import { Subject } from 'rxjs';
 import { AccessPointsService } from './service/access-points.service';
-import AccessPointEspd from './model/access-point-espd';
+import { AccessPointEspd } from './model/access-point-espd';
 
 
 
@@ -18,7 +18,7 @@ export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
   }
 
   renderPopup(point: AccessPointEspd): string {
-    return '<strong>Наименование организации: </strong>' + (point.orgName ? point.orgName : '---')
+    return '<strong>Наименование организации: </strong>' + (point.name ? point.name : '---')
       + '<br />' + '<strong>Адрес точки подключения: </strong>' + (point.actualAddress ? point.actualAddress : '---')
       + '<br />' + '<strong>Заказчик: </strong>' + (point.customer ? point.customer : '---')
       + '<br />' + '<strong>Подрядчик: </strong>' + (point.contractor ? point.contractor : '---')

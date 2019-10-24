@@ -8,8 +8,16 @@
         "allow-leading-underscore"
       ]
     },
+    "no-default-export": true,
+    "ban-ts-ignore": true,
+    "unified-signatures": true,
+    "typedef": true,
+    "only-arrow-functions": true,
+    "adjacent-overload-signatures": true,
     "array-type": false,
     "arrow-parens": false,
+    "no-magic-numbers": true,
+    "no-any": true,
     "deprecation": {
       "severity": "warning"
     },

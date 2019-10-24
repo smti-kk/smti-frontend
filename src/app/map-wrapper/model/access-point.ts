@@ -1,10 +1,21 @@
-import Coordinate from '../interface/coordinate';
+import { Coordinate } from '../interface/coordinate';
 
-export default abstract class AccessPoint {
-  protected constructor(private _pk: number,
-                        private _point: Coordinate,
-                        private _name: string,
-                        private _area: string) {
+export abstract class AccessPoint {
+
+  private _pk: number;
+  private _point: Coordinate;
+  private _name: string;
+  private _area: string;
+
+  protected constructor(_pk: number,
+                        _point: Coordinate,
+                        _name: string,
+                        _area: string) {
+
+    this._pk = _pk;
+    this._point = _point;
+    this._name = _name;
+    this._area = _area;
   }
 
 

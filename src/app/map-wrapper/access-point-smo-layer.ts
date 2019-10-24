@@ -2,8 +2,8 @@ import { EventEmitter } from '@angular/core';
 import { AccessPointsService } from './service/access-points.service';
 import { LatLngBounds } from 'leaflet';
 import { Subject } from 'rxjs';
-import AccessPointLayer from './components/access-point-layer';
-import AccessPointSmo from './model/access-point-smo';
+import { AccessPointLayer } from './components/access-point-layer';
+import { AccessPointSmo } from './model/access-point-smo';
 
 
 export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
@@ -11,7 +11,7 @@ export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
     super();
   }
 
-  getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<any>, bounds?: () => LatLngBounds): Subject<AccessPointSmo[]> {
+  getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointSmo[]> {
     return this.accessPointsService.getUpdatedSmoPoints(interval, startStopUpdate, bounds);
   }
 

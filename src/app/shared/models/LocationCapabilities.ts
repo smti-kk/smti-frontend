@@ -12,16 +12,20 @@ export class LocationCapabilities {
                 mail: [],
                 population: 0
               },
+              // tslint:disable-next-line:no-any
               private _espd: any[] = [],
+              // tslint:disable-next-line:no-any
               private _smo: any[]) {
 
   }
 
 
+  // tslint:disable-next-line:no-any
   get espd(): any[] {
     return this._espd;
   }
 
+  // tslint:disable-next-line:no-any
   get smo(): any[] {
     return this._smo;
   }
@@ -38,7 +42,8 @@ export class LocationCapabilities {
     return this._information;
   }
 
-  private static getNotExistedProviders(allProviders: any[], existedProviders: any[], result: any[]) {
+  // tslint:disable-next-line:no-any
+  private static getNotExistedProviders(allProviders: Provider[], existedProviders: Provider[], result: any[]) {
     return allProviders
       .filter(provider => !existedProviders.find(ep => ep.name === provider.name))
       .forEach(provider => result.push({
@@ -210,7 +215,7 @@ interface Payphone {
   provider: Provider;
 }
 
-interface Telephone {
+export interface Telephone {
   count: number;
   provider: Provider;
 }

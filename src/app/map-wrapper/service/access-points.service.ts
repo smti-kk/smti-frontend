@@ -1,11 +1,11 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import AccessPointEspd from '../model/access-point-espd';
-import AccessPointSmo from '../model/access-point-smo';
+import { AccessPointEspd } from '../model/access-point-espd';
+import { AccessPointSmo } from '../model/access-point-smo';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LatLngBounds } from 'leaflet';
-import AdministrativeCenterPoint from '../model/administrative-center-point';
+import { AdministrativeCenterPoint } from '../model/administrative-center-point';
 import { ACCESS_POINT_ESPD_URL, ACCESS_POINT_SMO_URL, LOCATION_URL } from '../constants/api.constants';
 import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
 
@@ -91,6 +91,7 @@ export class AccessPointsService {
     }
   }
 
+  // todo: Будет удалено
   // tslint:disable-next-line:member-ordering
   private administrativePoints: AdministrativeCenterPoint[];
 

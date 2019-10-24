@@ -1,15 +1,15 @@
-import AccessPoint from './access-point';
-import Coordinate from '../interface/coordinate';
+import { AccessPoint } from './access-point';
+import { Coordinate } from '../interface/coordinate';
 
 const ESPD_MARKER_ACTIVE = '../../../../assets/img/Ресурс 5.svg';
 const ESPD_MARKER_UNDEFINED = '../../../../assets/img/Ресурс 4.svg';
 const ESPD_MARKER_DISABLED = '../../../../assets/img/Ресурс 3.svg';
 
-export default class AccessPointEspd extends AccessPoint {
+export class AccessPointEspd extends AccessPoint {
 
   constructor(_pk: number,
               _point: Coordinate,
-              private _orgName: string,
+              _name: string,
               private _actualAddress: string,
               private _customer: string,
               private _contractor: string,
@@ -20,7 +20,7 @@ export default class AccessPointEspd extends AccessPoint {
               private _avstate: string,
               private _avstateStr,
               private _traffic) {
-    super(_pk, _point, _orgName, '');
+    super(_pk, _point, _name, '');
   }
 
 
@@ -38,10 +38,6 @@ export default class AccessPointEspd extends AccessPoint {
 
   get description(): string {
     return this._description;
-  }
-
-  get orgName(): string {
-    return this._orgName;
   }
 
   get actualAddress(): string {

@@ -1,14 +1,19 @@
 import { EventEmitter } from '@angular/core';
-import { DivIcon, divIcon, Icon, LatLngBounds, Map, Marker, MarkerCluster, MarkerClusterGroup } from 'leaflet';
+import { DivIcon, divIcon, Icon, LatLngBounds, Marker, MarkerCluster, MarkerClusterGroup } from 'leaflet';
 import { Observable, Subject } from 'rxjs';
-import AccessPoint from '../model/access-point';
+import { AccessPoint } from '../model/access-point';
 import 'leaflet.markercluster';
 import { AccessPointMarker } from '@map-wrapper/components/access-point-marker';
+import { ExtendedMap } from '../../declarations/leaflet';
 
-export const TIMER_INTERVAL = 5 * 60 * 1000;
+const MINUTES = 5;
+const SECONDS = 60;
+const MILLISECONDS = 1000;
+
+export const TIMER_INTERVAL = MINUTES * SECONDS * MILLISECONDS;
 export const MAX_ZOOM = 12;
 
-export default abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClusterGroup {
+export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClusterGroup {
   public onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
   private startUpdateSwitch = new EventEmitter<boolean>();
   private filter: (points: T[]) => T[];
@@ -17,12 +22,11 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
   private layers: { [key: number]: AccessPointMarker<T> } = {};
 
   protected constructor() {
-    // @ts-ignore
     // super({iconCreateFunction: AccessPointLayer.iconCreateFunction});
     super();
   }
 
-  public onAdd(map: Map): this {
+  public onAdd(map: ExtendedMap): this {
 
     super.onAdd(map);
 
@@ -30,7 +34,7 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
       this.getUpdatedPoints(TIMER_INTERVAL, this.startUpdateSwitch, () => map.getBounds()).subscribe(points => {
         if (map.getZoom() >= this.maxZoom) {
           this.setPoints(points);
-          (map as any).spin(false);
+          map.spin(false);
         } else {
           this.clearLayer();
         }
@@ -129,8 +133,8 @@ export default abstract class AccessPointLayer<T extends AccessPoint> extends Ma
       .forEach(pointMarker => this.removeLayer(pointMarker));
   }
 
-  private reloadPoints(map: Map) {
-    (map as any).spin(true);
+  private reloadPoints(map: ExtendedMap) {
+    map.spin(true);
     this.startUpdateSwitch.emit(false);
     this.startUpdateSwitch.emit(true);
   }

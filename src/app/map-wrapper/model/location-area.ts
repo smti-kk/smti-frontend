@@ -1,25 +1,30 @@
-import { Feature, GeoJsonProperties, Geometry } from 'geojson';
+import { Feature, GeoJsonProperties, MultiPoint, BBox } from 'geojson';
 
-export default class LocationArea implements Feature<Geometry, GeoJsonProperties> {
+export interface LocationAreaProperties extends GeoJsonProperties {
+  name: string;
+  type: number;
+  mark: number;
+  mobileInternetMaxType: string;
+  mobileMark: number;
+}
+
+export class LocationArea implements Feature<MultiPoint, LocationAreaProperties> {
   private _type: 'Feature' = 'Feature';
-  private _bbox?: import('geojson').BBox;
+  private _bbox?: BBox;
 
-  constructor(private _geometry: any,
-              private _properties: {
-                name: string,
-                type: number,
-                mark: number,
-                mobileInternetMaxType: string,
-                mobileMark: number,
-              },
+  private readonly _geometry: MultiPoint;
+
+  constructor(_geometry: MultiPoint,
+              private _properties: LocationAreaProperties,
               private _id: number) {
+    this._geometry = _geometry;
   }
 
-  get geometry(): any {
+  get geometry(): MultiPoint {
     return this._geometry;
   }
 
-  get properties(): { name: string; type: number; mark: number; mobileInternetMaxType: string; mobileMark: number } {
+  get properties(): LocationAreaProperties {
     return this._properties;
   }
 
@@ -49,3 +54,5 @@ export default class LocationArea implements Feature<Geometry, GeoJsonProperties
     );
   }
 }
+
+
