@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '@map-wrapper/municipalities-layer';
 import { AdministrativeCenterPoint } from '@map-wrapper/model/administrative-center-point';
@@ -16,24 +16,23 @@ const FORM_PARAMS = {
   styleUrls: ['./location-capabilities-search.component.scss']
 })
 export class LocationCapabilitiesSearchComponent implements OnInit {
-  searchForm: FormGroup;
+  @Input() private readonly leafletMap: Map;
+  @Output() point: EventEmitter<AdministrativeCenterPoint> = new EventEmitter<AdministrativeCenterPoint>();
+
   locations: MunicipalitiesLayerGeoJson[];
   administrativePoints: AdministrativeCenterPoint[] = [];
 
+  readonly searchForm: FormGroup;
   private municipalityLayer: MunicipalitiesLayer;
 
-  @Input() private leafletMap: Map;
-  @Output() point: EventEmitter<AdministrativeCenterPoint> = new EventEmitter<AdministrativeCenterPoint>();
-
   constructor(private readonly layersService: LayersService,
-              private readonly fb: FormBuilder,
-              private readonly ref: ChangeDetectorRef) {
+              private readonly fb: FormBuilder) {
+    this.searchForm = this.buildForm();
+
     layersService.municipalitiesLayer.subscribe(m => {
       this.municipalityLayer = m;
       this.locations = m.getLayers();
     });
-
-    this.buildForm();
   }
 
   ngOnInit() {
@@ -61,23 +60,22 @@ export class LocationCapabilitiesSearchComponent implements OnInit {
     this.administrativePoints = this.layersService.getAdministrativePoints(selectedArea);
   }
 
-  private buildForm() {
-    this.searchForm = this.fb.group({
+  private buildForm(): FormGroup {
+    const form = this.fb.group({
       [FORM_PARAMS.area]: [null],
       [FORM_PARAMS.locality]: ['']
     });
 
-    this.searchForm.get(FORM_PARAMS.area).valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
-    this.searchForm.get(FORM_PARAMS.locality).valueChanges.subscribe(locality => this.filterLocalities(locality));
+    form.get(FORM_PARAMS.area).valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
+    form.get(FORM_PARAMS.locality).valueChanges.subscribe(locality => this.filterLocalities(locality));
+    form.get(FORM_PARAMS.locality).disable();
 
-    this.searchForm.get(FORM_PARAMS.locality).disable();
+    return form;
   }
 
   private filterLocalities(locality: string) {
-    if (this.administrativePoints) {
-      this.administrativePoints = this.administrativePoints.filter(ap => ap.name.includes(locality) && ap.name !== locality);
-      this.ref.detectChanges();
-    }
+    this.administrativePoints = this.administrativePoints.filter(ap => ap.name.includes(locality) && ap.name !== locality);
+    // this.ref.detectChanges();
   }
 
   setSelectedPoint(administrativePoint: AdministrativeCenterPoint) {

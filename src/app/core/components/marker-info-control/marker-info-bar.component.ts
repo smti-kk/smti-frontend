@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { LocationCapabilities, Telephone } from '../../../shared/models/LocationCapabilities';
+import { LocationCapabilities, Telephone } from '../../../shared/models/location-capabilities';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Marker } from 'leaflet';
 import { LocationCapabilitiesService } from '../../../shared/services/location-capabilities.service';

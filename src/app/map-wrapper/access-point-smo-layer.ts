@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { AccessPointsService } from './service/access-points.service';
 import { LatLngBounds } from 'leaflet';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AccessPointLayer } from './components/access-point-layer';
 import { AccessPointSmo } from './model/access-point-smo';
 
@@ -9,10 +9,6 @@ import { AccessPointSmo } from './model/access-point-smo';
 export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
   constructor(private accessPointsService: AccessPointsService) {
     super();
-  }
-
-  getUpdatedPoints(interval: number, startStopUpdate?: EventEmitter<boolean>, bounds?: () => LatLngBounds): Subject<AccessPointSmo[]> {
-    return this.accessPointsService.getUpdatedSmoPoints(interval, startStopUpdate, bounds);
   }
 
   renderPopup(point: AccessPointSmo): string {
@@ -24,5 +20,9 @@ export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
       + '<br />' + '<strong>Вид СЗО: </strong>' + (point.cmoType ? point.cmoType : '?')
       + '<br />' + '<strong>Тип учреждения: </strong>' + (point.institutionType ? point.institutionType : '?')
       + '<br />' + '<strong>Примечание: </strong>' + (point.description ? point.description : '---');
+  }
+
+  getPoints(bounds?: LatLngBounds): Observable<AccessPointSmo[]> {
+    return this.accessPointsService.getAccessPointsSmo(bounds);
   }
 }

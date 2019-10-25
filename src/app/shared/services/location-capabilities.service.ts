@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SharedModule } from '../shared.module';
 import { forkJoin, Observable } from 'rxjs';
-import { LocationCapabilities } from '../models/LocationCapabilities';
+import { LocationCapabilities } from '../models/location-capabilities';
 import { HttpClient } from '@angular/common/http';
 import { PSEUDO, TECHNICAL_CAPABILITIES } from '../constants/api';
 import { map } from 'rxjs/operators';
