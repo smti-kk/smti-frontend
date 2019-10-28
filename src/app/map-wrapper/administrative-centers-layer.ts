@@ -1,5 +1,4 @@
-import { EventEmitter } from '@angular/core';
-import { AccessPointLayer } from './components/access-point-layer';
+import { AccessPointLayer, MAX_ZOOM } from './components/access-point-layer';
 import { Observable } from 'rxjs';
 import { AccessPointsService } from './service/access-points.service';
 import { AdministrativeCenterPoint } from './model/administrative-center-point';
@@ -11,12 +10,18 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
     super();
   }
 
-  setFilterByArea(area: MunicipalitiesLayerGeoJson) {
-    super.setFilter(points => points.filter(p => p.area === area.feature.properties.name));
+  filterByArea(area: MunicipalitiesLayerGeoJson): Promise<AdministrativeCenterPoint[]> {
+    if (area) {
+      this.setMaxZoom(1);
+      return this.setFilter(points => points.filter(p => p.area === area.feature.properties.name));
+    } else {
+      this.setMaxZoom(MAX_ZOOM);
+      return this.setFilter(null);
+    }
   }
 
-  getAdministrativePoints(area: MunicipalitiesLayerGeoJson, name: string) {
-    this.getLayers()
+  filterByLocalityName(name: string): AdministrativeCenterPoint[] {
+    return this.getLayers()
       .map(layer => layer.feature.properties.point)
       .filter(layer => layer.name.toLowerCase().includes(name));
   }

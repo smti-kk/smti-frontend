@@ -3,7 +3,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '@map-wrapper/municipalities-layer';
 import { AdministrativeCenterPoint } from '@map-wrapper/model/administrative-center-point';
 import { LayersService } from '@map-wrapper/service/layers.service';
-import { Map } from 'leaflet';
+import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
+import { TIMER_INTERVAL } from '@map-wrapper/components/access-point-layer';
+import { ExtendedMap } from '../../../declarations/leaflet';
+import { LocationCapabilitiesService } from '../../../shared/services/location-capabilities.service';
+import { Observable } from 'rxjs';
+import { LocationCapabilities } from '../../../shared/models/location-capabilities';
+import { tap } from 'rxjs/operators';
+import { AccessPointMarker } from '@map-wrapper/components/access-point-marker';
 
 const FORM_PARAMS = {
   area: 'area',
@@ -16,23 +23,46 @@ const FORM_PARAMS = {
   styleUrls: ['./location-capabilities-search.component.scss']
 })
 export class LocationCapabilitiesSearchComponent implements OnInit {
-  @Input() private readonly leafletMap: Map;
-  @Output() point: EventEmitter<AdministrativeCenterPoint> = new EventEmitter<AdministrativeCenterPoint>();
+  @Input() private readonly leafletMap: ExtendedMap;
+  @Output() selectedPoint: EventEmitter<LocationCapabilities> = new EventEmitter<LocationCapabilities>();
 
-  locations: MunicipalitiesLayerGeoJson[];
   administrativePoints: AdministrativeCenterPoint[] = [];
-
-  readonly searchForm: FormGroup;
-  private municipalityLayer: MunicipalitiesLayer;
+  municipalityLayer: MunicipalitiesLayer;
+  administrativeCentersLayer: AdministrativeCentersLayer;
+  searchForm: FormGroup;
 
   constructor(private readonly layersService: LayersService,
-              private readonly fb: FormBuilder) {
+              private readonly fb: FormBuilder,
+              private locationCapabilitiesService: LocationCapabilitiesService) {
     this.searchForm = this.buildForm();
 
     layersService.municipalitiesLayer.subscribe(m => {
       this.municipalityLayer = m;
-      this.locations = m.getLayers();
+
+      m.onMunicipalityClick.subscribe(layer => {
+        this.searchForm.get(FORM_PARAMS.area).patchValue(layer);
+      });
     });
+
+    this.administrativeCentersLayer = layersService.administrativeCentersLayer;
+
+    let interval;
+    this.layersService.administrativeCentersLayer
+      .onMarkerClick
+      .subscribe((marker: AccessPointMarker<AdministrativeCenterPoint>) => {
+        this.leafletMap.spin(true);
+        this.onMunicipalityMarkerClick(marker).subscribe(() => this.leafletMap.spin(false));
+
+        if (interval) {
+          window.clearInterval(interval);
+        }
+
+        interval = window.setInterval(() => {
+          this.locationCapabilitiesService.get(marker.feature.properties.point.pk).subscribe(location => {
+            this.selectedPoint.emit(location);
+          });
+        }, TIMER_INTERVAL);
+      });
   }
 
   ngOnInit() {
@@ -41,8 +71,17 @@ export class LocationCapabilitiesSearchComponent implements OnInit {
 
   onSearchSubmit() {
     if (this.administrativePoints.length > 0) {
-      this.searchForm.get(FORM_PARAMS.locality).patchValue(this.administrativePoints[0].name);
+      const selectedPoint = this.administrativePoints[0];
+      this.administrativePoints = [];
+      this.setSelectedPoint(selectedPoint);
+      this.searchForm.get(FORM_PARAMS.locality).patchValue(selectedPoint.name);
     }
+  }
+
+  setSelectedPoint(administrativePoint: AdministrativeCenterPoint) {
+    this.locationCapabilitiesService.get(administrativePoint.pk).subscribe(lc => {
+      this.selectedPoint.emit(lc);
+    });
   }
 
   private selectArea(selectedArea: MunicipalitiesLayerGeoJson) {
@@ -51,13 +90,16 @@ export class LocationCapabilitiesSearchComponent implements OnInit {
     if (selectedArea) {
       this.searchForm.get(FORM_PARAMS.locality).enable();
     } else {
-      this.point.emit(null);
       this.searchForm.get(FORM_PARAMS.locality).disable();
+      this.administrativeCentersLayer.filterByArea(null);
     }
 
-    this.administrativePoints = [];
     this.searchForm.get(FORM_PARAMS.locality).reset('');
-    this.administrativePoints = this.layersService.getAdministrativePoints(selectedArea);
+
+    this.administrativeCentersLayer.filterByArea(selectedArea).then(() => {
+      this.administrativePoints = this.administrativeCentersLayer
+        .filterByLocalityName(this.searchForm.get(FORM_PARAMS.locality).value);
+    });
   }
 
   private buildForm(): FormGroup {
@@ -74,11 +116,18 @@ export class LocationCapabilitiesSearchComponent implements OnInit {
   }
 
   private filterLocalities(locality: string) {
-    this.administrativePoints = this.administrativePoints.filter(ap => ap.name.includes(locality) && ap.name !== locality);
-    // this.ref.detectChanges();
+    if (this.administrativeCentersLayer) {
+      this.administrativePoints = this.administrativeCentersLayer.filterByLocalityName(locality);
+    }
   }
 
-  setSelectedPoint(administrativePoint: AdministrativeCenterPoint) {
+  private onMunicipalityMarkerClick(marker: AccessPointMarker<AdministrativeCenterPoint>): Observable<LocationCapabilities> {
+    this.searchForm.get(FORM_PARAMS.area).patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.point.area));
+    this.searchForm.get([FORM_PARAMS.locality]).patchValue(marker.feature.properties.point.name);
 
+    return this.locationCapabilitiesService.get(marker.feature.properties.point.pk)
+      .pipe(tap(location => {
+        this.selectedPoint.emit(location);
+      }));
   }
 }

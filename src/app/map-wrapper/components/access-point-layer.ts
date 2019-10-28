@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { DivIcon, divIcon, Icon, LatLngBounds, Marker, MarkerCluster, MarkerClusterGroup } from 'leaflet';
+import { DivIcon, divIcon, Icon, LatLngBounds, MarkerCluster, MarkerClusterGroup } from 'leaflet';
 import { Observable } from 'rxjs';
 import { AccessPoint } from '../model/access-point';
 import 'leaflet.markercluster';
@@ -15,12 +15,11 @@ export const TIMER_INTERVAL = MINUTES * SECONDS * MILLISECONDS;
 export const MAX_ZOOM = 12;
 
 export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClusterGroup {
-  private filter: (points: T[]) => T[];
   private isInit = false;
   private maxZoom = MAX_ZOOM;
   private pointsList: UpdatedList<T>;
 
-  public readonly onMarkerClick: EventEmitter<Marker> = new EventEmitter<Marker>();
+  public readonly onMarkerClick: EventEmitter<AccessPointMarker<T>> = new EventEmitter<AccessPointMarker<T>>();
   private readonly layers: { [key: number]: AccessPointMarker<T> } = {};
 
   protected constructor() {
@@ -73,9 +72,9 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     return super.removeLayer(layer);
   }
 
-  public setFilter(filter: (points: T[]) => T[]) {
-    this.filter = filter;
-    this.pointsList.update();
+  public setFilter(filter: (points: T[]) => T[]): Promise<T[]> {
+    this.pointsList.filter = filter;
+    return this.pointsList.update();
   }
 
   public setMaxZoom(zoom: number) {
@@ -114,10 +113,6 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
   }
 
   private setPoints(points: T[]) {
-    if (this.filter) {
-      points = this.filter(points);
-    }
-
     this.removeIrrelevantMarkers(points);
 
     points.forEach(point => {

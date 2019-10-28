@@ -10,6 +10,7 @@ export class UpdatedList<T> {
   private _items: T[] = [];
   private _observable: Subject<T[]> = new Subject<T[]>();
   private _timerId: number;
+  private _filter: (value: T[]) => T[];
 
   constructor(private getData: () => Observable<T[]>) {
     this.update();
@@ -23,6 +24,10 @@ export class UpdatedList<T> {
     return this._observable;
   }
 
+  set filter(filter: (value: T[]) => T[]) {
+    this._filter = filter;
+  }
+
   startUpdate() {
     this._timerId = window.setInterval(() => {
       this.update();
@@ -34,21 +39,28 @@ export class UpdatedList<T> {
     this._timerId = null;
   }
 
-  update() {
-    let stopped = false;
+  update(): Promise<T[]> {
+    return new Promise<T[]>(resolve => {
+      let stopped = false;
 
-    if (this._timerId) {
-      this.stopUpdate();
-      stopped = true;
-    }
-
-    this.getData().subscribe(data => {
-      this._items = data;
-      this._observable.next(data);
-
-      if (stopped) {
-        this.startUpdate();
+      if (this._timerId) {
+        this.stopUpdate();
+        stopped = true;
       }
+
+      this.getData().subscribe(data => {
+        if (this._filter) {
+          data = this._filter(data);
+        }
+
+        this._items = data;
+        this._observable.next(data);
+        resolve(data);
+
+        if (stopped) {
+          this.startUpdate();
+        }
+      });
     });
   }
 }

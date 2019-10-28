@@ -1,24 +1,8 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <div class="sidebar">
   <div class="select-location">
-    <form action="" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
-      <select formControlName="area">
-        <option [ngValue]="null" selected>Выберите район</option>
-        <option *ngFor="let location of locations" [ngValue]="location">{{location.feature.properties.name}}</option>
-      </select>
-      <div class="search-location">
-        <div class="icon-location"></div>
-        <input #locationSearch
-               formControlName="locality"
-               placeholder="Поиск по населенным пунктам"
-               type="text">
-        <input type="submit" value="">
-      </div>
-      <div class="search-result" *ngIf="searchAdministrativePoints.length > 0 && locationSearch.value.length > 0">
-        <div class="search-item" *ngFor="let administrativePoint of searchAdministrativePoints "
-             (click)="setSelectedPoint(administrativePoint)">{{administrativePoint.name}}</div>
-      </div>
-    </form>
+    <location-capabilities-search (selectedPoint)="onSelectPoint($event)"
+                                  [leafletMap]="leafletMap"></location-capabilities-search>
   </div>
   <div *ngIf="currentPointCapabilities">
     <div class="name-location">

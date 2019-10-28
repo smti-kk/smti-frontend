@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { latLng, MapOptions, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
 import { LayersService } from '@map-wrapper/service/layers.service';
-
-import 'leaflet-spin/example/spin/dist/spin';
-import 'leaflet-spin';
 import { ExtendedMap } from '../../../declarations/leaflet';
 import { Map } from 'leaflet';
+import 'leaflet-spin/example/spin/dist/spin';
+import 'leaflet-spin';
 
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
@@ -30,7 +29,7 @@ export class MapPage {
     this.initLayersControl();
 
     this.options = {
-      layers: [layersService.getAdministrativeCenters()],
+      layers: [layersService.administrativeCentersLayer],
       zoom: 12,
       center: latLng(KRASNOYARSK_CENTER_LAT, KRASNOYARSK_CENTER_LNG),
       maxZoom: 18

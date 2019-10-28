@@ -1,5 +1,5 @@
 import { GeoJSON, Map } from 'leaflet';
-import { FeatureCollection, Feature, MultiPoint } from 'geojson';
+import { Feature, FeatureCollection, MultiPoint } from 'geojson';
 import { LocationArea, LocationAreaProperties } from './model/location-area';
 import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from './constants/inline.style';
 import { EventEmitter } from '@angular/core';
@@ -45,6 +45,10 @@ export class MunicipalitiesLayer extends GeoJSON {
       }
     }
     this.selectedLocation = layer;
+  }
+
+  public getLayerByAreaName(areaName: string): MunicipalitiesLayerGeoJson {
+    return this.getLayers().find(layer => layer.feature.properties.name === areaName);
   }
 
   private addStyles() {

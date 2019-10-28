@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '@map-wrapper/municipalities-layer';
+import { MunicipalitiesLayer } from '@map-wrapper/municipalities-layer';
 import { MunicipalityService } from '@map-wrapper/service/municipality.service';
 import { Subject } from 'rxjs';
 import { AdministrativeCentersLayer } from '@map-wrapper/administrative-centers-layer';
 import { AccessPointsService } from '@map-wrapper/service/access-points.service';
-import { AdministrativeCenterPoint } from '@map-wrapper/model/administrative-center-point';
-import { Marker } from 'leaflet';
-import { MAX_ZOOM } from '@map-wrapper/components/access-point-layer';
 import { AccessPointEspdLayer } from '@map-wrapper/access-point-espd-layer';
 import { AccessPointSmoLayer } from '@map-wrapper/access-point-smo-layer';
 import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
@@ -18,7 +15,7 @@ export class LayersService {
   private _municipalitiesLayer: Subject<MunicipalitiesLayer> = new Subject<MunicipalitiesLayer>();
   private _espdLayer: AccessPointEspdLayer;
   private _smoLayer: AccessPointSmoLayer;
-  private administrativeCentersLayer: AdministrativeCentersLayer;
+  private _administrativeCentersLayer: AdministrativeCentersLayer;
 
   constructor(private municipalitiesService: MunicipalityService,
               private accessPointsService: AccessPointsService) {
@@ -46,45 +43,10 @@ export class LayersService {
     return this._smoLayer;
   }
 
-  getAdministrativeCenters(): AdministrativeCentersLayer {
-    if (!this.administrativeCentersLayer) {
-      this.administrativeCentersLayer = new AdministrativeCentersLayer(this.accessPointsService);
+  get administrativeCentersLayer(): AdministrativeCentersLayer {
+    if (!this._administrativeCentersLayer) {
+      this._administrativeCentersLayer = new AdministrativeCentersLayer(this.accessPointsService);
     }
-    return this.administrativeCentersLayer;
-  }
-
-  getAdministrativePoints(area: MunicipalitiesLayerGeoJson, name?: string): AdministrativeCenterPoint[] {
-    if (this.administrativeCentersLayer && area) {
-      this.administrativeCentersLayer.setMaxZoom(1);
-
-      const resultPoints: AdministrativeCenterPoint[] = [];
-
-      this.administrativeCentersLayer.setFilter((points) => {
-        resultPoints.splice(0, resultPoints.length);
-
-        const administrativeCenterPoints = points.filter(p => p.area === area.feature.properties.name);
-        administrativeCenterPoints.forEach(p => resultPoints.push(p));
-
-        return administrativeCenterPoints;
-      });
-
-      if (name) {
-        return resultPoints.filter(rp => rp.name.toLowerCase().includes(name));
-      } else {
-        return resultPoints;
-      }
-    } else if (this.administrativeCentersLayer && !area) {
-      this.administrativeCentersLayer.setMaxZoom(MAX_ZOOM);
-      this.administrativeCentersLayer.setFilter(null);
-      return [];
-    } else {
-      return [];
-    }
-  }
-
-  getAdministrativeMarker(administrativePoint: AdministrativeCenterPoint): Marker {
-    return this.administrativeCentersLayer
-      .getLayers()
-      .find((layer: Marker) => layer.feature.properties.point.pk === administrativePoint.pk) as Marker;
+    return this._administrativeCentersLayer;
   }
 }
