@@ -63,12 +63,12 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
   }
 
   public addLayer(layer: AccessPointMarker<T>): this {
-    this.layers[layer.feature.properties.point.pk] = layer;
+    this.layers[layer.feature.properties.point.id] = layer;
     return super.addLayer(layer);
   }
 
   public removeLayer(layer: AccessPointMarker<T>): this {
-    this.layers[layer.feature.properties.point.pk] = null;
+    this.layers[layer.feature.properties.point.id] = null;
     return super.removeLayer(layer);
   }
 
@@ -116,7 +116,7 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     this.removeIrrelevantMarkers(points);
 
     points.forEach(point => {
-      let pointMarker = this.getLayerByPointId(point.pk);
+      let pointMarker = this.getLayerByPointId(point.id);
 
       if (pointMarker) {
         pointMarker.updateData(point);
@@ -142,7 +142,7 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
 
   private removeIrrelevantMarkers(points: T[]) {
     this.getLayers()
-      .filter(pointMarker => !points.find(point => point.pk === pointMarker.feature.properties.point.pk))
+      .filter(pointMarker => !points.find(point => point.id === pointMarker.feature.properties.point.id))
       .forEach(pointMarker => this.removeLayer(pointMarker));
   }
 

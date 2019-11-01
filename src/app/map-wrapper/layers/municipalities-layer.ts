@@ -1,35 +1,39 @@
-import { GeoJSON, Map } from 'leaflet';
+import { GeoJSON } from 'leaflet';
 import { Feature, FeatureCollection, MultiPoint } from 'geojson';
-import { LocationArea, LocationAreaProperties } from './model/location-area';
-import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from './constants/inline.style';
-import { EventEmitter } from '@angular/core';
+import { LocationAreaProperties } from '../model/location-area';
+import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '../constants/inline.style';
+import { EventEmitter, Injectable } from '@angular/core';
+import { MunicipalityService } from '@map-wrapper/service/municipality.service';
 
 export interface MunicipalitiesLayerGeoJson extends GeoJSON<LocationAreaProperties> {
   feature: Feature<MultiPoint, LocationAreaProperties>;
 }
 
+@Injectable()
 export class MunicipalitiesLayer extends GeoJSON {
   public onMunicipalityClick: EventEmitter<MunicipalitiesLayerGeoJson> = new EventEmitter<MunicipalitiesLayerGeoJson>();
   public selectedLocation: MunicipalitiesLayerGeoJson;
 
-  constructor(private municipalities: LocationArea[]) {
+  constructor(municipalityService: MunicipalityService) {
     super();
 
-    const communicationScoreFeature: FeatureCollection<MultiPoint, LocationAreaProperties> = {
-      type: 'FeatureCollection',
-      features: municipalities
-    };
+    municipalityService.list().subscribe(municipalities => {
+      const communicationScoreFeature: FeatureCollection<MultiPoint, LocationAreaProperties> = {
+        type: 'FeatureCollection',
+        features: municipalities
+      };
 
-    this.addData(communicationScoreFeature);
-    this.setStyle(MAP_TERRITORIES_STYLE);
-    this.addStyles();
+      this.addData(communicationScoreFeature);
+      this.setStyle(MAP_TERRITORIES_STYLE);
+      this.addStyles();
+    });
   }
 
   public getLayers(): MunicipalitiesLayerGeoJson[] {
     return super.getLayers().sort(MunicipalitiesLayer.sortByAreaName) as MunicipalitiesLayerGeoJson[];
   }
 
-  public selectLayer(layer: MunicipalitiesLayerGeoJson, map: Map) {
+  public selectLayer(layer: MunicipalitiesLayerGeoJson) {
     if (this.selectedLocation) {
       this.selectedLocation.setStyle(MAP_TERRITORIES_STYLE);
       MunicipalitiesLayer.addEventListeners(this.selectedLocation);
@@ -41,7 +45,7 @@ export class MunicipalitiesLayer extends GeoJSON {
       MunicipalitiesLayer.removeEventListeners(layer);
 
       if (this.selectedLocation !== layer) {
-        map.fitBounds(layer.getBounds());
+        this._map.fitBounds(layer.getBounds());
       }
     }
     this.selectedLocation = layer;
@@ -54,7 +58,10 @@ export class MunicipalitiesLayer extends GeoJSON {
   private addStyles() {
     this.eachLayer((layer: MunicipalitiesLayerGeoJson) => {
       MunicipalitiesLayer.addEventListeners(layer);
-      layer.on('click', () => this.onMunicipalityClick.emit(layer));
+      layer.on('click', () => {
+        this.selectLayer(layer);
+        this.onMunicipalityClick.emit(layer);
+      });
     });
   }
 

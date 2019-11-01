@@ -1,16 +1,21 @@
 import { Component } from '@angular/core';
-import { latLng, MapOptions, TileLayer } from 'leaflet';
+import { latLng, Map, MapOptions, TileLayer } from 'leaflet';
 import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
-import { LayersService } from '@map-wrapper/service/layers.service';
 import { ExtendedMap } from '../../../declarations/leaflet';
-import { Map } from 'leaflet';
 import 'leaflet-spin/example/spin/dist/spin';
 import 'leaflet-spin';
+import { AccessPointEspdLayer } from '@map-wrapper/layers/access-point-espd-layer';
+import { AccessPointSmoLayer } from '@map-wrapper/layers/access-point-smo-layer';
+import { AdministrativeCentersLayer } from '@map-wrapper/layers/administrative-centers-layer';
+import { MunicipalitiesLayer } from '@map-wrapper/layers/municipalities-layer';
+import { AccessPointMarker } from '@map-wrapper/components/access-point-marker';
+import { AdministrativeCenterPoint } from '@map-wrapper/model/administrative-center-point';
 
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
 const KRASNOYARSK_CENTER_LAT = 56.01839;
 const KRASNOYARSK_CENTER_LNG = 92.86717;
+const ZOOM = 14;
 
 @Component({
   selector: 'app-map-page',
@@ -25,11 +30,14 @@ export class MapPage {
   layersControl: LeafletControlLayersConfig;
   leaflet: ExtendedMap;
 
-  constructor(private layersService: LayersService) {
+  constructor(private espdLayer: AccessPointEspdLayer,
+              private smoLayer: AccessPointSmoLayer,
+              private administrativeCentersLayer: AdministrativeCentersLayer,
+              private municipalityLayer: MunicipalitiesLayer) {
     this.initLayersControl();
 
     this.options = {
-      layers: [layersService.administrativeCentersLayer],
+      layers: [administrativeCentersLayer],
       zoom: 12,
       center: latLng(KRASNOYARSK_CENTER_LAT, KRASNOYARSK_CENTER_LNG),
       maxZoom: 18
@@ -39,8 +47,10 @@ export class MapPage {
   onMapReady(leaflet: Map) {
     this.leaflet = leaflet as ExtendedMap;
     this.defaultTile.addTo(leaflet);
-    this.layersService.municipalitiesLayer.subscribe(m => {
-      leaflet.addLayer(m);
+    leaflet.addLayer(this.municipalityLayer);
+
+    this.administrativeCentersLayer.onMarkerClick.subscribe((marker: AccessPointMarker<AdministrativeCenterPoint>) => {
+      leaflet.flyTo(marker.getLatLng(), ZOOM);
     });
   }
 
@@ -53,8 +63,8 @@ export class MapPage {
         openstreetmap: new TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '...'})
       },
       overlays: {
-        [ESPD_LAYER_NAME]: this.layersService.espdLayer,
-        [SMO_LAYER_NAME]: this.layersService.smoLayer
+        [ESPD_LAYER_NAME]: this.espdLayer,
+        [SMO_LAYER_NAME]: this.smoLayer
       }
     };
   }

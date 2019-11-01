@@ -1,12 +1,13 @@
-import { AccessPointLayer, MAX_ZOOM } from './components/access-point-layer';
+import { AccessPointLayer, MAX_ZOOM } from '../components/access-point-layer';
 import { Observable } from 'rxjs';
-import { AccessPointsService } from './service/access-points.service';
-import { AdministrativeCenterPoint } from './model/administrative-center-point';
-import { MunicipalitiesLayerGeoJson } from '@map-wrapper/municipalities-layer';
+import { AdministrativeCenterPoint } from '../model/administrative-center-point';
+import { MunicipalitiesLayerGeoJson } from '@map-wrapper/layers/municipalities-layer';
+import { Injectable } from '@angular/core';
+import { AdministrativeCentersService } from '@map-wrapper/service/administrative-centers.service';
 
-
+@Injectable()
 export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeCenterPoint> {
-  constructor(private accessPointsService: AccessPointsService) {
+  constructor(private administrativeCentersService: AdministrativeCentersService) {
     super();
   }
 
@@ -23,11 +24,11 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
   filterByLocalityName(name: string): AdministrativeCenterPoint[] {
     return this.getLayers()
       .map(layer => layer.feature.properties.point)
-      .filter(layer => layer.name.toLowerCase().includes(name));
+      .filter(layer => layer.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   getPoints(): Observable<AdministrativeCenterPoint[]> {
-    return this.accessPointsService.getAdministrativePoints();
+    return this.administrativeCentersService.list();
   }
 }
 

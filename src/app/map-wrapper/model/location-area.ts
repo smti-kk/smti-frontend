@@ -1,4 +1,5 @@
 import { Feature, GeoJsonProperties, MultiPoint, BBox } from 'geojson';
+import { BaseModel } from '../../shared/models/base-model';
 
 export interface LocationAreaProperties extends GeoJsonProperties {
   name: string;
@@ -8,16 +9,19 @@ export interface LocationAreaProperties extends GeoJsonProperties {
   mobileMark: number;
 }
 
-export class LocationArea implements Feature<MultiPoint, LocationAreaProperties> {
+export class LocationArea extends BaseModel implements Feature<MultiPoint, LocationAreaProperties> {
   private _type: 'Feature' = 'Feature';
   private _bbox?: BBox;
 
   private readonly _geometry: MultiPoint;
+  private readonly _properties: LocationAreaProperties;
 
-  constructor(_geometry: MultiPoint,
-              private _properties: LocationAreaProperties,
-              private _id: number) {
-    this._geometry = _geometry;
+  constructor(geometry: MultiPoint,
+              properties: LocationAreaProperties,
+              id: number) {
+    super(id);
+    this._geometry = geometry;
+    this._properties = properties;
   }
 
   get geometry(): MultiPoint {
@@ -28,30 +32,12 @@ export class LocationArea implements Feature<MultiPoint, LocationAreaProperties>
     return this._properties;
   }
 
-  get id(): number {
-    return this._id;
-  }
-
   get type(): 'Feature' {
     return this._type;
   }
 
   get bbox(): [number, number, number, number] | [number, number, number, number, number, number] {
     return this._bbox;
-  }
-
-  static createFromApiModel(apiModel): LocationArea {
-    return new LocationArea(
-      JSON.parse(apiModel.border_geojson),
-      {
-        name: apiModel.full_name,
-        type: 0,
-        mobileInternetMaxType: apiModel.properties ? apiModel.properties.mobileInternetMaxType : null,
-        mark: apiModel.properties ? apiModel.properties.mark : null,
-        mobileMark: apiModel.properties ? apiModel.properties.mobile_mark : null
-      },
-      apiModel.id
-    );
   }
 }
 

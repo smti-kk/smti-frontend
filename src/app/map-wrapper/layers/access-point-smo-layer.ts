@@ -1,13 +1,13 @@
-import { EventEmitter } from '@angular/core';
-import { AccessPointsService } from './service/access-points.service';
 import { LatLngBounds } from 'leaflet';
-import { Observable, Subject } from 'rxjs';
-import { AccessPointLayer } from './components/access-point-layer';
-import { AccessPointSmo } from './model/access-point-smo';
+import { Observable } from 'rxjs';
+import { AccessPointLayer } from '../components/access-point-layer';
+import { AccessPointSmo } from '../model/access-point-smo';
+import { SmoService } from '@map-wrapper/service/smo.service';
+import { Injectable } from '@angular/core';
 
-
+@Injectable()
 export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
-  constructor(private accessPointsService: AccessPointsService) {
+  constructor(private smoService: SmoService) {
     super();
   }
 
@@ -23,6 +23,10 @@ export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
   }
 
   getPoints(bounds?: LatLngBounds): Observable<AccessPointSmo[]> {
-    return this.accessPointsService.getAccessPointsSmo(bounds);
+    if (bounds) {
+      return this.smoService.listFilteredByBounds(bounds);
+    } else {
+      return this.smoService.list();
+    }
   }
 }

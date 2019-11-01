@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MapPage } from './core/pages/map-page/map.page';
+import { NotFoundPage } from './core/pages/not-found/not-found.page';
 
 
 const routes: Routes = [
-  {path: '', component: MapPage}
+  {
+    path: '',
+    loadChildren: './map-wrapper/map-wrapper.module#MapWrapperModule'
+  },
+  {
+    path: '**',
+    component: NotFoundPage
+  }
 ];
 
 @NgModule({

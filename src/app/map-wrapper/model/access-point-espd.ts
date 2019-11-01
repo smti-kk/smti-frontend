@@ -73,32 +73,4 @@ export class AccessPointEspd extends AccessPoint {
       return ESPD_MARKER_DISABLED;
     }
   }
-
-  static createFromApiModel(apiModel): AccessPointEspd {
-    let avstate;
-    if (!apiModel.avstate) {
-      avstate = null;
-    } else {
-      avstate = !apiModel.avstate.includes('Не доступно');
-    }
-
-    return new AccessPointEspd(
-      apiModel.pk,
-      {
-        lat: apiModel.point.coordinates[1],
-        lng: apiModel.point.coordinates[0]
-      },
-      apiModel.org_name,
-      apiModel.actual_address,
-      apiModel.network_provider,
-      apiModel.contractor,
-      apiModel.medium_type,
-      apiModel.defined_speed,
-      apiModel.node,
-      apiModel.description,
-      avstate,
-      apiModel.avstate,
-      apiModel.traffic
-    );
-  }
 }

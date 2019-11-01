@@ -1,30 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { LocationArea } from '../model/location-area';
 import { HttpClient } from '@angular/common/http';
 import { LOCATION_AREA_URL } from '../constants/api.constants';
-import { MapWrapperModule } from '@map-wrapper/map-wrapper.module';
+import { RestApiService } from '../../shared/services/common/rest-api-service';
+import { StoreService } from '../../shared/services/store.service';
+import { LocationAreaMapper } from '@map-wrapper/utils/location-area-mapper';
 
-@Injectable({
-  providedIn: MapWrapperModule
-})
-export class MunicipalityService {
-  private _municipalitiesAreas: Subject<LocationArea[]> = new Subject<LocationArea[]>();
-
-  constructor(private http: HttpClient) {
-    this.getMunicipalitiesArea().subscribe(municipalitiesArea => this.municipalitiesAreas.next(municipalitiesArea));
-  }
-
-
-  get municipalitiesAreas(): Subject<LocationArea[]> {
-    return this._municipalitiesAreas;
-  }
-
-  getMunicipalitiesArea(): Observable<LocationArea[]> {
-    return this.http
-      .get<[]>(LOCATION_AREA_URL)
-      .pipe(map(locationAreas => locationAreas.map(la => LocationArea.createFromApiModel(la))));
+@Injectable()
+export class MunicipalityService extends RestApiService<LocationArea, LocationArea, LocationArea> {
+  constructor(httpClient: HttpClient,
+              store: StoreService) {
+    super(httpClient, store, LOCATION_AREA_URL, new LocationAreaMapper());
   }
 }
 

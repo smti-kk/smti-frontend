@@ -1,13 +1,14 @@
-import { AccessPointLayer } from './components/access-point-layer';
+import { AccessPointLayer } from '../components/access-point-layer';
 import { LatLngBounds } from 'leaflet';
 import { Observable } from 'rxjs';
-import { AccessPointsService } from './service/access-points.service';
-import { AccessPointEspd } from './model/access-point-espd';
+import { AccessPointEspd } from '../model/access-point-espd';
+import { EspdService } from '@map-wrapper/service/espd.service';
+import { Injectable } from '@angular/core';
 
-
+@Injectable()
 export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
 
-  constructor(private accessPointsService: AccessPointsService) {
+  constructor(private espdService: EspdService) {
     super();
   }
 
@@ -24,6 +25,10 @@ export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
   }
 
   getPoints(bounds?: LatLngBounds): Observable<AccessPointEspd[]> {
-    return this.accessPointsService.getAccessPointsEspd(bounds);
+    if (bounds) {
+      return this.espdService.listFilteredByBounds(bounds);
+    } else {
+      return this.espdService.list();
+    }
   }
 }

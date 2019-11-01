@@ -1,9 +1,8 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <div class="sidebar">
-  <div class="select-location">
+
     <location-capabilities-search (selectedPoint)="onSelectPoint($event)"
                                   [leafletMap]="leafletMap"></location-capabilities-search>
-  </div>
   <div *ngIf="currentPointCapabilities">
     <div class="name-location">
       <div>{{currentPointCapabilities.name}}</div>

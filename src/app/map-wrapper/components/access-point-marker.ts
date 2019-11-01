@@ -28,7 +28,7 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     );
 
     this.feature = {
-      id: point.pk,
+      id: point.id,
       properties: {
         point
       },

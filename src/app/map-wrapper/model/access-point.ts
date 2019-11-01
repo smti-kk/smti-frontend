@@ -1,18 +1,17 @@
 import { Coordinate } from '../interface/coordinate';
+import { BaseModel } from '../../shared/models/base-model';
 
-export abstract class AccessPoint {
+export abstract class AccessPoint extends BaseModel {
 
-  private _pk: number;
   private _point: Coordinate;
   private _name: string;
   private _area: string;
 
-  protected constructor(_pk: number,
-                        _point: Coordinate,
-                        _name: string,
-                        _area: string) {
-
-    this._pk = _pk;
+  public constructor(_id: number,
+                     _point: Coordinate,
+                     _name: string,
+                     _area: string) {
+    super(_id);
     this._point = _point;
     this._name = _name;
     this._area = _area;
@@ -25,14 +24,6 @@ export abstract class AccessPoint {
 
   get name(): string {
     return this._name;
-  }
-
-  get pk(): number {
-    return this._pk;
-  }
-
-  set pk(value: number) {
-    this._pk = value;
   }
 
   get point(): Coordinate {
