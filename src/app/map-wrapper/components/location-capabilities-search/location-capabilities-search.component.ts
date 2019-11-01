@@ -94,8 +94,8 @@ export class LocationCapabilitiesSearchComponent implements OnInit {
     this.searchForm.get(FORM_PARAMS.locality).reset('');
 
     this.administrativeCentersLayer.filterByArea(selectedArea).then(() => {
-      this.administrativePoints = this.administrativeCentersLayer
-        .filterByLocalityName(this.searchForm.get(FORM_PARAMS.locality).value);
+      // this.administrativePoints = this.administrativeCentersLayer
+      //   .filterByLocalityName(this.searchForm.get(FORM_PARAMS.locality).value);
     });
   }
 
