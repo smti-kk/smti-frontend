@@ -90,12 +90,36 @@ h1 span {
   text-transform: uppercase;
 }
 
+.main {
+  position: relative;
+  height: 100%;
+  font-weight: 100;
+  color: #575756;
+}
+
 .wrapper {
   max-width: 1140px;
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
   margin: 0 auto;
+}
+
+input.btn {
+  padding: 9px 23px;
+  background: #009dd3 none;
+  border: 3px solid #009dd3;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: normal;
+}
+
+input.btn.cancel {
+  background: none;
+  color: #009dd3;
 }
 
 .cluster {

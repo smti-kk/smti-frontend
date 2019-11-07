@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AccessPointEspd } from '../model/access-point-espd';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ACCESS_POINT_ESPD_URL } from '../constants/api.constants';
@@ -13,10 +12,6 @@ export class EspdService extends RestApiService<AccessPointEspd, AccessPointEspd
   constructor(httpClient: HttpClient,
               store: StoreService) {
     super(httpClient, store, ACCESS_POINT_ESPD_URL, new EspdMapper());
-  }
-
-  public list(): Observable<AccessPointEspd[]> {
-    return super.list();
   }
 
   public listFilteredByBounds(bounds: LatLngBounds) {

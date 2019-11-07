@@ -13,7 +13,7 @@ export class UpdatedList<T> {
   private _filter: (value: T[]) => T[];
 
   constructor(private getData: () => Observable<T[]>) {
-    this.update();
+    // this.update();
   }
 
   get items() {

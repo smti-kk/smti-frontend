@@ -4,7 +4,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { StoreService } from '../../shared/services/store.service';
 import { ACCESS_POINT_SMO_URL } from '@map-wrapper/constants/api.constants';
 import { SmoMapper } from '@map-wrapper/utils/smo-mapper';
-import { Observable } from 'rxjs';
 import { LatLngBounds } from 'leaflet';
 import { Injectable } from '@angular/core';
 
@@ -15,11 +14,7 @@ export class SmoService extends RestApiService<AccessPointSmo, AccessPointSmo, A
     super(httpClient, store, ACCESS_POINT_SMO_URL, new SmoMapper());
   }
 
-  public list(): Observable<AccessPointSmo[]> {
-    return super.list();
-  }
-
-  public listFilteredByBounds(bounds: LatLngBounds): Observable<AccessPointSmo[]> {
+  public listFilteredByBounds(bounds: LatLngBounds) {
     const httpParams = new HttpParams()
       .set('bbox', `${bounds.getSouthWest().lng},${bounds.getSouthWest().lat},${bounds.getNorthEast().lng},${bounds.getNorthEast().lat}`);
 

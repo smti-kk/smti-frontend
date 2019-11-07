@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { DivIcon, divIcon, Icon, LatLngBounds, MarkerCluster, MarkerClusterGroup } from 'leaflet';
+import { DivIcon, divIcon, Icon, LatLngBounds, MarkerClusterGroup, MarkerCluster } from 'leaflet';
 import { Observable } from 'rxjs';
 import { AccessPoint } from '../model/access-point';
 import 'leaflet.markercluster';
@@ -18,9 +18,9 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
   private isInit = false;
   private maxZoom = MAX_ZOOM;
   private pointsList: UpdatedList<T>;
+  private layers: { [key: number]: AccessPointMarker<T> };
 
   public readonly onMarkerClick: EventEmitter<AccessPointMarker<T>> = new EventEmitter<AccessPointMarker<T>>();
-  private readonly layers: { [key: number]: AccessPointMarker<T> } = {};
 
   protected constructor() {
     // super({iconCreateFunction: AccessPointLayer.iconCreateFunction});
@@ -31,9 +31,8 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     super.onAdd(map);
 
     if (!this.isInit) {
-      this.isInit = true;
-
       this.init(map);
+      this.isInit = true;
 
       map.on({
         moveend: () => {
@@ -81,15 +80,25 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     this.maxZoom = zoom;
   }
 
+  public onDestroy() {
+    this.layers = {};
+    this.isInit = false;
+    this.clearLayer();
+  }
+
   public renderPopup?(point: T): string;
 
   abstract getPoints(bounds?: LatLngBounds): Observable<T[]>;
 
   private init(map: ExtendedMap) {
-    this.pointsList = new UpdatedList<T>(() => {
-      map.spin(true);
-      return this.getPoints(map.getBounds());
-    });
+    this.layers = {};
+
+    if (!this.pointsList) {
+      this.pointsList = new UpdatedList<T>(() => {
+        map.spin(true);
+        return this.getPoints(map.getBounds());
+      });
+    }
 
     this.pointsList.onUpdate.subscribe(points => {
       if (map.getZoom() >= this.maxZoom) {
@@ -122,11 +131,14 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
         pointMarker.updateData(point);
       } else {
         pointMarker = this.createMarker(point);
-        this.addLayer(pointMarker);
       }
 
       if (this.renderPopup) {
         pointMarker.bindPopup(this.renderPopup(point));
+      }
+
+      if (!this.hasLayer(pointMarker)) {
+        this.addLayer(pointMarker);
       }
     });
   }

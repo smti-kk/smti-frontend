@@ -7,6 +7,8 @@ import { AdministrativeCentersService } from '@map-wrapper/service/administrativ
 
 @Injectable()
 export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeCenterPoint> {
+  private _selectedPoint;
+
   constructor(private administrativeCentersService: AdministrativeCentersService) {
     super();
   }
@@ -29,6 +31,18 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
 
   getPoints(): Observable<AdministrativeCenterPoint[]> {
     return this.administrativeCentersService.list();
+  }
+
+  savePoint(point) {
+    this._selectedPoint = point;
+  }
+
+  clearSavedPoint() {
+    this._selectedPoint = null;
+  }
+
+  get selectedPoint() {
+    return this._selectedPoint;
   }
 }
 
