@@ -55,7 +55,7 @@ export class LocationCapabilities {
       }));
   }
 
-  static createFromApiModel(tcApi, pseudoApi): LocationCapabilities {
+  static createFromApiModel(tcApi, pseudoApi = {accesspointespd: [], accesspointsmo: []}): LocationCapabilities {
     const telephone = tcApi.ats.map(ats => {
       return {
         provider: {

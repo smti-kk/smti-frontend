@@ -13,49 +13,10 @@ p {
   font-weight: 600;
 }
 
-.number,
-.date {
-  font-size: 15px;
-  color: #009dd3;
-}
-
-.number {
-  font-weight: 600;
-}
-
 .archiv {
   margin-top: 9px;
   padding-top: 18px;
   border-top: 2px solid #d2d2d2;
-}
-
-.archiv-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  border: 1px solid #bdbdbd;
-}
-
-.archiv-item .info {
-  padding: 12px 8px;
-}
-
-.archiv-item .status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 160px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-}
-
-.archiv-item .status.orange {
-  background-color: #ffd860;
-}
-
-.archiv-item .status.green {
-  background-color: #35a584;
 }
 
 ul {
@@ -141,33 +102,33 @@ ul li span {
 }
 
 .item .value .value-item .status {
-  font-size: 10px;
+  font-size: 7px;
   text-align: right;
   font-weight: 600;
 }
 
-.vols {
+.ВОЛС {
   background: url('../../assets/img/vols.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.med {
+.медь {
   background: url('../../assets/img/med.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.radio {
+.радиоканал {
   background: url('../../assets/img/radio.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.sputnik {
+.спутник {
   background: url('../../assets/img/sputnik.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
@@ -212,7 +173,7 @@ ul li span {
 
 
 .top-bar {
-  width: 970px;
+  width: 986px;
   margin: 0 auto;
   margin-top: 15px;
   padding-left: 14px;

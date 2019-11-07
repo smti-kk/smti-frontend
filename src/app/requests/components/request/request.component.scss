@@ -1,0 +1,57 @@
+.archiv-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  border: 1px solid #bdbdbd;
+}
+
+.archiv-item .info {
+  padding: 12px 8px;
+}
+
+.archiv-item .status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.archiv-item .status.orange {
+  background-color: #ffd860;
+}
+
+.archiv-item .status.green {
+  background-color: #35a584;
+}
+
+.number,
+.date {
+  font-size: 15px;
+  color: #009dd3;
+}
+
+.number {
+  font-weight: 600;
+}
+
+ul {
+  margin: 0;
+  padding-left: 33px;
+}
+
+ul li {
+  font-size: 10px;
+}
+
+ul li span {
+  text-decoration: underline;
+}
+
+p {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}

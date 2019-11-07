@@ -136,6 +136,38 @@ input.btn.cancel {
   background-color: rgba(110, 204, 57, 0.6);
 }
 
+select {
+  padding: 5px 0 4px 1rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bcbcbc;
+  background: url('assets/img/arrow-gray.png') no-repeat;
+  background-position: 99% 50%;
+  color: #575756;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: #35a584;
+  background: url('assets/img/arrow-green-bottom.png') no-repeat;
+  background-position: 99% 50%;
+  outline: none;
+  outline-offset: 0;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #575756;
+}
+
 .marker-cluster {
   margin-left: -20px;
   margin-top: -20px;

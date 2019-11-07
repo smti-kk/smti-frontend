@@ -1,0 +1,17 @@
+<div class="archiv-item">
+  <div class="info">
+    <span class="number">№{{request.id}}</span> от <span class="date">{{request.date}}</span>
+    <p>Внесенные изменения:</p>
+    <ul>
+      <li *ngFor="let request of request.changes"><span>{{request.object}}:</span> {{request.action}}</li>
+    </ul>
+  </div>
+  <div class="status"
+       [ngClass]="
+       {
+         orange: request.state === RequestState.CONSIDERED,
+         green: request.state === RequestState.ACCEPTED
+       }">
+    {{requestStateLabel(request.state)}}
+  </div>
+</div>

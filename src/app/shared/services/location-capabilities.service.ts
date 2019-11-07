@@ -13,11 +13,16 @@ export class LocationCapabilitiesService {
   constructor(private http: HttpClient) {
   }
 
-  get(id: number): Observable<LocationCapabilities> {
-    return forkJoin([
-      this.http.get(TECHNICAL_CAPABILITIES.replace(':id', `${id}`)),
-      this.http.get(PSEUDO.replace(':id', `${id}`))
-    ])
-      .pipe(map(data => LocationCapabilities.createFromApiModel(data[0], data[1])));
+  get(id: number, withOrganizations: boolean = true): Observable<LocationCapabilities> {
+    if (withOrganizations) {
+      return forkJoin([
+        this.http.get(TECHNICAL_CAPABILITIES.replace(':id', `${id}`)),
+        this.http.get(PSEUDO.replace(':id', `${id}`))
+      ])
+        .pipe(map((data: any) => LocationCapabilities.createFromApiModel(data[0], data[1])));
+    } else {
+      return this.http.get(TECHNICAL_CAPABILITIES.replace(':id', `${id}`))
+        .pipe(map(data => LocationCapabilities.createFromApiModel(data)));
+    }
   }
 }
