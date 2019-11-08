@@ -6,6 +6,7 @@ import { RequestComponent } from './components/request/request.component';
 import { CommonModule } from '@angular/common';
 import { RequestsService } from './service/requests.service';
 import { InternetClarificationComponent } from './components/internet-clarification/internet-clarification.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { InternetClarificationComponent } from './components/internet-clarificat
   imports: [
     SharedModule,
     RequestsRoutingModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   providers: [
     RequestsService

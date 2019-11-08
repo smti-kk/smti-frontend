@@ -6,200 +6,45 @@
       <input class="close" type="button">
     </div>
     <div class="form">
-      <form>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-body">
-          <div class="form-body-item">
+          <div class="form-body-item" [formGroupName]="provider.key" *ngFor="let provider of form.controls | keyvalue">
             <div class="checkbox">
-              <label> <input type="checkbox">
-                <div class="checkbox-text">Билайн</div>
-              </label> </div>
+              <label>
+                <input type="checkbox" formControlName="isActive">
+                <div class="checkbox-text">{{provider.key}}</div>
+              </label>
+            </div>
             <div class="radiobox">
-              <label><input type="radio" name="beeline">
+              <label>
+                <input type="radio" formControlName="type" value="Спутник">
                 <div class="radiobox-text">Спутник</div>
               </label>
-              <label><input type="radio" name="beeline">
+              <label>
+                <input type="radio" formControlName="type" value="ВОЛС">
                 <div class="radiobox-text">ВОЛС</div>
               </label>
-              <label><input type="radio" name="beeline">
+              <label>
+                <input type="radio" formControlName="type" value="Медь">
                 <div class="radiobox-text">Медь</div>
               </label>
-              <label><input type="radio" name="beeline">
+              <label>
+                <input type="radio" formControlName="type" value="Радиоканал">
                 <div class="radiobox-text">Радиоканал</div>
               </label>
             </div>
             <div class="select">
-              <select>
-                <option value="">Хорошее качество</option>
-                <option value="">Удовлетворительно</option>
-                <option value="">Отсутствует</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-body-item">
-            <div class="checkbox">
-              <label> <input type="checkbox">
-                <div class="checkbox-text">Мегафонт</div>
-              </label> </div>
-            <div class="radiobox">
-              <label><input type="radio" name="megafon">
-                <div class="radiobox-text">Спутник</div>
-              </label>
-              <label><input type="radio" name="megafon">
-                <div class="radiobox-text">ВОЛС</div>
-              </label>
-              <label><input type="radio" name="megafon">
-                <div class="radiobox-text">Медь</div>
-              </label>
-              <label><input type="radio" name="megafon">
-                <div class="radiobox-text">Радиоканал</div>
-              </label>
-            </div>
-            <div class="select">
-              <select>
-                <option value="">Хорошее качество</option>
-                <option value="">Удовлетворительно</option>
-                <option value="">Отсутствует</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-body-item">
-            <div class="checkbox">
-              <label> <input type="checkbox">
-                <div class="checkbox-text">МТС</div>
-              </label> </div>
-            <div class="radiobox">
-              <label><input type="radio" name="mts">
-                <div class="radiobox-text">Спутник</div>
-              </label>
-              <label><input type="radio" name="mts">
-                <div class="radiobox-text">ВОЛС</div>
-              </label>
-              <label><input type="radio" name="mts">
-                <div class="radiobox-text">Медь</div>
-              </label>
-              <label><input type="radio" name="mts">
-                <div class="radiobox-text">Радиоканал</div>
-              </label>
-            </div>
-            <div class="select">
-              <select>
-                <option value="">Хорошее качество</option>
-                <option value="">Удовлетворительно</option>
-                <option value="">Отсутствует</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-body-item">
-            <div class="checkbox">
-              <label> <input type="checkbox">
-                <div class="checkbox-text">Теле2</div>
-              </label> </div>
-            <div class="radiobox">
-              <label><input type="radio" name="tele2">
-                <div class="radiobox-text">Спутник</div>
-              </label>
-              <label><input type="radio" name="tele2">
-                <div class="radiobox-text">ВОЛС</div>
-              </label>
-              <label><input type="radio" name="tele2">
-                <div class="radiobox-text">Медь</div>
-              </label>
-              <label><input type="radio" name="tele2">
-                <div class="radiobox-text">Радиоканал</div>
-              </label>
-            </div>
-            <div class="select">
-              <select name="" id="">
-                <option value="">Хорошее качество</option>
-                <option value="">Удовлетворительно</option>
-                <option value="">Отсутствует</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-body-item">
-            <div class="checkbox">
-              <label> <input type="checkbox">
-                <div class="checkbox-text">Искра</div>
-              </label> </div>
-            <div class="radiobox">
-              <label><input type="radio" name="iskra">
-                <div class="radiobox-text">Спутник</div>
-              </label>
-              <label><input type="radio" name="iskra">
-                <div class="radiobox-text">ВОЛС</div>
-              </label>
-              <label><input type="radio" name="iskra">
-                <div class="radiobox-text">Медь</div>
-              </label>
-              <label><input type="radio" name="iskra">
-                <div class="radiobox-text">Радиоканал</div>
-              </label>
-            </div>
-            <div class="select">
-              <select name="" id="">
-                <option value="">Хорошее качество</option>
-                <option value="">Удовлетворительно</option>
-                <option value="">Отсутствует</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-body-item">
-            <div class="checkbox">
-              <label> <input type="checkbox">
-                <div class="checkbox-text">СибТТК</div>
-              </label> </div>
-            <div class="radiobox">
-              <label><input type="radio" name="ttk">
-                <div class="radiobox-text">Спутник</div>
-              </label>
-              <label><input type="radio" name="ttk">
-                <div class="radiobox-text">ВОЛС</div>
-              </label>
-              <label><input type="radio" name="ttk">
-                <div class="radiobox-text">Медь</div>
-              </label>
-              <label><input type="radio" name="ttk">
-                <div class="radiobox-text">Радиоканал</div>
-              </label>
-            </div>
-            <div class="select">
-              <select name="" id="">
-                <option value="">Хорошее качество</option>
-                <option value="">Удовлетворительно</option>
-                <option value="">Отсутствует</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-body-item">
-            <div class="checkbox">
-              <label> <input type="checkbox">
-                <div class="checkbox-text">Ростелеком</div>
-              </label> </div>
-            <div class="radiobox">
-              <label><input type="radio" name="rostelecom">
-                <div class="radiobox-text">Спутник</div>
-              </label>
-              <label><input type="radio" name="rostelecom">
-                <div class="radiobox-text">ВОЛС</div>
-              </label>
-              <label><input type="radio" name="rostelecom">
-                <div class="radiobox-text">Медь</div>
-              </label>
-              <label><input type="radio" name="rostelecom">
-                <div class="radiobox-text">Радиоканал</div>
-              </label>
-            </div>
-            <div class="select">
-              <select>
-                <option value="">Хорошее качество</option>
-                <option value="">Удовлетворительно</option>
-                <option value="">Отсутствует</option>
+              <select formControlName="quality">
+                <option value="Хорошее качество">Хорошее качество</option>
+                <option value="Удовлетворительно">Удовлетворительно</option>
+                <option value="Отсутствует">Отсутствует</option>
               </select>
             </div>
           </div>
         </div>
         <div class="button">
-          <input type="button" value="Отмена" class="btn cancel"><input type="submit" value="Сохранить изменения" class="btn">
+          <input type="button" value="Отмена" class="btn cancel"><input type="submit" value="Сохранить изменения"
+                                                                        class="btn">
         </div>
       </form>
     </div>

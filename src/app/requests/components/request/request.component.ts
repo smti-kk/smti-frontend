@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Request, RequestState, requestStateLabel } from '../../model/request';
 
 @Component({
@@ -6,17 +6,10 @@ import { Request, RequestState, requestStateLabel } from '../../model/request';
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.scss']
 })
-export class RequestComponent implements OnInit {
+export class RequestComponent {
 
   @Input() request: Request;
 
   requestStateLabel = requestStateLabel;
   RequestState = RequestState;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
 }

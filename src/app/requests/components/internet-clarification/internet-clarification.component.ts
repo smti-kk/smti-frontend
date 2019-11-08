@@ -31,4 +31,7 @@ export class InternetClarificationComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    console.log(this.form.value);
+  }
 }

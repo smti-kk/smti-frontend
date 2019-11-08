@@ -128,7 +128,7 @@
       </div>
       <div>
         <div>Информация не актуальна?</div>
-        <input class="btn" type="button" value="Подать уточняющую заявку">
+        <input class="btn" type="button" value="Подать уточняющую заявку" (click)="onClarifyingClick()">
       </div>
     </div>
     <div class="req">
@@ -140,4 +140,4 @@
   </div>
 </main>
 
-<!--<app-internet-clarification></app-internet-clarification>-->
+<app-internet-clarification *ngIf="forms.internet"></app-internet-clarification>

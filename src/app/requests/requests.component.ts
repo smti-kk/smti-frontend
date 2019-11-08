@@ -13,6 +13,12 @@ export class RequestsComponent implements OnInit {
   requests: Request[];
   technicalCapability: LocationCapabilities;
 
+  forms: {
+    internet: boolean;
+  } = {
+    internet: false
+  };
+
   constructor(private requestsService: RequestsService, private technicalCapabilitiesService: LocationCapabilitiesService) {
   }
 
@@ -28,4 +34,7 @@ export class RequestsComponent implements OnInit {
   }
 
 
+  onClarifyingClick() {
+    this.forms.internet = true;
+  }
 }

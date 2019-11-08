@@ -4,7 +4,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { GlobalErrorHandler } from './shared/utils/global-error-handler';
 import { RouteReuseStrategy } from '@angular/router';
@@ -18,7 +17,6 @@ import { CustomReuseStrategy } from './shared/utils/custom-reuse-strategy';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    ReactiveFormsModule,
     SharedModule
   ],
   providers: [
