@@ -13,7 +13,7 @@ export class RequestsComponent implements OnInit {
   requests: Request[];
   technicalCapability: LocationCapabilities;
 
-  forms: {
+  private forms: {
     internet: boolean;
   } = {
     internet: false
@@ -33,8 +33,16 @@ export class RequestsComponent implements OnInit {
     });
   }
 
-
   onClarifyingClick() {
     this.forms.internet = true;
+  }
+
+  saveInternetClarification(internetClarification) {
+    this.forms.internet = false;
+    console.log(internetClarification);
+  }
+
+  onClarifyingInternetCancel() {
+    this.forms.internet = false;
   }
 }

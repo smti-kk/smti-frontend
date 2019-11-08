@@ -1,6 +1,7 @@
 import { Icon, Marker } from 'leaflet';
 import * as geojson from 'geojson';
 import { AccessPoint } from '@map-wrapper/model/access-point';
+import { EventEmitter } from '@angular/core';
 
 const ICON_WIDTH = 30;
 const ICON_HEIGHT = 41;
@@ -11,11 +12,16 @@ const SHADOW_ANCHOR_TOP = 62;
 const POPUP_ANCHOR_LEFT = -1;
 const POPUP_ANCHOR_TOP = -25;
 
+const BIG_ICON_WIDTH = 38;
+const BIG_ICON_HEIGHT = 48;
+
 interface AccessPointMarkerProperties<T extends AccessPoint> {
   point: T;
 }
 
 export class AccessPointMarker<T extends AccessPoint> extends Marker {
+
+  private static deactivateMarker: EventEmitter<void> = new EventEmitter<void>();
 
   feature: geojson.Feature<geojson.Point, AccessPointMarkerProperties<T>>;
 
@@ -35,6 +41,17 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
       type: 'Feature',
       geometry: null
     };
+
+    this.on('click', () => {
+      AccessPointMarker.deactivateMarker.emit();
+
+      this.setIcon(AccessPointMarker.createBigIcon(this.feature.properties.point));
+
+      const observer = AccessPointMarker.deactivateMarker.subscribe(() => {
+        observer.unsubscribe();
+        this.setIcon(AccessPointMarker.createIcon(this.feature.properties.point));
+      });
+    });
   }
 
   public updateData(point: T) {
@@ -58,6 +75,16 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     return new Icon({
       iconUrl: point.iconUrl,
       iconSize: [ICON_WIDTH, ICON_HEIGHT],
+      iconAnchor: [ICON_ANCHOR_LEFT, ICON_ANCHOR_TOP],
+      shadowAnchor: [SHADOW_ANCHOR_LEFT, SHADOW_ANCHOR_TOP],
+      popupAnchor: [POPUP_ANCHOR_LEFT, POPUP_ANCHOR_TOP],
+    });
+  }
+
+  private static createBigIcon(point: AccessPoint): Icon {
+    return new Icon({
+      iconUrl: point.iconUrl,
+      iconSize: [BIG_ICON_WIDTH, BIG_ICON_HEIGHT],
       iconAnchor: [ICON_ANCHOR_LEFT, ICON_ANCHOR_TOP],
       shadowAnchor: [SHADOW_ANCHOR_LEFT, SHADOW_ANCHOR_TOP],
       popupAnchor: [POPUP_ANCHOR_LEFT, POPUP_ANCHOR_TOP],

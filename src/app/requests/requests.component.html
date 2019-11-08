@@ -140,4 +140,9 @@
   </div>
 </main>
 
-<app-internet-clarification *ngIf="forms.internet"></app-internet-clarification>
+<app-internet-clarification *ngIf="forms.internet"
+                            (formValue)="this.saveInternetClarification($event)"
+                            (cancel)="onClarifyingInternetCancel()"
+>
+
+</app-internet-clarification>

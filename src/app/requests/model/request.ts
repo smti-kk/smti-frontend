@@ -6,9 +6,9 @@ export enum RequestState {
 export const requestStateLabel = (requestState: RequestState): string => {
   switch (requestState) {
     case RequestState.ACCEPTED:
-      return 'на рассмотрении';
-    case RequestState.CONSIDERED:
       return 'заявка принята';
+    case RequestState.CONSIDERED:
+      return 'на рассмотрении';
   }
 };
 

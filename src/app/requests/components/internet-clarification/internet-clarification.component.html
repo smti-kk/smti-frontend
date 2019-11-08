@@ -3,10 +3,10 @@
   <div class="modal-body">
     <div class="title">
       <h2>Интернет</h2>
-      <input class="close" type="button">
+      <input class="close" type="button" (click)="cancel.emit()">
     </div>
     <div class="form">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="form" (ngSubmit)="formValue.emit(form.value)">
         <div class="form-body">
           <div class="form-body-item" [formGroupName]="provider.key" *ngFor="let provider of form.controls | keyvalue">
             <div class="checkbox">
@@ -43,8 +43,8 @@
           </div>
         </div>
         <div class="button">
-          <input type="button" value="Отмена" class="btn cancel"><input type="submit" value="Сохранить изменения"
-                                                                        class="btn">
+          <input type="button" value="Отмена" class="btn cancel" (click)="cancel.emit()">
+          <input type="submit" value="Сохранить изменения" class="btn">
         </div>
       </form>
     </div>

@@ -80,12 +80,6 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     this.maxZoom = zoom;
   }
 
-  public onDestroy() {
-    this.layers = {};
-    this.isInit = false;
-    this.clearLayer();
-  }
-
   public renderPopup?(point: T): string;
 
   abstract getPoints(bounds?: LatLngBounds): Observable<T[]>;

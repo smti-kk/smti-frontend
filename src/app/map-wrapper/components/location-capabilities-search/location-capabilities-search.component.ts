@@ -49,9 +49,6 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    if (this.administrativeCentersLayer.selectedPoint) {
-      this.setSelectedPoint(this.administrativeCentersLayer.selectedPoint, false);
-    }
   }
 
   ngOnDestroy(): void {
@@ -75,8 +72,6 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   }
 
   setSelectedPoint(administrativePoint: AdministrativeCenterPoint, animate: boolean) {
-    this.administrativeCentersLayer.savePoint(administrativePoint);
-
     this.searchForm.get(FORM_PARAMS.locality).setValue(administrativePoint.name);
 
     this.leafletMap.flyTo(new LatLng(administrativePoint.point.lat, administrativePoint.point.lng), ZOOM, {animate});
@@ -99,7 +94,6 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     }
 
     this.searchForm.get(FORM_PARAMS.locality).reset('');
-    this.administrativeCentersLayer.clearSavedPoint();
 
     this.administrativeCentersLayer.filterByArea(selectedArea);
   }
