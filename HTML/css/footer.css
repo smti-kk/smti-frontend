@@ -1,4 +1,5 @@
 .footer {
-	height: 74px;
-	background-color: #35a584;
+  flex-shrink: 0;
+  height: 74px;
+  background-color: #35a584;
 }

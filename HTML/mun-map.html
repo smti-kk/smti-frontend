@@ -4,223 +4,174 @@
 <head>
   <meta charset="utf-8">
   <title>Муницапилитет - Карта</title>
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"/>
   <link rel="shortcut icon" href="img/favicon/logo128.png">
   <link rel="apple-touch-icon" href="img/favicon/logo152.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/top-bar.css">
   <link rel="stylesheet" href="css/icon.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/mun-map.css">
+  <link rel="stylesheet" href="css/all.min.css">
 </head>
 
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="wrapper">
-        <div class="flex-header">
-          <div class="logo">
-            <a href="/">
-              <img src="img/logo.svg" alt="">
-            </a>
-          </div>
-          <div class="header-menu">
-            <nav class="nav hide">
-              <ul>
-                <li class="active"><a href="#">Мои заявки</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div class="user">
-            <div class="user-avatar">
-              <img src="img/user-avatar.png">
-            </div>
-            <div class="user-name">
-              <span>Муниципалитет И.О.</span>
-            </div>
-          </div>
+<header class="header">
+  <div class="wrapper">
+    <div class="flex-header">
+      <div class="logo">
+        <a href="/">
+          <img src="img/logo.svg" alt="">
+        </a>
+      </div>
+      <div class="header-menu">
+        <nav class="nav hide">
+          <ul>
+            <li class="active"><a href="#">Мои заявки</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="user">
+        <div class="user-avatar">
+          <img src="img/user-avatar.png">
+        </div>
+        <div class="user-name">
+          <span>Муниципалитет И.О.</span>
         </div>
       </div>
-    </header>
-    <main class="main">
-      <div class="wrapper">
-        <div class="top-bar pos-on-map">
-          <div>
-            <div class="name-location">
-              <div>с. Богучаны</div>
-              <div>Богучанский р-н</div>
-            </div>
-            <div class="peoples"><span>11 512</span> чел.</div>
-          </div>
-          <div>
-            <div class="item line">
-              <div class="name">Инфомат:</div>
-              <div class="value">0</div>
-            </div>
-            <div class="item line">
-              <div class="name">Телефон:</div>
-              <div class="value">
-                <div class="check"></div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-                    <div class="status"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item line">
-              <div class="name">Таксофон:</div>
-              <div class="value position-status2">
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-                    <div class="status">5</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="item line">
-              <div class="name">Радио:</div>
-              <div class="value">
-                <div class="check"></div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-                    <div class="status"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item line">
-              <div class="name">ТВ:</div>
-              <div class="value position-status">
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
-                    <div class="status">АТВ</div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-                    <div class="status">АТВ</div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/telsputnik.png" alt="ТелСпутник" title="ТелСпутник"></div>
-                    <div class="status">ЦТВ</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item line">
-              <div class="name">Почта:</div>
-              <div class="value">
-                <div class="check"></div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="item line">
-              <div class="name">Сотовая связь:</div>
-              <div class="value position-status">
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/mts.png" alt="МТС" title="МТС"></div>
-                    <div class="status">3G</div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
-                    <div class="status">4G</div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/megafon.png" alt="Мегафон" title="Мегафон"></div>
-                    <div class="status">2G</div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
-                    <div class="status">3G</div>
-                  </div>
-                </div>
-                <div class="value-item opacity">
-                  <div class="logo">
-                    <div class="image"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-                    <div class="status">3G</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="name">Интернет:</div>
-              <div class="value">
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/mts.png" alt="МТС" title="МТС"></div>
-                    <div class="status vols" title="ВОЛС"></div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
-                    <div class="status med" title="Медь"></div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/megafon.png" alt="Мегафон" title="Мегафон"></div>
-                    <div class="status vols" title="ВОЛС"></div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
-                    <div class="status med" title="Медь"></div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-                    <div class="status radio" title="Радио"></div>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <div class="logo">
-                    <div class="image"><img src="img/iskra.png" alt="Искра" title="Искра"></div>
-                    <div class="status sputnik" title="Спутник"></div>
-                  </div>
-                </div>
-                <div class="value-item gray-filter">
-                  <div class="logo">
-                    <div class="image"><img src="img/ttk.png" alt="ТТК" title="ТТК"></div>
-                    <div class="status"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div>Информация не актуальна?</div>
-            <input class="btn" type="button" value="Подать уточняющую заявку">
-          </div>
-        </div>
-      </div>
-    </main>
-    <footer class="footer"></footer>
+    </div>
   </div>
-  <script src="js/main.js"></script>
+</header>
+<main class="main">
+  <div class="wrapper">
+    <div class="top-bar pos-on-map">
+      <div>
+        <div class="name-location">
+          <div>с. Богучаны</div>
+          <div>Богучанский р-н</div>
+        </div>
+        <div class="peoples"><span>11 512</span> чел.</div>
+      </div>
+      <div>
+        <div class="item">
+          <div class="item-title">Инфомат:</div>
+          <div class="value">0</div>
+        </div>
+        <div class="item">
+          <div class="item-title">Телефон:</div>
+          <div class="check"></div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item-title">Таксофон:</div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+            <div class="vendor-status-text">5</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="item">
+          <div class="item-title">Радио:</div>
+          <div class="check"></div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item-title">ТВ:</div>
+          <div class="vendors">
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
+              <div class="vendor-status-text">АТВ</div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="vendor-status-text">АТВ</div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/telsputnik.png" alt="ТелСпутник" title="ТелСпутник"></div>
+              <div class="vendor-status-text">ЦТВ</div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item-title">Почта:</div>
+          <div class="check"></div>
+        </div>
+      </div>
+      <div>
+        <div class="item item-column">
+          <div class="item-title">Сотовая связь:</div>
+          <div class="vendors">
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/mts.png" alt="МТС" title="МТС"></div>
+              <div class="vendor-status-text">3G</div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
+              <div class="vendor-status-text">4G</div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/megafon.png" alt="Мегафон" title="Мегафон"></div>
+              <div class="vendor-status-text">2G</div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
+              <div class="vendor-status-text">3G</div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="vendor-status-text">3G</div>
+            </div>
+          </div>
+        </div>
+        <div class="item item-column">
+          <div class="item-title">Интернет:</div>
+          <div class="vendors">
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/mts.png" alt="МТС" title="МТС"></div>
+              <div class="vendor-status-img vols" title="ВОЛС"></div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
+              <div class="vendor-status-img med" title="Медь"></div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/megafon.png" alt="Мегафон" title="Мегафон"></div>
+              <div class="vendor-status-img vols" title="ВОЛС"></div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
+              <div class="vendor-status-img med" title="Медь"></div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+              <div class="vendor-status-img radio" title="Радио"></div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/iskra.png" alt="Искра" title="Искра"></div>
+              <div class="vendor-status-img sputnik" title="Спутник"></div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-logo"><img src="img/ttk.png" alt="ТТК" title="ТТК"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>Информация не актуальна?</div>
+        <input class="btn" type="button" value="Подать уточняющую заявку">
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer"></footer>
+<script src="js/main.js"></script>
 </body>
 
 </html>
