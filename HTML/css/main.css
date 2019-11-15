@@ -21,18 +21,18 @@
 
 html {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 14px;
   height: 100%;
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
-*:before,
-*:after {
+*::before,
+*::after {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
 }
@@ -46,7 +46,6 @@ body {
   flex-direction: column;
   height: 100%;
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
   font-weight: 400;
   color: #ffffff;
   overflow-y: scroll;
@@ -119,6 +118,7 @@ h1 {
   margin: 0 5px;
   font-size: 13px;
 }
+
 /* --- Хлебные крошки ---  end --- */
 
 .page-header {
@@ -213,6 +213,7 @@ input[type="text"]:focus::placeholder {
 }
 
 /* --- Sidebar --- begin --- */
+
 .sidebar {
   position: absolute;
   top: 0;
@@ -256,30 +257,54 @@ input[type="text"]:focus::placeholder {
   align-items: center;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-size: 14px;
+  /*font-size: 14px;*/
   cursor: pointer;
 }
 
-.accordion.blue .accordion-btn {
+.accordion-name {
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.accordion-name::before {
+  content: '\f19c';
+  position: absolute;
+  left: 0;
+}
+
+.accordion-number {
+  width: 37px;
+}
+
+.accordion-btn {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.accordion .accordion-btn::before {
+  content: '\f0d7';
   margin-right: 1.5rem;
-  background: url('../img/arrow-blue-bottom.png');
-  width: 11px;
-  height: 7px;
+  font-size: 20px;
 }
 
-.accordion.blue .accordion-btn.open {
-  background: url('../img/arrow-blue-top.png');
+.accordion .accordion-btn.open::before {
+  content: '\f0d8';
 }
 
-.accordion.green .accordion-btn {
-  margin-right: 1.5rem;
-  background: url('../img/arrow-green-bottom.png');
-  width: 11px;
-  height: 7px;
+.accordion.blue .accordion-btn::before {
+  color: #009dd3;
 }
 
-.accordion.green .accordion-btn.open {
-  background: url('../img/arrow-green-top.png');
+.accordion.blue .accordion-btn.open::before {
+  content: '\f0d8';
+}
+
+.accordion.green .accordion-btn::before {
+  color: #35a584;
+}
+
+.accordion.green .accordion-btn.open::before {
+  content: '\f0d8';
 }
 
 .accordion-body {
@@ -297,17 +322,15 @@ input[type="text"]:focus::placeholder {
 }
 
 .accordion .accordion .accordion-title {
-  font-size: 0.75rem;
+  font-size: 12px;
 }
 
-.accordion .accordion .accordion-btn {
-  background: url('../img/arrow-grnsmall-bottom.png');
-  width: 9px;
-  height: 5px;
+.accordion .accordion .accordion-btn::before {
+  font-size: 16px;
 }
 
-.accordion .accordion .accordion-btn.open {
-  background: url('../img/arrow-grnsmall-top.png');
+.accordion .accordion .accordion-btn.open::before {
+  font-size: 16px;
 }
 
 .accordion .accordion .accordion-body {
@@ -526,7 +549,7 @@ input[type="text"]:focus::placeholder {
 }
 
 .filter-info-result {
-  font-size: 14px;
+  /*font-size: 14px;*/
 }
 
 /* --- Фильтр --- end --- */
@@ -547,7 +570,7 @@ input[type="text"]:focus::placeholder {
 .layout-table-header {
   margin-top: 2.5rem;
   padding: 5px 10px;
-  font-size: 14px;
+  /*font-size: 14px;*/
   font-weight: 600;
   background-color: #fff;
   box-shadow: none;
@@ -573,9 +596,11 @@ input[type="text"]:focus::placeholder {
 .table-compare {
   grid-template-columns: 1fr 110px 200px 200px 110px;
 }
+
 .table-compare.layout-table-header .layout-table-item {
   justify-self: center;
 }
+
 /* ---------------------------------------------------------------------------- */
 .flex-wrap {
   display: flex;
@@ -783,7 +808,6 @@ input[type="text"]:focus::placeholder {
 }
 
 
-
 /* --- Радио кнопки --- end --- */
 
 
@@ -833,6 +857,7 @@ input[type="text"]:focus::placeholder {
 
 .tab-title-item {
   flex: 1 0 0%;
+  padding-bottom: 5px;
   text-align: center;
   cursor: pointer;
 }
@@ -910,6 +935,7 @@ input[type="text"]:focus::placeholder {
   display: flex;
   align-items: center;
 }
+
 .input input {
   width: 50px;
   font-size: 12px;
@@ -925,6 +951,7 @@ input[type="text"]:focus::placeholder {
   flex-grow: 1;
   text-align: right;
 }
+
 .btn-edit-item {
   margin: 0;
   padding: 3px 9px;
@@ -948,7 +975,53 @@ input[type="text"]:focus::placeholder {
   white-space: nowrap;
   opacity: 0.2;
 }
+
 /* --- Форма уточняющей заявки --- end --- */
+
+
+.contract-item {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding: 15px 10px;
+  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+}
+
+.contract-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contract-layout {
+  display: grid;
+  grid-template-columns: 220px 150px 250px 200px;
+  grid-gap: 1.5rem;
+  padding-left: 36px;
+  font-size: 13px;
+}
+
+.contract-info {
+  margin-bottom: 16px;
+}
+
+.contract-layout .fas,
+.contract-layout .far,
+.contract-layout .fab {
+  margin-right: 5px;
+  width: 16px;
+  text-align: center;
+}
+
+.contract .accordion {
+  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+}
+
+.contract-item .accordion-body {
+  padding-bottom: 0;
+}
+
+.item-row .contract-info {
+  margin-right: 2rem;
+}
 
 
 
@@ -986,4 +1059,9 @@ input[type="text"]:focus::placeholder {
 .border-left {
   padding-left: 10px;
   border-left: 1px solid #d2d2d2;
+}
+
+/* Выравниване flex-элементов по вертикале */
+.align-start {
+  align-items: flex-start;
 }

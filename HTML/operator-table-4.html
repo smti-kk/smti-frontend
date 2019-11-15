@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Оператор - СТ контракты услуг связи</title>
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"/>
+  <link rel="shortcut icon" href="img/favicon/logo128.png">
+  <link rel="apple-touch-icon" href="img/favicon/logo152.png">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/icon.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/mun-req.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/all.min.css">
+</head>
+<body>
+<header class="header">
+  <div class="wrapper">
+    <div class="flex-header">
+      <div class="logo">
+        <a href="/">
+          <img src="img/logo.svg" alt="">
+        </a>
+      </div>
+      <div class="header-menu">
+        <nav class="nav hide">
+          <ul>
+            <li class="active"><a href="#">Сводная таблица</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="user">
+        <div class="user-avatar">
+          <img src="img/user-avatar.png">
+        </div>
+        <div class="user-name">
+          <span>Оператор И.О.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="main">
+  <div class="wrapper">
+    <h1>Сводная таблица - Контракты услуг связи</h1>
+    <div class="accordion filter">
+      <div class="accordion-title">
+        <div class="filter-icon">Фильтры</div>
+        <div class="accordion-btn"></div>
+      </div>
+      <div class="accordion-body">
+        <form>
+          <div class="filter-wrap">
+            <div class="filter-item filter-button">
+              <button type="button" class="btn filter-btn">Нас. пункт</button>
+              <button type="button" class="btn filter-btn">Район</button>
+              <button type="button" class="btn filter-btn">Численность</button>
+            </div>
+            <div class="filter-item">
+              <div class="filter-item-wrap item-row form-not-active">
+                <div class="item-title">Сотовая связь:</div>
+                <div class="vendors border-right">
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/mts.png" alt="МТС" title="МТС"></div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/beeline.png" alt="Билайн" title="Билайн">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/megafon.png" alt="Мегафон" title="Мегафон">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/rostelecom.png" alt="РосТелеком"
+                                                                   title="РосТелеком"></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="radiobox radiobox-row">
+                  <label><input type="radio" name="mobile">
+                    <div class="radiobox-text">2G</div>
+                  </label>
+                  <label><input type="radio" name="mobile">
+                    <div class="radiobox-text">3G</div>
+                  </label>
+                  <label><input type="radio" name="mobile">
+                    <div class="radiobox-text">4G</div>
+                  </label>
+                  <label><input type="radio" name="mobile">
+                    <div class="radiobox-text">5G</div>
+                  </label>
+                </div>
+              </div>
+              <div class="filter-item-wrap item-row form-not-active">
+                <div class="item-title">Интернет:</div>
+                <div class="vendors border-right">
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/mts.png" alt="МТС" title="МТС"></div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/beeline.png" alt="Билайн" title="Билайн">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/megafon.png" alt="Мегафон" title="Мегафон">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/rostelecom.png" alt="РосТелеком"
+                                                                   title="РосТелеком"></div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/iskra.png" alt="Искра" title="Искра"></div>
+                    </label>
+                  </div>
+                  <div class="vendor">
+                    <label> <input type="checkbox">
+                      <div class="vendor-logo checked-vendor"><img src="img/ttk.png" alt="ТТК" title="ТТК"></div>
+                    </label>
+                  </div>
+                </div>
+                <div class="radiobox radiobox-row">
+                  <label><input type="radio" name="internet">
+                    <div class="radiobox-text">Спутник</div>
+                  </label>
+                  <label><input type="radio" name="internet">
+                    <div class="radiobox-text">ВОЛС</div>
+                  </label>
+                  <label><input type="radio" name="internet">
+                    <div class="radiobox-text">Медь</div>
+                  </label>
+                  <label><input type="radio" name="internet">
+                    <div class="radiobox-text">Радиоканал</div>
+                  </label>
+                </div>
+              </div>
+              <div class="filter-item-wrap form-not-active">
+                <div class="item-title">Программа:</div>
+                <select name="" id="">
+                  <option value="" disabled selected style="display:none;">Выберите программу</option>
+                  <option value="">Программа 1</option>
+                  <option value="">Программа 2</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр">
+        </form>
+      </div>
+    </div>
+    <div class="filter-info">
+      <div class="filter-info-result">
+        Результатов поиска: <span>115</span> из <span>9 345</span>
+      </div>
+      <div class="filter-info-export">
+        <input type="button" class="btn" value="Выгрузить в Excel">
+      </div>
+    </div>
+    <div class="contract">
+      <div class="contract-item">
+        <div class="contract-header">
+          <div class="name-location">
+            <div>с. Богучаны</div>
+            <div>Богучанский р-н</div>
+          </div>
+          <div class="location-count">Количество: <span>3</span></div>
+        </div>
+        <div class="accordion">
+          <div class="accordion-title align-start">
+            <div class="accordion-number">1</div>
+            <div class="accordion-name">
+              <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
+              <div>Экондинский фельдшерско-акушерский пункт</div>
+            </div>
+            <div class="accordion-btn"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="contract-layout">
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-arrows-alt"></i><span>ФАП</span></div>
+                <div class="contract-info"><i class="fas fa-map-marker-alt"></i><span>п. Эконда, ул. Школьная, 7</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="far fa-file-alt"></i><span>№ 1235065п-а</span></div>
+                <div class="contract-info"><i class="far fa-money-bill-alt"></i><span>123 465 руб.</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-bullhorn"></i><span>ИП Иванов Иван Иванович</span></div>
+                <div class="item-row">
+                  <div class="contract-info"><i class="fab fa-internet-explorer"></i><span>Интернет</span></div>
+                  <div class="contract-info"><i class="fas fa-plug"></i><span>ЕТТН</span></div>
+                </div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-tachometer-alt"></i><span>10Mb/sec</span></div>
+                <div class="contract-info"><i class="far fa-map"></i><span>IP 102.025.10.100</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion">
+          <div class="accordion-title align-start">
+            <div class="accordion-number">2</div>
+            <div class="accordion-name">
+              <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
+              <div>Экондинский фельдшерско-акушерский пункт</div>
+            </div>
+            <div class="accordion-btn"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="contract-layout">
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-arrows-alt"></i><span>ФАП</span></div>
+                <div class="contract-info"><i class="fas fa-map-marker-alt"></i><span>п. Эконда, ул. Школьная, 7</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="far fa-file-alt"></i><span>№ 1235065п-а</span></div>
+                <div class="contract-info"><i class="far fa-money-bill-alt"></i><span>123 465 руб.</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-bullhorn"></i><span>ИП Иванов Иван Иванович</span></div>
+                <div class="item-row">
+                  <div class="contract-info"><i class="fab fa-internet-explorer"></i><span>Интернет</span></div>
+                  <div class="contract-info"><i class="fas fa-plug"></i><span>ЕТТН</span></div>
+                </div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-tachometer-alt"></i><span>10Mb/sec</span></div>
+                <div class="contract-info"><i class="far fa-map"></i><span>IP 102.025.10.100</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion">
+          <div class="accordion-title align-start">
+            <div class="accordion-number">3</div>
+            <div class="accordion-name">
+              <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
+              <div>Экондинский фельдшерско-акушерский пункт</div>
+            </div>
+            <div class="accordion-btn"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="contract-layout">
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-arrows-alt"></i><span>ФАП</span></div>
+                <div class="contract-info"><i class="fas fa-map-marker-alt"></i><span>п. Эконда, ул. Школьная, 7</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="far fa-file-alt"></i><span>№ 1235065п-а</span></div>
+                <div class="contract-info"><i class="far fa-money-bill-alt"></i><span>123 465 руб.</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-bullhorn"></i><span>ИП Иванов Иван Иванович</span></div>
+                <div class="item-row">
+                  <div class="contract-info"><i class="fab fa-internet-explorer"></i><span>Интернет</span></div>
+                  <div class="contract-info"><i class="fas fa-plug"></i><span>ЕТТН</span></div>
+                </div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-tachometer-alt"></i><span>10Mb/sec</span></div>
+                <div class="contract-info"><i class="far fa-map"></i><span>IP 102.025.10.100</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contract-item">
+        <div class="contract-header">
+          <div class="name-location">
+            <div>с. Богучаны</div>
+            <div>Богучанский р-н</div>
+          </div>
+          <div class="location-count">Количество: <span>3</span></div>
+        </div>
+        <div class="accordion">
+          <div class="accordion-title align-start">
+            <div class="accordion-number">1</div>
+            <div class="accordion-name">
+              <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
+              <div>Экондинский фельдшерско-акушерский пункт</div>
+            </div>
+            <div class="accordion-btn"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="contract-layout">
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-arrows-alt"></i><span>ФАП</span></div>
+                <div class="contract-info"><i class="fas fa-map-marker-alt"></i><span>п. Эконда, ул. Школьная, 7</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="far fa-file-alt"></i><span>№ 1235065п-а</span></div>
+                <div class="contract-info"><i class="far fa-money-bill-alt"></i><span>123 465 руб.</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-bullhorn"></i><span>ИП Иванов Иван Иванович</span></div>
+                <div class="item-row">
+                  <div class="contract-info"><i class="fab fa-internet-explorer"></i><span>Интернет</span></div>
+                  <div class="contract-info"><i class="fas fa-plug"></i><span>ЕТТН</span></div>
+                </div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-tachometer-alt"></i><span>10Mb/sec</span></div>
+                <div class="contract-info"><i class="far fa-map"></i><span>IP 102.025.10.100</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion">
+          <div class="accordion-title align-start">
+            <div class="accordion-number">2</div>
+            <div class="accordion-name">
+              <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
+              <div>Экондинский фельдшерско-акушерский пункт</div>
+            </div>
+            <div class="accordion-btn"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="contract-layout">
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-arrows-alt"></i><span>ФАП</span></div>
+                <div class="contract-info"><i class="fas fa-map-marker-alt"></i><span>п. Эконда, ул. Школьная, 7</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="far fa-file-alt"></i><span>№ 1235065п-а</span></div>
+                <div class="contract-info"><i class="far fa-money-bill-alt"></i><span>123 465 руб.</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-bullhorn"></i><span>ИП Иванов Иван Иванович</span></div>
+                <div class="item-row">
+                  <div class="contract-info"><i class="fab fa-internet-explorer"></i><span>Интернет</span></div>
+                  <div class="contract-info"><i class="fas fa-plug"></i><span>ЕТТН</span></div>
+                </div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-tachometer-alt"></i><span>10Mb/sec</span></div>
+                <div class="contract-info"><i class="far fa-map"></i><span>IP 102.025.10.100</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion">
+          <div class="accordion-title align-start">
+            <div class="accordion-number">3</div>
+            <div class="accordion-name">
+              <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
+              <div>Экондинский фельдшерско-акушерский пункт</div>
+            </div>
+            <div class="accordion-btn"></div>
+          </div>
+          <div class="accordion-body">
+            <div class="contract-layout">
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-arrows-alt"></i><span>ФАП</span></div>
+                <div class="contract-info"><i class="fas fa-map-marker-alt"></i><span>п. Эконда, ул. Школьная, 7</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="far fa-file-alt"></i><span>№ 1235065п-а</span></div>
+                <div class="contract-info"><i class="far fa-money-bill-alt"></i><span>123 465 руб.</span></div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-bullhorn"></i><span>ИП Иванов Иван Иванович</span></div>
+                <div class="item-row">
+                  <div class="contract-info"><i class="fab fa-internet-explorer"></i><span>Интернет</span></div>
+                  <div class="contract-info"><i class="fas fa-plug"></i><span>ЕТТН</span></div>
+                </div>
+              </div>
+              <div class="contract-layout-item">
+                <div class="contract-info"><i class="fas fa-tachometer-alt"></i><span>10Mb/sec</span></div>
+                <div class="contract-info"><i class="far fa-map"></i><span>IP 102.025.10.100</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer"></footer>
+<script src="js/main.js"></script>
+</body>
+</html>
