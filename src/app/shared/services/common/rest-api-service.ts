@@ -2,14 +2,13 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { BaseModel } from '../../models/base-model';
 import { StoreService } from '../store.service';
 import { map } from 'rxjs/operators';
 import { ApiMapper } from '../../utils/api-mapper';
 
-export class RestApiService<ShortModel extends BaseModel,
-  DetailModel extends BaseModel,
-  WriteModel extends BaseModel> extends ApiService {
+export class RestApiService<ShortModel,
+  DetailModel,
+  WriteModel> extends ApiService {
   protected readonly baseUrl: string;
 
   constructor(http: HttpClient,
@@ -34,13 +33,13 @@ export class RestApiService<ShortModel extends BaseModel,
   }
 
   public save(entity: WriteModel): Observable<DetailModel> {
-    if (!entity.id) {
-      return this.post<DetailModel>(`${this.baseUrl}/`, entity)
-        .pipe(map((data) => this.parseResponseOne(data)));
-    } else {
-      return this.put<DetailModel>(`${this.baseUrl}/${entity.id}/`, entity)
-        .pipe(map((data) => this.parseResponseOne(data)));
-    }
+    return this.post<DetailModel>(`${this.baseUrl}/`, entity)
+      .pipe(map((data) => this.parseResponseOne(data)));
+  }
+
+  public saveById(entity: WriteModel, entityId: number): Observable<DetailModel> {
+    return this.put<DetailModel>(`${this.baseUrl}/${entityId}/`, entity)
+      .pipe(map((data) => this.parseResponseOne(data)));
   }
 
   protected createInstance<T>(data?): T {

@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { isString } from 'util';
-import { SharedModule } from '../shared.module';
 
-@Injectable({
-  providedIn: SharedModule
-})
+@Injectable()
 export class StoreService {
 
     private clearMethod = {
         all: () => {
             localStorage.clear();
         },
-        account: () => {
-            localStorage.removeItem('account');
+        token: () => {
+            localStorage.removeItem('token');
         },
     };
 

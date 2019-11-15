@@ -7,12 +7,12 @@
     </div>
     <div class="form">
       <form [formGroup]="form" (ngSubmit)="formValue.emit(form.value)">
-        <div class="form-body">
-          <div class="form-body-item" [formGroupName]="provider.key" *ngFor="let provider of form.controls | keyvalue">
-            <div class="checkbox">
+        <div class="form-body" formArrayName="internet">
+          <div class="form-body-item" [formGroupName]="i.toString()" *ngFor="let internet of internet.controls; let i = index">
+            <div class="checkbox" formGroupName="provider">
               <label>
                 <input type="checkbox" formControlName="isActive">
-                <div class="checkbox-text">{{provider.key}}</div>
+                <div class="checkbox-text">{{internet.value.provider.name}}</div>
               </label>
             </div>
             <div class="radiobox">

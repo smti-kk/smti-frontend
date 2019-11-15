@@ -26,6 +26,7 @@ const ZOOM = 14;
 export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   @Input() private readonly leafletMap: ExtendedMap;
   @Output() selectedPoint: EventEmitter<LocationCapabilities> = new EventEmitter<LocationCapabilities>();
+  // @Output() organizations: EventEmitter<Organization> = new EventEmitter<LocationCapabilities>();
 
   administrativePoints: AdministrativeCenterPoint[] = [];
   searchForm: FormGroup;
@@ -71,13 +72,13 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     }
   }
 
-  setSelectedPoint(administrativePoint: AdministrativeCenterPoint, animate: boolean) {
+  setSelectedPoint(administrativePoint: AdministrativeCenterPoint, animate: boolean = true) {
     this.searchForm.get(FORM_PARAMS.locality).setValue(administrativePoint.name);
 
     this.leafletMap.flyTo(new LatLng(administrativePoint.point.lat, administrativePoint.point.lng), ZOOM, {animate});
 
     this.leafletMap.spin(true);
-    this.locationCapabilitiesService.get(administrativePoint.id).subscribe(lc => {
+    this.locationCapabilitiesService.one(administrativePoint.id).subscribe(lc => {
       this.selectedPoint.emit(lc);
       this.leafletMap.spin(false);
     });
@@ -110,7 +111,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
         }
 
         this.technicalCapabilitiesUpdateTimer = window.setInterval(() => {
-          this.locationCapabilitiesService.get(marker.feature.properties.point.id).subscribe(location => {
+          this.locationCapabilitiesService.one(marker.feature.properties.id).subscribe(location => {
             this.selectedPoint.emit(location);
           });
         }, TIMER_INTERVAL);
@@ -143,7 +144,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   }
 
   private onMunicipalityMarkerClick(marker: AccessPointMarker<AdministrativeCenterPoint>) {
-    this.searchForm.get(FORM_PARAMS.area).patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.point.area));
-    this.setSelectedPoint(marker.feature.properties.point, true);
+    this.searchForm.get(FORM_PARAMS.area).patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.area));
+    this.setSelectedPoint(marker.feature.properties, true);
   }
 }

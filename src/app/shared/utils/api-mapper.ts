@@ -1,16 +1,11 @@
-import { BaseModel } from '../models/base-model';
-
-export abstract class ApiMapper<ShortModel extends BaseModel,
-  DetailModel extends BaseModel,
-  WriteModel extends BaseModel> {
+export abstract class ApiMapper<ShortModel, DetailModel, WriteModel> {
 
   public abstract mapShortApi(apiData): ShortModel;
+
   public abstract mapDetailApi(apiData): DetailModel;
 }
 
-export class DefaultMapper<ShortModel extends BaseModel,
-  DetailModel extends BaseModel,
-  WriteModel extends BaseModel> extends ApiMapper<ShortModel, DetailModel, WriteModel> {
+export class DefaultMapper<ShortModel, DetailModel, WriteModel> extends ApiMapper<ShortModel, DetailModel, WriteModel> {
 
   mapShortApi(apiData): ShortModel {
     return apiData as ShortModel;

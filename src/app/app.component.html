@@ -1,5 +1,5 @@
 <div class="core-container">
-  <header class="header">
+  <header class="header" *ngIf="user">
     <div class="wrapper">
       <div class="flex-header">
         <div class="logo">
@@ -31,6 +31,6 @@
     <router-outlet></router-outlet>
   </div>
 
-  <footer class="footer"></footer>
+  <footer class="footer" *ngIf="user"></footer>
 </div>
 

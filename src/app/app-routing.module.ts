@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundPage } from './core/pages/not-found/not-found.page';
+import { AuthorizationComponent } from './core/pages/authorization/authorization.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'user/requests',
     loadChildren: './requests/requests.module#RequestsModule'
+  },
+  {
+    path: 'authorization',
+    component: AuthorizationComponent
   },
   {
     path: '**',

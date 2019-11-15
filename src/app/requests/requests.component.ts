@@ -28,7 +28,7 @@ export class RequestsComponent implements OnInit {
     });
 
     // tslint:disable-next-line:no-magic-numbers
-    this.technicalCapabilitiesService.get(2419, false).subscribe(technicalCapability => {
+    this.technicalCapabilitiesService.one(2419).subscribe(technicalCapability => {
       this.technicalCapability = technicalCapability;
     });
   }

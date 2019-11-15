@@ -16,5 +16,14 @@
     "pathRewrite": {
       "^/media": ""
     }
+  },
+  "/auth/*": {
+    "target": "http://0.0.0.0:8000/auth",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/auth": ""
+    }
   }
 }

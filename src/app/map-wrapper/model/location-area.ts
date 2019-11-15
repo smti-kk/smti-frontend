@@ -1,5 +1,4 @@
 import { Feature, GeoJsonProperties, MultiPoint, BBox } from 'geojson';
-import { BaseModel } from '../../shared/models/base-model';
 
 export interface LocationAreaProperties extends GeoJsonProperties {
   name: string;
@@ -9,17 +8,18 @@ export interface LocationAreaProperties extends GeoJsonProperties {
   mobileMark: number;
 }
 
-export class LocationArea extends BaseModel implements Feature<MultiPoint, LocationAreaProperties> {
+export class LocationArea implements Feature<MultiPoint, LocationAreaProperties> {
   private _type: 'Feature' = 'Feature';
   private _bbox?: BBox;
 
   private readonly _geometry: MultiPoint;
   private readonly _properties: LocationAreaProperties;
+  private readonly _id: number;
 
   constructor(geometry: MultiPoint,
               properties: LocationAreaProperties,
               id: number) {
-    super(id);
+    this._id = id;
     this._geometry = geometry;
     this._properties = properties;
   }

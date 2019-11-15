@@ -1,22 +1,25 @@
 import { Coordinate } from '../interface/coordinate';
-import { BaseModel } from '../../shared/models/base-model';
 
-export abstract class AccessPoint extends BaseModel {
+export abstract class AccessPoint {
 
   private _point: Coordinate;
-  private _name: string;
-  private _area: string;
+  private readonly _name: string;
+  private readonly _area: string;
+  private _id;
 
   public constructor(_id: number,
                      _point: Coordinate,
                      _name: string,
                      _area: string) {
-    super(_id);
+    this._id = _id;
     this._point = _point;
     this._name = _name;
     this._area = _area;
   }
 
+  get id() {
+    return this._id;
+  }
 
   get area(): string {
     return this._area;

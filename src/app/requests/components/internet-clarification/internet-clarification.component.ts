@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 
 export class BaseFormComponent<T> {
@@ -29,19 +29,42 @@ export class InternetClarificationComponent extends BaseFormComponent<InternetCl
   }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      internet: this.fb.array([])
+    });
 
-    this.form = this.fb.group({});
+    this.createProviders(this.PROVIDERS).forEach(provider => {
+      this.internet.push(provider);
+    });
+  }
 
-    this.createProviders(this.PROVIDERS);
+  get internet(): FormArray {
+    return this.form.get('internet') as FormArray;
   }
 
   private createProviders(providers: string[]) {
     return providers.map(provider => {
-      return this.form.addControl(provider, this.fb.group({
-        isActive: [false],
+      return this.fb.group({
+        provider: this.fb.group({
+          isActive: [false],
+          name: [provider],
+          icon: ['']
+        }),
         type: [],
         quality: []
-      }));
+      });
     });
   }
+
+  /*
+  {
+        provider: {
+          isActive: true,
+          name: internetItem.operator.name,
+          icon: internetItem.operator.icon
+        },
+        type: internetItem.type_trunkchannel.name === 'медный кабель' ? 'медь' : internetItem.type_trunkchannel.name,
+        quality: ''
+      };
+   */
 }

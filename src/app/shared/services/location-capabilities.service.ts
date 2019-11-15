@@ -1,28 +1,17 @@
 import { Injectable } from '@angular/core';
 import { SharedModule } from '../shared.module';
-import { forkJoin, Observable } from 'rxjs';
 import { LocationCapabilities } from '../models/location-capabilities';
 import { HttpClient } from '@angular/common/http';
-import { PSEUDO, TECHNICAL_CAPABILITIES } from '../constants/api';
-import { map } from 'rxjs/operators';
+import { TECHNICAL_CAPABILITIES } from '../constants/api';
+import { RestApiService } from './common/rest-api-service';
+import { LocationCapabilitiesMapper } from '../utils/location-capabilities.mapper';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: SharedModule
 })
-export class LocationCapabilitiesService {
-  constructor(private http: HttpClient) {
-  }
-
-  get(id: number, withOrganizations: boolean = true): Observable<LocationCapabilities> {
-    if (withOrganizations) {
-      return forkJoin([
-        this.http.get(TECHNICAL_CAPABILITIES.replace(':id', `${id}`)),
-        this.http.get(PSEUDO.replace(':id', `${id}`))
-      ])
-        .pipe(map((data: any) => LocationCapabilities.createFromApiModel(data[0], data[1])));
-    } else {
-      return this.http.get(TECHNICAL_CAPABILITIES.replace(':id', `${id}`))
-        .pipe(map(data => LocationCapabilities.createFromApiModel(data)));
-    }
+export class LocationCapabilitiesService extends RestApiService<LocationCapabilities, LocationCapabilities, LocationCapabilities> {
+  constructor(private httpClient: HttpClient, private storeService: StoreService) {
+    super(httpClient, storeService, TECHNICAL_CAPABILITIES, new LocationCapabilitiesMapper());
   }
 }

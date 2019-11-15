@@ -23,7 +23,7 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
 
   filterByLocalityName(name: string): AdministrativeCenterPoint[] {
     return this.getLayers()
-      .map(layer => layer.feature.properties.point)
+      .map(layer => layer.feature.properties)
       .filter(layer => layer.name.toLowerCase().includes(name.toLowerCase()));
   }
 

@@ -9,21 +9,18 @@ const ICON_ANCHOR_LEFT = 12;
 const ICON_ANCHOR_TOP = 41;
 const SHADOW_ANCHOR_LEFT = 4;
 const SHADOW_ANCHOR_TOP = 62;
-const POPUP_ANCHOR_LEFT = -1;
+const POPUP_ANCHOR_LEFT = 8;
 const POPUP_ANCHOR_TOP = -25;
 
 const BIG_ICON_WIDTH = 38;
 const BIG_ICON_HEIGHT = 48;
 
-interface AccessPointMarkerProperties<T extends AccessPoint> {
-  point: T;
-}
 
 export class AccessPointMarker<T extends AccessPoint> extends Marker {
 
   private static deactivateMarker: EventEmitter<void> = new EventEmitter<void>();
 
-  feature: geojson.Feature<geojson.Point, AccessPointMarkerProperties<T>>;
+  feature: geojson.Feature<geojson.Point, T>;
 
   constructor(point: T) {
     super(
@@ -35,9 +32,7 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
 
     this.feature = {
       id: point.id,
-      properties: {
-        point
-      },
+      properties: point,
       type: 'Feature',
       geometry: null
     };
@@ -45,11 +40,11 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     this.on('click', () => {
       AccessPointMarker.deactivateMarker.emit();
 
-      this.setIcon(AccessPointMarker.createBigIcon(this.feature.properties.point));
+      this.setIcon(AccessPointMarker.createBigIcon(this.feature.properties));
 
       const observer = AccessPointMarker.deactivateMarker.subscribe(() => {
         observer.unsubscribe();
-        this.setIcon(AccessPointMarker.createIcon(this.feature.properties.point));
+        this.setIcon(AccessPointMarker.createIcon(this.feature.properties));
       });
     });
   }
@@ -64,11 +59,11 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
       });
     }
 
-    if (this.feature.properties.point.iconUrl !== point.iconUrl) {
+    if (this.feature.properties.iconUrl !== point.iconUrl) {
       this.setIcon(AccessPointMarker.createIcon(point));
     }
 
-    this.feature.properties.point = point;
+    this.feature.properties = point;
   }
 
   private static createIcon(point: AccessPoint): Icon {

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular
 import { LocationCapabilities, Telephone } from '../../../shared/models/location-capabilities';
 import { LocationCapabilitiesService } from '../../../shared/services/location-capabilities.service';
 import { ExtendedMap } from '../../../declarations/leaflet';
+import { OrganizationsService } from '../../../shared/services/organizations.service';
 
 @Component({
   selector: 'marker-info-bar',
@@ -15,6 +16,7 @@ export class MarkerInfoBarComponent implements OnInit {
   currentPointCapabilities: LocationCapabilities;
 
   constructor(private readonly locationCapabilitiesService: LocationCapabilitiesService,
+              private readonly organizationsService: OrganizationsService,
               private readonly ref: ChangeDetectorRef,
               private readonly renderer: Renderer2) {
   }
