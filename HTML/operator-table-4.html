@@ -59,121 +59,12 @@
             <div class="filter-item filter-button">
               <button type="button" class="btn filter-btn">Нас. пункт</button>
               <button type="button" class="btn filter-btn">Район</button>
-              <button type="button" class="btn filter-btn">Численность</button>
             </div>
             <div class="filter-item">
-              <div class="filter-item-wrap item-row form-not-active">
-                <div class="item-title">Сотовая связь:</div>
-                <div class="vendors border-right">
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/mts.png" alt="МТС" title="МТС"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/beeline.png" alt="Билайн" title="Билайн">
-                      </div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/megafon.png" alt="Мегафон" title="Мегафон">
-                      </div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/rostelecom.png" alt="РосТелеком"
-                                                                   title="РосТелеком"></div>
-                    </label>
-                  </div>
-                </div>
-                <div class="radiobox radiobox-row">
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">2G</div>
-                  </label>
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">3G</div>
-                  </label>
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">4G</div>
-                  </label>
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">5G</div>
-                  </label>
-                </div>
-              </div>
-              <div class="filter-item-wrap item-row form-not-active">
-                <div class="item-title">Интернет:</div>
-                <div class="vendors border-right">
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/mts.png" alt="МТС" title="МТС"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/beeline.png" alt="Билайн" title="Билайн">
-                      </div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/megafon.png" alt="Мегафон" title="Мегафон">
-                      </div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/rostelecom.png" alt="РосТелеком"
-                                                                   title="РосТелеком"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/iskra.png" alt="Искра" title="Искра"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="img/ttk.png" alt="ТТК" title="ТТК"></div>
-                    </label>
-                  </div>
-                </div>
-                <div class="radiobox radiobox-row">
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">Спутник</div>
-                  </label>
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">ВОЛС</div>
-                  </label>
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">Медь</div>
-                  </label>
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">Радиоканал</div>
-                  </label>
-                </div>
-              </div>
-              <div class="filter-item-wrap form-not-active">
-                <div class="item-title">Программа:</div>
-                <select name="" id="">
-                  <option value="" disabled selected style="display:none;">Выберите программу</option>
-                  <option value="">Программа 1</option>
-                  <option value="">Программа 2</option>
-                </select>
-              </div>
+              <div class="input"><div class="item-title">Наим. организации:</div><input type="text"></div>
+              <div class="input"><div class="item-title">Номер контракта:</div><input type="text"></div>
+              <div class="input"><div class="item-title">Оператор связи:</div><input type="text"></div>
+              <div class="input"><div class="item-title">Тип подключения:</div><input type="text"></div>
             </div>
           </div>
           <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр">
@@ -192,8 +83,8 @@
       <div class="contract-item">
         <div class="contract-header">
           <div class="name-location">
-            <div>с. Богучаны</div>
-            <div>Богучанский р-н</div>
+            <div class="name-location-item1">с. Богучаны</div>
+            <div class="name-location-item2">Богучанский р-н</div>
           </div>
           <div class="location-count">Количество: <span>3</span></div>
         </div>
@@ -300,8 +191,8 @@
       <div class="contract-item">
         <div class="contract-header">
           <div class="name-location">
-            <div>с. Богучаны</div>
-            <div>Богучанский р-н</div>
+            <div class="name-location-item1">с. Богучаны</div>
+            <div class="name-location-item2">Богучанский р-н</div>
           </div>
           <div class="location-count">Количество: <span>3</span></div>
         </div>

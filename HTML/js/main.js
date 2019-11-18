@@ -123,9 +123,30 @@ if (comment){
   });
 }
 
+// Сводная таблица сравнение тех. возможностей
+let tech = document.getElementById('tech');
+let mobile = document.getElementById('mobile');
+let internet = document.getElementById('internet');
+
+if(tech) {
+  tech.addEventListener('change', function () {
+    if (this.value == 'mobile') {
+      mobile.style.display = "flex";
+      internet.style.display = "none";
+    }
+    if (this.value == 'internet') {
+      mobile.style.display = "none";
+      internet.style.display = "flex";
+    }
+  });
+}
 
 
-// let btnSaveComment = document.querySelector('.btn-save-comment');
-// if (btnSaveComment) {
-//
-// }
+let btnEditItem = document.querySelectorAll('.btn-edit-item');
+if(btnEditItem) {
+  btnEditItem.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelector('.c-modal').style.display = 'flex';
+    })
+  });
+}

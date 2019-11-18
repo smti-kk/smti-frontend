@@ -51,9 +51,9 @@
       <h1>Сводная таблица - Сравнение технических возмоностей</h1>
       <div>
         <div class="item-title">Выберете тех. возможность:</div>
-        <select name="" id="">
-          <option value="">Интернет</option>
-          <option value="">Сотовая связь</option>
+        <select name="" id="tech">
+          <option value="internet">Интернет</option>
+          <option value="mobile">Сотовая связь</option>
         </select>
       </div>
     </div>
@@ -71,7 +71,7 @@
               <button type="button" class="btn filter-btn">Численность</button>
             </div>
             <div class="filter-item">
-              <div class="filter-item-wrap item-row form-not-active">
+              <div id="mobile" class="filter-item-wrap item-row form-not-active">
                 <div class="item-title">Сотовая связь:</div>
                 <div class="vendors border-right">
                   <div class="vendor">
@@ -115,7 +115,7 @@
                   </label>
                 </div>
               </div>
-              <div class="filter-item-wrap item-row form-not-active">
+              <div id="internet" class="filter-item-wrap item-row form-not-active">
                 <div class="item-title">Интернет:</div>
                 <div class="vendors border-right">
                   <div class="vendor">
@@ -204,8 +204,8 @@
     <div class="layout-table table-compare">
       <div class="layout-table-item">
         <div class="name-location">
-          <div>с. Богучаны</div>
-          <div>Богучанский р-н</div>
+          <div class="name-location-item1">с. Богучаны</div>
+          <div class="name-location-item2">Богучанский р-н</div>
         </div>
         <div class="peoples"><span>11 512</span> чел.</div>
       </div>
@@ -292,6 +292,85 @@
           <div class="vendor">
             <div class="vendor-logo"><img src="img/ttk.png" alt="ТТК" title="ТТК"></div>
             <div class="vendor-status-img"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layout-table table-compare">
+      <div class="layout-table-item">
+        <div class="name-location">
+          <div class="name-location-item1">с. Богучаны</div>
+          <div class="name-location-item2">Богучанский р-н</div>
+        </div>
+        <div class="peoples"><span>11 512</span> чел.</div>
+      </div>
+      <div class="layout-table-item">
+        <div class="vendors vendors-column">
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/mts.png" alt="МТС" title="МТС"></div>
+            <div class="vendor-status-text">3G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
+            <div class="vendor-status-text">4G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/megafon.png" alt="Мегафон" title="Мегафон"></div>
+            <div class="vendor-status-text">2G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
+            <div class="vendor-status-text">3G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+            <div class="vendor-status-text">3G</div>
+          </div>
+        </div>
+      </div>
+      <div class="layout-table-item">
+        <div class="item-row">
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
+          </div>
+          <div>:<span>4G</span> (<span>Субсидии 2020</span>)</div>
+        </div>
+        <div class="item-row">
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
+          </div>
+          <div>:<span>5G</span> (<span>Субсидии 2020</span>)</div>
+        </div>
+      </div>
+      <div class="layout-table-item">
+        <div class="item-row">
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/mts.png" alt="МТС" title="МТС"></div>
+          </div>
+          <div>:<span>3G</span> (<span>Субсидии 2021</span>)</div>
+        </div>
+      </div>
+      <div class="layout-table-item">
+        <div class="vendors vendors-column">
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/mts.png" alt="МТС" title="МТС"></div>
+            <div class="vendor-status-text">3G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/beeline.png" alt="Билайн" title="Билайн"></div>
+            <div class="vendor-status-text">4G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/megafon.png" alt="Мегафон" title="Мегафон"></div>
+            <div class="vendor-status-text">2G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/tele2.png" alt="Теле2" title="Теле2"></div>
+            <div class="vendor-status-text">3G</div>
+          </div>
+          <div class="vendor">
+            <div class="vendor-logo"><img src="img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
+            <div class="vendor-status-text">3G</div>
           </div>
         </div>
       </div>

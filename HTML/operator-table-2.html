@@ -56,8 +56,8 @@
     </div>
     <div class="location-info">
       <div class="name-location">
-        <div>с. Богучаны</div>
-        <div>Богучанский р-н</div>
+        <div class="name-location-item1">с. Богучаны</div>
+        <div class="name-location-item2">Богучанский р-н</div>
       </div>
       <div class="peoples"><span>11 512</span> чел.</div>
     </div>
@@ -74,7 +74,7 @@
               Последние изменения: <span class="last-modified-date">23.06.2018</span>
             </div>
             <div class="edit-status">Режим: Редактирование</div>
-<!--            <input type="button" class="btn btn-cancel-form" value="Отмена редактирования">-->
+            <!--            <input type="button" class="btn btn-cancel-form" value="Отмена редактирования">-->
             <input type="button" class="btn btn-edit-form" value="Редактировать (Уточняющая заявка)">
           </div>
           <div class="edit-form form-not-active">
@@ -759,7 +759,8 @@
                   <span>Комментарий к внесенным изменениям (к заявке)</span>
                   <div class="edit-form-comment">
                     <textarea name="" id="comment" cols="30" rows="10"></textarea>
-                    <button class="btn btn-save-comment" type="button" disabled="disabled"><i class="fas fa-check"></i></button>
+                    <button class="btn btn-save-comment" type="button" disabled="disabled"><i class="fas fa-check"></i>
+                    </button>
                   </div>
                 </div>
                 <input type="submit" class="btn btn-save-form" value="Сохранить заявку" disabled="disabled">
@@ -819,6 +820,47 @@
                     15.10.2018 - 2021)
                   </li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="c-modal">
+      <div class="c-modal-body">
+        <div class="c-modal-header">
+          <div class="c-modal-title">
+            <div>Сотовая связь, оператор Билайн, 3G</div>
+              <div class="name-location item-row">
+                <div class="name-location-item1">с. Богучаны</div>
+                <div class="name-location-item2">Богучанский р-н</div>
+              </div>
+          </div>
+          <div class="c-modal-close"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="c-modal-content">
+          <div class="l-content">
+            <div class="l-content-item item-row">
+              <div class="item-title">Программа:</div>
+              <select name="" id="">
+                <option value="" disabled selected style="display:none;">Выберите программу</option>
+                <option value="">Программа 1</option>
+                <option value="">Программа 2</option>
+              </select>
+            </div>
+            <div class="l-content-item item-row">
+              <div class="item-title">Период действия:</div>
+              <div class="c-modal-input"><input type="text"><i class="far fa-calendar-alt"></i></div>
+              <span>&nbsp;-&nbsp;</span>
+              <div class="c-modal-input"><input type="text"><i class="far fa-calendar-alt"></i></div>
+            </div>
+            <div class="l-content-item">
+              <div class="item-title">Комментарий:</div>
+              <textarea name="" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div class="l-content-item">
+              <div class="c-modal-button">
+                <input type="button" value="Отмена" class="btn cancel"><input type="submit" value="Сохранить изменения" class="btn">
               </div>
             </div>
           </div>
