@@ -1,0 +1,206 @@
+.req {
+  margin-top: 60px;
+}
+
+h1 {
+  font-size: 20px;
+  color: #35a584;
+}
+
+p {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.archiv {
+  margin-top: 9px;
+  padding-top: 18px;
+  border-top: 2px solid #d2d2d2;
+}
+
+ul {
+  margin: 0;
+  padding-left: 33px;
+}
+
+ul li {
+  font-size: 10px;
+}
+
+ul li span {
+  text-decoration: underline;
+}
+
+.name-location {
+  padding: 0;
+  color: #009cd3;
+}
+
+.name-location div:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.name-location div:last-child {
+  font-size: 0.556rem;
+  white-space: nowrap;
+}
+
+.peoples {
+  margin-bottom: 1rem;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.peoples:before {
+  content: url('../../../assets/img/peoples.png');
+  margin-right: 0.6rem;
+}
+
+.item {
+  font-size: 12px;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.item .name {
+  margin-right: 10px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.item .value {
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+.item .value .value-item:not(:last-child) {
+  margin-right: 0.6rem;
+}
+
+.item .value .value-item .logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.item .value .value-item .logo .image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 17px;
+  height: 17px;
+  margin-bottom: 5px;
+}
+
+.item .value .value-item .status {
+  font-size: 7px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.ВОЛС {
+  background: url('../../../assets/img/vols.png') no-repeat;
+  background-position-y: 50%;
+  width: 17px;
+  height: 5px;
+}
+
+.медь {
+  background: url('../../../assets/img/med.png') no-repeat;
+  background-position-y: 50%;
+  width: 17px;
+  height: 5px;
+}
+
+.радиоканал {
+  background: url('../../../assets/img/radio.png') no-repeat;
+  background-position-y: 50%;
+  width: 17px;
+  height: 5px;
+}
+
+.спутник {
+  background: url('../../../assets/img/sputnik.png') no-repeat;
+  background-position-y: 50%;
+  width: 17px;
+  height: 5px;
+}
+
+.item.line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 0.2rem;
+}
+
+.item .value.position-status .status {
+  position: absolute;
+  bottom: -4px;
+  right: -11px;
+}
+
+.item .value.position-status2 .status {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+}
+
+.check {
+  margin-right: 5px;
+  background: url('../../../assets/img/check.png') no-repeat;
+  background-size: cover;
+  width: 15px;
+  height: 11px;
+}
+
+.opacity .image {
+  opacity: 0.2;
+}
+
+.gray-filter .image {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+
+.top-bar {
+  width: 986px;
+  margin: 0 auto;
+  margin-top: 15px;
+  padding-left: 14px;
+  display: flex;
+  background-color: #fff;
+  font-size: 12px;
+  box-shadow: -7px 0px 18px rgba(0, 7, 3, 0.27);
+}
+
+.top-bar.pos-on-map {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+}
+
+.top-bar > div {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  padding-left: 19px;
+  padding-right: 19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.top-bar > div:not(:last-child) {
+  border-right: 1px solid #d2d2d2;
+}

@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "normalize";
+@import "all.min";
 
 @font-face {
   font-family: 'Montserrat';
@@ -27,9 +28,32 @@ html {
 }
 
 body {
-  margin: 0;
+  flex-direction: column;
   height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: #ffffff;
 }
+
+ul, ol {
+  padding: 0;
+  list-style-type: none;
+}
+
+* + p {
+  margin: 15px 0 0 0;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+h1 {
+  font-size: 20px;
+  color: #35a584;
+}
+
 
 .leaflet-info-control {
   padding: 6px 8px;
@@ -56,6 +80,16 @@ body {
 
 html {
   box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+
+.fab:before {
+  font-family: 'Font Awesome 5 Brands';
 }
 
 *,
@@ -98,7 +132,7 @@ h1 span {
 }
 
 .wrapper {
-  max-width: 1140px;
+  max-width: 1000px;
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
@@ -177,4 +211,45 @@ select:-moz-focusring {
   z-index: 565;
   outline: none;
 }
+
+/* Заголовки элементов */
+.item-title {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Выстроить элементы в строку */
+.item-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Выстроить элементы в столбец */
+.item-column {
+  display: block;
+}
+
+.item-column:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+/* Правый левый бордеры разделители*/
+.border-right {
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px solid #d2d2d2;
+}
+
+.border-left {
+  padding-left: 10px;
+  border-left: 1px solid #d2d2d2;
+}
+
+/* Выравниване flex-элементов по вертикале */
+.align-start {
+  align-items: flex-start;
+}
+
 

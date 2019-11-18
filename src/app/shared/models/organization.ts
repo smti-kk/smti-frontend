@@ -31,17 +31,13 @@ interface Reaccesspoint {
 }
 
 
-export class Organization {
-  public address: string;
-  public fias: string;
-  public fullName: string;
-  public id: number;
-  public inn: number;
-  public kpp: number;
-  public parent: any;
-  public reaccesspoints: Reaccesspoint[];
-
-  constructor(apiModel) {
-    Object.assign(this, apiModel);
-  }
+export interface Organization {
+  address: string;
+  fias: string;
+  full_name: string;
+  id: number;
+  inn: number;
+  kpp: number;
+  parent: any;
+  reaccesspoints: Reaccesspoint[];
 }

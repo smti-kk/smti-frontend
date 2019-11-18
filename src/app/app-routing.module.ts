@@ -7,12 +7,16 @@ import { AuthorizationComponent } from './core/pages/authorization/authorization
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './map-wrapper/map-wrapper.module#MapWrapperModule',
+    loadChildren: './modules/map-wrapper/map-wrapper.module#MapWrapperModule',
     data: {key: 'leaflet'}
   },
   {
     path: 'user/requests',
-    loadChildren: './requests/requests.module#RequestsModule'
+    loadChildren: './modules/requests/requests.module#RequestsModule'
+  },
+  {
+    path: 'pivot-table',
+    loadChildren: './modules/pivot-table/pivot-table.module#PivotTableModule'
   },
   {
     path: 'authorization',

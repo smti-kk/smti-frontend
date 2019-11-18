@@ -1,0 +1,253 @@
+.modal {
+  position: absolute;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  min-width: 650px;
+  max-width: 700px;
+}
+
+.modal.hide {
+  display: none;
+}
+
+.modal.hide + .overlay {
+  display: none;
+}
+
+.modal p {
+  font-size: 12px;
+  font-weight: 400;
+  color: #656565;
+}
+
+.modal-body {
+  position: relative;
+  z-index: 15;
+  background-color: #fff;
+}
+
+.modal .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 16px 12px 0 22px;
+}
+
+.modal .title h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #009dd3;
+}
+
+.modal .title input[type="button"] {
+  border: none;
+  background: url('../../../../../assets/img/cross.png') no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
+
+.modal .form {
+  padding: 0 19px 25px 22px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2f2f2f;
+  opacity: 0.2;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.button .btn {
+  width: 203px;
+}
+
+.button .btn:first-child {
+  margin-right: 7px;
+  width: 137px;
+}
+
+.form-body-item {
+  display: flex;
+  align-items: center;
+}
+
+.form-body-item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.form-body-item .text,
+.form-body-item .radiobox {
+  display: flex;
+  align-items: center;
+  padding-left: 19px;
+  padding-right: 19px;
+}
+
+.form-body-item .text label {
+  margin-right: 10px;
+}
+
+.form-body-item .text input[type="text"] {
+  width: 36px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #009dd3;
+}
+
+.form-body-item .text input[type="text"]:focus {
+  border-bottom: 1px solid #009dd3;
+}
+
+.form-body-item > div:not(:last-child) {
+  border-right: 1px solid #d2d2d2;
+}
+
+textarea {
+  margin-bottom: 19px;
+  width: 100%;
+  height: 90px;
+  border: none;
+  border-bottom: 1px solid #bbbbbb;
+  color: #575756;
+  font-weight: 100;
+}
+
+textarea::placeholder {
+  font-size: 10px;
+  color: #bbbbbb;
+}
+
+label {
+  color: #676767;
+  font-size: 10px;
+}
+
+.checkbox {
+  min-width: 133px;
+}
+
+.radiobox {
+  display: flex;
+}
+
+.checkbox label,
+.radiobox label {
+  display: flex;
+  align-items: center;
+}
+
+.radiobox label {
+  margin-right: 14px;
+}
+
+.checkbox input[type="checkbox"],
+.radiobox input[type="radio"] {
+  display: none;
+}
+
+.checkbox .checkbox-text,
+.radiobox .radiobox-text {
+  position: relative;
+  padding: 0 0 0 33px;
+  font-size: 13px;
+  color: #454849;
+  cursor: pointer;
+}
+
+.radiobox .radiobox-text {
+  padding: 0 0 0 21px;
+  font-size: 11px;
+}
+
+.checkbox .checkbox-text:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #bbbbbb;
+  border-radius: 3px;
+}
+
+.checkbox .checkbox-text:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background: url('../../../../../assets/img/checkbox.png') no-repeat;
+}
+
+.checkbox input[type="checkbox"] + .checkbox-text:after {
+  content: none;
+}
+
+.checkbox input[type="checkbox"]:checked + .checkbox-text:after {
+  content: '';
+}
+
+.radiobox .radiobox-text:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #009dd3;
+  border-radius: 50%;
+}
+
+.radiobox .radiobox-text:after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #009dd3;
+  border-radius: 50%;
+  background-color: #009dd3;
+}
+
+.radiobox input[type="radio"] + .radiobox-text:after {
+  content: none;
+}
+
+.radiobox input[type="radio"]:checked + .radiobox-text:after {
+  content: '';
+}
+
+.select {
+  margin-left: 19px;
+}
+
+.select select {
+  width: 130px;
+  font-size: 10px;
+  padding-left: 5px;
+  background: url('../../../../../assets/img/arrow-gray.png') no-repeat 99% 50%;
+  background-size: 9px 5px;
+}
+
+.select select:focus {
+  border-bottom: 1px solid #009dd3;
+}
