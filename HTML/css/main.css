@@ -47,7 +47,7 @@ body {
   height: 100%;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  color: #ffffff;
+  color: #575756;
   overflow-y: scroll;
 }
 
@@ -92,7 +92,6 @@ h1 {
   padding-bottom: 2.5rem;
   height: 100%;
   font-weight: 100;
-  color: #575756;
   flex-basis: 100%;
 }
 
@@ -138,7 +137,7 @@ fieldset {
 }
 
 select {
-  padding: 5px 0 4px 1rem;
+  padding: 0 0 4px 1rem;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -171,7 +170,7 @@ select:-moz-focusring {
 }
 
 input[type="text"] {
-  padding: 5px 0 4px 7px;
+  padding: 0 0 4px 7px;
   width: 100%;
   border: none;
   border-bottom: 1px solid #bcbcbc;
@@ -255,8 +254,8 @@ input[type="text"]:focus::placeholder {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
   /*font-size: 14px;*/
   cursor: pointer;
 }
@@ -447,7 +446,7 @@ input[type="text"]:focus::placeholder {
 }
 
 .filter .accordion-body {
-  padding: 0;
+  padding: 0 0 1rem 0;
 }
 
 .filter .accordion-btn.open::before {
@@ -456,7 +455,6 @@ input[type="text"]:focus::placeholder {
 
 .filter {
   border: 1px solid #bcbcbc;
-  padding: 10px;
 }
 
 .filter-wrap {
@@ -500,6 +498,7 @@ input[type="text"]:focus::placeholder {
   border: 1px solid #bcbcbc;
   font-size: 11px;
   text-align: left;
+  white-space: nowrap;
 }
 
 .filter-btn::after {
@@ -599,6 +598,10 @@ input[type="text"]:focus::placeholder {
 
 .table-compare.layout-table-header .layout-table-item {
   justify-self: center;
+}
+
+.table-visualise {
+  grid-template-columns: 195px 195px 80px 100px 100px 100px 100px;
 }
 
 /* ---------------------------------------------------------------------------- */
@@ -941,6 +944,14 @@ input[type="text"]:focus::placeholder {
   font-size: 12px;
 }
 
+.input .item-title {
+  min-width: 135px;
+}
+
+.input .item-title + input {
+  width: auto;
+}
+
 .edit-form-comment {
   display: flex;
   padding-top: 10px;
@@ -1032,6 +1043,7 @@ input[type="text"]:focus::placeholder {
   margin-bottom: 5px;
   font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Выстроить элементы в строку */
@@ -1064,4 +1076,8 @@ input[type="text"]:focus::placeholder {
 /* Выравниване flex-элементов по вертикале */
 .align-start {
   align-items: flex-start;
+}
+
+#mobile {
+  display: none;
 }
