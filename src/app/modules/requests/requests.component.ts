@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from './service/requests.service';
 import { Request } from './model/request';
-import { LocationCapabilitiesService } from '../../shared/services/location-capabilities.service';
-import { LocationCapabilities } from '../../shared/models/location-capabilities';
+import { LocationCapabilitiesService } from '@shared/services/location-capabilities.service';
+import { LocationCapabilities, TrunkChannelType } from '@shared/models/location-capabilities';
 
 @Component({
   selector: 'requests',
@@ -12,6 +12,8 @@ import { LocationCapabilities } from '../../shared/models/location-capabilities'
 export class RequestsComponent implements OnInit {
   requests: Request[];
   technicalCapability: LocationCapabilities;
+
+  TrunkChannelType = TrunkChannelType;
 
   private forms: {
     internet: boolean;

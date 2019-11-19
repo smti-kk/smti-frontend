@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TcPivotsService } from '../../service/tc-pivots.service';
-import { LocationCapabilities } from '../../../../shared/models/location-capabilities';
+import { LocationCapabilities, TrunkChannelType } from '@shared/models/location-capabilities';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -10,6 +10,7 @@ import { LocationCapabilities } from '../../../../shared/models/location-capabil
 export class PivotTablePageComponent implements OnInit {
 
   lcs: LocationCapabilities[];
+  TrunkChannelType = TrunkChannelType;
 
   constructor(private tcPivots: TcPivotsService) {
     this.tcPivots.list().subscribe(lcs => {

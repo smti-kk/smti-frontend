@@ -60,6 +60,7 @@ export class RestApiService<ShortModel,
   private parseResponseList(response: HttpResponse<ShortModel[]>): ShortModel[] {
     try {
       const list: any[] = response.body;
+      console.log(list);
       return list.map((data) => this.createInstanceShort(data));
     } catch (error) {
       return [];

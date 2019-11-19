@@ -44,3 +44,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# scss cache
+
+*.css
+*css.map
+*.sass-cache
+api (1).http

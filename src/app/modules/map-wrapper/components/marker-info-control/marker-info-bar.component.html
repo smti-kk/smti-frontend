@@ -43,8 +43,15 @@
                                         [alt]="internet.provider.name"
                                         [title]="internet.provider.name"></div>
                 <div class="status"
-                     [title]="internet.type"
-                     [ngClass]="internet.type "
+                     *ngIf="internet.channel"
+                     [title]="internet.channel.name"
+                     [ngClass]="
+                     {
+                      vols: internet.channel.id === TrunkChannelType.VOLS,
+                      med: internet.channel.id === TrunkChannelType.COPPER_CABLE,
+                      radio: internet.channel.id === TrunkChannelType.RADIO_CHANEl,
+                      sputnik: internet.channel.id === TrunkChannelType.SATELLITE
+                     }"
                 ></div>
               </div>
             </div>
