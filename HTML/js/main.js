@@ -1,9 +1,9 @@
 // Аккордион
-let accordBtn = document.querySelectorAll('.accordion-title');
+let accordBtn = document.querySelectorAll('.c-accordion-title');
 accordBtn.forEach(function (btn) {
     btn.addEventListener("click", function () {
-      this.querySelector('.accordion-btn').classList.toggle('open');
-      this.nextElementSibling.classList.toggle('open');
+      this.querySelector('.c-accordion-button').classList.toggle('is-open');
+      this.nextElementSibling.classList.toggle('is-open');
     });
 });
 
@@ -17,17 +17,17 @@ if (close) {
 }
 
 // Фильтр. Кнопки сортировки.
-let filter = document.querySelector('.filter-button');
-let filterBtn = document.querySelectorAll('.filter-btn');
+let filter = document.querySelector('.js-filter-button');
+let filterBtn = document.querySelectorAll('.c-filter-button');
 if(filter) {
   filter.addEventListener('click', (e) => {
-    if (e.target.classList.contains('filter-btn-active')) {
-      e.target.classList.toggle('filter-btn-sort');
+    if (e.target.classList.contains('is-active')) {
+      e.target.classList.toggle('u-back-sort');
     } else {
       filterBtn.forEach(function (btn) {
-        btn.classList.remove('filter-btn-active', 'filter-btn-sort');
+        btn.classList.remove('is-active', 'u-back-sort');
         if (e.target === btn) {
-          btn.classList.add('filter-btn-active');
+          btn.classList.add('is-active');
         }
       });
     }
@@ -35,10 +35,10 @@ if(filter) {
 }
 
 // Фильтр. Формы сортировки
-let filterWrap = document.querySelector('.filter-wrap');
-if (filterWrap) {
-  let inputBtns = filterWrap.getElementsByTagName('input');
-  let selectList = filterWrap.getElementsByTagName('select');
+let filterContainer = document.querySelector('.l-container');
+if (filterContainer) {
+  let inputBtns = filterContainer.getElementsByTagName('input');
+  let selectList = filterContainer.getElementsByTagName('select');
 
   for(let btn of inputBtns) {
     btn.addEventListener('change', ChangeFilter);
@@ -49,9 +49,10 @@ if (filterWrap) {
   }
 
   function ChangeFilter() {
-    let parent = this.closest('.filter-item-wrap');
+    let parent = this.closest('.is-disabled');
     if (parent) {
-      parent.classList.remove('form-not-active');
+        parent.classList.remove('is-disabled');
+        parent.classList.add('is-active');
     }
   }
 }
@@ -61,20 +62,21 @@ let reset = document.querySelector('.filter-btn-reset');
 if (reset) {
   reset.addEventListener('click', () => {
     filterBtn.forEach(function (btn) {
-      btn.classList.remove('filter-btn-sort', 'filter-btn-active');
+      btn.classList.remove('u-back-sort', 'is-active');
     });
 
-    let filterItemWrap = document.querySelectorAll('.filter-item-wrap');
+    let filterItemWrap = document.querySelectorAll('.is-active');
     filterItemWrap.forEach(function (wrap) {
-      wrap.classList.add('form-not-active');
+      wrap.classList.remove('is-active');
+      wrap.classList.add('is-disabled');
     });
   });
 }
 
 // Вкладки.
-let tab = document.querySelector('.tab-title');
-let tabTitle = document.querySelectorAll('.tab-title-item');
-let tabBody = document.querySelectorAll('.tab-body-item');
+let tab = document.querySelector('.c-tab-header');
+let tabTitle = document.querySelectorAll('.c-tab-title');
+let tabBody = document.querySelectorAll('.c-tab-item');
 
 if (tab) {
   tab.addEventListener('click', (e) => {
@@ -98,7 +100,7 @@ if(btnEditForm) {
     let fieldset = document.getElementsByTagName('fieldset');
     fieldset[0].removeAttribute('disabled');
 
-    document.querySelector('.edit-form').classList.remove('form-not-active');
+    document.querySelector('.edit-form').classList.remove('is-disabled');
     document.querySelector('.edit-status').style.display = 'block';
 
     let editFotmBtns = document.querySelectorAll('.edit-form-btn');

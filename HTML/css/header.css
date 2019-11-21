@@ -1,60 +1,73 @@
 .header {
-    padding: 10px 0 10px;
-    background-color: #35a584;
-    height: 60px;
+  padding: 10px 0 10px;
+  background-color: #35a584;
+  height: 60px;
 }
+
 .header .logo {
-    flex-grow: 1;
+  flex-grow: 1;
 }
+
 .header .logo img {
-    max-width: 172px;
+  max-width: 172px;
 }
+
 .header-menu ul {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    margin: 0;
-    padding-left: 0;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
 }
+
 .header-menu ul li {
-    margin-right: 24px;
+  margin-right: 24px;
 }
+
 .header-menu ul li.active {
-    border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
 }
+
 .header-menu a {
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 600;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
 }
+
 .flex-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 .user {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    cursor: pointer;
-    font-size: 14px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
 }
+
 .user-avatar {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
+
 .user-name {
-    margin-left: 10px;
-    font-weight: 400;
+  margin-left: 10px;
+  font-weight: 400;
+  color: #fff;
 }
+
 .user-name span {
-    position: relative;
-    padding-right: 12px;
+  position: relative;
+  padding-right: 12px;
 }
+
 .user-name span:after {
-    content: url('../img/user-arrow.png');
-    position: absolute;
-    top: -3px;
-    margin-left: 3px;
+  content: url('../img/user-arrow.png');
+  position: absolute;
+  top: -3px;
+  margin-left: 3px;
 }
