@@ -96,7 +96,7 @@ export class LocationCapabilitiesMapper
 
     return new LocationCapabilities(
       tcApi.location.type_location + ' ' + tcApi.location.name,
-      '',
+      tcApi.location.parent,
       {
         population: tcApi.location.people_count,
         cellular,

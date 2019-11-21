@@ -5,10 +5,11 @@ import { PivotTableRoutingModule } from './pivot-table-routing.module';
 import { FilterTcPivotsService } from './service/tc-pivots.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.mapper';
+import { FilterBtnComponent } from './components/filter-btn/filter-btn.component';
 
 
 @NgModule({
-  declarations: [PivotTablePageComponent],
+  declarations: [PivotTablePageComponent, FilterBtnComponent],
   imports: [
     CommonModule,
     PivotTableRoutingModule,

@@ -8,17 +8,17 @@ import { Observable } from 'rxjs';
 
 const LTC = '/api/v1/ltc';
 
+export enum FilterType {
+  ASC,
+  DSC,
+  UNDEFINED
+}
+
 @Injectable()
 export class TcPivotsService extends RestApiService<LocationCapabilities, LocationCapabilities, LocationCapabilities> {
   constructor(private httpClient: HttpClient, private storeService: StoreService, private capabilitiesMapper: LocationCapabilitiesMapper) {
     super(httpClient, storeService, LTC, capabilitiesMapper);
   }
-}
-
-export enum FilterType {
-  ASC,
-  DES,
-  UNDEFINED
 }
 
 @Injectable()
@@ -32,17 +32,14 @@ export class FilterTcPivotsService extends TcPivotsService {
   }
 
   addFilterOrdering(fieldName: string, filterType: FilterType) {
-    let filterValue;
-
+    console.log(fieldName, filterType);
     if (filterType === FilterType.ASC) {
-      filterValue = fieldName;
-    } else if (FilterType.DES) {
-      filterValue = '-' + fieldName;
+      this.params = this.params.set('ordering', fieldName);
+    } else if (filterType === FilterType.DSC) {
+      this.params = this.params.set('ordering', '-' + fieldName);
     } else {
-      filterValue = '';
+      this.params = this.params.delete('ordering');
     }
-
-    this.params = this.params.set('ordering', filterValue);
   }
 }
 
