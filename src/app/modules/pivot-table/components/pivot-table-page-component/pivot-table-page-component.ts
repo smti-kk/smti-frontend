@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TcPivotsService } from '../../service/tc-pivots.service';
+import { FilterTcPivotsService, FilterType } from '../../service/tc-pivots.service';
 import { LocationCapabilities, TrunkChannelType } from '@shared/models/location-capabilities';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -13,16 +13,35 @@ export class PivotTablePageComponent implements OnInit {
   lcs: LocationCapabilities[];
   TrunkChannelType = TrunkChannelType;
 
-  constructor(private tcPivots: TcPivotsService,
+  constructor(private tcPivots: FilterTcPivotsService,
               private spinner: NgxSpinnerService) {
-    spinner.show();
-    this.tcPivots.list().subscribe(lcs => {
-      this.lcs = lcs;
-      this.spinner.hide();
-    });
+    this.loadPivots();
   }
 
   ngOnInit() {
   }
 
+  orderingByLocation() {
+    this.tcPivots.addFilterOrdering('name', FilterType.ASC);
+    this.loadPivots();
+  }
+
+  orderingByArea() {
+    this.tcPivots.addFilterOrdering('parent', FilterType.ASC);
+    this.loadPivots();
+  }
+
+  orderingByPopulation() {
+    this.tcPivots.addFilterOrdering('people_count', FilterType.ASC);
+    this.loadPivots();
+  }
+
+  private loadPivots() {
+    this.spinner.show();
+    this.tcPivots.list().subscribe(lcs => {
+      console.log(lcs);
+      this.lcs = lcs;
+      this.spinner.hide();
+    });
+  }
 }

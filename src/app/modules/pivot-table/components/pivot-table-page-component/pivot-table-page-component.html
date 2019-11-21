@@ -11,9 +11,9 @@
         <form>
           <div class="filter-wrap">
             <div class="filter-item filter-button">
-              <button type="button" class="btn filter-btn">Нас. пункт</button>
-              <button type="button" class="btn filter-btn">Район</button>
-              <button type="button" class="btn filter-btn">Численность</button>
+              <button (click)="orderingByLocation()" type="button" class="btn filter-btn">Нас. пункт</button>
+              <button (click)="orderingByArea()" type="button" class="btn filter-btn">Район</button>
+              <button (click)="orderingByPopulation()" type="button" class="btn filter-btn">Численность</button>
             </div>
             <div class="filter-item">
               <div class="checkbox">
