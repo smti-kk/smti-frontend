@@ -208,6 +208,16 @@
       <div class="layout-table-item">Связь<br>(сотовая, интернет)</div>
       <div class="layout-table-item">Программа</div>
     </div>
+    <ngx-spinner
+      bdOpacity=0.9
+      size="medium"
+      color="#35a584"
+      type="ball-atom"
+      class="spinner"
+      [fullScreen]="true"
+    >
+      <p style="color: gray"> Идет загрузка </p>
+    </ngx-spinner>
     <div class="layout-table table-location" *ngFor="let lc of lcs; let i = index">
       <div class="layout-table-item">{{i + 1}}</div>
       <div class="layout-table-item">
@@ -346,3 +356,4 @@
     </div>
   </div>
 </main>
+

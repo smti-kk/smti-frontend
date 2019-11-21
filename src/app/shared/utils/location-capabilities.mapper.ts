@@ -18,7 +18,6 @@ export class LocationCapabilitiesMapper
   }
 
   public mapFromApi(tcApi): LocationCapabilities {
-    console.log(tcApi);
     const telephone: Telephone[] = tcApi.ats.map(ats => {
       return {
         provider: {

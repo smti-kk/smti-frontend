@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PivotTablePageComponent } from './components/pivot-table-page-component/pivot-table-page-component';
 import { PivotTableRoutingModule } from './pivot-table-routing.module';
 import { TcPivotsService } from './service/tc-pivots.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -10,10 +11,11 @@ import { TcPivotsService } from './service/tc-pivots.service';
   declarations: [PivotTablePageComponent],
   imports: [
     CommonModule,
-    PivotTableRoutingModule
+    PivotTableRoutingModule,
+    NgxSpinnerModule
   ],
   providers: [
-    TcPivotsService
+    { provide: TcPivotsService, useClass: TcPivotsService }
   ]
 })
 export class PivotTableModule { }
