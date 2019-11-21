@@ -1,4 +1,4 @@
-<!--suppress HtmlFormInputWithoutLabel -->
+<!--suppress HtmlFormInputWithoutLabel, HtmlUnknownTag -->
 <main class="main">
   <div class="wrapper">
     <h1>Сводная таблица по населенным пунктам</h1>
@@ -6,15 +6,36 @@
       <div class="c-accordion">
         <div class="c-accordion-title">
           <div class="c-filter-icon">Фильтры</div>
-          <div class="c-accordion-btn"></div>
+          <div class="c-accordion-button"></div>
         </div>
         <div class="c-accordion-body">
           <form>
             <div class="l-container">
               <div class="l-container-item js-filter-button">
-                <button type="button" (click)="orderingByLocation()" class="btn c-filter-button">Нас. пункт</button>
-                <button type="button" (click)="orderingByArea()" class="btn c-filter-button">Район</button>
-                <button type="button" (click)="orderingByPopulation()" class="btn c-filter-button">Численность</button>
+                <button
+                  (click)="orderingByLocation()"
+                  [class.is-active]="isActive.nameBtn"
+                  type="button"
+                  class="btn c-filter-button"
+                >
+                  Нас. пункт
+                </button>
+                <button
+                  type="button"
+                  [class.is-active]="isActive.locationAreaBtn"
+                  (click)="orderingByArea()"
+                  class="btn c-filter-button"
+                >
+                  Район
+                </button>
+                <button
+                  [class.is-active]="isActive.populationBtn"
+                  type="button"
+                  (click)="orderingByPopulation()"
+                  class="btn c-filter-button"
+                >
+                  Численность
+                </button>
               </div>
               <div class="l-container-item">
                 <div class="c-checkbox">
@@ -219,13 +240,14 @@
       [fullScreen]="true"
     ></ngx-spinner>
     <div class="l-table l-table-location" *ngFor="let lc of lcs; let i = index">
-      <div class="l-table-column">i</div>
+      <div class="l-table-column">{{i}}</div>
       <div class="l-table-column">
-          <div class="c-name-location">
+          <div class="c-location-name">
             <div class="c-location-name-item1">{{lc.name}}</div>
             <div class="c-location-name-item2">{{lc.area}}</div>
           </div>
           <div class="c-location-peoples"><span>{{lc.information.population}}</span> чел.</div>
+        <a href="#" class="btn">Подробнее</a>
       </div>
       <div class="l-table-column">
         <div class="espd true"></div>
