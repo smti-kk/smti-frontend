@@ -28,7 +28,7 @@ export class MarkerInfoBarComponent implements OnInit {
   }
 
   openAccordion($event, clazz) {
-    if ($event.target.classList.contains('accordion-title')) {
+    if ($event.target.classList.contains('c-accordion-title')) {
       this.toggleClass($event.target.nextElementSibling, clazz);
       this.toggleClass($event.target.lastElementChild, clazz);
     } else {

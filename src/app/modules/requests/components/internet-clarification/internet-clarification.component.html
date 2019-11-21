@@ -1,53 +1,54 @@
 <!--suppress HtmlFormInputWithoutLabel -->
-<div class="modal">
-  <div class="modal-body">
-    <div class="title">
-      <h2>Интернет</h2>
-      <input class="close" type="button" (click)="cancel.emit()">
+<div class="c-modal">
+  <div class="c-modal-body">
+    <div class="c-modal-header">
+      <div class="c-modal-title">Интернет</div>
+      <div class="c-modal-close" (click)="cancel.emit()"><i class="fas fa-times"></i></div>
     </div>
-    <div class="form">
+    <div class="c-modal-content">
       <form [formGroup]="form" (ngSubmit)="formValue.emit(form.value)">
-        <div class="form-body" formArrayName="internet">
-          <div class="form-body-item" [formGroupName]="i.toString()" *ngFor="let internet of internet.controls; let i = index">
-            <div class="checkbox" formGroupName="provider">
+        <div class="l-content" formArrayName="internet">
+          <div class="l-content-item l-row" [formGroupName]="i.toString()" *ngFor="let internet of internet.controls; let i = index">
+            <div class="c-checkbox" formGroupName="provider">
               <label>
                 <input type="checkbox" formControlName="isActive">
-                <div class="checkbox-text">{{internet.value.provider.name}}</div>
+                <div class="c-checkbox-text">{{internet.value.provider.name}}</div>
               </label>
             </div>
-            <div class="radiobox">
+            <div class="c-radiobox l-radiobox-row">
               <label>
                 <input type="radio" formControlName="type" value="Спутник">
-                <div class="radiobox-text">Спутник</div>
+                <div class="c-radiobox-text">Спутник</div>
               </label>
               <label>
                 <input type="radio" formControlName="type" value="ВОЛС">
-                <div class="radiobox-text">ВОЛС</div>
+                <div class="c-radiobox-text">ВОЛС</div>
               </label>
               <label>
                 <input type="radio" formControlName="type" value="Медь">
-                <div class="radiobox-text">Медь</div>
+                <div class="c-radiobox-text">Медь</div>
               </label>
               <label>
                 <input type="radio" formControlName="type" value="Радиоканал">
-                <div class="radiobox-text">Радиоканал</div>
+                <div class="c-radiobox-text">Радиоканал</div>
               </label>
             </div>
             <div class="select">
               <select formControlName="quality">
                 <option value="Хорошее качество">Хорошее качество</option>
-                <option value="Удовлетворительно">Удовлетворительно</option>
+                <option value="Удовлетворительно">Удовлетворительное качество</option>
                 <option value="Отсутствует">Отсутствует</option>
               </select>
             </div>
           </div>
-        </div>
-        <div class="button">
-          <input type="button" value="Отмена" class="btn cancel" (click)="cancel.emit()">
-          <input type="submit" value="Сохранить изменения" class="btn">
+          <div class="l-content-item">
+            <div class="c-modal-button">
+              <input type="button" value="Отмена" class="btn cancel" (click)="cancel.emit()">
+              <input type="submit" value="Сохранить изменения" class="btn">
+            </div>
+          </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="overlay"></div>
