@@ -107,15 +107,27 @@
             </div>
           </div>
         </div>
-        <div class="l-column">
-          <div class="o-item-title">Интернет:</div>
-          <div class="l-vendors-row"
-               *ngFor="let internet of technicalCapability?.information.internet"
-               [ngClass]="{'gray-filter': !internet.provider.isActive}"
-          >
-            <div class="c-vendor">
-              <div class="c-vendor-logo">
-                <img [src]="internet.provider.icon" [alt]="internet.provider.name" [title]="internet.provider.name">
+        <div class="item">
+          <div class="name">Интернет:</div>
+          <div class="value">
+            <div class="value-item"
+                 *ngFor="let internet of technicalCapability?.information.internet"
+                 [ngClass]="{'gray-filter': !internet.provider.isActive}"
+            >
+              <div class="logo">
+                <div class="image">
+                  <img [src]="internet.provider.icon" [alt]="internet.provider.name" [title]="internet.provider.name">
+                </div>
+                <div class="status"
+                     *ngIf="internet.channel"
+                     [title]="internet.channel.name"
+                     [ngClass]="
+                     {
+                      vols: internet.channel.id === TrunkChannelType.VOLS,
+                      med: internet.channel.id === TrunkChannelType.COPPER_CABLE,
+                      radio: internet.channel.id === TrunkChannelType.RADIO_CHANEl,
+                      sputnik: internet.channel.id === TrunkChannelType.SATELLITE
+                     }"></div>
               </div>
               <div class="c-vendor-status-img" [className]="internet.type" [title]="internet.type"></div>
             </div>

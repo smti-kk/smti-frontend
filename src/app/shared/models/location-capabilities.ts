@@ -1,3 +1,16 @@
+export enum TrunkChannelType {
+  UNDEFINED,
+  VOLS = 3,
+  SATELLITE = 4,
+  COPPER_CABLE = 5,
+  RADIO_CHANEl = 6
+}
+
+interface TrunkChannel {
+  id: TrunkChannelType;
+  name: string;
+}
+
 export class LocationCapabilities {
   constructor(private _name: string = '',
               private _area: string = '',
@@ -34,42 +47,43 @@ export interface Provider {
   isActive: boolean;
 }
 
-interface Mobile {
+export interface Mobile {
   provider: Provider;
   mobileGeneration: string;
   quality: string;
 }
 
-interface Internet {
+export interface Internet {
   provider: Provider;
-  type: string;
+  channel: TrunkChannel;
   quality: string;
 }
 
-interface Tv {
+export interface Tv {
   provider: Provider;
   type: string;
 }
 
-interface Radio {
+export interface Radio {
   provider: Provider;
   type: string;
 }
 
-interface Payphone {
+export interface Payphone {
   count: number;
   provider: Provider;
 }
 
 export interface Telephone {
   provider: Provider;
+  countPayphone: number;
 }
 
-interface Mail {
+export interface Mail {
   provider: Provider;
 }
 
-interface LocationCapabilitiesInformation {
+export interface LocationCapabilitiesInformation {
   population: number;
   cellular: Mobile[];
   internet: Internet[];

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SharedModule } from '../shared.module';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { User } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -15,7 +15,7 @@ import { UserMapper } from '../utils/user-mapper';
 })
 export class AuthService extends RestApiService<User, User, User> {
 
-  private _user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private _user: Subject<User> = new ReplaySubject<User>();
 
   constructor(private httpClient: HttpClient, private storeService: StoreService) {
     super(httpClient, storeService, ACCOUNT_INFO, new UserMapper());

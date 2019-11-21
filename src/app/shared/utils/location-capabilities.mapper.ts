@@ -1,5 +1,6 @@
 import { ApiMapper } from './api-mapper';
-import { LocationCapabilities, Provider } from '../models/location-capabilities';
+import { Internet, LocationCapabilities, Mobile, Payphone, Provider, Radio, Telephone, Tv } from '../models/location-capabilities';
+
 
 export class LocationCapabilitiesMapper
   extends ApiMapper<LocationCapabilities, LocationCapabilities, LocationCapabilities> {
@@ -17,8 +18,7 @@ export class LocationCapabilitiesMapper
   }
 
   public mapFromApi(tcApi): LocationCapabilities {
-    console.log(tcApi);
-    const telephone = tcApi.ats.map(ats => {
+    const telephone: Telephone[] = tcApi.ats.map(ats => {
       return {
         provider: {
           name: ats.operator.name,
@@ -29,7 +29,7 @@ export class LocationCapabilitiesMapper
       };
     });
 
-    const cellular = tcApi.cellular.map(cellularItem => {
+    const cellular: Mobile[] = tcApi.cellular.map(cellularItem => {
       return {
         provider: {
           name: cellularItem.operator.name,
@@ -41,36 +41,38 @@ export class LocationCapabilitiesMapper
       };
     });
 
-    const internet = tcApi.internet.map(internetItem => {
+    const internet: Internet[] = tcApi.internet.map(internetItem => {
       return {
         provider: {
           isActive: true,
           name: internetItem.operator.name,
           icon: internetItem.operator.icon
         },
-        type: internetItem.type_trunkchannel.name === 'медный кабель' ? 'медь' : internetItem.type_trunkchannel.name,
+        channel: internetItem.type_trunkchannel,
         quality: ''
       };
     });
 
-    const tv = tcApi.television.map(tvItem => {
+    const tv: Tv[] = tcApi.television.map(tvItem => {
       return {
         provider: {
           isActive: true,
           name: tvItem.operator.name,
           icon: tvItem.operator.icon
         },
+        // tslint:disable-next-line:no-magic-numbers
         type: '/' + tvItem.type.map(type => type.id === 1 ? 'АТВ ' : type.id === 2 ? 'ЦТВ ' : '').join(' ')
       };
     });
 
-    const radio = tcApi.radio.map(rad => {
+    const radio: Radio[] = tcApi.radio.map(rad => {
       return {
         provider: {
           isActive: true,
           name: rad.operator.name,
           icon: rad.operator.icon
         },
+        // tslint:disable-next-line:no-magic-numbers
         type: rad.type === 1 ? 'АТВ ' : rad.type === 2 ? 'ЦТВ ' : ''
       };
     });
@@ -85,7 +87,7 @@ export class LocationCapabilitiesMapper
 
     this.getNotExistedProviders(tcApi.operators.radio, tcApi.radio.map(radioItem => radioItem.operator), radio);
 
-    const payphone = telephone.map(tel => {
+    const payphone: Payphone[] = telephone.map(tel => {
       return {
         provider: tel.provider,
         count: tel.countPayphone

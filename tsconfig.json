@@ -19,7 +19,8 @@
       "dom"
     ],
     "paths": {
-      "@map-wrapper/*": ["src/app/map-wrapper/*"]
+      "@map-wrapper/*": ["src/app/modules/map-wrapper/*"],
+      "@shared/*": ["src/app/shared/*"]
     }
   },
   "angularCompilerOptions": {
