@@ -1,7 +1,7 @@
-var accordBtn = document.querySelectorAll('.accordion-title');
+var accordBtn = document.querySelectorAll('.c-accordion-title');
 accordBtn.forEach(function(btn){
 	btn.addEventListener("click", function(){
-		this.querySelector('.accordion-btn').classList.toggle('open');
-		this.nextElementSibling.classList.toggle('open');
+		this.querySelector('.c-accordion-button').classList.toggle('is-open');
+		this.nextElementSibling.classList.toggle('is-open');
 	});
 });

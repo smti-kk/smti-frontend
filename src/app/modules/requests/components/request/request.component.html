@@ -1,16 +1,16 @@
-<div class="archiv-item">
-  <div class="info">
-    <span class="number">№{{request.id}}</span> от <span class="date">{{request.date}}</span>
+<div class="c-archive-item">
+  <div class="c-archive-info">
+    <span class="c-archive-number">№{{request.id}}</span> от <span class="c-archive-date">{{request.date}}</span>
     <p>Внесенные изменения:</p>
-    <ul>
-      <li *ngFor="let request of request.changes"><span>{{request.object}}:</span> {{request.action}}</li>
+    <ul  class="c-archive-list">
+      <li *ngFor="let request of request.changes"><span class="u-underline">{{request.object}}:</span> {{request.action}}</li>
     </ul>
   </div>
-  <div class="status"
+  <div class="c-archive-status"
        [ngClass]="
        {
-         orange: request.state === RequestState.CONSIDERED,
-         green: request.state === RequestState.ACCEPTED
+         'status-yellow': request.state === RequestState.CONSIDERED,
+         'status-green': request.state === RequestState.ACCEPTED
        }">
     {{requestStateLabel(request.state)}}
   </div>

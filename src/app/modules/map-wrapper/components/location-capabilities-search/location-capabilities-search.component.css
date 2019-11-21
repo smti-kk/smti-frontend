@@ -31,16 +31,16 @@
 .search-location input[type="text"]:focus + input[type="submit"] {
   background: url("../../../../../assets/img/search-green.png") no-repeat 50% 50%; }
 
-.name-location {
+.c-location-name {
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1rem;
   color: #009cd3; }
 
-.name-location div:first-child {
+.c-location-name div:first-child {
   font-weight: 600; }
 
-.name-location div:last-child {
+.c-location-name div:last-child {
   font-size: 0.556rem; }
 
 form {

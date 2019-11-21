@@ -1,187 +1,175 @@
 <!--suppress HtmlFormInputWithoutLabel -->
-<div class="sidebar">
+<div class="c-sidebar">
 
-    <location-capabilities-search (selectedPoint)="onSelectPoint($event)"
-                                  [leafletMap]="leafletMap"></location-capabilities-search>
+  <location-capabilities-search (selectedPoint)="onSelectPoint($event)"
+                                [leafletMap]="leafletMap"></location-capabilities-search>
   <div *ngIf="currentPointCapabilities">
-    <div class="name-location">
+    <div class="c-location-name">
       <div>{{currentPointCapabilities.name}}</div>
       <div>{{currentPointCapabilities.area}}</div>
     </div>
-    <div class="accordion blue">
-      <div class="accordion-title" (click)="openAccordion($event, 'open')">
+    <div class="c-accordion blue">
+      <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
         <div>Информация</div>
-        <div class="accordion-btn"></div>
+        <div class="c-accordion-button"></div>
       </div>
-      <div class="accordion-body">
-        <div class="peoples"><span>{{currentPointCapabilities.information.population}}</span> чел.</div>
-        <div class="item">
-          <div class="name">Сотовая связь:</div>
-          <div class="value position-status">
-            <div class="value-item"
+      <div class="c-accordion-body">
+        <div class="c-location-peoples"><span>{{currentPointCapabilities.information.population}}</span> чел.</div>
+        <div class="l-sidebar-list">
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">Сотовая связь:</div>
+            <div class="l-vendors-row">
+            <div class="c-vendor"
                  *ngFor="let mobileOperator of currentPointCapabilities.information.cellular"
                  [class.opacity]="!mobileOperator.provider.isActive">
-              <div class="logo">
-                <div class="image">
-                  <img [src]="mobileOperator.provider.icon"
-                       [alt]="mobileOperator.provider.name"
-                       [title]="mobileOperator.provider.name">
+              <div class="c-vendor-logo">
+                <img [src]="mobileOperator.provider.icon"
+                     [alt]="mobileOperator.provider.name"
+                     [title]="mobileOperator.provider.name">
+              </div>
+              <div class="c-vendor-status-text">{{mobileOperator.mobileGeneration}}</div>
+            </div>
+            </div>
+          </div>
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">Интернет:</div>
+            <div class="l-vendors-row">
+              <div class="c-vendor"
+                   [class.opacity]="!internet.provider.isActive"
+                   *ngFor="let internet of currentPointCapabilities.information.internet">
+                <div class="c-vendor-logo">
+                  <img [src]="internet.provider.icon"
+                       [alt]="internet.provider.name"
+                       [title]="internet.provider.name">
                 </div>
-                <div class="status">{{mobileOperator.mobileGeneration}}</div>
+                <div class="c-vendor-status-img"
+                     [title]="internet.type"
+                     [ngClass]="internet.type ">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="name">Интернет:</div>
-          <div class="value">
-            <div class="value-item"
-                 [class.opacity]="!internet.provider.isActive"
-                 *ngFor="let internet of currentPointCapabilities.information.internet">
-              <div class="logo">
-                <div class="image"><img [src]="internet.provider.icon"
-                                        [alt]="internet.provider.name"
-                                        [title]="internet.provider.name"></div>
-                <div class="status"
-                     *ngIf="internet.channel"
-                     [title]="internet.channel.name"
-                     [ngClass]="
-                     {
-                      vols: internet.channel.id === TrunkChannelType.VOLS,
-                      med: internet.channel.id === TrunkChannelType.COPPER_CABLE,
-                      radio: internet.channel.id === TrunkChannelType.RADIO_CHANEl,
-                      sputnik: internet.channel.id === TrunkChannelType.SATELLITE
-                     }"
-                ></div>
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">ТВ:</div>
+              <div class="l-vendors-row">
+              <div class="c-vendor"
+                   [class.opacity]="!tv.provider.isActive"
+                   *ngFor="let tv of currentPointCapabilities.information.tv">
+                <div class="c-vendor-logo">
+                  <img [src]="tv.provider.icon"
+                       [alt]="tv.provider.name"
+                       [title]="tv.provider.name">
+                </div>
+                <div class="c-vendor-status-text">{{tv.type}}</div>
+              </div>
+              </div>
+          </div>
+          <div class="l-sidebar-list-item" *ngFor="let mail of currentPointCapabilities.information.mail">
+            <div class="o-item-title">Почта:</div>
+              <div class="check"></div>
+              {{mail.provider.name}}
+          </div>
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">Радио:</div>
+              <div class="check"></div>
+              <div class="c-vendor" *ngFor="let radio of currentPointCapabilities.information.radio">
+                <div class="c-vendor-logo">
+                  <img [src]="radio.provider.icon"
+                       [alt]="radio.provider.name"
+                       [title]="radio.provider.name">
+                </div>
+              </div>
+          </div>
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">Таксофон:</div>
+            <div class="l-vendors-row">
+              <div class="c-vendor" *ngFor="let payphone of currentPointCapabilities.information.payphone">
+                <div class="c-vendor-logo">
+                  <img [src]="payphone.provider.icon"
+                       [alt]="payphone.provider.name"
+                       [title]="payphone.provider.name">
+                </div>
+                <div class="c-vendor-status-text">{{payphone.count}}</div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="name">ТВ:</div>
-          <div class="value position-status">
-            <div class="value-item"
-                 [class.opacity]="!tv.provider.isActive"
-                 *ngFor="let tv of currentPointCapabilities.information.tv">
-              <div class="logo">
-                <div class="image"><img [src]="tv.provider.icon"
-                                        [alt]="tv.provider.name"
-                                        [title]="tv.provider.name"></div>
-                <div class="status-2">{{tv.type}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item line" *ngFor="let mail of currentPointCapabilities.information.mail">
-          <div class="name">Почта:</div>
-          <div class="value">
-            <div class="check"></div>
-            {{mail.provider.name}}
-          </div>
-        </div>
-        <div class="item line">
-          <div class="name">Радио:</div>
-          <div class="value">
-            <div class="check"></div>
-            <div class="value-item" *ngFor="let radio of currentPointCapabilities.information.radio">
-              <div class="logo">
-                <div class="image"><img [src]="radio.provider.icon"
-                                        [alt]="radio.provider.name"
-                                        [title]="radio.provider.name"></div>
-                <div class="status"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item line">
-          <div class="name">Таксофон:</div>
-          <div class="value">
-            <div class="value-item" *ngFor="let payphone of currentPointCapabilities.information.payphone">
-              <div class="logo">
-                <div class="image"><img [src]="payphone.provider.icon"
-                                        [alt]="payphone.provider.name"
-                                        [title]="payphone.provider.name"></div>
-                <div class="status">{{payphone.count}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item line">
-          <div class="name">Телефон:</div>
-          <div class="value">
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">Телефон:</div>
             <div class="check" *ngIf="hasProvider(currentPointCapabilities.information.telephone)"></div>
-            <div *ngIf="!hasProvider(currentPointCapabilities.information.telephone)">0</div>
-            <div class="value-item"
-                 [class.opacity]="!telephone.provider.isActive"
-                 *ngFor="let telephone of currentPointCapabilities.information.telephone">
-              <div class="logo">
-                <div class="image"><img [src]="telephone.provider.icon"
-                                        [alt]="telephone.provider.name"
-                                        [title]="telephone.provider.name"></div>
-                <div class="status"></div>
+            <div class="l-vendors-row">
+              <div *ngIf="!hasProvider(currentPointCapabilities.information.telephone)">0</div>
+              <div class="c-vendor"
+                   [class.opacity]="!telephone.provider.isActive"
+                   *ngFor="let telephone of currentPointCapabilities.information.telephone">
+                <div class="c-vendor-logo">
+                  <img [src]="telephone.provider.icon"
+                       [alt]="telephone.provider.name"
+                       [title]="telephone.provider.name">
+                  <div class="status"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="item line">
-          <div class="name">Инфомат:</div>
-          <div class="value">{{currentPointCapabilities.information.informat ? 1 : 0}}</div>
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">Инфомат:</div>
+            <div class="value">{{currentPointCapabilities.information.informat ? 1 : 0}}</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="accordion green">
-      <div class="accordion-title" (click)="openAccordion($event, 'open')">
+    <div class="c-accordion green">
+      <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
         <div>
           Организации ({{organizations.length}})
         </div>
-        <div class="accordion-btn"></div>
+        <div class="c-accordion-button"></div>
       </div>
-      <div class="accordion-body">
-        <div class="accordion" *ngFor="let organization of organizations">
+      <div class="c-accordion-body">
+        <div class="c-accordion" *ngFor="let organization of organizations">
           {{organization.full_name}}
-<!--          <div class="accordion-title green"-->
-<!--               (click)="openAccordion($event, 'open')"-->
-<!--               [class.gray-dot]="!organization.avstate"-->
-<!--               [class.red-dot]="organization.avstate && organization.avstate.includes('Не доступно')"-->
-<!--               [class.green-dot]="organization.avstate && !organization.avstate.includes('Не доступно')"-->
-<!--          >-->
-<!--            <div>{{organization.label}}</div>-->
-<!--            <div class="accordion-btn"></div>-->
-<!--          </div>-->
-<!--          <div class="accordion-body">-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Адрес точки подключения:</div>-->
-<!--              <div class="value">{{organization.address}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Заказчик:</div>-->
-<!--              <div class="value">{{organization.customer}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Подрядчик:</div>-->
-<!--              <div class="value">{{organization.contractor}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Технология подключения:</div>-->
-<!--              <div class="value">{{organization.medium_type}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Точка подключения:</div>-->
-<!--              <div class="value">{{organization.node}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Скорость по контракту:</div>-->
-<!--              <div class="value">{{organization.defined_speed}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Состояние:</div>-->
-<!--              <div class="value">{{organization.avstate}}</div>-->
-<!--            </div>-->
-<!--            <div class="item line">-->
-<!--              <div class="name">Входящий трафик:</div>-->
-<!--              <div class="value">{{organization.traffic}}</div>-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--          <div class="c-accordion-title green"-->
+          <!--               (click)="openAccordion($event, 'is-open')"-->
+          <!--               [class.gray-dot]="!organization.avstate"-->
+          <!--               [class.red-dot]="organization.avstate && organization.avstate.includes('Не доступно')"-->
+          <!--               [class.green-dot]="organization.avstate && !organization.avstate.includes('Не доступно')"-->
+          <!--          >-->
+          <!--            <div>{{organization.label}}</div>-->
+          <!--            <div class="c-accordion-button"></div>-->
+          <!--          </div>-->
+          <!--          <div class="c-accordion-body">-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Адрес точки подключения:</div>-->
+          <!--              <div class="value">{{organization.address}}</div>-->
+          <!--            </div>-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Заказчик:</div>-->
+          <!--              <div class="value">{{organization.customer}}</div>-->
+          <!--            </div>-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Подрядчик:</div>-->
+          <!--              <div class="value">{{organization.contractor}}</div>-->
+          <!--            </div>-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Технология подключения:</div>-->
+          <!--              <div class="value">{{organization.medium_type}}</div>-->
+          <!--            </div>-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Точка подключения:</div>-->
+          <!--              <div class="value">{{organization.node}}</div>-->
+          <!--            </div>-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Скорость по контракту:</div>-->
+          <!--              <div class="value">{{organization.defined_speed}}</div>-->
+          <!--            </div>-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Состояние:</div>-->
+          <!--              <div class="value">{{organization.avstate}}</div>-->
+          <!--            </div>-->
+          <!--            <div class="l-row">-->
+          <!--              <div class="o-item-title">Входящий трафик:</div>-->
+          <!--              <div class="value">{{organization.traffic}}</div>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>

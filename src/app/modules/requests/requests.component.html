@@ -1,150 +1,138 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <main class="main">
   <div class="wrapper">
-    <div class="top-bar">
-      <div>
-        <div class="name-location">
-          <div>{{technicalCapability?.name}}</div>
-          <div>{{technicalCapability?.area}}</div>
+    <div class="c-top-bar">
+      <div class="c-top-bar-item">
+        <div class="c-location-name">
+          <div class="c-location-name-item1">{{technicalCapability?.name}}</div>
+          <div class="c-location-name-item2">{{technicalCapability?.area}}</div>
         </div>
-        <div class="peoples"><span>{{technicalCapability?.information.population}}</span> чел.</div>
+        <div class="c-location-peoples"><span>{{technicalCapability?.information.population}}</span> чел.</div>
       </div>
-      <div>
-        <div class="item line">
-          <div class="name">Инфомат:</div>
+      <hr class="o-separator">
+      <div class="c-top-bar-item">
+        <div class="l-row">
+          <div class="o-item-title">Инфомат:</div>
           <div class="value">{{technicalCapability?.information.informat ? 1 : 0}}</div>
         </div>
-        <div class="item line">
-          <div class="name">Телефон:</div>
+        <div class="l-row">
+          <div class="o-item-title">Телефон:</div>
           <div class="value">
             <div class="check"></div>
-            <div class="value-item">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">
+              <div class="c-vendor">
+                <div class="c-vendor-logo"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком"
+                                                title="РосТелеком">
                 </div>
-                <div class="status"></div>
+                <div class="c-vendor-status-text"></div>
               </div>
-            </div>
           </div>
         </div>
-        <div class="item line">
-          <div class="name">Таксофон:</div>
-          <div class="value position-status2">
-            <div class="value-item">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">
+        <div class="l-row">
+          <div class="o-item-title">Таксофон:</div>
+          <div class="value position-c-vendor-status-text2">
+              <div class="c-vendor">
+                <div class="c-vendor-logo"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком"
+                                                title="РосТелеком">
                 </div>
-                <div class="status">5</div>
+                <div class="c-vendor-status-text u-status-pos">5</div>
               </div>
-            </div>
           </div>
         </div>
       </div>
-      <div>
-        <div class="item line">
-          <div class="name">Радио:</div>
+      <hr class="o-separator">
+      <div class="c-top-bar-item">
+        <div class="l-row">
+          <div class="o-item-title">Радио:</div>
           <div class="value">
             <div class="check"></div>
-            <div class="value-item">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">
+              <div class="c-vendor">
+                <div class="c-vendor-logo"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком"
+                                                title="РосТелеком">
                 </div>
-                <div class="status"></div>
+                <div class="c-vendor-status-text"></div>
               </div>
+          </div>
+        </div>
+        <div class="l-row">
+          <div class="o-item-title">ТВ:</div>
+          <div class="l-vendors-row">
+            <div class="c-vendor" *ngFor="let tv of technicalCapability?.information.tv">
+                <div class="c-vendor-logo"><img [src]="tv.provider.icon" [alt]="tv.provider.name"
+                                                [title]="tv.provider.name"></div>
+                <div class="c-vendor-status-text">{{tv.type}}</div>
             </div>
           </div>
         </div>
-        <div class="item line">
-          <div class="name">ТВ:</div>
-          <div class="value position-status">
-            <div class="value-item" *ngFor="let tv of technicalCapability?.information.tv">
-              <div class="logo">
-                <div class="image"><img [src]="tv.provider.icon" [alt]="tv.provider.name" [title]="tv.provider.name"></div>
-                <div class="status">{{tv.type}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item line">
-          <div class="name">Почта:</div>
-          <div class="value">
+        <div class="l-row">
+          <div class="o-item-title">Почта:</div>
             <div class="check"></div>
-          </div>
         </div>
       </div>
-      <div>
-        <div class="item line">
-          <div class="name">Сотовая связь:</div>
-          <div class="value position-status">
-            <div class="value-item">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
-                <div class="status">3G</div>
-              </div>
+      <hr class="o-separator">
+      <div class="c-top-bar-item">
+        <div class="l-column">
+          <div class="o-item-title">Сотовая связь:</div>
+          <div class="l-vendors-row">
+            <div class="c-vendor">
+              <div class="c-vendor-logo"><img src="../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
+              <div class="c-vendor-status-text">3G</div>
             </div>
-            <div class="value-item">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
-                <div class="status">4G</div>
-              </div>
+            <div class="c-vendor">
+              <div class="c-vendor-logo"><img src="../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
+              <div class="c-vendor-status-text">4G</div>
             </div>
-            <div class="value-item">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
-                <div class="status">2G</div>
-              </div>
+            <div class="c-vendor">
+              <div class="c-vendor-logo"><img src="../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
+              <div class="c-vendor-status-text">2G</div>
             </div>
-            <div class="value-item">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
-                <div class="status">3G</div>
-              </div>
+            <div class="c-vendor">
+              <div class="c-vendor-logo"><img src="../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
+              <div class="c-vendor-status-text">3G</div>
             </div>
-            <div class="value-item opacity">
-              <div class="logo">
-                <div class="image"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">
-                </div>
-                <div class="status">3G</div>
+            <div class="c-vendor">
+              <div class="c-vendor-logo"><img src="../../../assets/img/rostelecom.png" alt="РосТелеком"
+                                              title="РосТелеком">
               </div>
+              <div class="c-vendor-status-text">3G</div>
             </div>
           </div>
         </div>
-        <div class="item">
-          <div class="name">Интернет:</div>
-          <div class="value">
-            <div class="value-item"
+        <div class="l-column">
+          <div class="o-item-title">Интернет:</div>
+          <div class="l-vendors-row">
+            <div class="c-vendor"
                  *ngFor="let internet of technicalCapability?.information.internet"
                  [ngClass]="{'gray-filter': !internet.provider.isActive}"
             >
-              <div class="logo">
-                <div class="image">
+              <div class="c-vendor-logo">
                   <img [src]="internet.provider.icon" [alt]="internet.provider.name" [title]="internet.provider.name">
-                </div>
-                <div class="status"
-                     *ngIf="internet.channel"
-                     [title]="internet.channel.name"
-                     [ngClass]="
+              </div>
+              <div class="c-vendor-status-img"
+                   *ngIf="internet.channel"
+                   [title]="internet.channel.name"
+                   [ngClass]="
                      {
                       vols: internet.channel.id === TrunkChannelType.VOLS,
                       med: internet.channel.id === TrunkChannelType.COPPER_CABLE,
                       radio: internet.channel.id === TrunkChannelType.RADIO_CHANEl,
                       sputnik: internet.channel.id === TrunkChannelType.SATELLITE
-                     }"></div>
+                     }">
               </div>
+              <div class="c-vendor-status-img" [className]="internet.type" [title]="internet.type"></div>
             </div>
           </div>
         </div>
       </div>
-      <div>
+      <hr class="o-separator">
+      <div class="c-top-bar-item u-flex-basis">
         <div>Информация не актуальна?</div>
         <input class="btn" type="button" value="Подать уточняющую заявку" (click)="onClarifyingClick()">
       </div>
     </div>
-    <div class="req">
+    <div class="c-archive">
       <h1>Мои заявки (архив)</h1>
-      <div class="archiv">
-        <app-request *ngFor="let request of requests" [request]="request"></app-request>
-      </div>
+      <hr class="o-horizontal-separator">
+      <app-request *ngFor="let request of requests" [request]="request"></app-request>
     </div>
   </div>
 </main>

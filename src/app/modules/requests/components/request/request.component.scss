@@ -1,52 +1,54 @@
-.archiv-item {
+.c-archive {
+  margin-top: 9px;
+  padding-top: 18px;
+}
+
+.c-archive-item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
   border: 1px solid #bdbdbd;
 }
 
-.archiv-item .info {
+.c-archive-info {
   padding: 12px 8px;
 }
 
-.archiv-item .status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 160px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-}
-
-.archiv-item .status.orange {
-  background-color: #ffd860;
-}
-
-.archiv-item .status.green {
-  background-color: #35a584;
-}
-
-.number,
-.date {
+.c-archive-number,
+.c-archive-date {
   font-size: 15px;
   color: #009dd3;
 }
 
-.number {
+.c-archive-number {
   font-weight: 600;
 }
 
-ul {
+.c-archive-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.status-yellow {
+  background-color: #ffd860;
+}
+
+.status-green {
+  background-color: #35a584;
+}
+
+.c-archive-list {
   margin: 0;
   padding-left: 33px;
+  font-size: 13px;
 }
 
-ul li {
-  font-size: 10px;
-}
-
-ul li span {
+.u-underline {
   text-decoration: underline;
 }
 
@@ -54,4 +56,11 @@ p {
   margin-bottom: 10px;
   font-size: 12px;
   font-weight: 600;
+}
+
+.o-horizontal-separator {
+  margin-bottom: 1rem;
+  border: none;
+  background: #d2d2d2;
+  height: 2px;
 }

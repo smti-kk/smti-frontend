@@ -1,67 +1,66 @@
-.req {
-  margin-top: 60px;
-}
-
 p {
   margin-bottom: 10px;
   font-size: 14px;
   font-weight: 600;
 }
 
-.archiv {
-  margin-top: 9px;
-  padding-top: 18px;
-  border-top: 2px solid #d2d2d2;
+.o-horizontal-separator {
+  margin-bottom: 1rem;
+  border: none;
+  background: #d2d2d2;
+  height: 2px;
 }
 
-.archiv-item {
+.c-archive {
+  margin-top: 9px;
+  padding-top: 18px;
+}
+
+.c-archive-item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
   border: 1px solid #bdbdbd;
 }
 
-.archiv-item-info {
+.c-archive-info {
   padding: 12px 8px;
 }
 
-.archiv-item-number,
-.archiv-item-date {
+.c-archive-number,
+.c-archive-date {
   font-size: 15px;
   color: #009dd3;
 }
 
-.archiv-item-number {
+.c-archive-number {
   font-weight: 600;
 }
 
-.archiv-item-status {
+.c-archive-status {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 160px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #fff;
 }
 
-.archiv-item-status.orange {
+.status-yellow {
   background-color: #ffd860;
 }
 
-.archiv-item-status.green {
+.status-green {
   background-color: #35a584;
 }
 
-ul {
+.c-archive-list {
   margin: 0;
   padding-left: 33px;
+  font-size: 13px;
 }
 
-ul li {
-  font-size: 12px;
-}
-
-ul li span {
+.u-underline {
   text-decoration: underline;
 }

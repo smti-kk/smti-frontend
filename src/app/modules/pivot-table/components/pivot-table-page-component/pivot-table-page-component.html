@@ -2,211 +2,213 @@
 <main class="main">
   <div class="wrapper">
     <h1>Сводная таблица по населенным пунктам</h1>
-    <div class="accordion filter">
-      <div class="accordion-title">
-        <div class="filter-icon">Фильтры</div>
-        <div class="accordion-btn"></div>
+    <div class="c-filter">
+      <div class="c-accordion">
+        <div class="c-accordion-title">
+          <div class="c-filter-icon">Фильтры</div>
+          <div class="c-accordion-btn"></div>
+        </div>
+        <div class="c-accordion-body">
+          <form>
+            <div class="l-container">
+              <div class="l-container-item js-filter-button">
+                <button type="button" class="btn c-filter-button">Нас. пункт</button>
+                <button type="button" class="btn c-filter-button">Район</button>
+                <button type="button" class="btn c-filter-button">Численность</button>
+              </div>
+              <div class="l-container-item">
+                <div class="c-checkbox">
+                  <label> <input type="checkbox">
+                    <div class="c-checkbox-text">Наличие ЕСПД</div>
+                  </label>
+                </div>
+                <div class="c-checkbox">
+                  <label> <input type="checkbox">
+                    <div class="c-checkbox-text">Наличие таксофона</div>
+                  </label>
+                </div>
+                <div class="c-checkbox">
+                  <label> <input type="checkbox">
+                    <div class="c-checkbox-text">Наличие инфомата</div>
+                  </label>
+                </div>
+                <div class="c-checkbox">
+                  <label> <input type="checkbox">
+                    <div class="c-checkbox-text">Наличие радио</div>
+                  </label>
+                </div>
+                <div class="c-checkbox">
+                  <label> <input type="checkbox">
+                    <div class="c-checkbox-text">Наличие телефона</div>
+                  </label>
+                </div>
+              </div>
+              <div class="l-container-item">
+                <div class="l-container-block is-disabled">
+                  <div class="o-item-title">Почта:</div>
+                  <div class="c-radiobox">
+                    <label><input type="radio" name="post">
+                      <div class="c-radiobox-text">УПС</div>
+                    </label>
+                    <label><input type="radio" name="post">
+                      <div class="c-radiobox-text">Почтовая связь</div>
+                    </label>
+                  </div>
+                </div>
+                <div class="l-container-block is-disabled">
+                  <div class="o-item-title">ТВ:</div>
+                  <div class="c-radiobox">
+                    <label><input type="radio" name="tv">
+                      <div class="c-radiobox-text">Аналоговое</div>
+                    </label>
+                    <label><input type="radio" name="tv">
+                      <div class="c-radiobox-text">Цифровое</div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="l-container-item">
+                <div class="l-container-row is-disabled">
+                  <div class="o-item-title">Сотовая связь:</div>
+                  <div class="l-vendors-row u-border-right">
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/mts.png" alt="МТС"
+                                                                     title="МТС"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/beeline.png"
+                                                                     alt="Билайн" title="Билайн"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/megafon.png"
+                                                                     alt="Мегафон" title="Мегафон"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/tele2.png"
+                                                                     alt="Теле2" title="Теле2"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/rostelecom.png"
+                                                                     alt="РосТелеком" title="РосТелеком"></div>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="c-radiobox l-radiobox-row">
+                    <label><input type="radio" name="mobile">
+                      <div class="c-radiobox-text">2G</div>
+                    </label>
+                    <label><input type="radio" name="mobile">
+                      <div class="c-radiobox-text">3G</div>
+                    </label>
+                    <label><input type="radio" name="mobile">
+                      <div class="c-radiobox-text">4G</div>
+                    </label>
+                    <label><input type="radio" name="mobile">
+                      <div class="c-radiobox-text">5G</div>
+                    </label>
+                  </div>
+                </div>
+                <div class="l-container-row is-disabled">
+                  <div class="o-item-title">Интернет:</div>
+                  <div class="l-vendors-column u-border-right">
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/mts.png" alt="МТС"
+                                                                     title="МТС"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/beeline.png"
+                                                                     alt="Билайн" title="Билайн"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/megafon.png"
+                                                                     alt="Мегафон" title="Мегафон"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/tele2.png"
+                                                                     alt="Теле2" title="Теле2"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/rostelecom.png"
+                                                                     alt="РосТелеком" title="РосТелеком"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/iskra.png"
+                                                                     alt="Искра" title="Искра"></div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label> <input type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/ttk.png" alt="ТТК"
+                                                                     title="ТТК"></div>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="c-radiobox l-radiobox-column">
+                    <label><input type="radio" name="internet">
+                      <div class="c-radiobox-text">Спутник</div>
+                    </label>
+                    <label><input type="radio" name="internet">
+                      <div class="c-radiobox-text">ВОЛС</div>
+                    </label>
+                    <label><input type="radio" name="internet">
+                      <div class="c-radiobox-text">Медь</div>
+                    </label>
+                    <label><input type="radio" name="internet">
+                      <div class="c-radiobox-text">Радиоканал</div>
+                    </label>
+                  </div>
+                </div>
+                <div class="l-container-row is-disabled">
+                  <div class="o-item-title">Программа:</div>
+                  <select name="" id="">
+                    <option value="" disabled selected style="display:none;">Выберите программу</option>
+                    <option value="">Программа 1</option>
+                    <option value="">Программа 2</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр">
+          </form>
+        </div>
       </div>
-      <div class="accordion-body">
-        <form>
-          <div class="filter-wrap">
-            <div class="filter-item filter-button">
-              <button (click)="orderingByLocation()" type="button" class="btn filter-btn">Нас. пункт</button>
-              <button (click)="orderingByArea()" type="button" class="btn filter-btn">Район</button>
-              <button (click)="orderingByPopulation()" type="button" class="btn filter-btn">Численность</button>
-            </div>
-            <div class="filter-item">
-              <div class="checkbox">
-                <label> <input type="checkbox">
-                  <div class="checkbox-text">Наличие ЕСПД</div>
-                </label>
-              </div>
-              <div class="checkbox">
-                <label> <input type="checkbox">
-                  <div class="checkbox-text">Наличие таксофона</div>
-                </label>
-              </div>
-              <div class="checkbox">
-                <label> <input type="checkbox">
-                  <div class="checkbox-text">Наличие инфомата</div>
-                </label>
-              </div>
-              <div class="checkbox">
-                <label> <input type="checkbox">
-                  <div class="checkbox-text">Наличие радио</div>
-                </label>
-              </div>
-              <div class="checkbox">
-                <label> <input type="checkbox">
-                  <div class="checkbox-text">Наличие телефона</div>
-                </label>
-              </div>
-            </div>
-            <div class="filter-item">
-              <div class="filter-item-wrap form-not-active">
-                <div class="item-title">Почта:</div>
-                <div class="radiobox">
-                  <label><input type="radio" name="post">
-                    <div class="radiobox-text">УПС</div>
-                  </label>
-                  <label><input type="radio" name="post">
-                    <div class="radiobox-text">Почтовая связь</div>
-                  </label>
-                </div>
-              </div>
-              <div class="filter-item-wrap form-not-active">
-                <div class="filter-radiobox-name">ТВ:</div>
-                <div class="radiobox">
-                  <label><input type="radio" name="tv">
-                    <div class="radiobox-text">Аналоговое</div>
-                  </label>
-                  <label><input type="radio" name="tv">
-                    <div class="radiobox-text">Цифровое</div>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="filter-item">
-              <div class="filter-item-wrap item-row form-not-active">
-                <div class="item-title">Сотовая связь:</div>
-                <div class="vendors border">
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/mts.png" alt="МТС"
-                                                                   title="МТС"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/beeline.png"
-                                                                   alt="Билайн" title="Билайн"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/megafon.png"
-                                                                   alt="Мегафон" title="Мегафон"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/tele2.png" alt="Теле2"
-                                                                   title="Теле2"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/rostelecom.png"
-                                                                   alt="РосТелеком" title="РосТелеком"></div>
-                    </label>
-                  </div>
-                </div>
-                <div class="radiobox radiobox-row">
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">2G</div>
-                  </label>
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">3G</div>
-                  </label>
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">4G</div>
-                  </label>
-                  <label><input type="radio" name="mobile">
-                    <div class="radiobox-text">5G</div>
-                  </label>
-                </div>
-              </div>
-              <div class="filter-item-wrap item-row form-not-active">
-                <div class="item-title">Интернет:</div>
-                <div class="vendors vendors-column border">
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/mts.png" alt="МТС"
-                                                                   title="МТС"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/beeline.png"
-                                                                   alt="Билайн" title="Билайн"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/megafon.png"
-                                                                   alt="Мегафон" title="Мегафон"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/tele2.png" alt="Теле2"
-                                                                   title="Теле2"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/rostelecom.png"
-                                                                   alt="РосТелеком" title="РосТелеком"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/iskra.png" alt="Искра"
-                                                                   title="Искра"></div>
-                    </label>
-                  </div>
-                  <div class="vendor">
-                    <label> <input type="checkbox">
-                      <div class="vendor-logo checked-vendor"><img src="../../../../../assets/img/ttk.png" alt="ТТК"
-                                                                   title="ТТК"></div>
-                    </label>
-                  </div>
-                </div>
-                <div class="radiobox radiobox-column">
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">Спутник</div>
-                  </label>
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">ВОЛС</div>
-                  </label>
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">Медь</div>
-                  </label>
-                  <label><input type="radio" name="internet">
-                    <div class="radiobox-text">Радиоканал</div>
-                  </label>
-                </div>
-              </div>
-              <div class="filter-item-wrap form-not-active">
-                <div class="item-title">Программа:</div>
-                <select name="" id="">
-                  <option value="" disabled selected style="display:none;">Выберите программу</option>
-                  <option value="">Программа 1</option>
-                  <option value="">Программа 2</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр">
-        </form>
+      <div class="c-filter-info">
+        <div class="c-filter-result">
+          Результатов поиска: <span>10</span>
+        </div>
+        <div class="c-filter-export">
+          <input type="button" class="btn" value="Выгрузить в Excel">
+        </div>
       </div>
     </div>
-    <div class="filter-info">
-      <div class="filter-info-result">
-        Результатов поиска: <span>{{lcs?.length}}</span>
-      </div>
-      <div class="filter-info-export">
-        <input type="button" class="btn" value="Выгрузить в Excel">
-      </div>
-    </div>
-    <div class="layout-table layout-table-header table-location">
-      <div class="layout-table-item">№</div>
-      <div class="layout-table-item">Населенный пункт<br>Район<br>Численность чел.</div>
-      <div class="layout-table-item">ЕСПД</div>
-      <div class="layout-table-item">Телефон,<br>Таксофон,<br>Ифомат,<br>Почта</div>
-      <div class="layout-table-item">ТВ,<br>Радио</div>
-      <div class="layout-table-item">Связь<br>(сотовая, интернет)</div>
-      <div class="layout-table-item">Программа</div>
+    <div class="l-table u-table-header l-table-location">
+      <div class="l-table-column">№</div>
+      <div class="l-table-column">Населенный пункт<br>Район<br>Численность чел.</div>
+      <div class="l-table-column">ЕСПД</div>
+      <div class="l-table-column">Телефон,<br>Таксофон,<br>Ифомат,<br>Почта</div>
+      <div class="l-table-column">ТВ,<br>Радио</div>
+      <div class="l-table-column">Связь<br>(сотовая, интернет)</div>
+      <div class="l-table-column">Программа</div>
     </div>
     <ngx-spinner
       bdOpacity=0.9
@@ -216,32 +218,178 @@
       class="spinner"
       [fullScreen]="true"
     >
-      <p style="color: gray"> Идет загрузка </p>
-    </ngx-spinner>
-    <div class="layout-table table-location" *ngFor="let lc of lcs; let i = index">
-      <div class="layout-table-item">{{i + 1}}</div>
-      <div class="layout-table-item">
-        <div class="flex-wrap">
-          <div class="name-location">
-            <div>{{lc.name}}</div>
-            <div>{{lc.area}}</div>
+    <!--    <div class="layout-table table-location">-->
+    <!--      <div class="l-table-column">1</div>-->
+    <!--      <div class="l-table-column">-->
+    <!--        <div class="flex-wrap">-->
+    <!--          <div class="name-location">-->
+    <!--            <div>с. Богучаны</div>-->
+    <!--            <div>Богучанский р-н</div>-->
+    <!--          </div>-->
+    <!--          <div class="peoples"><span>11 512</span> чел.</div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="l-table-column">-->
+    <!--        <div class="espd true"></div>-->
+    <!--      </div>-->
+    <!--      <div class="l-table-column">-->
+    <!--        <div class="flex-wrap">-->
+    <!--          <div class="l-table-row">-->
+    <!--            <div class="l-table-item"><i class="fas fa-phone-alt"></i></div>-->
+    <!--            <div class="l-table-item true"></div>-->
+    <!--            <div class="l-table-item">-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo">-->
+    <!--                  <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--          <div class="l-table-row">-->
+    <!--            <div class="l-table-item"><i class="fas fa-tty"></i></div>-->
+    <!--            <div class="l-table-item">-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo">-->
+    <!--                  <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">-->
+    <!--                </div>-->
+    <!--                <div class="vendor-status-text status-pos">5</div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--          <div class="l-table-row">-->
+    <!--            <div class="l-table-item"><i class="fas fa-tablet-alt"></i></div>-->
+    <!--            <div class="l-table-item">0</div>-->
+    <!--          </div>-->
+    <!--          <div class="l-table-row">-->
+    <!--            <div class="l-table-item"><i class="far fa-envelope"></i></div>-->
+    <!--            <div class="l-table-item true"></div>-->
+    <!--            <div class="l-table-item">УПС</div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="l-table-column">-->
+    <!--        <div class="l-table-row">-->
+    <!--          <div class="l-table-item"><i class="fas fa-tv"></i></div>-->
+    <!--          <div class="l-table-item">-->
+    <!--            <div class="c-vendor">-->
+    <!--              <div class="c-vendor-logo"><img src="../../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>-->
+    <!--              <div class="vendor-status-text">АТВ</div>-->
+    <!--            </div>-->
+    <!--            <div class="c-vendor">-->
+    <!--              <div class="c-vendor-logo"><img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком"-->
+    <!--                                            title="РосТелеком"></div>-->
+    <!--              <div class="vendor-status-text">АТВ</div>-->
+    <!--            </div>-->
+    <!--            <div class="c-vendor">-->
+    <!--              <div class="c-vendor-logo"><img src="../../../../../assets/img/telsputnik.png" alt="ТелСпутник"-->
+    <!--                                            title="ТелСпутник"></div>-->
+    <!--              <div class="vendor-status-text">ЦТВ</div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--        <div class="l-table-row">-->
+    <!--          <div class="l-table-item"><i class="fas fa-microphone"></i></div>-->
+    <!--          <div class="l-table-item true"></div>-->
+    <!--          <div class="l-table-item">-->
+    <!--            <div class="c-vendor">-->
+    <!--              <div class="c-vendor-logo">-->
+    <!--                <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="l-table-column">-->
+    <!--        <div class="flex-wrap">-->
+    <!--          <div class="l-table-row item-column">-->
+    <!--            <div class="o-item-title"><i class="fas fa-mobile-alt"></i> Сотовая связь:</div>-->
+    <!--            <div class="vendors">-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>-->
+    <!--                <div class="vendor-status-text">3G</div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>-->
+    <!--                <div class="vendor-status-text">4G</div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>-->
+    <!--                <div class="vendor-status-text">2G</div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>-->
+    <!--                <div class="vendor-status-text">3G</div>-->
+    <!--              </div>-->
+    <!--              <div class="vendor opacity">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>-->
+    <!--                <div class="vendor-status-text">3G</div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--          <div class="l-table-row item-column">-->
+    <!--            <div class="o-item-title"><i class="fab fa-internet-explorer"></i> Интернет:</div>-->
+    <!--            <div class="vendors">-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>-->
+    <!--                <div class="vendor-status-img vols" title="ВОЛС"></div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>-->
+    <!--                <div class="vendor-status-img med" title="Медь"></div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>-->
+    <!--                <div class="vendor-status-img vols" title="ВОЛС"></div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>-->
+    <!--                <div class="vendor-status-img med" title="Медь"></div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>-->
+    <!--                <div class="vendor-status-img radio" title="Радио"></div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/iskra.png" alt="Искра" title="Искра"></div>-->
+    <!--                <div class="vendor-status-img sputnik" title="Спутник"></div>-->
+    <!--              </div>-->
+    <!--              <div class="c-vendor">-->
+    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/ttk.png" alt="ТТК" title="ТТК"></div>-->
+    <!--                <div class="vendor-status-img"></div>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="l-table-column">-->
+    <!--        <div class="flex-wrap">-->
+    <!--          <div class="l-table-row">Наименование программы1</div>-->
+    <!--          <div class="l-table-row">Наименование программы2</div>-->
+    <!--          <div class="l-table-row">Наименование программы3</div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <div class="l-table l-table-location" *ngFor="let lc of lcs; let i = index">
+      <div class="l-table-column">i</div>
+      <div class="l-table-column">
+          <div class="c-name-location">
+            <div class="c-location-name-item1">{{lc.name}}</div>
+            <div class="c-location-name-item2">{{lc.area}}</div>
           </div>
-          <div class="peoples"><span>{{lc.information.population}}</span> чел.</div>
-        </div>
+          <div class="c-location-peoples"><span>{{lc.information.population}}</span> чел.</div>
       </div>
-      <div class="layout-table-item">
+      <div class="l-table-column">
         <div class="espd true"></div>
       </div>
-      <div class="layout-table-item">
-        <div class="flex-wrap">
-          <div class="flex-wrap-item">
-            <div class="wrap-item"><i class="fas fa-phone-alt"></i></div>
-            <div class="wrap-item true"></div>
-            <div class="wrap-item">
-              <div class="vendor"
+      <div class="l-table-column">
+          <div class="l-table-row">
+            <div class="l-table-item"><i class="fas fa-phone-alt"></i></div>
+            <div class="l-table-item u-true"></div>
+            <div class="l-table-item">
+              <div class="c-vendor"
                    *ngFor="let phone of lc.information.telephone"
               >
-                <div class="vendor-logo"
+                <div class="c-vendor-logo"
                      [ngClass]="{ opacity: !phone.provider.isActive }"
                 >
                   <img class="image"
@@ -252,11 +400,11 @@
               </div>
             </div>
           </div>
-          <div class="flex-wrap-item">
-            <div class="wrap-item"><i class="fas fa-tty"></i></div>
-            <div class="wrap-item">
-              <div class="vendor" *ngFor="let payphone of lc.information.payphone">
-                <div class="vendor-logo" [ngClass]="{ opacity: !payphone.provider.isActive }">
+          <div class="l-table-row">
+            <div class="l-table-item"><i class="fas fa-tty"></i></div>
+            <div class="l-table-item">
+              <div class="c-vendor" *ngFor="let payphone of lc.information.payphone">
+                <div class="c-vendor-logo" [ngClass]="{ opacity: !payphone.provider.isActive }">
                   <img
                     class="image"
                     [src]="payphone.provider.icon"
@@ -268,48 +416,46 @@
               </div>
             </div>
           </div>
-          <div class="flex-wrap-item">
-            <div class="wrap-item"><i class="fas fa-tablet-alt"></i></div>
-            <div class="wrap-item">0</div>
+          <div class="l-table-row">
+            <div class="l-table-item"><i class="fas fa-tablet-alt"></i></div>
+            <div class="l-table-item">0</div>
           </div>
-          <div class="flex-wrap-item">
-            <div class="wrap-item"><i class="far fa-envelope"></i></div>
-            <div class="wrap-item true"></div>
-            <div class="wrap-item">УПС</div>
+          <div class="l-table-row">
+            <div class="l-table-item"><i class="far fa-envelope"></i></div>
+            <div class="l-table-item u-true"></div>
+            <div class="l-table-item">УПС</div>
           </div>
-        </div>
       </div>
-      <div class="layout-table-item">
-        <div class="flex-wrap-item">
-          <div class="wrap-item"><i class="fas fa-tv"></i></div>
-          <div class="wrap-item">
-            <div class="vendor" *ngFor="let tv of lc.information.tv">
-              <div class="vendor-logo" [ngClass]="{opacity: !tv.provider.isActive}">
+      <div class="l-table-column">
+        <div class="l-table-row">
+          <div class="l-table-item"><i class="fas fa-tv"></i></div>
+          <div class="l-table-item">
+            <div class="c-vendor" *ngFor="let tv of lc.information.tv">
+              <div class="c-vendor-logo" [ngClass]="{opacity: !tv.provider.isActive}">
                 <img class="image" [src]="tv.provider.icon" [alt]="tv.provider.name" [title]="tv.provider.name">
               </div>
               <div class="vendor-status-text">{{tv.type}}</div>
             </div>
           </div>
         </div>
-        <div class="flex-wrap-item">
-          <div class="wrap-item"><i class="fas fa-microphone"></i></div>
-          <div class="wrap-item true"></div>
-          <div class="wrap-item">
-            <div class="vendor">
-              <div class="vendor-logo">
+        <div class="l-table-row">
+          <div class="l-table-item"><i class="fas fa-microphone"></i></div>
+          <div class="l-table-item u-true"></div>
+          <div class="l-table-item">
+            <div class="c-vendor">
+              <div class="c-vendor-logo">
                 <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="layout-table-item">
-        <div class="flex-wrap">
-          <div class="flex-wrap-item item-column">
-            <div class="item-title"><i class="fas fa-mobile-alt"></i> Сотовая связь:</div>
+      <div class="l-table-column">
+          <div class="l-table-row item-column">
+            <div class="o-item-title"><i class="fas fa-mobile-alt"></i> Сотовая связь:</div>
             <div class="vendors">
-              <div class="vendor" *ngFor="let phone of lc.information.cellular">
-                <div class="vendor-logo" [ngClass]="{opacity: !phone.provider.isActive}">
+              <div class="c-vendor" *ngFor="let phone of lc.information.cellular">
+                <div class="c-vendor-logo" [ngClass]="{opacity: !phone.provider.isActive}">
                   <img class="image" [src]="phone.provider.icon" [alt]="phone.provider.name"
                        [title]="phone.provider.name">
                 </div>
@@ -317,13 +463,13 @@
               </div>
             </div>
           </div>
-          <div class="flex-wrap-item item-column">
-            <div class="item-title"><i class="fab fa-internet-explorer"></i> Интернет:</div>
+          <div class="l-table-row item-column">
+            <div class="o-item-title"><i class="fab fa-internet-explorer"></i> Интернет:</div>
             <div class="vendors">
-              <div class="vendor"
+              <div class="c-vendor"
                    *ngFor="let internet of lc.information.internet"
               >
-                <div class="vendor-logo"
+                <div class="c-vendor-logo"
                      [ngClass]="{ opacity: !internet.provider.isActive }"
                 >
                   <img class="image" [src]="internet.provider.icon"
@@ -344,16 +490,12 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
-      <div class="layout-table-item">
-        <div class="flex-wrap">
-          <div class="flex-wrap-item">Наименование программы1</div>
-          <div class="flex-wrap-item">Наименование программы2</div>
-          <div class="flex-wrap-item">Наименование программы3</div>
-        </div>
+      <div class="l-table-column">
+          <div class="l-table-row">Наименование программы1</div>
+          <div class="l-table-row">Наименование программы2</div>
+          <div class="l-table-row">Наименование программы3</div>
       </div>
     </div>
   </div>
 </main>
-
