@@ -822,12 +822,15 @@ input[type="radio"] {
   color: #21bb42;
 }
 
-fieldset[disabled="disabled"] .c-radiobox-text:before {
+fieldset[disabled="disabled"] .c-radiobox-text:before,
+.is-disabled .c-radiobox-text:before {
   color: #bcbcbc;
 }
 
 fieldset[disabled="disabled"] .c-checkbox-text::after,
-fieldset[disabled="disabled"] .c-radiobox-text:after {
+fieldset[disabled="disabled"] .c-radiobox-text:after,
+.is-disabled .c-checkbox-text::after,
+.is-disabled .c-radiobox-text:after {
   color: #bcbcbc;
 }
 

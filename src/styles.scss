@@ -809,28 +809,28 @@ select:-moz-focusring {
   margin-top: 5px;
 }
 
-.ВОЛС {
+.vols {
   background: url('/assets/img/vols.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.медь {
+.med {
   background: url('/assets/img/med.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.радиоканал {
+.radio {
   background: url('/assets/img/radio.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
   height: 5px;
 }
 
-.спутник {
+.sputnik {
   background: url('/assets/img/sputnik.png') no-repeat;
   background-position-y: 50%;
   width: 17px;
@@ -910,12 +910,15 @@ input[type="radio"] {
   color: #21bb42;
 }
 
-fieldset[disabled="disabled"] .c-radiobox-text:before {
+fieldset[disabled="disabled"] .c-radiobox-text:before,
+.is-disabled .c-radiobox-text:before {
   color: #bcbcbc;
 }
 
 fieldset[disabled="disabled"] .c-checkbox-text::after,
-fieldset[disabled="disabled"] .c-radiobox-text:after {
+fieldset[disabled="disabled"] .c-radiobox-text:after,
+.is-disabled .c-checkbox-text::after,
+.is-disabled .c-radiobox-text:after {
   color: #bcbcbc;
 }
 

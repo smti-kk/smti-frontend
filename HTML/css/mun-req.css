@@ -4,7 +4,7 @@ p {
   font-weight: 600;
 }
 
-hr {
+.o-horizontal-separator {
   margin-bottom: 1rem;
   border: none;
   background: #d2d2d2;
