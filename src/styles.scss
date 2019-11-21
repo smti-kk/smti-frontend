@@ -37,12 +37,12 @@ html {
 
 *::before,
 *::after {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 5 Free', sans-serif;
   font-weight: 900;
 }
 
 .fab:before {
-  font-family: 'Font Awesome 5 Brands';
+  font-family: 'Font Awesome 5 Brands', sans-serif;
 }
 
 body {
@@ -463,7 +463,7 @@ select:-moz-focusring {
 }
 
 .c-accordion-body {
-  display: none;
+  //display: none;
   padding-top: 0.5rem;
   padding-bottom: 1.2rem;
 }
@@ -680,7 +680,7 @@ select:-moz-focusring {
   margin-bottom: 10px;
   padding: 15px 10px;
   background-color: #fff;
-  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
   font-size: 12px;
 }
 
@@ -1012,7 +1012,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .c-tab-title {
-  flex: 1 0 0%;
+  flex: 1 0 0;
   padding-bottom: 5px;
   text-align: center;
   cursor: pointer;
@@ -1147,7 +1147,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
   margin-top: 1rem;
   margin-bottom: 2rem;
   padding: 15px 10px;
-  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
 }
 
 .c-contract-header {
@@ -1176,7 +1176,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .c-contract .c-accordion {
-  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
 }
 
 .c-contract-item .c-accordion-body {

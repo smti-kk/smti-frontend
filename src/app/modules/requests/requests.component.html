@@ -118,7 +118,16 @@
                       sputnik: internet.channel.id === TrunkChannelType.SATELLITE
                      }">
               </div>
-              <div class="c-vendor-status-img" [className]="internet.type" [title]="internet.type"></div>
+              <div class="c-vendor-status-img"
+                   *ngIf="internet.channel"
+                   [title]="internet.channel.name"
+                   [ngClass]="
+                     {
+                      vols: internet.channel.id === TrunkChannelType.VOLS,
+                      med: internet.channel.id === TrunkChannelType.COPPER_CABLE,
+                      radio: internet.channel.id === TrunkChannelType.RADIO_CHANEl,
+                      sputnik: internet.channel.id === TrunkChannelType.SATELLITE
+                     }"></div>
             </div>
           </div>
         </div>

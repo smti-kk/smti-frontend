@@ -12,9 +12,9 @@
           <form>
             <div class="l-container">
               <div class="l-container-item js-filter-button">
-                <button type="button" class="btn c-filter-button">Нас. пункт</button>
-                <button type="button" class="btn c-filter-button">Район</button>
-                <button type="button" class="btn c-filter-button">Численность</button>
+                <button type="button" (click)="orderingByLocation()" class="btn c-filter-button">Нас. пункт</button>
+                <button type="button" (click)="orderingByArea()" class="btn c-filter-button">Район</button>
+                <button type="button" (click)="orderingByPopulation()" class="btn c-filter-button">Численность</button>
               </div>
               <div class="l-container-item">
                 <div class="c-checkbox">
@@ -217,158 +217,7 @@
       type="ball-atom"
       class="spinner"
       [fullScreen]="true"
-    >
-    <!--    <div class="layout-table table-location">-->
-    <!--      <div class="l-table-column">1</div>-->
-    <!--      <div class="l-table-column">-->
-    <!--        <div class="flex-wrap">-->
-    <!--          <div class="name-location">-->
-    <!--            <div>с. Богучаны</div>-->
-    <!--            <div>Богучанский р-н</div>-->
-    <!--          </div>-->
-    <!--          <div class="peoples"><span>11 512</span> чел.</div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="l-table-column">-->
-    <!--        <div class="espd true"></div>-->
-    <!--      </div>-->
-    <!--      <div class="l-table-column">-->
-    <!--        <div class="flex-wrap">-->
-    <!--          <div class="l-table-row">-->
-    <!--            <div class="l-table-item"><i class="fas fa-phone-alt"></i></div>-->
-    <!--            <div class="l-table-item true"></div>-->
-    <!--            <div class="l-table-item">-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo">-->
-    <!--                  <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">-->
-    <!--                </div>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--          <div class="l-table-row">-->
-    <!--            <div class="l-table-item"><i class="fas fa-tty"></i></div>-->
-    <!--            <div class="l-table-item">-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo">-->
-    <!--                  <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">-->
-    <!--                </div>-->
-    <!--                <div class="vendor-status-text status-pos">5</div>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--          <div class="l-table-row">-->
-    <!--            <div class="l-table-item"><i class="fas fa-tablet-alt"></i></div>-->
-    <!--            <div class="l-table-item">0</div>-->
-    <!--          </div>-->
-    <!--          <div class="l-table-row">-->
-    <!--            <div class="l-table-item"><i class="far fa-envelope"></i></div>-->
-    <!--            <div class="l-table-item true"></div>-->
-    <!--            <div class="l-table-item">УПС</div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="l-table-column">-->
-    <!--        <div class="l-table-row">-->
-    <!--          <div class="l-table-item"><i class="fas fa-tv"></i></div>-->
-    <!--          <div class="l-table-item">-->
-    <!--            <div class="c-vendor">-->
-    <!--              <div class="c-vendor-logo"><img src="../../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>-->
-    <!--              <div class="vendor-status-text">АТВ</div>-->
-    <!--            </div>-->
-    <!--            <div class="c-vendor">-->
-    <!--              <div class="c-vendor-logo"><img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком"-->
-    <!--                                            title="РосТелеком"></div>-->
-    <!--              <div class="vendor-status-text">АТВ</div>-->
-    <!--            </div>-->
-    <!--            <div class="c-vendor">-->
-    <!--              <div class="c-vendor-logo"><img src="../../../../../assets/img/telsputnik.png" alt="ТелСпутник"-->
-    <!--                                            title="ТелСпутник"></div>-->
-    <!--              <div class="vendor-status-text">ЦТВ</div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--        <div class="l-table-row">-->
-    <!--          <div class="l-table-item"><i class="fas fa-microphone"></i></div>-->
-    <!--          <div class="l-table-item true"></div>-->
-    <!--          <div class="l-table-item">-->
-    <!--            <div class="c-vendor">-->
-    <!--              <div class="c-vendor-logo">-->
-    <!--                <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="l-table-column">-->
-    <!--        <div class="flex-wrap">-->
-    <!--          <div class="l-table-row item-column">-->
-    <!--            <div class="o-item-title"><i class="fas fa-mobile-alt"></i> Сотовая связь:</div>-->
-    <!--            <div class="vendors">-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>-->
-    <!--                <div class="vendor-status-text">3G</div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>-->
-    <!--                <div class="vendor-status-text">4G</div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>-->
-    <!--                <div class="vendor-status-text">2G</div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>-->
-    <!--                <div class="vendor-status-text">3G</div>-->
-    <!--              </div>-->
-    <!--              <div class="vendor opacity">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>-->
-    <!--                <div class="vendor-status-text">3G</div>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--          <div class="l-table-row item-column">-->
-    <!--            <div class="o-item-title"><i class="fab fa-internet-explorer"></i> Интернет:</div>-->
-    <!--            <div class="vendors">-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>-->
-    <!--                <div class="vendor-status-img vols" title="ВОЛС"></div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>-->
-    <!--                <div class="vendor-status-img med" title="Медь"></div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>-->
-    <!--                <div class="vendor-status-img vols" title="ВОЛС"></div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>-->
-    <!--                <div class="vendor-status-img med" title="Медь"></div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>-->
-    <!--                <div class="vendor-status-img radio" title="Радио"></div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/iskra.png" alt="Искра" title="Искра"></div>-->
-    <!--                <div class="vendor-status-img sputnik" title="Спутник"></div>-->
-    <!--              </div>-->
-    <!--              <div class="c-vendor">-->
-    <!--                <div class="c-vendor-logo"><img src="../../../../../assets/img/ttk.png" alt="ТТК" title="ТТК"></div>-->
-    <!--                <div class="vendor-status-img"></div>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="l-table-column">-->
-    <!--        <div class="flex-wrap">-->
-    <!--          <div class="l-table-row">Наименование программы1</div>-->
-    <!--          <div class="l-table-row">Наименование программы2</div>-->
-    <!--          <div class="l-table-row">Наименование программы3</div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
+    ></ngx-spinner>
     <div class="l-table l-table-location" *ngFor="let lc of lcs; let i = index">
       <div class="l-table-column">i</div>
       <div class="l-table-column">
@@ -451,21 +300,21 @@
         </div>
       </div>
       <div class="l-table-column">
-          <div class="l-table-row item-column">
+          <div class="l-table-row l-column">
             <div class="o-item-title"><i class="fas fa-mobile-alt"></i> Сотовая связь:</div>
-            <div class="vendors">
+            <div class="l-vendors-row">
               <div class="c-vendor" *ngFor="let phone of lc.information.cellular">
                 <div class="c-vendor-logo" [ngClass]="{opacity: !phone.provider.isActive}">
                   <img class="image" [src]="phone.provider.icon" [alt]="phone.provider.name"
                        [title]="phone.provider.name">
                 </div>
-                <div class="vendor-status-text">{{phone.mobileGeneration}}</div>
+                <div class="c-vendor-status-text">{{phone.mobileGeneration}}</div>
               </div>
             </div>
           </div>
-          <div class="l-table-row item-column">
+          <div class="l-table-row l-column">
             <div class="o-item-title"><i class="fab fa-internet-explorer"></i> Интернет:</div>
-            <div class="vendors">
+            <div class="l-vendors-row">
               <div class="c-vendor"
                    *ngFor="let internet of lc.information.internet"
               >
@@ -476,7 +325,7 @@
                        [alt]="internet.provider.name"
                        [title]="internet.provider.name">
                 </div>
-                <div class="vendor-status-img"
+                <div class="c-vendor-status-img"
                      *ngIf="internet.channel"
                      [title]="internet.channel.name"
                      [ngClass]="
