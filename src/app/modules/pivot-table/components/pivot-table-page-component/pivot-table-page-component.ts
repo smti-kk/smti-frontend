@@ -36,13 +36,9 @@ export class PivotTablePageComponent implements OnInit {
     });
   }
 
-  ordering(order: OrderingFilter) {
-    this.tcPivots.addFilterOrdering(order.name, order.orderingDirection);
-    this.loadPivots();
-  }
-
   private buildForm() {
     this.filterForm = this.fb.group({
+      order: [null],
       hasEspd: [false],
       hasPayphone: [false],
       hasInfomat: [false],
@@ -68,5 +64,18 @@ export class PivotTablePageComponent implements OnInit {
         ttk: [false]
       })
     });
+
+    this.filterForm.get('order')
+      .valueChanges
+      .subscribe((ordering: OrderingFilter) => this.ordering(ordering));
+  }
+
+  private ordering(ordering: OrderingFilter) {
+    if (ordering) {
+      this.tcPivots.addFilterOrdering(ordering.name, ordering.orderingDirection);
+    } else {
+      this.tcPivots.addFilterOrdering(null, FilterType.UNDEFINED);
+    }
+    this.loadPivots();
   }
 }

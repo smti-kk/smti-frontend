@@ -12,19 +12,21 @@ interface TrunkChannel {
 }
 
 export class LocationCapabilities {
-  constructor(private _name: string = '',
-              private _area: string = '',
-              private _information: LocationCapabilitiesInformation = {
-                tv: [],
-                radio: [],
-                payphone: [],
-                internet: [],
-                informat: false,
-                cellular: [],
-                telephone: [],
-                mail: [],
-                population: 0
-              }) {
+  constructor(
+    private _id: number,
+    private _name: string = '',
+    private _area: string = '',
+    private _information: LocationCapabilitiesInformation = {
+      tv: [],
+      radio: [],
+      payphone: [],
+      internet: [],
+      informat: false,
+      cellular: [],
+      telephone: [],
+      mail: [],
+      population: 0
+    }) {
 
   }
 
@@ -38,6 +40,10 @@ export class LocationCapabilities {
 
   get information(): LocationCapabilitiesInformation {
     return this._information;
+  }
+
+  get id(): number {
+    return this._id;
   }
 }
 

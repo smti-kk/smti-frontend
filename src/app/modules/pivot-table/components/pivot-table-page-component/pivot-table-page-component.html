@@ -9,16 +9,15 @@
           <div class="c-accordion-button"></div>
         </div>
         <div class="c-accordion-body">
-          <form>
+          <form [formGroup]="filterForm">
             <div class="l-container">
               <div class="l-container-item js-filter-button">
-                <app-filter-btn
+                <app-filter-btn formControlName="order"
                   [orderings]="[
                       {name: 'Нас.пункт', value: 'name', orderingDirection: FilterType.UNDEFINED },
                       {name: 'Район', value: 'parent', orderingDirection: FilterType.UNDEFINED },
                       {name: 'Численность', value: 'people_count', orderingDirection: FilterType.UNDEFINED }
                   ]"
-                  (orderingFilter)="ordering($event)"
                 >
 
                 </app-filter-btn>
@@ -198,13 +197,13 @@
                 </div>
               </div>
             </div>
-            <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр">
+            <input (click)="filterForm.reset()" class="btn filter-btn-reset" value="Сбросить фильтр">
           </form>
         </div>
       </div>
       <div class="c-filter-info">
         <div class="c-filter-result">
-          Результатов поиска: <span>10</span>
+          Результатов поиска: <span>{{lcs?.length}}</span>
         </div>
         <div class="c-filter-export">
           <input type="button" class="btn" value="Выгрузить в Excel">
@@ -229,14 +228,14 @@
       [fullScreen]="true"
     ></ngx-spinner>
     <div class="l-table l-table-location" *ngFor="let lc of lcs; let i = index">
-      <div class="l-table-column">{{i}}</div>
+      <div class="l-table-column">{{i + 1}}</div>
       <div class="l-table-column">
         <div class="c-location-name">
           <div class="c-location-name-item1">{{lc.name}}</div>
           <div class="c-location-name-item2">{{lc.area}}</div>
         </div>
         <div class="c-location-peoples"><span>{{lc.information.population}}</span> чел.</div>
-        <a href="#" class="btn">Подробнее</a>
+        <a [routerLink]="[lc.id]" class="btn">Подробнее</a>
       </div>
       <div class="l-table-column">
         <div class="espd true"></div>

@@ -32,7 +32,6 @@ export class FilterTcPivotsService extends TcPivotsService {
   }
 
   addFilterOrdering(fieldName: string, filterType: FilterType) {
-    console.log(fieldName, filterType);
     if (filterType === FilterType.ASC) {
       this.params = this.params.set('ordering', fieldName);
     } else if (filterType === FilterType.DSC) {

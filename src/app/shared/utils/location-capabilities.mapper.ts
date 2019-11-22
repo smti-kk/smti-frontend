@@ -95,6 +95,7 @@ export class LocationCapabilitiesMapper
     });
 
     return new LocationCapabilities(
+      tcApi.location.id,
       tcApi.location.type_location + ' ' + tcApi.location.name,
       tcApi.location.parent,
       {
