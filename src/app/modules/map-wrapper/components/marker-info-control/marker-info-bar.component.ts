@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { LocationCapabilities, Telephone, TrunkChannelType } from '@shared/models/location-capabilities';
+import { LocationCapabilities, Telephone } from '@shared/models/location-capabilities';
 import { LocationCapabilitiesService } from '@shared/services/location-capabilities.service';
 import { ExtendedMap } from '../../../../declarations/leaflet';
 import { OrganizationsService } from '@shared/services/organizations.service';
@@ -17,7 +17,6 @@ export class MarkerInfoBarComponent implements OnInit {
 
   currentPointCapabilities: LocationCapabilities;
   organizations: Organization[];
-  TrunkChannelType = TrunkChannelType;
 
   constructor(private readonly locationCapabilitiesService: LocationCapabilitiesService,
               private readonly organizationsService: OrganizationsService,

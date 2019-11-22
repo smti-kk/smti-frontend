@@ -24,27 +24,28 @@
               </div>
               <div class="l-container-item">
                 <div class="c-checkbox">
-                  <label> <input type="checkbox">
+                  <label>
+                    <input type="checkbox" [disabled]="true">
                     <div class="c-checkbox-text">Наличие ЕСПД</div>
                   </label>
                 </div>
-                <div class="c-checkbox">
-                  <label> <input type="checkbox">
+                <div class="c-checkbox" >
+                  <label> <input type="checkbox" formControlName="hasPayphone">
                     <div class="c-checkbox-text">Наличие таксофона</div>
                   </label>
                 </div>
                 <div class="c-checkbox">
-                  <label> <input type="checkbox">
+                  <label> <input type="checkbox" formControlName="hasInfomat">
                     <div class="c-checkbox-text">Наличие инфомата</div>
                   </label>
                 </div>
                 <div class="c-checkbox">
-                  <label> <input type="checkbox">
+                  <label> <input type="checkbox" formControlName="hasRadio">
                     <div class="c-checkbox-text">Наличие радио</div>
                   </label>
                 </div>
                 <div class="c-checkbox">
-                  <label> <input type="checkbox">
+                  <label> <input type="checkbox" formControlName="hasTelephone">
                     <div class="c-checkbox-text">Наличие телефона</div>
                   </label>
                 </div>
@@ -53,10 +54,12 @@
                 <div class="l-container-block is-disabled">
                   <div class="o-item-title">Почта:</div>
                   <div class="c-radiobox">
-                    <label><input type="radio" name="post">
+                    <label>
+                      <input formControlName="mailType" type="radio" [value]="MailType.UPC">
                       <div class="c-radiobox-text">УПС</div>
                     </label>
-                    <label><input type="radio" name="post">
+                    <label>
+                      <input formControlName="mailType" type="radio" [value]="MailType.MAIL_CONNECTION">
                       <div class="c-radiobox-text">Почтовая связь</div>
                     </label>
                   </div>
@@ -64,10 +67,12 @@
                 <div class="l-container-block is-disabled">
                   <div class="o-item-title">ТВ:</div>
                   <div class="c-radiobox">
-                    <label><input type="radio" name="tv">
+                    <label>
+                      <input formControlName="tvType" type="radio" [value]="TvType.ATV">
                       <div class="c-radiobox-text">Аналоговое</div>
                     </label>
-                    <label><input type="radio" name="tv">
+                    <label>
+                      <input formControlName="tvType" type="radio" [value]="TvType.CTV">
                       <div class="c-radiobox-text">Цифровое</div>
                     </label>
                   </div>
@@ -77,49 +82,29 @@
                 <div class="l-container-row is-disabled">
                   <div class="o-item-title">Сотовая связь:</div>
                   <div class="l-vendors-row u-border-right">
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/mts.png"
-                                                                         alt="МТС"
-                                                                         title="МТС"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/beeline.png"
-                                                                         alt="Билайн" title="Билайн"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/megafon.png"
-                                                                         alt="Мегафон" title="Мегафон"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/tele2.png"
-                                                                         alt="Теле2" title="Теле2"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/rostelecom.png"
-                                                                         alt="РосТелеком" title="РосТелеком"></div>
+                    <div formGroupName="mobile" class="c-vendor" *ngFor="let mobileProvider of mobileProviders; let i = index">
+                      <label [formGroupName]="i.toString()">
+                        <input formControlName="checked" type="checkbox">
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img [src]="mobileProvider.icon" [alt]="mobileProvider.name" [title]="mobileProvider.name"></div>
                       </label>
                     </div>
                   </div>
                   <div class="c-radiobox l-radiobox-row">
-                    <label><input type="radio" name="mobile">
+                    <label>
+                      <input formControlName="mobileType" [value]="MobileGeneration.M2G" type="radio">
                       <div class="c-radiobox-text">2G</div>
                     </label>
-                    <label><input type="radio" name="mobile">
+                    <label>
+                      <input formControlName="mobileType" [value]="MobileGeneration.M3G" type="radio">
                       <div class="c-radiobox-text">3G</div>
                     </label>
-                    <label><input type="radio" name="mobile">
+                    <label>
+                      <input formControlName="mobileType" [value]="MobileGeneration.M4G" type="radio">
                       <div class="c-radiobox-text">4G</div>
                     </label>
-                    <label><input type="radio" name="mobile">
+                    <label>
+                      <input formControlName="mobileType" [value]="MobileGeneration.M5G" type="radio">
                       <div class="c-radiobox-text">5G</div>
                     </label>
                   </div>
@@ -127,72 +112,35 @@
                 <div class="l-container-row is-disabled">
                   <div class="o-item-title">Интернет:</div>
                   <div class="l-vendors-column u-border-right">
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/mts.png"
-                                                                         alt="МТС"
-                                                                         title="МТС"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/beeline.png"
-                                                                         alt="Билайн" title="Билайн"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/megafon.png"
-                                                                         alt="Мегафон" title="Мегафон"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/tele2.png"
-                                                                         alt="Теле2" title="Теле2"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/rostelecom.png"
-                                                                         alt="РосТелеком" title="РосТелеком"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/iskra.png"
-                                                                         alt="Искра" title="Искра"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../../assets/img/ttk.png"
-                                                                         alt="ТТК"
-                                                                         title="ТТК"></div>
+                    <div formGroupName="internet" class="c-vendor" *ngFor="let internetProvider of internetProviders; let i = index">
+                      <label [formGroupName]="i.toString()">
+                        <input type="checkbox" formControlName="checked">
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img [src]="internetProvider.icon" [alt]="internetProvider.name" [title]="internetProvider.name">
+                        </div>
                       </label>
                     </div>
                   </div>
                   <div class="c-radiobox l-radiobox-column">
-                    <label><input type="radio" name="internet">
+                    <label><input formControlName="internetType" type="radio" [value]="TrunkChannelType.SATELLITE">
                       <div class="c-radiobox-text">Спутник</div>
                     </label>
-                    <label><input type="radio" name="internet">
+                    <label><input formControlName="internetType" type="radio" [value]="TrunkChannelType.VOLS">
                       <div class="c-radiobox-text">ВОЛС</div>
                     </label>
-                    <label><input type="radio" name="internet">
+                    <label><input formControlName="internetType" type="radio" [value]="TrunkChannelType.COPPER_CABLE">
                       <div class="c-radiobox-text">Медь</div>
                     </label>
-                    <label><input type="radio" name="internet">
+                    <label><input formControlName="internetType" type="radio" [value]="TrunkChannelType.RADIO_CHANEl">
                       <div class="c-radiobox-text">Радиоканал</div>
                     </label>
                   </div>
                 </div>
                 <div class="l-container-row is-disabled">
                   <div class="o-item-title">Программа:</div>
-                  <select name="" id="">
-                    <option value="" disabled selected style="display:none;">Выберите программу</option>
-                    <option value="">Программа 1</option>
-                    <option value="">Программа 2</option>
+                  <select formControlName="program">
+                    <option [value]="null" disabled selected style="display:none;">Выберите программу</option>
+                    <option *ngFor="let gv of govPrograms" [ngValue]="gv">{{gv.shortName}}</option>
                   </select>
                 </div>
               </div>
@@ -206,7 +154,7 @@
           Результатов поиска: <span>{{lcs?.length}}</span>
         </div>
         <div class="c-filter-export">
-          <input type="button" class="btn" value="Выгрузить в Excel">
+          <input (click)="tcPivots.exportExcel()" type="button" class="btn" value="Выгрузить в Excel">
         </div>
       </div>
     </div>
@@ -351,9 +299,9 @@
         </div>
       </div>
       <div class="l-table-column">
-        <div class="l-table-row">Наименование программы1</div>
-        <div class="l-table-row">Наименование программы2</div>
-        <div class="l-table-row">Наименование программы3</div>
+        <div class="l-table-row" *ngFor="let govProgram of lc.govPrograms">
+          {{govProgram.fullName}}
+        </div>
       </div>
     </div>
   </div>

@@ -68,8 +68,5 @@ export class FilterBtnComponent implements OnInit, ControlValueAccessor {
     this.orderings.forEach(o => {
       o.orderingDirection = FilterType.UNDEFINED;
     });
-    if (this.onChange) {
-      this.onChange(null);
-    }
   }
 }

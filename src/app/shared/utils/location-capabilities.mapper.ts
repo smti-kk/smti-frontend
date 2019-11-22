@@ -72,8 +72,6 @@ export class LocationCapabilitiesMapper
           name: rad.operator.name,
           icon: rad.operator.icon
         },
-        // tslint:disable-next-line:no-magic-numbers
-        type: rad.type === 1 ? 'АТВ ' : rad.type === 2 ? 'ЦТВ ' : ''
       };
     });
 
@@ -98,6 +96,7 @@ export class LocationCapabilitiesMapper
       tcApi.location.id,
       tcApi.location.type_location + ' ' + tcApi.location.name,
       tcApi.location.parent,
+      this.getGovPrograms(tcApi),
       {
         population: tcApi.location.people_count,
         cellular,
@@ -118,5 +117,26 @@ export class LocationCapabilitiesMapper
 
   public mapShortApi(apiData): LocationCapabilities {
     return this.mapFromApi(apiData);
+  }
+
+  private getGovPrograms(tcApi: any): any[] {
+    const gp = [];
+
+    this.foo(tcApi.cellular, gp);
+    this.foo(tcApi.television, gp);
+    this.foo(tcApi.ats, gp);
+    this.foo(tcApi.post, gp);
+    this.foo(tcApi.internet, gp);
+    this.foo(tcApi.radio, gp);
+
+    return gp;
+  }
+
+  private foo(tc: any[], result: any[]) {
+    tc.forEach(tcItem => {
+      if (tcItem.government_program && result.indexOf(tcItem.government_program) === -1) {
+        result.push(tcItem);
+      }
+    });
   }
 }

@@ -1,0 +1,29 @@
+<div class="l-vendors-row">
+  <div *ngIf="!hasProvider(tcs)">0</div>
+  <div class="check" *ngIf="hasProvider(tcs)"></div>
+  <div class="c-vendor"
+       *ngFor="let tc of tcs"
+       [class.opacity]="!tc.provider.isActive">
+    <div class="c-vendor-logo">
+      <img class="image"
+           [src]="tc.provider.icon"
+           [alt]="tc.provider.name"
+           [title]="tc.provider.name">
+    </div>
+    <div class="c-vendor-status-text" *ngIf="tc.mobileGeneration">{{tc.mobileGeneration}}</div>
+    <div class="c-vendor-status-img"
+         *ngIf="tc.channel"
+         [title]="tc.channel.name"
+         [ngClass]="
+                     {
+                      vols: tc.channel.id === TrunkChannelType.VOLS,
+                      med: tc.channel.id === TrunkChannelType.COPPER_CABLE,
+                      radio: tc.channel.id === TrunkChannelType.RADIO_CHANEl,
+                      sputnik: tc.channel.id === TrunkChannelType.SATELLITE
+                     }"
+    ></div>
+    <div class="c-vendor-status-text" *ngIf="tc.type">{{tc.type}}</div>
+    <div class="c-vendor-status-text" *ngIf="tc.count">{{tc.count}}</div>
+  </div>
+</div>
+

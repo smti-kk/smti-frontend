@@ -1,3 +1,5 @@
+import { GovProgram } from '@shared/services/gov-program.service';
+
 export enum TrunkChannelType {
   UNDEFINED,
   VOLS = 3,
@@ -6,7 +8,7 @@ export enum TrunkChannelType {
   RADIO_CHANEl = 6
 }
 
-interface TrunkChannel {
+export interface TrunkChannel {
   id: TrunkChannelType;
   name: string;
 }
@@ -16,6 +18,7 @@ export class LocationCapabilities {
     private _id: number,
     private _name: string = '',
     private _area: string = '',
+    private _govPrograms: GovProgram[],
     private _information: LocationCapabilitiesInformation = {
       tv: [],
       radio: [],
@@ -28,6 +31,10 @@ export class LocationCapabilities {
       population: 0
     }) {
 
+  }
+
+  get govPrograms(): GovProgram[] {
+    return this._govPrograms;
   }
 
   get name(): string {
@@ -48,6 +55,7 @@ export class LocationCapabilities {
 }
 
 export interface Provider {
+  id: number;
   name: string;
   icon: string;
   isActive: boolean;

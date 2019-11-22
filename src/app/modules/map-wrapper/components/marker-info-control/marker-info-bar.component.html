@@ -18,97 +18,31 @@
         <div class="l-sidebar-list">
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Сотовая связь:</div>
-            <div class="l-vendors-row">
-            <div class="c-vendor"
-                 *ngFor="let mobileOperator of currentPointCapabilities.information.cellular"
-                 [class.opacity]="!mobileOperator.provider.isActive">
-              <div class="c-vendor-logo">
-                <img [src]="mobileOperator.provider.icon"
-                     [alt]="mobileOperator.provider.name"
-                     [title]="mobileOperator.provider.name">
-              </div>
-              <div class="c-vendor-status-text">{{mobileOperator.mobileGeneration}}</div>
-            </div>
-            </div>
+            <app-providers-row [tcs]="currentPointCapabilities.information.cellular"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Интернет:</div>
-            <div class="l-vendors-row">
-              <div class="c-vendor"
-                   [class.opacity]="!internet.provider.isActive"
-                   *ngFor="let internet of currentPointCapabilities.information.internet">
-                <div class="c-vendor-logo">
-                  <img [src]="internet.provider.icon"
-                       [alt]="internet.provider.name"
-                       [title]="internet.provider.name">
-                </div>
-                <div class="c-vendor-status-img"
-                     [title]="internet.type"
-                     [ngClass]="internet.type ">
-                </div>
-              </div>
-            </div>
+            <app-providers-row [tcs]="currentPointCapabilities.information.internet"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">ТВ:</div>
-              <div class="l-vendors-row">
-              <div class="c-vendor"
-                   [class.opacity]="!tv.provider.isActive"
-                   *ngFor="let tv of currentPointCapabilities.information.tv">
-                <div class="c-vendor-logo">
-                  <img [src]="tv.provider.icon"
-                       [alt]="tv.provider.name"
-                       [title]="tv.provider.name">
-                </div>
-                <div class="c-vendor-status-text">{{tv.type}}</div>
-              </div>
-              </div>
-          </div>
-          <div class="l-sidebar-list-item" *ngFor="let mail of currentPointCapabilities.information.mail">
-            <div class="o-item-title">Почта:</div>
-              <div class="check"></div>
-              {{mail.provider.name}}
+            <app-providers-row [tcs]="currentPointCapabilities.information.tv"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Радио:</div>
-              <div class="check"></div>
-              <div class="c-vendor" *ngFor="let radio of currentPointCapabilities.information.radio">
-                <div class="c-vendor-logo">
-                  <img [src]="radio.provider.icon"
-                       [alt]="radio.provider.name"
-                       [title]="radio.provider.name">
-                </div>
-              </div>
+            <app-providers-row [tcs]="currentPointCapabilities.information.radio"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Таксофон:</div>
-            <div class="l-vendors-row">
-              <div class="c-vendor" *ngFor="let payphone of currentPointCapabilities.information.payphone">
-                <div class="c-vendor-logo">
-                  <img [src]="payphone.provider.icon"
-                       [alt]="payphone.provider.name"
-                       [title]="payphone.provider.name">
-                </div>
-                <div class="c-vendor-status-text">{{payphone.count}}</div>
-              </div>
-            </div>
+            <app-providers-row [tcs]="currentPointCapabilities.information.payphone"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Телефон:</div>
-            <div class="check" *ngIf="hasProvider(currentPointCapabilities.information.telephone)"></div>
-            <div class="l-vendors-row">
-              <div *ngIf="!hasProvider(currentPointCapabilities.information.telephone)">0</div>
-              <div class="c-vendor"
-                   [class.opacity]="!telephone.provider.isActive"
-                   *ngFor="let telephone of currentPointCapabilities.information.telephone">
-                <div class="c-vendor-logo">
-                  <img [src]="telephone.provider.icon"
-                       [alt]="telephone.provider.name"
-                       [title]="telephone.provider.name">
-                  <div class="status"></div>
-                </div>
-              </div>
-            </div>
+            <app-providers-row [tcs]="currentPointCapabilities.information.telephone"></app-providers-row>
+          </div>
+          <div class="l-sidebar-list-item">
+            <div class="o-item-title">Почта:</div>
+            <app-providers-row [tcs]="currentPointCapabilities.information.mail"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Инфомат:</div>

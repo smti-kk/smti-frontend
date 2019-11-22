@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterTcPivotsService, FilterType } from '../../service/tc-pivots.service';
-import { LocationCapabilities, TrunkChannelType } from '@shared/models/location-capabilities';
+import { LocationCapabilities, Provider, TrunkChannelType } from '@shared/models/location-capabilities';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { OrderingFilter } from '../filter-btn/filter-btn.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { GovProgram, GovProgramService } from '@shared/services/gov-program.service';
+import { MailType, MobileGeneration, TvType } from '@shared/models/enums';
+import { EnumService } from '@shared/services/enum.service';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -13,22 +15,35 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class PivotTablePageComponent implements OnInit {
 
   lcs: LocationCapabilities[];
+  govPrograms: GovProgram[];
+
   TrunkChannelType = TrunkChannelType;
   FilterType = FilterType;
+  TvType = TvType;
+  MailType = MailType;
+  MobileGeneration = MobileGeneration;
+
+  internetProviders: Provider[];
+  mobileProviders: Provider[];
 
   filterForm: FormGroup;
 
   constructor(private tcPivots: FilterTcPivotsService,
               private fb: FormBuilder,
-              private spinner: NgxSpinnerService) {
-    this.loadPivots();
+              private spinner: NgxSpinnerService,
+              private govProgramsService: GovProgramService,
+              private enumService: EnumService) {
+    this.loadPivotsTable();
+    this.loadGovPrograms();
+    this.loadInternetProviders();
+    this.loadMobileProviders();
     this.buildForm();
   }
 
   ngOnInit() {
   }
 
-  private loadPivots() {
+  private loadPivotsTable() {
     this.spinner.show();
     this.tcPivots.list().subscribe(lcs => {
       this.lcs = lcs;
@@ -46,36 +61,59 @@ export class PivotTablePageComponent implements OnInit {
       hasTelephone: [false],
       mailType: [null],
       tvType: [null],
-      cellular: this.fb.group({
-        mts: [false],
-        megafone: [false],
-        beeline: [false],
-        tele2: [false],
-        rostelecom: [false]
-      }),
-      cellularType: [null],
-      internet: this.fb.group({
-        mts: [false],
-        beeline: [false],
-        megaphone: [false],
-        tele2: [false],
-        rostelecom: [false],
-        iskra: [false],
-        ttk: [false]
-      })
+      mobileType: [null],
+      internetType: [null],
+      program: [null]
     });
 
-    this.filterForm.get('order')
+    this.filterForm
       .valueChanges
-      .subscribe((ordering: OrderingFilter) => this.ordering(ordering));
+      .subscribe(value => {
+        this.tcPivots.filter(value);
+        this.loadPivotsTable();
+      });
   }
 
-  private ordering(ordering: OrderingFilter) {
-    if (ordering) {
-      this.tcPivots.addFilterOrdering(ordering.name, ordering.orderingDirection);
-    } else {
-      this.tcPivots.addFilterOrdering(null, FilterType.UNDEFINED);
-    }
-    this.loadPivots();
+  private loadGovPrograms() {
+    this.govProgramsService.list()
+      .subscribe(govPrograms => this.govPrograms = govPrograms);
+  }
+
+  private loadInternetProviders() {
+    this.enumService
+      .getInternetProvider()
+      .subscribe((response) => {
+        this.internetProviders = response;
+        console.log(response);
+
+        const internetArrayControl = this.fb.array([]);
+        response.forEach(provider => {
+          internetArrayControl.push(this.fb.group({
+            id: provider.id,
+            checked: false
+          }));
+        });
+
+        this.filterForm.addControl('internet', internetArrayControl);
+      });
+  }
+
+  private loadMobileProviders() {
+    this.enumService
+      .getMobileProvider()
+      .subscribe((response) => {
+        this.mobileProviders = response;
+
+        const mobileArrayControl = this.fb.array([]);
+
+        response.forEach(provider => {
+          mobileArrayControl.push(this.fb.group({
+            id: provider.id,
+            checked: false
+          }));
+        });
+
+        this.filterForm.addControl('mobile', mobileArrayControl);
+      });
   }
 }
