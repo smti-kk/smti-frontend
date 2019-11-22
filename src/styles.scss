@@ -1026,6 +1026,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 .c-tab-body {
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom: 40px;
 }
 
 .c-tab-item {
@@ -1052,6 +1053,10 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 
 /* --- Форма уточняющей заявки --- begin --- */
+
+.edit-form {
+  padding-bottom: 2rem;
+}
 
 .edit-status {
   display: none;
@@ -1136,7 +1141,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 .btn-save-form {
   margin: 0 0 0 82%;
-  white-space: nowrap;
+  white-space: nowrap !important;
   opacity: 0.2;
 }
 
@@ -1372,6 +1377,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 /* --- Хлебные крошки ---  begin --- */
 .breadcrumbs {
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-technical-capabilities',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TechnicalCapabilitiesComponent implements OnInit {
 
-  constructor() { }
+  tcForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.tcForm = fb.group({});
+  }
 
   ngOnInit() {
   }
