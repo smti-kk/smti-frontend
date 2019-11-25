@@ -318,6 +318,10 @@ label {
   background-color: #c2e4da;
 }
 
+.c-accordion .c-accordion.green {
+  background-color: #c2e4da;
+}
+
 .c-accordion-title {
   display: flex;
   justify-content: space-between;
