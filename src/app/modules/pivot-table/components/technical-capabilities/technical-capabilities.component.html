@@ -1,18 +1,19 @@
-<main class="main">
+<!--suppress HtmlFormInputWithoutLabel -->
+<main class="main" *ngIf="tc">
   <div class="wrapper">
     <div class="breadcrumbs">
       <ul class="breadcrumbs-list">
-        <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="#">Главная</a></li>
-        <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="#">Сводная таблица по населенным пунктам</a></li>
-        <li class="breadcrumbs-item"><span class="breadcrumbs-link">с. Богучаны, Богучанский р-н</span></li>
+        <li class="breadcrumbs-item"><a class="breadcrumbs-link" routerLink="">Главная</a></li>
+        <li class="breadcrumbs-item"><a class="breadcrumbs-link" routerLink="/pivot-table">Сводная таблица по населенным пунктам</a></li>
+        <li class="breadcrumbs-item"><span class="breadcrumbs-link">{{tc.name}}, {{tc.area}}</span></li>
       </ul>
     </div>
     <div class="l-location-info">
       <div class="c-location-name">
-        <div class="c-location-name-item1">с. Богучаны</div>
-        <div class="c-location-name-item2">Богучанский р-н</div>
+        <div class="c-location-name-item1">{{tc.name}}</div>
+        <div class="c-location-name-item2">{{tc.area}}</div>
       </div>
-      <div class="c-location-peoples"><span>11 512</span> чел.</div>
+      <div class="c-location-peoples"><span>{{tc.information.population}}</span> чел.</div>
     </div>
     <div class="c-tab">
       <div class="c-tab-header">
@@ -31,36 +32,43 @@
             <input type="button" class="btn btn-edit-form" value="Редактировать (Уточняющая заявка)">
           </div>
           <div class="edit-form">
-            <form [formGroup]="tcForm">
+            <form *ngIf="tcForm" [formGroup]="tcForm">
               <fieldset disabled="disabled">
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="cellular">
                   <div class="o-item-title">Сотовая связь</div>
-                  <div class="edit-form-item">
+                  <div class="edit-form-item"
+                       *ngFor="let cellular of tc.information.cellular; let i = index"
+                       [formGroupName]="i.toString()"
+                  >
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Билайн</div>
+                      <label> <input formControlName="provider" type="checkbox">
+                        <div class="c-checkbox-text">{{cellular.provider.name}}</div>
                       </label>
                     </div>
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="beeline">
+                        <label>
+                          <input formControlName="mobileGeneration" value="2G" type="radio">
                           <div class="c-radiobox-text">2G</div>
                         </label>
-                        <label><input type="radio" name="beeline">
+                        <label>
+                          <input formControlName="mobileGeneration" value="3G" type="radio">
                           <div class="c-radiobox-text">3G</div>
                         </label>
-                        <label><input type="radio" name="beeline">
+                        <label>
+                          <input formControlName="mobileGeneration" value="4G" type="radio">
                           <div class="c-radiobox-text">4G</div>
                         </label>
-                        <label><input type="radio" name="beeline">
+                        <label>
+                          <input formControlName="mobileGeneration" value="5G" type="radio">
                           <div class="c-radiobox-text">5G</div>
                         </label>
                       </div>
                       <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
+                        <select formControlName="quality">
+                          <option [value]="Quality.GOOD">Хорошее качество</option>
+                          <option [value]="Quality.NORMAL">Удовлетворительное качество</option>
+                          <option [value]="Quality.ABSENT">Отсутствует</option>
                         </select>
                       </div>
                       <div class="edit-form-btn">
@@ -69,186 +77,46 @@
                       <div class="edit-form-info">
                         <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>
                         <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Мегафонт</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="megafon">
-                          <div class="c-radiobox-text">2G</div>
-                        </label>
-                        <label><input type="radio" name="megafon">
-                          <div class="c-radiobox-text">3G</div>
-                        </label>
-                        <label><input type="radio" name="megafon">
-                          <div class="c-radiobox-text">4G</div>
-                        </label>
-                        <label><input type="radio" name="megafon">
-                          <div class="c-radiobox-text">5G</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">МТС</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="mts">
-                          <div class="c-radiobox-text">2G</div>
-                        </label>
-                        <label><input type="radio" name="mts">
-                          <div class="c-radiobox-text">3G</div>
-                        </label>
-                        <label><input type="radio" name="mts">
-                          <div class="c-radiobox-text">4G</div>
-                        </label>
-                        <label><input type="radio" name="mts">
-                          <div class="c-radiobox-text">5G</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Теле2</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="tele2">
-                          <div class="c-radiobox-text">2G</div>
-                        </label>
-                        <label><input type="radio" name="tele2">
-                          <div class="c-radiobox-text">3G</div>
-                        </label>
-                        <label><input type="radio" name="tele2">
-                          <div class="c-radiobox-text">4G</div>
-                        </label>
-                        <label><input type="radio" name="tele2">
-                          <div class="c-radiobox-text">5G</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class=""></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">СибТТК</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="ttk">
-                          <div class="c-radiobox-text">2G</div>
-                        </label>
-                        <label><input type="radio" name="ttk">
-                          <div class="c-radiobox-text">3G</div>
-                        </label>
-                        <label><input type="radio" name="ttk">
-                          <div class="c-radiobox-text">4G</div>
-                        </label>
-                        <label><input type="radio" name="ttk">
-                          <div class="c-radiobox-text">5G</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class=""></div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="internet">
                   <div class="o-item-title">Интернет</div>
-                  <div class="edit-form-item">
+                  <div class="edit-form-item"
+                       [formGroupName]="i.toString()"
+                       *ngFor="let internet of tc.information.internet; let i = index"
+                  >
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Билайн</div>
+                      <label>
+                        <input type="checkbox" formControlName="provider">
+                        <div class="c-checkbox-text">{{internet.provider.name}}</div>
                       </label>
                     </div>
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="inet-beeline">
+                        <label>
+                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.SATELLITE">
                           <div class="c-radiobox-text">Спутник</div>
                         </label>
-                        <label><input type="radio" name="inet-beeline">
+                        <label>
+                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.VOLS">
                           <div class="c-radiobox-text">ВОЛС</div>
                         </label>
-                        <label><input type="radio" name="inet-beeline">
+                        <label>
+                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.COPPER_CABLE">
                           <div class="c-radiobox-text">Медь</div>
                         </label>
-                        <label><input type="radio" name="inet-beeline">
+                        <label>
+                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.RADIO_CHANEl" >
                           <div class="c-radiobox-text">Радиоканал</div>
                         </label>
                       </div>
                       <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
+                        <select formControlName="quality">
+                          <option [value]="Quality.GOOD">Хорошее качество</option>
+                          <option [value]="Quality.NORMAL">Удовлетворительное качество</option>
+                          <option [value]="Quality.ABSENT">Отсутствует</option>
                         </select>
                       </div>
                       <div class="edit-form-btn">
@@ -257,292 +125,30 @@
                       <div class="edit-form-info">
                         <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>
                         <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Мегафонт</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="inet-megafon">
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label><input type="radio" name="inet-megafon">
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label><input type="radio" name="inet-megafon">
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label><input type="radio" name="inet-megafon">
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">МТС</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="inet-mts">
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label><input type="radio" name="inet-mts">
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label><input type="radio" name="inet-mts">
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label><input type="radio" name="inet-mts">
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Теле2</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="inet-tele2">
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label><input type="radio" name="inet-tele2">
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label><input type="radio" name="inet-tele2">
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label><input type="radio" name="inet-tele2">
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class=""></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">СибТТК</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="inet-ttk">
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label><input type="radio" name="inet-ttk">
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label><input type="radio" name="inet-ttk">
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label><input type="radio" name="inet-ttk">
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class=""></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Ростелеком</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="inet-rostelecom">
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label><input type="radio" name="inet-rostelecom">
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label><input type="radio" name="inet-rostelecom">
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label><input type="radio" name="inet-rostelecom">
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class=""></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Искра</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="inet-iskra">
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label><input type="radio" name="inet-iskra">
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label><input type="radio" name="inet-iskra">
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label><input type="radio" name="inet-iskra">
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select name="" id="">
-                          <option value="">Хорошее качество</option>
-                          <option value="">Удовлетворительное качество</option>
-                          <option value="">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class=""></div>
-                        <div class=""></div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="tv">
                   <div class="o-item-title">Телевидение (ТВ)</div>
-                  <div class="edit-form-item">
+                  <div class="edit-form-item"
+                       [formGroupName]="i.toString()"
+                       *ngFor="let tv of tc.information.tv; let i = index"
+                  >
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Билайн</div>
+                      <label>
+                        <input type="checkbox" formControlName="provider">
+                        <div class="c-checkbox-text">{{tv.provider.name}}</div>
                       </label>
                     </div>
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="tv-beeline">
+                        <label>
+                          <input formControlName="type" type="radio" [value]="SignalType.ATV">
                           <div class="c-radiobox-text">АТВ</div>
                         </label>
-                        <label><input type="radio" name="tv-beeline">
-                          <div class="c-radiobox-text">ЦТВ</div>
-                        </label>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Ростелеком</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="tv-rostelecom">
-                          <div class="c-radiobox-text">АТВ</div>
-                        </label>
-                        <label><input type="radio" name="tv-rostelecom">
-                          <div class="c-radiobox-text">ЦТВ</div>
-                        </label>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">РТРС</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="tv-rtrs">
-                          <div class="c-radiobox-text">АТВ</div>
-                        </label>
-                        <label><input type="radio" name="tv-rtrs">
+                        <label>
+                          <input formControlName="type" type="radio" [value]="SignalType.CTV">
                           <div class="c-radiobox-text">ЦТВ</div>
                         </label>
                       </div>
@@ -555,27 +161,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="telephone">
                   <div class="o-item-title">Стационарный телефон</div>
-                  <div class="edit-form-item">
+                  <div class="edit-form-item"
+                       *ngFor="let telephone of tc.information.telephone; let i = index"
+                       [formGroupName]="i.toString()"
+                  >
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Ростелеком</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="edit-form-info border-left">
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Искра</div>
+                      <label>
+                        <input type="checkbox" formControlName="provider">
+                        <div class="c-checkbox-text">{{telephone.provider.name}}</div>
                       </label>
                     </div>
                     <div class="edit-form-wrap">
@@ -588,33 +183,22 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="payphone">
                   <div class="o-item-title">Таксофон</div>
-                  <div class="edit-form-item">
+                  <div class="edit-form-item"
+                       *ngFor="let payphone of tc.information.payphone; let i = index"
+                       [formGroupName]="i.toString()"
+                  >
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Ростелеком</div>
+                      <label>
+                        <input formControlName="provider" type="checkbox">
+                        <div class="c-checkbox-text">{{payphone.provider.name}}</div>
                       </label>
                     </div>
                     <div class="edit-form-wrap">
-                      <div class="input u-border-left u-border-right"><label>Количество:</label><input type="text">
-                      </div>
-                      <div class="edit-form-info">
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Искра</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="input u-border-left u-border-right"><label>Количество:</label><input type="text">
+                      <div class="input u-border-left u-border-right">
+                        <label>Количество:</label>
+                        <input formControlName="count" type="text">
                       </div>
                       <div class="edit-form-info">
                         <div class="">Период: <span>15.06.2018 - 2025</span></div>
@@ -625,43 +209,26 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="radio">
                   <div class="o-item-title">Радио</div>
-                  <div class="edit-form-item">
+                  <div class="edit-form-item"
+                       *ngFor="let radio of tc.information.radio; let i = index"
+                       [formGroupName]="i.toString()"
+                  >
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
+                      <label>
+                        <input formControlName="provider" type="checkbox">
                         <div class="c-checkbox-text">Ростелеком</div>
                       </label>
                     </div>
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="radio-rostelecom">
+                        <label>
+                          <input type="radio" formControlName="type" [value]="SignalType.ATV">
                           <div class="c-radiobox-text">АТВ</div>
                         </label>
-                        <label><input type="radio" name="radio-rostelecom">
-                          <div class="c-radiobox-text">ЦТВ</div>
-                        </label>
-                      </div>
-                      <div class="edit-form-info">
-                        <div class="">Период: <span>15.06.2018 - 2025</span></div>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">РТРС</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="radio-rtrs">
-                          <div class="c-radiobox-text">АТВ</div>
-                        </label>
-                        <label><input type="radio" name="radio-rtrs">
+                        <label>
+                          <input type="radio" formControlName="type" [value]="SignalType.CTV">
                           <div class="c-radiobox-text">ЦТВ</div>
                         </label>
                       </div>
@@ -801,7 +368,7 @@
           <div class="l-content">
             <div class="l-content-item">
               <div class="o-item-title">Программа:</div>
-              <select name="" id="">
+              <select name="">
                 <option value="" disabled selected style="display:none;">Выберите программу</option>
                 <option value="">Программа 1</option>
                 <option value="">Программа 2</option>
@@ -815,7 +382,7 @@
             </div>
             <div class="l-content-item u-display-block">
               <div class="o-item-title">Комментарий:</div>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
+              <textarea name="" cols="30" rows="10"></textarea>
             </div>
             <div class="l-content-item">
               <div class="c-modal-button">
@@ -829,3 +396,11 @@
     </div>
   </div>
 </main>
+<ngx-spinner
+  bdOpacity=0.9
+  size="medium"
+  color="#35a584"
+  type="ball-atom"
+  class="spinner"
+  [fullScreen]="true"
+></ngx-spinner>

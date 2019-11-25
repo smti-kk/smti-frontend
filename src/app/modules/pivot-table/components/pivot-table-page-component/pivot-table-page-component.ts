@@ -4,8 +4,9 @@ import { LocationCapabilities, Provider, TrunkChannelType } from '@shared/models
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GovProgram, GovProgramService } from '@shared/services/gov-program.service';
-import { MailType, MobileGeneration, TvType } from '@shared/models/enums';
+import { MailType, MobileGeneration, SignalType } from '@shared/models/enums';
 import { EnumService } from '@shared/services/enum.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -19,7 +20,7 @@ export class PivotTablePageComponent implements OnInit {
 
   TrunkChannelType = TrunkChannelType;
   FilterType = FilterType;
-  TvType = TvType;
+  SignalType = SignalType;
   MailType = MailType;
   MobileGeneration = MobileGeneration;
 
@@ -27,6 +28,7 @@ export class PivotTablePageComponent implements OnInit {
   mobileProviders: Provider[];
 
   filterForm: FormGroup;
+  private observer: Subscription;
 
   constructor(private tcPivots: FilterTcPivotsService,
               private fb: FormBuilder,
@@ -66,7 +68,7 @@ export class PivotTablePageComponent implements OnInit {
       program: [null]
     });
 
-    this.filterForm
+    this.observer = this.filterForm
       .valueChanges
       .subscribe(value => {
         this.tcPivots.filter(value);
@@ -84,13 +86,11 @@ export class PivotTablePageComponent implements OnInit {
       .getInternetProvider()
       .subscribe((response) => {
         this.internetProviders = response;
-        console.log(response);
 
         const internetArrayControl = this.fb.array([]);
         response.forEach(provider => {
           internetArrayControl.push(this.fb.group({
-            id: provider.id,
-            checked: false
+            [provider.id]: false
           }));
         });
 
@@ -108,8 +108,7 @@ export class PivotTablePageComponent implements OnInit {
 
         response.forEach(provider => {
           mobileArrayControl.push(this.fb.group({
-            id: provider.id,
-            checked: false
+            [provider.id]: false
           }));
         });
 
