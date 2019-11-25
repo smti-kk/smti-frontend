@@ -1,7 +1,7 @@
 {
   "/api/*": {
     "secure": false,
-    "target": "http://10.221.2.114:8000/api",
+    "target": "http://localhost:8000/api",
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
@@ -9,7 +9,7 @@
     }
   },
   "/media/*": {
-    "target": "http://10.221.2.114:8000/media",
+    "target": "http://localhost:8000/media",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
@@ -18,7 +18,7 @@
     }
   },
   "/auth/*": {
-    "target": "http://10.221.2.114:8000/auth",
+    "target": "http://localhost:8000/auth",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,

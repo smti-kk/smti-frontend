@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GovProgram } from '@shared/services/gov-program.service';
 import { OrderingFilter } from '../components/filter-btn/filter-btn.component';
-import { MailType, MobileGeneration, TvType } from '@shared/models/enums';
+import { MailType, MobileGeneration, SignalType } from '@shared/models/enums';
 import { environment } from '../../../../environments/environment';
 
 const LTC = '/api/v1/ltc';
@@ -34,9 +34,9 @@ interface TcFilters {
   hasRadio: boolean;
   hasTelephone: boolean;
   mailType: MailType;
-  tvType: TvType;
-  internet: { id: number, checked: boolean }[];
-  mobile: { id: number, checked: boolean }[];
+  tvType: SignalType;
+  internet: { [providerId: string]: boolean }[];
+  mobile: { [providerId: string]: boolean }[];
   mobileType: MobileGeneration;
   internetType: TrunkChannelType;
 }
@@ -45,7 +45,7 @@ interface TcFilters {
 export class FilterTcPivotsService extends TcPivotsService {
   private params: HttpParams = new HttpParams();
 
-  private TRUE = 2;
+  private TRUE = '2';
 
   list(): Observable<LocationCapabilities[]> {
     const params = this.params
@@ -92,7 +92,7 @@ export class FilterTcPivotsService extends TcPivotsService {
 
   private setFilterBoolean(field: string, value: boolean) {
     if (value === true) {
-      this.params = this.params.set(field, this.TRUE.toString());
+      this.params = this.params.set(field, this.TRUE);
     } else if (this.params.has(field)) {
       this.params = this.params.delete(field);
     }
@@ -106,7 +106,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setFilterByTvType(type: TvType) {
+  private setFilterByTvType(type: SignalType) {
     if (type) {
       this.params = this.params.set('tv_type', type.toString());
     } else {
@@ -114,7 +114,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setMobileOperatorFilter(providers: { id: number, checked: boolean }[]) {
+  private setMobileOperatorFilter(providers: { [providerId: string]: boolean }[]) {
     if (!providers) {
       return;
     }
@@ -122,13 +122,13 @@ export class FilterTcPivotsService extends TcPivotsService {
     this.params = this.params.delete('mobile_operator');
 
     providers
-      .filter(provider => provider.checked === true)
+      .filter(provider => Object.values(provider)[0] === true)
       .forEach(provider => {
-        this.params = this.params.append('mobile_operator', provider.id.toString());
+        this.params = this.params.append('mobile_operator', Object.keys(provider)[0]);
       });
   }
 
-  private setInternetOperatorFilter(providers: { id: number, checked: boolean }[]) {
+  private setInternetOperatorFilter(providers: { [providerId: string]: boolean }[]) {
     if (!providers) {
       return;
     }
@@ -136,9 +136,9 @@ export class FilterTcPivotsService extends TcPivotsService {
     this.params = this.params.delete('internet_operator');
 
     providers
-      .filter(provider => provider.checked === true)
+      .filter(provider => Object.values(provider)[0] === true)
       .forEach(provider => {
-        this.params = this.params.append('internet_operator', provider.id.toString());
+        this.params = this.params.append('internet_operator', Object.keys(provider)[0]);
       });
   }
 

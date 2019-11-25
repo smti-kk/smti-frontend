@@ -8,7 +8,7 @@
           <div class="c-filter-icon">Фильтры</div>
           <div class="c-accordion-button"></div>
         </div>
-        <div class="c-accordion-body">
+        <div class="c-accordion-body" style="display: block">
           <form [formGroup]="filterForm">
             <div class="l-container">
               <div class="l-container-item js-filter-button">
@@ -23,7 +23,7 @@
                 </app-filter-btn>
               </div>
               <div class="l-container-item">
-                <div class="c-checkbox">
+                <div class="c-checkbox" style="opacity: 0.7">
                   <label>
                     <input type="checkbox" [disabled]="true">
                     <div class="c-checkbox-text">Наличие ЕСПД</div>
@@ -68,11 +68,11 @@
                   <div class="o-item-title">ТВ:</div>
                   <div class="c-radiobox">
                     <label>
-                      <input formControlName="tvType" type="radio" [value]="TvType.ATV">
+                      <input formControlName="tvType" type="radio" [value]="SignalType.ATV">
                       <div class="c-radiobox-text">Аналоговое</div>
                     </label>
                     <label>
-                      <input formControlName="tvType" type="radio" [value]="TvType.CTV">
+                      <input formControlName="tvType" type="radio" [value]="SignalType.CTV">
                       <div class="c-radiobox-text">Цифровое</div>
                     </label>
                   </div>
@@ -84,7 +84,7 @@
                   <div class="l-vendors-row u-border-right">
                     <div formGroupName="mobile" class="c-vendor" *ngFor="let mobileProvider of mobileProviders; let i = index">
                       <label [formGroupName]="i.toString()">
-                        <input formControlName="checked" type="checkbox">
+                        <input [formControlName]="mobileProvider.id.toString()" type="checkbox">
                         <div class="c-vendor-logo c-vendor-checked">
                           <img [src]="mobileProvider.icon" [alt]="mobileProvider.name" [title]="mobileProvider.name"></div>
                       </label>
@@ -114,7 +114,7 @@
                   <div class="l-vendors-column u-border-right">
                     <div formGroupName="internet" class="c-vendor" *ngFor="let internetProvider of internetProviders; let i = index">
                       <label [formGroupName]="i.toString()">
-                        <input type="checkbox" formControlName="checked">
+                        <input type="checkbox" [formControlName]="internetProvider.id.toString()">
                         <div class="c-vendor-logo c-vendor-checked">
                           <img [src]="internetProvider.icon" [alt]="internetProvider.name" [title]="internetProvider.name">
                         </div>

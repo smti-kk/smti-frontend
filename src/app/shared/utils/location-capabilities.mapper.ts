@@ -37,7 +37,7 @@ export class LocationCapabilitiesMapper
           isActive: true
         },
         mobileGeneration: cellularItem.type.name,
-        quality: ''
+        quality: cellularItem.quality
       };
     });
 
@@ -49,7 +49,7 @@ export class LocationCapabilitiesMapper
           icon: internetItem.operator.icon
         },
         channel: internetItem.type_trunkchannel,
-        quality: ''
+        quality: internetItem.quality
       };
     });
 
@@ -61,7 +61,8 @@ export class LocationCapabilitiesMapper
           icon: tvItem.operator.icon
         },
         // tslint:disable-next-line:no-magic-numbers
-        type: '/' + tvItem.type.map(type => type.id === 1 ? 'АТВ ' : type.id === 2 ? 'ЦТВ ' : '').join(' ')
+        // type: '/' + tvItem.type.map(type => type.id === 1 ? 'АТВ ' : type.id === 2 ? 'ЦТВ ' : '').join(' ')
+        type: tvItem.type.map(type => type.id)
       };
     });
 

@@ -3,7 +3,7 @@ export enum MailType {
   MAIL_CONNECTION = 'post'
 }
 
-export enum TvType {
+export enum SignalType {
   ATV = 1,
   CTV = 2
 }

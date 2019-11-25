@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Provider, TrunkChannel, TrunkChannelType } from '@shared/models/location-capabilities';
+import { SignalType } from '@shared/models/enums';
 
 @Component({
   selector: 'app-providers-row',
@@ -11,7 +12,7 @@ export class TechnicalCapabilitiesRowComponent implements OnInit {
     provider: Provider,
     mobileGeneration?: string,
     channel?: TrunkChannel,
-    type?: string,
+    type?: SignalType[],
     count?: number
   }[];
 
