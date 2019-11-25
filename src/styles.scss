@@ -501,8 +501,7 @@ select:-moz-focusring {
   margin-right: 1rem;
 }
 
-.c-accordion.green .name,
-.c-accordion.green .value {
+.c-accordion.green .name {
   white-space: nowrap;
 }
 
@@ -524,7 +523,7 @@ select:-moz-focusring {
   height: 20px;
 }
 
-.c-accordion-title.green div:first-child::before {
+.c-accordion .c-accordion .c-accordion .c-accordion-title.green div:first-child::before {
   background: url('/assets/img/laptop.png') no-repeat;
   vertical-align: middle;
 }
@@ -534,7 +533,7 @@ select:-moz-focusring {
   vertical-align: middle;
 }
 
-.c-accordion-title.green-dot div:first-child::before {
+.c-accordion .c-accordion .c-accordion .c-accordion-title.green-dot div:first-child::before {
   content: url('/assets/img/green-dot.png');
 }
 
@@ -544,6 +543,10 @@ select:-moz-focusring {
 
 .c-accordion-title.red-dot div:first-child::before {
   content: url('/assets/img/red-dot.png');
+}
+
+.c-accordion .c-accordion.green {
+  background-color: #c2e4da;
 }
 /* --- Аккордион --- end --- */
 
@@ -1442,4 +1445,8 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 .gray-filter .image {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
+}
+
+.line {
+  display: flex;
 }

@@ -53,56 +53,56 @@
     </div>
     <div class="c-accordion green">
       <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
-        <div>
-          Организации ({{organizations.length}})
-        </div>
+        <div>Организаций ({{organizations.length}})</div>
         <div class="c-accordion-button"></div>
       </div>
       <div class="c-accordion-body">
         <div class="c-accordion" *ngFor="let organization of organizations">
-          {{organization.full_name}}
-          <div class="c-accordion green">
-            <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
-              <div style="padding: 10px">
-                Точки подключения ({{organization.reaccesspoints.length}})
+          <div class="c-accordion-title green" (click)="openAccordion($event, 'is-open')">
+            <div>{{organization.full_name}}</div>
+            <div class="c-accordion-button"></div>
+          </div>
+          <div class="c-accordion-body">
+            <div class="c-accordion green" *ngFor="let point of organization.reaccesspoints">
+              <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
+                {{point.name}}
+                <div class="c-accordion-button"></div>
               </div>
-              <div class="c-accordion-button"></div>
-            </div>
-            <div class="c-accordion-body">
-              <div class="c-accordion" *ngFor="let organization of organizations">
-                <div class="c-accordion.green" *ngFor="let point of organization.reaccesspoints">
-                  <div class="item line">
-                    <div class="name">Адрес точки подключения:</div>
-                    <div class="value">{{point.address}}</div>
-                  </div>
-                  <div class="item line">
-                    <div class="name">Заказчик:</div>
-                    <div class="value">{{point.customer}}</div>
-                  </div>
-                  <div class="item line">
-                    <div class="name">Подрядчик:</div>
-                    <div class="value">{{point.contractor}}</div>
-                  </div>
-                  <div class="item line">
-                    <div class="name">Технология подключения:</div>
-                    <div class="value">{{point.connection_type}}</div>
-                  </div>
-                  <div class="item line">
-                    <div class="name">Точка подключения:</div>
-                    <div class="value">{{point.node}}</div>
-                  </div>
-                  <div class="item line">
-                    <div class="name">Скорость по контракту:</div>
-                    <div class="value">{{point.defined_speed}}</div>
-                  </div>
-                  <div class="item line">
-                    <div class="name">Состояние:</div>
-                    <div class="value">{{point.state}}</div>
-                  </div>
-                  <div class="item line">
-                    <div class="name">Входящий трафик:</div>
-                    <div class="value">{{point.net_traffic_last_month}}</div>
-                  </div>
+              <div class="c-accordion-body">
+                <div class="item line">
+                  <div class="value">{{point.address}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Программа:</div>
+                  <div class="value">{{point.government_program.short_name}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Заказчик:</div>
+                  <div class="value">{{point.customer}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Подрядчик:</div>
+                  <div class="value">{{point.contractor}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Технология подключения:</div>
+                  <div class="value">{{point.connection_type}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Точка подключения:</div>
+                  <div class="value">{{point.node}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Скорость по контракту:</div>
+                  <div class="value">{{point.defined_speed}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Состояние:</div>
+                  <div class="value">{{point.state}}</div>
+                </div>
+                <div class="item line">
+                  <div class="name">Входящий трафик:</div>
+                  <div class="value">{{point.net_traffic_last_month}}</div>
                 </div>
               </div>
             </div>
