@@ -87,12 +87,12 @@ h1 {
 }
 
 .wrapper {
-max-width: 1000px;
-width: 100%;
-padding-left: 15px;
-padding-right: 15px;
-margin: 0 auto;
-position: relative;
+  max-width: 1000px;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .page-header {
@@ -120,8 +120,7 @@ select {
   width: 100%;
   border: none;
   border-bottom: 1px solid #bcbcbc;
-  background: url('../img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('../img/arrow-gray.png') no-repeat 99% 50%;
   color: #575756;
   font-size: 12px;
   font-weight: 100;
@@ -130,8 +129,7 @@ select {
 
 select:focus {
   border-color: #35a584;
-  background: url('../img/arrow-green-bottom.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('../img/arrow-green-bottom.png') no-repeat 99% 50%;
   outline: none;
   outline-offset: 0;
 }
@@ -219,14 +217,14 @@ label {
   width: 230px;
   font-size: 12px;
   padding-left: 5px;
-  background: url('../img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('../img/arrow-gray.png') no-repeat 99% 50%;
   background-size: 9px 5px;
 }
 
 .select select:focus {
   border-bottom: 1px solid #009dd3;
 }
+
 /* --- Формы --- end --- */
 
 /* --- Sidebar --- begin --- */
@@ -242,7 +240,7 @@ label {
   padding-bottom: 1rem;
   overflow: auto;
   background-color: #ffffff;
-  box-shadow: -7px 0px 18px rgba(0, 7, 3, 0.27);
+  box-shadow: -7px 0 18px rgba(0, 7, 3, 0.27);
   font-weight: 400;
 }
 
@@ -269,8 +267,7 @@ label {
 
 .icon-location {
   display: inline-block;
-  background: url('../img/loc.png') no-repeat;
-  background-position: center;
+  background: url('../img/loc.png') no-repeat center;
   width: 2rem;
   height: 16px;
 }
@@ -283,22 +280,23 @@ label {
   width: 20px;
   height: 20px;
   border: none;
-  background: url('../img/search.png') no-repeat;
-  background-position: 50% 50%;
+  background: url('../img/search.png') no-repeat 50% 50%;
   cursor: pointer;
 }
 
 .search-location input[type="text"]:focus + input[type="submit"] {
-  background: url('../img/search-green.png') no-repeat;
-  background-position: 50% 50%;
+  background: url('../img/search-green.png') no-repeat 50% 50%;
 }
 
-.l-sidebar-list {}
+.l-sidebar-list {
+}
+
 .l-sidebar-list-item {
   display: flex;
   align-self: center;
   margin-bottom: 15px;
 }
+
 /* --- Sidebar --- end --- */
 
 /* --- Акордион --- begin --- */
@@ -310,27 +308,17 @@ label {
   margin-bottom: 0.5rem;
 }
 
-.c-accordion.blue {
-  background-color: #ccebf6;
-}
-
-.c-accordion.green {
-  background-color: #c2e4da;
-}
-
-.c-accordion .c-accordion.green {
-  background-color: #c2e4da;
-}
-
 .c-accordion-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
-  /*font-size: 14px;*/
   cursor: pointer;
 }
+
+.c-accordion .c-accordion .c-accordion-title { font-size: 13px; }
+.c-accordion .c-accordion .c-accordion .c-accordion-title { font-size: 12px; }
 
 .c-accordion-name {
   padding-left: 1.5rem;
@@ -362,52 +350,23 @@ label {
   content: '\f0d8';
 }
 
-.c-accordion.blue .c-accordion-button::before {
-  color: #009dd3;
-}
-
-.c-accordion.blue .c-accordion-button.is-open::before {
-  content: '\f0d8';
-}
-
-.c-accordion.green .c-accordion-button::before {
-  color: #35a584;
-}
-
-.c-accordion.green .c-accordion-button.is-open::before {
-  content: '\f0d8';
-}
-
 .c-accordion-body {
   display: none;
   padding-top: 0.5rem;
   padding-bottom: 1.2rem;
 }
 
-.c-accordion-body.is-open {
-  display: block;
-}
+.c-accordion-body.is-open { display: block }
 
-.c-accordion .c-accordion {
-  background-color: #fff;
-}
+.u-bgc-blue { background-color: #ccebf6 }
 
-.c-accordion .c-accordion .c-accordion-title {
-  font-size: 12px;
-}
+.u-bgc-green { background-color: #c2e4da }
 
-.c-accordion .c-accordion .c-accordion-button::before {
-  font-size: 16px;
-}
+.u-bgc-white { background-color: #ffffff }
 
-.c-accordion .c-accordion .c-accordion-button.is-open::before {
-  font-size: 16px;
-}
+.u-bgc-blue .c-accordion-button::before { color: #009dd3 }
 
-.c-accordion .c-accordion .c-accordion-body {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
+.u-bgc-green .c-accordion-button::before { color: #35a584 }
 
 .c-accordion.green .item {
   margin-bottom: 10px;
@@ -422,45 +381,36 @@ label {
   white-space: nowrap;
 }
 
-.c-accordion-title.blue {
-  color: #009dd3;
-}
+.o-espd { color: #35a584 }
 
-.c-accordion-title.green {
-  color: #35a584;
-}
+.o-szo { color: #009dd3 }
 
-.c-accordion-title.green div:first-child::before,
-.c-accordion-title.blue div:first-child::before {
-  display: inline-block;
-  margin-right: 10px;
+.o-espd::before {
+  content: '';
+  margin-right: 8px;
+  margin-top: 5px;
+  padding-left: 10px;
   padding-top: 5px;
-  padding-left: 11px;
   width: 20px;
-  height: 20px;
-}
-
-.c-accordion-title.green div:first-child::before {
   background: url('../img/laptop.png') no-repeat;
-  vertical-align: middle;
 }
 
-.c-accordion-title.blue div:first-child::before {
+.o-szo::before {
+  content: '';
+  margin-right: 8px;
+  margin-top: 5px;
+  padding-left: 10px;
+  padding-top: 5px;
+  width: 20px;
   background: url('../img/building.png') no-repeat;
-  vertical-align: middle;
 }
 
-.c-accordion-title.green-dot div:first-child::before {
-  content: url('../img/green-dot.png');
-}
+.u-green-dot::before { content: url('../img/green-dot.png') }
 
-.c-accordion-title.gray-dot div:first-child::before {
-  content: url('../img/gray-dot.png');
-}
+.u-gray-dot::before { content: url('../img/gray-dot.png') }
 
-.c-accordion-title.red-dot div:first-child::before {
-  content: url('../img/red-dot.png');
-}
+.u-red-dot::before { content: url('../img/red-dot.png') }
+
 /* --- Акордион --- end --- */
 
 /* --- Фильтр --- begin --- */
@@ -596,7 +546,7 @@ label {
   margin-bottom: 10px;
   padding: 15px 10px;
   background-color: #fff;
-  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
   font-size: 12px;
 }
 
@@ -710,8 +660,8 @@ label {
 
 .c-vendor-status-text {
   position: absolute;
-  bottom: -10px;
-  right: -12px;
+  top: 14px;
+  left: 14px;
   font-size: 10px;
   font-weight: 400;
 }
@@ -875,7 +825,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
   justify-content: space-between;
   background-color: #fff;
   font-size: 12px;
-  box-shadow: -7px 0px 18px rgba(0, 7, 3, 0.27);
+  box-shadow: -7px 0 18px rgba(0, 7, 3, 0.27);
 }
 
 .c-top-bar.pos-on-map {
@@ -928,7 +878,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .c-tab-title {
-  flex: 1 0 0%;
+  flex: 1 0 0;
   padding-bottom: 5px;
   text-align: center;
   cursor: pointer;
@@ -1063,7 +1013,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
   margin-top: 1rem;
   margin-bottom: 2rem;
   padding: 15px 10px;
-  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
 }
 
 .c-contract-header {
@@ -1092,7 +1042,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .c-contract .c-accordion {
-  box-shadow: 0px 2px 4px rgba(0, 7, 3, 0.27);
+  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
 }
 
 .c-contract-item .c-accordion-body {
@@ -1284,6 +1234,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
   margin-right: 3rem;
   border-right: 1px solid #d2d2d2
 }
+
 /* --- Локация и численность --- end --- */
 
 /* --- Хлебные крошки ---  begin --- */

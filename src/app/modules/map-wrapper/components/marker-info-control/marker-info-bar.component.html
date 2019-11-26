@@ -8,7 +8,7 @@
       <div>{{currentPointCapabilities.name}}</div>
       <div>{{currentPointCapabilities.area}}</div>
     </div>
-    <div class="c-accordion blue">
+    <div class="c-accordion u-bgc-blue">
       <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
         <div>Информация</div>
         <div class="c-accordion-button"></div>
@@ -51,20 +51,20 @@
         </div>
       </div>
     </div>
-    <div class="c-accordion green">
+    <div class="c-accordion u-bgc-green">
       <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
         <div>Организаций ({{organizations.length}})</div>
         <div class="c-accordion-button"></div>
       </div>
       <div class="c-accordion-body">
-        <div class="c-accordion" *ngFor="let organization of organizations">
-          <div class="c-accordion-title green" (click)="openAccordion($event, 'is-open')">
+        <div class="c-accordion u-bgc-white" *ngFor="let organization of organizations">
+          <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
             <div>{{organization.full_name}}</div>
             <div class="c-accordion-button"></div>
           </div>
           <div class="c-accordion-body">
-            <div class="c-accordion green" *ngFor="let point of organization.reaccesspoints">
-              <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
+            <div class="c-accordion u-bgc-green" *ngFor="let point of organization.reaccesspoints">
+              <div class="c-accordion-title o-espd u-green-dot" (click)="openAccordion($event, 'is-open')">
                 {{point.name}}
                 <div class="c-accordion-button"></div>
               </div>
