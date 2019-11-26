@@ -64,44 +64,48 @@
           </div>
           <div class="c-accordion-body">
             <div class="c-accordion u-bgc-green" *ngFor="let point of organization.reaccesspoints">
-              <div class="c-accordion-title o-espd u-green-dot" (click)="openAccordion($event, 'is-open')">
-                {{point.name}}
+              <div (click)="openAccordion($event, 'is-open')"
+                   [ngClass]="{
+                   'o-espd': point.government_program.short_name === 'ЕСПД',
+                   'o-szo': point.government_program.short_name === 'СЗО',
+                   'u-green-dot': false
+                   }"
+                   class="c-accordion-title u-green-dot"
+              >
+                {{point.address}}
                 <div class="c-accordion-button"></div>
               </div>
               <div class="c-accordion-body">
                 <div class="item line">
-                  <div class="value">{{point.address}}</div>
-                </div>
-                <div class="item line">
-                  <div class="name">Программа:</div>
+                  <div class="name">Программа: </div>
                   <div class="value">{{point.government_program.short_name}}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Заказчик:</div>
+                  <div class="name">Заказчик: </div>
                   <div class="value">{{point.customer}}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Подрядчик:</div>
+                  <div class="name">Подрядчик: </div>
                   <div class="value">{{point.contractor}}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Технология подключения:</div>
+                  <div class="name">Технология подключения: </div>
                   <div class="value">{{point.connection_type}}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Точка подключения:</div>
+                  <div class="name">Точка подключения: </div>
                   <div class="value">{{point.node}}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Скорость по контракту:</div>
+                  <div class="name">Скорость по контракту: </div>
                   <div class="value">{{point.defined_speed}}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Состояние:</div>
+                  <div class="name">Состояние: </div>
                   <div class="value">{{point.state}}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Входящий трафик:</div>
+                  <div class="name">Входящий трафик: </div>
                   <div class="value">{{point.net_traffic_last_month}}</div>
                 </div>
               </div>

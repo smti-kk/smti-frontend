@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AccessPointEspd } from '../model/access-point-espd';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ACCESS_POINT_ESPD_URL } from '../constants/api.constants';
-import { RestApiService } from '../../../shared/services/common/rest-api-service';
+import { RestApiService } from '@shared/services/common/rest-api-service';
 import { EspdMapper } from '../utils/espd-mapper';
-import { StoreService } from '../../../shared/services/store.service';
+import { StoreService } from '@shared/services/store.service';
 import { LatLngBounds } from 'leaflet';
 
 @Injectable()

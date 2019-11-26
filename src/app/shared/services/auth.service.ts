@@ -15,14 +15,14 @@ import { UserMapper } from '../utils/user-mapper';
 })
 export class AuthService extends RestApiService<User, User, User> {
 
-  private _user: Subject<User> = new ReplaySubject<User>();
+  private _user: Subject<User> = new ReplaySubject<User>(1);
 
   constructor(private httpClient: HttpClient, private storeService: StoreService) {
     super(httpClient, storeService, ACCOUNT_INFO, new UserMapper());
 
     this.accountInfo.subscribe(user => {
       this.user.next(user);
-    });
+    }, () => this.user.next(null));
   }
 
   login(options: { email: string, password: string }): Observable<{ token: string }> {
@@ -50,4 +50,8 @@ export class AuthService extends RestApiService<User, User, User> {
     return this.one();
   }
 
+  logout() {
+    this.storeService.clear('token');
+    this.user.next(null);
+  }
 }

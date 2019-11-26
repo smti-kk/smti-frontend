@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from '../../../shared/services/auth.service';
+import { AuthService } from '@shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -27,6 +27,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     });
 
     this.user = this.authorization.user.subscribe(user => {
+      console.log(user);
       if (user) {
         this.router.navigate(['']);
       }

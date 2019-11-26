@@ -21,7 +21,7 @@ export class GovProgramMapper extends ApiMapper<GovProgram, GovProgram, GovProgr
     return GovProgramMapper.mapApiModel(apiData);
   }
 
-  private static mapApiModel(apiData): GovProgram {
+  static mapApiModel(apiData): GovProgram {
     return {
       id: apiData.id,
       shortName: apiData.short_name,

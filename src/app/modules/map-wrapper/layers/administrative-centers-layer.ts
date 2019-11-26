@@ -13,8 +13,10 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
 
   filterByArea(area: MunicipalitiesLayerGeoJson): Promise<AdministrativeCenterPoint[]> {
     if (area) {
+      this.setMaxZoom(1);
       return this.setFilter(points => points.filter(p => p.area === area.feature.properties.name));
     } else {
+      this.setMaxZoom(MAX_ZOOM);
       return this.setFilter(null);
     }
   }

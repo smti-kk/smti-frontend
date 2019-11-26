@@ -19,11 +19,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.user.subscribe(user => {
-      if (!user) {
-        this.router.navigate(['authorization']);
-      }
       this.user = user;
+
+      if (!user) {
+        this.router.navigate(['login']);
+      }
     });
   }
 
+  logout() {
+    this.auth.logout();
+  }
 }

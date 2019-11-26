@@ -1,5 +1,6 @@
 import { ApiMapper } from './api-mapper';
 import { Internet, LocationCapabilities, Mobile, Payphone, Provider, Radio, Telephone, Tv } from '../models/location-capabilities';
+import { GovProgramMapper } from '@shared/services/gov-program.service';
 
 
 export class LocationCapabilitiesMapper
@@ -130,7 +131,7 @@ export class LocationCapabilitiesMapper
     this.foo(tcApi.internet, gp);
     this.foo(tcApi.radio, gp);
 
-    return gp;
+    return gp.map(g => GovProgramMapper.mapApiModel(g.government_program));
   }
 
   private foo(tc: any[], result: any[]) {

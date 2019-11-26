@@ -19,7 +19,7 @@ const routes: Routes = [
     loadChildren: './modules/pivot-table/pivot-table.module#PivotTableModule'
   },
   {
-    path: 'authorization',
+    path: 'login',
     component: AuthorizationComponent
   },
   {

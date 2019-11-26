@@ -5,7 +5,7 @@ import { AccessPoint } from '../model/access-point';
 import 'leaflet.markercluster';
 import { AccessPointMarker } from './access-point-marker';
 import { ExtendedMap } from '../../../declarations/leaflet';
-import { UpdatedList } from '../../../shared/utils/updated-list';
+import { UpdatedList } from '@shared/utils/updated-list';
 
 const MINUTES = 5;
 const SECONDS = 60;
@@ -131,6 +131,10 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
         this.addLayer(pointMarker);
       }
     });
+  }
+
+  protected setMaxZoom(zoom: number) {
+    this.maxZoom = zoom;
   }
 
   private createMarker(point: T): AccessPointMarker<T> {
