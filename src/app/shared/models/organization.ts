@@ -1,8 +1,8 @@
-interface Reaccesspoint {
+export interface Reaccesspoint {
   address: string;
   billing_id: number;
   completed: boolean;
-  connection_type: [];
+  connection_type: any[]; // todo: Опиши меня
   contract: any;
   contractor: string;
   created_at: Date;
