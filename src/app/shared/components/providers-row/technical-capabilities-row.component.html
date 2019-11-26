@@ -1,6 +1,6 @@
 <div class="l-vendors-row">
-  <div *ngIf="!hasProvider(tcs)">0</div>
-  <div class="check" *ngIf="hasProvider(tcs)"></div>
+<!--  <div *ngIf="!hasProvider(tcs)">0</div>-->
+<!--  <div class="check" *ngIf="hasProvider(tcs)"></div>-->
   <div class="c-vendor"
        *ngFor="let tc of tcs"
        [class.opacity]="!tc.provider.isActive">
@@ -22,7 +22,7 @@
                       sputnik: tc.channel.id === TrunkChannelType.SATELLITE
                      }"
     ></div>
-    <div class="c-vendor-status-text" *ngIf="tc.type">{{tc.type}}</div>
+    <div class="c-vendor-status-text" *ngIf="tc.type">{{getStringSignalType(tc.type)}}</div>
     <div class="c-vendor-status-text" *ngIf="tc.count">{{tc.count}}</div>
   </div>
 </div>

@@ -869,6 +869,11 @@ input[type="radio"] {
   display: none;
 }
 
+// Стиль сверху стирает чекбоксы у карты
+.leaflet-control-layers-selector {
+  display: block;
+}
+
 .c-checkbox-text,
 .c-radiobox-text {
   display: flex;
