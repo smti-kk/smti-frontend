@@ -23,7 +23,6 @@ export class TechnicalCapabilitiesRowComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.tcs);
   }
 
   hasProvider(tcs: { provider: Provider; mobileGeneration?: string; channel?: TrunkChannel; type?: SignalType[]; count?: number }[]) {

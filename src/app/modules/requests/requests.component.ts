@@ -39,9 +39,8 @@ export class RequestsComponent implements OnInit {
     this.forms.internet = true;
   }
 
-  saveInternetClarification(internetClarification) {
+  saveInternetClarification() {
     this.forms.internet = false;
-    console.log(internetClarification);
   }
 
   onClarifyingInternetCancel() {

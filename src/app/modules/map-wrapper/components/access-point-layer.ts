@@ -153,7 +153,6 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
   }
 
   static iconCreateFunction(cluster: MarkerCluster): Icon | DivIcon {
-    console.log(cluster);
     return divIcon({html: '<div class="cluster cluster-green">' + cluster.getChildCount() + '</div>'});
   }
 }

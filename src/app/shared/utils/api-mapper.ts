@@ -8,7 +8,6 @@ export abstract class ApiMapper<ShortModel, DetailModel, WriteModel> {
 export class DefaultMapper<ShortModel, DetailModel, WriteModel> extends ApiMapper<ShortModel, DetailModel, WriteModel> {
 
   mapShortApi(apiData): ShortModel {
-    console.log(apiData);
     return apiData as ShortModel;
   }
 

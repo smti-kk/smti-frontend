@@ -3,7 +3,6 @@ import { AccessPointEspd } from '../model/access-point-espd';
 
 export class EspdMapper extends ApiMapper<AccessPointEspd, AccessPointEspd, AccessPointEspd> {
   mapFromApi(apiModel): AccessPointEspd {
-    console.log(apiModel);
     let avstate;
     if (!apiModel.avstate) {
       avstate = null;

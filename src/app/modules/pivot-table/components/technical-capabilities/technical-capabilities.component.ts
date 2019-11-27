@@ -34,7 +34,6 @@ export class TechnicalCapabilitiesComponent implements OnInit {
     this.spinner.show();
     this.tcService.one(id).subscribe(tc => {
       this.tc = tc;
-      console.log(tc);
       this.tcForm = this.buildForm(this.fb, tc);
       this.spinner.hide();
     });
@@ -52,7 +51,6 @@ export class TechnicalCapabilitiesComponent implements OnInit {
       informat: tc.information.informat
     });
 
-    form.valueChanges.subscribe(value => console.log(value));
 
     tc.information.cellular.forEach(c => {
       getArrayGroup(form, 'cellular').push(
