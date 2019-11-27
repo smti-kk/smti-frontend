@@ -7,17 +7,21 @@ import { AdministrativeCentersService } from '../service/administrative-centers.
 
 @Injectable()
 export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeCenterPoint> {
+
+  areaId: string | number;
+
   constructor(private administrativeCentersService: AdministrativeCentersService) {
     super();
   }
 
-  filterByArea(area: MunicipalitiesLayerGeoJson): Promise<AdministrativeCenterPoint[]> {
+  filterByArea(area: MunicipalitiesLayerGeoJson) {
     if (area) {
+      console.log(area);
+      this.areaId = area.feature.id;
       this.setMaxZoom(1);
-      return this.setFilter(points => points.filter(p => p.area === area.feature.properties.name));
     } else {
       this.setMaxZoom(MAX_ZOOM);
-      return this.setFilter(null);
+      this.areaId = null;
     }
   }
 
@@ -28,7 +32,12 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
   }
 
   getPoints(bounds): Observable<AdministrativeCenterPoint[]> {
-    return this.administrativeCentersService.listFilteredByBounds(bounds);
+    console.log(this.areaId);
+    if (this.areaId) {
+      return this.administrativeCentersService.listFilteredByArea(this.areaId);
+    } else {
+      return this.administrativeCentersService.listFilteredByBounds(bounds);
+    }
   }
 }
 

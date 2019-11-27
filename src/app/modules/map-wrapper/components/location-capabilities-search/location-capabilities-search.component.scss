@@ -1,6 +1,23 @@
+.search-result {
+  max-height: 316px;
+  overflow-y: auto;
+  margin-left: 22px;
+  border-bottom: 1px solid #35a584;
+  border-left: 1px solid #35a584;
+  border-right: 1px solid #35a584;
+  position: absolute;
+  background-color: white;
+  z-index: 10;
+  width: 94%;
+}
+
 .search-item {
-  padding: 10px;
+  padding: 4px;
   cursor: pointer;
+}
+
+.search-item:not(:first-of-type) {
+  border-top: 1px solid #ccc;
 }
 
 .search-item:hover {

@@ -481,6 +481,7 @@ select:-moz-focusring {
   padding-left: 10px;
   padding-top: 5px;
   width: 20px;
+  min-height: 18px;
   background: url('/assets/img/laptop.png') no-repeat;
 }
 
@@ -491,6 +492,7 @@ select:-moz-focusring {
   padding-left: 10px;
   padding-top: 5px;
   width: 20px;
+  min-height: 18px;
   background: url('/assets/img/building.png') no-repeat;
 }
 
@@ -823,7 +825,7 @@ input[type="radio"] {
 
 // Стиль сверху стирает чекбоксы у карты
 .leaflet-control-layers-selector {
-  display: block;
+  display: inline-block !important;
 }
 
 .c-checkbox-text,

@@ -1,6 +1,6 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <div class="select-location">
-  <form action="" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+  <form style="position: relative" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
     <select formControlName="area">
       <option [ngValue]="null" selected>Выберите район</option>
       <option *ngFor="let location of municipalityLayer?.getLayers()"
@@ -14,7 +14,7 @@
              formControlName="locality"
              placeholder="Поиск по населенным пунктам"
              type="text">
-      <input type="submit" value="">
+      <input value="" type="submit">
     </div>
     <div class="search-result" *ngIf="administrativePoints.length > 0 && locationSearch.value.length > 0">
       <div class="search-item" *ngFor="let administrativePoint of administrativePoints "

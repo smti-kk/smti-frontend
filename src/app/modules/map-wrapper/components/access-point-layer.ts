@@ -71,11 +71,6 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     return super.removeLayer(layer);
   }
 
-  public setFilter(filter: (points: T[]) => T[]): Promise<T[]> {
-    this.pointsList.filter = filter;
-    return this.pointsList.update();
-  }
-
   public renderPopup?(point: T): string;
 
   abstract getPoints(bounds?: LatLngBounds): Observable<T[]>;

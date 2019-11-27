@@ -32,6 +32,7 @@ speed-measure-plugin*.json
 .history/*
 
 # misc
+/app/src/*.css
 /.sass-cache
 /connect.lock
 /coverage

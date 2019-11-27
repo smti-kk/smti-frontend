@@ -1,4 +1,4 @@
-import { Feature, GeoJsonProperties, MultiPoint, BBox } from 'geojson';
+import { BBox, Feature, GeoJsonProperties, MultiPoint } from 'geojson';
 
 export interface LocationAreaProperties extends GeoJsonProperties {
   name: string;
@@ -38,6 +38,10 @@ export class LocationArea implements Feature<MultiPoint, LocationAreaProperties>
 
   get bbox(): [number, number, number, number] | [number, number, number, number, number, number] {
     return this._bbox;
+  }
+
+  get id(): number {
+    return this._id;
   }
 }
 

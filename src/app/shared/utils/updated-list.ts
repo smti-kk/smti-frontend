@@ -10,7 +10,6 @@ export class UpdatedList<T> {
   private _items: T[] = [];
   private _observable: Subject<T[]> = new Subject<T[]>();
   private _timerId: number;
-  private _filter: (value: T[]) => T[];
 
   constructor(private getData: () => Observable<T[]>) {
     // this.update();
@@ -22,10 +21,6 @@ export class UpdatedList<T> {
 
   get onUpdate() {
     return this._observable;
-  }
-
-  set filter(filter: (value: T[]) => T[]) {
-    this._filter = filter;
   }
 
   startUpdate() {
@@ -49,10 +44,6 @@ export class UpdatedList<T> {
       }
 
       this.getData().subscribe(data => {
-        if (this._filter) {
-          data = this._filter(data);
-        }
-
         this._items = data;
         this._observable.next(data);
         resolve(data);
