@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '@shared/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,17 +17,19 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private authorization: AuthService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.tryLoginByEsia();
+
     this.authorizationForm = this.fb.group({
       email: '',
       password: ''
     });
 
     this.user = this.authorization.user.subscribe(user => {
-      console.log(user);
       if (user) {
         this.router.navigate(['']);
       }
@@ -47,4 +49,11 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   }
 
 
+  private tryLoginByEsia() {
+    const esiaToken = this.activatedRoute.snapshot.params.temp_token;
+
+    if (esiaToken) {
+      this.authorization.loginEsia(esiaToken);
+    }
+  }
 }

@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs/operators';
 import { StoreService } from './store.service';
 import { RestApiService } from './common/rest-api-service';
-import { ACCOUNT_INFO, LOGIN } from '../constants/api';
+import { ACCOUNT_INFO, ESIA_LOGIN, LOGIN } from '../constants/api';
 import { UserMapper } from '../utils/user-mapper';
 
 @Injectable({
@@ -22,7 +22,9 @@ export class AuthService extends RestApiService<User, User, User> {
 
     this.accountInfo.subscribe(user => {
       this.user.next(user);
-    }, () => this.user.next(null));
+    }, () => {
+      this.user.next(null);
+    });
   }
 
   login(options: { email: string, password: string }): Observable<{ token: string }> {
@@ -38,8 +40,15 @@ export class AuthService extends RestApiService<User, User, User> {
       );
   }
 
-  loginEsia() {
+  loginEsia(oauthToken: string) {
+    this.httpClient.post<any>(environment.API_BASE_URL + ESIA_LOGIN, {token: oauthToken})
+      .subscribe(response => {
+        this.storeService.set('token', response.token);
 
+        this.accountInfo.subscribe(ai => {
+          this.user.next(ai);
+        });
+      });
   }
 
   get user() {
