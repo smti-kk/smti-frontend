@@ -41,7 +41,7 @@ export class AuthService extends RestApiService<User, User, User> {
   }
 
   loginEsia(oauthToken: string) {
-    this.httpClient.post<any>(environment.API_BASE_URL + ESIA_LOGIN, {token: oauthToken})
+    this.httpClient.post<any>(environment.API_BASE_URL + ESIA_LOGIN, {temp_token: oauthToken})
       .subscribe(response => {
         this.storeService.set('token', response.token);
 

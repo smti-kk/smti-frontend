@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '@shared/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-authorization',
@@ -10,6 +11,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./authorization.component.scss']
 })
 export class AuthorizationComponent implements OnInit, OnDestroy {
+
+  API_BASE_URL = environment.API_BASE_URL;
 
   private user: Subscription;
 
@@ -50,7 +53,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
 
   private tryLoginByEsia() {
-    const esiaToken = this.activatedRoute.snapshot.params.temp_token;
+    const esiaToken = this.activatedRoute.snapshot.queryParams.temp_token;
 
     if (esiaToken) {
       this.authorization.loginEsia(esiaToken);
