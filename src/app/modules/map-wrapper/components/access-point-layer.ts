@@ -7,11 +7,6 @@ import { AccessPointMarker } from './access-point-marker';
 import { ExtendedMap } from '../../../declarations/leaflet';
 import { UpdatedList } from '@shared/utils/updated-list';
 
-const MINUTES = 5;
-const SECONDS = 60;
-const MILLISECONDS = 1000;
-
-export const TIMER_INTERVAL = MINUTES * SECONDS * MILLISECONDS;
 export const MAX_ZOOM = 12;
 
 export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClusterGroup {
@@ -21,6 +16,9 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
   private layers: { [key: number]: AccessPointMarker<T> };
 
   public readonly onMarkerClick: EventEmitter<AccessPointMarker<T>> = new EventEmitter<AccessPointMarker<T>>();
+  private leafletMap: ExtendedMap;
+
+  abstract getPoints(bounds?: LatLngBounds): Observable<T[]>;
 
   protected constructor() {
     // super({iconCreateFunction: AccessPointLayer.iconCreateFunction});
@@ -33,16 +31,17 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     if (!this.isInit) {
       this.init(map);
       this.isInit = true;
+      this.pointsList.startUpdate();
 
       map.on({
         moveend: () => {
           if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
-            this.pointsList.update();
+            this.pointsList.forceUpdate();
           }
         },
         zoomend: () => {
           if (map.hasLayer(this) && map.getZoom() >= this.maxZoom) {
-            this.pointsList.update();
+            this.pointsList.forceUpdate();
           } else {
             this.clearLayer();
           }
@@ -51,10 +50,6 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     }
 
     return this;
-  }
-
-  public updateLayer() {
-    this.pointsList.update();
   }
 
   public getLayers(): AccessPointMarker<T>[] {
@@ -75,11 +70,37 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     return super.removeLayer(layer);
   }
 
+  public openUpdate() {
+    this.pointsList.openUpdate();
+  }
+
+  public closeUpdate() {
+    this.pointsList.closeUpdate();
+  }
+
+  public updateLayer() {
+    this.pointsList.forceUpdate();
+  }
+
   public renderPopup?(point: T): string;
 
-  abstract getPoints(bounds?: LatLngBounds): Observable<T[]>;
+  public removeArea() {
+    this.setMaxZoom(MAX_ZOOM);
+    this.openUpdate();
+    if (this.leafletMap.getZoom() >= this.maxZoom) {
+      this.updateLayer();
+    } else {
+      this.clearLayer();
+    }
+  }
+
+  private clearLayer() {
+    this.getLayers().forEach(l => this.removeLayer(l));
+  }
 
   private init(map: ExtendedMap) {
+    this.leafletMap = map;
+
     this.layers = {};
 
     if (!this.pointsList) {
@@ -92,6 +113,8 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     this.pointsList.onUpdate.subscribe(points => {
       if (map.getZoom() >= this.maxZoom) {
         this.setPoints(points);
+      } else {
+        this.clearLayer();
       }
       map.spin(false);
     });
@@ -99,7 +122,7 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     this.on({
       add: () => {
         if (map.getZoom() >= this.maxZoom) {
-          this.pointsList.update();
+          this.pointsList.forceUpdate();
         } else {
           this.clearLayer();
         }
@@ -139,10 +162,6 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
   private createMarker(point: T): AccessPointMarker<T> {
     return new AccessPointMarker<T>(point)
       .on('click', (event) => this.onMarkerClick.emit(event.target));
-  }
-
-  private clearLayer() {
-    this.getLayers().forEach(l => this.removeLayer(l));
   }
 
   private removeIrrelevantMarkers(points: T[]) {

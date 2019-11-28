@@ -1,4 +1,4 @@
-import { AccessPointLayer, MAX_ZOOM } from '../components/access-point-layer';
+import { AccessPointLayer } from '../components/access-point-layer';
 import { Observable } from 'rxjs';
 import { AdministrativeCenterPoint } from '../model/administrative-center-point';
 import { MunicipalitiesLayerGeoJson } from './municipalities-layer';
@@ -18,11 +18,13 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
     if (area) {
       this.areaId = area.feature.id;
       this.setMaxZoom(1);
+      this.openUpdate();
+      this.updateLayer();
+      this.closeUpdate();
     } else {
-      this.setMaxZoom(MAX_ZOOM);
       this.areaId = null;
+      this.removeArea();
     }
-    this.updateLayer();
   }
 
   filterByLocalityName(name: string): AdministrativeCenterPoint[] {

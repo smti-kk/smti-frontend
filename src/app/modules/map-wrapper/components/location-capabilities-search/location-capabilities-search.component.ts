@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '../../layers/municipalities-layer';
 import { AdministrativeCenterPoint } from '../../model/administrative-center-point';
 import { AdministrativeCentersLayer } from '../../layers/administrative-centers-layer';
-import { TIMER_INTERVAL } from '../access-point-layer';
 import { ExtendedMap } from '../../../../declarations/leaflet';
 import { LocationCapabilitiesService } from '@shared/services/location-capabilities.service';
 import { Subscription } from 'rxjs';
 import { AccessPointMarker } from '../access-point-marker';
 import { LatLng } from 'leaflet';
+import { TIMER_INTERVAL } from '@shared/utils/updated-list';
 
 const FORM_PARAMS = {
   area: 'area',
