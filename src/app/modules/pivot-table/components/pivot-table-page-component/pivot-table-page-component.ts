@@ -47,7 +47,6 @@ export class PivotTablePageComponent implements OnInit {
       this.observer = this.filterForm
         .valueChanges
         .subscribe(value => {
-          console.log(value);
           this.tcPivots.filter(value);
           this.loadPivotsTable()
             .subscribe();

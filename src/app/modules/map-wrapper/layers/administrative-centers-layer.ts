@@ -16,7 +16,6 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
 
   filterByArea(area: MunicipalitiesLayerGeoJson) {
     if (area) {
-      console.log(area);
       this.areaId = area.feature.id;
       this.setMaxZoom(1);
     } else {
@@ -33,7 +32,6 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
   }
 
   getPoints(bounds): Observable<AdministrativeCenterPoint[]> {
-    console.log(this.areaId);
     if (this.areaId) {
       return this.administrativeCentersService.listFilteredByArea(this.areaId);
     } else {
