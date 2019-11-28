@@ -1,6 +1,6 @@
 hub = harbor.cifra-k.ru
 #docker.sysols.ru
-version = 1.1.0
+version = 1.1.1
 #$(shell cat docker/backend/)
 
 IMAGE_NAME = $(hub)/telecom_monitoring/frontend:$(version)
