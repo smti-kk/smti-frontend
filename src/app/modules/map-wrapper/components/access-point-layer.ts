@@ -53,6 +53,10 @@ export abstract class AccessPointLayer<T extends AccessPoint> extends MarkerClus
     return this;
   }
 
+  public updateLayer() {
+    this.pointsList.update();
+  }
+
   public getLayers(): AccessPointMarker<T>[] {
     return super.getLayers() as AccessPointMarker<T>[];
   }

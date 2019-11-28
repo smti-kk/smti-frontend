@@ -23,6 +23,7 @@ export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeC
       this.setMaxZoom(MAX_ZOOM);
       this.areaId = null;
     }
+    this.updateLayer();
   }
 
   filterByLocalityName(name: string): AdministrativeCenterPoint[] {
