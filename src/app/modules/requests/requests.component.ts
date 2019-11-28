@@ -15,7 +15,7 @@ export class RequestsComponent implements OnInit {
 
   TrunkChannelType = TrunkChannelType;
 
-  private forms: {
+  forms: {
     internet: boolean;
   } = {
     internet: false

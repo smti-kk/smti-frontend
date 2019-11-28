@@ -31,7 +31,7 @@ export class PivotTablePageComponent implements OnInit {
   filterForm: FormGroup;
   private observer: Subscription;
 
-  constructor(private tcPivots: FilterTcPivotsService,
+  constructor(public tcPivots: FilterTcPivotsService,
               private fb: FormBuilder,
               private spinner: NgxSpinnerService,
               private govProgramsService: GovProgramService,
