@@ -48,9 +48,7 @@ export class FilterTcPivotsService extends TcPivotsService {
   private TRUE = '2';
 
   list(): Observable<LocationCapabilities[]> {
-    const params = this.params
-      .set('parent', '2093');
-    return super.list(params);
+    return super.list(this.params);
   }
 
   filter(filters: TcFilters) {

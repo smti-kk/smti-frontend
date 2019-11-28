@@ -23,7 +23,6 @@
     "@asymmetrik/ngx-leaflet-markercluster": "^3.0.0",
     "@types/leaflet.markercluster": "^1.4.0",
     "leaflet": "^1.5.1",
-    "leaflet-search": "^2.9.8",
     "leaflet-spin": "^1.1.0",
     "leaflet.markercluster": "^1.4.1",
     "ngx-spinner": "^8.0.3",

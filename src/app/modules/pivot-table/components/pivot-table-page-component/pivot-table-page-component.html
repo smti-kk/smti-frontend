@@ -9,7 +9,7 @@
           <div class="c-accordion-button"></div>
         </div>
         <div class="c-accordion-body" style="display: block">
-          <form [formGroup]="filterForm">
+          <form *ngIf="filterForm" [formGroup]="filterForm">
             <div class="l-container">
               <div class="l-container-item js-filter-button">
                 <app-filter-btn formControlName="order"

@@ -6,7 +6,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { GovProgram, GovProgramService } from '@shared/services/gov-program.service';
 import { MailType, MobileGeneration, SignalType } from '@shared/models/enums';
 import { EnumService } from '@shared/services/enum.service';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -35,11 +36,23 @@ export class PivotTablePageComponent implements OnInit {
               private spinner: NgxSpinnerService,
               private govProgramsService: GovProgramService,
               private enumService: EnumService) {
-    this.loadPivotsTable();
-    this.loadGovPrograms();
-    this.loadInternetProviders();
-    this.loadMobileProviders();
     this.buildForm();
+
+    forkJoin(
+      this.loadPivotsTable(),
+      this.loadGovPrograms(),
+      this.loadInternetProviders(),
+      this.loadMobileProviders()
+    ).subscribe(() => {
+      this.observer = this.filterForm
+        .valueChanges
+        .subscribe(value => {
+          console.log(value);
+          this.tcPivots.filter(value);
+          this.loadPivotsTable()
+            .subscribe();
+        });
+    });
   }
 
   ngOnInit() {
@@ -47,10 +60,11 @@ export class PivotTablePageComponent implements OnInit {
 
   private loadPivotsTable() {
     this.spinner.show();
-    this.tcPivots.list().subscribe(lcs => {
-      this.lcs = lcs;
-      this.spinner.hide();
-    });
+    return this.tcPivots.list()
+      .pipe(tap(lcs => {
+        this.lcs = lcs;
+        this.spinner.hide();
+      }));
   }
 
   private buildForm() {
@@ -67,24 +81,17 @@ export class PivotTablePageComponent implements OnInit {
       internetType: [null],
       program: [null]
     });
-
-    this.observer = this.filterForm
-      .valueChanges
-      .subscribe(value => {
-        this.tcPivots.filter(value);
-        this.loadPivotsTable();
-      });
   }
 
   private loadGovPrograms() {
-    this.govProgramsService.list()
-      .subscribe(govPrograms => this.govPrograms = govPrograms);
+    return this.govProgramsService.list()
+      .pipe(tap(govPrograms => this.govPrograms = govPrograms));
   }
 
   private loadInternetProviders() {
-    this.enumService
+    return this.enumService
       .getInternetProvider()
-      .subscribe((response) => {
+      .pipe(tap((response) => {
         this.internetProviders = response;
 
         const internetArrayControl = this.fb.array([]);
@@ -95,13 +102,13 @@ export class PivotTablePageComponent implements OnInit {
         });
 
         this.filterForm.addControl('internet', internetArrayControl);
-      });
+      }));
   }
 
   private loadMobileProviders() {
-    this.enumService
+    return this.enumService
       .getMobileProvider()
-      .subscribe((response) => {
+      .pipe(tap((response) => {
         this.mobileProviders = response;
 
         const mobileArrayControl = this.fb.array([]);
@@ -113,6 +120,6 @@ export class PivotTablePageComponent implements OnInit {
         });
 
         this.filterForm.addControl('mobile', mobileArrayControl);
-      });
+      }));
   }
 }
