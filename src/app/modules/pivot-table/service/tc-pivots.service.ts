@@ -7,12 +7,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GovProgram } from '@shared/services/gov-program.service';
 import { OrderingFilter } from '../components/filter-btn/filter-btn.component';
-import { MailType, MobileGeneration, SignalType } from '@shared/models/enums';
+import { MailType, MobileGenerationType, SignalType } from '@shared/models/enums';
 import { environment } from '../../../../environments/environment';
 
 const LTC = '/api/v1/ltc';
 
-export enum FilterType {
+export enum OrderingDirection {
   ASC,
   DSC,
   UNDEFINED
@@ -37,13 +37,14 @@ interface TcFilters {
   tvType: SignalType;
   internet: { [providerId: string]: boolean }[];
   mobile: { [providerId: string]: boolean }[];
-  mobileType: MobileGeneration;
+  mobileType: MobileGenerationType;
   internetType: TrunkChannelType;
 }
 
 @Injectable()
 export class FilterTcPivotsService extends TcPivotsService {
-  private params: HttpParams = new HttpParams();
+  protected params: HttpParams = new HttpParams();
+  protected filters: TcFilters;
 
   private TRUE = '2';
 
@@ -52,6 +53,8 @@ export class FilterTcPivotsService extends TcPivotsService {
   }
 
   filter(filters: TcFilters) {
+    this.filters = filters;
+
     this.setFilterByProgram(filters.program);
     this.setFilterOrdering(filters.order);
     this.setFilterBoolean('ats', filters.hasTelephone);
@@ -70,10 +73,10 @@ export class FilterTcPivotsService extends TcPivotsService {
     window.location.href = (environment.API_BASE_URL + '/api/v1/ltc/export/?' + this.params.toString());
   }
 
-  private setFilterOrdering(order?: OrderingFilter) {
-    if (order && order.orderingDirection === FilterType.ASC) {
+  protected setFilterOrdering(order?: OrderingFilter) {
+    if (order && order.orderingDirection === OrderingDirection.ASC) {
       this.params = this.params.set('ordering', order.name);
-    } else if (order && order.orderingDirection === FilterType.DSC) {
+    } else if (order && order.orderingDirection === OrderingDirection.DSC) {
       this.params = this.params.set('ordering', '-' + order.name);
     } else {
       this.params = this.params.delete('ordering');
@@ -140,7 +143,7 @@ export class FilterTcPivotsService extends TcPivotsService {
       });
   }
 
-  private setMobileTypeFilter(mobileType: MobileGeneration) {
+  private setMobileTypeFilter(mobileType: MobileGenerationType) {
     if (mobileType === null) {
       this.params = this.params.delete('mobile_type');
     } else {

@@ -1,28 +1,21 @@
 import { Coordinate } from '../interface/coordinate';
 
-export abstract class AccessPoint {
+export abstract class MonitoringPoint {
 
   private _point: Coordinate;
   private readonly _name: string;
-  private readonly _area: string;
   private _id;
 
   public constructor(_id: number,
                      _point: Coordinate,
-                     _name: string,
-                     _area: string) {
+                     _name: string) {
     this._id = _id;
     this._point = _point;
     this._name = _name;
-    this._area = _area;
   }
 
   get id() {
     return this._id;
-  }
-
-  get area(): string {
-    return this._area;
   }
 
   get name(): string {

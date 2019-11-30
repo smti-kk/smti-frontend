@@ -1,6 +1,7 @@
 import { ApiMapper } from './api-mapper';
 import { Internet, LocationCapabilities, Mobile, Payphone, Provider, Radio, Telephone, Tv } from '../models/location-capabilities';
 import { GovProgramMapper } from '@shared/services/gov-program.service';
+import { SignalType } from '@shared/models/enums';
 
 
 export class LocationCapabilitiesMapper
@@ -33,11 +34,12 @@ export class LocationCapabilitiesMapper
     const cellular: Mobile[] = tcApi.cellular.map(cellularItem => {
       return {
         provider: {
+          id: cellularItem.operator.id,
           name: cellularItem.operator.name,
           icon: cellularItem.operator.icon,
           isActive: true
         },
-        mobileGeneration: cellularItem.type.name,
+        mobileGeneration: cellularItem.type,
         quality: cellularItem.quality
       };
     });
@@ -45,6 +47,7 @@ export class LocationCapabilitiesMapper
     const internet: Internet[] = tcApi.internet.map(internetItem => {
       return {
         provider: {
+          id: internetItem.operator.id,
           isActive: true,
           name: internetItem.operator.name,
           icon: internetItem.operator.icon
@@ -57,13 +60,17 @@ export class LocationCapabilitiesMapper
     const tv: Tv[] = tcApi.television.map(tvItem => {
       return {
         provider: {
+          id: tvItem.operator.id,
           isActive: true,
           name: tvItem.operator.name,
           icon: tvItem.operator.icon
         },
-        // tslint:disable-next-line:no-magic-numbers
-        // type: '/' + tvItem.type.map(type => type.id === 1 ? 'АТВ ' : type.id === 2 ? 'ЦТВ ' : '').join(' ')
-        type: tvItem.type.map(type => type.id)
+        type: tvItem.type.map(type => {
+          return {
+            type: type.id,
+            name: type.id === SignalType.ATV ? 'АТВ' : 'ЦТВ',
+          };
+        })
       };
     });
 
@@ -102,7 +109,7 @@ export class LocationCapabilitiesMapper
       {
         population: tcApi.location.people_count,
         cellular,
-        mail: [], // Негде брать
+        mail: tcApi.post,
         telephone,
         informat: false,
         internet,

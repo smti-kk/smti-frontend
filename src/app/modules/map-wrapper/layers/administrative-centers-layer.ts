@@ -1,4 +1,4 @@
-import { AccessPointLayer } from '../components/access-point-layer';
+import { MonitoringLayer } from '../components/monitoring-layer';
 import { Observable } from 'rxjs';
 import { AdministrativeCenterPoint } from '../model/administrative-center-point';
 import { MunicipalitiesLayerGeoJson } from './municipalities-layer';
@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { AdministrativeCentersService } from '../service/administrative-centers.service';
 
 @Injectable()
-export class AdministrativeCentersLayer extends AccessPointLayer<AdministrativeCenterPoint> {
+export class AdministrativeCentersLayer extends MonitoringLayer<AdministrativeCenterPoint> {
 
   areaId: string | number;
 

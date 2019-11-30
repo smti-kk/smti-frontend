@@ -1,12 +1,12 @@
 import { LatLngBounds } from 'leaflet';
 import { Observable } from 'rxjs';
-import { AccessPointLayer } from '../components/access-point-layer';
+import { MonitoringLayer } from '../components/monitoring-layer';
 import { AccessPointSmo } from '../model/access-point-smo';
 import { SmoService } from '../service/smo.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class AccessPointSmoLayer extends AccessPointLayer<AccessPointSmo> {
+export class AccessPointSmoLayer extends MonitoringLayer<AccessPointSmo> {
   constructor(private smoService: SmoService) {
     super();
   }

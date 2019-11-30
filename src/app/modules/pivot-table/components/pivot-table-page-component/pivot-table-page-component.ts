@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterTcPivotsService, FilterType } from '../../service/tc-pivots.service';
+import { FilterTcPivotsService, OrderingDirection } from '../../service/tc-pivots.service';
 import { LocationCapabilities, Provider, TrunkChannelType } from '@shared/models/location-capabilities';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GovProgram, GovProgramService } from '@shared/services/gov-program.service';
-import { MailType, MobileGeneration, SignalType } from '@shared/models/enums';
+import { MailType, MobileGenerationType, SignalType } from '@shared/models/enums';
 import { EnumService } from '@shared/services/enum.service';
 import { forkJoin, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -18,12 +18,15 @@ export class PivotTablePageComponent implements OnInit {
 
   lcs: LocationCapabilities[];
   govPrograms: GovProgram[];
+  pageNumber = 1;
+  itemsPerPage = 10;
+  isOpenedAccordion = false;
 
   TrunkChannelType = TrunkChannelType;
-  FilterType = FilterType;
+  OrderingDirection = OrderingDirection;
   SignalType = SignalType;
   MailType = MailType;
-  MobileGeneration = MobileGeneration;
+  MobileGenerationType = MobileGenerationType;
 
   internetProviders: Provider[];
   mobileProviders: Provider[];
@@ -120,5 +123,14 @@ export class PivotTablePageComponent implements OnInit {
 
         this.filterForm.addControl('mobile', mobileArrayControl);
       }));
+  }
+
+  getTvTypeString(types: { type: SignalType; name: string }[]) {
+    if (!types) {
+      return '';
+    }
+    return types
+      .map(type => type.name)
+      .join(',');
   }
 }

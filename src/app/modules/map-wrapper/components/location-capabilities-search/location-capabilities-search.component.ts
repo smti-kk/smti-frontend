@@ -6,7 +6,7 @@ import { AdministrativeCentersLayer } from '../../layers/administrative-centers-
 import { ExtendedMap } from '../../../../declarations/leaflet';
 import { LocationCapabilitiesService } from '@shared/services/location-capabilities.service';
 import { Subscription } from 'rxjs';
-import { AccessPointMarker } from '../access-point-marker';
+import { MonitoringMarker } from '../monitoring-marker';
 import { LatLng } from 'leaflet';
 import { TIMER_INTERVAL } from '@shared/utils/updated-list';
 
@@ -95,7 +95,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
 
     return this.administrativeCentersLayer
       .onMarkerClick
-      .subscribe((marker: AccessPointMarker<AdministrativeCenterPoint>) => {
+      .subscribe((marker: MonitoringMarker<AdministrativeCenterPoint>) => {
         this.onMunicipalityMarkerClick(marker);
 
         if (this.technicalCapabilitiesUpdateTimer) {
@@ -133,7 +133,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     }
   }
 
-  private onMunicipalityMarkerClick(marker: AccessPointMarker<AdministrativeCenterPoint>) {
+  private onMunicipalityMarkerClick(marker: MonitoringMarker<AdministrativeCenterPoint>) {
     this.searchForm.get(FORM_PARAMS.area).patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.area));
     this.setSelectedPoint(marker.feature.properties, true);
   }

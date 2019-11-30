@@ -8,6 +8,8 @@ import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.
 import { FilterBtnComponent } from './components/filter-btn/filter-btn.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TechnicalCapabilitiesComponent } from './components/technical-capabilities/technical-capabilities.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterOnClientTcPivotsService } from './service/filter-on-client-tc-pivots.service';
 
 
 @NgModule({
@@ -16,12 +18,14 @@ import { TechnicalCapabilitiesComponent } from './components/technical-capabilit
     CommonModule,
     PivotTableRoutingModule,
     NgxSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [
     LocationCapabilitiesMapper,
     TcPivotsService,
-    {provide: FilterTcPivotsService, useClass: FilterTcPivotsService}
+    NgxPaginationModule,
+    {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService}
   ]
 })
 export class PivotTableModule {

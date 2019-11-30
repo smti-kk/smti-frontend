@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Provider, TrunkChannel, TrunkChannelType } from '@shared/models/location-capabilities';
-import { SignalType, getStringSignalType } from '@shared/models/enums';
+import { MobileGeneration, Provider, TrunkChannel, TrunkChannelType } from '@shared/models/location-capabilities';
+import { getStringSignalType, SignalType } from '@shared/models/enums';
 
 @Component({
   selector: 'app-providers-row',
@@ -10,10 +10,10 @@ export class TechnicalCapabilitiesRowComponent implements OnInit {
 
   @Input() tcs: {
     provider: Provider,
-    mobileGeneration?: string,
+    mobileGeneration?: MobileGeneration,
     channel?: TrunkChannel,
-    type?: SignalType[],
-    count?: number
+    type?: any,
+    count?: number,
   }[];
 
   TrunkChannelType = TrunkChannelType;
@@ -25,7 +25,13 @@ export class TechnicalCapabilitiesRowComponent implements OnInit {
   ngOnInit() {
   }
 
-  hasProvider(tcs: { provider: Provider; mobileGeneration?: string; channel?: TrunkChannel; type?: SignalType[]; count?: number }[]) {
-    return tcs.find(t => t.provider.isActive === true);
+  getTvTypeString(types: { type: SignalType; name: string }[]) {
+    console.log(types);
+    if (!types) {
+      return '';
+    }
+    return types
+      .map(type => type.name)
+      .join(',');
   }
 }

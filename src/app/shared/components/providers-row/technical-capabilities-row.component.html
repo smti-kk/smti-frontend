@@ -10,7 +10,7 @@
            [alt]="tc.provider.name"
            [title]="tc.provider.name">
     </div>
-    <div class="c-vendor-status-text" *ngIf="tc.mobileGeneration">{{tc.mobileGeneration}}</div>
+    <div class="c-vendor-status-text" *ngIf="tc.mobileGeneration">{{tc.mobileGeneration.name}}</div>
     <div class="c-vendor-status-img"
          *ngIf="tc.channel"
          [title]="tc.channel.name"
@@ -22,7 +22,20 @@
                       sputnik: tc.channel.id === TrunkChannelType.SATELLITE
                      }"
     ></div>
-    <div class="c-vendor-status-text" *ngIf="tc.type">{{getStringSignalType(tc.type)}}</div>
+    <div class="c-vendor-status-text"
+         *ngIf="tc.type &&
+         tc.type.length !== 0 &&
+         !tc.type[0].name"
+    >
+      {{getStringSignalType(tc.type)}}
+    </div>
+    <div class="c-vendor-status-text"
+         *ngIf="tc.type &&
+         tc.type.length !== 0 &&
+         tc.type[0].name"
+    >
+      {{getTvTypeString(tc.type)}}
+    </div>
     <div class="c-vendor-status-text" *ngIf="tc.count">{{tc.count}}</div>
   </div>
 </div>

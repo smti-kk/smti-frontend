@@ -4,6 +4,7 @@ export enum MailType {
 }
 
 export const getStringSignalType = (signalType: SignalType[]): string => {
+  console.log(signalType);
   return signalType.map(st => {
     if (st === SignalType.ATV) {
       return 'АТВ';
@@ -18,7 +19,7 @@ export enum SignalType {
   CTV = 2
 }
 
-export enum MobileGeneration {
+export enum MobileGenerationType {
   M2G = 1,
   M3G = 2,
   M4G = 3,

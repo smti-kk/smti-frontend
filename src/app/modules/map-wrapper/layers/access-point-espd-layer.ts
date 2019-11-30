@@ -1,4 +1,4 @@
-import { AccessPointLayer } from '../components/access-point-layer';
+import { MonitoringLayer } from '../components/monitoring-layer';
 import { LatLngBounds } from 'leaflet';
 import { Observable } from 'rxjs';
 import { AccessPointEspd } from '../model/access-point-espd';
@@ -6,7 +6,7 @@ import { EspdService } from '../service/espd.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class AccessPointEspdLayer extends AccessPointLayer<AccessPointEspd> {
+export class AccessPointEspdLayer extends MonitoringLayer<AccessPointEspd> {
 
   constructor(private espdService: EspdService) {
     super();

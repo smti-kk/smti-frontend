@@ -1,11 +1,11 @@
-import { AccessPoint } from './access-point';
+import { MonitoringPoint } from './monitoring-point';
 import { Coordinate } from '../interface/coordinate';
 
 const ESPD_MARKER_ACTIVE = '../../../../assets/img/Ресурс 5.svg';
 const ESPD_MARKER_UNDEFINED = '../../../../assets/img/Ресурс 4.svg';
 const ESPD_MARKER_DISABLED = '../../../../assets/img/Ресурс 3.svg';
 
-export class AccessPointEspd extends AccessPoint {
+export class AccessPointEspd extends MonitoringPoint {
 
   constructor(_pk: number,
               _point: Coordinate,
@@ -20,7 +20,7 @@ export class AccessPointEspd extends AccessPoint {
               private _avstate: string,
               private _avstateStr,
               private _traffic) {
-    super(_pk, _point, _name, '');
+    super(_pk, _point, _name);
   }
 
 

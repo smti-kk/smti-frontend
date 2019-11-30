@@ -5,8 +5,8 @@
     class="btn c-filter-button"
 
     [ngClass]="{
-        'is-active': ordering.orderingDirection !== FilterType.UNDEFINED,
-        'u-back-sort': ordering.orderingDirection === FilterType.DSC
+        'is-active': ordering.orderingDirection !== OrderingDirection.UNDEFINED,
+        'u-back-sort': ordering.orderingDirection === OrderingDirection.DSC
       }"
     (click)="onOrderingBtnClick(ordering)"
 

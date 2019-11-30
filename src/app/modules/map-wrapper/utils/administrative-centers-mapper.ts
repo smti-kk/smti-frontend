@@ -1,9 +1,10 @@
-import { ApiMapper } from '../../../shared/utils/api-mapper';
+import { ApiMapper } from '@shared/utils/api-mapper';
 import { AdministrativeCenterPoint } from '../model/administrative-center-point';
 
 export class AdministrativeCentersMapper
   extends ApiMapper<AdministrativeCenterPoint, AdministrativeCenterPoint, AdministrativeCenterPoint> {
 
+  // noinspection JSMethodCanBeStatic
   public mapFromApi(apiModel): AdministrativeCenterPoint {
     return new AdministrativeCenterPoint(
       apiModel.pk,

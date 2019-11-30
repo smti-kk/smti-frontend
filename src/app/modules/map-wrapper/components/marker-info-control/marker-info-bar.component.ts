@@ -3,7 +3,7 @@ import { LocationCapabilities, Telephone } from '@shared/models/location-capabil
 import { LocationCapabilitiesService } from '@shared/services/location-capabilities.service';
 import { ExtendedMap } from '../../../../declarations/leaflet';
 import { OrganizationsService } from '@shared/services/organizations.service';
-import {Organization, Reaccesspoint} from '@shared/models/organization';
+import { Organization, Reaccesspoint } from '@shared/models/organization';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -36,11 +36,6 @@ export class MarkerInfoBarComponent implements OnInit {
       this.toggleClass($event.target.parentNode.nextElementSibling, clazz);
     }
   }
-
-  hasProvider(telephone: Telephone[]) {
-    return telephone.find(t => t.provider.isActive === true);
-  }
-
 
   onSelectPoint(point: number) {
     this.leafletMap.spin(true);

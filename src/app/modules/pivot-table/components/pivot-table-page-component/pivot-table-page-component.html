@@ -4,19 +4,19 @@
     <h1>Сводная таблица по населенным пунктам</h1>
     <div class="c-filter">
       <div class="c-accordion">
-        <div class="c-accordion-title">
+        <div class="c-accordion-title" (click)="isOpenedAccordion = !isOpenedAccordion">
           <div class="c-filter-icon">Фильтры</div>
-          <div class="c-accordion-button"></div>
+          <div class="c-accordion-button"
+               [class.is-open]="isOpenedAccordion"></div>
         </div>
-        <div class="c-accordion-body" style="display: block">
+        <div class="c-accordion-body" *ngIf="isOpenedAccordion" style="display: block">
           <form *ngIf="filterForm" [formGroup]="filterForm">
             <div class="l-container">
               <div class="l-container-item js-filter-button">
-                <app-filter-btn formControlName="order"
-                  [orderings]="[
-                      {name: 'Нас.пункт', value: 'name', orderingDirection: FilterType.UNDEFINED },
-                      {name: 'Район', value: 'parent', orderingDirection: FilterType.UNDEFINED },
-                      {name: 'Численность', value: 'people_count', orderingDirection: FilterType.UNDEFINED }
+                <app-filter-btn formControlName="order" [orderings]="[
+                      {name: 'Нас.пункт', value: 'name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Район', value: 'parent', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'people_count', orderingDirection: OrderingDirection.UNDEFINED }
                   ]"
                 >
 
@@ -29,7 +29,7 @@
                     <div class="c-checkbox-text">Наличие ЕСПД</div>
                   </label>
                 </div>
-                <div class="c-checkbox" >
+                <div class="c-checkbox">
                   <label> <input type="checkbox" formControlName="hasPayphone">
                     <div class="c-checkbox-text">Наличие таксофона</div>
                   </label>
@@ -82,29 +82,31 @@
                 <div class="l-container-row is-disabled">
                   <div class="o-item-title">Сотовая связь:</div>
                   <div class="l-vendors-row u-border-right">
-                    <div formGroupName="mobile" class="c-vendor" *ngFor="let mobileProvider of mobileProviders; let i = index">
+                    <div formGroupName="mobile" class="c-vendor"
+                         *ngFor="let mobileProvider of mobileProviders; let i = index">
                       <label [formGroupName]="i.toString()">
                         <input [formControlName]="mobileProvider.id.toString()" type="checkbox">
                         <div class="c-vendor-logo c-vendor-checked">
-                          <img [src]="mobileProvider.icon" [alt]="mobileProvider.name" [title]="mobileProvider.name"></div>
+                          <img [src]="mobileProvider.icon" [alt]="mobileProvider.name" [title]="mobileProvider.name">
+                        </div>
                       </label>
                     </div>
                   </div>
                   <div class="c-radiobox l-radiobox-row">
                     <label>
-                      <input formControlName="mobileType" [value]="MobileGeneration.M2G" type="radio">
+                      <input formControlName="mobileType" [value]="MobileGenerationType.M2G" type="radio">
                       <div class="c-radiobox-text">2G</div>
                     </label>
                     <label>
-                      <input formControlName="mobileType" [value]="MobileGeneration.M3G" type="radio">
+                      <input formControlName="mobileType" [value]="MobileGenerationType.M3G" type="radio">
                       <div class="c-radiobox-text">3G</div>
                     </label>
                     <label>
-                      <input formControlName="mobileType" [value]="MobileGeneration.M4G" type="radio">
+                      <input formControlName="mobileType" [value]="MobileGenerationType.M4G" type="radio">
                       <div class="c-radiobox-text">4G</div>
                     </label>
                     <label>
-                      <input formControlName="mobileType" [value]="MobileGeneration.M5G" type="radio">
+                      <input formControlName="mobileType" [value]="MobileGenerationType.M5G" type="radio">
                       <div class="c-radiobox-text">5G</div>
                     </label>
                   </div>
@@ -112,11 +114,13 @@
                 <div class="l-container-row is-disabled">
                   <div class="o-item-title">Интернет:</div>
                   <div class="l-vendors-column u-border-right">
-                    <div formGroupName="internet" class="c-vendor" *ngFor="let internetProvider of internetProviders; let i = index">
+                    <div formGroupName="internet" class="c-vendor"
+                         *ngFor="let internetProvider of internetProviders; let i = index">
                       <label [formGroupName]="i.toString()">
                         <input type="checkbox" [formControlName]="internetProvider.id.toString()">
                         <div class="c-vendor-logo c-vendor-checked">
-                          <img [src]="internetProvider.icon" [alt]="internetProvider.name" [title]="internetProvider.name">
+                          <img [src]="internetProvider.icon" [alt]="internetProvider.name"
+                               [title]="internetProvider.name">
                         </div>
                       </label>
                     </div>
@@ -146,7 +150,7 @@
               </div>
             </div>
             .
-            <input (click)="filterForm.reset()" class="btn filter-btn-reset" value="Сбросить фильтр">
+            <input (click)="filterForm.reset()" class="btn filter-btn-reset" value="Сбросить фильтр" type="button">
           </form>
         </div>
       </div>
@@ -176,7 +180,8 @@
       class="spinner"
       [fullScreen]="true"
     ></ngx-spinner>
-    <div class="l-table l-table-location" *ngFor="let lc of lcs; let i = index">
+    <div class="l-table l-table-location"
+         *ngFor="let lc of lcs | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}; let i = index">
       <div class="l-table-column">{{i + 1}}</div>
       <div class="l-table-column">
         <div class="c-location-name">
@@ -192,7 +197,6 @@
       <div class="l-table-column">
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-phone-alt"></i></div>
-          <div class="l-table-item u-true"></div>
           <div class="l-table-item">
             <div class="c-vendor"
                  *ngFor="let phone of lc.information.telephone"
@@ -230,8 +234,14 @@
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="far fa-envelope"></i></div>
-          <div class="l-table-item u-true"></div>
-          <div class="l-table-item">УПС</div>
+          <div class="l-table-item u-true"
+               *ngIf="lc.information.mail.length > 0">
+          </div>
+          <div class="l-table-item"
+               *ngIf="lc.information.mail.length === 0">
+            0
+          </div>
+          <div class="l-table-item" *ngFor="let mail of lc.information.mail">УПС</div>
         </div>
       </div>
       <div class="l-table-column">
@@ -242,17 +252,16 @@
               <div class="c-vendor-logo" [ngClass]="{opacity: !tv.provider.isActive}">
                 <img class="image" [src]="tv.provider.icon" [alt]="tv.provider.name" [title]="tv.provider.name">
               </div>
-              <div class="vendor-status-text">{{tv.type}}</div>
+              <div class="vendor-status-text">{{getTvTypeString(tv.type)}}</div>
             </div>
           </div>
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-microphone"></i></div>
-          <div class="l-table-item u-true"></div>
           <div class="l-table-item">
-            <div class="c-vendor">
-              <div class="c-vendor-logo">
-                <img src="../../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком">
+            <div class="c-vendor" *ngFor="let radio of lc.information.radio">
+              <div class="c-vendor-logo" [ngClass]="{ opacity: !radio.provider.isActive }">
+                <img [src]="radio.provider.icon" [alt]="radio.provider.name" [title]="radio.provider.name">
               </div>
             </div>
           </div>
@@ -267,7 +276,7 @@
                 <img class="image" [src]="phone.provider.icon" [alt]="phone.provider.name"
                      [title]="phone.provider.name">
               </div>
-              <div class="c-vendor-status-text">{{phone.mobileGeneration}}</div>
+              <div class="c-vendor-status-text">{{phone.mobileGeneration?.name}}</div>
             </div>
           </div>
         </div>
@@ -308,5 +317,23 @@
         </div>
       </div>
     </div>
+    <div style="display: flex; justify-content: flex-end" *ngIf="lcs">
+      <div class="pagination-count">
+        <div style="margin-right: 13px">Количество строк на странице:</div>
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 10" type="button" (click)="itemsPerPage = 10" value="10">
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 20" type="button" (click)="itemsPerPage = 20" value="20">
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 100" type="button" (click)="itemsPerPage = 100" value="100">
+      </div>
+    </div>
+    <pagination-controls
+      *ngIf="this.lcs"
+      class="pagination-controls"
+      (pageChange)="pageNumber = $event"
+      previousLabel="Предыдущая страница"
+      nextLabel="Следующая страница"
+    >
+
+    </pagination-controls>
   </div>
 </main>
+

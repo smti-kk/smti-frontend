@@ -1,9 +1,9 @@
 import { Coordinate } from '../interface/coordinate';
-import { AccessPoint } from './access-point';
+import { MonitoringPoint } from './monitoring-point';
 
 const SMO_MARKER_PATH = '../../../../assets/img/Ресурс 6.svg';
 
-export class AccessPointSmo extends AccessPoint {
+export class AccessPointSmo extends MonitoringPoint {
 
   constructor(private _actualAddress: string,
               private _address: string,
@@ -18,7 +18,7 @@ export class AccessPointSmo extends AccessPoint {
               _pk: number,
               _point: Coordinate,
               private _visible: boolean) {
-    super(_pk, _point, _orgName, '');
+    super(_pk, _point, _orgName);
   }
 
   get iconUrl() {

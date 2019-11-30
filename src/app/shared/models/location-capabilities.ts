@@ -1,5 +1,5 @@
 import { GovProgram } from '@shared/services/gov-program.service';
-import { SignalType } from '@shared/models/enums';
+import { MailType, MobileGenerationType, SignalType } from '@shared/models/enums';
 
 export enum TrunkChannelType {
   UNDEFINED,
@@ -15,7 +15,6 @@ export interface TrunkChannel {
 }
 
 export enum Quality {
-// good normal absent
   GOOD = 'good',
   NORMAL = 'normal',
   ABSENT = 'absent'
@@ -69,9 +68,14 @@ export interface Provider {
   isActive: boolean;
 }
 
+export interface MobileGeneration {
+  id: MobileGenerationType;
+  name: string;
+}
+
 export interface Mobile {
   provider: Provider;
-  mobileGeneration: string;
+  mobileGeneration: MobileGeneration;
   quality: Quality;
 }
 
@@ -83,7 +87,10 @@ export interface Internet {
 
 export interface Tv {
   provider: Provider;
-  type: SignalType[];
+  type: {
+    type: SignalType,
+    name: string;
+  }[];
 }
 
 export interface Radio {
@@ -103,6 +110,7 @@ export interface Telephone {
 
 export interface Mail {
   provider: Provider;
+  type: MailType;
 }
 
 export interface LocationCapabilitiesInformation {

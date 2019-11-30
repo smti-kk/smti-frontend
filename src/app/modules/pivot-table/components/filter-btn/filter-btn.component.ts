@@ -1,9 +1,9 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { FilterType } from '../../service/tc-pivots.service';
+import { OrderingDirection } from '../../service/tc-pivots.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface OrderingFilter {
-  orderingDirection: FilterType;
+  orderingDirection: OrderingDirection;
   name: string;
 }
 
@@ -20,10 +20,10 @@ export const FILTER_BUTTONS_VALUE_ACCESSOR: any = {
 })
 export class FilterBtnComponent implements OnInit, ControlValueAccessor {
 
-  @Input() orderings: { name: string, value: string, orderingDirection: FilterType }[];
+  @Input() orderings: { name: string, value: string, orderingDirection: OrderingDirection }[];
   onChange: (_: any) => {};
   onTouched: () => {};
-  FilterType = FilterType;
+  OrderingDirection = OrderingDirection;
 
   constructor() {
 
@@ -46,18 +46,18 @@ export class FilterBtnComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {
   }
 
-  onOrderingBtnClick(ordering: { name: string; value: string; orderingDirection: FilterType }) {
-    if (ordering.orderingDirection === FilterType.UNDEFINED) {
-      ordering.orderingDirection = FilterType.ASC;
-    } else if (ordering.orderingDirection === FilterType.ASC) {
-      ordering.orderingDirection = FilterType.DSC;
+  onOrderingBtnClick(ordering: { name: string; value: string; orderingDirection: OrderingDirection }) {
+    if (ordering.orderingDirection === OrderingDirection.UNDEFINED) {
+      ordering.orderingDirection = OrderingDirection.ASC;
+    } else if (ordering.orderingDirection === OrderingDirection.ASC) {
+      ordering.orderingDirection = OrderingDirection.DSC;
     } else {
-      ordering.orderingDirection = FilterType.UNDEFINED;
+      ordering.orderingDirection = OrderingDirection.UNDEFINED;
     }
 
     this.orderings.forEach(iOrdering => {
       if (iOrdering !== ordering) {
-        iOrdering.orderingDirection = FilterType.UNDEFINED;
+        iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
       }
     });
 
@@ -66,7 +66,7 @@ export class FilterBtnComponent implements OnInit, ControlValueAccessor {
 
   private reset() {
     this.orderings.forEach(o => {
-      o.orderingDirection = FilterType.UNDEFINED;
+      o.orderingDirection = OrderingDirection.UNDEFINED;
     });
   }
 }

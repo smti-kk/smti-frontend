@@ -1,6 +1,6 @@
 import { Icon, Marker } from 'leaflet';
 import * as geojson from 'geojson';
-import { AccessPoint } from '../model/access-point';
+import { MonitoringPoint } from '../model/monitoring-point';
 import { EventEmitter } from '@angular/core';
 
 const ICON_WIDTH = 30;
@@ -16,7 +16,7 @@ const BIG_ICON_WIDTH = 38;
 const BIG_ICON_HEIGHT = 48;
 
 
-export class AccessPointMarker<T extends AccessPoint> extends Marker {
+export class MonitoringMarker<T extends MonitoringPoint> extends Marker {
 
   private static deactivateMarker: EventEmitter<void> = new EventEmitter<void>();
 
@@ -26,7 +26,7 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     super(
       [point.point.lat, point.point.lng],
       {
-        icon: AccessPointMarker.createIcon(point)
+        icon: MonitoringMarker.createIcon(point)
       }
     );
 
@@ -38,13 +38,13 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     };
 
     this.on('click', () => {
-      AccessPointMarker.deactivateMarker.emit();
+      MonitoringMarker.deactivateMarker.emit();
 
-      this.setIcon(AccessPointMarker.createBigIcon(this.feature.properties));
+      this.setIcon(MonitoringMarker.createBigIcon(this.feature.properties));
 
-      const observer = AccessPointMarker.deactivateMarker.subscribe(() => {
+      const observer = MonitoringMarker.deactivateMarker.subscribe(() => {
         observer.unsubscribe();
-        this.setIcon(AccessPointMarker.createIcon(this.feature.properties));
+        this.setIcon(MonitoringMarker.createIcon(this.feature.properties));
       });
     });
   }
@@ -60,13 +60,13 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     }
 
     if (this.feature.properties.iconUrl !== point.iconUrl) {
-      this.setIcon(AccessPointMarker.createIcon(point));
+      this.setIcon(MonitoringMarker.createIcon(point));
     }
 
     this.feature.properties = point;
   }
 
-  private static createIcon(point: AccessPoint): Icon {
+  private static createIcon(point: MonitoringPoint): Icon {
     return new Icon({
       iconUrl: point.iconUrl,
       iconSize: [ICON_WIDTH, ICON_HEIGHT],
@@ -76,7 +76,7 @@ export class AccessPointMarker<T extends AccessPoint> extends Marker {
     });
   }
 
-  private static createBigIcon(point: AccessPoint): Icon {
+  private static createBigIcon(point: MonitoringPoint): Icon {
     return new Icon({
       iconUrl: point.iconUrl,
       iconSize: [BIG_ICON_WIDTH, BIG_ICON_HEIGHT],
