@@ -4,15 +4,21 @@
     <h1>Сводная таблица по населенным пунктам</h1>
     <div class="c-filter">
       <div class="c-accordion">
-        <div class="c-accordion-title" (click)="isOpenedAccordion = !isOpenedAccordion">
+        <div (click)="isOpenedAccordion = !isOpenedAccordion" class="c-accordion-title">
           <div class="c-filter-icon">Фильтры</div>
           <div class="d-flex">
-            <div class="search-location search-location-pivots" [formGroup]="filterForm"
-                 (click)="isOpenedAccordion = !isOpenedAccordion">
-              <input formControlName="locationName"
-                     placeholder="Поиск по населенным пунктам"
-                     type="text">
-              <input value="" type="submit">
+            <div [class.search-block]="displayBlockSearch" [class.search-absolute]="!displayBlockSearch">
+              <div (click)="isOpenedAccordion = !isOpenedAccordion" [formGroup]="filterForm" class="search-location search-location-pivots">
+                <input (focusout)="onSearchInputFocusOut()"
+                       (keyup)="onSearchControlKeyPress($event)"
+                       [formControl]="searchControl"
+                       class="background-transparent"
+                       id="searchControl"
+                       placeholder="Поиск по населенным пунктам"
+                       type="text"
+                >
+                <input value="" type="submit">
+              </div>
             </div>
             <div class="c-accordion-button" [class.is-open]="isOpenedAccordion"></div>
           </div>
@@ -188,12 +194,12 @@
       class="spinner"
       [fullScreen]="true"
     ></ngx-spinner>
-    <div class="l-table l-table-location"
+    <div class="l-table l-table-location" [id]="lc.id"
          *ngFor="let lc of lcs | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}; let i = index">
       <div class="l-table-column">{{lc.id}}</div>
       <div class="l-table-column">
         <div class="c-location-name">
-          <div class="c-location-name-item1">{{lc.name}}</div>
+          <div class="c-location-name-item1" [class.searched-item]="searchedTc === lc">{{lc.name}}</div>
           <div class="c-location-name-item2">{{lc.area}}</div>
         </div>
         <div class="c-location-peoples"><span>{{lc.information.population}}</span> чел.</div>

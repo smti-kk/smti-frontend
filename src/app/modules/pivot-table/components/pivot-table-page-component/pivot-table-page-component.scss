@@ -33,5 +33,22 @@
 .search-location-pivots {
   margin-top: 0;
   width: 296px;
+}
+
+.search-absolute {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  border: 2px solid #009dd3;
+  padding: 8px;
+  background: white;
+}
+
+.searched-item {
+  color: #35a584;
+  text-decoration: underline;
+}
+
+.search-block {
   margin-right: 31px;
 }
