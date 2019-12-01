@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from './service/requests.service';
 import { Request } from './model/request';
-import { LocationCapabilitiesService } from '@shared/services/location-capabilities.service';
-import { LocationCapabilities, TrunkChannelType } from '@shared/models/location-capabilities';
+import { LocationCapabilitiesService } from '@core/services';
+import { LocationCapabilities, TrunkChannelType } from '@core/models';
 
 @Component({
   selector: 'requests',

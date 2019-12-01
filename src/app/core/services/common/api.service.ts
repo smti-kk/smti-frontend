@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { StoreService } from '../store.service';
+import { StoreService } from '@core/services/store.service';
 
 export class ApiService {
   constructor(

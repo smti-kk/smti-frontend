@@ -1,8 +1,6 @@
 import { ApiMapper } from './api-mapper';
-import { Internet, LocationCapabilities, Mobile, Payphone, Provider, Radio, Telephone, Tv } from '../models/location-capabilities';
-import { GovProgramMapper } from '@shared/services/gov-program.service';
-import { SignalType } from '@shared/models/enums';
-
+import { Internet, LocationCapabilities, Mobile, Payphone, Provider, Radio, SignalType, Telephone, Tv } from '@core/models';
+import { GovProgramMapper } from '@core/services/gov-program-mapper.service';
 
 export class LocationCapabilitiesMapper
   extends ApiMapper<LocationCapabilities, LocationCapabilities, LocationCapabilities> {

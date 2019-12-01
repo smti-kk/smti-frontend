@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { LocationCapabilities } from '@shared/models/location-capabilities';
 import { sortStringAscCompareFn, sortStringDescCompareFn } from '@shared/utils/sort';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { FilterTcPivotsService, OrderingDirection } from './tc-pivots.service';
+import { LocationCapabilities } from '@core/models';
 
 @Injectable()
 export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
@@ -96,6 +96,9 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
     },
     post_type: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
       return tcs.filter(tc => tc.information.mail.find(mail => mail.type === this.filters.mailType));
+    },
+    locationName: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
+      return tcs.filter(tc => tc.name.toLowerCase().includes(this.filters.locationName.toLowerCase()));
     }
   };
 
@@ -103,6 +106,7 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
 
   list(): Observable<LocationCapabilities[]> {
     if (!this.cachedTc) {
+      this.params = this.params.append('parent', '2093');
       return super
         .list()
         .pipe(tap((tcs) => this.cachedTc = tcs));
@@ -110,6 +114,7 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
       let filtered = [...this.cachedTc];
       this.params
         .keys()
+        .filter(p => p !== 'parent')
         .forEach((filter) => {
           filtered = this.filtersFn[filter](filtered);
         });

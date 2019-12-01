@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { User } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs/operators';
 import { StoreService } from './store.service';
-import { RestApiService } from './common/rest-api-service';
-import { ACCOUNT_INFO, ESIA_LOGIN, LOGIN } from '../constants/api';
-import { UserMapper } from '../utils/user-mapper';
+import { ACCOUNT_INFO, ESIA_LOGIN, LOGIN } from '@shared/constants/api';
+import { UserMapper } from '@shared/utils/user-mapper';
+import { User } from '@core/models';
+import { RestApiService } from '@core/services/common/rest-api-service';
 
 @Injectable({
   providedIn: SharedModule,

@@ -6,8 +6,16 @@
       <div class="c-accordion">
         <div class="c-accordion-title" (click)="isOpenedAccordion = !isOpenedAccordion">
           <div class="c-filter-icon">Фильтры</div>
-          <div class="c-accordion-button"
-               [class.is-open]="isOpenedAccordion"></div>
+          <div class="d-flex">
+            <div class="search-location search-location-pivots" [formGroup]="filterForm"
+                 (click)="isOpenedAccordion = !isOpenedAccordion">
+              <input formControlName="locationName"
+                     placeholder="Поиск по населенным пунктам"
+                     type="text">
+              <input value="" type="submit">
+            </div>
+            <div class="c-accordion-button" [class.is-open]="isOpenedAccordion"></div>
+          </div>
         </div>
         <div class="c-accordion-body" *ngIf="isOpenedAccordion" style="display: block">
           <form *ngIf="filterForm" [formGroup]="filterForm">
@@ -34,8 +42,8 @@
                     <div class="c-checkbox-text">Наличие таксофона</div>
                   </label>
                 </div>
-                <div class="c-checkbox">
-                  <label> <input type="checkbox" formControlName="hasInfomat">
+                <div class="c-checkbox" style="opacity: 0.6">
+                  <label> <input [disabled]="true" type="checkbox">
                     <div class="c-checkbox-text">Наличие инфомата</div>
                   </label>
                 </div>
@@ -167,7 +175,7 @@
       <div class="l-table-column">№</div>
       <div class="l-table-column">Населенный пункт<br>Район<br>Численность чел.</div>
       <div class="l-table-column">ЕСПД</div>
-      <div class="l-table-column">Телефон,<br>Таксофон,<br>Ифомат,<br>Почта</div>
+      <div class="l-table-column">Телефон,<br>Таксофон,<br>Инфомат,<br>Почта</div>
       <div class="l-table-column">ТВ,<br>Радио</div>
       <div class="l-table-column">Связь<br>(сотовая, интернет)</div>
       <div class="l-table-column">Программа</div>
@@ -182,7 +190,7 @@
     ></ngx-spinner>
     <div class="l-table l-table-location"
          *ngFor="let lc of lcs | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}; let i = index">
-      <div class="l-table-column">{{i + 1}}</div>
+      <div class="l-table-column">{{lc.id}}</div>
       <div class="l-table-column">
         <div class="c-location-name">
           <div class="c-location-name-item1">{{lc.name}}</div>
@@ -216,7 +224,7 @@
           <div class="l-table-item"><i class="fas fa-tty"></i></div>
           <div class="l-table-item">
             <div class="c-vendor" *ngFor="let payphone of lc.information.payphone">
-              <div class="c-vendor-logo" [ngClass]="{ opacity: !payphone.provider.isActive }">
+              <div class="c-vendor-logo" [ngClass]="{ opacity: !payphone.provider.isActive || payphone.count === 0 }">
                 <img
                   class="image"
                   [src]="payphone.provider.icon"
@@ -224,7 +232,7 @@
                   [title]="payphone.provider.name"
                 >
               </div>
-              <div class="vendor-status-text status-pos">{{payphone.count}}</div>
+              <div class="vendor-status-text status-pos" *ngIf="payphone.count !== 0">{{payphone.count}}</div>
             </div>
           </div>
         </div>
@@ -252,7 +260,7 @@
               <div class="c-vendor-logo" [ngClass]="{opacity: !tv.provider.isActive}">
                 <img class="image" [src]="tv.provider.icon" [alt]="tv.provider.name" [title]="tv.provider.name">
               </div>
-              <div class="vendor-status-text">{{getTvTypeString(tv.type)}}</div>
+              <div class="c-vendor-status-text">{{getTvTypeString(tv.type)}}</div>
             </div>
           </div>
         </div>
@@ -261,7 +269,10 @@
           <div class="l-table-item">
             <div class="c-vendor" *ngFor="let radio of lc.information.radio">
               <div class="c-vendor-logo" [ngClass]="{ opacity: !radio.provider.isActive }">
-                <img [src]="radio.provider.icon" [alt]="radio.provider.name" [title]="radio.provider.name">
+                <img class="image"
+                     [src]="radio.provider.icon"
+                     [alt]="radio.provider.name"
+                     [title]="radio.provider.name">
               </div>
             </div>
           </div>
@@ -320,9 +331,12 @@
     <div style="display: flex; justify-content: flex-end" *ngIf="lcs">
       <div class="pagination-count">
         <div style="margin-right: 13px">Количество строк на странице:</div>
-        <input class="pagination-count-button" [class.active]="itemsPerPage === 10" type="button" (click)="itemsPerPage = 10" value="10">
-        <input class="pagination-count-button" [class.active]="itemsPerPage === 20" type="button" (click)="itemsPerPage = 20" value="20">
-        <input class="pagination-count-button" [class.active]="itemsPerPage === 100" type="button" (click)="itemsPerPage = 100" value="100">
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 10" type="button"
+               (click)="itemsPerPage = 10" value="10">
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 20" type="button"
+               (click)="itemsPerPage = 20" value="20">
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 100" type="button"
+               (click)="itemsPerPage = 100" value="100">
       </div>
     </div>
     <pagination-controls

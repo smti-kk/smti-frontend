@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { ApiService } from './api.service';
-import { StoreService } from '../store.service';
+import { StoreService } from '@core/services/store.service';
 import { map } from 'rxjs/operators';
-import { ApiMapper } from '../../utils/api-mapper';
+import { ApiMapper } from '@shared/utils/api-mapper';
+import { ApiService } from '@core/services/common/api.service';
 
 export class RestApiService<ShortModel,
   DetailModel,
@@ -42,6 +42,7 @@ export class RestApiService<ShortModel,
       .pipe(map((data) => this.parseResponseOne(data)));
   }
 
+  // noinspection JSMethodCanBeStatic
   protected createInstance<T>(data?): T {
     return data as T;
   }

@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TcPivotsService } from '../../service/tc-pivots.service';
 import { ActivatedRoute } from '@angular/router';
-import { LocationCapabilities, Quality, TrunkChannelType } from '@shared/models/location-capabilities';
+import { LocationCapabilities, Quality, TrunkChannelType, SignalType } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { SignalType } from '@shared/models/enums';
 
 @Component({
   selector: 'app-technical-capabilities',

@@ -8,6 +8,7 @@
   right: 1px;
   bottom: -11px;
 }
+
 .pagination-count-button {
   border: none;
   color: #009dd3;
@@ -23,4 +24,14 @@
 
 .pagination-count {
   display: flex;
+}
+
+.vendor-status-text {
+  font-size: 8px;
+}
+
+.search-location-pivots {
+  margin-top: 0;
+  width: 296px;
+  margin-right: 31px;
 }

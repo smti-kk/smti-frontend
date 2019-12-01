@@ -1,5 +1,5 @@
-import { GovProgram } from '@shared/services/gov-program.service';
-import { MailType, MobileGenerationType, SignalType } from '@shared/models/enums';
+import { GovProgram } from '@core/services';
+import { MailType, MobileGenerationType, SignalType } from './enums';
 
 export enum TrunkChannelType {
   UNDEFINED,

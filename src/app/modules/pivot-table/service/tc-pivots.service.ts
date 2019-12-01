@@ -1,14 +1,13 @@
-import { RestApiService } from '@shared/services/common/rest-api-service';
-import { LocationCapabilities, TrunkChannelType } from '@shared/models/location-capabilities';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { StoreService } from '@shared/services/store.service';
+import { StoreService } from '@core/services/store.service';
 import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.mapper';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GovProgram } from '@shared/services/gov-program.service';
+import { GovProgram } from '@core/services';
 import { OrderingFilter } from '../components/filter-btn/filter-btn.component';
-import { MailType, MobileGenerationType, SignalType } from '@shared/models/enums';
+import { LocationCapabilities, MailType, MobileGenerationType, SignalType, TrunkChannelType } from '@core/models';
 import { environment } from '../../../../environments/environment';
+import { RestApiService } from '@core/services/common/rest-api-service';
 
 const LTC = '/api/v1/ltc';
 
@@ -39,6 +38,7 @@ interface TcFilters {
   mobile: { [providerId: string]: boolean }[];
   mobileType: MobileGenerationType;
   internetType: TrunkChannelType;
+  locationName: string;
 }
 
 @Injectable()
@@ -67,6 +67,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     this.setMobileOperatorFilter(filters.mobile);
     this.setMobileTypeFilter(filters.mobileType);
     this.setInternetTypeFilter(filters.internetType);
+    this.setLocationFilter(filters.locationName);
   }
 
   exportExcel() {
@@ -156,6 +157,14 @@ export class FilterTcPivotsService extends TcPivotsService {
       this.params = this.params.delete('internet_type');
     } else {
       this.params = this.params.set('internet_type', internetType.toString());
+    }
+  }
+
+  private setLocationFilter(location: string) {
+    if (location) {
+      this.params = this.params.set('locationName', location);
+    } else if (this.params.has('locationName')) {
+      this.params = this.params.delete('locationName');
     }
   }
 }

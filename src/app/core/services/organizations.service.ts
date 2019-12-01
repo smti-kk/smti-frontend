@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { RestApiService } from './common/rest-api-service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { StoreService } from './store.service';
-import { DefaultMapper } from '../utils/api-mapper';
-import { ORGANIZATIONS } from '../constants/api';
-import { Organization } from '../models/organization';
+import { DefaultMapper } from '@shared/utils/api-mapper';
+import { ORGANIZATIONS } from '@shared/constants/api';
 import { Observable } from 'rxjs';
+import { Organization } from '@core/models';
 
 @Injectable()
 export class OrganizationsService extends RestApiService<Organization, Organization, Organization> {

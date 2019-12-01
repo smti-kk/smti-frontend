@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterTcPivotsService, OrderingDirection } from '../../service/tc-pivots.service';
-import { LocationCapabilities, Provider, TrunkChannelType } from '@shared/models/location-capabilities';
+import { LocationCapabilities, MailType, MobileGenerationType, Provider, SignalType, TrunkChannelType } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { GovProgram, GovProgramService } from '@shared/services/gov-program.service';
-import { MailType, MobileGenerationType, SignalType } from '@shared/models/enums';
-import { EnumService } from '@shared/services/enum.service';
+import { EnumService, GovProgram, GovProgramService } from '@core/services';
 import { forkJoin, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -21,6 +19,7 @@ export class PivotTablePageComponent implements OnInit {
   pageNumber = 1;
   itemsPerPage = 10;
   isOpenedAccordion = false;
+  isOpenedTooltip = false;
 
   TrunkChannelType = TrunkChannelType;
   OrderingDirection = OrderingDirection;
@@ -81,7 +80,8 @@ export class PivotTablePageComponent implements OnInit {
       tvType: [null],
       mobileType: [null],
       internetType: [null],
-      program: [null]
+      program: [null],
+      locationName: [null]
     });
   }
 

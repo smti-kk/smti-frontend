@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MobileGeneration, Provider, TrunkChannel, TrunkChannelType } from '@shared/models/location-capabilities';
-import { getStringSignalType, SignalType } from '@shared/models/enums';
+import { MobileGeneration, Provider, TrunkChannel, TrunkChannelType } from '@core/models';
+import { SignalType, getStringSignalType } from '@core/models';
 
 @Component({
   selector: 'app-providers-row',

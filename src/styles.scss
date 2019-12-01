@@ -444,6 +444,7 @@ select:-moz-focusring {
   display: none;
   padding-top: 0.5rem;
   padding-bottom: 1.2rem;
+  transition: background-color 1s linear;
 }
 
 .c-accordion-body.is-open { display: block }
@@ -1423,5 +1424,9 @@ input[type="radio"]:checked + .c-radiobox-text:after {
   text-align: right;
   font-size: 12px;
   padding-bottom: 2px;
+}
+
+.d-flex {
+  display: flex;
 }
 

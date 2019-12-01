@@ -1,11 +1,11 @@
-import { RestApiService } from '@shared/services/common/rest-api-service';
 import { AdministrativeCenterPoint } from '../model/administrative-center-point';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { StoreService } from '@shared/services/store.service';
+import { StoreService } from '@core/services/store.service';
 import { LOCATION_URL } from '../constants/api.constants';
 import { AdministrativeCentersMapper } from '../utils/administrative-centers-mapper';
 import { Injectable } from '@angular/core';
 import { LatLngBounds } from 'leaflet';
+import { RestApiService } from '@core/services/common/rest-api-service';
 
 @Injectable()
 export class AdministrativeCentersService

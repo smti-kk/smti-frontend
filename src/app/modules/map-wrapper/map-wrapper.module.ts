@@ -17,6 +17,7 @@ import { EspdService } from './service/espd.service';
 import { SmoService } from './service/smo.service';
 import { AdministrativeCentersService } from './service/administrative-centers.service';
 import { SharedModule } from '@shared/shared.module';
+import { CoreModule } from '@core/core.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SharedModule } from '@shared/shared.module';
     LeafletMarkerClusterModule.forRoot(),
     MapWrapperRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   providers: [
     MunicipalitiesLayer,

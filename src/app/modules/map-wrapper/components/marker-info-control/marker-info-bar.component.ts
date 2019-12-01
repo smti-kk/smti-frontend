@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { LocationCapabilities, Telephone } from '@shared/models/location-capabilities';
-import { LocationCapabilitiesService } from '@shared/services/location-capabilities.service';
+import { LocationCapabilities } from '@core/models/location-capabilities';
+import { LocationCapabilitiesService, OrganizationsService } from '@core/services';
 import { ExtendedMap } from '../../../../declarations/leaflet';
-import { OrganizationsService } from '@shared/services/organizations.service';
-import { Organization, Reaccesspoint } from '@shared/models/organization';
+import { Organization, Reaccesspoint } from '@core/models/organization';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -47,6 +46,7 @@ export class MarkerInfoBarComponent implements OnInit {
       .subscribe(response => {
         this.currentPointCapabilities = response[0];
         this.organizations = response[1];
+        console.log(response[1]);
         this.ref.detectChanges();
         this.leafletMap.spin(false);
       });

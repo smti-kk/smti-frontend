@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { StoreService } from '@shared/services/store.service';
+import { StoreService } from './store.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Provider } from '@shared/models/location-capabilities';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
+import { Provider } from '@core/models';
 
 const INTERNET_PROVIDER = '/api/v1/operator/internet';
 const MOBILE_PROVIDER = '/api/v1/operator/mobile';

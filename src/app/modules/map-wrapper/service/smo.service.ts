@@ -1,7 +1,7 @@
-import { RestApiService } from '../../../shared/services/common/rest-api-service';
+import { RestApiService } from '@core/services/common/rest-api-service';
 import { AccessPointSmo } from '../model/access-point-smo';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { StoreService } from '../../../shared/services/store.service';
+import { StoreService } from '@core/services/store.service';
 import { ACCESS_POINT_SMO_URL } from '../constants/api.constants';
 import { SmoMapper } from '../utils/smo-mapper';
 import { LatLngBounds } from 'leaflet';

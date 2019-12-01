@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { AccessPointEspd } from '../model/access-point-espd';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ACCESS_POINT_ESPD_URL } from '../constants/api.constants';
-import { RestApiService } from '@shared/services/common/rest-api-service';
 import { EspdMapper } from '../utils/espd-mapper';
-import { StoreService } from '@shared/services/store.service';
+import { StoreService } from '@core/services/store.service';
 import { LatLngBounds } from 'leaflet';
+import { RestApiService } from '@core/services/common/rest-api-service';
 
 @Injectable()
 export class EspdService extends RestApiService<AccessPointEspd, AccessPointEspd, AccessPointEspd> {

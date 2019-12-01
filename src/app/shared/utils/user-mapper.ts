@@ -1,7 +1,8 @@
 import { ApiMapper } from './api-mapper';
-import { User } from '../models/user';
+import { User } from '@core/models';
 
 export class UserMapper extends ApiMapper<User, User, User> {
+  // noinspection JSMethodCanBeStatic
   mapFromApi(apiModel): User {
     return new User(apiModel.email);
   }
