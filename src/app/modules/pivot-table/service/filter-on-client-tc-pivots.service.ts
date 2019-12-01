@@ -106,7 +106,6 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
 
   list(): Observable<LocationCapabilities[]> {
     if (!this.cachedTc) {
-      this.params = this.params.append('parent', '2093');
       return super
         .list()
         .pipe(tap((tcs) => this.cachedTc = tcs));
