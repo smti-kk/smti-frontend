@@ -193,7 +193,7 @@
       type="ball-atom"
       class="spinner"
       [fullScreen]="true"
-    ></ngx-spinner>
+    >Загрузка. . . (среднее время ожидания: 40 сек.)</ngx-spinner>
     <div class="l-table l-table-location" [id]="lc.id"
          *ngFor="let lc of lcs | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}; let i = index">
       <div class="l-table-column">{{lc.id}}</div>
