@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ApiMapper } from '@shared/utils/api-mapper';
 import { GovProgram } from '@core/services/gov-program.service';
+import {ApiMapper} from '@core/utils/api-mapper';
 
 @Injectable()
 export class GovProgramMapper extends ApiMapper<GovProgram, GovProgram, GovProgram> {

@@ -1,4 +1,4 @@
-import { ApiMapper } from '../../../shared/utils/api-mapper';
+import { ApiMapper } from '@core/utils/api-mapper';
 import { AccessPointSmo } from '../model/access-point-smo';
 
 export class SmoMapper extends ApiMapper<AccessPointSmo, AccessPointSmo, AccessPointSmo> {

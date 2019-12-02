@@ -1,5 +1,5 @@
-import { ApiMapper } from '@shared/utils/api-mapper';
 import { AccessPointEspd } from '../model/access-point-espd';
+import {ApiMapper} from '@core/utils/api-mapper';
 
 export class EspdMapper extends ApiMapper<AccessPointEspd, AccessPointEspd, AccessPointEspd> {
   mapFromApi(apiModel): AccessPointEspd {

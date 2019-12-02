@@ -1,5 +1,5 @@
-import { ApiMapper } from '@shared/utils/api-mapper';
 import { AdministrativeCenterPoint } from '../model/administrative-center-point';
+import {ApiMapper} from '@core/utils/api-mapper';
 
 export class AdministrativeCentersMapper
   extends ApiMapper<AdministrativeCenterPoint, AdministrativeCenterPoint, AdministrativeCenterPoint> {

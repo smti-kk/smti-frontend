@@ -1,4 +1,4 @@
-import { ApiMapper } from '../../../shared/utils/api-mapper';
+import { ApiMapper } from '@core/utils/api-mapper';
 import { LocationArea } from '../model/location-area';
 
 export class LocationAreaMapper extends ApiMapper<LocationArea, LocationArea, LocationArea> {
