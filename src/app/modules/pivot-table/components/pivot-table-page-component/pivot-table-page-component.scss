@@ -1,6 +1,7 @@
 .pagination-controls {
   display: flex;
   justify-content: center;
+  padding-bottom: 10px;
 }
 
 .status-pos {
@@ -24,6 +25,7 @@
 
 .pagination-count {
   display: flex;
+  padding: 10px;
 }
 
 .vendor-status-text {
@@ -42,6 +44,7 @@
   border: 2px solid #009dd3;
   padding: 8px;
   background: white;
+  z-index: 1;
 }
 
 .searched-item {

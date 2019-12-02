@@ -48,8 +48,8 @@
                     <div class="c-checkbox-text">Наличие таксофона</div>
                   </label>
                 </div>
-                <div class="c-checkbox" style="opacity: 0.6">
-                  <label> <input [disabled]="true" type="checkbox">
+                <div class="c-checkbox">
+                  <label> <input formControlName="hasInfomat" type="checkbox">
                     <div class="c-checkbox-text">Наличие инфомата</div>
                   </label>
                 </div>
@@ -244,7 +244,13 @@
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-tablet-alt"></i></div>
-          <div class="l-table-item">0</div>
+          <div class="l-table-item u-true"
+               *ngIf="lc.information.informat === true">
+          </div>
+          <div class="l-table-item"
+               *ngIf="lc.information.informat === false">
+            0
+          </div>
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="far fa-envelope"></i></div>

@@ -55,6 +55,7 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
         .filter(internetItem => Object.values(internetItem)[0] === true)
         .map(i => Object.keys(i)[0]);
 
+
       return tcs.filter(tc => {
         return tc.information.internet.find(internet => {
           return providers.find(p => internet.provider.isActive && p === internet.provider.id.toString());

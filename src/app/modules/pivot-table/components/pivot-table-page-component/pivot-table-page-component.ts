@@ -6,7 +6,6 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { EnumService, GovProgram, GovProgramService } from '@core/services';
 import { forkJoin, Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -102,6 +101,7 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     this.spinner.show();
     return this.tcPivots.list()
       .pipe(tap(lcs => {
+        console.log(lcs);
         this.lcs = lcs;
         this.spinner.hide();
       }));

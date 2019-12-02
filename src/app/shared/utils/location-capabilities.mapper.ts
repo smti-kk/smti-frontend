@@ -6,7 +6,7 @@ export class LocationCapabilitiesMapper
   extends ApiMapper<LocationCapabilities, LocationCapabilities, LocationCapabilities> {
 
   private getNotExistedProviders(allProviders: Provider[], existedProviders: Provider[], result: any[]) {
-    return allProviders
+    allProviders
       .filter(provider => !existedProviders.find(ep => ep.name === provider.name))
       .forEach(provider => result.push({
         provider: {
@@ -15,6 +15,14 @@ export class LocationCapabilitiesMapper
           icon: provider.icon
         }
       }));
+
+    result = result.sort((a, b) => {
+      if (a.provider.name > b.provider.name) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
   }
 
   public mapFromApi(tcApi): LocationCapabilities {
@@ -109,7 +117,7 @@ export class LocationCapabilitiesMapper
         cellular,
         mail: tcApi.post,
         telephone,
-        informat: false,
+        informat: tcApi.location.infomat > 0,
         internet,
         payphone,
         radio,
