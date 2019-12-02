@@ -1,13 +1,23 @@
+.l-table-location {
+  grid-template-columns: 40px 200px 60px 100px 120px 180px 1fr;
+}
+
+.l-table-location .l-table-column:nth-child(1) {
+  justify-self: center;
+}
+
+.l-table-location .l-table-column:nth-child(3) {
+  padding-left: 15px;
+}
+
+.l-table-location .u-table-header .l-table-column:nth-child(3) {
+  padding-left: 0;
+}
+
 .pagination-controls {
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
-}
-
-.status-pos {
-  position: absolute;
-  right: 1px;
-  bottom: -11px;
 }
 
 .pagination-count-button {
@@ -26,10 +36,6 @@
 .pagination-count {
   display: flex;
   padding: 10px;
-}
-
-.vendor-status-text {
-  font-size: 8px;
 }
 
 .search-location-pivots {

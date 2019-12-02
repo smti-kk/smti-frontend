@@ -204,6 +204,13 @@ input[type="text"]:focus::placeholder {
   color: #009dd3;
 }
 
+.btn-small {
+  padding: 5px 12px;
+  margin-right: 1rem;
+  width: 120px;
+  text-decoration: none;
+}
+
 textarea {
   margin-bottom: 19px;
   width: 100%;
@@ -278,7 +285,7 @@ input.btn.cancel {
 }
 
 select {
-  padding: 5px 0 4px 1rem;
+  padding: 0 0 4px 1rem;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -396,6 +403,7 @@ select:-moz-focusring {
 /* --- Аккордион --- begin --- */
 .c-accordion {
   padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .c-accordion:not(:last-child) {
@@ -499,6 +507,12 @@ select:-moz-focusring {
   width: 20px;
   min-height: 18px;
   background: url('/assets/img/building.png') no-repeat;
+}
+
+.o-none::before {
+  content: '\f15b';
+  margin-right: 8px;
+  font-size: 16px;
 }
 
 .u-green-dot::before { content: url('/assets/img/green-dot.png') }
@@ -606,22 +620,6 @@ select:-moz-focusring {
   margin-top: 1rem;
 }
 
-.filter-radiobox .radiobox {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 2px;
-}
-
-.filter-radiobox .radiobox label {
-  flex: 0 0 40%;
-}
-
-.filter-radiobox-name {
-  margin-bottom: 5px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
 .l-container-item .checkbox-text {
   font-size: 11px;
 }
@@ -677,22 +675,6 @@ select:-moz-focusring {
   align-items: center;
 }
 
-.l-table-location {
-  grid-template-columns: 40px 200px 60px 100px 120px 180px 1fr;
-}
-
-.l-table-location .l-table-column:nth-child(1) {
-  justify-self: center;
-}
-
-.l-table-location .l-table-column:nth-child(3) {
-  padding-left: 15px;
-}
-
-.l-table-location .u-table-header .l-table-column:nth-child(3) {
-  padding-left: 0;
-}
-
 .l-table-compare {
   grid-template-columns: 1fr 110px 200px 200px 110px;
 }
@@ -714,6 +696,17 @@ select:-moz-focusring {
 .u-false::before {
   content: '\f068';
   font-size: 13px;
+}
+
+.c-info {
+  display: flex;
+  margin-top: 14px;
+}
+
+.c-info-icon {
+  margin-right: 5px;
+  width: 18px;
+  text-align: center;
 }
 
 /* --- Фильтр. Результаты --- end --- */
@@ -917,60 +910,6 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 /* --- Радио кнопки и Чекбоксы --- end --- */
 
-/* --- Панель под хедером --- begin --- */
-.c-top-bar {
-  width: 970px;
-  margin: 15px auto 0;
-  padding: 14px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #fff;
-  font-size: 12px;
-  box-shadow: -7px 0px 18px rgba(0, 7, 3, 0.27);
-}
-
-.c-top-bar.pos-on-map {
-  position: absolute;
-  top: 15px;
-  left: 0;
-  right: 0;
-  margin-top: 0;
-}
-
-.c-top-bar-item {
-  padding-left: 12px;
-  padding-right: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.o-separator {
-  flex-shrink: 0;
-  margin: 0;
-  padding: 0;
-  width: 1px;
-  height: auto;
-  border: none;
-  background: #d2d2d2;
-}
-
-.u-flex-basis {
-  flex-basis: 200px;
-}
-
-.l-row {
-  display: flex;
-}
-
-.l-column {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-/* --- Панель под хедером --- end --- */
-
 /* --- Вкладки --- begin --- */
 .c-tab-header {
   display: flex;
@@ -1020,45 +959,6 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 
 /* --- Форма уточняющей заявки --- begin --- */
-
-.edit-form {
-  padding-bottom: 2rem;
-}
-
-.edit-status {
-  display: none;
-  font-weight: 500;
-  color: #009dd3;
-}
-
-.edit-form-block {
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #d2d2d2;
-}
-
-.edit-form-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 10px;
-}
-
-.edit-form-wrap {
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #d2d2d2;
-}
-
-.edit-form-info {
-  flex: 1 0 70%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 12px;
-}
-
 .input {
   display: flex;
   align-items: center;
@@ -1076,42 +976,6 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 .input .o-item-title + input {
   width: auto;
 }
-
-.edit-form-comment {
-  display: flex;
-  padding-top: 10px;
-}
-
-.edit-form-btn {
-  display: none;
-  flex-grow: 1;
-  text-align: right;
-}
-
-.btn-edit-item {
-  margin: 0;
-  padding: 3px 9px;
-  border: 0;
-  color: #fff;
-  background-color: #009dd3;
-  cursor: pointer;
-}
-
-.btn-save-comment {
-  margin-left: 10px;
-  width: 32px;
-  height: 34px;
-  font-size: 16px;
-  padding: 5px;
-  opacity: 0.2;
-}
-
-.btn-save-form {
-  margin: 0 0 0 82%;
-  white-space: nowrap !important;
-  opacity: 0.2;
-}
-
 /* --- Форма уточняющей заявки --- end --- */
 
 /* --- Таблица контрактов --- begin --- */
@@ -1247,10 +1111,8 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .c-modal-input .far {
-
   position: absolute;
   right: 0;
-
 }
 
 .c-modal-input input[type="text"] {
@@ -1398,7 +1260,6 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 #mobile {
   display: none;
 }
-
 
 /*-----------------------*/
 

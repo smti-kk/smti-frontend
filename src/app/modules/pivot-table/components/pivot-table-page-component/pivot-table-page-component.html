@@ -163,7 +163,6 @@
                 </div>
               </div>
             </div>
-            .
             <input (click)="filterForm.reset()" class="btn filter-btn-reset" value="Сбросить фильтр" type="button">
           </form>
         </div>
@@ -203,10 +202,10 @@
           <div class="c-location-name-item2">{{lc.area}}</div>
         </div>
         <div class="c-location-peoples"><span>{{lc.information.population}}</span> чел.</div>
-        <a [routerLink]="[lc.id]" class="btn">Подробнее</a>
+        <a [routerLink]="[lc.id]" class="btn btn-small">Подробнее</a>
       </div>
       <div class="l-table-column">
-        <div class="espd true"></div>
+        <div class="espd u-true"></div>
       </div>
       <div class="l-table-column">
         <div class="l-table-row">
@@ -238,7 +237,7 @@
                   [title]="payphone.provider.name"
                 >
               </div>
-              <div class="vendor-status-text status-pos" *ngIf="payphone.count !== 0">{{payphone.count}}</div>
+              <div class="c-vendor-status-text u-status-pos" *ngIf="payphone.count !== 0">{{payphone.count}}</div>
             </div>
           </div>
         </div>
