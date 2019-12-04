@@ -6,6 +6,7 @@ import { CellularFeature } from '@core/models/cellular-feature';
 import { RadioFeature } from '@core/models/radio-feature';
 import { InternetFeature } from '@core/models/internet-feature';
 
+
 export class LocationFeatures {
   @autoserializeAs(Location, 'location')
   private readonly _location: Location;

@@ -9,7 +9,8 @@ import { StoreService } from '@core/services/store.service';
 import { GovProgramMapper } from '@core/services/gov-program-mapper.service';
 import { FilterTcPivotsService } from '@core/services/tc-pivots.service';
 import { FilterOnClientTcPivotsService } from '@core/services/filter-on-client-tc-pivots.service';
-import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.mapper';
+import { LocationCapabilitiesMapper} from '@core/utils/location-capabilities.mapper';
+import { LocationFeaturesService } from '@core/services/location-features.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.
     StoreService,
     EnumService,
     LocationCapabilitiesMapper,
-    {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService}
+    {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService},
+    LocationFeaturesService
   ],
   exports: []
 })

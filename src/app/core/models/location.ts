@@ -14,7 +14,7 @@ export class Location {
   private readonly _peopleCount: number;
 
   @autoserializeAs('parent')
-  private readonly _parent: string;
+  private readonly _municipalityArea: string;
 
   @autoserializeAs('infomat')
   private readonly _infomat: number;
@@ -25,7 +25,7 @@ export class Location {
     this._name = name;
     this._typeLocation = typeLocation;
     this._peopleCount = peopleCount;
-    this._parent = parent;
+    this._municipalityArea = parent;
     this._infomat = infomat;
   }
 
@@ -46,8 +46,8 @@ export class Location {
     return this._peopleCount;
   }
 
-  get parent(): string {
-    return this._parent;
+  get municipalityArea(): string {
+    return this._municipalityArea;
   }
 
   get infomat(): number {

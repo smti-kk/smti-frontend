@@ -1,43 +1,95 @@
-export interface Reaccesspoint {
-  address: string;
-  billing_id: number;
-  completed: boolean;
-  connection_type: any[]; // todo: Опиши меня
-  contract: any;
-  contractor: string;
-  created_at: Date;
-  customer: string;
-  defined_speed: string;
-  description: string;
-  government_program: {
-    id: number,
-    short_name: string,
-    full_name: string,
-    description: null
-  };
-  id: number;
-  ip_config: any;
-  max_amount: number;
-  name: string;
-  net_traffic_last_month: string;
-  net_traffic_last_week: string;
-  node: any;
-  operator: any;
-  quality: any;
-  state: any;
-  ucn: number;
-  updated_at: Date;
-  visible: true;
-}
+import { autoserializeAs } from 'cerialize';
+import { OrganizationType } from '@core/models/organization-type';
+import { SmoType } from '@core/models/smo-type';
+import { Reaccesspoint } from '@core/models/reaccesspoint';
+
+export class Organization {
+
+  @autoserializeAs('address')
+  private readonly _address: string;
+
+  @autoserializeAs('fias')
+  private readonly _fias: string;
+
+  @autoserializeAs('full_name')
+  private readonly _fullName: string;
+
+  @autoserializeAs('id')
+  private readonly _id: number;
+
+  @autoserializeAs('inn')
+  private readonly _inn: number;
+
+  @autoserializeAs('kpp')
+  private readonly _kpp: number;
+
+  @autoserializeAs(Organization, 'parent')
+  private readonly _parent: Organization;
+
+  @autoserializeAs(Reaccesspoint, 'reaccesspoints')
+  private readonly _reaccesspoints: Reaccesspoint[];
+
+  @autoserializeAs(OrganizationType, 'type')
+  private readonly _type: OrganizationType;
+
+  @autoserializeAs(SmoType, 'type_smo')
+  private readonly _smoType: SmoType;
 
 
-export interface Organization {
-  address: string;
-  fias: string;
-  full_name: string;
-  id: number;
-  inn: number;
-  kpp: number;
-  parent: any;
-  reaccesspoints: Reaccesspoint[];
+  constructor(address: string, fias: string, fullName: string,
+              id: number, inn: number, kpp: number,
+              parent: Organization, reaccesspoints: Reaccesspoint[], type: OrganizationType,
+              smoType: SmoType) {
+    this._address = address;
+    this._fias = fias;
+    this._fullName = fullName;
+    this._id = id;
+    this._inn = inn;
+    this._kpp = kpp;
+    this._parent = parent;
+    this._reaccesspoints = reaccesspoints;
+    this._type = type;
+    this._smoType = smoType;
+  }
+
+
+  get address(): string {
+    return this._address;
+  }
+
+  get fias(): string {
+    return this._fias;
+  }
+
+  get fullName(): string {
+    return this._fullName;
+  }
+
+  get id(): number {
+    return this._id;
+  }
+
+  get inn(): number {
+    return this._inn;
+  }
+
+  get kpp(): number {
+    return this._kpp;
+  }
+
+  get parent(): Organization {
+    return this._parent;
+  }
+
+  get reaccesspoints(): Reaccesspoint[] {
+    return this._reaccesspoints;
+  }
+
+  get type(): OrganizationType {
+    return this._type;
+  }
+
+  get smoType(): SmoType {
+    return this._smoType;
+  }
 }

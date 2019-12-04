@@ -7,7 +7,6 @@ import { AccessPointEspdLayer } from '../../layers/access-point-espd-layer';
 import { AccessPointSmoLayer } from '../../layers/access-point-smo-layer';
 import { AdministrativeCentersLayer } from '../../layers/administrative-centers-layer';
 import { MunicipalitiesLayer } from '../../layers/municipalities-layer';
-import { ExtendedMap } from '../../../../declarations/leaflet';
 
 const ESPD_LAYER_NAME = 'ЕСПД Точки';
 const SMO_LAYER_NAME = 'СЗО Точки';
@@ -25,7 +24,7 @@ export class MapPage implements OnInit {
 
   options: MapOptions;
   layersControl: LeafletControlLayersConfig;
-  leaflet: ExtendedMap;
+  leaflet: Map;
 
   constructor(private espdLayer: AccessPointEspdLayer,
               private smoLayer: AccessPointSmoLayer,
@@ -46,7 +45,7 @@ export class MapPage implements OnInit {
   }
 
   public onMapReady(leaflet: Map) {
-    this.leaflet = leaflet as ExtendedMap;
+    this.leaflet = leaflet;
     this.defaultTile.addTo(leaflet);
 
     leaflet.addLayer(this.municipalityLayer);

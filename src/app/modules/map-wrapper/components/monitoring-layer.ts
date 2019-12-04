@@ -4,15 +4,15 @@ import { Observable } from 'rxjs';
 import { MonitoringPoint } from '../model/monitoring-point';
 import 'leaflet.markercluster';
 import { MonitoringMarker } from './monitoring-marker';
-import { ExtendedMap } from '../../../declarations/leaflet';
-import {UpdatedList} from '@core/utils/updated-list';
+import { UpdatedList } from '@core/utils/updated-list';
+import { Map } from 'leaflet';
 
 export const MAX_ZOOM = 12;
 
 export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerClusterGroup {
   private maxZoom = MAX_ZOOM;
   private pointsList: UpdatedList<T>;
-  private leafletMap: ExtendedMap;
+  private leafletMap: Map;
   private layers: { [key: number]: MonitoringMarker<T> };
   public readonly onMarkerClick: EventEmitter<MonitoringMarker<T>> = new EventEmitter<MonitoringMarker<T>>();
 
@@ -22,7 +22,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
 
   abstract getPoints(bounds?: LatLngBounds): Observable<T[]>;
 
-  public onAdd(map: ExtendedMap): this {
+  public onAdd(map: Map): this {
     if (!this.leafletMap) {
       this.leafletMap = map;
       this.init(map);
@@ -86,7 +86,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
     this.getLayers().forEach(l => this.removeLayer(l));
   }
 
-  private init(map: ExtendedMap) {
+  private init(map: Map) {
     this.leafletMap = map;
     this.layers = {};
     this.pointsList = new UpdatedList<T>(

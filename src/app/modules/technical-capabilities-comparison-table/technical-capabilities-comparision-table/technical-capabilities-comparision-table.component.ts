@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationFeaturesService } from '../service/location-features.service';
+import { LocationFeaturesService } from '@core/services/location-features.service';
 import { LocationFeatures } from '@core/models';
 
 @Component({

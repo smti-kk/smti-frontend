@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { TechnicalCapabilitiesComparisionTableComponent } from './technical-capabilities-comparision-table';
 import { CoreModule } from '@core/core.module';
-import { LocationFeaturesService } from './service/location-features.service';
+import { LocationFeaturesService } from '@core/services/location-features.service';
 
 
 const routes: Routes = [

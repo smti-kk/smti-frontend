@@ -7,15 +7,15 @@ import { LocationFeature } from '@core/models/location-feature';
 export class RadioFeature extends LocationFeature {
 
   @autoserializeAs('type')
-  private readonly _type: SignalType[];
+  private readonly _type: SignalType;
 
   constructor(operator: Operator, quality: Quality, active: boolean,
-              archive: boolean, planYear: boolean, planTwoYear: boolean, type: SignalType[]) {
+              archive: boolean, planYear: boolean, planTwoYear: boolean, type: SignalType) {
     super(operator, quality, active, archive, planYear, planTwoYear);
     this._type = type;
   }
 
-  get type(): SignalType[] {
+  get type(): SignalType {
     return this._type;
   }
 }

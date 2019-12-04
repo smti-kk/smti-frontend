@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MobileGeneration, Provider, TrunkChannel, TrunkChannelType } from '@core/models';
-import { SignalType, getStringSignalType } from '@core/models';
+import { AtsFeature, CellularFeature, LocationFeature, RadioFeature, getStringSignalType } from '@core/models';
+import { InternetFeature } from '@core/models/internet-feature';
 
 @Component({
   selector: 'app-providers-row',
@@ -8,15 +8,8 @@ import { SignalType, getStringSignalType } from '@core/models';
 })
 export class TechnicalCapabilitiesRowComponent implements OnInit {
 
-  @Input() tcs: {
-    provider: Provider,
-    mobileGeneration?: MobileGeneration,
-    channel?: TrunkChannel,
-    type?: any,
-    count?: number,
-  }[];
+  @Input() locationFeatures: LocationFeature[];
 
-  TrunkChannelType = TrunkChannelType;
   getStringSignalType = getStringSignalType;
 
   constructor() {
@@ -25,13 +18,35 @@ export class TechnicalCapabilitiesRowComponent implements OnInit {
   ngOnInit() {
   }
 
-  getTvTypeString(types: { type: SignalType; name: string }[]) {
-    console.log(types);
-    if (!types) {
-      return '';
+  getInternetFeature(locationFeature: LocationFeature): InternetFeature {
+    if (locationFeature instanceof InternetFeature) {
+      return locationFeature as InternetFeature;
+    } else {
+      return null;
     }
-    return types
-      .map(type => type.name)
-      .join(',');
+  }
+
+  getAtsFeature(locationFeature: LocationFeature): AtsFeature {
+    if (locationFeature instanceof AtsFeature) {
+      return locationFeature as AtsFeature;
+    } else {
+      return null;
+    }
+  }
+
+  getCellularFeature(locationFeature: LocationFeature): CellularFeature {
+    if (locationFeature instanceof CellularFeature) {
+      return locationFeature as CellularFeature;
+    } else {
+      return null;
+    }
+  }
+
+  getRadioFeature(locationFeature: LocationFeature): RadioFeature {
+    if (locationFeature instanceof RadioFeature) {
+      return locationFeature as RadioFeature;
+    } else {
+      return null;
+    }
   }
 }

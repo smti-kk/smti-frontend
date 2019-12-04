@@ -3,10 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '../../layers/municipalities-layer';
 import { AdministrativeCenterPoint } from '../../model/administrative-center-point';
 import { AdministrativeCentersLayer } from '../../layers/administrative-centers-layer';
-import { ExtendedMap } from '../../../../declarations/leaflet';
 import { Subscription } from 'rxjs';
 import { MonitoringMarker } from '../monitoring-marker';
-import { LatLng } from 'leaflet';
+import { LatLng, Map } from 'leaflet';
 import {TIMER_INTERVAL} from '@core/utils/updated-list';
 
 const FORM_PARAMS = {
@@ -22,7 +21,7 @@ const ZOOM = 14;
   styleUrls: ['./location-capabilities-search.component.scss']
 })
 export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
-  @Input() private readonly leafletMap: ExtendedMap;
+  @Input() private readonly leafletMap: Map;
   @Output() selectedPoint: EventEmitter<number> = new EventEmitter<number>();
 
   administrativePoints: AdministrativeCenterPoint[] = [];

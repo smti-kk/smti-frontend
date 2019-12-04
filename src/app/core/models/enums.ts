@@ -3,15 +3,21 @@ export enum MailType {
   MAIL_CONNECTION = 'post'
 }
 
-export const getStringSignalType = (signalType: SignalType[]): string => {
+export const getStringSignalType = (signalType: SignalType): string => {
   console.log(signalType);
-  return signalType.map(st => {
-    if (st === SignalType.ATV) {
-      return 'АТВ';
-    } else if (st === SignalType.CTV) {
-      return 'ЦТВ';
-    }
-  }).join(',');
+  // return signalType.map(st => {
+  //   if (st === SignalType.ATV) {
+  //     return 'АТВ';
+  //   } else if (st === SignalType.CTV) {
+  //     return 'ЦТВ';
+  //   }
+  // }).join(',');
+
+  if (signalType === SignalType.ATV) {
+    return 'АТВ';
+  } else if (signalType === SignalType.CTV) {
+    return 'ЦТВ';
+  }
 };
 
 export enum TrunkChannelType {

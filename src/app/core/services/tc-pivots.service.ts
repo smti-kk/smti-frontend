@@ -7,7 +7,7 @@ import { OrderingFilter } from '@shared/layout/filter-btn/filter-btn.component';
 import { LocationCapabilities, MailType, MobileGenerationType, SignalType, TrunkChannelType } from '@core/models';
 import { environment } from '../../../environments/environment';
 import { RestApiService } from '@core/services/common/rest-api-service';
-import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.mapper';
+import { LocationCapabilitiesMapper } from '@core/utils/location-capabilities.mapper';
 
 const LTC = '/api/v1/ltc';
 

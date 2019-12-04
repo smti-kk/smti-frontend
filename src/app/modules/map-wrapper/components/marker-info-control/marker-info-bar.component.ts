@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { LocationCapabilities } from '@core/models/location-capabilities';
 import { LocationCapabilitiesService, OrganizationsService } from '@core/services';
-import { ExtendedMap } from '../../../../declarations/leaflet';
-import { Organization, Reaccesspoint } from '@core/models/organization';
+import { LocationFeatures, Organization } from '@core/models';
 import { forkJoin } from 'rxjs';
+import { Map } from 'leaflet';
+import { LocationFeaturesService } from '@core/services/location-features.service';
 
 @Component({
   selector: 'marker-info-bar',
@@ -12,12 +12,13 @@ import { forkJoin } from 'rxjs';
 })
 export class MarkerInfoBarComponent implements OnInit {
 
-  @Input() leafletMap: ExtendedMap;
+  @Input() leafletMap: Map;
 
-  currentPointCapabilities: LocationCapabilities;
+  locationFeatures: LocationFeatures;
   organizations: Organization[];
 
   constructor(private readonly locationCapabilitiesService: LocationCapabilitiesService,
+              private readonly locationFeaturesService: LocationFeaturesService,
               private readonly organizationsService: OrganizationsService,
               private readonly ref: ChangeDetectorRef,
               private readonly renderer: Renderer2) {
@@ -39,12 +40,14 @@ export class MarkerInfoBarComponent implements OnInit {
   onSelectPoint(point: number) {
     this.leafletMap.spin(true);
 
-    forkJoin<LocationCapabilities, Organization[]>(
-      this.locationCapabilitiesService.one(point),
+    forkJoin<LocationFeatures, Organization[]>(
+      this.locationFeaturesService.one(point),
       this.organizationsService.getList(point)
     )
       .subscribe(response => {
-        this.currentPointCapabilities = response[0];
+        console.log(response[1]);
+        console.log(response[0]);
+        this.locationFeatures = response[0];
         this.organizations = response[1];
         console.log(response[1]);
         this.ref.detectChanges();
@@ -61,11 +64,5 @@ export class MarkerInfoBarComponent implements OnInit {
     } else {
       this.renderer.addClass(item, clazz);
     }
-  }
-
-  getConnectionType(point: Reaccesspoint) {
-    return point.connection_type
-      .map(ct => ct.name)
-      .join(',');
   }
 }
