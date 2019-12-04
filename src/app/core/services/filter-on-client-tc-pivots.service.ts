@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { sortStringAscCompareFn, sortStringDescCompareFn } from '@shared/utils/sort';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { FilterTcPivotsService, OrderingDirection } from './tc-pivots.service';
 import { LocationCapabilities } from '@core/models';
+import {sortStringAscCompareFn, sortStringDescCompareFn} from '@core/utils/sort';
 
 @Injectable()
 export class FilterOnClientTcPivotsService extends FilterTcPivotsService {

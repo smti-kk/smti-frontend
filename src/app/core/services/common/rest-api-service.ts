@@ -3,8 +3,8 @@ import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { StoreService } from '@core/services/store.service';
 import { map } from 'rxjs/operators';
-import { ApiMapper } from '@shared/utils/api-mapper';
 import { ApiService } from '@core/services/common/api.service';
+import {ApiMapper} from '@core/utils/api-mapper';
 
 export class RestApiService<ShortModel,
   DetailModel,

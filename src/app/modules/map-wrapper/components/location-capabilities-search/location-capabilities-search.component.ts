@@ -7,7 +7,7 @@ import { ExtendedMap } from '../../../../declarations/leaflet';
 import { Subscription } from 'rxjs';
 import { MonitoringMarker } from '../monitoring-marker';
 import { LatLng } from 'leaflet';
-import { TIMER_INTERVAL } from '@shared/utils/updated-list';
+import {TIMER_INTERVAL} from '@core/utils/updated-list';
 
 const FORM_PARAMS = {
   area: 'area',

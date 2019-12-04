@@ -5,10 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs/operators';
 import { StoreService } from './store.service';
-import { ACCOUNT_INFO, ESIA_LOGIN, LOGIN } from '@shared/constants/api';
-import { UserMapper } from '@shared/utils/user-mapper';
 import { User } from '@core/models';
 import { RestApiService } from '@core/services/common/rest-api-service';
+import {ACCOUNT_INFO, ESIA_LOGIN, LOGIN} from '@core/constants/api';
+import {UserMapper} from '@core/utils/user-mapper';
 
 @Injectable({
   providedIn: SharedModule,

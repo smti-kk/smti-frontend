@@ -5,7 +5,7 @@ import { MonitoringPoint } from '../model/monitoring-point';
 import 'leaflet.markercluster';
 import { MonitoringMarker } from './monitoring-marker';
 import { ExtendedMap } from '../../../declarations/leaflet';
-import { UpdatedList } from '@shared/utils/updated-list';
+import {UpdatedList} from '@core/utils/updated-list';
 
 export const MAX_ZOOM = 12;
 
