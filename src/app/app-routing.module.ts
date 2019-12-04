@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundPage } from './core/pages/not-found/not-found.page';
-import { AuthorizationComponent } from './core/pages/authorization/authorization.component';
+import { NotFoundPage } from '@core/pages/not-found/not-found.page';
+import { AuthorizationComponent } from '@core/pages/authorization/authorization.component';
 
 
 const routes: Routes = [
@@ -21,6 +21,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: AuthorizationComponent
+  },
+  {
+    path: 'technical-capabilities-comparison-table',
+    loadChildren: './modules/technical-capabilities-comparison-table/technical-capabilities-comparison-table.module' +
+      '#TechnicalCapabilitiesComparisonTableModule'
   },
   {
     path: '**',

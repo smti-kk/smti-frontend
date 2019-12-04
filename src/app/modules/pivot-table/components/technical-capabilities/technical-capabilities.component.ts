@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { TcPivotsService } from '../../service/tc-pivots.service';
+import { TcPivotsService } from '@core/services/tc-pivots.service';
 import { ActivatedRoute } from '@angular/router';
 import { LocationCapabilities, Quality, TrunkChannelType, SignalType } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FilterTcPivotsService, OrderingDirection } from '../../service/tc-pivots.service';
+import { FilterTcPivotsService, OrderingDirection } from '@core/services/tc-pivots.service';
 import { LocationCapabilities, MailType, MobileGenerationType, Provider, SignalType, TrunkChannelType } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';

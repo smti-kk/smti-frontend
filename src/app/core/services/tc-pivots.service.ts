@@ -1,13 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { StoreService } from '@core/services/store.service';
-import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.mapper';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GovProgram } from '@core/services';
-import { OrderingFilter } from '../components/filter-btn/filter-btn.component';
+import { GovProgram } from '@core/services/index';
+import { OrderingFilter } from '@shared/layout/filter-btn/filter-btn.component';
 import { LocationCapabilities, MailType, MobileGenerationType, SignalType, TrunkChannelType } from '@core/models';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { RestApiService } from '@core/services/common/rest-api-service';
+import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.mapper';
 
 const LTC = '/api/v1/ltc';
 
@@ -19,7 +19,9 @@ export enum OrderingDirection {
 
 @Injectable()
 export class TcPivotsService extends RestApiService<LocationCapabilities, LocationCapabilities, LocationCapabilities> {
-  constructor(private httpClient: HttpClient, private storeService: StoreService, private capabilitiesMapper: LocationCapabilitiesMapper) {
+  constructor(private httpClient: HttpClient,
+              private storeService: StoreService,
+              private capabilitiesMapper: LocationCapabilitiesMapper) {
     super(httpClient, storeService, LTC, capabilitiesMapper);
   }
 }

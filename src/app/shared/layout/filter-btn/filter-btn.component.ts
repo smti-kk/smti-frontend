@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { OrderingDirection } from '../../service/tc-pivots.service';
+import { OrderingDirection } from '@core/services/tc-pivots.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface OrderingFilter {

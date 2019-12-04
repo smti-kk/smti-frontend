@@ -22,6 +22,7 @@
     "@asymmetrik/ngx-leaflet": "^6.0.1",
     "@asymmetrik/ngx-leaflet-markercluster": "^3.0.0",
     "@types/leaflet.markercluster": "^1.4.0",
+    "cerialize": "^0.1.18",
     "leaflet": "^1.5.1",
     "leaflet-spin": "^1.1.0",
     "leaflet.markercluster": "^1.4.1",

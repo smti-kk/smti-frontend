@@ -4,7 +4,6 @@ import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '../../layers/mu
 import { AdministrativeCenterPoint } from '../../model/administrative-center-point';
 import { AdministrativeCentersLayer } from '../../layers/administrative-centers-layer';
 import { ExtendedMap } from '../../../../declarations/leaflet';
-import { LocationCapabilitiesService } from '@core/services';
 import { Subscription } from 'rxjs';
 import { MonitoringMarker } from '../monitoring-marker';
 import { LatLng } from 'leaflet';
@@ -33,7 +32,6 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   private technicalCapabilitiesUpdateTimer: number;
 
   constructor(private readonly fb: FormBuilder,
-              private locationCapabilitiesService: LocationCapabilitiesService,
               private administrativeCentersLayer: AdministrativeCentersLayer,
               public municipalityLayer: MunicipalitiesLayer) {
     this.searchForm = this.buildForm();

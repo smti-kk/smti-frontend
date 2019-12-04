@@ -1,25 +1,12 @@
 import { GovProgram } from '@core/services';
-import { MailType, MobileGenerationType, SignalType } from './enums';
-
-export enum TrunkChannelType {
-  UNDEFINED,
-  VOLS = 3,
-  SATELLITE = 4,
-  COPPER_CABLE = 5,
-  RADIO_CHANEl = 6
-}
+import { MailType, MobileGenerationType, Quality, SignalType, TrunkChannelType } from './enums';
 
 export interface TrunkChannel {
   id: TrunkChannelType;
   name: string;
 }
 
-export enum Quality {
-  GOOD = 'good',
-  NORMAL = 'normal',
-  ABSENT = 'absent'
-}
-
+/** @deprecated */
 export class LocationCapabilities {
   constructor(
     private _id: number,

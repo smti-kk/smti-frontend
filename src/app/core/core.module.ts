@@ -7,6 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EnumService, GovProgramService, OrganizationsService } from '@core/services';
 import { StoreService } from '@core/services/store.service';
 import { GovProgramMapper } from '@core/services/gov-program-mapper.service';
+import { FilterTcPivotsService } from '@core/services/tc-pivots.service';
+import { FilterOnClientTcPivotsService } from '@core/services/filter-on-client-tc-pivots.service';
+import { LocationCapabilitiesMapper } from '@shared/utils/location-capabilities.mapper';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { GovProgramMapper } from '@core/services/gov-program-mapper.service';
     GovProgramMapper,
     GovProgramService,
     StoreService,
-    EnumService
+    EnumService,
+    LocationCapabilitiesMapper,
+    {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService}
   ],
   exports: []
 })
