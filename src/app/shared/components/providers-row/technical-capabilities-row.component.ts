@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AtsFeature, CellularFeature, LocationFeature, RadioFeature, getStringSignalType } from '@core/models';
-import { InternetFeature } from '@core/models/internet-feature';
+import { MobileGeneration, Provider, TrunkChannel, TrunkChannelType } from '@core/models';
+import { SignalType, getStringSignalType } from '@core/models';
 
 @Component({
   selector: 'app-providers-row',
@@ -8,8 +8,15 @@ import { InternetFeature } from '@core/models/internet-feature';
 })
 export class TechnicalCapabilitiesRowComponent implements OnInit {
 
-  @Input() locationFeatures: LocationFeature[];
+  @Input() tcs: {
+    provider: Provider,
+    mobileGeneration?: MobileGeneration,
+    channel?: TrunkChannel,
+    type?: any,
+    count?: number,
+  }[];
 
+  TrunkChannelType = TrunkChannelType;
   getStringSignalType = getStringSignalType;
 
   constructor() {
@@ -18,35 +25,13 @@ export class TechnicalCapabilitiesRowComponent implements OnInit {
   ngOnInit() {
   }
 
-  getInternetFeature(locationFeature: LocationFeature): InternetFeature {
-    if (locationFeature instanceof InternetFeature) {
-      return locationFeature as InternetFeature;
-    } else {
-      return null;
+  getTvTypeString(types: { type: SignalType; name: string }[]) {
+    console.log(types);
+    if (!types) {
+      return '';
     }
-  }
-
-  getAtsFeature(locationFeature: LocationFeature): AtsFeature {
-    if (locationFeature instanceof AtsFeature) {
-      return locationFeature as AtsFeature;
-    } else {
-      return null;
-    }
-  }
-
-  getCellularFeature(locationFeature: LocationFeature): CellularFeature {
-    if (locationFeature instanceof CellularFeature) {
-      return locationFeature as CellularFeature;
-    } else {
-      return null;
-    }
-  }
-
-  getRadioFeature(locationFeature: LocationFeature): RadioFeature {
-    if (locationFeature instanceof RadioFeature) {
-      return locationFeature as RadioFeature;
-    } else {
-      return null;
-    }
+    return types
+      .map(type => type.name)
+      .join(',');
   }
 }

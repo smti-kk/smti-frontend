@@ -35,4 +35,14 @@ export class EnumService {
     return this.httpClient.get<Provider[]>(environment.API_BASE_URL + MOBILE_PROVIDER, {headers});
   }
 
+  // getExistingOperators(): Operator[] {
+  //   const token = this.storeService.get('token');
+  //   let headers = new HttpHeaders();
+  //   if (token) {
+  //     headers = headers.append('Authorization', `Token ${token}`);
+  //   }
+  //
+  //   return this.httpClient.get<Operator[]>(environment.API_BASE_URL + MOBILE_PROVIDER, {headers});
+  // }
+
 }

@@ -69,7 +69,7 @@ export class LocationFeatures {
     return this._television;
   }
 
-  get activeFeatures(): InternetFeature[] {
+  get activeInternetFeatures(): InternetFeature[] {
     return this.internet.filter(value => {
       return value.active;
     });
@@ -93,20 +93,26 @@ export class LocationFeatures {
     });
   }
 
-  get archiveCellularFeatures(): InternetFeature[] {
-    return this.internet.filter(value => {
+  get activeCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
+      return value.active;
+    });
+  }
+
+  get archiveCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
       return value.archive;
     });
   }
 
-  get planYearCellularFeatures() {
-    return this.internet.filter(value => {
+  get planYearCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
       return value.planYear;
     });
   }
 
-  get planTwoYearCellularFeatures() {
-    return this.internet.filter(value => {
+  get planTwoYearCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
       return value.planTwoYear;
     });
   }

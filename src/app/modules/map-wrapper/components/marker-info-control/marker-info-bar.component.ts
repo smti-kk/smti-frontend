@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { LocationCapabilitiesService, OrganizationsService } from '@core/services';
-import { LocationFeatures, Organization } from '@core/models';
+import { LocationCapabilities, Organization } from '@core/models';
 import { forkJoin } from 'rxjs';
 import { Map } from 'leaflet';
-import { LocationFeaturesService } from '@core/services/location-features.service';
 
 @Component({
   selector: 'marker-info-bar',
@@ -14,11 +13,11 @@ export class MarkerInfoBarComponent implements OnInit {
 
   @Input() leafletMap: Map;
 
-  locationFeatures: LocationFeatures;
+  currentPointCapabilities: LocationCapabilities;
   organizations: Organization[];
 
   constructor(private readonly locationCapabilitiesService: LocationCapabilitiesService,
-              private readonly locationFeaturesService: LocationFeaturesService,
+              private readonly locationFeaturesService: LocationCapabilitiesService,
               private readonly organizationsService: OrganizationsService,
               private readonly ref: ChangeDetectorRef,
               private readonly renderer: Renderer2) {
@@ -40,14 +39,14 @@ export class MarkerInfoBarComponent implements OnInit {
   onSelectPoint(point: number) {
     this.leafletMap.spin(true);
 
-    forkJoin<LocationFeatures, Organization[]>(
+    forkJoin(
       this.locationFeaturesService.one(point),
       this.organizationsService.getList(point)
     )
       .subscribe(response => {
         console.log(response[1]);
         console.log(response[0]);
-        this.locationFeatures = response[0];
+        this.currentPointCapabilities = response[0];
         this.organizations = response[1];
         console.log(response[1]);
         this.ref.detectChanges();

@@ -1,34 +1,76 @@
+<!--<div class="l-vendors-row">-->
+<!--&lt;!&ndash;  <div *ngIf="!hasProvider(tcs)">0</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="check" *ngIf="hasProvider(tcs)"></div>&ndash;&gt;-->
+<!--  <div class="c-vendor"-->
+<!--       *ngFor="let tc of locationFeatures"-->
+<!--  >-->
+<!--    <div class="c-vendor-logo">-->
+<!--      <img class="image"-->
+<!--           [src]="tc.operator.icon"-->
+<!--           [alt]="tc.operator.name"-->
+<!--           [title]="tc.operator.name">-->
+<!--    </div>-->
+<!--    <div class="c-vendor-status-text" *ngIf="getCellularFeature(tc)">{{getCellularFeature(tc).type.name}}</div>-->
+<!--    <div class="c-vendor-status-img"-->
+<!--         *ngIf="getInternetFeature(tc)"-->
+<!--         [title]="getInternetFeature(tc).channel.name"-->
+<!--         [className]="getInternetFeature(tc).channel.slug"-->
+<!--    ></div>-->
+<!--    <div class="c-vendor-status-text"-->
+<!--         *ngIf="getRadioFeature(tc)"-->
+<!--    >-->
+<!--      {{getStringSignalType(getRadioFeature(tc).type)}}-->
+<!--    </div>-->
+<!--&lt;!&ndash;    <div class="c-vendor-status-text"&ndash;&gt;-->
+<!--&lt;!&ndash;         *ngIf="tc &&&ndash;&gt;-->
+<!--&lt;!&ndash;         tc.type.length !== 0 &&&ndash;&gt;-->
+<!--&lt;!&ndash;         tc.type[0].name"&ndash;&gt;-->
+<!--&lt;!&ndash;    >&ndash;&gt;-->
+<!--&lt;!&ndash;      {{getTvTypeString(tc.type)}}&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    <div class="c-vendor-status-text" *ngIf="getAtsFeature(tc) && getAtsFeature(tc).quantityPayphone > 0">{{getAtsFeature(tc).quantityPayphone}}</div>-->
+<!--  </div>-->
+<!--</div>-->
 <div class="l-vendors-row">
-<!--  <div *ngIf="!hasProvider(tcs)">0</div>-->
-<!--  <div class="check" *ngIf="hasProvider(tcs)"></div>-->
+  <!--  <div *ngIf="!hasProvider(tcs)">0</div>-->
+  <!--  <div class="check" *ngIf="hasProvider(tcs)"></div>-->
   <div class="c-vendor"
-       *ngFor="let tc of locationFeatures"
-  >
+       *ngFor="let tc of tcs"
+       [class.opacity]="!tc.provider.isActive">
     <div class="c-vendor-logo">
       <img class="image"
-           [src]="tc.operator.icon"
-           [alt]="tc.operator.name"
-           [title]="tc.operator.name">
+           [src]="tc.provider.icon"
+           [alt]="tc.provider.name"
+           [title]="tc.provider.name">
     </div>
-    <div class="c-vendor-status-text" *ngIf="getCellularFeature(tc).type">{{getCellularFeature(tc).type.name}}</div>
+    <div class="c-vendor-status-text" *ngIf="tc.mobileGeneration">{{tc.mobileGeneration.name}}</div>
     <div class="c-vendor-status-img"
-         *ngIf="getInternetFeature(tc).channel"
-         [title]="getInternetFeature(tc).channel.name"
-         [className]="getInternetFeature(tc).channel.slug"
+         *ngIf="tc.channel"
+         [title]="tc.channel.name"
+         [ngClass]="
+                     {
+                      vols: tc.channel.id === TrunkChannelType.VOLS,
+                      med: tc.channel.id === TrunkChannelType.COPPER_CABLE,
+                      radio: tc.channel.id === TrunkChannelType.RADIO_CHANEl,
+                      sputnik: tc.channel.id === TrunkChannelType.SATELLITE
+                     }"
     ></div>
     <div class="c-vendor-status-text"
-         *ngIf="getRadioFeature(tc)"
+         *ngIf="tc.type &&
+         tc.type.length !== 0 &&
+         !tc.type[0].name"
     >
-      {{getStringSignalType(getRadioFeature(tc).type)}}
+      {{getStringSignalType(tc.type)}}
     </div>
-<!--    <div class="c-vendor-status-text"-->
-<!--         *ngIf="tc &&-->
-<!--         tc.type.length !== 0 &&-->
-<!--         tc.type[0].name"-->
-<!--    >-->
-<!--      {{getTvTypeString(tc.type)}}-->
-<!--    </div>-->
-    <div class="c-vendor-status-text" *ngIf="getAtsFeature(tc)?.quantityPayphone > 0">{{getAtsFeature(tc).quantityPayphone}}</div>
+    <div class="c-vendor-status-text"
+         *ngIf="tc.type &&
+         tc.type.length !== 0 &&
+         tc.type[0].name"
+    >
+      {{getTvTypeString(tc.type)}}
+    </div>
+    <div class="c-vendor-status-text" *ngIf="tc.count">{{tc.count}}</div>
   </div>
 </div>
+
 

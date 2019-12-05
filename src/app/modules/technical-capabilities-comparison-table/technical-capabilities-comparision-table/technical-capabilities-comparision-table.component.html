@@ -175,7 +175,7 @@
       </div>
       <div class="l-table-column">
         <div class="l-vendors-column">
-          <div class="c-vendor" *ngFor="let activeFeature of feature.activeFeatures">
+          <div class="c-vendor" *ngFor="let activeFeature of feature.activeInternetFeatures">
             <div class="c-vendor-logo"><img [src]="activeFeature.operator.icon" [alt]="activeFeature.operator.name" [title]="activeFeature.operator.name"></div>
             <div class="c-vendor-status-img" [className]="activeFeature.channel.slug" [title]="activeFeature.channel.name"></div>
           </div>
@@ -206,81 +206,43 @@
         </div>
       </div>
     </div>
-    <div class="l-table l-table-compare">
+    <div class="l-table l-table-compare" *ngFor="let feature of features">
       <div class="l-table-column">
         <div class="c-location-name">
-          <div class="c-location-name-item1">с. Богучаны</div>
-          <div class="c-location-name-item2">Богучанский р-н</div>
+          <div class="c-location-name-item1">{{feature.location.typeLocation}} {{feature.location.name}}</div>
+          <div class="c-location-name-item2">{{feature.location.municipalityArea}}</div>
         </div>
-        <div class="c-location-peoples"><span>11 512</span> чел.</div>
+        <div class="c-location-peoples"><span>{{feature.location.peopleCount}}</span> чел.</div>
       </div>
       <div class="l-table-column">
         <div class="l-vendors-column">
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
-            <div class="c-vendor-status-text">3G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
-            <div class="c-vendor-status-text">4G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
-            <div class="c-vendor-status-text">2G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
-            <div class="c-vendor-status-text">3G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-            <div class="c-vendor-status-text">3G</div>
+          <div class="c-vendor" *ngFor="let activeFeature of feature.activeCellularFeatures">
+            <div class="c-vendor-logo"><img [src]="activeFeature.operator.icon" [alt]="activeFeature.operator.name" [title]="activeFeature.operator.name"></div>
+            <div class="c-vendor-status-text">{{activeFeature.type.name}}</div>
           </div>
         </div>
       </div>
       <div class="l-table-column">
-        <div class="l-table-row">
+        <div class="l-table-row" *ngFor="let planYearFeature of feature.planYearCellularFeatures">
           <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
+            <div class="c-vendor-logo"><img [src]="planYearFeature.operator.icon" [alt]="planYearFeature.operator.name" [title]="planYearFeature.operator.name"></div>
           </div>
-          <div>:<span>4G</span> (<span>Субсидии 2020</span>)</div>
-        </div>
-        <div class="l-table-row">
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
-          </div>
-          <div>:<span>5G</span> (<span>Субсидии 2020</span>)</div>
+          <div>:<span>{{planYearFeature.type.name}}</span> (<span>{{planYearFeature.governmentProgram.shortName}}</span>)</div>
         </div>
       </div>
       <div class="l-table-column">
-        <div class="l-table-row">
+        <div class="l-table-row" *ngFor="let planYearFeature of feature.planTwoYearCellularFeatures">
           <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
+            <div class="c-vendor-logo"><img [src]="planYearFeature.operator.icon" [alt]="planYearFeature.operator.name" [title]="planYearFeature.operator.name"></div>
           </div>
-          <div>:<span>3G</span> (<span>Субсидии 2021</span>)</div>
+          <div>:<span>{{planYearFeature.type.name}}</span> (<span>{{planYearFeature.governmentProgram.shortName}}</span>)</div>
         </div>
       </div>
       <div class="l-table-column">
         <div class="l-vendors-column">
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"></div>
-            <div class="c-vendor-status-text">3G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/beeline.png" alt="Билайн" title="Билайн"></div>
-            <div class="c-vendor-status-text">4G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/megafon.png" alt="Мегафон" title="Мегафон"></div>
-            <div class="c-vendor-status-text">2G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"></div>
-            <div class="c-vendor-status-text">3G</div>
-          </div>
-          <div class="c-vendor">
-            <div class="c-vendor-logo"><img src="../../../../assets/img/rostelecom.png" alt="РосТелеком" title="РосТелеком"></div>
-            <div class="c-vendor-status-text">3G</div>
+          <div class="c-vendor" *ngFor="let archiveFeature of feature.archiveCellularFeatures">
+            <div class="c-vendor-logo"><img [src]="archiveFeature.operator.icon" [alt]="archiveFeature.operator.name" [title]="archiveFeature.operator.name"></div>
+            <div class="c-vendor-status-text">{{archiveFeature.type.name}}</div>
           </div>
         </div>
       </div>

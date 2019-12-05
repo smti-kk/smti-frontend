@@ -7,15 +7,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Deserialize } from 'cerialize';
 import { DefaultMapper } from '@core/utils/api-mapper';
-import { TECHNICAL_CAPABILITIES } from '@core/constants/api';
 
-// const LTCR = '/api/v1/ltcr';
+const LTCR = '/api/v1/ltcr';
 
 @Injectable()
 export class LocationFeaturesService extends RestApiService<LocationFeatures, LocationFeatures, LocationFeatures> {
 
   constructor(http: HttpClient, store: StoreService) {
-    super(http, store, TECHNICAL_CAPABILITIES, new DefaultMapper()); // todo: remove default mapper
+    super(http, store, LTCR, new DefaultMapper()); // todo: remove default mapper
   }
 
   list(): Observable<LocationFeatures[]> {

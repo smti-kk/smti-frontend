@@ -3,10 +3,10 @@
 
   <location-capabilities-search (selectedPoint)="onSelectPoint($event)"
                                 [leafletMap]="leafletMap"></location-capabilities-search>
-  <div *ngIf="locationFeatures">
+  <div *ngIf="currentPointCapabilities">
     <div class="c-location-name">
-      <div>{{locationFeatures.location.typeLocation + ' ' + locationFeatures.location.name}}</div>
-      <div>{{locationFeatures.location.municipalityArea}}</div>
+      <div>{{currentPointCapabilities.name}}</div>
+      <div>{{currentPointCapabilities.area}}</div>
     </div>
     <div class="c-accordion u-bgc-blue">
       <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
@@ -14,39 +14,39 @@
         <div class="c-accordion-button"></div>
       </div>
       <div class="c-accordion-body">
-        <div class="c-location-peoples"><span>{{locationFeatures.location.peopleCount}}</span> чел.</div>
+        <div class="c-location-peoples"><span>{{currentPointCapabilities.information.population}}</span> чел.</div>
         <div class="l-sidebar-list">
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Сотовая связь:</div>
-            <app-providers-row [locationFeatures]="locationFeatures.cellular"></app-providers-row>
+            <app-providers-row [tcs]="currentPointCapabilities.information.cellular"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Интернет:</div>
-            <app-providers-row [locationFeatures]="locationFeatures.internet"></app-providers-row>
+            <app-providers-row [tcs]="currentPointCapabilities.information.internet"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">ТВ:</div>
-            <app-providers-row [locationFeatures]="locationFeatures.television"></app-providers-row>
+            <app-providers-row [tcs]="currentPointCapabilities.information.tv"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Радио:</div>
-            <app-providers-row [locationFeatures]="locationFeatures.radio"></app-providers-row>
+            <app-providers-row [tcs]="currentPointCapabilities.information.radio"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Таксофон:</div>
-            <app-providers-row [locationFeatures]="locationFeatures.ats"></app-providers-row>
+            <app-providers-row [tcs]="currentPointCapabilities.information.payphone"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Телефон:</div>
-            <app-providers-row [locationFeatures]="locationFeatures.ats"></app-providers-row>
+            <app-providers-row [tcs]="currentPointCapabilities.information.telephone"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Почта:</div>
-            <app-providers-row [locationFeatures]="locationFeatures.post"></app-providers-row>
+            <app-providers-row [tcs]="currentPointCapabilities.information.mail"></app-providers-row>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Инфомат:</div>
-            <div class="value">{{locationFeatures.location.infomat ? 1 : 0}}</div>
+            <div class="value">{{currentPointCapabilities.information.informat ? 1 : 0}}</div>
           </div>
         </div>
       </div>
