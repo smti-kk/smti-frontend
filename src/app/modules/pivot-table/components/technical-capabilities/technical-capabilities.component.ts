@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TcPivotsService } from '@core/services/tc-pivots.service';
 import { ActivatedRoute } from '@angular/router';
-import { LocationCapabilities, Quality, TrunkChannelType, SignalType } from '@core/models';
+import { LocationCapabilities, Quality, SignalType, TrunkChannelType } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -32,6 +32,7 @@ export class TechnicalCapabilitiesComponent implements OnInit {
   private loadTechnicalCapability(id: number) {
     this.spinner.show();
     this.tcService.one(id).subscribe(tc => {
+      console.log(tc);
       this.tc = tc;
       this.tcForm = this.buildForm(this.fb, tc);
       this.spinner.hide();
@@ -47,7 +48,7 @@ export class TechnicalCapabilitiesComponent implements OnInit {
       payphone: fb.array([]),
       radio: fb.array([]),
       mail: fb.array([]),
-      informat: tc.information.informat
+      infomat: tc.information.informat
     });
 
 
@@ -56,7 +57,7 @@ export class TechnicalCapabilitiesComponent implements OnInit {
         fb.group({
           provider: c.provider.isActive,
           quality: c.quality,
-          mobileGeneration: c.mobileGeneration,
+          mobileGeneration: c.mobileGeneration ? c.mobileGeneration.name : null,
         })
       );
     });
@@ -75,7 +76,7 @@ export class TechnicalCapabilitiesComponent implements OnInit {
       getArrayGroup(form, 'tv').push(
         fb.group({
           provider: c.provider.isActive,
-          type: c.type ? c.type[0] : null
+          type: c.type ? c.type[0].type : null
         })
       );
     });

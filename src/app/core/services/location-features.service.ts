@@ -28,7 +28,7 @@ export class LocationFeaturesService extends RestApiService<LocationFeatures, Lo
     }
 
     const params = new HttpParams();
-      // .append('parent', '1904');
+    // .append('parent', '1904');
 
     return this.httpClient.get(TC_INTERNET, {params, headers})
       .pipe(map(value => Deserialize(value, LocationFeatures)));
@@ -43,7 +43,7 @@ export class LocationFeaturesService extends RestApiService<LocationFeatures, Lo
     }
 
     const params = new HttpParams();
-      // .append('parent', '1904');
+    // .append('parent', '1904');
 
     return this.httpClient.get(TC_MOBILE, {params, headers})
       .pipe(map(value => Deserialize(value, LocationFeatures)));
@@ -60,5 +60,19 @@ export class LocationFeaturesService extends RestApiService<LocationFeatures, Lo
 
   exportExcelInternet() {
     window.location.href = (environment.API_BASE_URL + '/api/v1/tc-internet/export/?');
+  }
+
+  oneLocationFeature(id: number): Observable<LocationFeatures> {
+    const token = this.storeService.get('token');
+    let headers;
+
+    if (token) {
+      headers = new HttpHeaders().append('Authorization', `Token ${token}`);
+    }
+
+    const params = new HttpParams().set('id', id.toString());
+
+    return this.httpClient.get(TC_MOBILE, {headers})
+      .pipe(map(value => Deserialize(value, LocationFeatures)));
   }
 }
