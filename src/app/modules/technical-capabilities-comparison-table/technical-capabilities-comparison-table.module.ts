@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { TechnicalCapabilitiesComparisionTableComponent } from './technical-capabilities-comparision-table';
 import { CoreModule } from '@core/core.module';
 import { LocationFeaturesService } from '@core/services/location-features.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -18,7 +20,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     CoreModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgxSpinnerModule,
+    ReactiveFormsModule
   ],
   providers: [
     LocationFeaturesService
