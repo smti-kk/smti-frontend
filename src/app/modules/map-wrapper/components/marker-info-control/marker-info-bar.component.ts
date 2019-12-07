@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { LocationCapabilitiesService, OrganizationsService } from '@core/services';
-import { LocationCapabilities, Organization } from '@core/models';
+import { OrganizationsService } from '@core/services';
+import { ExistingOperators, LocationFeatures, Organization } from '@core/models';
 import { forkJoin } from 'rxjs';
 import { Map } from 'leaflet';
+import { LocationFeaturesService } from '@core/services/location-features.service';
 
 @Component({
   selector: 'marker-info-bar',
@@ -13,14 +14,17 @@ export class MarkerInfoBarComponent implements OnInit {
 
   @Input() leafletMap: Map;
 
-  currentPointCapabilities: LocationCapabilities;
+  locationFeatures: LocationFeatures;
   organizations: Organization[];
+  private existingOperators: ExistingOperators;
 
-  constructor(private readonly locationCapabilitiesService: LocationCapabilitiesService,
-              private readonly locationFeaturesService: LocationCapabilitiesService,
+  constructor(private readonly locationFeaturesService: LocationFeaturesService,
               private readonly organizationsService: OrganizationsService,
               private readonly ref: ChangeDetectorRef,
               private readonly renderer: Renderer2) {
+    this.locationFeaturesService.getExistingOperators().subscribe(value => {
+      this.existingOperators = value;
+    });
   }
 
   ngOnInit() {
@@ -40,13 +44,13 @@ export class MarkerInfoBarComponent implements OnInit {
     this.leafletMap.spin(true);
 
     forkJoin(
-      this.locationFeaturesService.one(point),
+      this.locationFeaturesService.oneLocationFeature(point),
       this.organizationsService.getList(point)
     )
       .subscribe(response => {
         console.log(response[1]);
         console.log(response[0]);
-        this.currentPointCapabilities = response[0];
+        this.locationFeatures = response[0];
         this.organizations = response[1];
         console.log(response[1]);
         this.ref.detectChanges();

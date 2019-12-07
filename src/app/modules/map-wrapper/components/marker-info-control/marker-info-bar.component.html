@@ -3,10 +3,10 @@
 
   <location-capabilities-search (selectedPoint)="onSelectPoint($event)"
                                 [leafletMap]="leafletMap"></location-capabilities-search>
-  <div *ngIf="currentPointCapabilities">
+  <div *ngIf="locationFeatures">
     <div class="c-location-name">
-      <div>{{currentPointCapabilities.name}}</div>
-      <div>{{currentPointCapabilities.area}}</div>
+      <div>{{locationFeatures.location.typeLocation}} {{locationFeatures.location.name}}</div>
+      <div>{{locationFeatures.location.municipalityArea}}</div>
     </div>
     <div class="c-accordion u-bgc-blue">
       <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
@@ -14,39 +14,59 @@
         <div class="c-accordion-button"></div>
       </div>
       <div class="c-accordion-body">
-        <div class="c-location-peoples"><span>{{currentPointCapabilities.information.population}}</span> чел.</div>
+        <div class="c-location-peoples"><span>{{locationFeatures.location.peopleCount}}</span> чел.</div>
         <div class="l-sidebar-list">
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Сотовая связь:</div>
-            <app-providers-row [tcs]="currentPointCapabilities.information.cellular"></app-providers-row>
+            <app-cellular-features
+              [locationFeatures]="locationFeatures.cellular"
+              [existed]="existingOperators.cellular">
+            </app-cellular-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Интернет:</div>
-            <app-providers-row [tcs]="currentPointCapabilities.information.internet"></app-providers-row>
+            <app-internet-features
+              [locationFeatures]="locationFeatures.internet"
+              [existed]="existingOperators.internet">
+            </app-internet-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">ТВ:</div>
-            <app-providers-row [tcs]="currentPointCapabilities.information.tv"></app-providers-row>
+            <app-television-features
+              [locationFeatures]="locationFeatures.television"
+              [existed]="existingOperators.television">
+            </app-television-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Радио:</div>
-            <app-providers-row [tcs]="currentPointCapabilities.information.radio"></app-providers-row>
+            <app-radio-features
+              [locationFeatures]="locationFeatures.radio"
+              [existed]="existingOperators.radio">
+            </app-radio-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Таксофон:</div>
-            <app-providers-row [tcs]="currentPointCapabilities.information.payphone"></app-providers-row>
+            <app-payphone-features
+              [locationFeatures]="locationFeatures.ats"
+              [existed]="existingOperators.ats">
+            </app-payphone-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Телефон:</div>
-            <app-providers-row [tcs]="currentPointCapabilities.information.telephone"></app-providers-row>
+            <app-ats-features
+              [locationFeatures]="locationFeatures.ats"
+              [existed]="existingOperators.ats">
+            </app-ats-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Почта:</div>
-            <app-providers-row [tcs]="currentPointCapabilities.information.mail"></app-providers-row>
+            <app-ats-features [locationFeatures]="locationFeatures.post" [existed]="existingOperators.post">
+            </app-ats-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Инфомат:</div>
-            <div class="value">{{currentPointCapabilities.information.informat ? 1 : 0}}</div>
+            <div class="value u-true" *ngIf="locationFeatures.location.infomat > 0"></div>
+            <div class="value" *ngIf="locationFeatures.location.infomat <= 0">0</div>
           </div>
         </div>
       </div>

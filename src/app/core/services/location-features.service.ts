@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestApiService } from '@core/services/common/rest-api-service';
-import { LocationFeatures } from '@core/models';
+import { ExistingOperators, LocationFeatures } from '@core/models';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { StoreService } from '@core/services/store.service';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { Deserialize } from 'cerialize';
 import { DefaultMapper } from '@core/utils/api-mapper';
 import { environment } from '../../../environments/environment';
+import { TECHNICAL_CAPABILITIES } from '@core/constants/api';
 
 const TC_INTERNET = '/api/v1/tc-internet';
 const TC_MOBILE = '/api/v1/tc-mobile';
@@ -19,7 +20,11 @@ export class LocationFeaturesService extends RestApiService<LocationFeatures, Lo
     super(httpClient, storeService, TC_INTERNET, new DefaultMapper()); // todo: remove default mapper
   }
 
-  internetFeaturesList(): Observable<LocationFeatures[]> {
+  internetFeaturesList(params?: HttpParams): Observable<LocationFeatures[]> {
+    if (!params) {
+      params = new HttpParams();
+    }
+
     const token = this.storeService.get('token');
     let headers;
 
@@ -27,8 +32,7 @@ export class LocationFeaturesService extends RestApiService<LocationFeatures, Lo
       headers = new HttpHeaders().append('Authorization', `Token ${token}`);
     }
 
-    const params = new HttpParams();
-    // .append('parent', '1904');
+    // params = params.append('parent', '1904');
 
     return this.httpClient.get(TC_INTERNET, {params, headers})
       .pipe(map(value => Deserialize(value, LocationFeatures)));
@@ -70,9 +74,19 @@ export class LocationFeaturesService extends RestApiService<LocationFeatures, Lo
       headers = new HttpHeaders().append('Authorization', `Token ${token}`);
     }
 
-    const params = new HttpParams().set('id', id.toString());
-
-    return this.httpClient.get(TC_MOBILE, {headers})
+    return this.httpClient.get(TECHNICAL_CAPABILITIES + `/${id}/`, {headers})
       .pipe(map(value => Deserialize(value, LocationFeatures)));
+  }
+
+  getExistingOperators(): Observable<ExistingOperators> {
+    const token = this.storeService.get('token');
+    let headers;
+
+    if (token) {
+      headers = new HttpHeaders().append('Authorization', `Token ${token}`);
+    }
+
+    return this.httpClient.get<any>(TECHNICAL_CAPABILITIES + `/1111/`, {headers})
+      .pipe(map(value => Deserialize(value.operators, ExistingOperators)));
   }
 }

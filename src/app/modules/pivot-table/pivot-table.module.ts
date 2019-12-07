@@ -20,6 +20,9 @@ import { SharedModule } from '@shared/shared.module';
     NgxPaginationModule,
     SharedModule
   ],
+  exports: [
+    TechnicalCapabilitiesComponent
+  ],
   providers: [
     TcPivotsService,
     NgxPaginationModule

@@ -14,7 +14,7 @@ import { debounceTime, filter, tap } from 'rxjs/operators';
 })
 export class PivotTablePageComponent implements OnInit, AfterViewInit {
 
-  lcs: LocationCapabilities[];
+  locationFeatures: LocationCapabilities[];
   govPrograms: GovProgram[];
   pageNumber = 1;
   itemsPerPage = 10;
@@ -102,7 +102,7 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     return this.tcPivots.list()
       .pipe(tap(lcs => {
         console.log(lcs);
-        this.lcs = lcs;
+        this.locationFeatures = lcs;
         this.spinner.hide();
       }));
   }
@@ -171,8 +171,8 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
       .pipe(debounceTime(DEBOUNCE_TIME_MS))
       .pipe(filter(value => value && value.length > 0))
       .subscribe(value => {
-        this.searchedTc = this.lcs.find(lc => lc.name.toLowerCase().includes(value.toLowerCase()));
-        const lcIndex = this.lcs.indexOf(this.searchedTc) + 1;
+        this.searchedTc = this.locationFeatures.find(lc => lc.name.toLowerCase().includes(value.toLowerCase()));
+        const lcIndex = this.locationFeatures.indexOf(this.searchedTc) + 1;
         this.pageNumber = Math.ceil(lcIndex / this.itemsPerPage);
 
         if (this.searchedTc) {

@@ -4,7 +4,7 @@ import { SharedModule } from '@shared/shared.module';
 import { NotFoundPage } from './pages/not-found/not-found.page';
 import { AuthorizationComponent } from './pages/authorization/authorization.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EnumService, GovProgramService, OrganizationsService } from '@core/services';
+import { AuthService, EnumService, GovProgramService, LocationCapabilitiesService, OrganizationsService } from '@core/services';
 import { StoreService } from '@core/services/store.service';
 import { GovProgramMapper } from '@core/services/gov-program-mapper.service';
 import { FilterTcPivotsService } from '@core/services/tc-pivots.service';
@@ -30,7 +30,9 @@ import { LocationFeaturesService } from '@core/services/location-features.servic
     EnumService,
     LocationCapabilitiesMapper,
     {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService},
-    LocationFeaturesService
+    LocationFeaturesService,
+    AuthService,
+    LocationCapabilitiesService
   ],
   exports: []
 })

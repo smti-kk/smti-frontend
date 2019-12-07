@@ -15,4 +15,6 @@ export * from './organization-type';
 export * from './smo-type';
 export * from './internet-access-type';
 export * from './organization';
+export { ExistingOperators } from '@core/models/existing-operators';
+export { TelevisionFeature } from '@core/models/radio-location-feature';
 // export * from './trunk-channel';

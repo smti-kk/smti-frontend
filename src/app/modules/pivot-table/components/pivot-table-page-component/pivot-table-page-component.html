@@ -170,7 +170,7 @@
       </div>
       <div class="c-filter-info">
         <div class="c-filter-result">
-          Результатов поиска: <span>{{lcs?.length}}</span>
+          Результатов поиска: <span>{{locationFeatures?.length}}</span>
         </div>
         <div class="c-filter-export">
           <input (click)="tcPivots.exportExcel()" type="button" class="btn" value="Выгрузить в Excel">
@@ -195,7 +195,7 @@
       [fullScreen]="true"
     >Загрузка. . . (среднее время ожидания: 40 сек.)</ngx-spinner>
     <div class="l-table l-table-location" [id]="lc.id"
-         *ngFor="let lc of lcs | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}; let i = index">
+         *ngFor="let lc of locationFeatures | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}; let i = index">
       <div class="l-table-column">{{lc.id}}</div>
       <div class="l-table-column">
         <div class="c-location-name">
@@ -340,7 +340,7 @@
         </div>
       </div>
     </div>
-    <div style="display: flex; justify-content: flex-end" *ngIf="lcs">
+    <div style="display: flex; justify-content: flex-end" *ngIf="locationFeatures">
       <div class="pagination-count">
         <div style="margin-right: 13px">Количество строк на странице:</div>
         <input class="pagination-count-button" [class.active]="itemsPerPage === 10" type="button"
@@ -352,7 +352,7 @@
       </div>
     </div>
     <pagination-controls
-      *ngIf="this.lcs"
+      *ngIf="this.locationFeatures"
       class="pagination-controls"
       (pageChange)="pageNumber = $event"
       previousLabel="Предыдущая страница"

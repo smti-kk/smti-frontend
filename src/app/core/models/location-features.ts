@@ -5,7 +5,7 @@ import { LocationFeature } from '@core/models/location-feature';
 import { CellularFeature } from '@core/models/cellular-feature';
 import { RadioFeature } from '@core/models/radio-feature';
 import { InternetFeature } from '@core/models/internet-feature';
-
+import { TelevisionFeature } from '@core/models/radio-location-feature';
 
 export class LocationFeatures {
   @autoserializeAs(Location, 'location')
@@ -26,11 +26,11 @@ export class LocationFeatures {
   @autoserializeAs(LocationFeature, 'post')
   private readonly _post: LocationFeature[];
 
-  @autoserializeAs(LocationFeature, 'television')
-  private readonly _television: LocationFeature[];
+  @autoserializeAs(TelevisionFeature, 'television')
+  private readonly _television: TelevisionFeature[];
 
   constructor(location: Location, cellular: CellularFeature[], radio: RadioFeature[],
-              internet: InternetFeature[], ats: AtsFeature[], post: LocationFeature[], television: LocationFeature[]) {
+              internet: InternetFeature[], ats: AtsFeature[], post: LocationFeature[], television: TelevisionFeature[]) {
     this._location = location;
     this._cellular = cellular;
     this._radio = radio;
@@ -65,7 +65,7 @@ export class LocationFeatures {
     return this._post;
   }
 
-  get television(): LocationFeature[] {
+  get television(): TelevisionFeature[] {
     return this._television;
   }
 

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SharedModule } from '@shared/shared.module';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -7,12 +6,10 @@ import { tap } from 'rxjs/operators';
 import { StoreService } from './store.service';
 import { User } from '@core/models';
 import { RestApiService } from '@core/services/common/rest-api-service';
-import {ACCOUNT_INFO, ESIA_LOGIN, LOGIN} from '@core/constants/api';
-import {UserMapper} from '@core/utils/user-mapper';
+import { ACCOUNT_INFO, ESIA_LOGIN, LOGIN } from '@core/constants/api';
+import { UserMapper } from '@core/utils/user-mapper';
 
-@Injectable({
-  providedIn: SharedModule,
-})
+@Injectable()
 export class AuthService extends RestApiService<User, User, User> {
 
   private _user: Subject<User> = new ReplaySubject<User>(1);

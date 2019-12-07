@@ -18,4 +18,12 @@ export class RadioFeature extends LocationFeature {
   get type(): SignalType {
     return this._type;
   }
+
+  get typeStr(): string {
+    if (this.type === SignalType.ATV) {
+      return 'АТВ';
+    } else if (this.type === SignalType.CTV) {
+      return 'ЦТВ';
+    }
+  }
 }
