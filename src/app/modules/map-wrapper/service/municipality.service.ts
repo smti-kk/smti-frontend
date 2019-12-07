@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
-import { LocationArea } from '../model/location-area';
 import { HttpClient } from '@angular/common/http';
-import { LOCATION_AREA_URL } from '../constants/api.constants';
-import { RestApiService } from '@core/services/common/rest-api-service';
-import { StoreService } from '@core/services/store.service';
-import { LocationAreaMapper } from '../utils/location-area-mapper';
+import { LocationArea } from '@map-wrapper/model/location-area';
+import { LOCATION_AREA_URL } from '@map-wrapper/constants/api.constants';
+import { map } from 'rxjs/operators';
+import { Deserialize } from 'cerialize';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class MunicipalityService extends RestApiService<LocationArea, LocationArea, LocationArea> {
-  constructor(httpClient: HttpClient,
-              store: StoreService) {
-    super(httpClient, store, LOCATION_AREA_URL, new LocationAreaMapper());
+export class MunicipalityService {
+  constructor(private httpClient: HttpClient) {
+  }
+
+  list(): Observable<LocationArea[]> {
+    return this.httpClient
+      .get(LOCATION_AREA_URL)
+      .pipe(map(response => Deserialize(response, LocationArea)));
   }
 }
 

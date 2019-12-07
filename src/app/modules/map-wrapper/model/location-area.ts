@@ -1,19 +1,27 @@
-import { BBox, Feature, GeoJsonProperties, MultiPoint } from 'geojson';
+import { BBox, Feature, MultiPoint } from 'geojson';
+import { autoserializeAs } from 'cerialize';
+import { LocationAreaProperties } from '@map-wrapper/model/location-area-properties';
 
-export interface LocationAreaProperties extends GeoJsonProperties {
-  name: string;
-  type: number;
-  mark: number;
-  mobileInternetMaxType: string;
-  mobileMark: number;
-}
+const BORDER_GEO_JSON_DESERIALIZE = {
+  Deserialize(point): MultiPoint {
+    return JSON.parse(point);
+  }
+};
 
 export class LocationArea implements Feature<MultiPoint, LocationAreaProperties> {
   private _type: 'Feature' = 'Feature';
   private _bbox?: BBox;
 
+  @autoserializeAs('full_name')
+  private readonly _name: string;
+
+  @autoserializeAs(BORDER_GEO_JSON_DESERIALIZE, 'border_geojson')
   private readonly _geometry: MultiPoint;
+
+  @autoserializeAs(LocationAreaProperties, 'properties')
   private readonly _properties: LocationAreaProperties;
+
+  @autoserializeAs('id')
   private readonly _id: number;
 
   constructor(geometry: MultiPoint,
@@ -30,6 +38,10 @@ export class LocationArea implements Feature<MultiPoint, LocationAreaProperties>
 
   get properties(): LocationAreaProperties {
     return this._properties;
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get type(): 'Feature' {

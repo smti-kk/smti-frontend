@@ -1,406 +1,406 @@
-<!--suppress HtmlFormInputWithoutLabel -->
-<main class="main" *ngIf="tc">
-  <div class="wrapper">
-    <div class="breadcrumbs">
-      <ul class="breadcrumbs-list">
-        <li class="breadcrumbs-item"><a class="breadcrumbs-link" routerLink="">Главная</a></li>
-        <li class="breadcrumbs-item"><a class="breadcrumbs-link" routerLink="/pivot-table">Сводная таблица по населенным пунктам</a></li>
-        <li class="breadcrumbs-item"><span class="breadcrumbs-link">{{tc.name}}, {{tc.area}}</span></li>
-      </ul>
-    </div>
-    <div class="l-location-info">
-      <div class="c-location-name">
-        <div class="c-location-name-item1">{{tc.name}}</div>
-        <div class="c-location-name-item2">{{tc.area}}</div>
-      </div>
-      <div class="c-location-peoples"><span>{{tc.information.population}}</span> чел.</div>
-    </div>
-    <div class="c-tab">
-      <div class="c-tab-header">
-        <div class="c-tab-title active">Текущая информация</div>
-        <div class="c-tab-title">Архив</div>
-        <div class="c-tab-title">План</div>
-      </div>
-      <div class="c-tab-body">
-        <div class="c-tab-item active">
-          <div class="c-tab-info">
-            <div class="last-modified">
-              Последние изменения: <span class="last-modified-date">23.06.2018</span>
-            </div>
-            <div class="edit-status">Режим: Редактирование</div>
-            <!--            <input type="button" class="btn btn-cancel-form" value="Отмена редактирования">-->
-            <input type="button" class="btn btn-edit-form" value="Редактировать (Уточняющая заявка)">
-          </div>
-          <div class="edit-form">
-            <form *ngIf="tcForm" [formGroup]="tcForm">
-              <fieldset disabled="disabled">
-                <div class="edit-form-block" formGroupName="cellular">
-                  <div class="o-item-title">Сотовая связь</div>
-                  <div class="edit-form-item"
-                       *ngFor="let cellular of tc.information.cellular; let i = index"
-                       [formGroupName]="i.toString()"
-                  >
-                    <div class="c-checkbox">
-                      <label> <input formControlName="provider" type="checkbox">
-                        <div class="c-checkbox-text">{{cellular.provider.name}}</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label>
-                          <input formControlName="mobileGeneration" value="2G" type="radio">
-                          <div class="c-radiobox-text">2G</div>
-                        </label>
-                        <label>
-                          <input formControlName="mobileGeneration" value="3G" type="radio">
-                          <div class="c-radiobox-text">3G</div>
-                        </label>
-                        <label>
-                          <input formControlName="mobileGeneration" value="4G" type="radio">
-                          <div class="c-radiobox-text">4G</div>
-                        </label>
-                        <label>
-                          <input formControlName="mobileGeneration" value="5G" type="radio">
-                          <div class="c-radiobox-text">5G</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select formControlName="quality">
-                          <option [value]="Quality.GOOD">Хорошее качество</option>
-                          <option [value]="Quality.NORMAL">Удовлетворительное качество</option>
-                          <option [value]="Quality.ABSENT">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-<!--                        <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>-->
-<!--                        <div class="">Период: <span>15.06.2018 - 2025</span></div>-->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block" formGroupName="internet">
-                  <div class="o-item-title">Интернет</div>
-                  <div class="edit-form-item"
-                       [formGroupName]="i.toString()"
-                       *ngFor="let internet of tc.information.internet; let i = index"
-                  >
-                    <div class="c-checkbox">
-                      <label>
-                        <input type="checkbox" formControlName="provider">
-                        <div class="c-checkbox-text">{{internet.provider.name}}</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label>
-                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.SATELLITE">
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label>
-                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.VOLS">
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label>
-                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.COPPER_CABLE">
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label>
-                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.RADIO_CHANEl" >
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
-                      <div class="select">
-                        <select formControlName="quality">
-                          <option [value]="Quality.GOOD">Хорошее качество</option>
-                          <option [value]="Quality.NORMAL">Удовлетворительное качество</option>
-                          <option [value]="Quality.ABSENT">Отсутствует</option>
-                        </select>
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                      <div class="edit-form-info">
-<!--                        <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>-->
-<!--                        <div class="">Период: <span>15.06.2018 - 2025</span></div>-->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block" formGroupName="tv">
-                  <div class="o-item-title">Телевидение (ТВ)</div>
-                  <div class="edit-form-item"
-                       [formGroupName]="i.toString()"
-                       *ngFor="let tv of tc.information.tv; let i = index"
-                  >
-                    <div class="c-checkbox">
-                      <label>
-                        <input type="checkbox" formControlName="provider">
-                        <div class="c-checkbox-text">{{tv.provider.name}}</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label>
-                          <input formControlName="type" type="radio" [value]="SignalType.ATV">
-                          <div class="c-radiobox-text">АТВ</div>
-                        </label>
-                        <label>
-                          <input formControlName="type" type="radio" [value]="SignalType.CTV">
-                          <div class="c-radiobox-text">ЦТВ</div>
-                        </label>
-                      </div>
-                      <div class="edit-form-info">
-<!--                        <div class="">Период: <span>15.06.2018 - 2025</span></div>-->
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block" formGroupName="telephone">
-                  <div class="o-item-title">Стационарный телефон</div>
-                  <div class="edit-form-item"
-                       *ngFor="let telephone of tc.information.telephone; let i = index"
-                       [formGroupName]="i.toString()"
-                  >
-                    <div class="c-checkbox">
-                      <label>
-                        <input type="checkbox" formControlName="provider">
-                        <div class="c-checkbox-text">{{telephone.provider.name}}</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="edit-form-info border-left">
-<!--                        <div class="">Период: <span>15.06.2018 - 2025</span></div>-->
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block" formGroupName="payphone">
-                  <div class="o-item-title">Таксофон</div>
-                  <div class="edit-form-item"
-                       *ngFor="let payphone of tc.information.payphone; let i = index"
-                       [formGroupName]="i.toString()"
-                  >
-                    <div class="c-checkbox">
-                      <label>
-                        <input formControlName="provider" type="checkbox">
-                        <div class="c-checkbox-text">{{payphone.provider.name}}</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="input u-border-left u-border-right">
-                        <label>Количество:</label>
-                        <input formControlName="count" type="text">
-                      </div>
-                      <div class="edit-form-info">
-<!--                        <div class="">Период: <span>15.06.2018 - 2025</span></div>-->
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block" formGroupName="radio">
-                  <div class="o-item-title">Радио</div>
-                  <div class="edit-form-item"
-                       *ngFor="let radio of tc.information.radio; let i = index"
-                       [formGroupName]="i.toString()"
-                  >
-                    <div class="c-checkbox">
-                      <label>
-                        <input formControlName="provider" type="checkbox">
-                        <div class="c-checkbox-text">Ростелеком</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label>
-                          <input type="radio" formControlName="type" [value]="SignalType.ATV">
-                          <div class="c-radiobox-text">АТВ</div>
-                        </label>
-                        <label>
-                          <input type="radio" formControlName="type" [value]="SignalType.CTV">
-                          <div class="c-radiobox-text">ЦТВ</div>
-                        </label>
-                      </div>
-                      <div class="edit-form-info">
-<!--                        <div class="">Период: <span>15.06.2018 - 2025</span></div>-->
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block">
-                  <div class="o-item-title">Почтовая связь</div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">Почта России</div>
-                      </label>
-                    </div>
-                    <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="post">
-                          <div class="c-radiobox-text">УПС</div>
-                        </label>
-                        <label><input type="radio" name="post">
-                          <div class="c-radiobox-text">Почтовая связь</div>
-                        </label>
-                      </div>
-                      <div class="edit-form-info">
-<!--                        <div class="">Период: <span>15.06.2018 - 2025</span></div>-->
-                      </div>
-                      <div class="edit-form-btn">
-                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block">
-                  <div class="o-item-title">Инфомат</div>
-                  <div class="edit-form-item">
-                    <div class="c-checkbox">
-                      <label> <input formControlName="infomat" type="checkbox">
-                        <div class="c-checkbox-text">Наличие</div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="edit-form-block">
-                  <span>Комментарий к внесенным изменениям (к заявке)</span>
-                  <div class="edit-form-comment">
-                    <textarea name="" id="comment" cols="30" rows="10"></textarea>
-                    <button class="btn btn-save-comment" type="button" disabled="disabled"><i class="fas fa-check"></i>
-                    </button>
-                  </div>
-                </div>
-                <input type="submit" class="btn btn-save-form" value="Сохранить заявку" disabled="disabled">
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <div class="c-tab-item">
-          <div class="c-tab-info">
-            <div class="last-modified">
-              Последние изменения: <span class="last-modified-date">23.06.2018</span>
-            </div>
-          </div>
-          <div class="c-archive">
-            <div class="c-archive-item">
-              <div class="c-archive-info">
-                <span class="c-archive-number">№115а</span> от <span class="c-archive-date">15.08.19</span>
-                <p>Внесенные изменения:</p>
-                <ul class="c-archive-list">
-                  <li><span class="u-underline">Таксофон:</span> Изменено количество таксофонов с 4 до 5 шт</li>
-                  <li><span class="u-underline">Сотовая связь:</span> МТС - с 2G на 3G, подключение Мегафон</li>
-                  <li><span class="u-underline">Интернет:</span> Мегафон - проведен ВОЛС(качество удовлетворительное);
-                    Tele2 -
-                    подключение,медь
-                    (качество хорошее)
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="c-archive-item">
-              <div class="c-archive-info">
-                <span class="c-archive-number">№104а</span> от <span class="c-archive-date">07.06.19</span>
-                <p>Внесенные изменения:</p>
-                <ul class="c-archive-list">
-                  <li><span class="u-underline">Интернет:</span> Искра - проведен спутник (качество удовлетворительное)
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="c-tab-item">
-          <div class="c-tab-info">
-            <div class="last-modified">
-              Последние изменения: <span class="last-modified-date">23.06.2018</span>
-            </div>
-            <input type="button" class="btn" value="Внести изменения">
-          </div>
-          <div class="c-archive">
-            <div class="c-archive-item">
-              <div class="c-archive-info">
-                <span class="c-archive-number">№106</span> от <span class="c-archive-date">15.08.19</span>
-                <p>Планируемые изменения:</p>
-                <ul class="c-archive-list">
-                  <li><span class="u-underline">Сотовая связь:</span> МТС - с 2G на 3G (Программа "Субсидии Lorem ipsum"
-                    на период:
-                    15.10.2018 - 2020)
-                  </li>
-                  <li><span class="u-underline">Интернет:</span> Мегафон - подключение ВОЛС (Программа "Субсидии Lorem
-                    ipsum" на период:
-                    15.10.2018 - 2021)
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="c-modal">
-      <div class="c-modal-body">
-        <div class="c-modal-header">
-          <div class="c-modal-title">
-            <div>Сотовая связь, оператор Билайн, 3G</div>
-            <div class="c-location-name l-row">
-              <div class="c-location-name-item1">с. Богучаны</div>
-              <div class="c-location-name-item2">Богучанский р-н</div>
-            </div>
-          </div>
-          <div class="c-modal-close"><i class="fas fa-times"></i></div>
-        </div>
-        <div class="c-modal-content">
-          <div class="l-content">
-            <div class="l-content-item">
-              <div class="o-item-title">Программа:</div>
-              <select name="">
-                <option value="" disabled selected style="display:none;">Выберите программу</option>
-                <option value="">Программа 1</option>
-                <option value="">Программа 2</option>
-              </select>
-            </div>
-            <div class="l-content-item">
-              <div class="o-item-title">Период действия:</div>
-              <div class="c-modal-input"><input type="text"><i class="far fa-calendar-alt"></i></div>
-              <span>&nbsp;-&nbsp;</span>
-              <div class="c-modal-input"><input type="text"><i class="far fa-calendar-alt"></i></div>
-            </div>
-            <div class="l-content-item u-display-block">
-              <div class="o-item-title">Комментарий:</div>
-              <textarea name="" cols="30" rows="10"></textarea>
-            </div>
-            <div class="l-content-item">
-              <div class="c-modal-button">
-                <input type="button" value="Отмена" class="btn cancel"><input type="submit" value="Сохранить изменения"
-                                                                              class="btn">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-<ngx-spinner
-  bdOpacity=0.9
-  size="medium"
-  color="#35a584"
-  type="ball-atom"
-  class="spinner"
-  [fullScreen]="false"
-></ngx-spinner>
+<!--&lt;!&ndash;suppress HtmlFormInputWithoutLabel &ndash;&gt;-->
+<!--<main class="main" *ngIf="tc">-->
+<!--  <div class="wrapper">-->
+<!--    <div class="breadcrumbs">-->
+<!--      <ul class="breadcrumbs-list">-->
+<!--        <li class="breadcrumbs-item"><a class="breadcrumbs-link" routerLink="">Главная</a></li>-->
+<!--        <li class="breadcrumbs-item"><a class="breadcrumbs-link" routerLink="/pivot-table">Сводная таблица по населенным пунктам</a></li>-->
+<!--        <li class="breadcrumbs-item"><span class="breadcrumbs-link">{{tc.name}}, {{tc.area}}</span></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--    <div class="l-location-info">-->
+<!--      <div class="c-location-name">-->
+<!--        <div class="c-location-name-item1">{{tc.name}}</div>-->
+<!--        <div class="c-location-name-item2">{{tc.area}}</div>-->
+<!--      </div>-->
+<!--      <div class="c-location-peoples"><span>{{tc.information.population}}</span> чел.</div>-->
+<!--    </div>-->
+<!--    <div class="c-tab">-->
+<!--      <div class="c-tab-header">-->
+<!--        <div class="c-tab-title active">Текущая информация</div>-->
+<!--        <div class="c-tab-title">Архив</div>-->
+<!--        <div class="c-tab-title">План</div>-->
+<!--      </div>-->
+<!--      <div class="c-tab-body">-->
+<!--        <div class="c-tab-item active">-->
+<!--          <div class="c-tab-info">-->
+<!--            <div class="last-modified">-->
+<!--              Последние изменения: <span class="last-modified-date">23.06.2018</span>-->
+<!--            </div>-->
+<!--            <div class="edit-status">Режим: Редактирование</div>-->
+<!--            &lt;!&ndash;            <input type="button" class="btn btn-cancel-form" value="Отмена редактирования">&ndash;&gt;-->
+<!--            <input type="button" class="btn btn-edit-form" value="Редактировать (Уточняющая заявка)">-->
+<!--          </div>-->
+<!--          <div class="edit-form">-->
+<!--            <form *ngIf="tcForm" [formGroup]="tcForm">-->
+<!--              <fieldset disabled="disabled">-->
+<!--                <div class="edit-form-block" formGroupName="cellular">-->
+<!--                  <div class="o-item-title">Сотовая связь</div>-->
+<!--                  <div class="edit-form-item"-->
+<!--                       *ngFor="let cellular of tc.information.cellular; let i = index"-->
+<!--                       [formGroupName]="i.toString()"-->
+<!--                  >-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label> <input formControlName="provider" type="checkbox">-->
+<!--                        <div class="c-checkbox-text">{{cellular.provider.name}}</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="edit-form-wrap">-->
+<!--                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">-->
+<!--                        <label>-->
+<!--                          <input formControlName="mobileGeneration" value="2G" type="radio">-->
+<!--                          <div class="c-radiobox-text">2G</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input formControlName="mobileGeneration" value="3G" type="radio">-->
+<!--                          <div class="c-radiobox-text">3G</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input formControlName="mobileGeneration" value="4G" type="radio">-->
+<!--                          <div class="c-radiobox-text">4G</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input formControlName="mobileGeneration" value="5G" type="radio">-->
+<!--                          <div class="c-radiobox-text">5G</div>-->
+<!--                        </label>-->
+<!--                      </div>-->
+<!--                      <div class="select">-->
+<!--                        <select formControlName="quality">-->
+<!--                          <option [value]="Quality.GOOD">Хорошее качество</option>-->
+<!--                          <option [value]="Quality.NORMAL">Удовлетворительное качество</option>-->
+<!--                          <option [value]="Quality.ABSENT">Отсутствует</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-btn">-->
+<!--                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-info">-->
+<!--&lt;!&ndash;                        <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="">Период: <span>15.06.2018 - 2025</span></div>&ndash;&gt;-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block" formGroupName="internet">-->
+<!--                  <div class="o-item-title">Интернет</div>-->
+<!--                  <div class="edit-form-item"-->
+<!--                       [formGroupName]="i.toString()"-->
+<!--                       *ngFor="let internet of tc.information.internet; let i = index"-->
+<!--                  >-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label>-->
+<!--                        <input type="checkbox" formControlName="provider">-->
+<!--                        <div class="c-checkbox-text">{{internet.provider.name}}</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="edit-form-wrap">-->
+<!--                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">-->
+<!--                        <label>-->
+<!--                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.SATELLITE">-->
+<!--                          <div class="c-radiobox-text">Спутник</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.VOLS">-->
+<!--                          <div class="c-radiobox-text">ВОЛС</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.COPPER_CABLE">-->
+<!--                          <div class="c-radiobox-text">Медь</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input formControlName="channel" type="radio" [value]="TrunkChannelType.RADIO_CHANEl" >-->
+<!--                          <div class="c-radiobox-text">Радиоканал</div>-->
+<!--                        </label>-->
+<!--                      </div>-->
+<!--                      <div class="select">-->
+<!--                        <select formControlName="quality">-->
+<!--                          <option [value]="Quality.GOOD">Хорошее качество</option>-->
+<!--                          <option [value]="Quality.NORMAL">Удовлетворительное качество</option>-->
+<!--                          <option [value]="Quality.ABSENT">Отсутствует</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-btn">-->
+<!--                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-info">-->
+<!--&lt;!&ndash;                        <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="">Период: <span>15.06.2018 - 2025</span></div>&ndash;&gt;-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block" formGroupName="tv">-->
+<!--                  <div class="o-item-title">Телевидение (ТВ)</div>-->
+<!--                  <div class="edit-form-item"-->
+<!--                       [formGroupName]="i.toString()"-->
+<!--                       *ngFor="let tv of tc.information.tv; let i = index"-->
+<!--                  >-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label>-->
+<!--                        <input type="checkbox" formControlName="provider">-->
+<!--                        <div class="c-checkbox-text">{{tv.provider.name}}</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="edit-form-wrap">-->
+<!--                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">-->
+<!--                        <label>-->
+<!--                          <input formControlName="type" type="radio" [value]="SignalType.ATV">-->
+<!--                          <div class="c-radiobox-text">АТВ</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input formControlName="type" type="radio" [value]="SignalType.CTV">-->
+<!--                          <div class="c-radiobox-text">ЦТВ</div>-->
+<!--                        </label>-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-info">-->
+<!--&lt;!&ndash;                        <div class="">Период: <span>15.06.2018 - 2025</span></div>&ndash;&gt;-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-btn">-->
+<!--                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block" formGroupName="telephone">-->
+<!--                  <div class="o-item-title">Стационарный телефон</div>-->
+<!--                  <div class="edit-form-item"-->
+<!--                       *ngFor="let telephone of tc.information.telephone; let i = index"-->
+<!--                       [formGroupName]="i.toString()"-->
+<!--                  >-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label>-->
+<!--                        <input type="checkbox" formControlName="provider">-->
+<!--                        <div class="c-checkbox-text">{{telephone.provider.name}}</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="edit-form-wrap">-->
+<!--                      <div class="edit-form-info border-left">-->
+<!--&lt;!&ndash;                        <div class="">Период: <span>15.06.2018 - 2025</span></div>&ndash;&gt;-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-btn">-->
+<!--                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block" formGroupName="payphone">-->
+<!--                  <div class="o-item-title">Таксофон</div>-->
+<!--                  <div class="edit-form-item"-->
+<!--                       *ngFor="let payphone of tc.information.payphone; let i = index"-->
+<!--                       [formGroupName]="i.toString()"-->
+<!--                  >-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label>-->
+<!--                        <input formControlName="provider" type="checkbox">-->
+<!--                        <div class="c-checkbox-text">{{payphone.provider.name}}</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="edit-form-wrap">-->
+<!--                      <div class="input u-border-left u-border-right">-->
+<!--                        <label>Количество:</label>-->
+<!--                        <input formControlName="count" type="text">-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-info">-->
+<!--&lt;!&ndash;                        <div class="">Период: <span>15.06.2018 - 2025</span></div>&ndash;&gt;-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-btn">-->
+<!--                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block" formGroupName="radio">-->
+<!--                  <div class="o-item-title">Радио</div>-->
+<!--                  <div class="edit-form-item"-->
+<!--                       *ngFor="let radio of tc.information.radio; let i = index"-->
+<!--                       [formGroupName]="i.toString()"-->
+<!--                  >-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label>-->
+<!--                        <input formControlName="provider" type="checkbox">-->
+<!--                        <div class="c-checkbox-text">Ростелеком</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="edit-form-wrap">-->
+<!--                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">-->
+<!--                        <label>-->
+<!--                          <input type="radio" formControlName="type" [value]="SignalType.ATV">-->
+<!--                          <div class="c-radiobox-text">АТВ</div>-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                          <input type="radio" formControlName="type" [value]="SignalType.CTV">-->
+<!--                          <div class="c-radiobox-text">ЦТВ</div>-->
+<!--                        </label>-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-info">-->
+<!--&lt;!&ndash;                        <div class="">Период: <span>15.06.2018 - 2025</span></div>&ndash;&gt;-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-btn">-->
+<!--                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block">-->
+<!--                  <div class="o-item-title">Почтовая связь</div>-->
+<!--                  <div class="edit-form-item">-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label> <input type="checkbox">-->
+<!--                        <div class="c-checkbox-text">Почта России</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="edit-form-wrap">-->
+<!--                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">-->
+<!--                        <label><input type="radio" name="post">-->
+<!--                          <div class="c-radiobox-text">УПС</div>-->
+<!--                        </label>-->
+<!--                        <label><input type="radio" name="post">-->
+<!--                          <div class="c-radiobox-text">Почтовая связь</div>-->
+<!--                        </label>-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-info">-->
+<!--&lt;!&ndash;                        <div class="">Период: <span>15.06.2018 - 2025</span></div>&ndash;&gt;-->
+<!--                      </div>-->
+<!--                      <div class="edit-form-btn">-->
+<!--                        <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block">-->
+<!--                  <div class="o-item-title">Инфомат</div>-->
+<!--                  <div class="edit-form-item">-->
+<!--                    <div class="c-checkbox">-->
+<!--                      <label> <input formControlName="infomat" type="checkbox">-->
+<!--                        <div class="c-checkbox-text">Наличие</div>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="edit-form-block">-->
+<!--                  <span>Комментарий к внесенным изменениям (к заявке)</span>-->
+<!--                  <div class="edit-form-comment">-->
+<!--                    <textarea name="" id="comment" cols="30" rows="10"></textarea>-->
+<!--                    <button class="btn btn-save-comment" type="button" disabled="disabled"><i class="fas fa-check"></i>-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <input type="submit" class="btn btn-save-form" value="Сохранить заявку" disabled="disabled">-->
+<!--              </fieldset>-->
+<!--            </form>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="c-tab-item">-->
+<!--          <div class="c-tab-info">-->
+<!--            <div class="last-modified">-->
+<!--              Последние изменения: <span class="last-modified-date">23.06.2018</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="c-archive">-->
+<!--            <div class="c-archive-item">-->
+<!--              <div class="c-archive-info">-->
+<!--                <span class="c-archive-number">№115а</span> от <span class="c-archive-date">15.08.19</span>-->
+<!--                <p>Внесенные изменения:</p>-->
+<!--                <ul class="c-archive-list">-->
+<!--                  <li><span class="u-underline">Таксофон:</span> Изменено количество таксофонов с 4 до 5 шт</li>-->
+<!--                  <li><span class="u-underline">Сотовая связь:</span> МТС - с 2G на 3G, подключение Мегафон</li>-->
+<!--                  <li><span class="u-underline">Интернет:</span> Мегафон - проведен ВОЛС(качество удовлетворительное);-->
+<!--                    Tele2 - -->
+<!--                    подключение,медь-->
+<!--                    (качество хорошее)-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="c-archive-item">-->
+<!--              <div class="c-archive-info">-->
+<!--                <span class="c-archive-number">№104а</span> от <span class="c-archive-date">07.06.19</span>-->
+<!--                <p>Внесенные изменения:</p>-->
+<!--                <ul class="c-archive-list">-->
+<!--                  <li><span class="u-underline">Интернет:</span> Искра - проведен спутник (качество удовлетворительное)-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="c-tab-item">-->
+<!--          <div class="c-tab-info">-->
+<!--            <div class="last-modified">-->
+<!--              Последние изменения: <span class="last-modified-date">23.06.2018</span>-->
+<!--            </div>-->
+<!--            <input type="button" class="btn" value="Внести изменения">-->
+<!--          </div>-->
+<!--          <div class="c-archive">-->
+<!--            <div class="c-archive-item">-->
+<!--              <div class="c-archive-info">-->
+<!--                <span class="c-archive-number">№106</span> от <span class="c-archive-date">15.08.19</span>-->
+<!--                <p>Планируемые изменения:</p>-->
+<!--                <ul class="c-archive-list">-->
+<!--                  <li><span class="u-underline">Сотовая связь:</span> МТС - с 2G на 3G (Программа "Субсидии Lorem ipsum"-->
+<!--                    на период:-->
+<!--                    15.10.2018 - 2020)-->
+<!--                  </li>-->
+<!--                  <li><span class="u-underline">Интернет:</span> Мегафон - подключение ВОЛС (Программа "Субсидии Lorem-->
+<!--                    ipsum" на период:-->
+<!--                    15.10.2018 - 2021)-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="c-modal">-->
+<!--      <div class="c-modal-body">-->
+<!--        <div class="c-modal-header">-->
+<!--          <div class="c-modal-title">-->
+<!--            <div>Сотовая связь, оператор Билайн, 3G</div>-->
+<!--            <div class="c-location-name l-row">-->
+<!--              <div class="c-location-name-item1">с. Богучаны</div>-->
+<!--              <div class="c-location-name-item2">Богучанский р-н</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="c-modal-close"><i class="fas fa-times"></i></div>-->
+<!--        </div>-->
+<!--        <div class="c-modal-content">-->
+<!--          <div class="l-content">-->
+<!--            <div class="l-content-item">-->
+<!--              <div class="o-item-title">Программа:</div>-->
+<!--              <select name="">-->
+<!--                <option value="" disabled selected style="display:none;">Выберите программу</option>-->
+<!--                <option value="">Программа 1</option>-->
+<!--                <option value="">Программа 2</option>-->
+<!--              </select>-->
+<!--            </div>-->
+<!--            <div class="l-content-item">-->
+<!--              <div class="o-item-title">Период действия:</div>-->
+<!--              <div class="c-modal-input"><input type="text"><i class="far fa-calendar-alt"></i></div>-->
+<!--              <span>&nbsp;-&nbsp;</span>-->
+<!--              <div class="c-modal-input"><input type="text"><i class="far fa-calendar-alt"></i></div>-->
+<!--            </div>-->
+<!--            <div class="l-content-item u-display-block">-->
+<!--              <div class="o-item-title">Комментарий:</div>-->
+<!--              <textarea name="" cols="30" rows="10"></textarea>-->
+<!--            </div>-->
+<!--            <div class="l-content-item">-->
+<!--              <div class="c-modal-button">-->
+<!--                <input type="button" value="Отмена" class="btn cancel"><input type="submit" value="Сохранить изменения"-->
+<!--                                                                              class="btn">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</main>-->
+<!--<ngx-spinner-->
+<!--  bdOpacity=0.9-->
+<!--  size="medium"-->
+<!--  color="#35a584"-->
+<!--  type="ball-atom"-->
+<!--  class="spinner"-->
+<!--  [fullScreen]="false"-->
+<!--&gt;</ngx-spinner>-->

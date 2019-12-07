@@ -6,6 +6,8 @@ import { CellularFeature } from '@core/models/cellular-feature';
 import { RadioFeature } from '@core/models/radio-feature';
 import { InternetFeature } from '@core/models/internet-feature';
 import { TelevisionFeature } from '@core/models/radio-location-feature';
+import { GovernmentProgram } from '@core/models/government-program';
+import { PostFeature } from '@core/models/post-feature';
 
 export class LocationFeatures {
   @autoserializeAs(Location, 'location')
@@ -24,13 +26,13 @@ export class LocationFeatures {
   private readonly _ats: AtsFeature[];
 
   @autoserializeAs(LocationFeature, 'post')
-  private readonly _post: LocationFeature[];
+  private readonly _post: PostFeature[];
 
   @autoserializeAs(TelevisionFeature, 'television')
   private readonly _television: TelevisionFeature[];
 
   constructor(location: Location, cellular: CellularFeature[], radio: RadioFeature[],
-              internet: InternetFeature[], ats: AtsFeature[], post: LocationFeature[], television: TelevisionFeature[]) {
+              internet: InternetFeature[], ats: AtsFeature[], post: PostFeature[], television: TelevisionFeature[]) {
     this._location = location;
     this._cellular = cellular;
     this._radio = radio;
@@ -61,12 +63,18 @@ export class LocationFeatures {
     return this._ats;
   }
 
-  get post(): LocationFeature[] {
+  get post(): PostFeature[] {
     return this._post;
   }
 
   get television(): TelevisionFeature[] {
     return this._television;
+  }
+
+  get governmentPrograms(): GovernmentProgram[] {
+    return [...this.television, ...this.ats, ...this.radio, ...this.internet, ...this.post, ...this.cellular]
+      .map(locationFeature => locationFeature.governmentProgram)
+      .filter((program) => program !== null);
   }
 
   get activeInternetFeatures(): InternetFeature[] {

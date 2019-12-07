@@ -5,7 +5,7 @@
       <option [ngValue]="null" selected>Выберите район</option>
       <option *ngFor="let location of municipalityLayer?.getLayers()"
               [ngValue]="location">
-        {{location.feature.properties.name}}
+        {{location.feature.name}}
       </option>
     </select>
     <div class="search-location">
@@ -18,7 +18,7 @@
     </div>
     <div class="search-result" *ngIf="administrativePoints.length > 0 && locationSearch.value.length > 0">
       <div class="search-item" *ngFor="let administrativePoint of administrativePoints "
-           (click)="setSelectedPoint(administrativePoint)">{{administrativePoint.name}}</div>
+           (click)="setSelectedPoint(administrativePoint)">{{administrativePoint.fullName}}</div>
     </div>
   </form>
 </div>

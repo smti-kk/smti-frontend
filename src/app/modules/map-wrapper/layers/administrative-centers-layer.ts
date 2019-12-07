@@ -30,7 +30,7 @@ export class AdministrativeCentersLayer extends MonitoringLayer<AdministrativeCe
   filterByLocalityName(name: string): AdministrativeCenterPoint[] {
     return this.getLayers()
       .map(layer => layer.feature.properties)
-      .filter(layer => layer.name.toLowerCase().includes(name.toLowerCase()));
+      .filter(layer => layer.fullName.toLowerCase().includes(name.toLowerCase()));
   }
 
   getPoints(bounds): Observable<AdministrativeCenterPoint[]> {

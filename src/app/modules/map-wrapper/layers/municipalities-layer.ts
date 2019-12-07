@@ -1,12 +1,13 @@
 import { GeoJSON } from 'leaflet';
-import { Feature, FeatureCollection, MultiPoint } from 'geojson';
-import { LocationAreaProperties } from '../model/location-area';
+import { FeatureCollection, MultiPoint } from 'geojson';
 import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '../constants/inline.style';
 import { EventEmitter, Injectable } from '@angular/core';
 import { MunicipalityService } from '../service/municipality.service';
+import { LocationAreaProperties } from '@map-wrapper/model/location-area-properties';
+import { LocationArea } from '@map-wrapper/model/location-area';
 
 export interface MunicipalitiesLayerGeoJson extends GeoJSON<LocationAreaProperties> {
-  feature: Feature<MultiPoint, LocationAreaProperties>;
+  feature: LocationArea;
 }
 
 @Injectable()
@@ -52,7 +53,7 @@ export class MunicipalitiesLayer extends GeoJSON {
   }
 
   public getLayerByAreaName(areaName: string): MunicipalitiesLayerGeoJson {
-    return this.getLayers().find(layer => layer.feature.properties.name === areaName);
+    return this.getLayers().find(layer => layer.feature.name === areaName);
   }
 
   private addStyles() {
@@ -85,10 +86,10 @@ export class MunicipalitiesLayer extends GeoJSON {
   }
 
   private static sortByAreaName(layer1: MunicipalitiesLayerGeoJson, layer2: MunicipalitiesLayerGeoJson) {
-    if (layer1.feature.properties.name < layer2.feature.properties.name) {
+    if (layer1.feature.name < layer2.feature.name) {
       return -1;
     }
-    if (layer1.feature.properties.name > layer2.feature.properties.name) {
+    if (layer1.feature.name > layer2.feature.name) {
       return 1;
     }
     return 0;

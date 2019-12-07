@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from './service/requests.service';
 import { Request } from './model/request';
-import { LocationCapabilitiesService } from '@core/services';
-import { LocationCapabilities, TrunkChannelType } from '@core/models';
+import { LocationFeatures, TrunkChannelType } from '@core/models';
+import { LocationFeaturesService } from '@core/services/location-features.service';
 
 @Component({
   selector: 'requests',
@@ -11,7 +11,7 @@ import { LocationCapabilities, TrunkChannelType } from '@core/models';
 })
 export class RequestsComponent implements OnInit {
   requests: Request[];
-  technicalCapability: LocationCapabilities;
+  technicalCapability: LocationFeatures;
 
   TrunkChannelType = TrunkChannelType;
 
@@ -21,7 +21,7 @@ export class RequestsComponent implements OnInit {
     internet: false
   };
 
-  constructor(private requestsService: RequestsService, private technicalCapabilitiesService: LocationCapabilitiesService) {
+  constructor(private requestsService: RequestsService, private technicalCapabilitiesService: LocationFeaturesService) {
   }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class RequestsComponent implements OnInit {
     });
 
     // tslint:disable-next-line:no-magic-numbers
-    this.technicalCapabilitiesService.one(2419).subscribe(technicalCapability => {
+    this.technicalCapabilitiesService.oneLocationFeature(2419).subscribe(technicalCapability => {
       this.technicalCapability = technicalCapability;
     });
   }

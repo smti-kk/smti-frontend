@@ -1,5 +1,5 @@
-import { GovProgram } from '@core/services';
 import { MailType, MobileGenerationType, Quality, SignalType, TrunkChannelType } from './enums';
+import { GovernmentProgram } from '@core/models/government-program';
 
 export interface TrunkChannel {
   id: TrunkChannelType;
@@ -12,7 +12,7 @@ export class LocationCapabilities {
     private _id: number,
     private _name: string = '',
     private _area: string = '',
-    private _govPrograms: GovProgram[],
+    private _govPrograms: GovernmentProgram[],
     private _information: LocationCapabilitiesInformation = {
       tv: [],
       radio: [],
@@ -27,7 +27,7 @@ export class LocationCapabilities {
 
   }
 
-  get govPrograms(): GovProgram[] {
+  get govPrograms(): GovernmentProgram[] {
     return this._govPrograms;
   }
 

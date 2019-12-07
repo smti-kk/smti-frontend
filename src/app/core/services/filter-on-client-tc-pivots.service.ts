@@ -2,78 +2,76 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { FilterTcPivotsService, OrderingDirection } from './tc-pivots.service';
-import { LocationCapabilities } from '@core/models';
-import {sortStringAscCompareFn, sortStringDescCompareFn} from '@core/utils/sort';
+import { LocationFeatures } from '@core/models';
+import { sortStringAscCompareFn, sortStringDescCompareFn } from '@core/utils/sort';
 
 @Injectable()
 export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
   filtersFn = {
-    ats: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
+    ats: (tcs: LocationFeatures[]): LocationFeatures[] => {
       return tcs.filter(tc => {
-        return tc.information.telephone
-          .filter(telephone => telephone.provider.isActive)
+        return tc.ats.length !== 0;
+      });
+    },
+    payphone: (tcs: LocationFeatures[]): LocationFeatures[] => {
+      return tcs.filter(tc => {
+        return tc.ats
+          .filter(payphone => payphone.quantityPayphone !== 0)
           .length !== 0;
       });
     },
-    payphone: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
+    infomat: (tcs: LocationFeatures[]): LocationFeatures[] => {
+      return tcs.filter(tc => tc.location.infomat > 0);
+    },
+    radio: (tcs: LocationFeatures[]): LocationFeatures[] => {
       return tcs.filter(tc => {
-        return tc.information.payphone
-          .filter(payphone => payphone.provider.isActive && payphone.count !== 0)
-          .length !== 0;
+        return tc.radio.length !== 0;
       });
     },
-    infomat: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
-      return tcs.filter(tc => tc.information.informat !== false);
-    },
-    radio: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
+    internet_type: (tcs: LocationFeatures[]): LocationFeatures[] => {
       return tcs.filter(tc => {
-        return tc.information.radio
-          .filter(radio => radio.provider.isActive)
-          .length !== 0;
+        return tc.internet.find(i => i.channel && i.channel.type === this.filters.internetType);
       });
     },
-    internet_type: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
-      return tcs.filter(tc => tc.information.internet.find(i => i.channel && i.channel.id === this.filters.internetType));
-    },
-    tv_type: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
-      return tcs.filter(tc => tc.information.tv.find(i => {
-        return i.type && i.type.find(t => t.type === this.filters.tvType);
+    tv_type: (tcs: LocationFeatures[]): LocationFeatures[] => {
+      return tcs.filter(tc => tc.television.find(i => {
+        return i.type && i.type.find(t => t.id === this.filters.tvType);
       }));
     },
-    mobile_type: (tcs: LocationCapabilities[]) => {
+    mobile_type: (tcs: LocationFeatures[]) => {
       return tcs.filter(tc => {
-        return tc.information.cellular.find(i => {
-          return i.mobileGeneration && i.mobileGeneration.id === this.filters.mobileType;
+        return tc.cellular.find(i => {
+          return i.type && i.type.type === this.filters.mobileType;
         });
       });
     },
-    govenmet_programs: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
-      return tcs.filter(tc => tc.govPrograms.find(gp => gp.id === this.filters.program.id));
+    govenmet_programs: (tcs: LocationFeatures[]): LocationFeatures[] => {
+      return tcs.filter(tc => tc.governmentPrograms.find(gp => gp.id === this.filters.program.id));
     },
-    internet_operator: (tcs: LocationCapabilities[]) => {
+    internet_operator: (tcs: LocationFeatures[]) => {
       const providers = this.filters.internet
         .filter(internetItem => Object.values(internetItem)[0] === true)
         .map(i => Object.keys(i)[0]);
 
 
       return tcs.filter(tc => {
-        return tc.information.internet.find(internet => {
-          return providers.find(p => internet.provider.isActive && p === internet.provider.id.toString());
+        return tc.internet.find(internet => {
+          return providers.find(p => p === internet.operator.id.toString());
         });
       });
     },
-    mobile_operator: (tcs: LocationCapabilities[]) => {
+    mobile_operator: (tcs: LocationFeatures[]) => {
       const providers = this.filters.mobile
         .filter(mobile => Object.values(mobile)[0] === true)
         .map(i => Object.keys(i)[0]);
 
       return tcs.filter(tc => {
-        return tc.information.cellular.find(mobile => {
-          return providers.find(p => mobile.provider.isActive && p === mobile.provider.id.toString());
+        return tc.cellular.find(mobile => {
+          return providers.find(p => p === mobile.operator.id.toString());
         });
       });
     },
-    ordering: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
+    ordering: (tcs: LocationFeatures[]): LocationFeatures[] => {
       switch (this.filters.order.name) {
         case 'name':
           return tcs.sort(
@@ -90,22 +88,24 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
         case 'people_count':
           return tcs.sort(
             this.filters.order.orderingDirection === OrderingDirection.ASC
-              ? ((a, b) => a.information.population - b.information.population)
-              : ((a, b) => b.information.population - a.information.population)
+              ? ((a, b) => a.location.peopleCount - b.location.peopleCount)
+              : ((a, b) => b.location.peopleCount - a.location.peopleCount)
           );
       }
     },
-    post_type: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
-      return tcs.filter(tc => tc.information.mail.find(mail => mail.type === this.filters.mailType));
+    post_type: (tcs: LocationFeatures[]): LocationFeatures[] => {
+      return tcs.filter(tc => {
+        return tc.post.find(mail => mail.type === this.filters.mailType);
+      });
     },
-    locationName: (tcs: LocationCapabilities[]): LocationCapabilities[] => {
-      return tcs.filter(tc => tc.name.toLowerCase().includes(this.filters.locationName.toLowerCase()));
+    locationName: (tcs: LocationFeatures[]): LocationFeatures[] => {
+      return tcs.filter(tc => tc.location.name.toLowerCase().includes(this.filters.locationName.toLowerCase()));
     }
   };
 
-  cachedTc: LocationCapabilities[];
+  cachedTc: LocationFeatures[];
 
-  list(): Observable<LocationCapabilities[]> {
+  list(): Observable<LocationFeatures[]> {
     if (!this.cachedTc) {
       // this.params = this.params.set('parent', '2093');
       return super

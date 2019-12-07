@@ -1,6 +1,17 @@
 import { ApiMapper } from './api-mapper';
-import { Internet, LocationCapabilities, Mobile, Payphone, Provider, Radio, SignalType, Telephone, Tv } from '@core/models';
-import { GovProgramMapper } from '@core/services/gov-program-mapper.service';
+import {
+  GovernmentProgram,
+  Internet,
+  LocationCapabilities,
+  Mobile,
+  Payphone,
+  Provider,
+  Radio,
+  SignalType,
+  Telephone,
+  Tv
+} from '@core/models';
+import { Deserialize } from 'cerialize';
 
 export class LocationCapabilitiesMapper
   extends ApiMapper<LocationCapabilities, LocationCapabilities, LocationCapabilities> {
@@ -144,7 +155,7 @@ export class LocationCapabilitiesMapper
     this.foo(tcApi.internet, gp);
     this.foo(tcApi.radio, gp);
 
-    return gp.map(g => GovProgramMapper.mapApiModel(g.government_program));
+    return gp.map(g => Deserialize(g.government_program, GovernmentProgram));
   }
 
   private foo(tc: any[], result: any[]) {

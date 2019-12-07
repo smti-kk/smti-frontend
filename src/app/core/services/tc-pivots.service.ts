@@ -1,15 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { StoreService } from '@core/services/store.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GovProgram } from '@core/services/index';
 import { OrderingFilter } from '@shared/layout/filter-btn/filter-btn.component';
-import { LocationCapabilities, MailType, MobileGenerationType, SignalType, TrunkChannelType } from '@core/models';
+import { GovernmentProgram, LocationFeatures, MailType, MobileGenerationType, SignalType, TrunkChannelType } from '@core/models';
 import { environment } from '../../../environments/environment';
-import { RestApiService } from '@core/services/common/rest-api-service';
-import { LocationCapabilitiesMapper } from '@core/utils/location-capabilities.mapper';
+import { map } from 'rxjs/operators';
+import { Deserialize } from 'cerialize';
 
-const LTC = '/api/v1/ltc';
+const LTC = environment.API_BASE_URL + '/api/v1/ltc';
 
 export enum OrderingDirection {
   ASC,
@@ -18,17 +16,24 @@ export enum OrderingDirection {
 }
 
 @Injectable()
-export class TcPivotsService extends RestApiService<LocationCapabilities, LocationCapabilities, LocationCapabilities> {
-  constructor(private httpClient: HttpClient,
-              private storeService: StoreService,
-              private capabilitiesMapper: LocationCapabilitiesMapper) {
-    super(httpClient, storeService, LTC, capabilitiesMapper);
+export class TcPivotsService {
+  constructor(private httpClient: HttpClient) {
+  }
+
+  list(params?: HttpParams): Observable<LocationFeatures[]> {
+    return this.httpClient.get(LTC, {params})
+      .pipe(map(response => Deserialize(response, LocationFeatures)));
+  }
+
+  one(id: number): Observable<LocationFeatures> {
+    return this.httpClient.get(LTC + `/${id}/`)
+      .pipe(map(response => Deserialize(response, LocationFeatures)));
   }
 }
 
 interface TcFilters {
   order: OrderingFilter;
-  program: GovProgram;
+  program: GovernmentProgram;
   hasEspd: boolean;
   hasPayphone: boolean;
   hasInfomat: boolean;
@@ -50,7 +55,7 @@ export class FilterTcPivotsService extends TcPivotsService {
 
   private TRUE = '2';
 
-  list(): Observable<LocationCapabilities[]> {
+  list(): Observable<LocationFeatures[]> {
     return super.list(this.params);
   }
 
@@ -86,7 +91,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setFilterByProgram(value: GovProgram) {
+  private setFilterByProgram(value: GovernmentProgram) {
     if (value) {
       this.params = this.params.set('govenmet_programs', value.id.toString());
     } else {

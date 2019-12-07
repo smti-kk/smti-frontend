@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { TechnicalCapabilitiesRowComponent } from './components/providers-row/technical-capabilities-row.component';
 import { FilterBtnComponent } from '@shared/layout/filter-btn/filter-btn.component';
 import { CellularFeatureComponent } from '@shared/components/providers-row/cellular/cellular-feature.component';
 import { OperatorIconComponent } from '@shared/components/providers-row/operator-icon.component';
@@ -14,7 +13,6 @@ import { TelevisionFeatureComponent } from '@shared/components/providers-row/tel
 
 @NgModule({
   declarations: [
-    TechnicalCapabilitiesRowComponent,
     FilterBtnComponent,
     CellularFeatureComponent,
     InternetFeatureComponent,
@@ -30,7 +28,6 @@ import { TelevisionFeatureComponent } from '@shared/components/providers-row/tel
   ],
   providers: [],
   exports: [
-    TechnicalCapabilitiesRowComponent,
     FilterBtnComponent,
     CellularFeatureComponent,
     InternetFeatureComponent,

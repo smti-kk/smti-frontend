@@ -63,12 +63,12 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
 
       this.setSelectedPoint(selectedPoint, true);
 
-      this.searchForm.get(FORM_PARAMS.locality).patchValue(selectedPoint.name);
+      this.searchForm.get(FORM_PARAMS.locality).patchValue(selectedPoint.fullName);
     }
   }
 
   setSelectedPoint(administrativePoint: AdministrativeCenterPoint, animate: boolean = true) {
-    this.searchForm.get(FORM_PARAMS.locality).setValue(administrativePoint.name);
+    this.searchForm.get(FORM_PARAMS.locality).setValue(administrativePoint.fullName);
     this.leafletMap.flyTo(new LatLng(administrativePoint.point.lat, administrativePoint.point.lng), ZOOM, {animate});
     this.selectedPoint.emit(administrativePoint.id);
   }
@@ -124,14 +124,14 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   private filterLocalities(locality: string) {
     if (this.administrativeCentersLayer) {
       this.administrativePoints = this.administrativeCentersLayer.filterByLocalityName(locality);
-      if (this.administrativePoints.length === 1 && this.administrativePoints[0].name === locality) {
+      if (this.administrativePoints.length === 1 && this.administrativePoints[0].fullName === locality) {
         this.administrativePoints = [];
       }
     }
   }
 
   private onMunicipalityMarkerClick(marker: MonitoringMarker<AdministrativeCenterPoint>) {
-    this.searchForm.get(FORM_PARAMS.area).patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.area));
+    this.searchForm.get(FORM_PARAMS.area).patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.district));
     this.setSelectedPoint(marker.feature.properties, true);
   }
 }

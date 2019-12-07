@@ -8,7 +8,8 @@
           <div class="c-filter-icon">Фильтры</div>
           <div class="d-flex">
             <div [class.search-block]="displayBlockSearch" [class.search-absolute]="!displayBlockSearch">
-              <div (click)="isOpenedAccordion = !isOpenedAccordion" [formGroup]="filterForm" class="search-location search-location-pivots">
+              <div (click)="isOpenedAccordion = !isOpenedAccordion" [formGroup]="filterForm"
+                   class="search-location search-location-pivots">
                 <input (focusout)="onSearchInputFocusOut()"
                        (keyup)="onSearchControlKeyPress($event)"
                        [formControl]="searchControl"
@@ -193,17 +194,21 @@
       type="ball-atom"
       class="spinner"
       [fullScreen]="true"
-    >Загрузка. . . (среднее время ожидания: 40 сек.)</ngx-spinner>
-    <div class="l-table l-table-location" [id]="lc.id"
+    >Загрузка. . . (среднее время ожидания: 40 сек.)
+    </ngx-spinner>
+    <div class="l-table l-table-location"
+         [id]="lc.location.id"
          *ngFor="let lc of locationFeatures | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}; let i = index">
-      <div class="l-table-column">{{lc.id}}</div>
+      <div class="l-table-column">{{lc.location.id}}</div>
       <div class="l-table-column">
         <div class="c-location-name">
-          <div class="c-location-name-item1" [class.searched-item]="searchedTc === lc">{{lc.name}}</div>
-          <div class="c-location-name-item2">{{lc.area}}</div>
+          <div class="c-location-name-item1" [class.searched-item]="searchedTc === lc">
+            {{lc.location.typeLocation}} {{lc.location.name}}
+          </div>
+          <div class="c-location-name-item2">{{lc.location.municipalityArea}}</div>
         </div>
-        <div class="c-location-peoples"><span>{{lc.information.population}}</span> чел.</div>
-        <a [routerLink]="[lc.id]" class="btn">Подробнее</a>
+        <div class="c-location-peoples"><span>{{lc.location.peopleCount}}</span> чел.</div>
+        <a [routerLink]="[lc.location.id]" class="btn">Подробнее</a>
       </div>
       <div class="l-table-column">
         <div class="espd true"></div>
@@ -212,81 +217,51 @@
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-phone-alt"></i></div>
           <div class="l-table-item">
-            <div class="c-vendor"
-                 *ngFor="let phone of lc.information.telephone"
-            >
-              <div class="c-vendor-logo"
-                   [ngClass]="{ opacity: !phone.provider.isActive }"
-              >
-                <img class="image"
-                     [src]="phone.provider.icon"
-                     [alt]="phone.provider.name"
-                     [title]="phone.provider.name">
-              </div>
-            </div>
+            <app-ats-features [locationFeatures]="lc.ats" [existed]="existingOperators.ats">
+            </app-ats-features>
           </div>
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-tty"></i></div>
           <div class="l-table-item">
-            <div class="c-vendor" *ngFor="let payphone of lc.information.payphone">
-              <div class="c-vendor-logo" [ngClass]="{ opacity: !payphone.provider.isActive || payphone.count === 0 }">
-                <img
-                  class="image"
-                  [src]="payphone.provider.icon"
-                  [alt]="payphone.provider.name"
-                  [title]="payphone.provider.name"
-                >
-              </div>
-              <div class="vendor-status-text status-pos" *ngIf="payphone.count !== 0">{{payphone.count}}</div>
-            </div>
+            <app-payphone-features [locationFeatures]="lc.ats" [existed]="existingOperators.ats">
+            </app-payphone-features>
           </div>
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-tablet-alt"></i></div>
           <div class="l-table-item u-true"
-               *ngIf="lc.information.informat === true">
+               *ngIf="lc.location.infomat > 0">
           </div>
           <div class="l-table-item"
-               *ngIf="lc.information.informat === false">
+               *ngIf="lc.location.infomat <= 0">
             0
           </div>
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="far fa-envelope"></i></div>
           <div class="l-table-item u-true"
-               *ngIf="lc.information.mail.length > 0">
+               *ngIf="lc.post.length > 0">
           </div>
           <div class="l-table-item"
-               *ngIf="lc.information.mail.length === 0">
+               *ngIf="lc.post.length === 0">
             0
           </div>
-          <div class="l-table-item" *ngFor="let mail of lc.information.mail">УПС</div>
+          <div class="l-table-item" *ngFor="let mail of lc.post">УПС</div>
         </div>
       </div>
       <div class="l-table-column">
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-tv"></i></div>
           <div class="l-table-item">
-            <div class="c-vendor" *ngFor="let tv of lc.information.tv">
-              <div class="c-vendor-logo" [ngClass]="{opacity: !tv.provider.isActive}">
-                <img class="image" [src]="tv.provider.icon" [alt]="tv.provider.name" [title]="tv.provider.name">
-              </div>
-              <div class="c-vendor-status-text">{{getTvTypeString(tv.type)}}</div>
-            </div>
+            <app-television-features [locationFeatures]="lc.television" [existed]="existingOperators.television">
+            </app-television-features>
           </div>
         </div>
         <div class="l-table-row">
           <div class="l-table-item"><i class="fas fa-microphone"></i></div>
           <div class="l-table-item">
-            <div class="c-vendor" *ngFor="let radio of lc.information.radio">
-              <div class="c-vendor-logo" [ngClass]="{ opacity: !radio.provider.isActive }">
-                <img class="image"
-                     [src]="radio.provider.icon"
-                     [alt]="radio.provider.name"
-                     [title]="radio.provider.name">
-              </div>
-            </div>
+            <app-radio-features [locationFeatures]="lc.radio" [existed]="existingOperators.radio"></app-radio-features>
           </div>
         </div>
       </div>
@@ -294,48 +269,24 @@
         <div class="l-table-row l-column">
           <div class="o-item-title"><i class="fas fa-mobile-alt"></i> Сотовая связь:</div>
           <div class="l-vendors-row">
-            <div class="c-vendor" *ngFor="let phone of lc.information.cellular">
-              <div class="c-vendor-logo" [ngClass]="{opacity: !phone.provider.isActive}">
-                <img class="image" [src]="phone.provider.icon" [alt]="phone.provider.name"
-                     [title]="phone.provider.name">
-              </div>
-              <div class="c-vendor-status-text">{{phone.mobileGeneration?.name}}</div>
-            </div>
+            <app-cellular-features [locationFeatures]="lc.cellular"
+                                   [existed]="existingOperators.cellular"></app-cellular-features>
           </div>
         </div>
         <div class="l-table-row l-column">
           <div class="o-item-title"><i class="fab fa-internet-explorer"></i> Интернет:</div>
           <div class="l-vendors-row">
-            <div class="c-vendor"
-                 *ngFor="let internet of lc.information.internet"
-            >
-              <div class="c-vendor-logo"
-                   [ngClass]="{ opacity: !internet.provider.isActive }"
-              >
-                <img class="image" [src]="internet.provider.icon"
-                     [alt]="internet.provider.name"
-                     [title]="internet.provider.name">
-              </div>
-              <div class="c-vendor-status-img"
-                   *ngIf="internet.channel"
-                   [title]="internet.channel.name"
-                   [ngClass]="
-                     {
-                      vols: internet.channel.id === TrunkChannelType.VOLS,
-                      med: internet.channel.id === TrunkChannelType.COPPER_CABLE,
-                      radio: internet.channel.id === TrunkChannelType.RADIO_CHANEl,
-                      sputnik: internet.channel.id === TrunkChannelType.SATELLITE
-                     }"
-              ></div>
-            </div>
+            <app-internet-features [locationFeatures]="lc.internet" [existed]="existingOperators.internet">
+
+            </app-internet-features>
           </div>
         </div>
       </div>
       <div class="l-table-column">
-        <div class="l-table-row" *ngFor="let govProgram of lc.govPrograms">
-          {{govProgram.shortName}}
+        <div class="l-table-row" *ngFor="let governmentProgram of lc.governmentPrograms">
+          {{governmentProgram.shortName}}
         </div>
-        <div *ngIf="lc.govPrograms.length === 0" class="l-table-row">
+        <div *ngIf="lc.governmentPrograms.length === 0" class="l-table-row">
           Нет программы
         </div>
       </div>

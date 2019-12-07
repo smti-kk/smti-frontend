@@ -1,30 +1,67 @@
-import { Coordinate } from '../interface/coordinate';
 import { MonitoringPoint } from './monitoring-point';
+import { autoserializeAs, inheritSerialization } from 'cerialize';
+import { Coordinate } from '@map-wrapper/interface/coordinate';
 
 const SMO_MARKER_PATH = '../../../../assets/img/Ресурс 6.svg';
 
+@inheritSerialization(MonitoringPoint)
 export class AccessPointSmo extends MonitoringPoint {
 
-  constructor(private _actualAddress: string,
-              private _address: string,
-              private _cmoType: string,
-              private _definedSpeed: string,
-              private _description: string,
-              private _institutionType: string,
-              private _label: string,
-              private _mediumType: string,
-              private _networkProvider: string,
-              private _orgName: string,
-              _pk: number,
-              _point: Coordinate,
-              private _visible: boolean) {
-    super(_pk, _point, _orgName);
+  @autoserializeAs('actual_address')
+  private readonly _actualAddress: string;
+
+  @autoserializeAs('address')
+  private readonly _address: string;
+
+  @autoserializeAs('cmo_type')
+  private readonly _cmoType: string;
+
+  @autoserializeAs('defined_speed')
+  private readonly _definedSpeed: string;
+
+  @autoserializeAs('description')
+  private readonly _description: string;
+
+  @autoserializeAs('institution_type')
+  private readonly _institutionType: string;
+
+  @autoserializeAs('label')
+  private readonly _label: string;
+
+  @autoserializeAs('medium_type')
+  private readonly _mediumType: string;
+
+  @autoserializeAs('network_provider')
+  private readonly _networkProvider: string;
+
+  @autoserializeAs('org_name')
+  private readonly _orgName: string;
+
+  @autoserializeAs('visible')
+  private readonly _visible: boolean;
+
+
+  constructor(id: number, point: Coordinate, name: string,
+              actualAddress: string, address: string, cmoType: string,
+              definedSpeed: string, description: string, institutionType: string,
+              label: string, mediumType: string, networkProvider: string, orgName: string, visible: boolean) {
+    super(point, id);
+    this._actualAddress = actualAddress;
+    this._address = address;
+    this._cmoType = cmoType;
+    this._definedSpeed = definedSpeed;
+    this._description = description;
+    this._institutionType = institutionType;
+    this._label = label;
+    this._mediumType = mediumType;
+    this._networkProvider = networkProvider;
+    this._orgName = orgName;
+    this._visible = visible;
   }
 
   get iconUrl() {
     return SMO_MARKER_PATH;
   }
-
 
   get actualAddress(): string {
     return this._actualAddress;

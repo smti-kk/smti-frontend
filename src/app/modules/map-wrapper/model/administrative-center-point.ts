@@ -1,24 +1,35 @@
 import { MonitoringPoint } from './monitoring-point';
 import { Coordinate } from '@map-wrapper/interface/coordinate';
+import { autoserializeAs, inheritSerialization } from 'cerialize';
 
 const MARKER_ICON_DEFAULT = '../../../../assets/img/Ресурс 8.svg';
 
+@inheritSerialization(MonitoringPoint)
 export class AdministrativeCenterPoint extends MonitoringPoint {
-  private _area: string;
 
-  public constructor(_id: number,
-                     _point: Coordinate,
-                     _name: string,
-                     _area: string) {
-    super(_id, _point, _name);
-    this._area = _area;
+  @autoserializeAs('district')
+  private readonly _district: string;
+
+  @autoserializeAs('full_name')
+  private readonly _fullName: string;
+
+
+  constructor(point: Coordinate, id: number, district: string, fullName: string) {
+    super(point, id);
+    this._district = district;
+    this._fullName = fullName;
+  }
+
+
+  get fullName(): string {
+    return this._fullName;
   }
 
   get iconUrl() {
     return MARKER_ICON_DEFAULT;
   }
 
-  get area(): string {
-    return this._area;
+  get district(): string {
+    return this._district;
   }
 }

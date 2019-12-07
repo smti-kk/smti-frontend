@@ -1,23 +1,29 @@
-import { RestApiService } from '@core/services/common/rest-api-service';
-import { AccessPointSmo } from '../model/access-point-smo';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { StoreService } from '@core/services/store.service';
-import { ACCESS_POINT_SMO_URL } from '../constants/api.constants';
-import { SmoMapper } from '../utils/smo-mapper';
 import { LatLngBounds } from 'leaflet';
 import { Injectable } from '@angular/core';
+import { ACCESS_POINT_SMO_URL } from '@map-wrapper/constants/api.constants';
+import { Observable } from 'rxjs';
+import { AccessPointSmo } from '@map-wrapper/model/access-point-smo';
+import { Deserialize } from 'cerialize';
+import { map } from 'rxjs/operators';
 
 @Injectable()
-export class SmoService extends RestApiService<AccessPointSmo, AccessPointSmo, AccessPointSmo> {
-  constructor(httpClient: HttpClient,
-              store: StoreService) {
-    super(httpClient, store, ACCESS_POINT_SMO_URL, new SmoMapper());
+export class SmoService {
+  constructor(private httpClient: HttpClient) {
   }
 
-  public listFilteredByBounds(bounds: LatLngBounds) {
-    const httpParams = new HttpParams()
+  public list(): Observable<AccessPointSmo[]> {
+    return this.httpClient
+      .get(ACCESS_POINT_SMO_URL)
+      .pipe(map(response => Deserialize(response, AccessPointSmo)));
+  }
+
+  public listFilteredByBounds(bounds: LatLngBounds): Observable<AccessPointSmo[]> {
+    const params = new HttpParams()
       .set('bbox', `${bounds.getSouthWest().lng},${bounds.getSouthWest().lat},${bounds.getNorthEast().lng},${bounds.getNorthEast().lat}`);
 
-    return super.list(httpParams);
+    return this.httpClient
+      .get(ACCESS_POINT_SMO_URL, {params})
+      .pipe(map(response => Deserialize(response, AccessPointSmo)));
   }
 }

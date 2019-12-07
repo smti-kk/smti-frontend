@@ -1,9 +1,18 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FilterTcPivotsService, OrderingDirection } from '@core/services/tc-pivots.service';
-import { LocationCapabilities, MailType, MobileGenerationType, Provider, SignalType, TrunkChannelType } from '@core/models';
+import {
+  ExistingOperators,
+  GovernmentProgram,
+  LocationFeatures,
+  MailType,
+  MobileGenerationType,
+  Provider,
+  SignalType,
+  TrunkChannelType
+} from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { EnumService, GovProgram, GovProgramService } from '@core/services';
+import { EnumService, GovernmentProgramService } from '@core/services';
 import { forkJoin, Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 
@@ -14,13 +23,14 @@ import { debounceTime, filter, tap } from 'rxjs/operators';
 })
 export class PivotTablePageComponent implements OnInit, AfterViewInit {
 
-  locationFeatures: LocationCapabilities[];
-  govPrograms: GovProgram[];
+  locationFeatures: LocationFeatures[];
+  existingOperators: ExistingOperators;
+  govPrograms: GovernmentProgram[];
   pageNumber = 1;
   itemsPerPage = 10;
   isOpenedAccordion = false;
   searchControl: FormControl;
-  searchedTc: LocationCapabilities;
+  searchedTc: LocationFeatures;
   displayBlockSearch = true;
 
   TrunkChannelType = TrunkChannelType;
@@ -38,7 +48,7 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
   constructor(public tcPivots: FilterTcPivotsService,
               private fb: FormBuilder,
               private spinner: NgxSpinnerService,
-              private govProgramsService: GovProgramService,
+              private govProgramsService: GovernmentProgramService,
               private enumService: EnumService) {
     this.buildForm();
     this.buildSearchControl();
@@ -47,7 +57,8 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
       this.loadPivotsTable(),
       this.loadGovPrograms(),
       this.loadInternetProviders(),
-      this.loadMobileProviders()
+      this.loadMobileProviders(),
+      this.loadExistingOperators()
     ).subscribe(() => {
       this.observer = this.filterForm
         .valueChanges
@@ -78,15 +89,6 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
 
   onSearchInputFocusOut() {
     this.searchedTc = null;
-  }
-
-  getTvTypeString(types: { type: SignalType; name: string }[]) {
-    if (!types) {
-      return '';
-    }
-    return types
-      .map(type => type.name)
-      .join(',');
   }
 
   onSearchControlKeyPress(event) {
@@ -171,17 +173,23 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
       .pipe(debounceTime(DEBOUNCE_TIME_MS))
       .pipe(filter(value => value && value.length > 0))
       .subscribe(value => {
-        this.searchedTc = this.locationFeatures.find(lc => lc.name.toLowerCase().includes(value.toLowerCase()));
+        this.searchedTc = this.locationFeatures.find(lc => lc.location.name.toLowerCase().includes(value.toLowerCase()));
         const lcIndex = this.locationFeatures.indexOf(this.searchedTc) + 1;
         this.pageNumber = Math.ceil(lcIndex / this.itemsPerPage);
 
         if (this.searchedTc) {
           this.displayBlockSearch = false;
-          const lcElement = document.getElementById(this.searchedTc.id.toString());
+          const lcElement = document.getElementById(this.searchedTc.location.id.toString());
           if (lcElement) {
             lcElement.scrollIntoView({block: 'center'});
           }
         }
       });
+  }
+
+  private loadExistingOperators() {
+    return this.enumService
+      .getExistingOperators()
+      .pipe(tap(response => this.existingOperators = response));
   }
 }

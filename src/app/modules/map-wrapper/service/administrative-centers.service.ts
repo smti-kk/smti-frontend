@@ -1,31 +1,32 @@
-import { AdministrativeCenterPoint } from '../model/administrative-center-point';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { StoreService } from '@core/services/store.service';
 import { LOCATION_URL } from '../constants/api.constants';
-import { AdministrativeCentersMapper } from '../utils/administrative-centers-mapper';
 import { Injectable } from '@angular/core';
 import { LatLngBounds } from 'leaflet';
-import { RestApiService } from '@core/services/common/rest-api-service';
+import { map } from 'rxjs/operators';
+import { Deserialize } from 'cerialize';
+import { Observable } from 'rxjs';
+import { AdministrativeCenterPoint } from '@map-wrapper/model/administrative-center-point';
 
 @Injectable()
-export class AdministrativeCentersService
-  extends RestApiService<AdministrativeCenterPoint, AdministrativeCenterPoint, AdministrativeCenterPoint> {
-  constructor(httpClient: HttpClient,
-              store: StoreService) {
-    super(httpClient, store, LOCATION_URL, new AdministrativeCentersMapper());
+export class AdministrativeCentersService {
+  constructor(private httpClient: HttpClient) {
   }
 
-  listFilteredByBounds(bounds: LatLngBounds) {
-    const httpParams = new HttpParams()
+  listFilteredByBounds(bounds: LatLngBounds): Observable<AdministrativeCenterPoint[]> {
+    const params = new HttpParams()
       .set('bbox', `${bounds.getSouthWest().lng},${bounds.getSouthWest().lat},${bounds.getNorthEast().lng},${bounds.getNorthEast().lat}`);
 
-    return super.list(httpParams);
+    return this.httpClient
+      .get(LOCATION_URL, {params})
+      .pipe(map(response => Deserialize(response, AdministrativeCenterPoint)));
   }
 
   listFilteredByArea(areaId) {
-    const httpParams = new HttpParams()
+    const params = new HttpParams()
       .set('parent', areaId.toString());
 
-    return super.list(httpParams);
+    return this.httpClient
+      .get(LOCATION_URL, {params})
+      .pipe(map(response => Deserialize(response, AdministrativeCenterPoint)));
   }
 }

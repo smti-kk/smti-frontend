@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RestApiService } from '@core/services/common/rest-api-service';
 import { ExistingOperators, LocationFeatures } from '@core/models';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { StoreService } from '@core/services/store.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Deserialize } from 'cerialize';
-import { DefaultMapper } from '@core/utils/api-mapper';
 import { environment } from '../../../environments/environment';
 import { TECHNICAL_CAPABILITIES } from '@core/constants/api';
 
@@ -14,47 +11,24 @@ const TC_INTERNET = '/api/v1/tc-internet';
 const TC_MOBILE = '/api/v1/tc-mobile';
 
 @Injectable()
-export class LocationFeaturesService extends RestApiService<LocationFeatures, LocationFeatures, LocationFeatures> {
+export class LocationFeaturesService {
 
-  constructor(private httpClient: HttpClient, private storeService: StoreService) {
-    super(httpClient, storeService, TC_INTERNET, new DefaultMapper()); // todo: remove default mapper
+  constructor(private httpClient: HttpClient) {
   }
 
-  internetFeaturesList(params?: HttpParams): Observable<LocationFeatures[]> {
-    if (!params) {
-      params = new HttpParams();
-    }
+  internetFeaturesList(): Observable<LocationFeatures[]> {
+    const params = new HttpParams()
+      .append('parent', '1904');
 
-    const token = this.storeService.get('token');
-    let headers;
-
-    if (token) {
-      headers = new HttpHeaders().append('Authorization', `Token ${token}`);
-    }
-
-    // params = params.append('parent', '1904');
-
-    return this.httpClient.get(TC_INTERNET, {params, headers})
+    return this.httpClient.get(TC_INTERNET, {params})
       .pipe(map(value => Deserialize(value, LocationFeatures)));
   }
 
   cellularFeaturesList(): Observable<LocationFeatures[]> {
-    const token = this.storeService.get('token');
-    let headers;
+    const params = new HttpParams()
+      .append('parent', '1904');
 
-    if (token) {
-      headers = new HttpHeaders().append('Authorization', `Token ${token}`);
-    }
-
-    const params = new HttpParams();
-    // .append('parent', '1904');
-
-    return this.httpClient.get(TC_MOBILE, {params, headers})
-      .pipe(map(value => Deserialize(value, LocationFeatures)));
-  }
-
-  one(id: number): Observable<LocationFeatures> {
-    return super.one(id)
+    return this.httpClient.get(TC_MOBILE, {params})
       .pipe(map(value => Deserialize(value, LocationFeatures)));
   }
 
@@ -67,26 +41,7 @@ export class LocationFeaturesService extends RestApiService<LocationFeatures, Lo
   }
 
   oneLocationFeature(id: number): Observable<LocationFeatures> {
-    const token = this.storeService.get('token');
-    let headers;
-
-    if (token) {
-      headers = new HttpHeaders().append('Authorization', `Token ${token}`);
-    }
-
-    return this.httpClient.get(TECHNICAL_CAPABILITIES + `/${id}/`, {headers})
+    return this.httpClient.get(TECHNICAL_CAPABILITIES + `/${id}/`)
       .pipe(map(value => Deserialize(value, LocationFeatures)));
-  }
-
-  getExistingOperators(): Observable<ExistingOperators> {
-    const token = this.storeService.get('token');
-    let headers;
-
-    if (token) {
-      headers = new HttpHeaders().append('Authorization', `Token ${token}`);
-    }
-
-    return this.httpClient.get<any>(TECHNICAL_CAPABILITIES + `/1111/`, {headers})
-      .pipe(map(value => Deserialize(value.operators, ExistingOperators)));
   }
 }

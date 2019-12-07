@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { LocationFeatures } from '@core/models';
 import { TcPivotsService } from '@core/services/tc-pivots.service';
 import { ActivatedRoute } from '@angular/router';
-import { LocationCapabilities, Quality, SignalType, TrunkChannelType } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -10,10 +10,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './technical-capabilities.component.html',
   styleUrls: ['./technical-capabilities.component.scss']
 })
-export class TechnicalCapabilitiesComponent implements OnInit {
+export class TechnicalCapabilitiesComponent {
 
   tcForm: FormGroup;
-  tc: LocationCapabilities;
+  tc: LocationFeatures;
 
   Quality = Quality;
   TrunkChannelType = TrunkChannelType;
@@ -26,8 +26,6 @@ export class TechnicalCapabilitiesComponent implements OnInit {
     this.loadTechnicalCapability(route.snapshot.params.id);
   }
 
-  ngOnInit() {
-  }
 
   private loadTechnicalCapability(id: number) {
     this.spinner.show();
@@ -39,7 +37,7 @@ export class TechnicalCapabilitiesComponent implements OnInit {
     });
   }
 
-  private buildForm(fb: FormBuilder, tc: LocationCapabilities): FormGroup {
+  private buildForm(fb: FormBuilder, tc: LocationFeatures): FormGroup {
     const form = fb.group({
       cellular: fb.array([]),
       internet: fb.array([]),
@@ -48,7 +46,7 @@ export class TechnicalCapabilitiesComponent implements OnInit {
       payphone: fb.array([]),
       radio: fb.array([]),
       mail: fb.array([]),
-      infomat: tc.information.informat
+      infomat: tc.location.infomat > 0
     });
 
 

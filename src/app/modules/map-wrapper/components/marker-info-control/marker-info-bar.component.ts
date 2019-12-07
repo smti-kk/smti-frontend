@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { OrganizationsService } from '@core/services';
+import { EnumService, OrganizationsService } from '@core/services';
 import { ExistingOperators, LocationFeatures, Organization } from '@core/models';
 import { forkJoin } from 'rxjs';
 import { Map } from 'leaflet';
@@ -19,10 +19,11 @@ export class MarkerInfoBarComponent implements OnInit {
   private existingOperators: ExistingOperators;
 
   constructor(private readonly locationFeaturesService: LocationFeaturesService,
+              private readonly enumService: EnumService,
               private readonly organizationsService: OrganizationsService,
               private readonly ref: ChangeDetectorRef,
               private readonly renderer: Renderer2) {
-    this.locationFeaturesService.getExistingOperators().subscribe(value => {
+    enumService.getExistingOperators().subscribe(value => {
       this.existingOperators = value;
     });
   }

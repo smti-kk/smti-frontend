@@ -2,21 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { StoreService } from './store.service';
 import { User } from '@core/models';
-import { RestApiService } from '@core/services/common/rest-api-service';
 import { ACCOUNT_INFO, ESIA_LOGIN, LOGIN } from '@core/constants/api';
-import { UserMapper } from '@core/utils/user-mapper';
+import { Deserialize } from 'cerialize';
 
 @Injectable()
-export class AuthService extends RestApiService<User, User, User> {
+export class AuthService {
 
   private _user: Subject<User> = new ReplaySubject<User>(1);
 
   constructor(private httpClient: HttpClient, private storeService: StoreService) {
-    super(httpClient, storeService, ACCOUNT_INFO, new UserMapper());
-
     this.accountInfo.subscribe(user => {
       this.user.next(user);
     }, () => {
@@ -25,7 +22,7 @@ export class AuthService extends RestApiService<User, User, User> {
   }
 
   login(options: { email: string, password: string }): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(environment.API_BASE_URL + LOGIN, options)
+    return this.httpClient.post<{ token: string }>(environment.API_BASE_URL + LOGIN, options)
       .pipe(
         tap(response => {
           this.storeService.set('token', response.token);
@@ -53,7 +50,9 @@ export class AuthService extends RestApiService<User, User, User> {
   }
 
   get accountInfo(): Observable<User> {
-    return this.one();
+    return this.httpClient
+      .get(ACCOUNT_INFO)
+      .pipe(map(response => Deserialize(response, User)));
   }
 
   logout() {
