@@ -29,6 +29,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
       locationFeaturesService.internetFeaturesList(),
       locationFeaturesService.cellularFeaturesList()
     ).subscribe(response => {
+      console.log(response);
       this.featuresInternet = response[0];
       this.featuresCellular = response[1];
       spinnerService.hide();

@@ -3,7 +3,7 @@ import { MOBILE_GENERATION_DESERIALIZER, MobileGeneration } from '@core/models/m
 import { Quality } from '@core/models/enums';
 import { LocationFeature } from '@core/models/location-feature';
 import { Operator } from '@core/models/operator';
-
+import { GovernmentProgram } from '@core/models/government-program';
 
 
 @inheritSerialization(LocationFeature)
@@ -14,9 +14,9 @@ export class CellularFeature extends LocationFeature {
   private readonly _type: MobileGeneration;
 
 
-  constructor(operator: Operator, quality: Quality, active: boolean,
-              archive: boolean, planYear: boolean, planTwoYear: boolean, type: MobileGeneration) {
-    super(operator, quality, active, archive, planYear, planTwoYear);
+  constructor(operator: Operator, quality: Quality, active: boolean, archive: boolean,
+              completed: number, planYear: boolean, planTwoYear: boolean, governmentProgram: GovernmentProgram, type: MobileGeneration) {
+    super(operator, quality, active, archive, completed, planYear, planTwoYear, governmentProgram);
     this._type = type;
   }
 

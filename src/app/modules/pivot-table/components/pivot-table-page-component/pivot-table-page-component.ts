@@ -1,20 +1,12 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FilterTcPivotsService, OrderingDirection } from '@core/services/tc-pivots.service';
-import {
-  ExistingOperators,
-  GovernmentProgram,
-  LocationFeatures,
-  MailType,
-  MobileGeneration,
-  Operator,
-  SignalType,
-  TrunkChannel
-} from '@core/models';
+import { ExistingOperators, GovernmentProgram, LocationFeatures, MailType, MobileGeneration, Operator, TrunkChannel } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { EnumService, GovernmentProgramService } from '@core/services';
 import { forkJoin, Subscription } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
+import { Signal } from '@core/models/signal';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -35,7 +27,7 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
 
   TrunkChannel = TrunkChannel;
   OrderingDirection = OrderingDirection;
-  SignalType = SignalType;
+  Signal = Signal;
   MailType = MailType;
   MobileGeneration = MobileGeneration;
 
@@ -103,7 +95,6 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     this.spinner.show();
     return this.tcPivots.list()
       .pipe(tap(lcs => {
-        console.log(lcs);
         this.locationFeatures = lcs;
         this.spinner.hide();
       }));

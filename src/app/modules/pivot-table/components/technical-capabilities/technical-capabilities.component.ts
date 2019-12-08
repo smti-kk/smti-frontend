@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ExistingOperators, LocationFeatures, MobileGeneration, Quality, SignalType, TrunkChannel } from '@core/models';
+import { ExistingOperators, LocationFeatures, MobileGeneration, Quality, TrunkChannel } from '@core/models';
 import { TcPivotsService } from '@core/services/tc-pivots.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EnumService } from '@core/services';
 import { forkJoin } from 'rxjs';
+import { Signal } from '@core/models/signal';
 
 @Component({
   selector: 'app-technical-capabilities',
@@ -20,7 +21,7 @@ export class TechnicalCapabilitiesComponent {
 
   Quality = Quality;
   TrunkChannel = TrunkChannel;
-  SignalType = SignalType;
+  Signal = Signal;
   MobileGeneration = MobileGeneration;
 
   constructor(private fb: FormBuilder,
@@ -62,7 +63,8 @@ export class TechnicalCapabilitiesComponent {
         fb.group({
           _operator: null,
           _quality: null,
-          _type: null
+          _type: null,
+          _governmentProgram: null
         })
       );
     });
@@ -72,7 +74,8 @@ export class TechnicalCapabilitiesComponent {
         fb.group({
           _operator: null,
           _quality: null,
-          _channel: null
+          _channel: null,
+          _governmentProgram: null
         })
       );
     });
@@ -82,7 +85,8 @@ export class TechnicalCapabilitiesComponent {
         fb.group({
           _operator: null,
           _quality: null,
-          _channel: null
+          _type: null,
+          _governmentProgram: null
         })
       );
     });
@@ -91,8 +95,8 @@ export class TechnicalCapabilitiesComponent {
       getArrayGroup(form, '_ats').push(
         fb.group({
           _operator: null,
-          _quality: null,
-          _channel: null
+          _quantityPayphone: null,
+          _governmentProgram: null
         })
       );
     });
@@ -102,7 +106,8 @@ export class TechnicalCapabilitiesComponent {
         fb.group({
           _operator: null,
           _quality: null,
-          _channel: null
+          _channel: null,
+          _governmentProgram: null
         })
       );
     });
@@ -110,70 +115,7 @@ export class TechnicalCapabilitiesComponent {
     form.patchValue(locationFeatures);
 
     form.valueChanges.subscribe(value => console.log(value));
-    //
-    //
-    // existingOperators.cellular.forEach(c => {
-    //   getArrayGroup(form, 'cellular').push(
-    //     fb.group({
-    //       provider: false,
-    //       quality: c.quality,
-    //       mobileGeneration: c.mobileGeneration ? c.mobileGeneration.name : null,
-    //     })
-    //   );
-    // });
-    //
-    // tc.information.internet.forEach(c => {
-    //   getArrayGroup(form, 'internet').push(
-    //     fb.group({
-    //       provider: c.provider.isActive,
-    //       quality: c.quality,
-    //       channel: c.channel ? c.channel.id : null
-    //     })
-    //   );
-    // });
-    //
-    // tc.information.tv.forEach(c => {
-    //   getArrayGroup(form, 'tv').push(
-    //     fb.group({
-    //       provider: c.provider.isActive,
-    //       type: c.type ? c.type[0].type : null
-    //     })
-    //   );
-    // });
-    //
-    // tc.information.telephone.forEach(c => {
-    //   getArrayGroup(form, 'telephone').push(
-    //     fb.group({
-    //       provider: c.provider.isActive
-    //     })
-    //   );
-    // });
-    //
-    // tc.information.payphone.forEach(c => {
-    //   getArrayGroup(form, 'payphone').push(
-    //     fb.group({
-    //       provider: c.provider.isActive,
-    //       count: c.count
-    //     })
-    //   );
-    // });
-    //
-    // tc.information.radio.forEach(c => {
-    //   getArrayGroup(form, 'radio').push(
-    //     fb.group({
-    //       provider: c.provider.isActive,
-    //       type: c.type
-    //     })
-    //   );
-    // });
-    //
-    // tc.information.mail.forEach(c => {
-    //   getArrayGroup(form, 'mail').push(
-    //     fb.group({
-    //       provider: c.provider.isActive
-    //     })
-    //   );
-    // });
+    console.log(form);
 
     return form;
   }

@@ -49,11 +49,8 @@ export class MarkerInfoBarComponent implements OnInit {
       this.organizationsService.getList(point)
     )
       .subscribe(response => {
-        console.log(response[1]);
-        console.log(response[0]);
         this.locationFeatures = response[0];
         this.organizations = response[1];
-        console.log(response[1]);
         this.ref.detectChanges();
         this.leafletMap.spin(false);
       });

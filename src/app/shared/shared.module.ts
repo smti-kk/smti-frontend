@@ -10,6 +10,7 @@ import { PayphoneFeatureComponent } from './components/providers-row/payphone/pa
 import { RadioFeatureComponent } from '@shared/components/providers-row/radio/radio-feature.component';
 import { TelevisionFeatureComponent } from '@shared/components/providers-row/television/television-feature.component';
 import { SimpleCheckbox } from '@shared/layout/simple-checkbox/simple-checkbox.component';
+import { StaticTextControl } from '@shared/layout/static-control-text/static-text-control.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SimpleCheckbox } from '@shared/layout/simple-checkbox/simple-checkbox.c
     PayphoneFeatureComponent,
     RadioFeatureComponent,
     TelevisionFeatureComponent,
-    SimpleCheckbox
+    SimpleCheckbox,
+    StaticTextControl
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { SimpleCheckbox } from '@shared/layout/simple-checkbox/simple-checkbox.c
     TelevisionFeatureComponent,
     PayphoneFeatureComponent,
     AtsFeatureComponent,
-    SimpleCheckbox
+    SimpleCheckbox,
+    StaticTextControl
   ]
 })
 export class SharedModule {

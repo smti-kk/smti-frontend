@@ -13,6 +13,5 @@ export class TelevisionFeatureComponent extends BaseFeatureComponent implements 
   @Input() existed: Operator[];
 
   ngOnInit() {
-    console.log(this.locationFeatures);
   }
 }

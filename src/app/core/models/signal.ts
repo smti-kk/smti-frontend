@@ -1,8 +1,7 @@
 import { autoserializeAs } from 'cerialize';
-import { SignalType } from '@core/models/enums';
 
 export const SIGNAL_ARRAY_DESERIALIZER = {
-  Deserialize(objs: {id: number}[]): Signal[] {
+  Deserialize(objs: { id: number }[]): Signal[] {
     return objs.map(obj => {
       switch (obj.id) {
         case Signal.ATV.id:
@@ -19,18 +18,18 @@ export class Signal {
   public static CTV = new Signal(2, 'Цифровое');
 
   @autoserializeAs('id')
-  private readonly _id: SignalType;
+  private readonly _id: number;
 
   @autoserializeAs('name')
   private readonly _name: string;
 
 
-  constructor(id: SignalType, name: string) {
+  constructor(id: number, name: string) {
     this._id = id;
     this._name = name;
   }
 
-  get id(): SignalType {
+  get id(): number {
     return this._id;
   }
 
@@ -39,9 +38,9 @@ export class Signal {
   }
 
   get shortName() {
-    if (this.id === SignalType.ATV) {
+    if (this.id === Signal.ATV.id) {
       return 'АТВ';
-    } else if (this.id === SignalType.CTV) {
+    } else if (this.id === Signal.CTV.id) {
       return 'ЦТВ';
     }
   }

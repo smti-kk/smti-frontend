@@ -16,6 +16,9 @@ export class LocationFeature {
   @autoserializeAs('archive')
   private readonly _archive: boolean;
 
+  @autoserializeAs('completed')
+  private readonly _completed: number;
+
   @autoserializeAs('planYear')
   private readonly _planYear: boolean;
 
@@ -26,13 +29,21 @@ export class LocationFeature {
   private readonly _governmentProgram: GovernmentProgram;
 
 
-  constructor(operator: Operator, quality: Quality, active: boolean, archive: boolean, planYear: boolean, planTwoYear: boolean) {
+  constructor(operator: Operator, quality: Quality, active: boolean, archive: boolean, completed: number, planYear: boolean,
+              planTwoYear: boolean, governmentProgram: GovernmentProgram) {
     this._operator = operator;
     this._quality = quality;
     this._active = active;
     this._archive = archive;
+    this._completed = completed;
     this._planYear = planYear;
     this._planTwoYear = planTwoYear;
+    this._governmentProgram = governmentProgram;
+  }
+
+
+  get completed(): number {
+    return this._completed;
   }
 
   get operator(): Operator {

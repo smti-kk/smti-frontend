@@ -3,6 +3,7 @@ import { TRUNK_CHANNEL_DESERIALIZER, TrunkChannel } from '@core/models/trunk-cha
 import { Operator } from '@core/models/operator';
 import { Quality } from '@core/models/enums';
 import { LocationFeature } from '@core/models/location-feature';
+import { GovernmentProgram } from '@core/models/government-program';
 
 @inheritSerialization(LocationFeature)
 export class InternetFeature extends LocationFeature {
@@ -12,9 +13,9 @@ export class InternetFeature extends LocationFeature {
   private readonly _channel: TrunkChannel;
 
 
-  constructor(operator: Operator, quality: Quality, active: boolean,
-              archive: boolean, planYear: boolean, planTwoYear: boolean, channel: TrunkChannel) {
-    super(operator, quality, active, archive, planYear, planTwoYear);
+  constructor(operator: Operator, quality: Quality, active: boolean, archive: boolean, completed: number, planYear: boolean,
+              planTwoYear: boolean, governmentProgram: GovernmentProgram, channel: TrunkChannel) {
+    super(operator, quality, active, archive, completed, planYear, planTwoYear, governmentProgram);
     this._channel = channel;
   }
 

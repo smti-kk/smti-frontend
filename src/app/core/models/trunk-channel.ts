@@ -11,6 +11,8 @@ export const TRUNK_CHANNEL_DESERIALIZER = {
         return TrunkChannel.SATELLITE;
       case TrunkChannel.VOLS.type:
         return TrunkChannel.VOLS;
+      case TrunkChannel.UNDEFINED.type:
+        return TrunkChannel.UNDEFINED;
     }
   }
 };
@@ -21,7 +23,7 @@ export class TrunkChannel {
   public static SATELLITE = new TrunkChannel(4, 'Спутник');
   public static COPPER_CABLE = new TrunkChannel(5, 'Медь');
   public static RADIO_CHANEL = new TrunkChannel(6, 'Радио');
-  public static UNDEFINED = new TrunkChannel(1, 'Неизвестно');
+  public static UNDEFINED = new TrunkChannel(1, 'Неопределенно');
 
   @autoserializeAs('id')
   private readonly _type: number;

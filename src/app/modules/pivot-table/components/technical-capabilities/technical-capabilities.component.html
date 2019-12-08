@@ -78,7 +78,7 @@
                           <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
                         </div>
                         <div class="edit-form-info">
-                          <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>
+                          <div class="">Программа: <app-static-text-control formControlName="_governmentProgram"></app-static-text-control></div>
                           <div class="">Период: <span>15.06.2018 - 2025</span></div>
                         </div>
                       </div>
@@ -121,7 +121,7 @@
                         <button type="button" class="btn-edit-item"><i class="fas fa-ellipsis-v"></i></button>
                       </div>
                       <div class="edit-form-info">
-                        <div class="">Программа: <span>Субсидии Lorem ipsum</span></div>
+                        <div class="">Программа: <app-static-text-control formControlName="_governmentProgram"></app-static-text-control></div>
                         <div class="">Период: <span>15.06.2018 - 2025</span></div>
                       </div>
                     </div>
@@ -130,7 +130,7 @@
                 <div class="edit-form-block" formGroupName="_television">
                   <div class="o-item-title">Телевидение (ТВ)</div>
                   <div class="edit-form-item"
-                       [formControlName]="i.toString()"
+                       [formGroupName]="i.toString()"
                        *ngFor="let televisionOperator of existingOperators.television; let i = index">
                     <div class="c-checkbox">
                       <app-simple-checkbox [value]="televisionOperator"
@@ -155,13 +155,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="_ats">
                   <div class="o-item-title">Стационарный телефон</div>
-                  <div class="edit-form-item" *ngFor="let telOperator of existingOperators.ats">
+                  <div class="edit-form-item"
+                       [formGroupName]="i.toString()"
+                       *ngFor="let telOperator of existingOperators.ats; let i = index">
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">{{telOperator.name}}</div>
-                      </label>
+                      <app-simple-checkbox
+                        formControlName="_operator"
+                        [value]="telOperator"
+                        [label]="telOperator.name"></app-simple-checkbox>
                     </div>
                     <div class="edit-form-wrap">
                       <div class="edit-form-info border-left">
@@ -173,16 +176,19 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="_ats">
                   <div class="o-item-title">Таксофон</div>
-                  <div class="edit-form-item" *ngFor="let payphoneOperator of existingOperators.ats">
+                  <div class="edit-form-item"
+                       [formGroupName]="i.toString()"
+                       *ngFor="let payphoneOperator of existingOperators.ats; let i = index">
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">{{payphoneOperator.name}}</div>
-                      </label>
+                      <app-simple-checkbox
+                        formControlName="_operator"
+                        [label]="payphoneOperator.name"
+                        [value]="payphoneOperator"></app-simple-checkbox>
                     </div>
                     <div class="edit-form-wrap">
-                      <div class="input u-border-left u-border-right"><label>Количество:</label><input type="text">
+                      <div class="input u-border-left u-border-right"><label>Количество:</label><input formControlName="_quantityPayphone" type="number">
                       </div>
                       <div class="edit-form-info">
                         <div class="">Период: <span>15.06.2018 - 2025</span></div>
@@ -193,20 +199,23 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" formGroupName="_radio">
                   <div class="o-item-title">Радио</div>
-                  <div class="edit-form-item" *ngFor="let radioOperator of existingOperators.radio">
+                  <div class="edit-form-item"
+                       [formGroupName]="i.toString()"
+                       *ngFor="let radioOperator of existingOperators.radio; let i = index">
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
-                        <div class="c-checkbox-text">{{radioOperator.name}}</div>
-                      </label>
+                      <app-simple-checkbox
+                        formControlName="_operator"
+                        [label]="radioOperator.name"
+                        [value]="radioOperator"></app-simple-checkbox>
                     </div>
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label><input type="radio" name="radio-rostelecom">
+                        <label><input formControlName="_type" type="radio" [value]="Signal.ATV.id">
                           <div class="c-radiobox-text">АТВ</div>
                         </label>
-                        <label><input type="radio" name="radio-rostelecom">
+                        <label><input formControlName="_type" type="radio" [value]="Signal.CTV.id">
                           <div class="c-radiobox-text">ЦТВ</div>
                         </label>
                       </div>
@@ -219,7 +228,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block">
+                <div class="edit-form-block" *ngIf="existingOperators.post.length > 0">
                   <div class="o-item-title">Почтовая связь</div>
                   <div class="edit-form-item" *ngFor="let postOperator of existingOperators.post">
                     <div class="c-checkbox">
@@ -249,7 +258,7 @@
                   <div class="o-item-title">Инфомат</div>
                   <div class="edit-form-item">
                     <div class="c-checkbox">
-                      <label> <input type="checkbox">
+                      <label> <input type="checkbox" formControlName="_infomat">
                         <div class="c-checkbox-text">Наличие</div>
                       </label>
                     </div>
