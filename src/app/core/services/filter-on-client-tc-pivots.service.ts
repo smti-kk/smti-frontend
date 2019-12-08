@@ -30,18 +30,18 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
     },
     internet_type: (tcs: LocationFeatures[]): LocationFeatures[] => {
       return tcs.filter(tc => {
-        return tc.internet.find(i => i.channel && i.channel.type === this.filters.internetType);
+        return tc.internet.find(i => i.channel && i.channel.type === this.filters.internetType.type);
       });
     },
     tv_type: (tcs: LocationFeatures[]): LocationFeatures[] => {
       return tcs.filter(tc => tc.television.find(i => {
-        return i.type && i.type.find(t => t.id === this.filters.tvType);
+        return i.type && i.type.find(t => t.id === this.filters.tvType.id);
       }));
     },
     mobile_type: (tcs: LocationFeatures[]) => {
       return tcs.filter(tc => {
         return tc.cellular.find(i => {
-          return i.type && i.type.type === this.filters.mobileType;
+          return i.type && i.type.type === this.filters.mobileType.type;
         });
       });
     },

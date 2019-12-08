@@ -2,10 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderingFilter } from '@shared/layout/filter-btn/filter-btn.component';
-import { GovernmentProgram, LocationFeatures, MailType, MobileGenerationType, SignalType, TrunkChannelType } from '@core/models';
+import { GovernmentProgram, LocationFeatures, MailType, MobileGeneration, TrunkChannel } from '@core/models';
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Deserialize } from 'cerialize';
+import { Signal } from '@core/models/signal';
 
 const LTC = environment.API_BASE_URL + '/api/v1/ltc';
 
@@ -13,6 +14,23 @@ export enum OrderingDirection {
   ASC,
   DSC,
   UNDEFINED
+}
+
+interface TcFilters {
+  order: OrderingFilter;
+  program: GovernmentProgram;
+  hasEspd: boolean;
+  hasPayphone: boolean;
+  hasInfomat: boolean;
+  hasRadio: boolean;
+  hasTelephone: boolean;
+  mailType: MailType;
+  tvType: Signal;
+  internet: { [providerId: string]: boolean }[];
+  mobile: { [providerId: string]: boolean }[];
+  mobileType: MobileGeneration;
+  internetType: TrunkChannel;
+  locationName: string;
 }
 
 @Injectable()
@@ -29,23 +47,6 @@ export class TcPivotsService {
     return this.httpClient.get(LTC + `/${id}/`)
       .pipe(map(response => Deserialize(response, LocationFeatures)));
   }
-}
-
-interface TcFilters {
-  order: OrderingFilter;
-  program: GovernmentProgram;
-  hasEspd: boolean;
-  hasPayphone: boolean;
-  hasInfomat: boolean;
-  hasRadio: boolean;
-  hasTelephone: boolean;
-  mailType: MailType;
-  tvType: SignalType;
-  internet: { [providerId: string]: boolean }[];
-  mobile: { [providerId: string]: boolean }[];
-  mobileType: MobileGenerationType;
-  internetType: TrunkChannelType;
-  locationName: string;
 }
 
 @Injectable()
@@ -115,9 +116,9 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setFilterByTvType(type: SignalType) {
+  private setFilterByTvType(type: Signal) {
     if (type) {
-      this.params = this.params.set('tv_type', type.toString());
+      this.params = this.params.set('tv_type', type.id.toString());
     } else {
       this.params = this.params.delete('tv_type');
     }
@@ -151,19 +152,19 @@ export class FilterTcPivotsService extends TcPivotsService {
       });
   }
 
-  private setMobileTypeFilter(mobileType: MobileGenerationType) {
-    if (mobileType === null) {
+  private setMobileTypeFilter(mobileGeneration: MobileGeneration) {
+    if (mobileGeneration === null) {
       this.params = this.params.delete('mobile_type');
     } else {
-      this.params = this.params.set('mobile_type', mobileType.toString());
+      this.params = this.params.set('mobile_type', mobileGeneration.type.toString());
     }
   }
 
-  private setInternetTypeFilter(internetType: TrunkChannelType) {
-    if (internetType === null) {
+  private setInternetTypeFilter(internetChannel: TrunkChannel) {
+    if (internetChannel === null) {
       this.params = this.params.delete('internet_type');
     } else {
-      this.params = this.params.set('internet_type', internetType.toString());
+      this.params = this.params.set('internet_type', internetChannel.type.toString());
     }
   }
 

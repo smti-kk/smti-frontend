@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PivotTablePageComponent } from './components/pivot-table-page-component/pivot-table-page-component';
 import { PivotTableRoutingModule } from './pivot-table-routing.module';
-import { TcPivotsService } from '@core/services/tc-pivots.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TechnicalCapabilitiesComponent } from './components/technical-capabilities/technical-capabilities.component';
@@ -24,7 +23,6 @@ import { SharedModule } from '@shared/shared.module';
     TechnicalCapabilitiesComponent
   ],
   providers: [
-    TcPivotsService,
     NgxPaginationModule
   ]
 })

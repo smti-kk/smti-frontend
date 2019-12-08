@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from './service/requests.service';
 import { Request } from './model/request';
-import { LocationFeatures, TrunkChannelType } from '@core/models';
+import { LocationFeatures, TrunkChannel } from '@core/models';
 import { LocationFeaturesService } from '@core/services/location-features.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class RequestsComponent implements OnInit {
   requests: Request[];
   technicalCapability: LocationFeatures;
 
-  TrunkChannelType = TrunkChannelType;
+  TrunkChannel = TrunkChannel;
 
   forms: {
     internet: boolean;

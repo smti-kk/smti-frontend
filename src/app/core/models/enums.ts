@@ -3,23 +3,6 @@ export enum MailType {
   MAIL_CONNECTION = 'post'
 }
 
-export const getStringSignalType = (signalType: SignalType): string => {
-  console.log(signalType);
-  // return signalType.map(st => {
-  //   if (st === SignalType.ATV) {
-  //     return 'АТВ';
-  //   } else if (st === SignalType.CTV) {
-  //     return 'ЦТВ';
-  //   }
-  // }).join(',');
-
-  if (signalType === SignalType.ATV) {
-    return 'АТВ';
-  } else if (signalType === SignalType.CTV) {
-    return 'ЦТВ';
-  }
-};
-
 export enum TrunkChannelType {
   UNDEFINED,
   VOLS = 3,
@@ -31,13 +14,6 @@ export enum TrunkChannelType {
 export enum SignalType {
   ATV = 1,
   CTV = 2
-}
-
-export enum MobileGenerationType {
-  M2G = 1,
-  M3G = 2,
-  M4G = 3,
-  M5G = 4
 }
 
 export enum Quality {

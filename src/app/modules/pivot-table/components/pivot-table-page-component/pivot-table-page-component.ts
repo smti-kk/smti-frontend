@@ -5,10 +5,10 @@ import {
   GovernmentProgram,
   LocationFeatures,
   MailType,
-  MobileGenerationType,
-  Provider,
+  MobileGeneration,
+  Operator,
   SignalType,
-  TrunkChannelType
+  TrunkChannel
 } from '@core/models';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -33,14 +33,14 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
   searchedTc: LocationFeatures;
   displayBlockSearch = true;
 
-  TrunkChannelType = TrunkChannelType;
+  TrunkChannel = TrunkChannel;
   OrderingDirection = OrderingDirection;
   SignalType = SignalType;
   MailType = MailType;
-  MobileGenerationType = MobileGenerationType;
+  MobileGeneration = MobileGeneration;
 
-  internetProviders: Provider[];
-  mobileProviders: Provider[];
+  internetProviders: Operator[];
+  mobileProviders: Operator[];
 
   filterForm: FormGroup;
   private observer: Subscription;

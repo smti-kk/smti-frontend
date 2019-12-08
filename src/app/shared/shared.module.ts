@@ -9,6 +9,7 @@ import { AtsFeatureComponent } from './components/providers-row/ats/ats-feature.
 import { PayphoneFeatureComponent } from './components/providers-row/payphone/payphone-feature.component';
 import { RadioFeatureComponent } from '@shared/components/providers-row/radio/radio-feature.component';
 import { TelevisionFeatureComponent } from '@shared/components/providers-row/television/television-feature.component';
+import { SimpleCheckbox } from '@shared/layout/simple-checkbox/simple-checkbox.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { TelevisionFeatureComponent } from '@shared/components/providers-row/tel
     AtsFeatureComponent,
     PayphoneFeatureComponent,
     RadioFeatureComponent,
-    TelevisionFeatureComponent
+    TelevisionFeatureComponent,
+    SimpleCheckbox
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { TelevisionFeatureComponent } from '@shared/components/providers-row/tel
     RadioFeatureComponent,
     TelevisionFeatureComponent,
     PayphoneFeatureComponent,
-    AtsFeatureComponent
+    AtsFeatureComponent,
+    SimpleCheckbox
   ]
 })
 export class SharedModule {

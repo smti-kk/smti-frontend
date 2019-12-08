@@ -1,5 +1,5 @@
-import { autoserializeAs, inheritSerialization } from 'cerialize';
-import { TrunkChannel } from '@core/models/trunk-channel';
+import { deserializeAs, inheritSerialization, serializeAs } from 'cerialize';
+import { TRUNK_CHANNEL_DESERIALIZER, TrunkChannel } from '@core/models/trunk-channel';
 import { Operator } from '@core/models/operator';
 import { Quality } from '@core/models/enums';
 import { LocationFeature } from '@core/models/location-feature';
@@ -7,7 +7,8 @@ import { LocationFeature } from '@core/models/location-feature';
 @inheritSerialization(LocationFeature)
 export class InternetFeature extends LocationFeature {
 
-  @autoserializeAs(TrunkChannel, 'type_trunkchannel')
+  @deserializeAs(TRUNK_CHANNEL_DESERIALIZER, 'type_trunkchannel')
+  @serializeAs(TrunkChannel, 'type_trunkchannel')
   private readonly _channel: TrunkChannel;
 
 

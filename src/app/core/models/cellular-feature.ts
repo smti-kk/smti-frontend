@@ -1,13 +1,16 @@
-import { autoserializeAs, inheritSerialization } from 'cerialize';
-import { MobileGeneration } from '@core/models/mobile-generation';
+import { deserializeAs, inheritSerialization, serializeAs } from 'cerialize';
+import { MOBILE_GENERATION_DESERIALIZER, MobileGeneration } from '@core/models/mobile-generation';
 import { Quality } from '@core/models/enums';
 import { LocationFeature } from '@core/models/location-feature';
 import { Operator } from '@core/models/operator';
 
+
+
 @inheritSerialization(LocationFeature)
 export class CellularFeature extends LocationFeature {
 
-  @autoserializeAs(MobileGeneration, 'type')
+  @serializeAs(MobileGeneration, 'type')
+  @deserializeAs(MOBILE_GENERATION_DESERIALIZER, 'type')
   private readonly _type: MobileGeneration;
 
 

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { LocationFeatures } from '@core/models';
+import { ExistingOperators, LocationFeatures, MobileGeneration, Quality, SignalType, TrunkChannel } from '@core/models';
 import { TcPivotsService } from '@core/services/tc-pivots.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EnumService } from '@core/services';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-technical-capabilities',
@@ -12,16 +14,19 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class TechnicalCapabilitiesComponent {
 
-  tcForm: FormGroup;
-  tc: LocationFeatures;
+  locationFeaturesForm: FormGroup;
+  locationFeatures: LocationFeatures;
+  existingOperators: ExistingOperators;
 
   Quality = Quality;
-  TrunkChannelType = TrunkChannelType;
+  TrunkChannel = TrunkChannel;
   SignalType = SignalType;
+  MobileGeneration = MobileGeneration;
 
   constructor(private fb: FormBuilder,
               private tcService: TcPivotsService,
               private route: ActivatedRoute,
+              private enumService: EnumService,
               private spinner: NgxSpinnerService) {
     this.loadTechnicalCapability(route.snapshot.params.id);
   }
@@ -29,89 +34,146 @@ export class TechnicalCapabilitiesComponent {
 
   private loadTechnicalCapability(id: number) {
     this.spinner.show();
-    this.tcService.one(id).subscribe(tc => {
-      console.log(tc);
-      this.tc = tc;
-      this.tcForm = this.buildForm(this.fb, tc);
+
+    forkJoin(
+      this.tcService.one(id),
+      this.enumService.getExistingOperators()
+    ).subscribe(response => {
+      this.locationFeaturesForm = this.buildForm(this.fb, response[0], response[1]);
+      this.locationFeatures = response[0];
+      this.existingOperators = response[1];
       this.spinner.hide();
     });
   }
 
-  private buildForm(fb: FormBuilder, tc: LocationFeatures): FormGroup {
+  private buildForm(fb: FormBuilder, locationFeatures: LocationFeatures, existingOperators: ExistingOperators): FormGroup {
     const form = fb.group({
-      cellular: fb.array([]),
-      internet: fb.array([]),
-      tv: fb.array([]),
-      telephone: fb.array([]),
-      payphone: fb.array([]),
-      radio: fb.array([]),
-      mail: fb.array([]),
-      infomat: tc.location.infomat > 0
+      _cellular: fb.array([]),
+      _internet: fb.array([]),
+      _television: fb.array([]),
+      _ats: fb.array([]),
+      _radio: fb.array([]),
+      _mail: fb.array([]),
+      _infomat: locationFeatures.location.infomat > 0
     });
 
-
-    tc.information.cellular.forEach(c => {
-      getArrayGroup(form, 'cellular').push(
+    existingOperators.cellular.forEach(() => {
+      getArrayGroup(form, '_cellular').push(
         fb.group({
-          provider: c.provider.isActive,
-          quality: c.quality,
-          mobileGeneration: c.mobileGeneration ? c.mobileGeneration.name : null,
+          _operator: null,
+          _quality: null,
+          _type: null
         })
       );
     });
 
-    tc.information.internet.forEach(c => {
-      getArrayGroup(form, 'internet').push(
+    existingOperators.internet.forEach(() => {
+      getArrayGroup(form, '_internet').push(
         fb.group({
-          provider: c.provider.isActive,
-          quality: c.quality,
-          channel: c.channel ? c.channel.id : null
+          _operator: null,
+          _quality: null,
+          _channel: null
         })
       );
     });
 
-    tc.information.tv.forEach(c => {
-      getArrayGroup(form, 'tv').push(
+    existingOperators.radio.forEach(() => {
+      getArrayGroup(form, '_radio').push(
         fb.group({
-          provider: c.provider.isActive,
-          type: c.type ? c.type[0].type : null
+          _operator: null,
+          _quality: null,
+          _channel: null
         })
       );
     });
 
-    tc.information.telephone.forEach(c => {
-      getArrayGroup(form, 'telephone').push(
+    existingOperators.ats.forEach(() => {
+      getArrayGroup(form, '_ats').push(
         fb.group({
-          provider: c.provider.isActive
+          _operator: null,
+          _quality: null,
+          _channel: null
         })
       );
     });
 
-    tc.information.payphone.forEach(c => {
-      getArrayGroup(form, 'payphone').push(
+    existingOperators.television.forEach(() => {
+      getArrayGroup(form, '_television').push(
         fb.group({
-          provider: c.provider.isActive,
-          count: c.count
+          _operator: null,
+          _quality: null,
+          _channel: null
         })
       );
     });
 
-    tc.information.radio.forEach(c => {
-      getArrayGroup(form, 'radio').push(
-        fb.group({
-          provider: c.provider.isActive,
-          type: c.type
-        })
-      );
-    });
+    form.patchValue(locationFeatures);
 
-    tc.information.mail.forEach(c => {
-      getArrayGroup(form, 'mail').push(
-        fb.group({
-          provider: c.provider.isActive
-        })
-      );
-    });
+    form.valueChanges.subscribe(value => console.log(value));
+    //
+    //
+    // existingOperators.cellular.forEach(c => {
+    //   getArrayGroup(form, 'cellular').push(
+    //     fb.group({
+    //       provider: false,
+    //       quality: c.quality,
+    //       mobileGeneration: c.mobileGeneration ? c.mobileGeneration.name : null,
+    //     })
+    //   );
+    // });
+    //
+    // tc.information.internet.forEach(c => {
+    //   getArrayGroup(form, 'internet').push(
+    //     fb.group({
+    //       provider: c.provider.isActive,
+    //       quality: c.quality,
+    //       channel: c.channel ? c.channel.id : null
+    //     })
+    //   );
+    // });
+    //
+    // tc.information.tv.forEach(c => {
+    //   getArrayGroup(form, 'tv').push(
+    //     fb.group({
+    //       provider: c.provider.isActive,
+    //       type: c.type ? c.type[0].type : null
+    //     })
+    //   );
+    // });
+    //
+    // tc.information.telephone.forEach(c => {
+    //   getArrayGroup(form, 'telephone').push(
+    //     fb.group({
+    //       provider: c.provider.isActive
+    //     })
+    //   );
+    // });
+    //
+    // tc.information.payphone.forEach(c => {
+    //   getArrayGroup(form, 'payphone').push(
+    //     fb.group({
+    //       provider: c.provider.isActive,
+    //       count: c.count
+    //     })
+    //   );
+    // });
+    //
+    // tc.information.radio.forEach(c => {
+    //   getArrayGroup(form, 'radio').push(
+    //     fb.group({
+    //       provider: c.provider.isActive,
+    //       type: c.type
+    //     })
+    //   );
+    // });
+    //
+    // tc.information.mail.forEach(c => {
+    //   getArrayGroup(form, 'mail').push(
+    //     fb.group({
+    //       provider: c.provider.isActive
+    //     })
+    //   );
+    // });
 
     return form;
   }

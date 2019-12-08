@@ -6,9 +6,8 @@ import { AuthorizationComponent } from './pages/authorization/authorization.comp
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService, EnumService, GovernmentProgramService, OrganizationsService } from '@core/services';
 import { StoreService } from '@core/services/store.service';
-import { FilterTcPivotsService } from '@core/services/tc-pivots.service';
+import { FilterTcPivotsService, TcPivotsService } from '@core/services/tc-pivots.service';
 import { FilterOnClientTcPivotsService } from '@core/services/filter-on-client-tc-pivots.service';
-import { LocationCapabilitiesMapper } from '@core/utils/location-capabilities.mapper';
 import { LocationFeaturesService } from '@core/services/location-features.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
@@ -30,7 +29,7 @@ import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
     GovernmentProgramService,
     OrganizationsService,
     LocationFeaturesService,
-    LocationCapabilitiesMapper,
+    TcPivotsService,
     {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
