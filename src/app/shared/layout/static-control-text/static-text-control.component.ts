@@ -30,8 +30,10 @@ export class StaticTextControl implements ControlValueAccessor {
   writeValue(obj: string | GovernmentProgram): void {
     if (obj instanceof GovernmentProgram) {
       this.value = obj.shortName;
+    } else if (obj !== null) {
+      this.value = obj;
     } else {
-      this.value = '-----';
+      this.value = '------';
     }
   }
 }

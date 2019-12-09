@@ -64,7 +64,8 @@ export class TechnicalCapabilitiesComponent {
           _operator: null,
           _quality: null,
           _type: null,
-          _governmentProgram: null
+          _governmentProgram: null,
+          _completed: null
         })
       );
     });
@@ -75,7 +76,8 @@ export class TechnicalCapabilitiesComponent {
           _operator: null,
           _quality: null,
           _channel: null,
-          _governmentProgram: null
+          _governmentProgram: null,
+          _completed: null
         })
       );
     });
@@ -86,7 +88,8 @@ export class TechnicalCapabilitiesComponent {
           _operator: null,
           _quality: null,
           _type: null,
-          _governmentProgram: null
+          _governmentProgram: null,
+          _completed: null
         })
       );
     });
@@ -96,7 +99,8 @@ export class TechnicalCapabilitiesComponent {
         fb.group({
           _operator: null,
           _quantityPayphone: null,
-          _governmentProgram: null
+          _governmentProgram: null,
+          _completed: null
         })
       );
     });
@@ -107,7 +111,8 @@ export class TechnicalCapabilitiesComponent {
           _operator: null,
           _quality: null,
           _channel: null,
-          _governmentProgram: null
+          _governmentProgram: null,
+          _completed: null
         })
       );
     });
@@ -115,7 +120,8 @@ export class TechnicalCapabilitiesComponent {
     form.patchValue(locationFeatures);
 
     form.valueChanges.subscribe(value => console.log(value));
-    console.log(form);
+
+    form.disable();
 
     return form;
   }

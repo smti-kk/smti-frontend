@@ -19,16 +19,25 @@ export class Location {
   @autoserializeAs('infomat')
   private readonly _infomat: number;
 
+  @autoserializeAs(Location, 'parent')
+  private readonly _parent: Location;
 
-  constructor(id: number, name: string, typeLocation: string, peopleCount: number, parent: string, infomat: number) {
+
+  constructor(id: number, name: string, typeLocation: string, peopleCount: number,
+              municipalityArea: string, infomat: number, parent: Location) {
     this._id = id;
     this._name = name;
     this._typeLocation = typeLocation;
     this._peopleCount = peopleCount;
-    this._municipalityArea = parent;
+    this._municipalityArea = municipalityArea;
     this._infomat = infomat;
+    this._parent = parent;
   }
 
+
+  get parent(): Location {
+    return this._parent;
+  }
 
   get id(): number {
     return this._id;
