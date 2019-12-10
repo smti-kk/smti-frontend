@@ -1130,9 +1130,9 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .l-contract {
-  display: grid;
-  grid-template-columns: 220px 150px 250px 200px;
-  grid-gap: 2.7rem;
+  //display: grid;
+  //grid-template-columns: 220px 150px 250px 200px;
+  //grid-gap: 2.7rem;
   padding-left: 36px;
   font-size: 13px;
 }
@@ -1434,6 +1434,10 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 .d-flex {
   display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
 }
 
 .background-transparent {

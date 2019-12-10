@@ -27,3 +27,9 @@
   display: flex;
   padding: 10px;
 }
+
+.contract-container {
+  display: grid;
+  grid-template-columns: 220px 150px 250px 200px;
+  grid-gap: 2.7rem;
+}
