@@ -6,7 +6,7 @@ import { AccordionGroupComponent } from './accordion-group.component';
   template: `
     <ng-content></ng-content>
   `,
-  styleUrls: ['./accordion.component.css']
+  styleUrls: ['./accordion.component.scss']
 })
 export class AccordionComponent implements AfterContentInit {
   @ContentChildren(AccordionGroupComponent)
