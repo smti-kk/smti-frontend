@@ -396,6 +396,7 @@ select:-moz-focusring {
 /* --- Аккордион --- begin --- */
 .c-accordion {
   padding-left: 1rem;
+  display: block;
 }
 
 .c-accordion:not(:last-child) {

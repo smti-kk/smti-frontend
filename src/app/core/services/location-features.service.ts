@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ExistingOperators, LocationFeatures } from '@core/models';
+import { LocationFeatures } from '@core/models';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,16 +17,16 @@ export class LocationFeaturesService {
   }
 
   internetFeaturesList(): Observable<LocationFeatures[]> {
-    const params = new HttpParams()
-      .append('parent', '1904');
+    const params = new HttpParams();
+    // .append('parent', '1904');
 
     return this.httpClient.get(TC_INTERNET, {params})
       .pipe(map(value => Deserialize(value, LocationFeatures)));
   }
 
   cellularFeaturesList(): Observable<LocationFeatures[]> {
-    const params = new HttpParams()
-      .append('parent', '1904');
+    const params = new HttpParams();
+    // .append('parent', '1904');
 
     return this.httpClient.get(TC_MOBILE, {params})
       .pipe(map(value => Deserialize(value, LocationFeatures)));

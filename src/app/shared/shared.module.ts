@@ -11,6 +11,9 @@ import { RadioFeatureComponent } from '@shared/components/providers-row/radio/ra
 import { TelevisionFeatureComponent } from '@shared/components/providers-row/television/television-feature.component';
 import { SimpleCheckbox } from '@shared/layout/simple-checkbox/simple-checkbox.component';
 import { StaticTextControl } from '@shared/layout/static-control-text/static-text-control.component';
+import { AccordionGroupComponent } from '@shared/layout/accordion/accordion-group.component';
+import { AccordionComponent } from '@shared/layout/accordion/accordion.component';
+import { AccordionHeaderComponent } from '@shared/layout/accordion/accordion-header.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { StaticTextControl } from '@shared/layout/static-control-text/static-tex
     RadioFeatureComponent,
     TelevisionFeatureComponent,
     SimpleCheckbox,
-    StaticTextControl
+    StaticTextControl,
+    AccordionGroupComponent,
+    AccordionComponent,
+    AccordionHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -32,16 +38,19 @@ import { StaticTextControl } from '@shared/layout/static-control-text/static-tex
   ],
   providers: [],
   exports: [
+    SimpleCheckbox,
+    StaticTextControl,
     FilterBtnComponent,
+    AccordionComponent,
+    AtsFeatureComponent,
+    RadioFeatureComponent,
+    OperatorIconComponent,
+    AccordionGroupComponent,
+    PayphoneFeatureComponent,
     CellularFeatureComponent,
     InternetFeatureComponent,
-    OperatorIconComponent,
-    RadioFeatureComponent,
     TelevisionFeatureComponent,
-    PayphoneFeatureComponent,
-    AtsFeatureComponent,
-    SimpleCheckbox,
-    StaticTextControl
+    AccordionHeaderComponent
   ]
 })
 export class SharedModule {

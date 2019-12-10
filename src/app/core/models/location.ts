@@ -1,4 +1,5 @@
 import { autoserializeAs } from 'cerialize';
+import { Organization } from '@core/models/organization';
 
 export class Location {
   @autoserializeAs('id')
@@ -13,30 +14,32 @@ export class Location {
   @autoserializeAs('people_count')
   private readonly _peopleCount: number;
 
-  @autoserializeAs('parent')
-  private readonly _municipalityArea: string;
+  @autoserializeAs(Location, 'parent')
+  private readonly _municipalityArea: Location;
+
+  @autoserializeAs(String, 'parent')
+  private readonly _municipalityAreaStr: string;
 
   @autoserializeAs('infomat')
   private readonly _infomat: number;
 
-  @autoserializeAs(Location, 'parent')
-  private readonly _parent: Location;
+  @autoserializeAs(Organization, 'organizations')
+  private readonly _organizations: Organization[];
 
 
   constructor(id: number, name: string, typeLocation: string, peopleCount: number,
-              municipalityArea: string, infomat: number, parent: Location) {
+              municipalityArea: Location, infomat: number, organizations: Organization[]) {
     this._id = id;
     this._name = name;
     this._typeLocation = typeLocation;
     this._peopleCount = peopleCount;
     this._municipalityArea = municipalityArea;
     this._infomat = infomat;
-    this._parent = parent;
+    this._organizations = organizations;
   }
 
-
-  get parent(): Location {
-    return this._parent;
+  get organizations(): Organization[] {
+    return this._organizations;
   }
 
   get id(): number {
@@ -56,10 +59,20 @@ export class Location {
   }
 
   get municipalityArea(): string {
-    return this._municipalityArea;
+    if (this._municipalityArea) {
+      return this._municipalityArea.fullName;
+    } else if (this._municipalityAreaStr) {
+      return this._municipalityAreaStr;
+    } else {
+      return '';
+    }
   }
 
   get infomat(): number {
     return this._infomat;
+  }
+
+  get fullName(): string {
+    return this.typeLocation + ' ' + this.name;
   }
 }

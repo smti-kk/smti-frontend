@@ -1,4 +1,5 @@
 import { autoserializeAs } from 'cerialize';
+import { Reaccesspoint } from '@core/models/reaccesspoint';
 
 export class Contract {
 
@@ -6,7 +7,7 @@ export class Contract {
   private readonly _id: number;
 
   @autoserializeAs('registration_number')
-  private readonly _registrationNumber: number;
+  private readonly _registrationNumber: string;
 
   @autoserializeAs('amount')
   private readonly _amount: number;
@@ -14,11 +15,14 @@ export class Contract {
   @autoserializeAs(Date, 'date_realization')
   private readonly _dateRealization: Date;
 
+  @autoserializeAs(Reaccesspoint, 'reaccesspoint_set')
+  private readonly _reaccesspoints: Reaccesspoint[];
+
   // @autoserializeAs(Organization, 'customer')
   // private readonly _customer: Organization;
 
 
-  constructor(id: number, registrationNumber: number, amount: number, dateRealization: Date
+  constructor(id: number, registrationNumber: string, amount: number, dateRealization: Date
               // , customer: Organization
   ) {
     this._id = id;
@@ -28,12 +32,15 @@ export class Contract {
     // this._customer = customer;
   }
 
+  get reaccesspoints(): Reaccesspoint[] {
+    return this._reaccesspoints;
+  }
 
   get id(): number {
     return this._id;
   }
 
-  get registrationNumber(): number {
+  get registrationNumber(): string {
     return this._registrationNumber;
   }
 

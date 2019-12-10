@@ -1,5 +1,5 @@
 import { autoserializeAs } from 'cerialize';
-import { Contract } from '@core/models/contract';
+// import { Contract } from '@core/models/contract';
 import { GovernmentProgram } from '@core/models/government-program';
 import { InternetAccessType } from '@core/models/internet-access-type';
 import { Operator } from '@core/models/operator';
@@ -22,8 +22,8 @@ export class Reaccesspoint {
   @autoserializeAs(InternetAccessType, 'connection_type')
   private readonly _connectionType: InternetAccessType[];
 
-  @autoserializeAs(Contract, 'contract')
-  private readonly _contract: Contract;
+  // @autoserializeAs(Contract, 'contract')
+  // private readonly _contract: Contract;
 
   @autoserializeAs('contractor')
   private readonly _contractor: string;
@@ -81,7 +81,7 @@ export class Reaccesspoint {
 
 
   constructor(id: number, address: string, billingId: number, completed: boolean, connectionType: InternetAccessType[],
-              contract: Contract, contractor: string, createdAt: Date, customer: string, definedSpeed: string, description: string,
+              contractor: string, createdAt: Date, customer: string, definedSpeed: string, description: string,
               governmentProgram: GovernmentProgram, ipConfig: string, maxAmount: number, name: string, netTrafficLastMonth: string,
               netTrafficLastWeek: string, node: string, operator: Operator, quality: Quality, state: string, ucn: number,
               updatedAt: Date, visible: boolean) {
@@ -90,7 +90,6 @@ export class Reaccesspoint {
     this._billingId = billingId;
     this._completed = completed;
     this._connectionType = connectionType;
-    this._contract = contract;
     this._contractor = contractor;
     this._createdAt = createdAt;
     this._customer = customer;
@@ -130,10 +129,6 @@ export class Reaccesspoint {
 
   get connectionType(): InternetAccessType[] {
     return this._connectionType;
-  }
-
-  get contract(): Contract {
-    return this._contract;
   }
 
   get contractor(): string {

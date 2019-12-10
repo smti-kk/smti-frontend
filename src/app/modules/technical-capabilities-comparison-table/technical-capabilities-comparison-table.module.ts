@@ -6,6 +6,8 @@ import { CoreModule } from '@core/core.module';
 import { LocationFeaturesService } from '@core/services/location-features.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from '@shared/shared.module';
 
 
 const routes: Routes = [
@@ -22,7 +24,9 @@ const routes: Routes = [
     CoreModule,
     RouterModule.forChild(routes),
     NgxSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    SharedModule
   ],
   providers: [
     LocationFeaturesService

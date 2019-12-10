@@ -1,11 +1,11 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <main class="main">
   <div class="wrapper">
-    <div class="page-header">
+    <div class="page-header" style="align-items: center">
       <h1>Сводная таблица - Сравнение технических возмоностей</h1>
-      <div>
-        <div class="o-item-title">Выберете тех. возможность:</div>
+      <div style="width: 215px;height: 23px;">
         <select [formControl]="featuresTypeSelector">
+          <option [value]="null">Выберите тех. возможность</option>
           <option value="internet">Интернет</option>
           <option value="mobile">Сотовая связь</option>
         </select>
@@ -21,9 +21,13 @@
           <form [formGroup]="filterForm">
             <div class="l-container">
               <div class="l-container-item js-filter-button">
-                <button type="button" class="btn c-filter-button">Нас. пункт</button>
-                <button type="button" class="btn c-filter-button">Район</button>
-                <button type="button" class="btn c-filter-button">Численность</button>
+                <app-filter-btn formControlName="order" [orderings]="[
+                      {name: 'Нас.пункт', value: 'name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Район', value: 'parent', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'people_count', orderingDirection: OrderingDirection.UNDEFINED }
+                  ]"
+                >
+                </app-filter-btn>
               </div>
               <div class="l-container-item">
                 <div id="mobile" class="l-container-row is-disabled">
@@ -162,7 +166,7 @@
         </div>
       </div>
       <div class="c-filter-info">
-        <div class="c-filter-result">
+        <div class="c-filter-result" *ngIf="featuresTypeSelector.value">
           <!--          Результатов поиска: <span>115</span> из <span>9 345</span>-->
           Результатов:
           <span>{{this.featuresTypeSelector.value === this.featureTypes.internet ? this.featuresInternet?.length : this.featuresCellular?.length}}</span>
@@ -184,7 +188,7 @@
     <!--    INTERNET - > MOBILE-->
 
     <div *ngIf="featuresTypeSelector.value === featureTypes.internet">
-      <div class="l-table l-table-compare" *ngFor="let feature of featuresInternet">
+      <div class="l-table l-table-compare" *ngFor="let feature of featuresInternet | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}">
         <div class="l-table-column">
           <div class="c-location-name">
             <div class="c-location-name-item1">{{feature.location.typeLocation}} {{feature.location.name}}</div>
@@ -243,7 +247,7 @@
     <!--    INTERNET - > MOBILE-->
 
     <div *ngIf="featuresTypeSelector.value === featureTypes.mobile">
-      <div class="l-table l-table-compare" *ngFor="let feature of featuresCellular">
+      <div class="l-table l-table-compare" *ngFor="let feature of featuresCellular | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}">
         <div class="l-table-column">
           <div class="c-location-name">
             <div class="c-location-name-item1">{{feature.location.typeLocation}} {{feature.location.name}}</div>
@@ -295,7 +299,28 @@
         </div>
       </div>
     </div>
+    <div style="display: flex; justify-content: flex-end" *ngIf="featuresInternet || featuresCellular">
+      <div class="pagination-count">
+        <div style="margin-right: 13px">Количество строк на странице:</div>
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 10" type="button"
+               (click)="itemsPerPage = 10" value="10">
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 20" type="button"
+               (click)="itemsPerPage = 20" value="20">
+        <input class="pagination-count-button" [class.active]="itemsPerPage === 100" type="button"
+               (click)="itemsPerPage = 100" value="100">
+      </div>
+    </div>
   </div>
+
+  <pagination-controls
+    *ngIf="this.featuresInternet"
+    class="pagination-controls"
+    (pageChange)="pageNumber = $event"
+    previousLabel="Предыдущая страница"
+    nextLabel="Следующая страница"
+  >
+
+  </pagination-controls>
 </main>
 
 <ngx-spinner
@@ -305,5 +330,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
->Загрузка. . . (среднее время ожидания: 1мин. 30сек.)
+>Загрузка. . . (среднее время ожидания: 20сек.)
 </ngx-spinner>

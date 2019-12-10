@@ -1,0 +1,107 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<main class="main">
+  <div class="wrapper">
+    <h1>Сводная таблица - Контракты услуг связи</h1>
+    <div class="c-filter">
+      <accordion class="c-accordion">
+        <group>
+          <accordion-header class="c-accordion-title">
+            <div class="c-filter-icon">Фильтры</div>
+          </accordion-header>
+          <form>
+            <div class="l-container">
+              <div class="l-container-item js-filter-button">
+                <button type="button" class="btn c-filter-button">Нас. пункт</button>
+                <button type="button" class="btn c-filter-button">Район</button>
+              </div>
+              <div class="l-container-item">
+                <div class="input">
+                  <div class="o-item-title">Наим. организации:</div>
+                  <input type="text"></div>
+                <div class="input">
+                  <div class="o-item-title">Номер контракта:</div>
+                  <input type="text"></div>
+                <div class="input">
+                  <div class="o-item-title">Оператор связи:</div>
+                  <input type="text"></div>
+                <div class="input">
+                  <div class="o-item-title">Тип подключения:</div>
+                  <input type="text"></div>
+              </div>
+            </div>
+            <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр">
+          </form>
+        </group>
+      </accordion>
+      <div class="c-filter-info">
+        <div class="c-filter-result">
+          Результатов поиска: <span>115</span> из <span>9 345</span>
+        </div>
+        <div class="c-filter-export">
+          <input type="button" class="btn" value="Выгрузить в Excel">
+        </div>
+      </div>
+    </div>
+    <div class="c-contract">
+      <div class="c-contract-item" *ngFor="let location of locations">
+        <div class="c-contract-header">
+          <div class="c-location-name">
+            <div class="c-location-name-item1">{{location.fullName}}</div>
+            <div class="c-location-name-item2">{{location.municipalityArea}}</div>
+          </div>
+          <div class="location-count">Количество: <span>{{location.organizations.length}}</span></div>
+        </div>
+        <accordion class="c-accordion" *ngFor="let organization of location.organizations; let i = index">
+          <group>
+            <accordion-header class="c-accordion-title">
+              <div class="c-accordion-number">{{i + 1}}</div>
+              <div class="c-accordion-name">
+                <div>{{organization.fullName}}</div>
+                <div>{{organization.address}}</div>
+              </div>
+            </accordion-header>
+            <div class="l-contract" *ngFor="let contract of organization.contracts">
+              <!--<div class="l-contract-item">
+                <div class="c-contract-info"><i class="fas fa-arrows-alt"></i><span>{{organization.type.name}}</span></div>
+                <div class="c-contract-info"><i class="fas fa-map-marker-alt"></i><span>{{organization.address}}</span>
+                </div>
+              </div>-->
+              <div><i class="far fa-file-alt"></i>{{contract.registrationNumber}}</div>
+              <div><i class="far fa-money-bill-alt"></i>{{contract.amount}}</div>
+              <ng-container *ngFor="let point of contract.reaccesspoints">
+                <div class="l-contract-item">
+                  <div class="c-contract-info"><i class="far fa-file-alt"></i><span>№ {{point.address}}</span></div>
+                  <div class="c-contract-info"><i class="far fa-money-bill-alt"></i><span>{{point.contractor}}</span></div>
+                <!--</div>
+                <div class="l-contract-item">-->
+                  <div class="c-contract-info"><i class="fas fa-bullhorn"></i><span>Интернет</span></div>
+                  <div class="l-contract-row">
+                    <div class="c-contract-info u-margin-right"><i class="fab fa-internet-explorer"></i>
+                      <span>
+                        {{point.connectionType[0] ? point.connectionType[0].name : '----'}}
+                      </span>
+                    </div>
+                    <div class="c-contract-info"><i class="fas fa-plug"></i><span>{{point.definedSpeed}}</span></div>
+                  </div>
+                </div>
+<!--                <div class="l-contract-item">-->
+                  <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.ipConfig}}</span></div>
+                <!--</div>-->
+              </ng-container>
+            </div>
+          </group>
+        </accordion>
+      </div>
+    </div>
+  </div>
+</main>
+
+<ngx-spinner
+  bdOpacity=0.9
+  size="medium"
+  color="#35a584"
+  type="ball-atom"
+  class="spinner"
+  [fullScreen]="true"
+>Загрузка. . .
+</ngx-spinner>

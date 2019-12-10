@@ -28,6 +28,10 @@ const routes: Routes = [
       '#TechnicalCapabilitiesComparisonTableModule'
   },
   {
+    path: 'communication-contracts',
+    loadChildren: './modules/communication-contracts/communication-contracts.module#CommunicationContractsModule'
+  },
+  {
     path: '**',
     component: NotFoundPage
   }

@@ -49,6 +49,7 @@ export class TcPivotsService {
   }
 }
 
+
 @Injectable()
 export class FilterTcPivotsService extends TcPivotsService {
   protected params: HttpParams = new HttpParams();

@@ -9,7 +9,6 @@
       ]
     },
     "no-default-export": true,
-    "ban-ts-ignore": true,
     "unified-signatures": true,
     "typedef": true,
     "only-arrow-functions": true,

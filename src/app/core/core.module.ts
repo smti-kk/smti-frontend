@@ -11,6 +11,7 @@ import { FilterOnClientTcPivotsService } from '@core/services/filter-on-client-t
 import { LocationFeaturesService } from '@core/services/location-features.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
+import { LocationService } from '@core/services/location.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthInterceptor } from '@core/interceptor/auth.interceptor';
     OrganizationsService,
     LocationFeaturesService,
     TcPivotsService,
+    LocationService,
     {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
