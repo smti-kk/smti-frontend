@@ -431,8 +431,9 @@ select:-moz-focusring {
 }
 
 .c-accordion-button {
-  flex-grow: 1;
+  //flex-grow: 1;
   text-align: right;
+  margin-left: 10px;
 }
 
 .c-accordion-button::before {
@@ -1122,6 +1123,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
   margin-bottom: 2rem;
   padding: 15px 10px;
   box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
+  cursor: pointer;
 }
 
 .c-contract-header {
