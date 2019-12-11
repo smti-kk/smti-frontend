@@ -52,3 +52,4 @@ Thumbs.db
 *css.map
 *.sass-cache
 api (1).http
+proxy.conf.json
