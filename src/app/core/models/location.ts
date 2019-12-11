@@ -59,7 +59,7 @@ export class Location {
   }
 
   get municipalityArea(): string {
-    if (this._municipalityArea) {
+    if (this._municipalityArea && this._municipalityArea instanceof Location) {
       return this._municipalityArea.fullName;
     } else if (this._municipalityAreaStr) {
       return this._municipalityAreaStr;

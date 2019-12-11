@@ -96,6 +96,7 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     return this.tcPivots.list()
       .pipe(tap(lcs => {
         this.locationFeatures = lcs;
+        console.log(lcs);
         this.spinner.hide();
       }));
   }

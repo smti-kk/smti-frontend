@@ -27,9 +27,9 @@ export class LocationService {
 
   listLocationsWithConnectionPoints(): Observable<Location[]> {
     return this.httpClient
-      .get(LOCATIONS_WITH_CONNECTION_POINTS + '/2419/')
+      .get(LOCATIONS_WITH_CONNECTION_POINTS)
       .pipe(map(response => {
-        return ([Deserialize(response, Location)] as Location[])
+        return (Deserialize(response, Location) as Location[])
           .sort((a, b) => b.organizations.length - a.organizations.length)
           .sort((a, b) => b.connectionPointsCount - a.connectionPointsCount);
       }));
