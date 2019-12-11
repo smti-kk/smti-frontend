@@ -25,7 +25,7 @@
 
 .header-menu ul {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   list-style-type: none;
   margin: 0;
   padding-left: 0;
@@ -35,7 +35,8 @@
   margin-right: 24px;
 }
 
-.header-menu ul li.active {
+.header-menu ul .active {
+  color: #fff;
   border-bottom: 1px solid #ffffff;
 }
 
@@ -44,6 +45,32 @@
   color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
+}
+
+.nav-item-parent {
+  position: relative;
+}
+
+.nav-child {
+  position: absolute;
+  z-index: 999;
+  display: none !important;
+  padding: 0.8rem 0.5rem 0.5rem !important;
+  background: #35a584;
+}
+
+.nav-child-item {
+  padding: 0.5rem;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.nav-child-item:hover {
+  text-decoration: underline;
+}
+
+.nav-item-parent:hover .nav-child {
+  display: block !important;
 }
 
 .flex-header {
