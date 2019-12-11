@@ -17,7 +17,7 @@
               <div class="c-accordion-number">{{i + 1}}</div>
               <div class="c-accordion-name">
                 <div>{{organization.fullName}}</div>
-                <div style="margin-top: 10px">{{organization.type.name}}</div>
+                <div style="margin-top: 10px">{{organization.type ? organization.type.name : '-----'}}</div>
               </div>
 
             </accordion-header>

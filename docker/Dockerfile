@@ -8,9 +8,7 @@ ADD ./src /opt/front/src
 RUN npm install
 RUN npm run build
 
-# WARNING tag-version 1.1.0 left due no time fix
-# TODO: tag-version need use lates
-FROM harbor.cifra-k.ru/telecom_monitoring/backend:1.1.0 as back
+FROM harbor.cifra-k.ru/telecom_monitoring/backend:1.1.2 as back
 
 FROM nginx:1.13-alpine
 RUN mkdir -p /var/www/frontend
