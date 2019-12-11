@@ -32,6 +32,10 @@ const routes: Routes = [
     loadChildren: './modules/communication-contracts/communication-contracts.module#CommunicationContractsModule'
   },
   {
+    path: 'connection-points',
+    loadChildren: './modules/connection-points/connection-points.module#ConnectionPointsModule'
+  },
+  {
     path: '**',
     component: NotFoundPage
   }

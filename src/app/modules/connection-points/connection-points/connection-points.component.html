@@ -1,0 +1,57 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<main class="main">
+  <div class="wrapper">
+    <h1>Сводные данные по организациям</h1>
+    <div class="c-contract">
+      <div class="c-contract-item" *ngFor="let location of locations">
+        <div class="c-contract-header">
+          <div class="c-location-name">
+            <div class="c-location-name-item1">{{location.fullName}}</div>
+            <div class="c-location-name-item2">{{location.municipalityArea}}</div>
+          </div>
+          <div class="location-count">Количество: <span>{{location.organizations.length}}</span></div>
+        </div>
+        <accordion class="c-accordion" *ngFor="let organization of location.organizations; let i = index">
+          <group>
+            <accordion-header class="c-accordion-title">
+              <div class="c-accordion-number">{{i + 1}}</div>
+              <div class="c-accordion-name">
+                <div>{{organization.fullName}}</div>
+                <div style="margin-top: 10px">{{organization.type.name}}</div>
+              </div>
+
+            </accordion-header>
+            <div class="l-contract" *ngFor="let point of organization.reaccesspoints">
+              <div class="c-contract-info"><i class="far fa-map-marker-alt"></i><span>{{point.address ? point.address : '----'}}</span></div>
+              <div class="contract-container">
+                <div class="c-contract-info"><i class="fas fa-bullhorn"></i><span>{{point.customer ? point.customer : '----'}}</span></div>
+                <div class="c-contract-info"><i class="fas fa-plug"></i><span>{{point.connectionType[0] ? point.connectionType[0].name : '----'}}</span>
+                </div>
+                <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.definedSpeed}}</span></div>
+<!--                <div class="l-contract-row">-->
+<!--                  <div class="c-contract-info u-margin-right"><i class="fas fa-plug"></i>-->
+<!--                    <span>-->
+<!--                        {{point.connectionType[0] ? point.connectionType[0].name : '&#45;&#45;&#45;&#45;'}}-->
+<!--                    </span>-->
+<!--                  </div>-->
+<!--                  <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.definedSpeed ? point.definedSpeed : '&#45;&#45;&#45;&#45;'}}</span></div>-->
+<!--                </div>-->
+<!--                <div class="c-contract-info"><i class="far fa-map"></i><span>{{point.ipConfig ? point.ipConfig : '&#45;&#45;&#45;&#45;'}}</span></div>-->
+              </div>
+            </div>
+          </group>
+        </accordion>
+      </div>
+    </div>
+  </div>
+</main>
+
+<ngx-spinner
+  bdOpacity=0.9
+  size="medium"
+  color="#35a584"
+  type="ball-atom"
+  class="spinner"
+  [fullScreen]="true"
+>Загрузка. . .
+</ngx-spinner>

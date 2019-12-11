@@ -7,6 +7,7 @@ import { Deserialize } from 'cerialize';
 import { Location } from '@core/models';
 
 const LOCATIONS = environment.API_BASE_URL + '/api/v1/report-organization-contracts-dzen/';
+const LOCATIONS_WITH_CONNECTION_POINTS = environment.API_BASE_URL + '/api/v1/tc-organization-dzen/';
 
 @Injectable()
 export class LocationService {
@@ -17,6 +18,20 @@ export class LocationService {
   list(): Observable<Location[]> {
     return this.httpClient
       .get(LOCATIONS)
-      .pipe(map(response => Deserialize(response, Location)));
+      .pipe(map(response => {
+        return (Deserialize(response, Location) as Location[])
+          .sort((a, b) => b.organizations.length - a.organizations.length)
+          .sort((a, b) => b.contractCount - a.contractCount);
+      }));
+  }
+
+  listLocationsWithConnectionPoints(): Observable<Location[]> {
+    return this.httpClient
+      .get(LOCATIONS_WITH_CONNECTION_POINTS)
+      .pipe(map(response => {
+        return (Deserialize(response, Location) as Location[])
+          .sort((a, b) => b.organizations.length - a.organizations.length)
+          .sort((a, b) => b.connectionPointsCount - a.connectionPointsCount);
+      }));
   }
 }

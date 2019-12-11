@@ -75,4 +75,16 @@ export class Location {
   get fullName(): string {
     return this.typeLocation + ' ' + this.name;
   }
+
+  get contractCount(): number {
+    return this.organizations
+      .map(organization => organization.contracts.length)
+      .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  }
+
+  get connectionPointsCount(): number {
+    return this.organizations
+      .map(organization => organization.reaccesspoints.length)
+      .reduce((a, b) => a + b, 0);
+  }
 }

@@ -1,3 +1,4 @@
+<!--suppress HtmlUnknownTag -->
 <div class="core-container">
   <header class="header" *ngIf="user">
     <div class="wrapper">
@@ -12,8 +13,14 @@
             <ul>
               <li class="active"><a routerLink="">Карта</a></li>
 <!--              <li class="active"><a routerLink="user/requests">Мои заявки</a></li>-->
-              <li class="active"><a routerLink="pivot-table">Сводная таблица</a></li>
-              <li class="active"><a routerLink="technical-capabilities-comparison-table">сравнение тех. возможностей</a></li>
+              <div>
+                <li class="active"><a routerLink="pivot-table">Сводная таблица</a></li>
+                <li class="active" style="margin-top: 6px"><a routerLink="connection-points">Организации</a></li>
+              </div>
+              <div>
+                <li class="active"><a routerLink="communication-contracts">Контракты услуг связи</a></li>
+                <li class="active" style="margin-top: 6px"><a routerLink="technical-capabilities-comparison-table">сравнение тех. возможностей</a></li>
+              </div>
               <li class="active" style="cursor: pointer"><a (click)="logout()">Выход</a></li>
             </ul>
           </nav>

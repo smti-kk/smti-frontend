@@ -16,7 +16,7 @@ export class MarkerInfoBarComponent implements OnInit {
 
   locationFeatures: LocationFeatures;
   organizations: Organization[];
-  private existingOperators: ExistingOperators;
+  existingOperators: ExistingOperators;
 
   constructor(private readonly locationFeaturesService: LocationFeaturesService,
               private readonly enumService: EnumService,
