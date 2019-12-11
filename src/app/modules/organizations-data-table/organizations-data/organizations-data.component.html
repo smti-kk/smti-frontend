@@ -3,11 +3,11 @@
     <h1>Сводная таблица - Данные по организациям</h1>
     <div class="c-filter">
       <div class="c-accordion">
-        <div class="c-accordion-title">
+        <div class="c-accordion-title" (click)="openAccordion($event, 'is-open')">
           <div class="c-filter-icon">Фильтры</div>
           <div class="c-accordion-button"></div>
         </div>
-        <div class="c-accordion-body is-open">
+        <div class="c-accordion-body">
           <form>
             <div class="l-container">
               <div class="l-container-item js-filter-button">
@@ -115,7 +115,7 @@
           <div class="location-count">Количество: <span>3</span></div>
         </div>
         <div class="c-accordion">
-          <div class="c-accordion-title align-start">
+          <div class="c-accordion-title align-start" (click)="openAccordion($event, 'is-open')">
             <div class="c-accordion-number">1</div>
             <div class="c-accordion-name">
               <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
@@ -134,7 +134,7 @@
             <a href="#" class="btn btn-small">Подробнее</a>
             <div class="c-accordion-button"></div>
           </div>
-          <div class="c-accordion-body is-open">
+          <div class="c-accordion-body">
             <div class="l-organizations">
               <div class="l-organizations-item">
                 <div class="l-organizations-icon o-espd"></div>
@@ -209,7 +209,7 @@
           </div>
         </div>
         <div class="c-accordion">
-          <div class="c-accordion-title align-start">
+          <div class="c-accordion-title align-start" (click)="openAccordion($event, 'is-open')">
             <div class="c-accordion-number">2</div>
             <div class="c-accordion-name">
               <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
@@ -228,7 +228,7 @@
             <a href="#" class="btn btn-small">Подробнее</a>
             <div class="c-accordion-button"></div>
           </div>
-          <div class="c-accordion-body is-open">
+          <div class="c-accordion-body">
             <div class="l-organizations">
               <div class="l-organizations-item">
                 <div class="l-organizations-icon o-espd"></div>
@@ -303,7 +303,7 @@
           </div>
         </div>
         <div class="c-accordion">
-          <div class="c-accordion-title align-start">
+          <div class="c-accordion-title align-start" (click)="openAccordion($event, 'is-open')">
             <div class="c-accordion-number">3</div>
             <div class="c-accordion-name">
               <div>Краевое государственное бюджетное учреждение здравоохранения Туринскя муниципальная больница</div>
@@ -322,7 +322,7 @@
             <a href="#" class="btn btn-small">Подробнее</a>
             <div class="c-accordion-button"></div>
           </div>
-          <div class="c-accordion-body is-open">
+          <div class="c-accordion-body">
             <div class="l-organizations">
               <div class="l-organizations-item">
                 <div class="l-organizations-icon o-espd"></div>

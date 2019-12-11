@@ -204,7 +204,8 @@ input[type="text"]:focus::placeholder {
 
 .btn-small {
   padding: 5px 12px;
-  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
   width: 120px;
   text-decoration: none;
 }
@@ -408,7 +409,6 @@ select:-moz-focusring {
   align-items: center;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
-  cursor: pointer;
 }
 
 .c-accordion .c-accordion .c-accordion-title { font-size: 13px; }
@@ -432,6 +432,7 @@ select:-moz-focusring {
 .c-accordion-button {
   flex-grow: 1;
   text-align: right;
+  cursor: pointer;
 }
 
 .c-accordion-button::before {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 
 @Component({
   selector: 'app-organizations-data',
@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrganizationsDataComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly renderer: Renderer2) { }
 
   ngOnInit() {
   }
 
+  openAccordion($event, clazz) {
+    if ($event.target.classList.contains('c-accordion-title')) {
+      this.toggleClass($event.target.nextElementSibling, clazz);
+      this.toggleClass($event.target.lastElementChild, clazz);
+    } else {
+      this.toggleClass($event.target.parentNode.lastElementChild, clazz);
+      this.toggleClass($event.target.parentNode.nextElementSibling, clazz);
+    }
+  }
+
+  private toggleClass(item: Element, clazz: string) {
+    const hasClass = item.classList.contains(clazz);
+
+    if (hasClass) {
+      this.renderer.removeClass(item, clazz);
+    } else {
+      this.renderer.addClass(item, clazz);
+    }
+  }
 }
