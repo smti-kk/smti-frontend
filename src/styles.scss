@@ -137,8 +137,7 @@ select {
   width: 100%;
   border: none;
   border-bottom: 1px solid #bcbcbc;
-  background: url('assets/img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-gray.png') no-repeat 99% 50%;
   color: #575756;
   font-size: 12px;
   font-weight: 100;
@@ -147,8 +146,7 @@ select {
 
 select:focus {
   border-color: #35a584;
-  background: url('assets/img/arrow-green-bottom.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-green-bottom.png') no-repeat 99% 50%;
   outline: none;
   outline-offset: 0;
 }
@@ -243,8 +241,7 @@ label {
   width: 230px;
   font-size: 12px;
   padding-left: 5px;
-  background: url('assets/img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-gray.png') no-repeat 99% 50%;
   background-size: 9px 5px;
 }
 
@@ -292,8 +289,7 @@ select {
   width: 100%;
   border: none;
   border-bottom: 1px solid #bcbcbc;
-  background: url('assets/img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-gray.png') no-repeat 99% 50%;
   color: #575756;
   font-weight: 100;
   cursor: pointer;
@@ -301,8 +297,7 @@ select {
 
 select:focus {
   border-color: #35a584;
-  background: url('assets/img/arrow-green-bottom.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-green-bottom.png') no-repeat 99% 50%;
   outline: none;
   outline-offset: 0;
 }
@@ -368,8 +363,7 @@ select:-moz-focusring {
 
 .icon-location {
   display: inline-block;
-  background: url('assets/img/loc.png') no-repeat;
-  background-position: center;
+  background: url('assets/img/loc.png') no-repeat center;
   width: 2rem;
   height: 16px;
 }
@@ -382,14 +376,12 @@ select:-moz-focusring {
   width: 20px;
   height: 20px;
   border: none;
-  background: url('assets/img/search.png') no-repeat;
-  background-position: 50% 50%;
+  background: url('assets/img/search.png') no-repeat 50% 50%;
   cursor: pointer;
 }
 
 .search-location input[type="text"]:focus + input[type="submit"] {
-  background: url('assets/img/search-green.png') no-repeat;
-  background-position: 50% 50%;
+  background: url('assets/img/search-green.png') no-repeat 50% 50%;
 }
 
 .l-sidebar-list {}
@@ -962,6 +954,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 .input {
   display: flex;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .input input {
