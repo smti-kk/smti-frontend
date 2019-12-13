@@ -3,7 +3,6 @@
   <div class="wrapper">
     <h1>Сводная таблица - Контракты услуг связи</h1>
     <div class="c-contract">
-
       <div class="c-contract-item" *ngFor="let location of locations">
         <accordion>
           <group>
@@ -26,23 +25,14 @@
                   </div>
                 </accordion-header>
                 <div class="l-contract" *ngFor="let contract of organization.contracts">
-                  <div class="d-flex" style="padding: 10px; justify-content: space-evenly">
-                    <div><i class="far fa-file-alt"></i>№ {{contract.registrationNumber}}</div>
-                    <div><i class="far fa-money-bill-alt"></i>{{contract.amount}}</div>
-                  </div>
-                  <div class="contract-container" *ngFor="let point of contract.reaccesspoints">
-                    <div class="c-contract-info"><i class="far fa-map-marker-alt"></i><span>{{point.address ? point.address : '----'}}</span></div>
-                    <div class="c-contract-info"><i class="fas fa-bullhorn"></i><span>{{point.contractor ? point.contractor : '----'}}</span>
-                    </div>
+                  <div class="c-contract-info"><i class="far fa-file-alt"></i>№ {{contract.registrationNumber}}</div>
+                  <div class="c-contract-info"><i class="far fa-money-bill-alt"></i>{{contract.amount}}</div>
+                  <div class="l-contract-item u-span2" *ngFor="let point of contract.reaccesspoints">
+                    <div class="c-contract-info u-span5"><i class="far fa-map-marker-alt"></i><span>{{point.address ? point.address : '----'}}</span></div>
+                    <div class="c-contract-info"><i class="fas fa-bullhorn"></i><span>{{point.contractor ? point.contractor : '----'}}</span></div>
                     <div class="c-contract-info"><i class="fab fa-internet-explorer"></i><span>Интернет</span></div>
-                    <div class="l-contract-row">
-                      <div class="c-contract-info u-margin-right"><i class="fas fa-plug"></i>
-                        <span>
-                        {{point.connectionType[0] ? point.connectionType[0].name : '----'}}
-                    </span>
-                      </div>
-                      <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.definedSpeed ? point.definedSpeed : '----'}}</span></div>
-                    </div>
+                    <div class="c-contract-info"><i class="fas fa-plug"></i><span>{{point.connectionType[0] ? point.connectionType[0].name : '----'}}</span></div>
+                    <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.definedSpeed ? point.definedSpeed : '----'}}</span></div>
                     <div class="c-contract-info"><i class="far fa-map"></i><span>{{point.ipConfig ? point.ipConfig : '----'}}</span></div>
                   </div>
                 </div>

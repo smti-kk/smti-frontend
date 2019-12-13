@@ -1117,58 +1117,6 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 /* --- Форма уточняющей заявки --- end --- */
 
-/* --- Таблица контрактов --- begin --- */
-.c-contract-item {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  padding: 15px 10px;
-  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
-  cursor: pointer;
-}
-
-.c-contract-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.l-contract {
-  //display: grid;
-  //grid-template-columns: 220px 150px 250px 200px;
-  //grid-gap: 2.7rem;
-  padding-left: 36px;
-  font-size: 13px;
-}
-
-.c-contract-info {
-  margin-bottom: 16px;
-}
-
-.l-contract .fas,
-.l-contract .far,
-.l-contract .fab {
-  margin-right: 5px;
-  width: 16px;
-  text-align: center;
-}
-
-.c-contract .c-accordion {
-  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
-}
-
-.c-contract-item .c-accordion-body {
-  padding-bottom: 0;
-}
-
-.l-contract-row {
-  display: flex;
-}
-
-.u-margin-right {
-  margin-right: 1rem;
-}
-
-/* --- Таблица контрактов --- end --- */
-
 /* --- Модальное окно --- begin --- */
 
 .c-modal {

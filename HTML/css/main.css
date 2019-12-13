@@ -1023,14 +1023,11 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 .l-contract {
   display: grid;
-  grid-template-columns: 220px 150px 250px 200px;
-  grid-gap: 2.7rem;
+  grid-template-columns: 230px repeat(4, 1fr);
+  grid-gap: 1rem;
   padding-left: 36px;
+  padding-bottom: 1.5rem;
   font-size: 13px;
-}
-
-.c-contract-info {
-  margin-bottom: 16px;
 }
 
 .l-contract .fas,
@@ -1304,3 +1301,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
+
+
+/**/
+

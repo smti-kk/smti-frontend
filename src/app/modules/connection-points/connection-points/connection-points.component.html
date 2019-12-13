@@ -26,16 +26,10 @@
 
                 </accordion-header>
                 <div class="l-contract" *ngFor="let point of organization.reaccesspoints">
-                  <div class="c-contract-info"><i
-                    class="far fa-map-marker-alt"></i><span>{{point.address ? point.address : '----'}}</span></div>
-                  <div class="contract-container">
-                    <div class="c-contract-info"><i
-                      class="fas fa-bullhorn"></i><span>{{point.customer ? point.customer : '----'}}</span></div>
-                    <div class="c-contract-info"><i
-                      class="fas fa-plug"></i><span>{{point.connectionType[0] ? point.connectionType[0].name : '----'}}</span>
-                    </div>
-                    <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.definedSpeed}}</span>
-                    </div>
+                  <div class="c-contract-info u-span3"><i class="far fa-map-marker-alt"></i><span>{{point.address ? point.address : '----'}}</span></div>
+                  <div class="c-contract-info"><i class="fas fa-bullhorn"></i><span>{{point.customer ? point.customer : '----'}}</span></div>
+                  <div class="c-contract-info"><i class="fas fa-plug"></i><span>{{point.connectionType[0] ? point.connectionType[0].name : '----'}}</span></div>
+                  <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.definedSpeed}}</span></div>
                     <!--                <div class="l-contract-row">-->
                     <!--                  <div class="c-contract-info u-margin-right"><i class="fas fa-plug"></i>-->
                     <!--                    <span>-->
@@ -45,7 +39,6 @@
                     <!--                  <div class="c-contract-info"><i class="fas fa-tachometer-alt"></i><span>{{point.definedSpeed ? point.definedSpeed : '&#45;&#45;&#45;&#45;'}}</span></div>-->
                     <!--                </div>-->
                     <!--                <div class="c-contract-info"><i class="far fa-map"></i><span>{{point.ipConfig ? point.ipConfig : '&#45;&#45;&#45;&#45;'}}</span></div>-->
-                  </div>
                 </div>
               </group>
             </accordion>
