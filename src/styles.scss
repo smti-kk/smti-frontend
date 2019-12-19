@@ -1411,9 +1411,9 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .marker-cluster-undefined {
-  background-color: rgba(173, 204, 126, 0.6);
+  background-color: rgba(133, 133, 133, 0.6);
 
   & div {
-    background-color: rgb(197, 204, 175);
+    background-color: rgb(133, 133, 133, 1);
   }
 }
