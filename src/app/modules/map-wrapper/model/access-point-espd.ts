@@ -98,9 +98,9 @@ export class AccessPointEspd extends MonitoringPoint {
     if (this.avstate === null) {
       return ESPD_MARKER_UNDEFINED;
     } else if (this.avstate.includes('Не доступно')) {
-      return ESPD_MARKER_ACTIVE;
-    } else {
       return ESPD_MARKER_DISABLED;
+    } else {
+      return ESPD_MARKER_ACTIVE;
     }
   }
 }
