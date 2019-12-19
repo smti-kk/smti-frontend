@@ -1409,3 +1409,11 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 .loading-text {
   color: #fff;
 }
+
+.marker-cluster-undefined {
+  background-color: rgba(173, 204, 126, 0.6);
+
+  & div {
+    background-color: rgb(197, 204, 175);
+  }
+}

@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { LatLngBounds, MarkerClusterGroup } from 'leaflet';
+import { LatLngBounds, MarkerClusterGroup, MarkerClusterGroupOptions } from 'leaflet';
 import { Observable } from 'rxjs';
 import { MonitoringPoint } from '../model/monitoring-point';
 import 'leaflet.markercluster';
@@ -16,8 +16,9 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
   private layers: { [key: number]: MonitoringMarker<T> };
   public readonly onMarkerClick: EventEmitter<MonitoringMarker<T>> = new EventEmitter<MonitoringMarker<T>>();
 
-  protected constructor() {
-    super();
+  protected constructor(props?: MarkerClusterGroupOptions) {
+    // @ts-ignore
+    super(props);
   }
 
   abstract getPoints(bounds?: LatLngBounds): Observable<T[]>;

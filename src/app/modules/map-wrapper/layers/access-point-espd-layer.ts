@@ -1,15 +1,16 @@
 import { MonitoringLayer } from '../components/monitoring-layer';
-import { LatLngBounds } from 'leaflet';
+import { DivIcon, LatLngBounds, MarkerCluster, Point } from 'leaflet';
 import { Observable } from 'rxjs';
 import { AccessPointEspd } from '../model/access-point-espd';
 import { EspdService } from '../service/espd.service';
 import { Injectable } from '@angular/core';
+import { MonitoringMarker } from '@map-wrapper/components/monitoring-marker';
 
 @Injectable()
 export class AccessPointEspdLayer extends MonitoringLayer<AccessPointEspd> {
 
   constructor(private espdService: EspdService) {
-    super();
+    super({iconCreateFunction: AccessPointEspdLayer.iconCreateFunction});
   }
 
   renderPopup(point: AccessPointEspd): string {
@@ -30,5 +31,25 @@ export class AccessPointEspdLayer extends MonitoringLayer<AccessPointEspd> {
     } else {
       return this.espdService.list();
     }
+  }
+
+  static iconCreateFunction(cluster: MarkerCluster) {
+    const childMarkers = cluster.getAllChildMarkers() as MonitoringMarker<AccessPointEspd>[];
+    const childCount = cluster.getChildCount();
+
+    let c = ' marker-cluster-';
+    if (childMarkers.find(cm => cm.feature.properties.avstate && cm.feature.properties.avstate.includes('Не доступно'))) {
+      c += 'large';
+    } else if (childMarkers.find(cm => cm.feature.properties.avstate)) {
+      c += 'small';
+    } else {
+      c += 'undefined';
+    }
+
+    return new DivIcon({
+      html: '<div><span>' + childCount + '</span></div>',
+      className: 'marker-cluster' + c,
+      iconSize: new Point(40, 40)
+    });
   }
 }
