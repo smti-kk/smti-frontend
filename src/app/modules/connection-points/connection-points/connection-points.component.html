@@ -30,7 +30,7 @@
                 <div class="l-contract" *ngFor="let point of organization.reaccesspoints">
                   <div class="c-contract-info u-span3"><i class="far fa-map-marker-alt"></i><span>{{point.address ? point.address : '----'}}</span></div>
                   <div class="с-contract-info-container">
-                    <div class="c-contract-info">
+                    <div class="c-contract-info" *ngIf="point.governmentProgram">
                       <img class="c-contract-info__img" *ngIf="point.governmentProgram.shortName === 'ЕСПД'" src="../../../../assets/img/espd.svg" alt="ЕСПД">
                       <img class="c-contract-info__img" *ngIf="point.governmentProgram.shortName === 'СЗО'" src="../../../../assets/img/smo.svg" alt="СЗО">
                     </div>
