@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { Deserialize } from 'cerialize';
 import { Signal } from '@core/models/signal';
 
-const LTC = environment.API_BASE_URL + '/api/v1/ltc';
+const LTC = environment.API_BASE_URL + '/api/v1/technical-capabilities';
 
 export enum OrderingDirection {
   ASC,

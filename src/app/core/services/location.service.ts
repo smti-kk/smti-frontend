@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 import { Deserialize } from 'cerialize';
 import { Location } from '@core/models';
 
-const LOCATIONS = environment.API_BASE_URL + '/api/v1/report-organization-contracts-dzen/';
-const LOCATIONS_WITH_CONNECTION_POINTS = environment.API_BASE_URL + '/api/v1/tc-organization-dzen/';
+const LOCATIONS = environment.API_BASE_URL + '/api/v1/report-organization-contracts/';
+const LOCATIONS_WITH_CONNECTION_POINTS = environment.API_BASE_URL + '/api/v1/report-organization/';
 
 @Injectable()
 export class LocationService {
