@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { ExistingOperators, Operator } from '@core/models';
-import { TECHNICAL_CAPABILITIES } from '@core/constants/api';
+import { OPERATORS } from '@core/constants/api';
 import { map } from 'rxjs/operators';
 import { Deserialize } from 'cerialize';
 
@@ -31,8 +31,8 @@ export class EnumService {
   }
 
   getExistingOperators(): Observable<ExistingOperators> {
-    return this.httpClient.get<any>(TECHNICAL_CAPABILITIES + `/1111/`)
-      .pipe(map(value => Deserialize(value.operators, ExistingOperators)));
+    return this.httpClient.get<any>(OPERATORS)
+      .pipe(map(value => Deserialize(value, ExistingOperators)));
   }
 
   // getExistingOperators(): Operator[] {
