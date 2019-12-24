@@ -5,6 +5,7 @@ import {InternetAccessType} from '@core/models/internet-access-type';
 import {Operator} from '@core/models/operator';
 import {Quality} from '@core/models/enums';
 import {MonitoringPoint} from '@map-wrapper/model/monitoring-point';
+import {Avstatus} from '@core/models/avstatus';
 
 const ESPD_MARKER_ACTIVE = '../../../../assets/img/ap-ena-espd.svg';
 const ESPD_MARKER_UNDEFINED = '../../../../assets/img/ap-na-espd.svg';
@@ -27,6 +28,9 @@ export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs('address')
   private readonly _address: string;
+
+  @autoserializeAs(Avstatus, 'avstatus')
+  private readonly _avstatus: Avstatus;
 
   @autoserializeAs('billing_id')
   private readonly _billingId: number;
@@ -194,6 +198,10 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._visible;
   }
 
+  get avstatus(): Avstatus {
+    return this._avstatus;
+  }
+
   get connectionTypeString() {
     return this.connectionType
       .map(ct => ct.name)
@@ -204,14 +212,21 @@ export class Reaccesspoint extends MonitoringPoint {
     if (this.governmentProgram.shortName === 'СЗО') {
       return '../../../../assets/img/ap-ena-smo.svg';
     } else if (this.governmentProgram.shortName === 'ЕСПД') {
-      // if (this.avstate === null) {
-      //   return ESPD_MARKER_UNDEFINED;
-      // } else if (this.avstate.includes('Не доступно')) {
-      //   return ESPD_MARKER_DISABLED;
-      // } else {
-      //   return ESPD_MARKER_ACTIVE;
-      // }
-      return ESPD_MARKER_ACTIVE;
+      if (this.avstatus === null) {
+        return ESPD_MARKER_UNDEFINED;
+      } else if (this.avstatus.available) {
+        return ESPD_MARKER_ACTIVE;
+      } else if (!this.avstatus.available) {
+        return ESPD_MARKER_DISABLED;
+      }
+    }
+  }
+
+  get avstateStr(): string {
+    if (this.avstatus) {
+      return this.avstatus.toString();
+    } else {
+      return '';
     }
   }
 

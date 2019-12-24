@@ -10,6 +10,7 @@ import {AccessPointEspdLayer} from '@map-wrapper/layers/access-point-espd-layer'
 import {log} from 'util';
 import {MonitoringMarker} from '@map-wrapper/components/monitoring-marker';
 import {tap} from 'rxjs/operators';
+import {AdministrativeCentersLayer} from '@map-wrapper/layers/administrative-centers-layer';
 
 @Component({
   selector: 'marker-info-bar',
@@ -32,6 +33,7 @@ export class MarkerInfoBarComponent implements OnInit {
               private readonly renderer: Renderer2,
               private accessPointEspdLayer: AccessPointEspdLayer,
               private accessPointSmoLayer: AccessPointSmoLayer,
+              private administrativeCentersLayer: AdministrativeCentersLayer,
               private cdr: ChangeDetectorRef) {
     enumService.getExistingOperators().subscribe(value => {
       this.existingOperators = value;
@@ -43,6 +45,10 @@ export class MarkerInfoBarComponent implements OnInit {
 
     accessPointSmoLayer.onMarkerClick.subscribe((marker) => {
       this.openOrganizationPoint(marker);
+    });
+
+    administrativeCentersLayer.onMarkerClick.subscribe(marker => {
+      this.currentLocationId = marker.feature.properties.id;
     });
   }
 
