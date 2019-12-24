@@ -2,15 +2,27 @@ import { MonitoringPoint } from './monitoring-point';
 import { Coordinate } from '../interface/coordinate';
 import { autoserializeAs, inheritSerialization } from 'cerialize';
 
-const ESPD_MARKER_ACTIVE = '../../../../assets/img/Ресурс 5.svg';
-const ESPD_MARKER_UNDEFINED = '../../../../assets/img/Ресурс 4.svg';
-const ESPD_MARKER_DISABLED = '../../../../assets/img/Ресурс 3.svg';
+const ESPD_MARKER_ACTIVE = '../../../../assets/img/ap-ena-espd.svg';
+const ESPD_MARKER_UNDEFINED = '../../../../assets/img/ap-na-espd.svg';
+const ESPD_MARKER_DISABLED = '../../../../assets/img/ap-dis-espd.svg';
 
 @inheritSerialization(MonitoringPoint)
 export class AccessPointEspd extends MonitoringPoint {
 
-  @autoserializeAs('actual_address')
-  private readonly _actualAddress: string;
+  @autoserializeAs('name')
+  private readonly _name: string;
+
+  @autoserializeAs('address')
+  private readonly _address: string;
+
+  @autoserializeAs('node')
+  private readonly _node: string;
+
+  @autoserializeAs('description')
+  private readonly _description: string;
+
+  @autoserializeAs('ucn')
+  private readonly _ucn: string;
 
   @autoserializeAs('customer')
   private readonly _customer: string;
@@ -18,32 +30,37 @@ export class AccessPointEspd extends MonitoringPoint {
   @autoserializeAs('contractor')
   private readonly _contractor: string;
 
-  @autoserializeAs('medium_type')
-  private readonly _mediumType: string;
-
   @autoserializeAs('defined_speed')
   private readonly _definedSpeed: string;
+
+  @autoserializeAs('net_traffic_last_month')
+  private readonly _traffic;
+
+
+
+
+  @autoserializeAs('medium_type') //connection_type
+  private readonly _mediumType: string;
 
   @autoserializeAs('connection')
   private readonly _connection: string;
 
-  @autoserializeAs('description')
-  private readonly _description: string;
-
   @autoserializeAs('avstate')
   private readonly _avstate: string;
 
-  @autoserializeAs('traffic')
-  private readonly _traffic;
 
   @autoserializeAs('org_name')
   private readonly _orgName;
 
-  constructor(point: Coordinate, id: number, actualAddress: string,
+  constructor(point: Coordinate, id: number, name: string, node: string, ucn: string,
+              address: string,
               customer: string, contractor: string, mediumType: string,
               definedSpeed: string, connection: string, description: string, avstate: string, traffic) {
     super(point, id);
-    this._actualAddress = actualAddress;
+    this._name = name;
+    this._node = node;
+    this._address = address;
+    this._ucn = ucn;
     this._customer = customer;
     this._contractor = contractor;
     this._mediumType = mediumType;
@@ -70,8 +87,8 @@ export class AccessPointEspd extends MonitoringPoint {
     return this._orgName;
   }
 
-  get actualAddress(): string {
-    return this._actualAddress;
+  get address(): string {
+    return this._address;
   }
 
   get customer(): string {

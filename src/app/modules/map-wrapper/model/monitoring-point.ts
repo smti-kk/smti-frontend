@@ -15,7 +15,7 @@ export abstract class MonitoringPoint {
   @autoserializeAs(COORDINATE_DESERIALIZER, 'point')
   private _point: Coordinate;
 
-  @autoserializeAs('pk')
+  @autoserializeAs('id')
   private readonly _id: number;
 
   protected constructor(point: Coordinate, id: number) {
@@ -38,7 +38,7 @@ export abstract class MonitoringPoint {
   abstract get iconUrl();
 
   public static OnDeserialized(instance: MonitoringPoint, json: any): void {
-    if (!instance._point) {
+    if (!instance._point && json.geo_data) {
       instance.point = COORDINATE_DESERIALIZER.Deserialize(json.geo_data);
     }
   }

@@ -1417,3 +1417,11 @@ input[type="radio"]:checked + .c-radiobox-text:after {
     background-color: rgb(133, 133, 133, 1);
   }
 }
+
+.marker-cluster-administrative-centers {
+  background-color: rgba(0, 157, 211, 0.6);
+
+  & div {
+    background-color: rgb(0, 157, 211, 1);
+  }
+}

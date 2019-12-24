@@ -1,14 +1,29 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs, deserializeAs, inheritSerialization} from 'cerialize';
 // import { Contract } from '@core/models/contract';
-import { GovernmentProgram } from '@core/models/government-program';
-import { InternetAccessType } from '@core/models/internet-access-type';
-import { Operator } from '@core/models/operator';
-import { Quality } from '@core/models/enums';
+import {GovernmentProgram} from '@core/models/government-program';
+import {InternetAccessType} from '@core/models/internet-access-type';
+import {Operator} from '@core/models/operator';
+import {Quality} from '@core/models/enums';
+import {MonitoringPoint} from '@map-wrapper/model/monitoring-point';
 
-export class Reaccesspoint {
+const ESPD_MARKER_ACTIVE = '../../../../assets/img/ap-ena-espd.svg';
+const ESPD_MARKER_UNDEFINED = '../../../../assets/img/ap-na-espd.svg';
+const ESPD_MARKER_DISABLED = '../../../../assets/img/ap-dis-espd.svg';
 
-  @autoserializeAs('id')
-  private readonly _id: number;
+const ORGANIZATION_DESERIALIZER = {
+  Deserialize(json) {
+    return json.id;
+  }
+};
+
+const LOCATION_DESERIALIZER = {
+  Deserialize(json) {
+    return json.location;
+  }
+};
+
+@inheritSerialization(MonitoringPoint)
+export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs('address')
   private readonly _address: string;
@@ -22,8 +37,11 @@ export class Reaccesspoint {
   @autoserializeAs(InternetAccessType, 'connection_type')
   private readonly _connectionType: InternetAccessType[];
 
-  // @autoserializeAs(Contract, 'contract')
-  // private readonly _contract: Contract;
+  @deserializeAs(ORGANIZATION_DESERIALIZER, 'organization')
+  private readonly _organizationId: number;
+
+  @deserializeAs(LOCATION_DESERIALIZER, 'organization')
+  private readonly _locationId: number;
 
   @autoserializeAs('contractor')
   private readonly _contractor: string;
@@ -80,39 +98,12 @@ export class Reaccesspoint {
   private readonly _visible: boolean;
 
 
-  constructor(id: number, address: string, billingId: number, completed: boolean, connectionType: InternetAccessType[],
-              contractor: string, createdAt: Date, customer: string, definedSpeed: string, description: string,
-              governmentProgram: GovernmentProgram, ipConfig: string, maxAmount: number, name: string, netTrafficLastMonth: string,
-              netTrafficLastWeek: string, node: string, operator: Operator, quality: Quality, state: string, ucn: number,
-              updatedAt: Date, visible: boolean) {
-    this._id = id;
-    this._address = address;
-    this._billingId = billingId;
-    this._completed = completed;
-    this._connectionType = connectionType;
-    this._contractor = contractor;
-    this._createdAt = createdAt;
-    this._customer = customer;
-    this._definedSpeed = definedSpeed;
-    this._description = description;
-    this._governmentProgram = governmentProgram;
-    this._ipConfig = ipConfig;
-    this._maxAmount = maxAmount;
-    this._name = name;
-    this._netTrafficLastMonth = netTrafficLastMonth;
-    this._netTrafficLastWeek = netTrafficLastWeek;
-    this._node = node;
-    this._operator = operator;
-    this._quality = quality;
-    this._state = state;
-    this._ucn = ucn;
-    this._updatedAt = updatedAt;
-    this._visible = visible;
+  get locationId(): number {
+    return this._locationId;
   }
 
-
-  get id(): number {
-    return this._id;
+  get organizationId(): number {
+    return this._organizationId;
   }
 
   get address(): string {
@@ -208,4 +199,21 @@ export class Reaccesspoint {
       .map(ct => ct.name)
       .join(',');
   }
+
+  get iconUrl() {
+    if (this.governmentProgram.shortName === 'СЗО') {
+      return '../../../../assets/img/ap-ena-smo.svg';
+    } else if (this.governmentProgram.shortName === 'ЕСПД') {
+      // if (this.avstate === null) {
+      //   return ESPD_MARKER_UNDEFINED;
+      // } else if (this.avstate.includes('Не доступно')) {
+      //   return ESPD_MARKER_DISABLED;
+      // } else {
+      //   return ESPD_MARKER_ACTIVE;
+      // }
+      return ESPD_MARKER_ACTIVE;
+    }
+  }
+
+
 }

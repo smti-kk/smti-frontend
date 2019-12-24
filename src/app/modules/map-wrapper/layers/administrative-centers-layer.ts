@@ -4,6 +4,9 @@ import { AdministrativeCenterPoint } from '../model/administrative-center-point'
 import { MunicipalitiesLayerGeoJson } from './municipalities-layer';
 import { Injectable } from '@angular/core';
 import { AdministrativeCentersService } from '../service/administrative-centers.service';
+import {MonitoringMarker} from '@map-wrapper/components/monitoring-marker';
+import {DivIcon, Point, MarkerCluster} from 'leaflet';
+import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 @Injectable()
 export class AdministrativeCentersLayer extends MonitoringLayer<AdministrativeCenterPoint> {
@@ -11,7 +14,7 @@ export class AdministrativeCentersLayer extends MonitoringLayer<AdministrativeCe
   areaId: string | number;
 
   constructor(private administrativeCentersService: AdministrativeCentersService) {
-    super();
+    super({iconCreateFunction: AdministrativeCentersLayer.iconCreateFunction});
   }
 
   filterByArea(area: MunicipalitiesLayerGeoJson) {
@@ -40,5 +43,17 @@ export class AdministrativeCentersLayer extends MonitoringLayer<AdministrativeCe
       return this.administrativeCentersService.listFilteredByBounds(bounds);
     }
   }
+
+  static iconCreateFunction(cluster: MarkerCluster) {
+      const childCount = cluster.getChildCount();
+
+      const c = 'marker-cluster-administrative-centers';
+
+      return new DivIcon({
+        html: '<div><span>' + childCount + '</span></div>',
+        className: 'marker-cluster ' + c,
+        iconSize: new Point(40, 40)
+      });
+    }
 }
 

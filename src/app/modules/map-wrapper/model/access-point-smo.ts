@@ -2,7 +2,7 @@ import { MonitoringPoint } from './monitoring-point';
 import { autoserializeAs, inheritSerialization } from 'cerialize';
 import { Coordinate } from '@map-wrapper/interface/coordinate';
 
-const SMO_MARKER_PATH = '../../../../assets/img/Ресурс 6.svg';
+const SMO_MARKER_PATH = '../../../../assets/img/ap-ena-smo.svg';
 
 @inheritSerialization(MonitoringPoint)
 export class AccessPointSmo extends MonitoringPoint {
