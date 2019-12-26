@@ -1,5 +1,5 @@
 hub = harbor.cifra-k.ru
-version = 1.1.2
+version = 1.2.0
 
 IMAGE_NAME = $(hub)/telecom_monitoring/frontend:$(version)
 
