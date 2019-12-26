@@ -1,5 +1,5 @@
-import { autoserializeAs } from 'cerialize';
-import { Operator } from '@core/models/operator';
+import {autoserializeAs} from 'cerialize';
+import {Operator} from '@core/models/operator';
 
 export class ExistingOperators {
   @autoserializeAs(Operator, 'cellurar')
@@ -20,8 +20,14 @@ export class ExistingOperators {
   @autoserializeAs(Operator, 'television')
   private readonly _television: Operator[];
 
-
-  constructor(cellular: Operator[], radio: Operator[], internet: Operator[], ats: Operator[], post: Operator[], television: Operator[]) {
+  constructor(
+    cellular: Operator[],
+    radio: Operator[],
+    internet: Operator[],
+    ats: Operator[],
+    post: Operator[],
+    television: Operator[]
+  ) {
     this._cellular = cellular;
     this._radio = radio;
     this._internet = internet;
@@ -29,7 +35,6 @@ export class ExistingOperators {
     this._post = post;
     this._television = television;
   }
-
 
   get cellular(): Operator[] {
     return this._cellular;

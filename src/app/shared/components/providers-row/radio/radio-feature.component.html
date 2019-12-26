@@ -2,7 +2,8 @@
   <app-operator-icon
     *ngFor="let operator of existed"
     [operator]="operator"
-    [class.opacity]="!featureRowsUtils.hasOperator(locationFeatures, operator)">
-<!--    <div class="c-vendor-status-text">{{featureRowsUtils.getByOperator(locationFeatures, operator)?.typeStr}}</div>-->
+    [class.opacity]="!featureRowsUtils.hasOperator(locationFeatures, operator)"
+  >
+    <!--    <div class="c-vendor-status-text">{{featureRowsUtils.getByOperator(locationFeatures, operator)?.typeStr}}</div>-->
   </app-operator-icon>
 </div>

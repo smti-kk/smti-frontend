@@ -1,24 +1,22 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { PivotTablePageComponent } from './components/pivot-table-page-component/pivot-table-page-component';
-import { TechnicalCapabilitiesComponent } from './components/technical-capabilities/technical-capabilities.component';
-
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {PivotTablePageComponent} from './components/pivot-table-page-component/pivot-table-page-component';
+import {TechnicalCapabilitiesComponent} from './components/technical-capabilities/technical-capabilities.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PivotTablePageComponent
+    component: PivotTablePageComponent,
   },
   {
     path: ':id',
-    component: TechnicalCapabilitiesComponent
-  }
+    component: TechnicalCapabilitiesComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  declarations: []
+  declarations: [],
 })
-export class PivotTableRoutingModule {
-}
+export class PivotTableRoutingModule {}

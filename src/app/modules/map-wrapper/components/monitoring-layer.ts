@@ -1,11 +1,11 @@
-import { EventEmitter } from '@angular/core';
-import { LatLngBounds, MarkerClusterGroup, MarkerClusterGroupOptions } from 'leaflet';
-import { Observable } from 'rxjs';
-import { MonitoringPoint } from '../model/monitoring-point';
+import {EventEmitter} from '@angular/core';
+import {LatLngBounds, MarkerClusterGroup, MarkerClusterGroupOptions} from 'leaflet';
+import {Observable} from 'rxjs';
+import {MonitoringPoint} from '../model/monitoring-point';
 import 'leaflet.markercluster';
-import { MonitoringMarker } from './monitoring-marker';
-import { UpdatedList } from '@core/utils/updated-list';
-import { Map } from 'leaflet';
+import {MonitoringMarker} from './monitoring-marker';
+import {UpdatedList} from '@core/utils/updated-list';
+import {Map} from 'leaflet';
 
 export const MAX_ZOOM = 12;
 
@@ -13,8 +13,10 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
   private maxZoom = MAX_ZOOM;
   private pointsList: UpdatedList<T>;
   private leafletMap: Map;
-  private layers: { [key: number]: MonitoringMarker<T> };
-  public readonly onMarkerClick: EventEmitter<MonitoringMarker<T>> = new EventEmitter<MonitoringMarker<T>>();
+  private layers: {[key: number]: MonitoringMarker<T>};
+  public readonly onMarkerClick: EventEmitter<MonitoringMarker<T>> = new EventEmitter<
+    MonitoringMarker<T>
+  >();
 
   protected constructor(props?: MarkerClusterGroupOptions) {
     // @ts-ignore
@@ -30,7 +32,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
 
       this.pointsList.startUpdate();
       map.on({
-        moveend: () => this.updateLayer()
+        moveend: () => this.updateLayer(),
       });
     }
 
@@ -72,7 +74,11 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
   }
 
   protected updateLayer() {
-    if (this.leafletMap && this.leafletMap.getZoom() >= this.maxZoom && this.leafletMap.hasLayer(this)) {
+    if (
+      this.leafletMap &&
+      this.leafletMap.getZoom() >= this.maxZoom &&
+      this.leafletMap.hasLayer(this)
+    ) {
       this.pointsList.forceUpdate();
     } else {
       this.clearLayer();
@@ -95,7 +101,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
         map.spin(true);
         return this.getPoints(map.getBounds());
       },
-      (points) => {
+      points => {
         this.setPoints(points);
         map.spin(false);
       }
@@ -103,7 +109,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
 
     this.on({
       add: () => this.updateLayer(),
-      remove: () => this.updateLayer()
+      remove: () => this.updateLayer(),
     });
   }
 
@@ -130,8 +136,9 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
   }
 
   private createMarker(point: T): MonitoringMarker<T> {
-    return new MonitoringMarker<T>(point)
-      .on('click', (event) => this.onMarkerClick.emit(event.target));
+    return new MonitoringMarker<T>(point).on('click', event =>
+      this.onMarkerClick.emit(event.target)
+    );
   }
 
   private removeIrrelevantMarkers(points: T[]) {

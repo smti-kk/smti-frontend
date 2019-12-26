@@ -1,19 +1,16 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export class InternetAccessType {
-
   @autoserializeAs('id')
   private readonly _id: number;
 
   @autoserializeAs('name')
   private readonly _name: string;
 
-
   constructor(id: number, name: string) {
     this._id = id;
     this._name = name;
   }
-
 
   get id(): number {
     return this._id;

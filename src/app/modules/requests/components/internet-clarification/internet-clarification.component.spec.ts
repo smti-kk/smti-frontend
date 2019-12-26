@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InternetClarificationComponent } from './internet-clarification.component';
+import {InternetClarificationComponent} from './internet-clarification.component';
 
 describe('InternetClarificationComponent', () => {
   let component: InternetClarificationComponent;
@@ -8,9 +8,8 @@ describe('InternetClarificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InternetClarificationComponent ]
-    })
-    .compileComponents();
+      declarations: [InternetClarificationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

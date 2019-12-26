@@ -1,20 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { TechnicalCapabilitiesComparisionTableComponent } from './technical-capabilities-comparision-table';
-import { CoreModule } from '@core/core.module';
-import { LocationFeaturesService } from '@core/services/location-features.service';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { SharedModule } from '@shared/shared.module';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule, Routes} from '@angular/router';
+import {TechnicalCapabilitiesComparisionTableComponent} from './technical-capabilities-comparision-table';
+import {CoreModule} from '@core/core.module';
+import {LocationFeaturesService} from '@core/services/location-features.service';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {SharedModule} from '@shared/shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: TechnicalCapabilitiesComparisionTableComponent
-  }
+    component: TechnicalCapabilitiesComparisionTableComponent,
+  },
 ];
 
 @NgModule({
@@ -26,10 +25,8 @@ const routes: Routes = [
     NgxSpinnerModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    SharedModule
+    SharedModule,
   ],
-  providers: [
-    LocationFeaturesService
-  ]
+  providers: [LocationFeaturesService],
 })
-export class TechnicalCapabilitiesComparisonTableModule { }
+export class TechnicalCapabilitiesComparisonTableModule {}

@@ -1,12 +1,13 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <div class="c-sidebar">
-
-  <location-capabilities-search (selectedPoint)="onSelectPoint($event).subscribe()"
-                                [leafletMap]="leafletMap"></location-capabilities-search>
+  <location-capabilities-search
+    (selectedPoint)="onSelectPoint($event).subscribe()"
+    [leafletMap]="leafletMap"
+  ></location-capabilities-search>
   <div *ngIf="locationFeatures">
     <div class="c-location-name">
-      <div>{{locationFeatures.location.typeLocation}} {{locationFeatures.location.name}}</div>
-      <div>{{locationFeatures.location.municipalityArea}}</div>
+      <div>{{ locationFeatures.location.typeLocation }} {{ locationFeatures.location.name }}</div>
+      <div>{{ locationFeatures.location.municipalityArea }}</div>
     </div>
     <div class="c-accordion u-bgc-blue">
       <div class="c-accordion-title" (click)="openAccordion($event.target, 'is-open')">
@@ -14,53 +15,64 @@
         <div class="c-accordion-button"></div>
       </div>
       <div class="c-accordion-body">
-        <div class="c-location-peoples"><span>{{locationFeatures.location.peopleCount}}</span> чел.</div>
+        <div class="c-location-peoples">
+          <span>{{ locationFeatures.location.peopleCount }}</span> чел.
+        </div>
         <div class="l-sidebar-list">
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Сотовая связь:</div>
             <app-cellular-features
               [locationFeatures]="locationFeatures.cellular"
-              [existed]="existingOperators.cellular">
+              [existed]="existingOperators.cellular"
+            >
             </app-cellular-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Интернет:</div>
             <app-internet-features
               [locationFeatures]="locationFeatures.internet"
-              [existed]="existingOperators.internet">
+              [existed]="existingOperators.internet"
+            >
             </app-internet-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">ТВ:</div>
             <app-television-features
               [locationFeatures]="locationFeatures.television"
-              [existed]="existingOperators.television">
+              [existed]="existingOperators.television"
+            >
             </app-television-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Радио:</div>
             <app-radio-features
               [locationFeatures]="locationFeatures.radio"
-              [existed]="existingOperators.radio">
+              [existed]="existingOperators.radio"
+            >
             </app-radio-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Таксофон:</div>
             <app-payphone-features
               [locationFeatures]="locationFeatures.ats"
-              [existed]="existingOperators.ats">
+              [existed]="existingOperators.ats"
+            >
             </app-payphone-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Телефон:</div>
             <app-ats-features
               [locationFeatures]="locationFeatures.ats"
-              [existed]="existingOperators.ats">
+              [existed]="existingOperators.ats"
+            >
             </app-ats-features>
           </div>
           <div class="l-sidebar-list-item">
             <div class="o-item-title">Почта:</div>
-            <app-ats-features [locationFeatures]="locationFeatures.post" [existed]="existingOperators.post">
+            <app-ats-features
+              [locationFeatures]="locationFeatures.post"
+              [existed]="existingOperators.post"
+            >
             </app-ats-features>
           </div>
           <div class="l-sidebar-list-item">
@@ -72,61 +84,76 @@
       </div>
     </div>
     <div class="c-accordion u-bgc-green">
-      <div class="c-accordion-title" (click)="openAccordion($event.target, 'is-open')" id="organizationsAccordion">
-        <div>Организаций ({{organizations.length}})</div>
+      <div
+        class="c-accordion-title"
+        (click)="openAccordion($event.target, 'is-open')"
+        id="organizationsAccordion"
+      >
+        <div>Организаций ({{ organizations.length }})</div>
         <div class="c-accordion-button"></div>
       </div>
       <div class="c-accordion-body">
         <div class="c-accordion u-bgc-white" *ngFor="let organization of organizations">
-          <div class="c-accordion-title" (click)="openAccordion($event.target, 'is-open')" [id]="organization.id">
-            <div>{{organization.fullName}}</div>
+          <div
+            class="c-accordion-title"
+            (click)="openAccordion($event.target, 'is-open')"
+            [id]="organization.id"
+          >
+            <div>{{ organization.fullName }}</div>
             <div class="c-accordion-button"></div>
           </div>
           <div class="c-accordion-body">
             <div class="c-accordion u-bgc-green" *ngFor="let point of organization.reaccesspoints">
-              <div (click)="openAccordion($event.target, 'is-open'); moveToPoint(point);" [id]="point.id"
-                   [ngClass]="{
-                   'o-espd': point.governmentProgram.shortName === 'ЕСПД',
-                   'o-szo': point.governmentProgram.shortName === 'СЗО',
-                   'u-green-dot': false
-                   }"
-                   class="c-accordion-title u-green-dot"
+              <div
+                (click)="openAccordion($event.target, 'is-open'); moveToPoint(point)"
+                [id]="point.id"
+                [ngClass]="{
+                  'o-espd': point.governmentProgram.shortName === 'ЕСПД',
+                  'o-szo': point.governmentProgram.shortName === 'СЗО',
+                  'u-green-dot': false
+                }"
+                class="c-accordion-title u-green-dot"
               >
-                {{point.address}}
+                {{ point.address }}
                 <div class="c-accordion-button"></div>
               </div>
               <div class="c-accordion-body organizations">
                 <div class="item line">
-                  <div class="name">Программа: </div>
-                  <div class="value"> {{point.governmentProgram.shortName}}</div>
+                  <div class="name">Программа:</div>
+                  <div class="value">{{ point.governmentProgram.shortName }}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Заказчик: </div>
-                  <div class="value"> {{point.customer}}</div>
+                  <div class="name">Заказчик:</div>
+                  <div class="value">{{ point.customer }}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Подрядчик: </div>
-                  <div class="value"> {{point.contractor}}</div>
+                  <div class="name">Подрядчик:</div>
+                  <div class="value">{{ point.contractor }}</div>
                 </div>
                 <div class="item line">
                   <div class="name">Технология подключения:</div>
-                  <div class="value">{{point.connectionTypeString}}</div>
+                  <div class="value">{{ point.connectionTypeString }}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Точка подключения: </div>
-                  <div class="value"> {{point.node}}</div>
+                  <div class="name">Точка подключения:</div>
+                  <div class="value">{{ point.node }}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Скорость по контракту: </div>
-                  <div class="value"> {{point.definedSpeed}}</div>
+                  <div class="name">Скорость по контракту:</div>
+                  <div class="value">{{ point.definedSpeed }}</div>
                 </div>
                 <div class="item line">
-                  <div class="name">Состояние: </div>
-                  <div class="value"> {{point.avstateStr}} {{point.avstatus ? (point.avstatus.timeMark | date: '(dd.MM.yyyy HH:mm)') : ''}}</div>
+                  <div class="name">Состояние:</div>
+                  <div class="value">
+                    {{ point.avstateStr }}
+                    {{
+                      point.avstatus ? (point.avstatus.timeMark | date: '(dd.MM.yyyy HH:mm)') : ''
+                    }}
+                  </div>
                 </div>
                 <div class="item line">
-                  <div class="name">Входящий трафик: </div>
-                  <div class="value"> {{point.netTrafficLastMonth}}</div>
+                  <div class="name">Входящий трафик:</div>
+                  <div class="value">{{ point.netTrafficLastMonth }}</div>
                 </div>
               </div>
             </div>

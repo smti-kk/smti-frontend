@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "normalize";
-@import "all.min";
+@import 'normalize';
+@import 'all.min';
 
 @font-face {
   font-family: 'Montserrat';
@@ -56,7 +56,8 @@ body {
   color: #575756;
 }
 
-ul, ol {
+ul,
+ol {
   padding: 0;
   list-style-type: none;
 }
@@ -162,7 +163,7 @@ select:-moz-focusring {
   text-shadow: 0 0 0 #575756;
 }
 
-input[type="text"] {
+input[type='text'] {
   padding: 0 0 4px 7px;
   width: 100%;
   border: none;
@@ -171,19 +172,19 @@ input[type="text"] {
   font-weight: 100;
 }
 
-input[type="text"]::placeholder {
+input[type='text']::placeholder {
   color: #969696;
   font-weight: 100;
   opacity: 1;
 }
 
-input[type="text"]:focus {
+input[type='text']:focus {
   outline: none !important;
   outline-offset: unset !important;
   border-color: #35a584;
 }
 
-input[type="text"]:focus::placeholder {
+input[type='text']:focus::placeholder {
   color: transparent;
 }
 
@@ -270,7 +271,7 @@ input.btn.cancel {
   margin-top: 5px;
   text-align: center;
   border-radius: 15px;
-  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font: 12px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 .cluster-green {
@@ -367,7 +368,7 @@ select:-moz-focusring {
   height: 16px;
 }
 
-.search-location input[type="submit"] {
+.search-location input[type='submit'] {
   position: absolute;
   top: 2px;
   right: 2px;
@@ -380,12 +381,13 @@ select:-moz-focusring {
   cursor: pointer;
 }
 
-.search-location input[type="text"]:focus + input[type="submit"] {
+.search-location input[type='text']:focus + input[type='submit'] {
   background: url('assets/img/search-green.png') no-repeat;
   background-position: 50% 50%;
 }
 
-.l-sidebar-list {}
+.l-sidebar-list {
+}
 .l-sidebar-list-item {
   display: flex;
   align-self: center;
@@ -412,8 +414,12 @@ select:-moz-focusring {
   cursor: pointer;
 }
 
-.c-accordion .c-accordion .c-accordion-title { font-size: 13px; }
-.c-accordion .c-accordion .c-accordion .c-accordion-title { font-size: 12px; }
+.c-accordion .c-accordion .c-accordion-title {
+  font-size: 13px;
+}
+.c-accordion .c-accordion .c-accordion .c-accordion-title {
+  font-size: 12px;
+}
 
 .c-accordion-name {
   padding-left: 1.5rem;
@@ -428,10 +434,6 @@ select:-moz-focusring {
 
 .c-accordion-info {
   margin-top: 0.5rem;
-}
-
-c-accordion-info-item {
-  margin-right: 1rem;
 }
 
 .u-gray {
@@ -465,17 +467,29 @@ c-accordion-info-item {
   transition: background-color 1s linear;
 }
 
-.c-accordion-body.is-open { display: block }
+.c-accordion-body.is-open {
+  display: block;
+}
 
-.u-bgc-blue { background-color: #ccebf6 }
+.u-bgc-blue {
+  background-color: #ccebf6;
+}
 
-.u-bgc-green { background-color: #c2e4da }
+.u-bgc-green {
+  background-color: #c2e4da;
+}
 
-.u-bgc-white { background-color: #ffffff }
+.u-bgc-white {
+  background-color: #ffffff;
+}
 
-.u-bgc-blue .c-accordion-button::before { color: #009dd3 }
+.u-bgc-blue .c-accordion-button::before {
+  color: #009dd3;
+}
 
-.u-bgc-green .c-accordion-button::before { color: #35a584 }
+.u-bgc-green .c-accordion-button::before {
+  color: #35a584;
+}
 
 .c-accordion.green .item {
   margin-bottom: 10px;
@@ -489,9 +503,13 @@ c-accordion-info-item {
   white-space: nowrap;
 }
 
-.o-espd { color: #35a584 }
+.o-espd {
+  color: #35a584;
+}
 
-.o-szo { color: #009dd3 }
+.o-szo {
+  color: #009dd3;
+}
 
 .o-espd::before {
   content: '';
@@ -515,11 +533,17 @@ c-accordion-info-item {
   background: url('/assets/img/building.png') no-repeat;
 }
 
-.u-green-dot::before { content: url('/assets/img/green-dot.png') }
+.u-green-dot::before {
+  content: url('/assets/img/green-dot.png');
+}
 
-.u-gray-dot::before { content: url('/assets/img/gray-dot.png') }
+.u-gray-dot::before {
+  content: url('/assets/img/gray-dot.png');
+}
 
-.u-red-dot::before { content: url('/assets/img/red-dot.png') }
+.u-red-dot::before {
+  content: url('/assets/img/red-dot.png');
+}
 
 /* --- Акордион --- end --- */
 
@@ -814,11 +838,11 @@ c-accordion-info-item {
   height: 5px;
 }
 
-input[type="checkbox"] + .c-vendor-checked {
+input[type='checkbox'] + .c-vendor-checked {
   opacity: 0.2;
 }
 
-input[type="checkbox"]:checked + .c-vendor-checked {
+input[type='checkbox']:checked + .c-vendor-checked {
   opacity: 1;
 }
 
@@ -838,8 +862,8 @@ input[type="checkbox"]:checked + .c-vendor-checked {
   min-width: 133px;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
   display: none;
 }
 
@@ -892,28 +916,28 @@ input[type="radio"] {
   color: #21bb42;
 }
 
-fieldset[disabled="disabled"] .c-radiobox-text:before,
+fieldset[disabled='disabled'] .c-radiobox-text:before,
 .is-disabled .c-radiobox-text:before {
   color: #bcbcbc;
 }
 
-fieldset[disabled="disabled"] .c-checkbox-text::after,
-fieldset[disabled="disabled"] .c-radiobox-text:after,
+fieldset[disabled='disabled'] .c-checkbox-text::after,
+fieldset[disabled='disabled'] .c-radiobox-text:after,
 .is-disabled .c-checkbox-text::after,
 .is-disabled .c-radiobox-text:after {
   color: #bcbcbc;
 }
 
-input[type="checkbox"] + .c-checkbox-text:after,
-input[type="radio"] + .c-radiobox-text:after {
+input[type='checkbox'] + .c-checkbox-text:after,
+input[type='radio'] + .c-radiobox-text:after {
   content: none;
 }
 
-input[type="checkbox"]:checked + .c-checkbox-text:after {
+input[type='checkbox']:checked + .c-checkbox-text:after {
   content: '\f14a';
 }
 
-input[type="radio"]:checked + .c-radiobox-text:after {
+input[type='radio']:checked + .c-radiobox-text:after {
   content: '\f111';
 }
 
@@ -1032,7 +1056,6 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 /* --- Вкладки --- end --- */
-
 
 /* --- Форма уточняющей заявки --- begin --- */
 
@@ -1166,7 +1189,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 
 .c-modal-close {
   color: #575756;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .c-modal .l-row {
@@ -1211,13 +1234,11 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .c-modal-input .far {
-
   position: absolute;
   right: 0;
-
 }
 
-.c-modal-input input[type="text"] {
+.c-modal-input input[type='text'] {
   padding-right: 15px;
   width: 100px;
 }
@@ -1302,7 +1323,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 .l-location-info .c-location-name {
   padding-right: 3rem;
   margin-right: 3rem;
-  border-right: 1px solid #d2d2d2
+  border-right: 1px solid #d2d2d2;
 }
 /* --- Локация и численность --- end --- */
 
@@ -1325,7 +1346,7 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 }
 
 .breadcrumbs-item + .breadcrumbs-item:before {
-  content: "/";
+  content: '/';
   margin: 0 5px;
   font-size: 13px;
 }
@@ -1362,7 +1383,6 @@ input[type="radio"]:checked + .c-radiobox-text:after {
 #mobile {
   display: none;
 }
-
 
 /*-----------------------*/
 

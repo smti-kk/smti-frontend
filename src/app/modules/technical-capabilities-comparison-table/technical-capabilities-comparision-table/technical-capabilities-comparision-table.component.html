@@ -21,10 +21,24 @@
           <form [formGroup]="filterForm">
             <div class="l-container">
               <div class="l-container-item js-filter-button">
-                <app-filter-btn formControlName="order" [orderings]="[
-                      {name: 'Нас.пункт', value: 'name', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Район', value: 'parent', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Численность', value: 'people_count', orderingDirection: OrderingDirection.UNDEFINED }
+                <app-filter-btn
+                  formControlName="order"
+                  [orderings]="[
+                    {
+                      name: 'Нас.пункт',
+                      value: 'name',
+                      orderingDirection: OrderingDirection.UNDEFINED
+                    },
+                    {
+                      name: 'Район',
+                      value: 'parent',
+                      orderingDirection: OrderingDirection.UNDEFINED
+                    },
+                    {
+                      name: 'Численность',
+                      value: 'people_count',
+                      orderingDirection: OrderingDirection.UNDEFINED
+                    }
                   ]"
                 >
                 </app-filter-btn>
@@ -34,51 +48,73 @@
                   <div class="o-item-title">Сотовая связь:</div>
                   <div class="l-vendors-row u-border-right">
                     <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/mts.png" alt="МТС"
-                                                                         title="МТС"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/beeline.png"
-                                                                         alt="Билайн"
-                                                                         title="Билайн"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/megafon.png"
-                                                                         alt="Мегафон"
-                                                                         title="Мегафон"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/tele2.png"
-                                                                         alt="Теле2" title="Теле2">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС" />
                         </div>
                       </label>
                     </div>
                     <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/rostelecom.png"
-                                                                         alt="РосТелеком"
-                                                                         title="РосТелеком"></div>
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            src="../../../../assets/img/beeline.png"
+                            alt="Билайн"
+                            title="Билайн"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            src="../../../../assets/img/megafon.png"
+                            alt="Мегафон"
+                            title="Мегафон"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2" />
+                        </div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            src="../../../../assets/img/rostelecom.png"
+                            alt="РосТелеком"
+                            title="РосТелеком"
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
                   <div class="c-radiobox l-radiobox-row">
-                    <label><input type="radio" name="mobile">
+                    <label
+                      ><input type="radio" name="mobile" />
                       <div class="c-radiobox-text">2G</div>
                     </label>
-                    <label><input type="radio" name="mobile">
+                    <label
+                      ><input type="radio" name="mobile" />
                       <div class="c-radiobox-text">3G</div>
                     </label>
-                    <label><input type="radio" name="mobile">
+                    <label
+                      ><input type="radio" name="mobile" />
                       <div class="c-radiobox-text">4G</div>
                     </label>
-                    <label><input type="radio" name="mobile">
+                    <label
+                      ><input type="radio" name="mobile" />
                       <div class="c-radiobox-text">5G</div>
                     </label>
                   </div>
@@ -87,66 +123,89 @@
                   <div class="o-item-title">Интернет:</div>
                   <div class="l-vendors-row u-border-right">
                     <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/mts.png" alt="МТС"
-                                                                         title="МТС"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/beeline.png"
-                                                                         alt="Билайн"
-                                                                         title="Билайн">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС" />
                         </div>
                       </label>
                     </div>
                     <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/megafon.png"
-                                                                         alt="Мегафон"
-                                                                         title="Мегафон">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            src="../../../../assets/img/beeline.png"
+                            alt="Билайн"
+                            title="Билайн"
+                          />
                         </div>
                       </label>
                     </div>
                     <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/tele2.png"
-                                                                         alt="Теле2" title="Теле2">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            src="../../../../assets/img/megafon.png"
+                            alt="Мегафон"
+                            title="Мегафон"
+                          />
                         </div>
                       </label>
                     </div>
                     <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/rostelecom.png"
-                                                                         alt="РосТелеком"
-                                                                         title="РосТелеком"></div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/iskra.png"
-                                                                         alt="Искра" title="Искра">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2" />
                         </div>
                       </label>
                     </div>
                     <div class="c-vendor">
-                      <label> <input type="checkbox">
-                        <div class="c-vendor-logo c-vendor-checked"><img src="../../../../assets/img/ttk.png" alt="ТТК"
-                                                                         title="ТТК"></div>
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            src="../../../../assets/img/rostelecom.png"
+                            alt="РосТелеком"
+                            title="РосТелеком"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img src="../../../../assets/img/iskra.png" alt="Искра" title="Искра" />
+                        </div>
+                      </label>
+                    </div>
+                    <div class="c-vendor">
+                      <label>
+                        <input type="checkbox" />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img src="../../../../assets/img/ttk.png" alt="ТТК" title="ТТК" />
+                        </div>
                       </label>
                     </div>
                   </div>
                   <div class="c-radiobox l-radiobox-row">
-                    <label><input type="radio" name="internet">
+                    <label
+                      ><input type="radio" name="internet" />
                       <div class="c-radiobox-text">Спутник</div>
                     </label>
-                    <label><input type="radio" name="internet">
+                    <label
+                      ><input type="radio" name="internet" />
                       <div class="c-radiobox-text">ВОЛС</div>
                     </label>
-                    <label><input type="radio" name="internet">
+                    <label
+                      ><input type="radio" name="internet" />
                       <div class="c-radiobox-text">Медь</div>
                     </label>
-                    <label><input type="radio" name="internet">
+                    <label
+                      ><input type="radio" name="internet" />
                       <div class="c-radiobox-text">Радиоканал</div>
                     </label>
                   </div>
@@ -154,14 +213,16 @@
                 <div class="l-container-row is-disabled">
                   <div class="o-item-title">Программа:</div>
                   <select name="" id="">
-                    <option value="" disabled selected style="display:none;">Выберите программу</option>
+                    <option value="" disabled selected style="display:none;"
+                      >Выберите программу</option
+                    >
                     <option value="">Программа 1</option>
                     <option value="">Программа 2</option>
                   </select>
                 </div>
               </div>
             </div>
-            <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр">
+            <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр" />
           </form>
         </div>
       </div>
@@ -169,10 +230,14 @@
         <div class="c-filter-result" *ngIf="featuresTypeSelector.value">
           <!--          Результатов поиска: <span>115</span> из <span>9 345</span>-->
           Результатов:
-          <span>{{this.featuresTypeSelector.value === this.featureTypes.internet ? this.featuresInternet?.length : this.featuresCellular?.length}}</span>
+          <span>{{
+            this.featuresTypeSelector.value === this.featureTypes.internet
+              ? this.featuresInternet?.length
+              : this.featuresCellular?.length
+          }}</span>
         </div>
         <div class="c-filter-export">
-          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel">
+          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel" />
         </div>
       </div>
     </div>
@@ -184,130 +249,230 @@
       <div class="l-table-column">архив 2018</div>
     </div>
 
-
     <!--    INTERNET - > MOBILE-->
 
     <div *ngIf="featuresTypeSelector.value === featureTypes.internet">
-      <div class="l-table l-table-compare" *ngFor="let feature of featuresInternet | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}">
+      <div
+        class="l-table l-table-compare"
+        *ngFor="
+          let feature of featuresInternet
+            | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}
+        "
+      >
         <div class="l-table-column">
           <div class="c-location-name">
-            <div class="c-location-name-item1">{{feature.location.typeLocation}} {{feature.location.name}}</div>
-            <div class="c-location-name-item2">{{feature.location.municipalityArea}}</div>
+            <div class="c-location-name-item1">
+              {{ feature.location.typeLocation }} {{ feature.location.name }}
+            </div>
+            <div class="c-location-name-item2">{{ feature.location.municipalityArea }}</div>
           </div>
-          <div class="c-location-peoples"><span>{{feature.location.peopleCount}}</span> чел.</div>
+          <div class="c-location-peoples">
+            <span>{{ feature.location.peopleCount }}</span> чел.
+          </div>
         </div>
         <div class="l-table-column">
           <div class="l-vendors-column">
             <div class="c-vendor" *ngFor="let activeFeature of feature.activeInternetFeatures">
-              <div class="c-vendor-logo"><img [src]="activeFeature.operator.icon" [alt]="activeFeature.operator.name"
-                                              [title]="activeFeature.operator.name"></div>
-              <div class="c-vendor-status-img" [className]="activeFeature.channel.slug"
-                   [title]="activeFeature.channel.name"></div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="activeFeature.operator.icon"
+                  [alt]="activeFeature.operator.name"
+                  [title]="activeFeature.operator.name"
+                />
+              </div>
+
+              <div
+                class="c-vendor-status-img"
+                [className]="activeFeature.channel.slug"
+                [title]="activeFeature.channel.name"
+              ></div>
             </div>
           </div>
         </div>
         <div class="l-table-column">
           <div class="l-table-row" *ngFor="let planYearFeature of feature.planYearInternetFeatures">
             <div class="c-vendor">
-              <div class="c-vendor-logo"><img [src]="planYearFeature.operator.icon"
-                                              [alt]="planYearFeature.operator.name"
-                                              [title]="planYearFeature.operator.name"></div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="planYearFeature.operator.icon"
+                  [alt]="planYearFeature.operator.name"
+                  [title]="planYearFeature.operator.name"
+                />
+              </div>
             </div>
-            <div>:<span>{{planYearFeature.channel.name}}</span>
-              (<span>{{planYearFeature.governmentProgram.shortName}}</span>)
+            <div>
+              :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
+                planYearFeature.governmentProgram.shortName
+              }}</span
+              >)
             </div>
           </div>
         </div>
         <div class="l-table-column">
-          <div class="l-table-row" *ngFor="let planYearFeature of feature.planTwoYearInternetFeatures">
+          <div
+            class="l-table-row"
+            *ngFor="let planYearFeature of feature.planTwoYearInternetFeatures"
+          >
             <div class="c-vendor">
-              <div class="c-vendor-logo"><img [src]="planYearFeature.operator.icon"
-                                              [alt]="planYearFeature.operator.name"
-                                              [title]="planYearFeature.operator.name"></div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="planYearFeature.operator.icon"
+                  [alt]="planYearFeature.operator.name"
+                  [title]="planYearFeature.operator.name"
+                />
+              </div>
             </div>
-            <div>:<span>{{planYearFeature.channel.name}}</span>
-              (<span>{{planYearFeature.governmentProgram.shortName}}</span>)
+            <div>
+              :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
+                planYearFeature.governmentProgram.shortName
+              }}</span
+              >)
             </div>
           </div>
         </div>
         <div class="l-table-column">
           <div class="l-vendors-column">
             <div class="c-vendor" *ngFor="let activeFeature of feature.archiveInternetFeatures">
-              <div class="c-vendor-logo"><img [src]="activeFeature.operator.icon" [alt]="activeFeature.operator.name"
-                                              [title]="activeFeature.operator.name"></div>
-              <div class="c-vendor-status-img" [className]="activeFeature.channel.slug"
-                   [title]="activeFeature.channel.name"></div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="activeFeature.operator.icon"
+                  [alt]="activeFeature.operator.name"
+                  [title]="activeFeature.operator.name"
+                />
+              </div>
+
+              <div
+                class="c-vendor-status-img"
+                [className]="activeFeature.channel.slug"
+                [title]="activeFeature.channel.name"
+              ></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-
     <!--    INTERNET - > MOBILE-->
 
     <div *ngIf="featuresTypeSelector.value === featureTypes.mobile">
-      <div class="l-table l-table-compare" *ngFor="let feature of featuresCellular | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}">
+      <div
+        class="l-table l-table-compare"
+        *ngFor="
+          let feature of featuresCellular
+            | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}
+        "
+      >
         <div class="l-table-column">
           <div class="c-location-name">
-            <div class="c-location-name-item1">{{feature.location.typeLocation}} {{feature.location.name}}</div>
-            <div class="c-location-name-item2">{{feature.location.municipalityArea}}</div>
+            <div class="c-location-name-item1">
+              {{ feature.location.typeLocation }} {{ feature.location.name }}
+            </div>
+            <div class="c-location-name-item2">{{ feature.location.municipalityArea }}</div>
           </div>
-          <div class="c-location-peoples"><span>{{feature.location.peopleCount}}</span> чел.</div>
+          <div class="c-location-peoples">
+            <span>{{ feature.location.peopleCount }}</span> чел.
+          </div>
         </div>
         <div class="l-table-column">
           <div class="l-vendors-column">
             <div class="c-vendor" *ngFor="let activeFeature of feature.activeCellularFeatures">
-              <div class="c-vendor-logo"><img [src]="activeFeature.operator.icon" [alt]="activeFeature.operator.name"
-                                              [title]="activeFeature.operator.name"></div>
-              <div class="c-vendor-status-text">{{activeFeature.type.name}}</div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="activeFeature.operator.icon"
+                  [alt]="activeFeature.operator.name"
+                  [title]="activeFeature.operator.name"
+                />
+              </div>
+
+              <div class="c-vendor-status-text">{{ activeFeature.type.name }}</div>
             </div>
           </div>
         </div>
         <div class="l-table-column">
           <div class="l-table-row" *ngFor="let planYearFeature of feature.planYearCellularFeatures">
             <div class="c-vendor">
-              <div class="c-vendor-logo"><img [src]="planYearFeature.operator.icon"
-                                              [alt]="planYearFeature.operator.name"
-                                              [title]="planYearFeature.operator.name"></div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="planYearFeature.operator.icon"
+                  [alt]="planYearFeature.operator.name"
+                  [title]="planYearFeature.operator.name"
+                />
+              </div>
             </div>
-            <div>:<span>{{planYearFeature.type.name}}</span>
-              (<span>{{planYearFeature.governmentProgram.shortName}}</span>)
+            <div>
+              :<span>{{ planYearFeature.type.name }}</span> (<span>{{
+                planYearFeature.governmentProgram.shortName
+              }}</span
+              >)
             </div>
           </div>
         </div>
         <div class="l-table-column">
-          <div class="l-table-row" *ngFor="let planYearFeature of feature.planTwoYearCellularFeatures">
+          <div
+            class="l-table-row"
+            *ngFor="let planYearFeature of feature.planTwoYearCellularFeatures"
+          >
             <div class="c-vendor">
-              <div class="c-vendor-logo"><img [src]="planYearFeature.operator.icon"
-                                              [alt]="planYearFeature.operator.name"
-                                              [title]="planYearFeature.operator.name"></div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="planYearFeature.operator.icon"
+                  [alt]="planYearFeature.operator.name"
+                  [title]="planYearFeature.operator.name"
+                />
+              </div>
             </div>
-            <div>:<span>{{planYearFeature.type.name}}</span>
-              (<span>{{planYearFeature.governmentProgram.shortName}}</span>)
+            <div>
+              :<span>{{ planYearFeature.type.name }}</span> (<span>{{
+                planYearFeature.governmentProgram.shortName
+              }}</span
+              >)
             </div>
           </div>
         </div>
         <div class="l-table-column">
           <div class="l-vendors-column">
             <div class="c-vendor" *ngFor="let archiveFeature of feature.archiveCellularFeatures">
-              <div class="c-vendor-logo"><img [src]="archiveFeature.operator.icon" [alt]="archiveFeature.operator.name"
-                                              [title]="archiveFeature.operator.name"></div>
-              <div class="c-vendor-status-text">{{archiveFeature.type.name}}</div>
+              <div class="c-vendor-logo">
+                <img
+                  [src]="archiveFeature.operator.icon"
+                  [alt]="archiveFeature.operator.name"
+                  [title]="archiveFeature.operator.name"
+                />
+              </div>
+
+              <div class="c-vendor-status-text">{{ archiveFeature.type.name }}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div style="display: flex; justify-content: flex-end" *ngIf="featuresInternet || featuresCellular">
+    <div
+      style="display: flex; justify-content: flex-end"
+      *ngIf="featuresInternet || featuresCellular"
+    >
       <div class="pagination-count">
         <div style="margin-right: 13px">Количество строк на странице:</div>
-        <input class="pagination-count-button" [class.active]="itemsPerPage === 10" type="button"
-               (click)="itemsPerPage = 10" value="10">
-        <input class="pagination-count-button" [class.active]="itemsPerPage === 20" type="button"
-               (click)="itemsPerPage = 20" value="20">
-        <input class="pagination-count-button" [class.active]="itemsPerPage === 100" type="button"
-               (click)="itemsPerPage = 100" value="100">
+        <input
+          class="pagination-count-button"
+          [class.active]="itemsPerPage === 10"
+          type="button"
+          (click)="itemsPerPage = 10"
+          value="10"
+        />
+        <input
+          class="pagination-count-button"
+          [class.active]="itemsPerPage === 20"
+          type="button"
+          (click)="itemsPerPage = 20"
+          value="20"
+        />
+        <input
+          class="pagination-count-button"
+          [class.active]="itemsPerPage === 100"
+          type="button"
+          (click)="itemsPerPage = 100"
+          value="100"
+        />
       </div>
     </div>
   </div>
@@ -319,16 +484,15 @@
     previousLabel="Предыдущая страница"
     nextLabel="Следующая страница"
   >
-
   </pagination-controls>
 </main>
 
 <ngx-spinner
-  bdOpacity=0.9
+  bdOpacity="0.9"
   size="medium"
   color="#35a584"
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
->Загрузка. . . (среднее время ожидания: 20сек.)
+  >Загрузка. . . (среднее время ожидания: 20сек.)
 </ngx-spinner>

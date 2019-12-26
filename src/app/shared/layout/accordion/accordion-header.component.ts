@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'accordion-header',
@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
       <div style="flex-grow: 1; display: flex"><ng-content></ng-content></div>
       <div class="c-accordion-button" [class.is-open]="isOpen"></div>
     </div>
-  `
+  `,
 })
 export class AccordionHeaderComponent {
   @Input() isOpen = false;

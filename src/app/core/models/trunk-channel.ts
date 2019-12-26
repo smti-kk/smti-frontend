@@ -1,7 +1,7 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export const TRUNK_CHANNEL_DESERIALIZER = {
-  Deserialize(obj: { id: number, name: string }): TrunkChannel {
+  Deserialize(obj: {id: number; name: string}): TrunkChannel {
     switch (obj.id) {
       case TrunkChannel.RADIO_CHANEL.type:
         return TrunkChannel.RADIO_CHANEL;
@@ -14,11 +14,10 @@ export const TRUNK_CHANNEL_DESERIALIZER = {
       case TrunkChannel.UNDEFINED.type:
         return TrunkChannel.UNDEFINED;
     }
-  }
+  },
 };
 
 export class TrunkChannel {
-
   public static VOLS = new TrunkChannel(3, 'ВОЛС');
   public static SATELLITE = new TrunkChannel(4, 'Спутник');
   public static COPPER_CABLE = new TrunkChannel(5, 'Медь');
@@ -57,4 +56,3 @@ export class TrunkChannel {
     }
   }
 }
-

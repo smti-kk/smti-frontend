@@ -1,4 +1,4 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export class Operator {
   @autoserializeAs('id')
@@ -10,13 +10,11 @@ export class Operator {
   @autoserializeAs('icon')
   private readonly _icon: string;
 
-
   constructor(id: number, name: string, icon: string) {
     this._id = id;
     this._name = name;
     this._icon = icon;
   }
-
 
   get id(): number {
     return this._id;

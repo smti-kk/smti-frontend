@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 const MINUTES = 5;
 const SECONDS = 60;
@@ -6,13 +6,12 @@ const MILLISECONDS = 1000;
 
 export const TIMER_INTERVAL = MINUTES * SECONDS * MILLISECONDS;
 
-export class UpdatedList<T extends { id: number }> {
+export class UpdatedList<T extends {id: number}> {
   private _items: T[] = [];
   private _timerId: number;
   private isClosedUpdate = false;
 
-  constructor(private getData: () => Observable<T[]>,
-              private onUpdate: (data: T[]) => void) {
+  constructor(private getData: () => Observable<T[]>, private onUpdate: (data: T[]) => void) {
     // this.update();
   }
 

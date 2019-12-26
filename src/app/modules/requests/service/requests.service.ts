@@ -1,26 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Request, RequestState } from '../model/request';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Request, RequestState} from '../model/request';
+import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class RequestsService {
-
   public requestsList(): Observable<Request[]> {
-    return of(mock)
-      .pipe(
-        map(data => {
-          return data.sort((a, b) => {
-            if (a.state > b.state) {
-              return 1;
-            } else {
-              return -1;
-            }
-          });
-        })
-      );
+    return of(mock).pipe(
+      map(data => {
+        return data.sort((a, b) => {
+          if (a.state > b.state) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
+      })
+    );
   }
-
 }
 
 const mock = [
@@ -30,18 +27,19 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.CONSIDERED
+    state: RequestState.CONSIDERED,
   },
   {
     id: '104a',
@@ -49,10 +47,10 @@ const mock = [
     changes: [
       {
         object: 'Интернет',
-        action: 'Искра - проведен спутник (качество удовлетворительное)'
-      }
+        action: 'Искра - проведен спутник (качество удовлетворительное)',
+      },
     ],
-    state: RequestState.ACCEPTED
+    state: RequestState.ACCEPTED,
   },
   {
     id: '115a',
@@ -60,18 +58,19 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.CONSIDERED
+    state: RequestState.CONSIDERED,
   },
   {
     id: '115a',
@@ -79,18 +78,19 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.CONSIDERED
+    state: RequestState.CONSIDERED,
   },
   {
     id: '115a',
@@ -98,18 +98,19 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.CONSIDERED
+    state: RequestState.CONSIDERED,
   },
   {
     id: '115a',
@@ -117,18 +118,19 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.CONSIDERED
+    state: RequestState.CONSIDERED,
   },
   {
     id: '115a',
@@ -136,18 +138,19 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.CONSIDERED
+    state: RequestState.CONSIDERED,
   },
   {
     id: '115a',
@@ -155,18 +158,19 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.CONSIDERED
+    state: RequestState.CONSIDERED,
   },
   {
     id: '115a',
@@ -174,17 +178,18 @@ const mock = [
     changes: [
       {
         object: 'Таксофон',
-        action: 'Изменено количество таксофонов с 4 до 5 шт'
+        action: 'Изменено количество таксофонов с 4 до 5 шт',
       },
       {
         object: 'Сотовая связь',
-        action: 'МТС - с 2G на 3G, подключение Мегафон'
+        action: 'МТС - с 2G на 3G, подключение Мегафон',
       },
       {
         object: 'Интернет',
-        action: 'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)'
-      }
+        action:
+          'Мегафон - проведен ВОЛС(качество удовлетворительное); Tele2 - подключение,медь (качество хорошее)',
+      },
     ],
-    state: RequestState.ACCEPTED
-  }
+    state: RequestState.ACCEPTED,
+  },
 ];

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NotFoundPage } from './not-found.page';
+import {NotFoundPage} from './not-found.page';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundPage;
@@ -8,9 +8,8 @@ describe('NotFoundComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotFoundPage ]
-    })
-    .compileComponents();
+      declarations: [NotFoundPage],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

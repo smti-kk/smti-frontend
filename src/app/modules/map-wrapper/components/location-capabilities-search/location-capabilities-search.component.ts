@@ -1,16 +1,16 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MunicipalitiesLayer, MunicipalitiesLayerGeoJson } from '../../layers/municipalities-layer';
-import { AdministrativeCenterPoint } from '../../model/administrative-center-point';
-import { AdministrativeCentersLayer } from '../../layers/administrative-centers-layer';
-import { Subscription } from 'rxjs';
-import { MonitoringMarker } from '../monitoring-marker';
-import { LatLng, Map } from 'leaflet';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {MunicipalitiesLayer, MunicipalitiesLayerGeoJson} from '../../layers/municipalities-layer';
+import {AdministrativeCenterPoint} from '../../model/administrative-center-point';
+import {AdministrativeCentersLayer} from '../../layers/administrative-centers-layer';
+import {Subscription} from 'rxjs';
+import {MonitoringMarker} from '../monitoring-marker';
+import {LatLng, Map} from 'leaflet';
 import {TIMER_INTERVAL} from '@core/utils/updated-list';
 
 const FORM_PARAMS = {
   area: 'area',
-  locality: 'locality'
+  locality: 'locality',
 };
 
 const ZOOM = 14;
@@ -18,7 +18,7 @@ const ZOOM = 14;
 @Component({
   selector: 'location-capabilities-search',
   templateUrl: './location-capabilities-search.component.html',
-  styleUrls: ['./location-capabilities-search.component.scss']
+  styleUrls: ['./location-capabilities-search.component.scss'],
 })
 export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   @Input() private readonly leafletMap: Map;
@@ -30,9 +30,11 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
 
   private technicalCapabilitiesUpdateTimer: number;
 
-  constructor(private readonly fb: FormBuilder,
-              private administrativeCentersLayer: AdministrativeCentersLayer,
-              public municipalityLayer: MunicipalitiesLayer) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private administrativeCentersLayer: AdministrativeCentersLayer,
+    public municipalityLayer: MunicipalitiesLayer
+  ) {
     this.searchForm = this.buildForm();
 
     municipalityLayer.onMunicipalityClick.subscribe(layer => {
@@ -44,8 +46,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     this.observers.push(observer);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     this.observers.forEach(observer => observer.unsubscribe());
@@ -69,7 +70,11 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
 
   setSelectedPoint(administrativePoint: AdministrativeCenterPoint, animate: boolean = true) {
     this.searchForm.get(FORM_PARAMS.locality).setValue(administrativePoint.fullName);
-    this.leafletMap.flyTo(new LatLng(administrativePoint.point.lat, administrativePoint.point.lng), ZOOM, {animate});
+    this.leafletMap.flyTo(
+      new LatLng(administrativePoint.point.lat, administrativePoint.point.lng),
+      ZOOM,
+      {animate}
+    );
     this.selectedPoint.emit(administrativePoint.id);
   }
 
@@ -89,10 +94,8 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   }
 
   private handleMarkerClick() {
-
-    return this.administrativeCentersLayer
-      .onMarkerClick
-      .subscribe((marker: MonitoringMarker<AdministrativeCenterPoint>) => {
+    return this.administrativeCentersLayer.onMarkerClick.subscribe(
+      (marker: MonitoringMarker<AdministrativeCenterPoint>) => {
         this.onMunicipalityMarkerClick(marker);
 
         if (this.technicalCapabilitiesUpdateTimer) {
@@ -102,17 +105,24 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
         this.technicalCapabilitiesUpdateTimer = window.setInterval(() => {
           this.selectedPoint.emit(marker.feature.properties.id);
         }, TIMER_INTERVAL);
-      });
+      }
+    );
   }
 
   private buildForm(): FormGroup {
     const form = this.fb.group({
-      [FORM_PARAMS.area]: [this.municipalityLayer.selectedLocation ? this.municipalityLayer.selectedLocation : null],
-      [FORM_PARAMS.locality]: ['']
+      [FORM_PARAMS.area]: [
+        this.municipalityLayer.selectedLocation ? this.municipalityLayer.selectedLocation : null,
+      ],
+      [FORM_PARAMS.locality]: [''],
     });
 
-    form.get(FORM_PARAMS.area).valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
-    form.get(FORM_PARAMS.locality).valueChanges.subscribe(locality => this.filterLocalities(locality));
+    form
+      .get(FORM_PARAMS.area)
+      .valueChanges.subscribe(selectedArea => this.selectArea(selectedArea));
+    form
+      .get(FORM_PARAMS.locality)
+      .valueChanges.subscribe(locality => this.filterLocalities(locality));
 
     if (!form.get(FORM_PARAMS.area).value) {
       form.get(FORM_PARAMS.locality).disable();
@@ -124,14 +134,19 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
   private filterLocalities(locality: string) {
     if (this.administrativeCentersLayer) {
       this.administrativePoints = this.administrativeCentersLayer.filterByLocalityName(locality);
-      if (this.administrativePoints.length === 1 && this.administrativePoints[0].fullName === locality) {
+      if (
+        this.administrativePoints.length === 1 &&
+        this.administrativePoints[0].fullName === locality
+      ) {
         this.administrativePoints = [];
       }
     }
   }
 
   private onMunicipalityMarkerClick(marker: MonitoringMarker<AdministrativeCenterPoint>) {
-    this.searchForm.get(FORM_PARAMS.area).patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.district));
+    this.searchForm
+      .get(FORM_PARAMS.area)
+      .patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.district));
     this.setSelectedPoint(marker.feature.properties, true);
   }
 }

@@ -1,20 +1,27 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FilterTcPivotsService, OrderingDirection } from '@core/services/tc-pivots.service';
-import { ExistingOperators, GovernmentProgram, LocationFeatures, MailType, MobileGeneration, Operator, TrunkChannel } from '@core/models';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { EnumService, GovernmentProgramService } from '@core/services';
-import { forkJoin, Subscription } from 'rxjs';
-import { debounceTime, filter, tap } from 'rxjs/operators';
-import { Signal } from '@core/models/signal';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FilterTcPivotsService, OrderingDirection} from '@core/services/tc-pivots.service';
+import {
+  ExistingOperators,
+  GovernmentProgram,
+  LocationFeatures,
+  MailType,
+  MobileGeneration,
+  Operator,
+  TrunkChannel,
+} from '@core/models';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {EnumService, GovernmentProgramService} from '@core/services';
+import {forkJoin, Subscription} from 'rxjs';
+import {debounceTime, filter, tap} from 'rxjs/operators';
+import {Signal} from '@core/models/signal';
 
 @Component({
   selector: 'app-pivot-table-page-component',
   templateUrl: './pivot-table-page-component.html',
-  styleUrls: ['./pivot-table-page-component.scss']
+  styleUrls: ['./pivot-table-page-component.scss'],
 })
 export class PivotTablePageComponent implements OnInit, AfterViewInit {
-
   locationFeatures: LocationFeatures[];
   existingOperators: ExistingOperators;
   govPrograms: GovernmentProgram[];
@@ -37,11 +44,13 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
   filterForm: FormGroup;
   private observer: Subscription;
 
-  constructor(public tcPivots: FilterTcPivotsService,
-              private fb: FormBuilder,
-              private spinner: NgxSpinnerService,
-              private govProgramsService: GovernmentProgramService,
-              private enumService: EnumService) {
+  constructor(
+    public tcPivots: FilterTcPivotsService,
+    private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private govProgramsService: GovernmentProgramService,
+    private enumService: EnumService
+  ) {
     this.buildForm();
     this.buildSearchControl();
 
@@ -52,21 +61,17 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
       this.loadMobileProviders(),
       this.loadExistingOperators()
     ).subscribe(() => {
-      this.observer = this.filterForm
-        .valueChanges
-        .subscribe(value => {
-          this.tcPivots.filter(value);
-          this.loadPivotsTable()
-            .subscribe();
-        });
+      this.observer = this.filterForm.valueChanges.subscribe(value => {
+        this.tcPivots.filter(value);
+        this.loadPivotsTable().subscribe();
+      });
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
-    window.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', e => {
       // tslint:disable-next-line:no-magic-numbers
       if (e.ctrlKey && (e.key === 'f' || e.key === 'а')) {
         this.displayBlockSearch = false;
@@ -93,12 +98,13 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
 
   private loadPivotsTable() {
     this.spinner.show();
-    return this.tcPivots.list()
-      .pipe(tap(lcs => {
+    return this.tcPivots.list().pipe(
+      tap(lcs => {
         this.locationFeatures = lcs;
         console.log(lcs);
         this.spinner.hide();
-      }));
+      })
+    );
   }
 
   private buildForm() {
@@ -114,48 +120,53 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
       mobileType: [null],
       internetType: [null],
       program: [null],
-      locationName: [null]
+      locationName: [null],
     });
   }
 
   private loadGovPrograms() {
-    return this.govProgramsService.list()
-      .pipe(tap(govPrograms => this.govPrograms = govPrograms));
+    return this.govProgramsService
+      .list()
+      .pipe(tap(govPrograms => (this.govPrograms = govPrograms)));
   }
 
   private loadInternetProviders() {
-    return this.enumService
-      .getInternetProvider()
-      .pipe(tap((response) => {
+    return this.enumService.getInternetProvider().pipe(
+      tap(response => {
         this.internetProviders = response;
 
         const internetArrayControl = this.fb.array([]);
         response.forEach(provider => {
-          internetArrayControl.push(this.fb.group({
-            [provider.id]: false
-          }));
+          internetArrayControl.push(
+            this.fb.group({
+              [provider.id]: false,
+            })
+          );
         });
 
         this.filterForm.addControl('internet', internetArrayControl);
-      }));
+      })
+    );
   }
 
   private loadMobileProviders() {
-    return this.enumService
-      .getMobileProvider()
-      .pipe(tap((response) => {
+    return this.enumService.getMobileProvider().pipe(
+      tap(response => {
         this.mobileProviders = response;
 
         const mobileArrayControl = this.fb.array([]);
 
         response.forEach(provider => {
-          mobileArrayControl.push(this.fb.group({
-            [provider.id]: false
-          }));
+          mobileArrayControl.push(
+            this.fb.group({
+              [provider.id]: false,
+            })
+          );
         });
 
         this.filterForm.addControl('mobile', mobileArrayControl);
-      }));
+      })
+    );
   }
 
   private buildSearchControl() {
@@ -165,7 +176,9 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
       .pipe(debounceTime(DEBOUNCE_TIME_MS))
       .pipe(filter(value => value && value.length > 0))
       .subscribe(value => {
-        this.searchedTc = this.locationFeatures.find(lc => lc.location.name.toLowerCase().includes(value.toLowerCase()));
+        this.searchedTc = this.locationFeatures.find(lc =>
+          lc.location.name.toLowerCase().includes(value.toLowerCase())
+        );
         const lcIndex = this.locationFeatures.indexOf(this.searchedTc) + 1;
         this.pageNumber = Math.ceil(lcIndex / this.itemsPerPage);
 
@@ -182,6 +195,6 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
   private loadExistingOperators() {
     return this.enumService
       .getExistingOperators()
-      .pipe(tap(response => this.existingOperators = response));
+      .pipe(tap(response => (this.existingOperators = response)));
   }
 }

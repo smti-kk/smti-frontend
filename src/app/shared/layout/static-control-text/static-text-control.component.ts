@@ -1,6 +1,6 @@
-import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { GovernmentProgram } from '@core/models';
+import {Component, forwardRef} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {GovernmentProgram} from '@core/models';
 
 export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,21 +11,16 @@ export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'app-static-text-control',
   templateUrl: './static-text-control.html',
-  providers: [SIMPLE_CHECKBOX_VALUE_ACCESSOR]
+  providers: [SIMPLE_CHECKBOX_VALUE_ACCESSOR],
 })
 export class StaticTextControl implements ControlValueAccessor {
-
   value: string;
 
-  constructor() {
+  constructor() {}
 
-  }
+  registerOnChange(fn: (_: any) => {}): void {}
 
-  registerOnChange(fn: (_: any) => {}): void {
-  }
-
-  registerOnTouched(fn: () => {}): void {
-  }
+  registerOnTouched(fn: () => {}): void {}
 
   writeValue(obj: string | GovernmentProgram): void {
     if (obj instanceof GovernmentProgram) {

@@ -1,20 +1,25 @@
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ExistingOperators, LocationFeatures, MobileGeneration, Quality, TrunkChannel } from '@core/models';
-import { TcPivotsService } from '@core/services/tc-pivots.service';
-import { ActivatedRoute } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { EnumService } from '@core/services';
-import { forkJoin } from 'rxjs';
-import { Signal } from '@core/models/signal';
+import {Component} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {
+  ExistingOperators,
+  LocationFeatures,
+  MobileGeneration,
+  Quality,
+  TrunkChannel,
+} from '@core/models';
+import {TcPivotsService} from '@core/services/tc-pivots.service';
+import {ActivatedRoute} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {EnumService} from '@core/services';
+import {forkJoin} from 'rxjs';
+import {Signal} from '@core/models/signal';
 
 @Component({
   selector: 'app-technical-capabilities',
   templateUrl: './technical-capabilities.component.html',
-  styleUrls: ['./technical-capabilities.component.scss']
+  styleUrls: ['./technical-capabilities.component.scss'],
 })
 export class TechnicalCapabilitiesComponent {
-
   locationFeaturesForm: FormGroup;
   locationFeatures: LocationFeatures;
   existingOperators: ExistingOperators;
@@ -24,30 +29,34 @@ export class TechnicalCapabilitiesComponent {
   Signal = Signal;
   MobileGeneration = MobileGeneration;
 
-  constructor(private fb: FormBuilder,
-              private tcService: TcPivotsService,
-              private route: ActivatedRoute,
-              private enumService: EnumService,
-              private spinner: NgxSpinnerService) {
+  constructor(
+    private fb: FormBuilder,
+    private tcService: TcPivotsService,
+    private route: ActivatedRoute,
+    private enumService: EnumService,
+    private spinner: NgxSpinnerService
+  ) {
     this.loadTechnicalCapability(route.snapshot.params.id);
   }
-
 
   private loadTechnicalCapability(id: number) {
     this.spinner.show();
 
-    forkJoin(
-      this.tcService.one(id),
-      this.enumService.getExistingOperators()
-    ).subscribe(response => {
-      this.locationFeaturesForm = this.buildForm(this.fb, response[0], response[1]);
-      this.locationFeatures = response[0];
-      this.existingOperators = response[1];
-      this.spinner.hide();
-    });
+    forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
+      response => {
+        this.locationFeaturesForm = this.buildForm(this.fb, response[0], response[1]);
+        this.locationFeatures = response[0];
+        this.existingOperators = response[1];
+        this.spinner.hide();
+      }
+    );
   }
 
-  private buildForm(fb: FormBuilder, locationFeatures: LocationFeatures, existingOperators: ExistingOperators): FormGroup {
+  private buildForm(
+    fb: FormBuilder,
+    locationFeatures: LocationFeatures,
+    existingOperators: ExistingOperators
+  ): FormGroup {
     const form = fb.group({
       _cellular: fb.array([]),
       _internet: fb.array([]),
@@ -55,7 +64,7 @@ export class TechnicalCapabilitiesComponent {
       _ats: fb.array([]),
       _radio: fb.array([]),
       _mail: fb.array([]),
-      _infomat: locationFeatures.location.infomat > 0
+      _infomat: locationFeatures.location.infomat > 0,
     });
 
     existingOperators.cellular.forEach(() => {
@@ -65,7 +74,7 @@ export class TechnicalCapabilitiesComponent {
           _quality: null,
           _type: null,
           _governmentProgram: null,
-          _completed: null
+          _completed: null,
         })
       );
     });
@@ -77,7 +86,7 @@ export class TechnicalCapabilitiesComponent {
           _quality: null,
           _channel: null,
           _governmentProgram: null,
-          _completed: null
+          _completed: null,
         })
       );
     });
@@ -89,7 +98,7 @@ export class TechnicalCapabilitiesComponent {
           _quality: null,
           _type: null,
           _governmentProgram: null,
-          _completed: null
+          _completed: null,
         })
       );
     });
@@ -100,7 +109,7 @@ export class TechnicalCapabilitiesComponent {
           _operator: null,
           _quantityPayphone: null,
           _governmentProgram: null,
-          _completed: null
+          _completed: null,
         })
       );
     });
@@ -112,7 +121,7 @@ export class TechnicalCapabilitiesComponent {
           _quality: null,
           _channel: null,
           _governmentProgram: null,
-          _completed: null
+          _completed: null,
         })
       );
     });

@@ -1,13 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { EnumService, OrganizationsService } from '@core/services';
-import { ExistingOperators, LocationFeatures, Organization } from '@core/models';
-import { forkJoin } from 'rxjs';
-import { Map } from 'leaflet';
-import { LocationFeaturesService } from '@core/services/location-features.service';
+import {ChangeDetectorRef, Component, Input, OnInit, Renderer2} from '@angular/core';
+import {EnumService, OrganizationsService} from '@core/services';
+import {ExistingOperators, LocationFeatures, Organization} from '@core/models';
+import {forkJoin} from 'rxjs';
+import {Map} from 'leaflet';
+import {LocationFeaturesService} from '@core/services/location-features.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {AccessPointSmoLayer} from '@map-wrapper/layers/access-point-smo-layer';
 import {AccessPointEspdLayer} from '@map-wrapper/layers/access-point-espd-layer';
-import {log} from 'util';
 import {MonitoringMarker} from '@map-wrapper/components/monitoring-marker';
 import {tap} from 'rxjs/operators';
 import {AdministrativeCentersLayer} from '@map-wrapper/layers/administrative-centers-layer';
@@ -15,10 +14,9 @@ import {AdministrativeCentersLayer} from '@map-wrapper/layers/administrative-cen
 @Component({
   selector: 'marker-info-bar',
   templateUrl: './marker-info-bar.component.html',
-  styleUrls: ['./marker-info-bar.component.scss']
+  styleUrls: ['./marker-info-bar.component.scss'],
 })
 export class MarkerInfoBarComponent implements OnInit {
-
   @Input() leafletMap: Map;
 
   locationFeatures: LocationFeatures;
@@ -26,24 +24,26 @@ export class MarkerInfoBarComponent implements OnInit {
   existingOperators: ExistingOperators;
   private currentLocationId: number;
 
-  constructor(private readonly locationFeaturesService: LocationFeaturesService,
-              private readonly enumService: EnumService,
-              private readonly organizationsService: OrganizationsService,
-              private readonly ref: ChangeDetectorRef,
-              private readonly renderer: Renderer2,
-              private accessPointEspdLayer: AccessPointEspdLayer,
-              private accessPointSmoLayer: AccessPointSmoLayer,
-              private administrativeCentersLayer: AdministrativeCentersLayer,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    private readonly locationFeaturesService: LocationFeaturesService,
+    private readonly enumService: EnumService,
+    private readonly organizationsService: OrganizationsService,
+    private readonly ref: ChangeDetectorRef,
+    private readonly renderer: Renderer2,
+    private accessPointEspdLayer: AccessPointEspdLayer,
+    private accessPointSmoLayer: AccessPointSmoLayer,
+    private administrativeCentersLayer: AdministrativeCentersLayer,
+    private cdr: ChangeDetectorRef
+  ) {
     enumService.getExistingOperators().subscribe(value => {
       this.existingOperators = value;
     });
 
-    accessPointEspdLayer.onMarkerClick.subscribe((marker) => {
+    accessPointEspdLayer.onMarkerClick.subscribe(marker => {
       this.openOrganizationPoint(marker);
     });
 
-    accessPointSmoLayer.onMarkerClick.subscribe((marker) => {
+    accessPointSmoLayer.onMarkerClick.subscribe(marker => {
       this.openOrganizationPoint(marker);
     });
 
@@ -52,8 +52,7 @@ export class MarkerInfoBarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   openAccordion(target, clazz) {
     if (target.classList.contains('c-accordion-title')) {
@@ -71,15 +70,15 @@ export class MarkerInfoBarComponent implements OnInit {
     return forkJoin(
       this.locationFeaturesService.oneLocationFeature(point),
       this.organizationsService.getList(point)
-    )
-      .pipe(tap(response => {
+    ).pipe(
+      tap(response => {
         this.locationFeatures = response[0];
         this.organizations = response[1];
         this.ref.detectChanges();
         this.leafletMap.spin(false);
-      }));
+      })
+    );
   }
-
 
   moveToPoint(point: Reaccesspoint) {
     this.leafletMap.flyTo({lat: point.point.lat, lng: point.point.lng}, 18);

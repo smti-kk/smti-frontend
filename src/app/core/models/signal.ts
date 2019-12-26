@@ -1,7 +1,7 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export const SIGNAL_ARRAY_DESERIALIZER = {
-  Deserialize(objs: { id: number }[]): Signal[] {
+  Deserialize(objs: {id: number}[]): Signal[] {
     return objs.map(obj => {
       switch (obj.id) {
         case Signal.ATV.id:
@@ -10,7 +10,7 @@ export const SIGNAL_ARRAY_DESERIALIZER = {
           return Signal.CTV;
       }
     });
-  }
+  },
 };
 
 export class Signal {
@@ -22,7 +22,6 @@ export class Signal {
 
   @autoserializeAs('name')
   private readonly _name: string;
-
 
   constructor(id: number, name: string) {
     this._id = id;

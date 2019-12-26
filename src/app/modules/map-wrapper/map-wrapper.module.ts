@@ -1,31 +1,26 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { MapPage } from './pages/map/map.page';
-import { MarkerInfoBarComponent } from './components/marker-info-control/marker-info-bar.component';
-import { LocationCapabilitiesSearchComponent } from './components/location-capabilities-search/location-capabilities-search.component';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
-import { MapWrapperRoutingModule } from './map-wrapper-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MunicipalitiesLayer } from './layers/municipalities-layer';
-import { AccessPointEspdLayer } from './layers/access-point-espd-layer';
-import { AccessPointSmoLayer } from './layers/access-point-smo-layer';
-import { AdministrativeCentersLayer } from './layers/administrative-centers-layer';
-import { MunicipalityService } from './service/municipality.service';
-import { EspdService } from './service/espd.service';
-import { SmoService } from './service/smo.service';
-import { AdministrativeCentersService } from './service/administrative-centers.service';
-import { SharedModule } from '@shared/shared.module';
-import { CoreModule } from '@core/core.module';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+import {MapPage} from './pages/map/map.page';
+import {MarkerInfoBarComponent} from './components/marker-info-control/marker-info-bar.component';
+import {LocationCapabilitiesSearchComponent} from './components/location-capabilities-search/location-capabilities-search.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
+import {MapWrapperRoutingModule} from './map-wrapper-routing.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MunicipalitiesLayer} from './layers/municipalities-layer';
+import {AccessPointEspdLayer} from './layers/access-point-espd-layer';
+import {AccessPointSmoLayer} from './layers/access-point-smo-layer';
+import {AdministrativeCentersLayer} from './layers/administrative-centers-layer';
+import {MunicipalityService} from './service/municipality.service';
+import {EspdService} from './service/espd.service';
+import {SmoService} from './service/smo.service';
+import {AdministrativeCentersService} from './service/administrative-centers.service';
+import {SharedModule} from '@shared/shared.module';
+import {CoreModule} from '@core/core.module';
 
 @NgModule({
-  declarations: [
-    MapPage,
-    MarkerInfoBarComponent,
-    LocationCapabilitiesSearchComponent
-  ],
+  declarations: [MapPage, MarkerInfoBarComponent, LocationCapabilitiesSearchComponent],
   exports: [],
   imports: [
     CommonModule,
@@ -35,7 +30,7 @@ import { CoreModule } from '@core/core.module';
     MapWrapperRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    CoreModule
+    CoreModule,
   ],
   providers: [
     MunicipalitiesLayer,
@@ -45,8 +40,7 @@ import { CoreModule } from '@core/core.module';
     MunicipalityService,
     EspdService,
     SmoService,
-    AdministrativeCentersService
-  ]
+    AdministrativeCentersService,
+  ],
 })
-export class MapWrapperModule {
-}
+export class MapWrapperModule {}

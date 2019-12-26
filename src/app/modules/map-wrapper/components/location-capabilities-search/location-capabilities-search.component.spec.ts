@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LocationCapabilitiesSearchComponent } from './location-capabilities-search.component';
+import {LocationCapabilitiesSearchComponent} from './location-capabilities-search.component';
 
 describe('LocationCapabilitiesSearchComponent', () => {
   let component: LocationCapabilitiesSearchComponent;
@@ -8,9 +8,8 @@ describe('LocationCapabilitiesSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LocationCapabilitiesSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [LocationCapabilitiesSearchComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

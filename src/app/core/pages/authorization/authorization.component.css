@@ -82,7 +82,7 @@ input.input100 {
 
 .focus-input100-1::before,
 .focus-input100-2::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 0;
@@ -99,7 +99,7 @@ input.input100 {
 
 .focus-input100-1::after,
 .focus-input100-2::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 1px;
@@ -217,7 +217,7 @@ input.input100 {
   transition: opacity 0.4s; }
 
 .alert-validate::after {
-  content: "\f12a";
+  content: '\f12a';
   font-family: 'Amaranth', sans-serif;
   display: block;
   position: absolute;

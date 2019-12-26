@@ -1,5 +1,5 @@
 /* tslint:disable:max-line-length */
-import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from '@angular/router';
+import {ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy} from '@angular/router';
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
   routesToCache: string[] = ['leaflet'];

@@ -1,16 +1,15 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { LatLngBounds } from 'leaflet';
-import { Injectable } from '@angular/core';
-import { ACCESS_POINT_SMO_URL } from '@map-wrapper/constants/api.constants';
-import { Observable } from 'rxjs';
-import { Deserialize } from 'cerialize';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {LatLngBounds} from 'leaflet';
+import {Injectable} from '@angular/core';
+import {ACCESS_POINT_SMO_URL} from '@map-wrapper/constants/api.constants';
+import {Observable} from 'rxjs';
+import {Deserialize} from 'cerialize';
+import {map} from 'rxjs/operators';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 @Injectable()
 export class SmoService {
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   public list(): Observable<Reaccesspoint[]> {
     return this.httpClient
@@ -19,8 +18,12 @@ export class SmoService {
   }
 
   public listFilteredByBounds(bounds: LatLngBounds): Observable<Reaccesspoint[]> {
-    const params = new HttpParams()
-      .set('bbox', `${bounds.getSouthWest().lng},${bounds.getSouthWest().lat},${bounds.getNorthEast().lng},${bounds.getNorthEast().lat}`);
+    const params = new HttpParams().set(
+      'bbox',
+      `${bounds.getSouthWest().lng},${bounds.getSouthWest().lat},${bounds.getNorthEast().lng},${
+        bounds.getNorthEast().lat
+      }`
+    );
 
     return this.httpClient
       .get(ACCESS_POINT_SMO_URL, {params})

@@ -7,10 +7,13 @@
     "build": "node --max_old_space_size=8192 node_modules/.bin/ng build --prod",
     "test": "node_modules/.bin/ng test",
     "lint": "node_modules/.bin/ng lint",
-    "e2e": "node_modules/.bin/ng e2e"
+    "e2e": "node_modules/.bin/ng e2e",
+    "prettier:check": "prettier --list-different \"src/**/*.{ts,js}\"",
+    "prettier:write": "prettier --write \"src/**/*.{ts,js}\""
   },
   "private": true,
   "dependencies": {
+    "@dev/frontend-codestyle": "git+ssh://git@git.cifra-k.ru:1022/dev/frontend-codestyle.git",
     "@angular/animations": "~8.2.0",
     "@angular/common": "~8.2.0",
     "@angular/compiler": "~8.2.0",
@@ -49,6 +52,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "prettier": "^1.19.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",

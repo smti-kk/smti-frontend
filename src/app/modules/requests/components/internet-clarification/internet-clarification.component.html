@@ -8,28 +8,32 @@
     <div class="c-modal-content">
       <form [formGroup]="form" (ngSubmit)="formValue.emit(form.value)">
         <div class="l-content" formArrayName="internet">
-          <div class="l-content-item l-row" [formGroupName]="i.toString()" *ngFor="let internet of internet.controls; let i = index">
+          <div
+            class="l-content-item l-row"
+            [formGroupName]="i.toString()"
+            *ngFor="let internet of internet.controls; let i = index"
+          >
             <div class="c-checkbox" formGroupName="provider">
               <label>
-                <input type="checkbox" formControlName="isActive">
-                <div class="c-checkbox-text">{{internet.value.provider.name}}</div>
+                <input type="checkbox" formControlName="isActive" />
+                <div class="c-checkbox-text">{{ internet.value.provider.name }}</div>
               </label>
             </div>
             <div class="c-radiobox l-radiobox-row">
               <label>
-                <input type="radio" formControlName="type" value="Спутник">
+                <input type="radio" formControlName="type" value="Спутник" />
                 <div class="c-radiobox-text">Спутник</div>
               </label>
               <label>
-                <input type="radio" formControlName="type" value="ВОЛС">
+                <input type="radio" formControlName="type" value="ВОЛС" />
                 <div class="c-radiobox-text">ВОЛС</div>
               </label>
               <label>
-                <input type="radio" formControlName="type" value="Медь">
+                <input type="radio" formControlName="type" value="Медь" />
                 <div class="c-radiobox-text">Медь</div>
               </label>
               <label>
-                <input type="radio" formControlName="type" value="Радиоканал">
+                <input type="radio" formControlName="type" value="Радиоканал" />
                 <div class="c-radiobox-text">Радиоканал</div>
               </label>
             </div>
@@ -43,8 +47,8 @@
           </div>
           <div class="l-content-item">
             <div class="c-modal-button">
-              <input type="button" value="Отмена" class="btn cancel" (click)="cancel.emit()">
-              <input type="submit" value="Сохранить изменения" class="btn">
+              <input type="button" value="Отмена" class="btn cancel" (click)="cancel.emit()" />
+              <input type="submit" value="Сохранить изменения" class="btn" />
             </div>
           </div>
         </div>

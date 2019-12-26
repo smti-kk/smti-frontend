@@ -1,19 +1,25 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OrderingFilter } from '@shared/layout/filter-btn/filter-btn.component';
-import { GovernmentProgram, LocationFeatures, MailType, MobileGeneration, TrunkChannel } from '@core/models';
-import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
-import { Deserialize } from 'cerialize';
-import { Signal } from '@core/models/signal';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {OrderingFilter} from '@shared/layout/filter-btn/filter-btn.component';
+import {
+  GovernmentProgram,
+  LocationFeatures,
+  MailType,
+  MobileGeneration,
+  TrunkChannel,
+} from '@core/models';
+import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
+import {Deserialize} from 'cerialize';
+import {Signal} from '@core/models/signal';
 
 const LTC = environment.API_BASE_URL + '/api/v1/technical-capabilities';
 
 export enum OrderingDirection {
   ASC,
   DSC,
-  UNDEFINED
+  UNDEFINED,
 }
 
 interface TcFilters {
@@ -26,8 +32,8 @@ interface TcFilters {
   hasTelephone: boolean;
   mailType: MailType;
   tvType: Signal;
-  internet: { [providerId: string]: boolean }[];
-  mobile: { [providerId: string]: boolean }[];
+  internet: {[providerId: string]: boolean}[];
+  mobile: {[providerId: string]: boolean}[];
   mobileType: MobileGeneration;
   internetType: TrunkChannel;
   locationName: string;
@@ -35,20 +41,20 @@ interface TcFilters {
 
 @Injectable()
 export class TcPivotsService {
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   list(params?: HttpParams): Observable<LocationFeatures[]> {
-    return this.httpClient.get(LTC, {params})
+    return this.httpClient
+      .get(LTC, {params})
       .pipe(map(response => Deserialize(response, LocationFeatures)));
   }
 
   one(id: number): Observable<LocationFeatures> {
-    return this.httpClient.get(LTC + `/${id}/`)
+    return this.httpClient
+      .get(LTC + `/${id}/`)
       .pipe(map(response => Deserialize(response, LocationFeatures)));
   }
 }
-
 
 @Injectable()
 export class FilterTcPivotsService extends TcPivotsService {
@@ -80,7 +86,8 @@ export class FilterTcPivotsService extends TcPivotsService {
   }
 
   exportExcel() {
-    window.location.href = (environment.API_BASE_URL + '/api/v1/ltc/export/?' + this.params.toString());
+    window.location.href =
+      environment.API_BASE_URL + '/api/v1/ltc/export/?' + this.params.toString();
   }
 
   protected setFilterOrdering(order?: OrderingFilter) {
@@ -125,7 +132,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setMobileOperatorFilter(providers: { [providerId: string]: boolean }[]) {
+  private setMobileOperatorFilter(providers: {[providerId: string]: boolean}[]) {
     if (!providers) {
       return;
     }
@@ -139,7 +146,7 @@ export class FilterTcPivotsService extends TcPivotsService {
       });
   }
 
-  private setInternetOperatorFilter(providers: { [providerId: string]: boolean }[]) {
+  private setInternetOperatorFilter(providers: {[providerId: string]: boolean}[]) {
     if (!providers) {
       return;
     }
@@ -177,4 +184,3 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 }
-

@@ -35,7 +35,6 @@
   -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
-
 /*==================================================================
 [ Form ]*/
 
@@ -78,7 +77,6 @@
   border: none;
 }
 
-
 /*---------------------------------------------*/
 input.input100 {
   height: 68px;
@@ -101,7 +99,7 @@ input.input100 {
 
 .focus-input100-1::before,
 .focus-input100-2::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 0;
@@ -121,7 +119,7 @@ input.input100 {
 
 .focus-input100-1::after,
 .focus-input100-2::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   width: 1px;
@@ -167,7 +165,6 @@ input.input100 {
   -webkit-animation-fill-mode: both;
 }
 
-
 @keyframes full-w {
   to {
     width: calc(100% + 1px);
@@ -179,7 +176,6 @@ input.input100 {
     height: calc(100% + 1px);
   }
 }
-
 
 /*------------------------------------------------------------------
 [ Button ]*/
@@ -225,7 +221,6 @@ input.input100 {
   background-color: #333333;
 }
 
-
 /*------------------------------------------------------------------
 [ Alert validate ]*/
 
@@ -266,7 +261,7 @@ input.input100 {
 }
 
 .alert-validate::after {
-  content: "\f12a";
+  content: '\f12a';
   font-family: 'Amaranth', sans-serif;
   display: block;
   position: absolute;

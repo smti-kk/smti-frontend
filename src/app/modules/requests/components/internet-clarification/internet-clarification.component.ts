@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 export class BaseFormComponent<T> {
   @Output() formValue: EventEmitter<T> = new EventEmitter<T>();
@@ -17,9 +16,10 @@ interface InternetClarification {
 @Component({
   selector: 'app-internet-clarification',
   templateUrl: './internet-clarification.component.html',
-  styleUrls: ['./internet-clarification.component.scss']
+  styleUrls: ['./internet-clarification.component.scss'],
 })
-export class InternetClarificationComponent extends BaseFormComponent<InternetClarification> implements OnInit {
+export class InternetClarificationComponent extends BaseFormComponent<InternetClarification>
+  implements OnInit {
   form: FormGroup;
 
   private readonly PROVIDERS = ['Билайн', 'Мегафон'];
@@ -30,7 +30,7 @@ export class InternetClarificationComponent extends BaseFormComponent<InternetCl
 
   ngOnInit() {
     this.form = this.fb.group({
-      internet: this.fb.array([])
+      internet: this.fb.array([]),
     });
 
     this.createProviders(this.PROVIDERS).forEach(provider => {
@@ -48,10 +48,10 @@ export class InternetClarificationComponent extends BaseFormComponent<InternetCl
         provider: this.fb.group({
           isActive: [false],
           name: [provider],
-          icon: ['']
+          icon: [''],
         }),
         type: [],
-        quality: []
+        quality: [],
       });
     });
   }

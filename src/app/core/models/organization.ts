@@ -1,11 +1,10 @@
-import { autoserializeAs } from 'cerialize';
-import { OrganizationType } from '@core/models/organization-type';
-import { SmoType } from '@core/models/smo-type';
-import { Reaccesspoint } from '@core/models/reaccesspoint';
-import { Contract } from '@core/models/contract';
+import {autoserializeAs} from 'cerialize';
+import {OrganizationType} from '@core/models/organization-type';
+import {SmoType} from '@core/models/smo-type';
+import {Reaccesspoint} from '@core/models/reaccesspoint';
+import {Contract} from '@core/models/contract';
 
 export class Organization {
-
   @autoserializeAs('address')
   private readonly _address: string;
 
@@ -39,11 +38,18 @@ export class Organization {
   @autoserializeAs(Contract, 'contract_set')
   private readonly _contracts: Contract[];
 
-
-  constructor(address: string, fias: string, fullName: string,
-              id: number, inn: number, kpp: number,
-              parent: Organization, reaccesspoints: Reaccesspoint[], type: OrganizationType,
-              smoType: SmoType) {
+  constructor(
+    address: string,
+    fias: string,
+    fullName: string,
+    id: number,
+    inn: number,
+    kpp: number,
+    parent: Organization,
+    reaccesspoints: Reaccesspoint[],
+    type: OrganizationType,
+    smoType: SmoType
+  ) {
     this._address = address;
     this._fias = fias;
     this._fullName = fullName;
@@ -55,7 +61,6 @@ export class Organization {
     this._type = type;
     this._smoType = smoType;
   }
-
 
   get contracts(): Contract[] {
     return this._contracts;

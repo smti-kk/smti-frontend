@@ -1,13 +1,11 @@
 <main>
-  <div leaflet
-       [leafletLayersControl]="layersControl"
-       [leafletLayersControlOptions]="{position: 'bottomleft'}"
-       [leafletOptions]="options"
-       (leafletMapReady)="onMapReady($event)"
-       class="map">
-  </div>
+  <div
+    leaflet
+    [leafletLayersControl]="layersControl"
+    [leafletLayersControlOptions]="{position: 'bottomleft'}"
+    [leafletOptions]="options"
+    (leafletMapReady)="onMapReady($event)"
+    class="map"
+  ></div>
   <marker-info-bar [leafletMap]="leaflet"></marker-info-bar>
 </main>
-
-
-

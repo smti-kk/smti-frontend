@@ -5,7 +5,7 @@
       <div class="flex-header">
         <div class="logo">
           <a routerLink="">
-            <img src="../assets/img/logo.svg" alt="">
+            <img src="../assets/img/logo.svg" alt="" />
           </a>
         </div>
         <div class="header-menu">
@@ -16,10 +16,20 @@
               <li class="nav-item-parent">
                 <span class="active" style="cursor: pointer">Сводные таблицы</span>
                 <ul class="nav-child">
-                  <li class="nav-child-item"><a routerLink="pivot-table">Населённые пункты (технические возможности)</a></li>
-                  <li class="nav-child-item"><a routerLink="technical-capabilities-comparison-table">Населённые пункты (сравнение тех.возможностей)</a></li>
-                  <li class="nav-child-item"><a routerLink="connection-points">Организации (подключение к сети)</a></li>
-                  <li class="nav-child-item"><a routerLink="communication-contracts">Организации (контракты услуг связи)</a></li>
+                  <li class="nav-child-item">
+                    <a routerLink="pivot-table">Населённые пункты (технические возможности)</a>
+                  </li>
+                  <li class="nav-child-item">
+                    <a routerLink="technical-capabilities-comparison-table"
+                      >Населённые пункты (сравнение тех.возможностей)</a
+                    >
+                  </li>
+                  <li class="nav-child-item">
+                    <a routerLink="connection-points">Организации (подключение к сети)</a>
+                  </li>
+                  <li class="nav-child-item">
+                    <a routerLink="communication-contracts">Организации (контракты услуг связи)</a>
+                  </li>
                 </ul>
               </li>
               <li class="active" style="cursor: pointer"><a (click)="logout()">Выход</a></li>
@@ -28,10 +38,10 @@
         </div>
         <div class="user">
           <div class="user-avatar">
-            <img src="../assets/img/user-avatar.png" alt="avatar">
+            <img src="../assets/img/user-avatar.png" alt="avatar" />
           </div>
           <div class="user-name">
-            <span>{{user.email}}</span>
+            <span>{{ user.email }}</span>
           </div>
         </div>
       </div>
@@ -44,4 +54,3 @@
 
   <footer class="footer" *ngIf="user"></footer>
 </div>
-

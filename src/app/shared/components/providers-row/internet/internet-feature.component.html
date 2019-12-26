@@ -2,11 +2,13 @@
   <app-operator-icon
     *ngFor="let operator of existed"
     [operator]="operator"
-    [class.opacity]="!featureRowsUtils.hasOperator(locationFeatures, operator)">
-    <div class="c-vendor-status-img"
-         *ngIf="featureRowsUtils.getByOperator(locationFeatures, operator)?.channel"
-         [title]="featureRowsUtils.getByOperator(locationFeatures, operator)?.channel.name"
-         [className]="featureRowsUtils.getByOperator(locationFeatures, operator)?.channel.slug"
+    [class.opacity]="!featureRowsUtils.hasOperator(locationFeatures, operator)"
+  >
+    <div
+      class="c-vendor-status-img"
+      *ngIf="featureRowsUtils.getByOperator(locationFeatures, operator)?.channel"
+      [title]="featureRowsUtils.getByOperator(locationFeatures, operator)?.channel.name"
+      [className]="featureRowsUtils.getByOperator(locationFeatures, operator)?.channel.slug"
     ></div>
   </app-operator-icon>
 </div>

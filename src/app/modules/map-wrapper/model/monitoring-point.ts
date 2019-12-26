@@ -1,17 +1,16 @@
-import { Coordinate } from '../interface/coordinate';
-import { autoserializeAs } from 'cerialize';
+import {Coordinate} from '../interface/coordinate';
+import {autoserializeAs} from 'cerialize';
 
 export const COORDINATE_DESERIALIZER = {
   Deserialize(point: {coordinates: [number, number]}): Coordinate {
     return {
       lat: point.coordinates[1],
-      lng: point.coordinates[0]
+      lng: point.coordinates[0],
     };
-  }
+  },
 };
 
 export abstract class MonitoringPoint {
-
   @autoserializeAs(COORDINATE_DESERIALIZER, 'point')
   private _point: Coordinate;
 

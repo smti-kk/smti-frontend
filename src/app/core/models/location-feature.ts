@@ -1,7 +1,7 @@
-import { Quality } from '@core/models/enums';
-import { autoserializeAs } from 'cerialize';
-import { Operator } from '@core/models/operator';
-import { GovernmentProgram } from '@core/models/government-program';
+import {Quality} from '@core/models/enums';
+import {autoserializeAs} from 'cerialize';
+import {Operator} from '@core/models/operator';
+import {GovernmentProgram} from '@core/models/government-program';
 
 export class LocationFeature {
   @autoserializeAs(Operator, 'operator')
@@ -28,9 +28,16 @@ export class LocationFeature {
   @autoserializeAs(GovernmentProgram, 'government_program')
   private readonly _governmentProgram: GovernmentProgram;
 
-
-  constructor(operator: Operator, quality: Quality, active: boolean, archive: boolean, completed: number, planYear: boolean,
-              planTwoYear: boolean, governmentProgram: GovernmentProgram) {
+  constructor(
+    operator: Operator,
+    quality: Quality,
+    active: boolean,
+    archive: boolean,
+    completed: number,
+    planYear: boolean,
+    planTwoYear: boolean,
+    governmentProgram: GovernmentProgram
+  ) {
     this._operator = operator;
     this._quality = quality;
     this._active = active;
@@ -40,7 +47,6 @@ export class LocationFeature {
     this._planTwoYear = planTwoYear;
     this._governmentProgram = governmentProgram;
   }
-
 
   get completed(): number {
     return this._completed;
@@ -74,4 +80,3 @@ export class LocationFeature {
     return this._governmentProgram;
   }
 }
-

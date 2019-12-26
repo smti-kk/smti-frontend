@@ -1,13 +1,11 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export class SmoType {
-
   @autoserializeAs('id')
   private readonly _id: number;
 
   @autoserializeAs('name')
   private readonly _name: string;
-
 
   constructor(id: number, name: string) {
     this._id = id;

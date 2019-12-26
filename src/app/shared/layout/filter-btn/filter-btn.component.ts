@@ -1,6 +1,6 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { OrderingDirection } from '@core/services/tc-pivots.service';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {OrderingDirection} from '@core/services/tc-pivots.service';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export interface OrderingFilter {
   orderingDirection: OrderingDirection;
@@ -16,18 +16,15 @@ export const FILTER_BUTTONS_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'app-filter-btn',
   templateUrl: './filter-btn.component.html',
-  providers: [FILTER_BUTTONS_VALUE_ACCESSOR]
+  providers: [FILTER_BUTTONS_VALUE_ACCESSOR],
 })
 export class FilterBtnComponent implements OnInit, ControlValueAccessor {
-
-  @Input() orderings: { name: string, value: string, orderingDirection: OrderingDirection }[];
+  @Input() orderings: {name: string; value: string; orderingDirection: OrderingDirection}[];
   onChange: (_: any) => {};
   onTouched: () => {};
   OrderingDirection = OrderingDirection;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   registerOnChange(fn: (_: any) => {}): void {
     this.onChange = fn;
@@ -43,10 +40,13 @@ export class FilterBtnComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  onOrderingBtnClick(ordering: { name: string; value: string; orderingDirection: OrderingDirection }) {
+  onOrderingBtnClick(ordering: {
+    name: string;
+    value: string;
+    orderingDirection: OrderingDirection;
+  }) {
     if (ordering.orderingDirection === OrderingDirection.UNDEFINED) {
       ordering.orderingDirection = OrderingDirection.ASC;
     } else if (ordering.orderingDirection === OrderingDirection.ASC) {

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PivotTablePageComponent } from './pivot-table-page-component';
+import {PivotTablePageComponent} from './pivot-table-page-component';
 
 describe('PivotTablePageComponentComponent', () => {
   let component: PivotTablePageComponent;
@@ -8,9 +8,8 @@ describe('PivotTablePageComponentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PivotTablePageComponent ]
-    })
-    .compileComponents();
+      declarations: [PivotTablePageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

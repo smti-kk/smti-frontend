@@ -1,7 +1,6 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export class GovernmentProgram {
-
   @autoserializeAs('id')
   private readonly _id: number;
 
@@ -20,7 +19,6 @@ export class GovernmentProgram {
     this._fullName = fullName;
     this._description = description;
   }
-
 
   get shortName(): string {
     return this._shortName;

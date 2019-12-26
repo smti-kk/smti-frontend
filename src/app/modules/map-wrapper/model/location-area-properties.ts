@@ -1,7 +1,6 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export class LocationAreaProperties {
-
   @autoserializeAs('type')
   private readonly _type: number;
 
@@ -14,8 +13,13 @@ export class LocationAreaProperties {
   @autoserializeAs('mobile_mark')
   private readonly _mobileMark: number;
 
-
-  constructor(name: string, type: number, mark: number, mobileInternetMaxType: string, mobileMark: number) {
+  constructor(
+    name: string,
+    type: number,
+    mark: number,
+    mobileInternetMaxType: string,
+    mobileMark: number
+  ) {
     this._type = type;
     this._mark = mark;
     this._mobileInternetMaxType = mobileInternetMaxType;

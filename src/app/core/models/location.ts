@@ -1,5 +1,5 @@
-import { autoserializeAs } from 'cerialize';
-import { Organization } from '@core/models/organization';
+import {autoserializeAs} from 'cerialize';
+import {Organization} from '@core/models/organization';
 
 export class Location {
   @autoserializeAs('id')
@@ -26,9 +26,15 @@ export class Location {
   @autoserializeAs(Organization, 'organizations')
   private readonly _organizations: Organization[];
 
-
-  constructor(id: number, name: string, typeLocation: string, peopleCount: number,
-              municipalityArea: Location, infomat: number, organizations: Organization[]) {
+  constructor(
+    id: number,
+    name: string,
+    typeLocation: string,
+    peopleCount: number,
+    municipalityArea: Location,
+    infomat: number,
+    organizations: Organization[]
+  ) {
     this._id = id;
     this._name = name;
     this._typeLocation = typeLocation;

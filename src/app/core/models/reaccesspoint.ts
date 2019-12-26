@@ -14,18 +14,17 @@ const ESPD_MARKER_DISABLED = '../../../../assets/img/ap-dis-espd.svg';
 const ORGANIZATION_DESERIALIZER = {
   Deserialize(json) {
     return json.id;
-  }
+  },
 };
 
 const LOCATION_DESERIALIZER = {
   Deserialize(json) {
     return json.location;
-  }
+  },
 };
 
 @inheritSerialization(MonitoringPoint)
 export class Reaccesspoint extends MonitoringPoint {
-
   @autoserializeAs('address')
   private readonly _address: string;
 
@@ -100,7 +99,6 @@ export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs('visible')
   private readonly _visible: boolean;
-
 
   get locationId(): number {
     return this._locationId;
@@ -203,9 +201,7 @@ export class Reaccesspoint extends MonitoringPoint {
   }
 
   get connectionTypeString() {
-    return this.connectionType
-      .map(ct => ct.name)
-      .join(',');
+    return this.connectionType.map(ct => ct.name).join(',');
   }
 
   get iconUrl() {
@@ -229,6 +225,4 @@ export class Reaccesspoint extends MonitoringPoint {
       return '';
     }
   }
-
-
 }

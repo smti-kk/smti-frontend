@@ -1,8 +1,7 @@
-import { autoserializeAs } from 'cerialize';
-import { Reaccesspoint } from '@core/models/reaccesspoint';
+import {autoserializeAs} from 'cerialize';
+import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 export class Contract {
-
   @autoserializeAs('id')
   private readonly _id: number;
 
@@ -21,9 +20,12 @@ export class Contract {
   // @autoserializeAs(Organization, 'customer')
   // private readonly _customer: Organization;
 
-
-  constructor(id: number, registrationNumber: string, amount: number, dateRealization: Date
-              // , customer: Organization
+  constructor(
+    id: number,
+    registrationNumber: string,
+    amount: number,
+    dateRealization: Date
+    // , customer: Organization
   ) {
     this._id = id;
     this._registrationNumber = registrationNumber;

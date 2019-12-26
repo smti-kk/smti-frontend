@@ -1,4 +1,4 @@
-import { LocationFeature, Operator } from '@core/models';
+import {LocationFeature, Operator} from '@core/models';
 
 export class FeaturesRowUtils {
   getByOperator<T extends LocationFeature>(locationFeatures: T[], operator: Operator): T {

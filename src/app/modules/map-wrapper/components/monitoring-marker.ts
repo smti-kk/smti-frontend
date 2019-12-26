@@ -1,7 +1,7 @@
-import { Icon, Marker } from 'leaflet';
+import {Icon, Marker} from 'leaflet';
 import * as geojson from 'geojson';
-import { MonitoringPoint } from '../model/monitoring-point';
-import { EventEmitter } from '@angular/core';
+import {MonitoringPoint} from '../model/monitoring-point';
+import {EventEmitter} from '@angular/core';
 
 const ICON_WIDTH = 30;
 const ICON_HEIGHT = 41;
@@ -15,26 +15,21 @@ const POPUP_ANCHOR_TOP = -25;
 const BIG_ICON_WIDTH = 38;
 const BIG_ICON_HEIGHT = 48;
 
-
 export class MonitoringMarker<T extends MonitoringPoint> extends Marker {
-
   private static deactivateMarker: EventEmitter<void> = new EventEmitter<void>();
 
   feature: geojson.Feature<geojson.Point, T>;
 
   constructor(point: T) {
-    super(
-      [point.point.lat, point.point.lng],
-      {
-        icon: MonitoringMarker.createIcon(point)
-      }
-    );
+    super([point.point.lat, point.point.lng], {
+      icon: MonitoringMarker.createIcon(point),
+    });
 
     this.feature = {
       id: point.id,
       properties: point,
       type: 'Feature',
-      geometry: null
+      geometry: null,
     };
 
     this.on('click', () => {
@@ -50,12 +45,10 @@ export class MonitoringMarker<T extends MonitoringPoint> extends Marker {
   }
 
   public updateData(point: T) {
-    if (this.getLatLng().lng !== point.point.lng ||
-      this.getLatLng().lat !== point.point.lat
-    ) {
+    if (this.getLatLng().lng !== point.point.lng || this.getLatLng().lat !== point.point.lat) {
       this.setLatLng({
         lat: point.point.lat,
-        lng: point.point.lng
+        lng: point.point.lng,
       });
     }
 

@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { isString } from 'util';
+import {Injectable} from '@angular/core';
+import {isString} from 'util';
 
 @Injectable()
 export class StoreService {
-
   private clearMethod = {
     all: () => {
       localStorage.clear();
@@ -13,8 +12,7 @@ export class StoreService {
     },
   };
 
-  constructor() {
-  }
+  constructor() {}
 
   // noinspection JSMethodCanBeStatic
   set(key, value: any) {

@@ -1,6 +1,6 @@
 export enum RequestState {
   ACCEPTED,
-  CONSIDERED
+  CONSIDERED,
 }
 
 export const requestStateLabel = (requestState: RequestState): string => {

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ConnectionPointsComponent } from './connection-points.component';
+import {ConnectionPointsComponent} from './connection-points.component';
 
 describe('ConnectionPointsComponent', () => {
   let component: ConnectionPointsComponent;
@@ -8,9 +8,8 @@ describe('ConnectionPointsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConnectionPointsComponent ]
-    })
-    .compileComponents();
+      declarations: [ConnectionPointsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

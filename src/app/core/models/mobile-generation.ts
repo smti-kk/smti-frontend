@@ -1,7 +1,7 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export const MOBILE_GENERATION_DESERIALIZER = {
-  Deserialize(obj: { id: number }) {
+  Deserialize(obj: {id: number}) {
     switch (obj.id) {
       case MobileGeneration._2G.type:
         return MobileGeneration._2G;
@@ -12,7 +12,7 @@ export const MOBILE_GENERATION_DESERIALIZER = {
       case MobileGeneration._5G.type:
         return MobileGeneration._5G;
     }
-  }
+  },
 };
 
 export class MobileGeneration {

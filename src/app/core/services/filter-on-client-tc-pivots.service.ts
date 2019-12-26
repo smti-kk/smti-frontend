@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { FilterTcPivotsService, OrderingDirection } from './tc-pivots.service';
-import { LocationFeatures } from '@core/models';
-import { sortStringAscCompareFn, sortStringDescCompareFn } from '@core/utils/sort';
+import {Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {FilterTcPivotsService, OrderingDirection} from './tc-pivots.service';
+import {LocationFeatures} from '@core/models';
+import {sortStringAscCompareFn, sortStringDescCompareFn} from '@core/utils/sort';
 
 @Injectable()
 export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
@@ -15,9 +15,7 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
     },
     payphone: (tcs: LocationFeatures[]): LocationFeatures[] => {
       return tcs.filter(tc => {
-        return tc.ats
-          .filter(payphone => payphone.quantityPayphone !== 0)
-          .length !== 0;
+        return tc.ats.filter(payphone => payphone.quantityPayphone !== 0).length !== 0;
       });
     },
     infomat: (tcs: LocationFeatures[]): LocationFeatures[] => {
@@ -30,13 +28,17 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
     },
     internet_type: (tcs: LocationFeatures[]): LocationFeatures[] => {
       return tcs.filter(tc => {
-        return tc.internet.find(i => i.channel && i.channel.type === this.filters.internetType.type);
+        return tc.internet.find(
+          i => i.channel && i.channel.type === this.filters.internetType.type
+        );
       });
     },
     tv_type: (tcs: LocationFeatures[]): LocationFeatures[] => {
-      return tcs.filter(tc => tc.television.find(i => {
-        return i.type && i.type.find(t => t.id === this.filters.tvType.id);
-      }));
+      return tcs.filter(tc =>
+        tc.television.find(i => {
+          return i.type && i.type.find(t => t.id === this.filters.tvType.id);
+        })
+      );
     },
     mobile_type: (tcs: LocationFeatures[]) => {
       return tcs.filter(tc => {
@@ -52,7 +54,6 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
       const providers = this.filters.internet
         .filter(internetItem => Object.values(internetItem)[0] === true)
         .map(i => Object.keys(i)[0]);
-
 
       return tcs.filter(tc => {
         return tc.internet.find(internet => {
@@ -88,8 +89,8 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
         case 'people_count':
           return tcs.sort(
             this.filters.order.orderingDirection === OrderingDirection.ASC
-              ? ((a, b) => a.location.peopleCount - b.location.peopleCount)
-              : ((a, b) => b.location.peopleCount - a.location.peopleCount)
+              ? (a, b) => a.location.peopleCount - b.location.peopleCount
+              : (a, b) => b.location.peopleCount - a.location.peopleCount
           );
       }
     },
@@ -99,8 +100,10 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
       });
     },
     locationName: (tcs: LocationFeatures[]): LocationFeatures[] => {
-      return tcs.filter(tc => tc.location.name.toLowerCase().includes(this.filters.locationName.toLowerCase()));
-    }
+      return tcs.filter(tc =>
+        tc.location.name.toLowerCase().includes(this.filters.locationName.toLowerCase())
+      );
+    },
   };
 
   cachedTc: LocationFeatures[];
@@ -108,15 +111,13 @@ export class FilterOnClientTcPivotsService extends FilterTcPivotsService {
   list(): Observable<LocationFeatures[]> {
     if (!this.cachedTc) {
       // this.params = this.params.set('parent', '2093');
-      return super
-        .list()
-        .pipe(tap((tcs) => this.cachedTc = tcs));
+      return super.list().pipe(tap(tcs => (this.cachedTc = tcs)));
     } else {
       let filtered = [...this.cachedTc];
       this.params
         .keys()
         // .filter(p => p !== 'parent')
-        .forEach((filter) => {
+        .forEach(filter => {
           filtered = this.filtersFn[filter](filtered);
         });
 

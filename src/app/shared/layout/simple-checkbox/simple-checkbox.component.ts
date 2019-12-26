@@ -1,5 +1,5 @@
-import { Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {Component, ElementRef, forwardRef, Input, ViewChild} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -10,10 +10,9 @@ export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'app-simple-checkbox',
   templateUrl: './simple-checkbox.component.html',
-  providers: [SIMPLE_CHECKBOX_VALUE_ACCESSOR]
+  providers: [SIMPLE_CHECKBOX_VALUE_ACCESSOR],
 })
 export class SimpleCheckbox implements ControlValueAccessor {
-
   @Input()
   value: any;
 
@@ -25,16 +24,13 @@ export class SimpleCheckbox implements ControlValueAccessor {
 
   private onChange: (_: any) => {};
 
-  constructor() {
-
-  }
+  constructor() {}
 
   registerOnChange(fn: (_: any) => {}): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: () => {}): void {
-  }
+  registerOnTouched(fn: () => {}): void {}
 
   writeValue(obj: any): void {
     this.checkbox.nativeElement.checked = obj !== null;

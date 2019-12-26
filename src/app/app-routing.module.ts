@@ -1,49 +1,49 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { NotFoundPage } from '@core/pages/not-found/not-found.page';
-import { AuthorizationComponent } from '@core/pages/authorization/authorization.component';
-
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {NotFoundPage} from '@core/pages/not-found/not-found.page';
+import {AuthorizationComponent} from '@core/pages/authorization/authorization.component';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: './modules/map-wrapper/map-wrapper.module#MapWrapperModule',
-    data: {key: 'leaflet'}
+    data: {key: 'leaflet'},
   },
   {
     path: 'user/requests',
-    loadChildren: './modules/requests/requests.module#RequestsModule'
+    loadChildren: './modules/requests/requests.module#RequestsModule',
   },
   {
     path: 'pivot-table',
-    loadChildren: './modules/pivot-table/pivot-table.module#PivotTableModule'
+    loadChildren: './modules/pivot-table/pivot-table.module#PivotTableModule',
   },
   {
     path: 'login',
-    component: AuthorizationComponent
+    component: AuthorizationComponent,
   },
   {
     path: 'technical-capabilities-comparison-table',
-    loadChildren: './modules/technical-capabilities-comparison-table/technical-capabilities-comparison-table.module' +
-      '#TechnicalCapabilitiesComparisonTableModule'
+    loadChildren:
+      './modules/technical-capabilities-comparison-table/technical-capabilities-comparison-table.module' +
+      '#TechnicalCapabilitiesComparisonTableModule',
   },
   {
     path: 'communication-contracts',
-    loadChildren: './modules/communication-contracts/communication-contracts.module#CommunicationContractsModule'
+    loadChildren:
+      './modules/communication-contracts/communication-contracts.module#CommunicationContractsModule',
   },
   {
     path: 'connection-points',
-    loadChildren: './modules/connection-points/connection-points.module#ConnectionPointsModule'
+    loadChildren: './modules/connection-points/connection-points.module#ConnectionPointsModule',
   },
   {
     path: '**',
-    component: NotFoundPage
-  }
+    component: NotFoundPage,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

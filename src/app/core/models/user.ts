@@ -1,7 +1,6 @@
-import { autoserializeAs } from 'cerialize';
+import {autoserializeAs} from 'cerialize';
 
 export class User {
-
   @autoserializeAs('email')
   private readonly _email: string;
 

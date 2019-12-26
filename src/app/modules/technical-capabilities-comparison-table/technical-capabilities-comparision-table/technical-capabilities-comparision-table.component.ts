@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { LocationFeaturesService } from '@core/services/location-features.service';
-import { LocationFeatures } from '@core/models';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { OrderingDirection } from '@core/services/tc-pivots.service';
+import {Component, OnInit} from '@angular/core';
+import {LocationFeaturesService} from '@core/services/location-features.service';
+import {LocationFeatures} from '@core/models';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {OrderingDirection} from '@core/services/tc-pivots.service';
 
 @Component({
   selector: 'app-technical-capabilities-comparision-table',
   templateUrl: './technical-capabilities-comparision-table.component.html',
-  styleUrls: ['./technical-capabilities-comparision-table.component.scss']
+  styleUrls: ['./technical-capabilities-comparision-table.component.scss'],
 })
 export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   isOpenedAccordion: boolean;
@@ -18,21 +18,22 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   filterForm: FormGroup;
   featureTypes = {
     mobile: 'mobile',
-    internet: 'internet'
+    internet: 'internet',
   };
   itemsPerPage = 10;
   pageNumber = 1;
   OrderingDirection = OrderingDirection;
 
-  constructor(private locationFeaturesService: LocationFeaturesService,
-              private spinnerService: NgxSpinnerService,
-              private fb: FormBuilder) {
+  constructor(
+    private locationFeaturesService: LocationFeaturesService,
+    private spinnerService: NgxSpinnerService,
+    private fb: FormBuilder
+  ) {
     this.buildFeaturesTypeSelector();
     this.buildFilterForm();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   exportXLSX() {
     if (this.featuresTypeSelector.value === this.featureTypes.internet) {
@@ -67,7 +68,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
       mobileType: [null],
       internetType: [null],
       program: [null],
-      locationName: [null]
+      locationName: [null],
     });
   }
 

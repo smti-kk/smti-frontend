@@ -1,10 +1,10 @@
-import { GeoJSON } from 'leaflet';
-import { FeatureCollection, MultiPoint } from 'geojson';
-import { HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE } from '../constants/inline.style';
-import { EventEmitter, Injectable } from '@angular/core';
-import { MunicipalityService } from '../service/municipality.service';
-import { LocationAreaProperties } from '@map-wrapper/model/location-area-properties';
-import { LocationArea } from '@map-wrapper/model/location-area';
+import {GeoJSON} from 'leaflet';
+import {FeatureCollection, MultiPoint} from 'geojson';
+import {HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE} from '../constants/inline.style';
+import {EventEmitter, Injectable} from '@angular/core';
+import {MunicipalityService} from '../service/municipality.service';
+import {LocationAreaProperties} from '@map-wrapper/model/location-area-properties';
+import {LocationArea} from '@map-wrapper/model/location-area';
 
 export interface MunicipalitiesLayerGeoJson extends GeoJSON<LocationAreaProperties> {
   feature: LocationArea;
@@ -12,7 +12,9 @@ export interface MunicipalitiesLayerGeoJson extends GeoJSON<LocationAreaProperti
 
 @Injectable()
 export class MunicipalitiesLayer extends GeoJSON {
-  public onMunicipalityClick: EventEmitter<MunicipalitiesLayerGeoJson> = new EventEmitter<MunicipalitiesLayerGeoJson>();
+  public onMunicipalityClick: EventEmitter<MunicipalitiesLayerGeoJson> = new EventEmitter<
+    MunicipalitiesLayerGeoJson
+  >();
   public selectedLocation: MunicipalitiesLayerGeoJson;
 
   constructor(municipalityService: MunicipalityService) {
@@ -21,7 +23,7 @@ export class MunicipalitiesLayer extends GeoJSON {
     municipalityService.list().subscribe(municipalities => {
       const communicationScoreFeature: FeatureCollection<MultiPoint, LocationAreaProperties> = {
         type: 'FeatureCollection',
-        features: municipalities
+        features: municipalities,
       };
 
       this.addData(communicationScoreFeature);
@@ -31,7 +33,9 @@ export class MunicipalitiesLayer extends GeoJSON {
   }
 
   public getLayers(): MunicipalitiesLayerGeoJson[] {
-    return super.getLayers().sort(MunicipalitiesLayer.sortByAreaName) as MunicipalitiesLayerGeoJson[];
+    return super
+      .getLayers()
+      .sort(MunicipalitiesLayer.sortByAreaName) as MunicipalitiesLayerGeoJson[];
   }
 
   public selectLayer(layer: MunicipalitiesLayerGeoJson) {
@@ -85,7 +89,10 @@ export class MunicipalitiesLayer extends GeoJSON {
     event.target.setStyle(MAP_TERRITORIES_STYLE);
   }
 
-  private static sortByAreaName(layer1: MunicipalitiesLayerGeoJson, layer2: MunicipalitiesLayerGeoJson) {
+  private static sortByAreaName(
+    layer1: MunicipalitiesLayerGeoJson,
+    layer2: MunicipalitiesLayerGeoJson
+  ) {
     if (layer1.feature.name < layer2.feature.name) {
       return -1;
     }

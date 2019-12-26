@@ -1,8 +1,8 @@
-import { LatLngBounds } from 'leaflet';
-import { Observable } from 'rxjs';
-import { MonitoringLayer } from '../components/monitoring-layer';
-import { SmoService } from '../service/smo.service';
-import { Injectable } from '@angular/core';
+import {LatLngBounds} from 'leaflet';
+import {Observable} from 'rxjs';
+import {MonitoringLayer} from '../components/monitoring-layer';
+import {SmoService} from '../service/smo.service';
+import {Injectable} from '@angular/core';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 @Injectable()
