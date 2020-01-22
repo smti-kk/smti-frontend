@@ -38,7 +38,7 @@ export class Reaccesspoint extends MonitoringPoint {
   private readonly _completed: boolean;
 
   @autoserializeAs(InternetAccessType, 'connection_type')
-  private readonly _connectionType: InternetAccessType[];
+  private readonly _connectionType: InternetAccessType;
 
   @deserializeAs(ORGANIZATION_DESERIALIZER, 'organization')
   private readonly _organizationId: number;
@@ -120,7 +120,7 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._completed;
   }
 
-  get connectionType(): InternetAccessType[] {
+  get connectionType(): InternetAccessType {
     return this._connectionType;
   }
 
@@ -201,7 +201,7 @@ export class Reaccesspoint extends MonitoringPoint {
   }
 
   get connectionTypeString() {
-    return this.connectionType.map(ct => ct.name).join(',');
+     if (this.connectionType != null) { return this.connectionType.name; }
   }
 
   get iconUrl() {
