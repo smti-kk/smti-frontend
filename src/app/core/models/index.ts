@@ -18,3 +18,4 @@ export {ExistingOperators} from '@core/models/existing-operators';
 export {TelevisionFeature} from '@core/models/radio-location-feature';
 export {PostFeature} from '@core/models/post-feature';
 export * from './trunk-channel';
+export {PaginatedList} from '@core/models/paginated-list';

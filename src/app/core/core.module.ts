@@ -12,7 +12,6 @@ import {
 } from '@core/services';
 import {StoreService} from '@core/services/store.service';
 import {FilterTcPivotsService, TcPivotsService} from '@core/services/tc-pivots.service';
-import {FilterOnClientTcPivotsService} from '@core/services/filter-on-client-tc-pivots.service';
 import {LocationFeaturesService} from '@core/services/location-features.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from '@core/interceptor/auth.interceptor';
@@ -30,7 +29,7 @@ import {LocationService} from '@core/services/location.service';
     LocationFeaturesService,
     TcPivotsService,
     LocationService,
-    {provide: FilterTcPivotsService, useClass: FilterOnClientTcPivotsService},
+    {provide: FilterTcPivotsService, useClass: FilterTcPivotsService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   exports: [],
