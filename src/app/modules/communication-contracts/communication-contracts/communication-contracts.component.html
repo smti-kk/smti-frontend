@@ -3,7 +3,7 @@
   <div class="wrapper">
     <h1>Сводная таблица - Контракты услуг связи</h1>
     <div class="c-contract">
-      <div class="c-contract-item" *ngFor="let location of locations">
+      <div class="c-contract-item" *ngFor="let location of (locations | async).results">
         <accordion>
           <group>
             <accordion-header>

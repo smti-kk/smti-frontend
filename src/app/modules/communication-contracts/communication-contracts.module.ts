@@ -5,6 +5,7 @@ import {CommunicationContractsComponent} from './communication-contracts/communi
 import {SharedModule} from '@shared/shared.module';
 import {CoreModule} from '@core/core.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {HttpClientModule} from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [CommunicationContractsComponent],
   imports: [
+    HttpClientModule,
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
