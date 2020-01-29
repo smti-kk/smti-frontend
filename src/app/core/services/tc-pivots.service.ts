@@ -7,6 +7,7 @@ import {
   LocationFeatures,
   MailType,
   MobileGeneration,
+  PaginatedList,
   TrunkChannel,
 } from '@core/models';
 import {environment} from '../../../environments/environment';
@@ -43,10 +44,19 @@ interface TcFilters {
 export class TcPivotsService {
   constructor(private httpClient: HttpClient) {}
 
-  list(params?: HttpParams): Observable<LocationFeatures[]> {
+  list(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
-      .get(LTC, {params})
-      .pipe(map(response => Deserialize(response, LocationFeatures)));
+      .get<any>(LTC, {params})
+      .pipe(
+        map(response => {
+          return {
+            count: response.count,
+            next: response.next,
+            previous: response.previous,
+            results: response.results.map(item => Deserialize(item, LocationFeatures)),
+          };
+        })
+      );
   }
 
   one(id: number): Observable<LocationFeatures> {
@@ -63,8 +73,10 @@ export class FilterTcPivotsService extends TcPivotsService {
 
   private TRUE = '2';
 
-  list(): Observable<LocationFeatures[]> {
-    return super.list(this.params);
+  paginatedList(page: number, pageSize: number): Observable<PaginatedList<LocationFeatures>> {
+    return super.list(
+      this.params.set('page', page.toString()).set('page_size', pageSize.toString())
+    );
   }
 
   filter(filters: TcFilters) {

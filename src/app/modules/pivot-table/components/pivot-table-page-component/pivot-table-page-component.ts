@@ -7,6 +7,7 @@ import {
   MailType,
   MobileGeneration,
   Operator,
+  PaginatedList,
   TrunkChannel,
 } from '@core/models';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -22,7 +23,7 @@ import {Signal} from '@core/models/signal';
   styleUrls: ['./pivot-table-page-component.scss'],
 })
 export class PivotTablePageComponent implements OnInit, AfterViewInit {
-  locationFeatures: LocationFeatures[];
+  locationFeatures: PaginatedList<LocationFeatures>;
   existingOperators: ExistingOperators;
   govPrograms: GovernmentProgram[];
   pageNumber = 1;
@@ -88,6 +89,11 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     this.searchedTc = null;
   }
 
+  onPageChange(pageNumber: number) {
+    this.pageNumber = pageNumber;
+    this.loadPivotsTable().subscribe();
+  }
+
   onSearchControlKeyPress(event) {
     if (event.key === 'Escape') {
       event.target.blur();
@@ -96,9 +102,9 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private loadPivotsTable() {
+  loadPivotsTable() {
     this.spinner.show();
-    return this.tcPivots.list().pipe(
+    return this.tcPivots.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(lcs => {
         this.locationFeatures = lcs;
         console.log(lcs);
@@ -176,10 +182,10 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
       .pipe(debounceTime(DEBOUNCE_TIME_MS))
       .pipe(filter(value => value && value.length > 0))
       .subscribe(value => {
-        this.searchedTc = this.locationFeatures.find(lc =>
+        this.searchedTc = this.locationFeatures.results.find(lc =>
           lc.location.name.toLowerCase().includes(value.toLowerCase())
         );
-        const lcIndex = this.locationFeatures.indexOf(this.searchedTc) + 1;
+        const lcIndex = this.locationFeatures.results.indexOf(this.searchedTc) + 1;
         this.pageNumber = Math.ceil(lcIndex / this.itemsPerPage);
 
         if (this.searchedTc) {
