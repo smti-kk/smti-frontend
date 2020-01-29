@@ -63,7 +63,7 @@ export class TechnicalCapabilitiesComponent {
       _television: fb.array([]),
       _ats: fb.array([]),
       _radio: fb.array([]),
-      _mail: fb.array([]),
+      _post: fb.array([]),
       _infomat: locationFeatures.location.infomat > 0,
     });
 
@@ -120,6 +120,17 @@ export class TechnicalCapabilitiesComponent {
           _operator: null,
           _quality: null,
           _channel: null,
+          _governmentProgram: null,
+          _completed: null,
+        })
+      );
+    });
+
+    existingOperators.post.forEach(() => {
+      getArrayGroup(form, '_post').push(
+        fb.group({
+          _operator: null,
+          _type: null,
           _governmentProgram: null,
           _completed: null,
         })

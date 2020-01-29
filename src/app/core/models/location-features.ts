@@ -25,7 +25,7 @@ export class LocationFeatures {
   @autoserializeAs(AtsFeature, 'ats')
   private readonly _ats: AtsFeature[];
 
-  @autoserializeAs(LocationFeature, 'post')
+  @autoserializeAs(PostFeature, 'post')
   private readonly _post: PostFeature[];
 
   @autoserializeAs(TelevisionFeature, 'television')
