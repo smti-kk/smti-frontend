@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LocationService} from '@core/services/location.service';
+import {LocationServiceWithFilterParams} from '@core/services/location.service';
 import {Location} from '@core/models';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginatedList} from '@core/models/paginated-list';
@@ -12,14 +12,17 @@ import {Observable} from 'rxjs';
   styleUrls: ['./communication-contracts.component.scss'],
 })
 export class CommunicationContractsComponent implements OnInit {
-  locations: Observable<PaginatedList<Location>>;
+  locationsObs: Observable<PaginatedList<Location>>;
   pageNumber = 1;
   itemsPerPage = 10;
 
-  constructor(private locationService: LocationService, private spinner: NgxSpinnerService) {}
+  constructor(
+    private locationService: LocationServiceWithFilterParams,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
-    this.locations = this.locationService.list().pipe(
+    this.locationsObs = this.locationService.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
       })
@@ -28,16 +31,10 @@ export class CommunicationContractsComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.locations = this.loadPagedLocationWithContracts();
+    this.locationsObs = this.loadPagedLocationWithContracts();
   }
 
   loadPagedLocationWithContracts() {
-    this.spinner.show();
-    return this.locationService.list().pipe(
-      tap(lcs => {
-        console.log(lcs);
-        this.spinner.hide();
-      })
-    );
+    return this.locationService.paginatedList(this.pageNumber, this.itemsPerPage);
   }
 }

@@ -2,8 +2,19 @@
 <main class="main">
   <div class="wrapper">
     <h1>Сводная таблица - Контракты услуг связи</h1>
-    <div class="c-contract">
-      <div class="c-contract-item" *ngFor="let location of (locations | async).results">
+    <div class="c-contract" *ngIf="locationsObs | async as locations">
+      <div
+        class="c-contract-item"
+        *ngFor="
+          let location of locations.results
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: pageNumber,
+                  totalItems: locations.count
+                }
+        "
+      >
         <accordion>
           <group>
             <accordion-header>
@@ -82,6 +93,39 @@
       </div>
     </div>
   </div>
+  <div style="display: flex; justify-content: flex-end">
+    <div class="pagination-count">
+      <div style="margin-right: 13px">Количество строк на странице:</div>
+      <input
+        class="pagination-count-button"
+        [class.active]="itemsPerPage === 10"
+        type="button"
+        (click)="itemsPerPage = 10; locationsObs = loadPagedLocationWithContracts();"
+        value="10"
+      />
+      <input
+        class="pagination-count-button"
+        [class.active]="itemsPerPage === 20"
+        type="button"
+        (click)="itemsPerPage = 20; locationsObs = loadPagedLocationWithContracts()"
+        value="20"
+      />
+      <input
+        class="pagination-count-button"
+        [class.active]="itemsPerPage === 100"
+        type="button"
+        (click)="itemsPerPage = 100; locationsObs = loadPagedLocationWithContracts();"
+        value="100"
+      />
+    </div>
+  </div>
+  <pagination-controls
+      class="pagination-controls"
+      nextLabel="Следующая страница"
+      previousLabel="Предыдущая страница"
+      (pageChange)="onPageChange($event)"
+    >
+    </pagination-controls>
 </main>
 
 <ngx-spinner
