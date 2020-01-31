@@ -15,7 +15,7 @@ import {InternetAccessTypeService} from '@core/services/internet-access-type.ser
   styleUrls: ['./communication-contracts.component.scss'],
 })
 export class CommunicationContractsComponent implements OnInit {
-  locationsObs: Observable<PaginatedList<Location>>;
+  locations$: Observable<PaginatedList<Location>>;
   fLocations$: Observable<Location[]>;
   fParents$: Observable<Location[]>;
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
@@ -36,7 +36,7 @@ export class CommunicationContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.locationsObs = this.locationService.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+    this.locations$ = this.locationService.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
       })
@@ -63,13 +63,13 @@ export class CommunicationContractsComponent implements OnInit {
     this.form.valueChanges.subscribe(v => {
       // console.log(v);
       this.locationService.filter(v);
-      this.locationsObs = this.loadPagedLocationWithContracts();
+      this.locations$ = this.loadPagedLocationWithContracts();
     });
   }
 
   onPageChange(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.locationsObs = this.loadPagedLocationWithContracts();
+    this.locations$ = this.loadPagedLocationWithContracts();
   }
 
   loadPagedLocationWithContracts() {

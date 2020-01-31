@@ -7,7 +7,7 @@ import {CoreModule} from '@core/core.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
     CoreModule,
     NgxPaginationModule,
     NgxSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
 })
 export class CommunicationContractsModule {}

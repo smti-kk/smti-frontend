@@ -94,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div class="c-contract" *ngIf="locationsObs | async as locations">
+    <div class="c-contract" *ngIf="locations$ | async as locations">
       <div
         class="c-contract-item"
         *ngFor="
@@ -192,21 +192,21 @@
         class="pagination-count-button"
         [class.active]="itemsPerPage === 10"
         type="button"
-        (click)="itemsPerPage = 10; locationsObs = loadPagedLocationWithContracts()"
+        (click)="itemsPerPage = 10; locations$ = loadPagedLocationWithContracts()"
         value="10"
       />
       <input
         class="pagination-count-button"
         [class.active]="itemsPerPage === 20"
         type="button"
-        (click)="itemsPerPage = 20; locationsObs = loadPagedLocationWithContracts()"
+        (click)="itemsPerPage = 20; locations$ = loadPagedLocationWithContracts()"
         value="20"
       />
       <input
         class="pagination-count-button"
         [class.active]="itemsPerPage === 100"
         type="button"
-        (click)="itemsPerPage = 100; locationsObs = loadPagedLocationWithContracts()"
+        (click)="itemsPerPage = 100; locations$ = loadPagedLocationWithContracts()"
         value="100"
       />
     </div>
