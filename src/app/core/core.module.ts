@@ -15,7 +15,9 @@ import {FilterTcPivotsService, TcPivotsService} from '@core/services/tc-pivots.s
 import {LocationFeaturesService} from '@core/services/location-features.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from '@core/interceptor/auth.interceptor';
-import {LocationService, LocationServiceWithFilterParams} from '@core/services/location.service';
+import {LocationServiceWithFilterParams, LocationService} from '@core/services/location.service';
+import {AdministrativeCentersService} from '@map-wrapper/service/administrative-centers.service';
+import {InternetAccessTypeService} from './services/internet-access-type.service';
 
 @NgModule({
   declarations: [NotFoundPage, AuthorizationComponent],
@@ -27,8 +29,11 @@ import {LocationService, LocationServiceWithFilterParams} from '@core/services/l
     GovernmentProgramService,
     OrganizationsService,
     LocationFeaturesService,
+    InternetAccessTypeService,
     TcPivotsService,
+    LocationService,
     LocationServiceWithFilterParams,
+    AdministrativeCentersService,
     {provide: FilterTcPivotsService, useClass: FilterTcPivotsService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],

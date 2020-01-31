@@ -9,8 +9,9 @@ import {PaginatedList} from '@core/models/paginated-list';
 import {OrderingFilter} from '@shared/layout/filter-btn/filter-btn.component';
 import {OrderingDirection} from './tc-pivots.service';
 
-const LOCATIONS_WITH_CONTRACTS =
-  environment.API_BASE_URL + '/api/v1/report-organization-contracts/';
+const LOCATIONS_WITH_CONTRACTS = environment.API_BASE_URL + '/api/v1/report-organization-contracts/';
+const LOCATIONS_SIMPLE = environment.API_BASE_URL + '/api/v1/location/locations/';
+const LOCATIONS_PARENTS = environment.API_BASE_URL + '/api/v1/location/parents/';
 const LOCATIONS_WITH_CONNECTION_POINTS = environment.API_BASE_URL + '/api/v1/report-organization/';
 
 interface LocationWithContractsFilters {
@@ -39,6 +40,22 @@ export class LocationService {
             results: response.results.map(item => Deserialize(item, Location)),
           };
         })
+      );
+  }
+
+  listSimpleLocations(): Observable<Location[]> {
+    return this.httpClient
+      .get(LOCATIONS_SIMPLE)
+      .pipe(
+        map(response => Deserialize(response, Location))
+      );
+  }
+
+  listParentLocations(): Observable<Location[]> {
+    return this.httpClient
+      .get(LOCATIONS_PARENTS)
+      .pipe(
+        map(response => Deserialize(response, Location))
       );
   }
 
