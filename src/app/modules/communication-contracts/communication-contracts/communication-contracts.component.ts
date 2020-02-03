@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {InternetAccessType, Location} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
-import {LocationService, LocationServiceWithFilterParams} from '@core/services/location.service';
+import {LocationService, LocationServiceContractsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
@@ -28,15 +28,14 @@ export class CommunicationContractsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
 
   constructor(
-    private locationService: LocationServiceWithFilterParams,
+    private serviceLocation: LocationServiceContractsWithFilterParams,
+    private serviceInternetAccessType: InternetAccessTypeService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private serviceLocation: LocationService,
-    private serviceInternetAccessType: InternetAccessTypeService
   ) {}
 
   ngOnInit(): void {
-    this.locations$ = this.locationService.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+    this.locations$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
       })
@@ -61,8 +60,7 @@ export class CommunicationContractsComponent implements OnInit {
     });
 
     this.form.valueChanges.subscribe(v => {
-      // console.log(v);
-      this.locationService.filter(v);
+      this.serviceLocation.filter(v);
       this.locations$ = this.loadPagedLocationWithContracts();
     });
   }
@@ -73,6 +71,6 @@ export class CommunicationContractsComponent implements OnInit {
   }
 
   loadPagedLocationWithContracts() {
-    return this.locationService.paginatedList(this.pageNumber, this.itemsPerPage);
+    return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage);
   }
 }
