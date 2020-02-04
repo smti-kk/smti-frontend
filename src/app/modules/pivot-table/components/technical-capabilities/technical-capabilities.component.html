@@ -41,12 +41,17 @@
               <!--              Последние изменения: <span class="last-modified-date">23.06.2018</span>-->
             </div>
             <div class="edit-status">Режим: Редактирование</div>
-            <!--            <input type="button" class="btn btn-cancel-form" value="Отмена редактирования">-->
-            <!--            <input type="button" class="btn btn-edit-form" value="Редактировать (Уточняющая заявка)">-->
+            <input type="button" class="btn btn-cancel-form" value="Отмена редактирования" />
+            <input
+              type="button"
+              class="btn btn-edit-form"
+              value="Редактировать (Уточняющая заявка)"
+              (click)="enableForm()"
+            />
           </div>
           <div class="edit-form">
-            <form [formGroup]="locationFeaturesForm" *ngIf="locationFeaturesForm">
-              <fieldset disabled="disabled">
+            <form [formGroup]="locationFeaturesForm" *ngIf="locationFeaturesForm" (onsubmit)="onSubmit()">
+              <div [ngClass]="{'disabled-form': locationFeaturesForm.disabled}">
                 <div class="edit-form-block">
                   <div class="o-item-title">Сотовая связь</div>
                   <div
@@ -354,9 +359,17 @@
                     </div>
                   </div>
                 </div>
-                <div class="edit-form-block" *ngIf="existingOperators.post.length > 0" formGroupName="_post">
+                <div
+                  class="edit-form-block"
+                  *ngIf="existingOperators.post.length > 0"
+                  formGroupName="_post"
+                >
                   <div class="o-item-title">Почтовая связь</div>
-                  <div class="edit-form-item" *ngFor="let postOperator of existingOperators.post; let i = index" [formGroupName]="i.toString()">
+                  <div
+                    class="edit-form-item"
+                    *ngFor="let postOperator of existingOperators.post; let i = index"
+                    [formGroupName]="i.toString()"
+                  >
                     <div class="c-checkbox">
                       <label>
                         <input formControlName="_operator" type="checkbox" />
@@ -411,12 +424,12 @@
                   </div>
                 </div>
                 <input
+                  [attr.disabled]="false"
                   type="submit"
                   class="btn btn-save-form"
                   value="Сохранить заявку"
-                  disabled="disabled"
                 />
-              </fieldset>
+              </div>
             </form>
           </div>
         </div>

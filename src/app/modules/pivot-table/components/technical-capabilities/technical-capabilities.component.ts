@@ -39,6 +39,14 @@ export class TechnicalCapabilitiesComponent {
     this.loadTechnicalCapability(route.snapshot.params.id);
   }
 
+  enableForm() {
+    this.locationFeaturesForm.enable();
+  }
+
+  onSubmit() {
+    console.log(this.locationFeaturesForm);
+  }
+
   private loadTechnicalCapability(id: number) {
     this.spinner.show();
 
