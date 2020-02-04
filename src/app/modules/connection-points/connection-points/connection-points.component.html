@@ -39,14 +39,30 @@
                 </div>
                 <div class="l-container-row is-disabled">
                   <div class="input">
-                    <div class="o-item-title">Наим. организации:</div>
-                    <input formControlName="organization" type="text" />
+                    <div class="o-item-title">Тип учреждения:</div>
+                    <select formControlName="type">
+                      <option [ngValue]="null">Не выбран</option>
+                      <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
+                        item.name
+                      }}</option>
+                    </select>
                   </div>
                 </div>
                 <div class="l-container-row is-disabled">
                   <div class="input">
-                    <div class="o-item-title">Номер контракта:</div>
-                    <input formControlName="contract" type="text" />
+                    <div class="o-item-title">Тип СЗО:</div>
+                    <select formControlName="smo">
+                      <option [ngValue]="null">Не выбран</option>
+                      <option [ngValue]="item" *ngFor="let item of fOrganizationSMOTypes$ | async">{{
+                        item.name
+                      }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="l-container-row is-disabled">
+                  <div class="input">
+                    <div class="o-item-title">Наим. организации:</div>
+                    <input formControlName="organization" type="text" />
                   </div>
                 </div>
               </div>
@@ -64,19 +80,30 @@
                 </div>
                 <div class="l-container-row is-disabled">
                   <div class="input">
-                    <div class="o-item-title">Оператор связи:</div>
-                    <input formControlName="contractor" type="text" />
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Тип подключения:</div>
+                    <div class="o-item-title">Подключение:</div>
                     <select formControlName="connectionType">
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fInternetAccessTypes$ | async">{{
                         item.name
                       }}</option>
                     </select>
+                  </div>
+                </div>
+                <div class="l-container-row is-disabled">
+                  <div class="input">
+                    <div class="o-item-title">Контракт:</div>
+                    <select formControlName="contractType">
+                      <option [ngValue]="null">Не выбран</option>
+                      <option [ngValue]="item" *ngFor="let item of fGovermentPrograms$ | async">{{
+                        item.shortName
+                      }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="l-container-row is-disabled">
+                  <div class="input">
+                    <div class="o-item-title">Оператор связи:</div>
+                    <input formControlName="contractor" type="text" />
                   </div>
                 </div>
               </div>

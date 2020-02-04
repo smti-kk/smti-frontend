@@ -4,7 +4,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
-import {Location, InternetAccessType} from '@core/models';
+import {Location, InternetAccessType, OrganizationType, SmoType, GovernmentProgram} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {OrderingFilter} from '@shared/layout/filter-btn/filter-btn.component';
 import {OrderingDirection} from './tc-pivots.service';
@@ -28,11 +28,13 @@ interface LocationWithContractsFilters {
 interface LocationWithOrganizationAccessPointsFilters {
   order: OrderingFilter;
   location: Location;
+  type: OrganizationType;
+  smo: SmoType;
   parent: Location;
   organization: string;
-  contract: string;
   contractor: string;
   connectionType: InternetAccessType;
+  contractType: GovernmentProgram; // possible
 }
 
 @Injectable()
@@ -77,8 +79,8 @@ export class LocationService {
             previous: response.previous,
             results: response.results.map(item => Deserialize(item, Location)),
           };
-      })
-    );
+        })
+      );
   }
 }
 
@@ -177,9 +179,32 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setLocation('location', filters.location);
     this.setParent('parent', filters.parent);
     this.setOrganization('organization', filters.organization);
-    this.setContract('contract', filters.contract);
     this.setContractor('contractor', filters.contractor);
-    this.setConnectionType('type', filters.connectionType);
+    this.setConnectionType('connection', filters.connectionType);
+    this.setType('type', filters.type);
+    this.setSmo('smo', filters.smo);
+    this.setContractType('contract', filters.contractType);
+  }
+  setType(field: string, value: OrganizationType) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+  setSmo(field: string, value: SmoType) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+  setContractType(field: string, value: GovernmentProgram) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   exportExcel() {
@@ -209,13 +234,6 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     }
   }
   private setOrganization(field: string, value: string) {
-    if (value) {
-      this.params = this.params.set(field, value);
-    } else {
-      this.params = this.params.delete(field);
-    }
-  }
-  private setContract(field: string, value: string) {
     if (value) {
       this.params = this.params.set(field, value);
     } else {
