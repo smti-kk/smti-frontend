@@ -12,7 +12,7 @@ import {
 } from '@core/models';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
-import {Deserialize} from 'cerialize';
+import {Deserialize, Serialize} from 'cerialize';
 import {Signal} from '@core/models/signal';
 
 const LTC = environment.API_BASE_URL + '/api/v1/technical-capabilities';
@@ -63,6 +63,11 @@ export class TcPivotsService {
     return this.httpClient
       .get(LTC + `/${id}/`)
       .pipe(map(response => Deserialize(response, LocationFeatures)));
+  }
+
+  save(locationFeatures: LocationFeatures) {
+    console.log('request', Serialize(locationFeatures, LocationFeatures));
+    return this.httpClient.post(LTC, Serialize(locationFeatures, LocationFeatures));
   }
 }
 

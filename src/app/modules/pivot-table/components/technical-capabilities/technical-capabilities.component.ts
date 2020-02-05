@@ -43,8 +43,11 @@ export class TechnicalCapabilitiesComponent {
     this.locationFeaturesForm.enable();
   }
 
-  onSubmit() {
-    console.log(this.locationFeaturesForm);
+  saveRequest() {
+    this.tcService
+    .save(this.locationFeaturesForm.value)
+    .subscribe((response) => console.log('Успешно сохранено', response));
+    // .subscribe();
   }
 
   private loadTechnicalCapability(id: number) {

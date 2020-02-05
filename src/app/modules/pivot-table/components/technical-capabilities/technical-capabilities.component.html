@@ -48,9 +48,13 @@
               value="Редактировать (Уточняющая заявка)"
               (click)="enableForm()"
             />
+            <input class="btn" value="Сохранить заявку" (click)="saveRequest() "/>
           </div>
           <div class="edit-form">
-            <form [formGroup]="locationFeaturesForm" *ngIf="locationFeaturesForm" (onsubmit)="onSubmit()">
+            <form
+              [formGroup]="locationFeaturesForm"
+              *ngIf="locationFeaturesForm"
+            >
               <div [ngClass]="{'disabled-form': locationFeaturesForm.disabled}">
                 <div class="edit-form-block">
                   <div class="o-item-title">Сотовая связь</div>
