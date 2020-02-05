@@ -29,8 +29,6 @@ export class OrganizationsService {
   }
 
   getSMOTypes(): Observable<SmoType[]> {
-    return this.httpClient
-      .get(SMO_TYPES)
-      .pipe(map(response => Deserialize(response, SmoType)));
+    return this.httpClient.get(SMO_TYPES).pipe(map(response => Deserialize(response, SmoType)));
   }
 }

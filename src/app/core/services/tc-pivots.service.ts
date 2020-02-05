@@ -65,9 +65,10 @@ export class TcPivotsService {
       .pipe(map(response => Deserialize(response, LocationFeatures)));
   }
 
-  save(locationFeatures: LocationFeatures) {
-    console.log('request', Serialize(locationFeatures, LocationFeatures));
-    return this.httpClient.post(LTC, Serialize(locationFeatures, LocationFeatures));
+  save(value) {
+    // console.log('request', Serialize(locationFeatures, LocationFeatures));
+    // return this.httpClient.post(LTC, Serialize(locationFeatures, LocationFeatures));
+    const locationFeatures = Serialize(value, LocationFeatures);
   }
 }
 

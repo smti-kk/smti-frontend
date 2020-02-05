@@ -421,18 +421,13 @@
                 <div class="edit-form-block">
                   <span>Комментарий к внесенным изменениям (к заявке)</span>
                   <div class="edit-form-comment">
-                    <textarea name="" id="comment" cols="30" rows="10"></textarea>
-                    <button class="btn btn-save-comment" type="button" disabled="disabled">
-                      <i class="fas fa-check"></i>
-                    </button>
+                    <textarea formControlName="_comment" id="comment" cols="30" rows="10"></textarea>
+<!--                    <button class="btn btn-save-comment" type="button" disabled="disabled">-->
+<!--                      <i class="fas fa-check"></i>-->
+<!--                    </button>-->
                   </div>
                 </div>
-                <input
-                  [attr.disabled]="false"
-                  type="submit"
-                  class="btn btn-save-form"
-                  value="Сохранить заявку"
-                />
+                <input (click)="onSubmit()" type="submit" class="btn" value="Сохранить заявку" />
               </div>
             </form>
           </div>
@@ -543,7 +538,7 @@
             </div>
             <div class="l-content-item u-display-block">
               <div class="o-item-title">Комментарий:</div>
-              <textarea name="" cols="30" rows="10"></textarea>
+              <textarea cols="30" rows="10"></textarea>
             </div>
             <div class="l-content-item">
               <div class="c-modal-button">

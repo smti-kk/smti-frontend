@@ -4,7 +4,13 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
-import {Location, InternetAccessType, OrganizationType, SmoType, GovernmentProgram} from '@core/models';
+import {
+  Location,
+  InternetAccessType,
+  OrganizationType,
+  SmoType,
+  GovernmentProgram,
+} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {OrderingFilter} from '@shared/layout/filter-btn/filter-btn.component';
 import {OrderingDirection} from './tc-pivots.service';

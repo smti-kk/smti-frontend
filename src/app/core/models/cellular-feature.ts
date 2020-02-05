@@ -4,10 +4,11 @@ import {Quality} from '@core/models/enums';
 import {LocationFeature} from '@core/models/location-feature';
 import {Operator} from '@core/models/operator';
 import {GovernmentProgram} from '@core/models/government-program';
+import {TYPE_SERIALIZER} from '@core/utils/serializers';
 
 @inheritSerialization(LocationFeature)
 export class CellularFeature extends LocationFeature {
-  @serializeAs(MobileGeneration, 'type')
+  @serializeAs(TYPE_SERIALIZER, 'type')
   @deserializeAs(MOBILE_GENERATION_DESERIALIZER, 'type')
   private readonly _type: MobileGeneration;
 
