@@ -4,10 +4,11 @@ import {Quality} from '@core/models/enums';
 import {Operator} from '@core/models/operator';
 import {Signal, SIGNAL_ARRAY_DESERIALIZER} from '@core/models/signal';
 import {GovernmentProgram} from '@core/models/government-program';
+import {ID_SERIALIZER} from '@core/utils/serializers';
 
 @inheritSerialization(LocationFeature)
 export class TelevisionFeature extends LocationFeature {
-  @serializeAs(Signal, 'type')
+  @serializeAs(ID_SERIALIZER, 'type')
   @deserializeAs(SIGNAL_ARRAY_DESERIALIZER, 'type')
   private readonly _type: Signal[];
 

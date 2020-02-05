@@ -10,7 +10,10 @@ import {
   OrganizationsService,
 } from '@core/services';
 import {LocationFeaturesService} from '@core/services/location-features.service';
-import {LocationServiceContractsWithFilterParams, LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
+import {
+  LocationServiceContractsWithFilterParams,
+  LocationServiceOrganizationAccessPointsWithFilterParams,
+} from '@core/services/location.service';
 import {StoreService} from '@core/services/store.service';
 import {FilterTcPivotsService, TcPivotsService} from '@core/services/tc-pivots.service';
 import {AdministrativeCentersService} from '@map-wrapper/service/administrative-centers.service';

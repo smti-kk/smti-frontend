@@ -1,4 +1,4 @@
-import {autoserializeAs} from 'cerialize';
+import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
 import {Location} from '@core/models/location';
 import {AtsFeature} from '@core/models/ats-feature';
 import {LocationFeature} from '@core/models/location-feature';
@@ -8,9 +8,11 @@ import {InternetFeature} from '@core/models/internet-feature';
 import {TelevisionFeature} from '@core/models/radio-location-feature';
 import {GovernmentProgram} from '@core/models/government-program';
 import {PostFeature} from '@core/models/post-feature';
+import {ID_SERIALIZER} from '@core/utils/serializers';
 
 export class LocationFeatures {
-  @autoserializeAs(Location, 'location')
+  @deserializeAs(Location, 'location')
+  @serializeAs(ID_SERIALIZER, 'location')
   private readonly _location: Location;
 
   @autoserializeAs(CellularFeature, 'cellular')
@@ -31,6 +33,9 @@ export class LocationFeatures {
   @autoserializeAs(TelevisionFeature, 'television')
   private readonly _television: TelevisionFeature[];
 
+  @autoserializeAs('comment')
+  private readonly _comment: string;
+
   constructor(
     location: Location,
     cellular: CellularFeature[],
@@ -47,6 +52,11 @@ export class LocationFeatures {
     this._ats = ats;
     this._post = post;
     this._television = television;
+  }
+
+
+  get comment(): string {
+    return this._comment;
   }
 
   get location(): Location {
