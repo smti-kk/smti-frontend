@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Organization, OrganizationType, SmoType} from '@core/models';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
-import {ORGANIZATIONS} from '@core/constants/api';
+import {ORGANIZATIONS, ORGANIZATION} from '@core/constants/api';
 import {environment} from 'src/environments/environment';
 
 const TYPES = environment.API_BASE_URL + '/api/v1/organization-types/';
@@ -19,6 +19,12 @@ export class OrganizationsService {
 
     return this.httpClient
       .get(ORGANIZATIONS, {params})
+      .pipe(map(response => Deserialize(response, Organization)));
+  }
+
+  getByIdentifier(id: string): Observable<Organization> {
+    return this.httpClient
+      .get(ORGANIZATION.replace(':id', id))
       .pipe(map(response => Deserialize(response, Organization)));
   }
 
