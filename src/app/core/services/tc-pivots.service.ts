@@ -7,15 +7,16 @@ import {
   LocationFeatures,
   MailType,
   MobileGeneration,
-  PaginatedList,
   TrunkChannel,
 } from '@core/models';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {Deserialize, Serialize} from 'cerialize';
 import {Signal} from '@core/models/signal';
+import {PaginatedList} from '@core/models/paginated-list';
 
 const LTC = environment.API_BASE_URL + '/api/v1/technical-capabilities';
+const CLARIFY_PETITION = environment.API_BASE_URL + '/api/v1/in-clarify-petition/';
 
 export enum OrderingDirection {
   ASC,
@@ -66,9 +67,8 @@ export class TcPivotsService {
   }
 
   save(value) {
-    // console.log('request', Serialize(locationFeatures, LocationFeatures));
-    // return this.httpClient.post(LTC, Serialize(locationFeatures, LocationFeatures));
-    const locationFeatures = Serialize(value, LocationFeatures);
+    console.log('request', value, Serialize(value, LocationFeatures));
+    return this.httpClient.post(CLARIFY_PETITION, Serialize(value, LocationFeatures));
   }
 }
 
