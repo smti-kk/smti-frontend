@@ -1,10 +1,15 @@
 import {Quality} from '@core/models/enums';
-import {autoserializeAs} from 'cerialize';
+import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
 import {Operator} from '@core/models/operator';
 import {GovernmentProgram} from '@core/models/government-program';
+import {ID_SERIALIZER} from '@core/utils/serializers';
 
 export class LocationFeature {
-  @autoserializeAs(Operator, 'operator')
+  @autoserializeAs('id')
+  private readonly _id: number;
+
+  @deserializeAs(Operator, 'operator')
+  @serializeAs(ID_SERIALIZER, 'operator')
   private readonly _operator: Operator;
 
   @autoserializeAs('quality')
@@ -28,6 +33,27 @@ export class LocationFeature {
   @autoserializeAs(GovernmentProgram, 'government_program')
   private readonly _governmentProgram: GovernmentProgram;
 
+  @autoserializeAs('commissioning')
+  private readonly _commissioning: number;
+
+  @autoserializeAs('requests')
+  private readonly _requests: number;
+
+  @autoserializeAs('technical_status')
+  private readonly _technicalStatus: string;
+
+  @autoserializeAs(LocationFeature, 'previous')
+  private readonly _previous: LocationFeature;
+
+  @autoserializeAs('dismiss_date')
+  private readonly _dismissDate: string;
+
+  @autoserializeAs('clarify_petition')
+  private readonly _clarifyPetition: number;
+
+  @autoserializeAs('functional_customer')
+  private readonly _functionalCustomer: any; // todo: Установить тип
+
   constructor(
     operator: Operator,
     quality: Quality,
@@ -46,6 +72,39 @@ export class LocationFeature {
     this._planYear = planYear;
     this._planTwoYear = planTwoYear;
     this._governmentProgram = governmentProgram;
+  }
+
+
+  get id(): number {
+    return this._id;
+  }
+
+  get clarifyPetition(): number {
+    return this._clarifyPetition;
+  }
+
+  get functionalCustomer(): any {
+    return this._functionalCustomer;
+  }
+
+  get dismissDate(): string {
+    return this._dismissDate;
+  }
+
+  get previous(): LocationFeature {
+    return this._previous;
+  }
+
+  get technicalStatus(): string {
+    return this._technicalStatus;
+  }
+
+  get requests(): number {
+    return this._requests;
+  }
+
+  get commissioning(): number {
+    return this._commissioning;
   }
 
   get completed(): number {

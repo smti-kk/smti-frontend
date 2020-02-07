@@ -13,6 +13,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {EnumService} from '@core/services';
 import {forkJoin} from 'rxjs';
 import {Signal} from '@core/models/signal';
+import {mergeDeep} from '@core/utils/merge-deep';
 
 @Component({
   selector: 'app-technical-capabilities',
@@ -39,7 +40,22 @@ export class TechnicalCapabilitiesComponent {
     this.loadTechnicalCapability(route.snapshot.params.id);
   }
 
-  private loadTechnicalCapability(id: number) {
+  enableForm(): void {
+    this.locationFeaturesForm.enable();
+  }
+
+  saveRequest() {
+    // this.tcService
+    // .save(this.locationFeaturesForm.value)
+    // .subscribe((response) => console.log('Успешно сохранено', response));
+    // .subscribe();
+    this.tcService
+      .save(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures))
+      .subscribe();
+    console.log(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures));
+  }
+
+  private loadTechnicalCapability(id: number): void {
     this.spinner.show();
 
     forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
@@ -65,6 +81,7 @@ export class TechnicalCapabilitiesComponent {
       _radio: fb.array([]),
       _post: fb.array([]),
       _infomat: locationFeatures.location.infomat > 0,
+      _comment: null,
     });
 
     existingOperators.cellular.forEach(() => {

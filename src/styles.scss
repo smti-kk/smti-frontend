@@ -916,13 +916,13 @@ input[type='radio'] {
   color: #21bb42;
 }
 
-fieldset[disabled='disabled'] .c-radiobox-text:before,
+.disabled-form .c-radiobox-text:before,
 .is-disabled .c-radiobox-text:before {
   color: #bcbcbc;
 }
 
-fieldset[disabled='disabled'] .c-checkbox-text::after,
-fieldset[disabled='disabled'] .c-radiobox-text:after,
+.disabled-form .c-checkbox-text::after,
+.disabled-form .c-radiobox-text:after,
 .is-disabled .c-checkbox-text::after,
 .is-disabled .c-radiobox-text:after {
   color: #bcbcbc;
@@ -1444,4 +1444,34 @@ input[type='radio']:checked + .c-radiobox-text:after {
   & div {
     background-color: rgb(0, 157, 211, 1);
   }
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.status-pos {
+  position: absolute;
+  right: 1px;
+  bottom: -11px;
+}
+
+.pagination-count-button {
+  border: none;
+  color: #009dd3;
+  background: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  outline: none;
+}
+
+.pagination-count-button.active {
+  color: #35a584;
+}
+
+.pagination-count {
+  display: flex;
+  padding: 10px;
 }

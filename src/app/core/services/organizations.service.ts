@@ -1,10 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Organization} from '@core/models';
+import {Organization, OrganizationType, SmoType} from '@core/models';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
-import {ORGANIZATIONS} from '@core/constants/api';
+import {ORGANIZATIONS, ORGANIZATION} from '@core/constants/api';
+import {environment} from 'src/environments/environment';
+
+const TYPES = environment.API_BASE_URL + '/api/v1/organization-types/';
+const SMO_TYPES = environment.API_BASE_URL + '/api/v1/organization-smo-types/';
 
 @Injectable()
 export class OrganizationsService {
@@ -16,5 +20,21 @@ export class OrganizationsService {
     return this.httpClient
       .get(ORGANIZATIONS, {params})
       .pipe(map(response => Deserialize(response, Organization)));
+  }
+
+  getByIdentifier(id: string): Observable<Organization> {
+    return this.httpClient
+      .get(ORGANIZATION.replace(':id', id))
+      .pipe(map(response => Deserialize(response, Organization)));
+  }
+
+  getTypes(): Observable<OrganizationType[]> {
+    return this.httpClient
+      .get(TYPES)
+      .pipe(map(response => Deserialize(response, OrganizationType)));
+  }
+
+  getSMOTypes(): Observable<SmoType[]> {
+    return this.httpClient.get(SMO_TYPES).pipe(map(response => Deserialize(response, SmoType)));
   }
 }

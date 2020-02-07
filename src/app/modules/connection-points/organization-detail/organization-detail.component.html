@@ -1,0 +1,67 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<main class="main">
+  <div class="wrapper">
+    <div class="breadcrumbs">
+      <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="#">Главная</a></li>
+        <li class="breadcrumbs-item">
+          <a class="breadcrumbs-link" routerLink="/connection-points"
+            >Сводная таблица по организациям</a
+          >
+        </li>
+        <!-- <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link">
+            {{ locationFeatures.location.typeLocation }} {{ locationFeatures.location.name }} ,
+            {{ locationFeatures.location.municipalityArea }}
+          </span>
+        </li> -->
+      </ul>
+    </div>
+    <div class="l-location-info">
+      <div class="c-location-name">
+        <div class="c-location-name-item1">
+          <!-- {{ locationFeatures.location.typeLocation }} {{ locationFeatures.location.name }} -->
+        </div>
+        <!-- <div class="c-location-name-item2">{{ locationFeatures.location.municipalityArea }}</div> -->
+      </div>
+      <div class="c-location-peoples">
+        <!-- <span>{{ locationFeatures.location.peopleCount }}</span> чел. -->
+      </div>
+    </div>
+    <!-- WIP: Here we go with Organization -->
+    <div class="wip-organization" *ngIf="organization$ | async as organization">
+      <div>
+        <div>Краткое наименование: {{ organization.name }}</div>
+        <div>Полное наименование: {{ organization.fullName }}</div>
+        <div>Адрес: {{ organization.address }}</div>
+        <div>ИНН: {{ organization.inn }}</div>
+        <div>КПП: {{ organization.kpp }}</div>
+        <div>ФИАС: {{ organization.fias }}</div>
+        <div>Тип: {{ organization.type.name }}</div>
+        <div>СЗО: {{ organization.smoType.name }}</div>
+        <!-- <div>ОГРН: {{organization.ogrn}}</div>
+        <div>ОКТМО: {{organization.oktmo}}</div> -->
+      </div>
+      <br />
+      <div class="wip-organization-access-points">
+        <div *ngFor="let ap of organization.reaccesspoints" >
+          <hr>
+          <div>Адрес: {{ ap.address }}</div>
+          <!-- <div>Координата: {{ap.coordinate}}</div> -->
+          <div>Отображается: <input type="checkbox" disabled checked="{{ ap.visible }}" /></div>
+          <div>Узел доступа: {{ ap.node }}</div>
+          <div>Тип подключения: {{ ap.connectionTypeString }}</div>
+
+          <div>Оператор связи: {{ ap.contractor }}</div>
+          <!-- <div>Контракт: {{ap.type}}</div> -->
+          <div>Скорость по контракту: {{ ap.definedSpeed }}</div>
+          <!-- <div>Ширина канала: {{ap.type}}</div> -->
+          <div>Качество связи: {{ ap.quality }}</div>
+          <div>Государственная программа: {{ ap.governmentProgram.shortName }}</div>
+          <!-- <div>Статус участия: {{ap.type}}</div>
+          <div>Год реализации: {{ap.type}}</div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

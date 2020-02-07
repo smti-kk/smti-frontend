@@ -1,33 +1,3 @@
-.pagination-controls {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
-}
-
-.status-pos {
-  position: absolute;
-  right: 1px;
-  bottom: -11px;
-}
-
-.pagination-count-button {
-  border: none;
-  color: #009dd3;
-  background: transparent;
-  text-decoration: underline;
-  cursor: pointer;
-  outline: none;
-}
-
-.pagination-count-button.active {
-  color: #35a584;
-}
-
-.pagination-count {
-  display: flex;
-  padding: 10px;
-}
-
 .vendor-status-text {
   font-size: 8px;
 }

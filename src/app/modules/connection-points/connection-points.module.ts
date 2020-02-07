@@ -4,16 +4,30 @@ import {ConnectionPointsComponent} from './connection-points/connection-points.c
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '@shared/shared.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ConnectionPointsComponent,
   },
+  {
+    path: ':id',
+    component: OrganizationDetailComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [ConnectionPointsComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedModule, NgxSpinnerModule],
+  declarations: [ConnectionPointsComponent, OrganizationDetailComponent],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+  ],
 })
 export class ConnectionPointsModule {}
