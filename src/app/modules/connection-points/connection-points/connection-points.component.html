@@ -218,21 +218,21 @@
         class="pagination-count-button"
         [class.active]="itemsPerPage === 10"
         type="button"
-        (click)="itemsPerPage = 10; locations$ = loadPagedLocationWithContracts()"
+        (click)="itemsPerPage = 10; locations$ = loadPagedLocationWithOrganizationAccessPoints()"
         value="10"
       />
       <input
         class="pagination-count-button"
         [class.active]="itemsPerPage === 20"
         type="button"
-        (click)="itemsPerPage = 20; locations$ = loadPagedLocationWithContracts()"
+        (click)="itemsPerPage = 20; locations$ = loadPagedLocationWithOrganizationAccessPoints()"
         value="20"
       />
       <input
         class="pagination-count-button"
         [class.active]="itemsPerPage === 100"
         type="button"
-        (click)="itemsPerPage = 100; locations$ = loadPagedLocationWithContracts()"
+        (click)="itemsPerPage = 100; locations$ = loadPagedLocationWithOrganizationAccessPoints()"
         value="100"
       />
     </div>
