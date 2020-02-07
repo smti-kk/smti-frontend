@@ -107,7 +107,7 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     return this.tcPivots.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(lcs => {
         this.locationFeatures = lcs;
-        console.log(lcs);
+        // WIP:DELETE: console.log(lcs);
         this.spinner.hide();
       })
     );

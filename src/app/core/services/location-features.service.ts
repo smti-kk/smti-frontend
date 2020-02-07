@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {LocationFeatures} from '@core/models';
+import {LocationFeatures, PaginatedList} from '@core/models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -14,22 +14,42 @@ const TC_MOBILE = '/api/v1/tc-mobile';
 export class LocationFeaturesService {
   constructor(private httpClient: HttpClient) {}
 
-  internetFeaturesList(): Observable<LocationFeatures[]> {
-    const params = new HttpParams();
-    // .append('parent', '1904');
-
+  getInternetFeaturesList(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
-      .get(TC_INTERNET, {params})
-      .pipe(map(value => Deserialize(value, LocationFeatures)));
+      .get<any>(TC_INTERNET, {params})
+      .pipe(
+        map(response => {
+          return {
+            count: response.count,
+            next: response.next,
+            previous: response.previous,
+            results: response.results.map(item => Deserialize(item, LocationFeatures)),
+          };
+        })
+      );
   }
 
-  cellularFeaturesList(): Observable<LocationFeatures[]> {
-    const params = new HttpParams();
-    // .append('parent', '1904');
+  protected paramsInternet: HttpParams = new HttpParams();
+  
+  paginatedListInternet(page: number, pageSize: number): Observable<PaginatedList<LocationFeatures>> {
+    return this.getInternetFeaturesList(
+      this.paramsInternet.set('page', page.toString()).set('page_size', pageSize.toString())
+    );
+  }
 
+  getCellularFeaturesList(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
-      .get(TC_MOBILE, {params})
-      .pipe(map(value => Deserialize(value, LocationFeatures)));
+      .get<any>(TC_MOBILE, {params})
+      .pipe(
+        map(response => {
+          return {
+            count: response.count,
+            next: response.next,
+            previous: response.previous,
+            results: response.results.map(item => Deserialize(item, LocationFeatures)),
+          };
+        })
+      );
   }
 
   exportExcelCellular() {

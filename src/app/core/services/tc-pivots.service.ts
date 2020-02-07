@@ -67,7 +67,7 @@ export class TcPivotsService {
   }
 
   save(value) {
-    console.log('request', value, Serialize(value, LocationFeatures));
+    // WIP:DELETE: console.log('request', value, Serialize(value, LocationFeatures));
     return this.httpClient.post(CLARIFY_PETITION, Serialize(value, LocationFeatures));
   }
 }

@@ -52,7 +52,7 @@ export class TechnicalCapabilitiesComponent {
     this.tcService
       .save(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures))
       .subscribe();
-    console.log(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures));
+    // WIP:DELETE: console.log(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures));
   }
 
   private loadTechnicalCapability(id: number): void {

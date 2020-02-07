@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationFeaturesService} from '@core/services/location-features.service';
-import {LocationFeatures} from '@core/models';
+import {LocationFeatures, PaginatedList} from '@core/models';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-technical-capabilities-comparision-table',
@@ -12,21 +13,23 @@ import {OrderingDirection} from '@core/services/tc-pivots.service';
 })
 export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   isOpenedAccordion: boolean;
-  featuresInternet: LocationFeatures[];
-  featuresCellular: LocationFeatures[];
+  featuresInternet$: Observable<PaginatedList<LocationFeatures>>;
+  featuresCellular$: Observable<PaginatedList<LocationFeatures>>;
   featuresTypeSelector: FormControl;
   filterForm: FormGroup;
   featureTypes = {
     mobile: 'mobile',
     internet: 'internet',
   };
-  itemsPerPage = 10;
+
   pageNumber = 1;
+  itemsPerPage = 10;
+
   OrderingDirection = OrderingDirection;
 
   constructor(
-    private locationFeaturesService: LocationFeaturesService,
-    private spinnerService: NgxSpinnerService,
+    private serviceLocationFeatures: LocationFeaturesService,
+    private serviceSpinner: NgxSpinnerService,
     private fb: FormBuilder
   ) {
     this.buildFeaturesTypeSelector();
@@ -37,9 +40,9 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
 
   exportXLSX() {
     if (this.featuresTypeSelector.value === this.featureTypes.internet) {
-      this.locationFeaturesService.exportExcelInternet();
+      this.serviceLocationFeatures.exportExcelInternet();
     } else {
-      this.locationFeaturesService.exportExcelCellular();
+      this.serviceLocationFeatures.exportExcelCellular();
     }
   }
 
@@ -50,7 +53,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
       if (value === this.featureTypes.internet) {
         this.loadInternetFeatures();
       } else if (value === this.featureTypes.mobile) {
-        this.loadMobileFeatures();
+        // this.loadMobileFeatures();
       }
     });
   }
@@ -73,18 +76,22 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   }
 
   private loadInternetFeatures() {
-    this.spinnerService.show();
-    this.locationFeaturesService.internetFeaturesList().subscribe(value => {
-      this.featuresInternet = value;
-      this.spinnerService.hide();
-    });
+    this.serviceSpinner.show();
+    this.featuresInternet$ = this.getPaginatedListOfInternet();
   }
 
-  private loadMobileFeatures() {
-    this.spinnerService.show();
-    this.locationFeaturesService.cellularFeaturesList().subscribe(value => {
-      this.featuresCellular = value;
-      this.spinnerService.hide();
-    });
+  // private loadMobileFeatures() {
+  //   this.serviceSpinner.show();
+  //   this.serviceLocationFeatures.getCellularFeaturesList().subscribe(value => {
+  //     this.featuresCellular$ = value;
+  //     this.serviceSpinner.hide();
+  //   });
+  // }
+  onPageChange(pageNumber: number) {
+    this.pageNumber = pageNumber;
+    this.featuresInternet$ = this.getPaginatedListOfInternet();
+  }
+  getPaginatedListOfInternet() {
+    return this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage);
   }
 }
