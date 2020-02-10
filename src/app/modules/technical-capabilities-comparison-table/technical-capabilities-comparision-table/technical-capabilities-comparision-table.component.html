@@ -255,8 +255,7 @@
       <div
         class="l-table l-table-compare"
         *ngFor="
-          let feature of featuresInternet
-            | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}
+          let feature of (featuresInternet$ | async)?.results | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}
         "
       >
         <div class="l-table-column">

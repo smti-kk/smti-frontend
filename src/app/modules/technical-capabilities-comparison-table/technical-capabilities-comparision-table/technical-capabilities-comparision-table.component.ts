@@ -5,6 +5,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-technical-capabilities-comparision-table',
@@ -32,11 +33,13 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     private serviceSpinner: NgxSpinnerService,
     private fb: FormBuilder
   ) {
+
+  }
+
+  ngOnInit() {
     this.buildFeaturesTypeSelector();
     this.buildFilterForm();
   }
-
-  ngOnInit() {}
 
   exportXLSX() {
     if (this.featuresTypeSelector.value === this.featureTypes.internet) {
@@ -77,7 +80,10 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
 
   private loadInternetFeatures() {
     this.serviceSpinner.show();
-    this.featuresInternet$ = this.getPaginatedListOfInternet();
+    this.featuresInternet$ = this.getPaginatedListOfInternet()
+      .pipe(tap(() => {
+        this.serviceSpinner.hide();
+      }));
   }
 
   // private loadMobileFeatures() {
