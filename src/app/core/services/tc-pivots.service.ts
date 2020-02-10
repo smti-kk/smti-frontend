@@ -34,8 +34,8 @@ interface TcFilters {
   hasTelephone: boolean;
   mailType: MailType;
   tvType: Signal;
-  internet: {[providerId: string]: boolean}[];
-  mobile: {[providerId: string]: boolean}[];
+  internet: { [providerId: string]: boolean }[];
+  mobile: { [providerId: string]: boolean }[];
   mobileType: MobileGeneration;
   internetType: TrunkChannel;
   locationName: string;
@@ -43,7 +43,8 @@ interface TcFilters {
 
 @Injectable()
 export class TcPivotsService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+  }
 
   list(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
@@ -105,7 +106,7 @@ export class FilterTcPivotsService extends TcPivotsService {
 
   exportExcel() {
     window.location.href =
-      environment.API_BASE_URL + '/api/v1/ltc/export/?' + this.params.toString();
+      environment.API_BASE_URL + '/api/v1/technical-capabilities/export/?' + this.params.toString();
   }
 
   protected setFilterOrdering(order?: OrderingFilter) {
@@ -150,7 +151,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setMobileOperatorFilter(providers: {[providerId: string]: boolean}[]) {
+  private setMobileOperatorFilter(providers: { [providerId: string]: boolean }[]) {
     if (!providers) {
       return;
     }
@@ -164,7 +165,7 @@ export class FilterTcPivotsService extends TcPivotsService {
       });
   }
 
-  private setInternetOperatorFilter(providers: {[providerId: string]: boolean}[]) {
+  private setInternetOperatorFilter(providers: { [providerId: string]: boolean }[]) {
     if (!providers) {
       return;
     }
