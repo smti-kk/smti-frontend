@@ -31,7 +31,7 @@ export class CommunicationContractsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
 
   constructor(
-    private serviceLocation: LocationServiceContractsWithFilterParams,
+    public serviceLocation: LocationServiceContractsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder
