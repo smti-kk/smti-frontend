@@ -214,7 +214,7 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
   }
 
   exportExcel() {
-    window.location.href = LOCATIONS_WITH_CONNECTION_POINTS + '/export/?' + this.params.toString();
+    window.location.href = LOCATIONS_WITH_CONNECTION_POINTS + 'export/?' + this.params.toString();
   }
   private setOrder(order?: OrderingFilter) {
     if (order && order.orderingDirection === OrderingDirection.ASC) {
