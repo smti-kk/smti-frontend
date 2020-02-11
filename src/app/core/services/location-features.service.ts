@@ -12,7 +12,11 @@ const TC_MOBILE = '/api/v1/tc-mobile';
 
 @Injectable()
 export class LocationFeaturesService {
-  constructor(private httpClient: HttpClient) {}
+  protected paramsInternet: HttpParams = new HttpParams();
+  protected paramsCellular: HttpParams = new HttpParams();
+
+  constructor(private httpClient: HttpClient) {
+  }
 
   getInternetFeaturesList(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
@@ -29,14 +33,6 @@ export class LocationFeaturesService {
       );
   }
 
-  protected paramsInternet: HttpParams = new HttpParams();
-  
-  paginatedListInternet(page: number, pageSize: number): Observable<PaginatedList<LocationFeatures>> {
-    return this.getInternetFeaturesList(
-      this.paramsInternet.set('page', page.toString()).set('page_size', pageSize.toString())
-    );
-  }
-
   getCellularFeaturesList(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
       .get<any>(TC_MOBILE, {params})
@@ -50,6 +46,18 @@ export class LocationFeaturesService {
           };
         })
       );
+  }
+
+  paginatedListInternet(page: number, pageSize: number): Observable<PaginatedList<LocationFeatures>> {
+    return this.getInternetFeaturesList(
+      this.paramsInternet.set('page', page.toString()).set('page_size', pageSize.toString())
+    );
+  }
+
+  paginatedListCellular(page: number, pageSize: number): Observable<PaginatedList<LocationFeatures>> {
+    return this.getCellularFeaturesList(
+      this.paramsCellular.set('page', page.toString()).set('page_size', pageSize.toString())
+    );
   }
 
   exportExcelCellular() {

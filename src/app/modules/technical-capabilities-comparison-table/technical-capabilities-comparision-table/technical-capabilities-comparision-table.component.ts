@@ -86,18 +86,24 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
       }));
   }
 
-  // private loadMobileFeatures() {
-  //   this.serviceSpinner.show();
-  //   this.serviceLocationFeatures.getCellularFeaturesList().subscribe(value => {
-  //     this.featuresCellular$ = value;
-  //     this.serviceSpinner.hide();
-  //   });
-  // }
+  private loadMobileFeatures() {
+    this.serviceSpinner.show();
+    this.featuresCellular$ = this.getPaginatedListOfCellular()
+      .pipe(tap(() => {
+        this.serviceSpinner.hide();
+      }));
+  }
+
   onPageChange(pageNumber: number) {
     this.pageNumber = pageNumber;
-    this.featuresInternet$ = this.getPaginatedListOfInternet();
+    // this.featuresInternet$ = this.getPaginatedListOfInternet();
   }
+
   getPaginatedListOfInternet() {
     return this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage);
+  }
+
+  getPaginatedListOfCellular() {
+    return this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage);
   }
 }
