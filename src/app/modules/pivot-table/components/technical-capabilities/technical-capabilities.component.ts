@@ -46,8 +46,11 @@ export class TechnicalCapabilitiesComponent {
 
   saveRequest() {
     const locationFeatures = Object.assign({}, this.locationFeatures);
+
+    console.log('actual: ', this.locationFeaturesForm.value);
+    console.log('old: ', locationFeatures);
     this.tcService
-      .save(mergeDeep(locationFeatures, this.locationFeaturesForm.value))
+      .save(new LocationFeatures(this.locationFeaturesForm.value))
       .subscribe();
   }
 
@@ -77,6 +80,7 @@ export class TechnicalCapabilitiesComponent {
     existingOperators: ExistingOperators
   ): FormGroup {
     const form = fb.group({
+      _location: locationFeatures.location.id,
       _cellular: fb.array([]),
       _internet: fb.array([]),
       _television: fb.array([]),
@@ -85,6 +89,7 @@ export class TechnicalCapabilitiesComponent {
       _post: fb.array([]),
       _infomat: locationFeatures.location.infomat > 0,
       _comment: null,
+      _id: null
     });
 
     existingOperators.cellular.forEach(() => {
@@ -95,6 +100,7 @@ export class TechnicalCapabilitiesComponent {
           _type: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null
         })
       );
     });
@@ -107,6 +113,7 @@ export class TechnicalCapabilitiesComponent {
           _channel: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null
         })
       );
     });
@@ -119,6 +126,7 @@ export class TechnicalCapabilitiesComponent {
           _type: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null
         })
       );
     });
@@ -130,6 +138,7 @@ export class TechnicalCapabilitiesComponent {
           _quantityPayphone: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null
         })
       );
     });
@@ -142,6 +151,7 @@ export class TechnicalCapabilitiesComponent {
           _channel: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null
         })
       );
     });
@@ -153,6 +163,7 @@ export class TechnicalCapabilitiesComponent {
           _type: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null
         })
       );
     });

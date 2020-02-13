@@ -43,7 +43,15 @@ export class TcPivotsService {
       .pipe(map(response => Deserialize(response, LocationFeatures)));
   }
 
-  save(value) {
+  save(value: LocationFeatures) {
+
+    value.cellular = value.cellular.filter((c: any) => c._operator !== null); // todo: исправить any
+    value.post = value.post.filter((c: any) => c._operator !== null); // todo: исправить any
+    value.radio = value.radio.filter((c: any) => c._operator !== null); // todo: исправить any
+    value.television = value.television.filter((c: any) => c._operator !== null); // todo: исправить any
+    value.internet = value.internet.filter((c: any) => c._operator !== null); // todo: исправить any
+    value.ats = value.ats.filter((c: any) => c._operator !== null); // todo: исправить any
+
     console.log('request', value, Serialize(value, LocationFeatures));
     return this.httpClient.post(CLARIFY_PETITION, Serialize(value, LocationFeatures));
   }
