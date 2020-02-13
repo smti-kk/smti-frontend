@@ -232,9 +232,7 @@
           <!--          Результатов поиска: <span>115</span> из <span>9 345</span>-->
           Результатов:
           <span>{{
-            this.featuresTypeSelector.value === this.featureTypes.internet
-              ? this.featuresInternet?.length
-              : this.featuresCellular?.length
+            this.features$
             }}</span>
         </div>
         <div class="c-filter-export">
@@ -244,19 +242,18 @@
     </div>
     <div class="l-table u-table-header l-table-compare">
       <div class="l-table-column">Информация о нас.пункте</div>
-      <div class="l-table-column">сейчас 2019</div>
-      <div class="l-table-column">план 2020</div>
-      <div class="l-table-column">план 2021</div>
-      <div class="l-table-column">архив 2018</div>
+      <div class="l-table-column">сейчас {{currentYear}}</div>
+      <div class="l-table-column">план {{currentYear+1}}</div>
+      <div class="l-table-column">план {{currentYear+2}}</div>
+      <div class="l-table-column">архив {{currentYear-1}}</div>
     </div>
 
     <!--    INTERNET  -->
 
-    <div *ngIf="featuresTypeSelector.value === featureTypes.internet">
+    <div *ngIf="featuresTypeSelector.value === featureTypes.internet && features$ | async as features">
       <div
         class="l-table l-table-compare"
-        *ngFor="
-          let feature of (featuresInternet$ | async)?.results | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}
+        *ngFor=" let feature of features.results | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber, totalItems: features.count}
         "
       >
         <div class="l-table-column">
@@ -354,11 +351,11 @@
     <!--    INTERNET END -->
     <!--    MOBILE -->
 
-    <div *ngIf="featuresTypeSelector.value === featureTypes.mobile">
+    <div *ngIf="featuresTypeSelector.value === featureTypes.mobile && features$ | async as features">
       <div
         class="l-table l-table-compare"
         *ngFor="
-            let feature of (featuresCellular$ | async)?.results | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber}
+            let feature of features.results | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber, totalItems: features.count}
         "
       >
         <div class="l-table-column">
@@ -448,7 +445,7 @@
     <!--    MOBILE END -->
     <div
       style="display: flex; justify-content: flex-end"
-      *ngIf="featuresInternet || featuresCellular"
+      *ngIf="features$"
     >
       <div class="pagination-count">
         <div style="margin-right: 13px">Количество строк на странице:</div>
@@ -478,9 +475,9 @@
   </div>
 
   <pagination-controls
-    *ngIf="this.featuresInternet"
+    *ngIf="this.features$"
     class="pagination-controls"
-    (pageChange)="pageNumber = $event"
+    (pageChange)="onPageChange($event)"
     previousLabel="Предыдущая страница"
     nextLabel="Следующая страница"
   >

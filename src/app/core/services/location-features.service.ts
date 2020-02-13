@@ -7,8 +7,8 @@ import {Deserialize} from 'cerialize';
 import {environment} from '../../../environments/environment';
 import {TECHNICAL_CAPABILITIES} from '@core/constants/api';
 
-const TC_INTERNET = '/api/v1/tc-internet';
-const TC_MOBILE = '/api/v1/tc-mobile';
+const TC_INTERNET = '/api/v1/tc-internet/';
+const TC_MOBILE = '/api/v1/tc-mobile/';
 
 @Injectable()
 export class LocationFeaturesService {

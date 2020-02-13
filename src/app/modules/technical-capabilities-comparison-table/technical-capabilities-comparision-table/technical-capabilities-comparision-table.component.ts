@@ -14,8 +14,7 @@ import {tap} from 'rxjs/operators';
 })
 export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   isOpenedAccordion: boolean;
-  featuresInternet$: Observable<PaginatedList<LocationFeatures>>;
-  featuresCellular$: Observable<PaginatedList<LocationFeatures>>;
+  features$: Observable<PaginatedList<LocationFeatures>>;
   featuresTypeSelector: FormControl;
   filterForm: FormGroup;
   featureTypes = {
@@ -25,6 +24,8 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
 
   pageNumber = 1;
   itemsPerPage = 10;
+
+  currentYear: number;
 
   OrderingDirection = OrderingDirection;
 
@@ -39,6 +40,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   ngOnInit() {
     this.buildFeaturesTypeSelector();
     this.buildFilterForm();
+    this.currentYear = new Date().getFullYear();
   }
 
   exportXLSX() {
@@ -53,11 +55,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     this.featuresTypeSelector = this.fb.control(null);
 
     this.featuresTypeSelector.valueChanges.subscribe(value => {
-      if (value === this.featureTypes.internet) {
-        this.loadInternetFeatures();
-      } else if (value === this.featureTypes.mobile) {
-        // this.loadMobileFeatures();
-      }
+        this.loadFeatures();
     });
   }
 
@@ -78,17 +76,11 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     });
   }
 
-  private loadInternetFeatures() {
+  private loadFeatures() {
     this.serviceSpinner.show();
-    this.featuresInternet$ = this.getPaginatedListOfInternet()
-      .pipe(tap(() => {
-        this.serviceSpinner.hide();
-      }));
-  }
-
-  private loadMobileFeatures() {
-    this.serviceSpinner.show();
-    this.featuresCellular$ = this.getPaginatedListOfCellular()
+    this.features$ = (this.featuresTypeSelector.value === this.featureTypes.internet
+      ? this.getPaginatedListOfInternet()
+      : this.getPaginatedListOfCellular())
       .pipe(tap(() => {
         this.serviceSpinner.hide();
       }));
@@ -96,7 +88,12 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.pageNumber = pageNumber;
-    // this.featuresInternet$ = this.getPaginatedListOfInternet();
+    this.features$ = (this.featuresTypeSelector.value === this.featureTypes.internet
+      ? this.getPaginatedListOfInternet()
+      : this.getPaginatedListOfCellular())
+      .pipe(tap(() => {
+        this.serviceSpinner.hide();
+      }));
   }
 
   getPaginatedListOfInternet() {
