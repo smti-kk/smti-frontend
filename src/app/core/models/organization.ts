@@ -14,6 +14,9 @@ export class Organization {
   @autoserializeAs('full_name')
   private readonly _fullName: string;
 
+  @autoserializeAs('name')
+  private readonly _name: string;
+
   @autoserializeAs('id')
   private readonly _id: number;
 
@@ -51,6 +54,7 @@ export class Organization {
     address: string,
     fias: string,
     fullName: string,
+    name: string,
     id: number,
     inn: number,
     kpp: number,
@@ -63,6 +67,7 @@ export class Organization {
     this._address = address;
     this._fias = fias;
     this._fullName = fullName;
+    this._name = name;
     this._id = id;
     this._inn = inn;
     this._kpp = kpp;
@@ -91,6 +96,10 @@ export class Organization {
 
   get fullName(): string {
     return this._fullName;
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get id(): number {

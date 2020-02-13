@@ -29,9 +29,11 @@
       </div>
     </div>
     <!-- WIP: Here we go with Organization -->
+    <input type="button" value="Редактировать" (click)="disabled = !disabled">
+    <p>{{disabled}}</p>
     <div class="wip-organization" *ngIf="organization$ | async as organization">
       <div>
-        <div>Краткое наименование: {{ organization.name }}</div>
+        <div>Краткое наименование: {{ organization.name }} <input type="text" value="{{organization.name}}"></div>
         <div>Полное наименование: {{ organization.fullName }}</div>
         <div>Адрес: {{ organization.address }}</div>
         <div>ИНН: {{ organization.inn }}</div>

@@ -11,10 +11,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class OrganizationDetailComponent implements OnInit {
   organization$: Observable<Organization>;
+  disabled: boolean;
+
   constructor(
     private serviceOrganizations: OrganizationsService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.disabled = true;
+  }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
