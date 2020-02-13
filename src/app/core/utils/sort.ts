@@ -17,3 +17,13 @@ export const sortStringAscCompareFn = field => {
     }
   };
 };
+
+interface HasId {
+  id: number;
+}
+
+export const popToTop = <T extends HasId>(array: T[], item: T) => {
+  array = array.filter(i => i.id !== item.id);
+  array.unshift(item);
+  return array;
+};

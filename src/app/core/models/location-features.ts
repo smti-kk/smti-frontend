@@ -1,7 +1,6 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
 import {Location} from '@core/models/location';
 import {AtsFeature} from '@core/models/ats-feature';
-import {LocationFeature} from '@core/models/location-feature';
 import {CellularFeature} from '@core/models/cellular-feature';
 import {RadioFeature} from '@core/models/radio-feature';
 import {InternetFeature} from '@core/models/internet-feature';
@@ -53,7 +52,6 @@ export class LocationFeatures {
     this._post = post;
     this._television = television;
   }
-
 
   get comment(): string {
     return this._comment;

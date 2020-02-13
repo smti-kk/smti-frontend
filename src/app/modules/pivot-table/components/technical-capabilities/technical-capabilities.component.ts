@@ -45,14 +45,16 @@ export class TechnicalCapabilitiesComponent {
   }
 
   saveRequest() {
-    // this.tcService
-    // .save(this.locationFeaturesForm.value)
-    // .subscribe((response) => console.log('Успешно сохранено', response));
-    // .subscribe();
+    const locationFeatures = Object.assign({}, this.locationFeatures);
     this.tcService
-      .save(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures))
+      .save(mergeDeep(locationFeatures, this.locationFeaturesForm.value))
       .subscribe();
-    console.log(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures));
+  }
+
+  cancelEdit() {
+    this.locationFeaturesForm.reset();
+    this.locationFeaturesForm.patchValue(this.locationFeatures);
+    this.locationFeaturesForm.disable();
   }
 
   private loadTechnicalCapability(id: number): void {
@@ -60,9 +62,10 @@ export class TechnicalCapabilitiesComponent {
 
     forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
       response => {
-        this.locationFeaturesForm = this.buildForm(this.fb, response[0], response[1]);
+        this.existingOperators = response[1].sortByLocationFeatures(response[0]);
         this.locationFeatures = response[0];
-        this.existingOperators = response[1];
+
+        this.locationFeaturesForm = this.buildForm(this.fb, this.locationFeatures, this.existingOperators);
         this.spinner.hide();
       }
     );
@@ -154,10 +157,9 @@ export class TechnicalCapabilitiesComponent {
       );
     });
 
+    console.log('form:', form.value, locationFeatures);
+
     form.patchValue(locationFeatures);
-
-    form.valueChanges.subscribe(value => console.log(value));
-
     form.disable();
 
     return form;

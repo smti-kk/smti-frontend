@@ -12,7 +12,7 @@
     "unified-signatures": true,
     "typedef": true,
     "only-arrow-functions": true,
-    "adjacent-overload-signatures": true,
+    "adjacent-overload-signatures": false,
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
