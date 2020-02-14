@@ -3,8 +3,8 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Organization, OrganizationType, SmoType} from '@core/models';
 import {map} from 'rxjs/operators';
-import {Deserialize} from 'cerialize';
-import {ORGANIZATIONS, ORGANIZATION} from '@core/constants/api';
+import {Deserialize, Serialize} from 'cerialize';
+import {ORGANIZATION, ORGANIZATIONS} from '@core/constants/api';
 import {environment} from 'src/environments/environment';
 
 const TYPES = environment.API_BASE_URL + '/api/v1/organization-types/';
@@ -38,7 +38,19 @@ export class OrganizationsService {
     return this.httpClient.get(SMO_TYPES).pipe(map(response => Deserialize(response, SmoType)));
   }
 
-  save() {
+  save(value): Observable<Organization> {
+    console.log('in service: ', value);
+    const id = value._id;
+    const url = ORGANIZATION.replace(':id', id.toString());
+    const sdata = Serialize(value, Organization);
+    if (sdata.type_smo === undefined) { // TODO какого хера сериализатор вместо null устанавливает undefined
+      sdata.type_smo = null;
+    }
+    if (sdata.type === undefined) { // TODO какого хера сериализатор вместо null устанавливает undefined
+      sdata.type = null;
+    }
 
+    return this.httpClient.patch<Organization>(url,  sdata)
+      .pipe(map(response => Deserialize(response, Organization)));
   }
 }

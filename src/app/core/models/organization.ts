@@ -1,8 +1,9 @@
-import {autoserializeAs} from 'cerialize';
+import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
 import {OrganizationType} from '@core/models/organization-type';
 import {SmoType} from '@core/models/smo-type';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Contract} from '@core/models/contract';
+import {ID_SERIALIZER} from '@core/utils/serializers';
 
 export class Organization {
   @autoserializeAs('address')
@@ -13,6 +14,9 @@ export class Organization {
 
   @autoserializeAs('full_name')
   private readonly _fullName: string;
+
+  @autoserializeAs('name')
+  private readonly _name: string;
 
   @autoserializeAs('id')
   private readonly _id: number;
@@ -29,10 +33,12 @@ export class Organization {
   @autoserializeAs(Reaccesspoint, 'reaccesspoints')
   private readonly _reaccesspoints: Reaccesspoint[];
 
-  @autoserializeAs(OrganizationType, 'type')
+  @deserializeAs(OrganizationType, 'type')
+  @serializeAs(ID_SERIALIZER, 'type')
   private readonly _type: OrganizationType;
 
-  @autoserializeAs(SmoType, 'type_smo')
+  @deserializeAs(SmoType, 'type_smo')
+  @serializeAs(ID_SERIALIZER, 'type_smo')
   private readonly _smoType: SmoType;
 
   @autoserializeAs(Contract, 'contract_set')
@@ -51,6 +57,7 @@ export class Organization {
     address: string,
     fias: string,
     fullName: string,
+    name: string,
     id: number,
     inn: number,
     kpp: number,
@@ -63,6 +70,7 @@ export class Organization {
     this._address = address;
     this._fias = fias;
     this._fullName = fullName;
+    this._name = name;
     this._id = id;
     this._inn = inn;
     this._kpp = kpp;
@@ -91,6 +99,10 @@ export class Organization {
 
   get fullName(): string {
     return this._fullName;
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get id(): number {
