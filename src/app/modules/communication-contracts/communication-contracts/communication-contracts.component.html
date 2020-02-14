@@ -3,18 +3,18 @@
   <div class="wrapper">
     <h1>Сводная таблица - Контракты услуг связи</h1>
     <div class="c-filter">
-      <div class="c-accordion">
-        <div class="c-accordion-title">
-          <div class="c-filter-icon">Фильтры</div>
-          <div class="c-accordion-button"></div>
-        </div>
-        <div class="c-accordion-body" style="display: block;">
-          <form [formGroup]="form">
-            <div class="l-container">
-              <div class="l-container-item js-filter-button">
-                <app-filter-btn
-                  formControlName="order"
-                  [orderings]="[
+      <accordion class="c-accordion">
+        <group>
+          <accordion-header class="c-accordion-title">
+            <div class="c-filter-icon">Фильтры</div>
+          </accordion-header>
+          <div>
+            <form [formGroup]="form">
+              <div class="l-container">
+                <div class="l-container-item js-filter-button">
+                  <app-filter-btn
+                    formControlName="order"
+                    [orderings]="[
                     {
                       name: 'Нас.пункт',
                       value: 'name',
@@ -22,72 +22,73 @@
                     },
                     {name: 'Район', value: 'parent', orderingDirection: OrderingDirection.UNDEFINED}
                   ]"
-                >
-                </app-filter-btn>
+                  >
+                  </app-filter-btn>
+                </div>
+                <div class="l-container-item">
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Населенный пункт:</div>
+                      <select formControlName="location">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
+                          item.fullName
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Наим. организации:</div>
+                      <input formControlName="organization" type="text"/>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Номер контракта:</div>
+                      <input formControlName="contract" type="text"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="l-container-item">
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Район:</div>
+                      <select formControlName="parent">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
+                          item.fullName
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Оператор связи:</div>
+                      <input formControlName="contractor" type="text"/>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Тип подключения:</div>
+                      <select formControlName="connectionType">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fInternetAccessTypes$ | async">{{
+                          item.name
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="l-container-item">
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Населенный пункт:</div>
-                    <select formControlName="location">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
-                        item.fullName
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Наим. организации:</div>
-                    <input formControlName="organization" type="text"/>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Номер контракта:</div>
-                    <input formControlName="contract" type="text"/>
-                  </div>
-                </div>
-              </div>
-              <div class="l-container-item">
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Район:</div>
-                    <select formControlName="parent">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
-                        item.fullName
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Оператор связи:</div>
-                    <input formControlName="contractor" type="text"/>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Тип подключения:</div>
-                    <select formControlName="connectionType">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fInternetAccessTypes$ | async">{{
-                        item.name
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
-          </form>
-        </div>
-      </div>
+              <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
+            </form>
+          </div>
+        </group>
+      </accordion>
       <div class="c-filter-info">
         <div class="c-filter-result">
-          <!-- Результатов поиска: <span>{{locations.count}}</span> -->
+           Результатов поиска: <span>{{(locations$ | async)?.count}}</span>
         </div>
         <div class="c-filter-export">
           <input
@@ -98,16 +99,16 @@
         </div>
       </div>
     </div>
-    <div class="c-contract" *ngIf="locations$ | async as locations">
+    <div class="c-contract">
       <div
         class="c-contract-item"
         *ngFor="
-          let location of locations.results
+          let location of (locations$ | async)?.results
             | paginate
               : {
                   itemsPerPage: itemsPerPage,
                   currentPage: pageNumber,
-                  totalItems: locations.count
+                  totalItems: (locations$ | async)?.count
                 }
         "
       >
@@ -188,33 +189,34 @@
         </accordion>
       </div>
     </div>
-  </div>
-  <div style="display: flex; justify-content: flex-end">
-    <div class="pagination-count">
-      <div style="margin-right: 13px">Количество строк на странице:</div>
-      <input
-        class="pagination-count-button"
-        [class.active]="itemsPerPage === 10"
-        type="button"
-        (click)="itemsPerPage = 10; locations$ = loadPagedLocationWithContracts()"
-        value="10"
-      />
-      <input
-        class="pagination-count-button"
-        [class.active]="itemsPerPage === 20"
-        type="button"
-        (click)="itemsPerPage = 20; locations$ = loadPagedLocationWithContracts()"
-        value="20"
-      />
-      <input
-        class="pagination-count-button"
-        [class.active]="itemsPerPage === 100"
-        type="button"
-        (click)="itemsPerPage = 100; locations$ = loadPagedLocationWithContracts()"
-        value="100"
-      />
+    <div style="display: flex; justify-content: flex-end">
+      <div class="pagination-count">
+        <div style="margin-right: 13px">Количество строк на странице:</div>
+        <input
+          class="pagination-count-button"
+          [class.active]="itemsPerPage === 10"
+          type="button"
+          (click)="itemsPerPage = 10; locations$ = loadPagedLocationWithContracts()"
+          value="10"
+        />
+        <input
+          class="pagination-count-button"
+          [class.active]="itemsPerPage === 20"
+          type="button"
+          (click)="itemsPerPage = 20; locations$ = loadPagedLocationWithContracts()"
+          value="20"
+        />
+        <input
+          class="pagination-count-button"
+          [class.active]="itemsPerPage === 100"
+          type="button"
+          (click)="itemsPerPage = 100; locations$ = loadPagedLocationWithContracts()"
+          value="100"
+        />
+      </div>
     </div>
   </div>
+
   <pagination-controls
     class="pagination-controls"
     nextLabel="Следующая страница"

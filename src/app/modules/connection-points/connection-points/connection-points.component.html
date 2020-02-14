@@ -3,18 +3,18 @@
   <div class="wrapper">
     <h1>Сводные данные по организациям</h1>
     <div class="c-filter">
-      <div class="c-accordion">
-        <div class="c-accordion-title">
-          <div class="c-filter-icon">Фильтры</div>
-          <div class="c-accordion-button"></div>
-        </div>
-        <div class="c-accordion-body" style="display: block;">
-          <form [formGroup]="form">
-            <div class="l-container">
-              <div class="l-container-item js-filter-button">
-                <app-filter-btn
-                  formControlName="order"
-                  [orderings]="[
+      <accordion class="c-accordion">
+        <group>
+          <accordion-header class="c-accordion-title">
+            <div class="c-filter-icon">Фильтры</div>
+          </accordion-header>
+          <div>
+            <form [formGroup]="form">
+              <div class="l-container">
+                <div class="l-container-item js-filter-button">
+                  <app-filter-btn
+                    formControlName="order"
+                    [orderings]="[
                     {
                       name: 'Нас.пункт',
                       value: 'name',
@@ -22,101 +22,102 @@
                     },
                     {name: 'Район', value: 'parent', orderingDirection: OrderingDirection.UNDEFINED}
                   ]"
-                >
-                </app-filter-btn>
+                  >
+                  </app-filter-btn>
+                </div>
+                <div class="l-container-item">
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Населенный пункт:</div>
+                      <select formControlName="location">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
+                          item.fullName
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Тип учреждения:</div>
+                      <select formControlName="type">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
+                          item.name
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Тип СЗО:</div>
+                      <select formControlName="smo">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option
+                          [ngValue]="item"
+                          *ngFor="let item of fOrganizationSMOTypes$ | async"
+                        >{{ item.name }}</option
+                        >
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Наим. организации:</div>
+                      <input formControlName="organization" type="text"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="l-container-item">
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Район:</div>
+                      <select formControlName="parent">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
+                          item.fullName
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Подключение:</div>
+                      <select formControlName="connectionType">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fInternetAccessTypes$ | async">{{
+                          item.name
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Контракт:</div>
+                      <select formControlName="contractType">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fGovermentPrograms$ | async">{{
+                          item.shortName
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Оператор связи:</div>
+                      <input formControlName="contractor" type="text"/>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="l-container-item">
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Населенный пункт:</div>
-                    <select formControlName="location">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
-                        item.fullName
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Тип учреждения:</div>
-                    <select formControlName="type">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
-                        item.name
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Тип СЗО:</div>
-                    <select formControlName="smo">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option
-                        [ngValue]="item"
-                        *ngFor="let item of fOrganizationSMOTypes$ | async"
-                      >{{ item.name }}</option
-                      >
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Наим. организации:</div>
-                    <input formControlName="organization" type="text"/>
-                  </div>
-                </div>
-              </div>
-              <div class="l-container-item">
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Район:</div>
-                    <select formControlName="parent">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
-                        item.fullName
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Подключение:</div>
-                    <select formControlName="connectionType">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fInternetAccessTypes$ | async">{{
-                        item.name
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Контракт:</div>
-                    <select formControlName="contractType">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fGovermentPrograms$ | async">{{
-                        item.shortName
-                        }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="input">
-                    <div class="o-item-title">Оператор связи:</div>
-                    <input formControlName="contractor" type="text"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
-          </form>
-        </div>
-      </div>
+              <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
+            </form>
+          </div>
+        </group>
+      </accordion>
       <div class="c-filter-info">
         <div class="c-filter-result">
-          <!-- Результатов поиска: <span>{{locations.count}}</span> -->
+           Результатов поиска: <span>{{(locations$ | async)?.count}}</span>
         </div>
         <div class="c-filter-export">
           <input
@@ -127,16 +128,16 @@
         </div>
       </div>
     </div>
-    <div class="c-contract" *ngIf="locations$ | async as locations">
+    <div class="c-contract">
       <div
         class="c-contract-item"
         *ngFor="
-          let location of locations.results
+          let location of (locations$ | async)?.results
             | paginate
               : {
                   itemsPerPage: itemsPerPage,
                   currentPage: pageNumber,
-                  totalItems: locations.count
+                  totalItems: (locations$ | async)?.count
                 }
         "
       >

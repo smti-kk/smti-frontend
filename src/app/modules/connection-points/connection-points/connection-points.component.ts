@@ -13,7 +13,7 @@ import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/ser
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {share, tap} from 'rxjs/operators';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
 
 @Component({
@@ -50,7 +50,8 @@ export class ConnectionPointsComponent implements OnInit {
     this.locations$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
-      })
+      }),
+      share()
     );
 
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
@@ -87,6 +88,6 @@ export class ConnectionPointsComponent implements OnInit {
   }
 
   loadPagedLocationWithOrganizationAccessPoints() {
-    return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage);
+    return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 }

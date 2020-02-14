@@ -5,255 +5,255 @@
       <h1>Сводная таблица - Сравнение технических возмоностей</h1>
       <div style="width: 215px;height: 23px;">
         <select [formControl]="featuresTypeSelector">
-          <option [value]="null">Выберите тех. возможность</option>
           <option value="internet">Интернет</option>
           <option value="mobile">Сотовая связь</option>
         </select>
       </div>
     </div>
-    <div class="c-filter">
-      <div class="c-accordion" style="opacity: 0.6">
-        <div class="c-accordion-title" (click)="isOpenedAccordion = !isOpenedAccordion">
-          <div class="c-filter-icon">Фильтры</div>
-          <div class="c-accordion-button" [class.active]="isOpenedAccordion"></div>
-        </div>
-        <div class="c-accordion-body">
-          <form [formGroup]="filterForm">
-            <div class="l-container">
-              <div class="l-container-item js-filter-button">
-                <app-filter-btn
-                  formControlName="order"
-                  [orderings]="[
-                    {
-                      name: 'Нас.пункт',
-                      value: 'name',
-                      orderingDirection: OrderingDirection.UNDEFINED
-                    },
-                    {
-                      name: 'Район',
-                      value: 'parent',
-                      orderingDirection: OrderingDirection.UNDEFINED
-                    },
-                    {
-                      name: 'Численность',
-                      value: 'people_count',
-                      orderingDirection: OrderingDirection.UNDEFINED
-                    }
-                  ]"
-                >
-                </app-filter-btn>
+    <div class="c-filter" *ngIf="featuresTypeSelector.value">
+      <accordion class="c-accordion">
+        <group>
+          <accordion-header class="c-accordion-title">
+            <div class="c-filter-icon">Фильтры</div>
+          </accordion-header>
+          <div>
+            <form [formGroup]="filterForm">
+              <div class="l-container">
+                <div class="l-container-item js-filter-button">
+                  <app-filter-btn
+                    formControlName="order"
+                    [orderings]="[
+                      {
+                        name: 'Нас.пункт',
+                        value: 'name',
+                        orderingDirection: OrderingDirection.UNDEFINED
+                      },
+                      {
+                        name: 'Район',
+                        value: 'parent',
+                        orderingDirection: OrderingDirection.UNDEFINED
+                      },
+                      {
+                        name: 'Численность',
+                        value: 'people_count',
+                        orderingDirection: OrderingDirection.UNDEFINED
+                      }
+                    ]"
+                  >
+                  </app-filter-btn>
+                </div>
+                <div class="l-container-item">
+                  <div id="mobile" class="l-container-row is-disabled">
+                    <div class="o-item-title">Сотовая связь:</div>
+                    <div class="l-vendors-row u-border-right">
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС" />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img
+                              src="../../../../assets/img/beeline.png"
+                              alt="Билайн"
+                              title="Билайн"
+                            />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img
+                              src="../../../../assets/img/megafon.png"
+                              alt="Мегафон"
+                              title="Мегафон"
+                            />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2" />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img
+                              src="../../../../assets/img/rostelecom.png"
+                              alt="РосТелеком"
+                              title="РосТелеком"
+                            />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="c-radiobox l-radiobox-row">
+                      <label
+                        ><input type="radio" name="mobile" />
+                        <div class="c-radiobox-text">2G</div>
+                      </label>
+                      <label
+                        ><input type="radio" name="mobile" />
+                        <div class="c-radiobox-text">3G</div>
+                      </label>
+                      <label
+                        ><input type="radio" name="mobile" />
+                        <div class="c-radiobox-text">4G</div>
+                      </label>
+                      <label
+                        ><input type="radio" name="mobile" />
+                        <div class="c-radiobox-text">5G</div>
+                      </label>
+                    </div>
+                  </div>
+                  <div id="internet" class="l-container-row is-disabled">
+                    <div class="o-item-title">Интернет:</div>
+                    <div class="l-vendors-row u-border-right">
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС" />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img
+                              src="../../../../assets/img/beeline.png"
+                              alt="Билайн"
+                              title="Билайн"
+                            />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img
+                              src="../../../../assets/img/megafon.png"
+                              alt="Мегафон"
+                              title="Мегафон"
+                            />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2" />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img
+                              src="../../../../assets/img/rostelecom.png"
+                              alt="РосТелеком"
+                              title="РосТелеком"
+                            />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img src="../../../../assets/img/iskra.png" alt="Искра" title="Искра" />
+                          </div>
+                        </label>
+                      </div>
+                      <div class="c-vendor">
+                        <label>
+                          <input type="checkbox" />
+                          <div class="c-vendor-logo c-vendor-checked">
+                            <img src="../../../../assets/img/ttk.png" alt="ТТК" title="ТТК" />
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="c-radiobox l-radiobox-row">
+                      <label
+                        ><input type="radio" name="internet" />
+                        <div class="c-radiobox-text">Спутник</div>
+                      </label>
+                      <label
+                        ><input type="radio" name="internet" />
+                        <div class="c-radiobox-text">ВОЛС</div>
+                      </label>
+                      <label
+                        ><input type="radio" name="internet" />
+                        <div class="c-radiobox-text">Медь</div>
+                      </label>
+                      <label
+                        ><input type="radio" name="internet" />
+                        <div class="c-radiobox-text">Радиоканал</div>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="o-item-title">Программа:</div>
+                    <select name="" id="">
+                      <option value="" disabled selected style="display:none;"
+                        >Выберите программу
+                      </option>
+                      <option value="">Программа 1</option>
+                      <option value="">Программа 2</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="l-container-item">
-                <div id="mobile" class="l-container-row is-disabled">
-                  <div class="o-item-title">Сотовая связь:</div>
-                  <div class="l-vendors-row u-border-right">
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"/>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            src="../../../../assets/img/beeline.png"
-                            alt="Билайн"
-                            title="Билайн"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            src="../../../../assets/img/megafon.png"
-                            alt="Мегафон"
-                            title="Мегафон"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"/>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            src="../../../../assets/img/rostelecom.png"
-                            alt="РосТелеком"
-                            title="РосТелеком"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="c-radiobox l-radiobox-row">
-                    <label
-                    ><input type="radio" name="mobile"/>
-                      <div class="c-radiobox-text">2G</div>
-                    </label>
-                    <label
-                    ><input type="radio" name="mobile"/>
-                      <div class="c-radiobox-text">3G</div>
-                    </label>
-                    <label
-                    ><input type="radio" name="mobile"/>
-                      <div class="c-radiobox-text">4G</div>
-                    </label>
-                    <label
-                    ><input type="radio" name="mobile"/>
-                      <div class="c-radiobox-text">5G</div>
-                    </label>
-                  </div>
-                </div>
-                <div id="internet" class="l-container-row is-disabled">
-                  <div class="o-item-title">Интернет:</div>
-                  <div class="l-vendors-row u-border-right">
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС"/>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            src="../../../../assets/img/beeline.png"
-                            alt="Билайн"
-                            title="Билайн"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            src="../../../../assets/img/megafon.png"
-                            alt="Мегафон"
-                            title="Мегафон"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2"/>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            src="../../../../assets/img/rostelecom.png"
-                            alt="РосТелеком"
-                            title="РосТелеком"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img src="../../../../assets/img/iskra.png" alt="Искра" title="Искра"/>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="c-vendor">
-                      <label>
-                        <input type="checkbox"/>
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img src="../../../../assets/img/ttk.png" alt="ТТК" title="ТТК"/>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="c-radiobox l-radiobox-row">
-                    <label
-                    ><input type="radio" name="internet"/>
-                      <div class="c-radiobox-text">Спутник</div>
-                    </label>
-                    <label
-                    ><input type="radio" name="internet"/>
-                      <div class="c-radiobox-text">ВОЛС</div>
-                    </label>
-                    <label
-                    ><input type="radio" name="internet"/>
-                      <div class="c-radiobox-text">Медь</div>
-                    </label>
-                    <label
-                    ><input type="radio" name="internet"/>
-                      <div class="c-radiobox-text">Радиоканал</div>
-                    </label>
-                  </div>
-                </div>
-                <div class="l-container-row is-disabled">
-                  <div class="o-item-title">Программа:</div>
-                  <select name="" id="">
-                    <option value="" disabled selected style="display:none;"
-                    >Выберите программу
-                    </option
-                    >
-                    <option value="">Программа 1</option>
-                    <option value="">Программа 2</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр"/>
-          </form>
-        </div>
-      </div>
+              <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр" />
+            </form>
+          </div>
+        </group>
+      </accordion>
       <div class="c-filter-info">
         <div class="c-filter-result" *ngIf="featuresTypeSelector.value">
-          <!--          Результатов поиска: <span>115</span> из <span>9 345</span>-->
-          Результатов:
-          <span>{{
-            this.features$
-            }}</span>
+          Результатов: <span>{{ (this.features$ | async)?.count }}</span>
         </div>
         <div class="c-filter-export">
-          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel"/>
+          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel" />
         </div>
       </div>
     </div>
-    <div class="l-table u-table-header l-table-compare">
+    <div class="l-table u-table-header l-table-compare" *ngIf="featuresTypeSelector.value">
       <div class="l-table-column">Информация о нас.пункте</div>
-      <div class="l-table-column">сейчас {{currentYear}}</div>
-      <div class="l-table-column">план {{currentYear+1}}</div>
-      <div class="l-table-column">план {{currentYear+2}}</div>
-      <div class="l-table-column">архив {{currentYear-1}}</div>
+      <div class="l-table-column">сейчас {{ currentYear }}</div>
+      <div class="l-table-column">план {{ currentYear + 1 }}</div>
+      <div class="l-table-column">план {{ currentYear + 2 }}</div>
+      <div class="l-table-column">архив {{ currentYear - 1 }}</div>
     </div>
 
     <!--    INTERNET  -->
 
-    <div *ngIf="featuresTypeSelector.value === featureTypes.internet && features$ | async as features">
+    <div
+      *ngIf="featuresTypeSelector.value === featureTypes.internet"
+    >
       <div
         class="l-table l-table-compare"
-        *ngFor=" let feature of features.results | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber, totalItems: features.count}
+        *ngFor="
+          let feature of (features$ | async)?.results
+            | paginate
+              : {itemsPerPage: itemsPerPage, currentPage: pageNumber, totalItems: (features$ | async)?.count}
         "
       >
         <div class="l-table-column">
@@ -299,9 +299,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+                planYearFeature.governmentProgram.shortName
               }}</span
-            >)
+              >)
             </div>
           </div>
         </div>
@@ -321,9 +321,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+                planYearFeature.governmentProgram.shortName
               }}</span
-            >)
+              >)
             </div>
           </div>
         </div>
@@ -351,11 +351,15 @@
     <!--    INTERNET END -->
     <!--    MOBILE -->
 
-    <div *ngIf="featuresTypeSelector.value === featureTypes.mobile && features$ | async as features">
+    <div
+      *ngIf="featuresTypeSelector.value === featureTypes.mobile && features$ | async as features"
+    >
       <div
         class="l-table l-table-compare"
         *ngFor="
-            let feature of features.results | paginate: {itemsPerPage: itemsPerPage, currentPage: pageNumber, totalItems: features.count}
+          let feature of features.results
+            | paginate
+              : {itemsPerPage: itemsPerPage, currentPage: pageNumber, totalItems: features.count}
         "
       >
         <div class="l-table-column">
@@ -397,9 +401,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+                planYearFeature.governmentProgram.shortName
               }}</span
-            >)
+              >)
             </div>
           </div>
         </div>
@@ -419,9 +423,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+                planYearFeature.governmentProgram.shortName
               }}</span
-            >)
+              >)
             </div>
           </div>
         </div>
@@ -443,10 +447,7 @@
       </div>
     </div>
     <!--    MOBILE END -->
-    <div
-      style="display: flex; justify-content: flex-end"
-      *ngIf="features$"
-    >
+    <div style="display: flex; justify-content: flex-end" *ngIf="features$">
       <div class="pagination-count">
         <div style="margin-right: 13px">Количество строк на странице:</div>
         <input
@@ -491,5 +492,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
->Загрузка. . .
+  >Загрузка. . .
 </ngx-spinner>
