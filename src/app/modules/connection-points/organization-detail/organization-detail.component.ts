@@ -74,6 +74,12 @@ export class OrganizationDetailComponent implements OnInit {
   saveRequest() {
     console.log('data  from FORM: ', this.formGroupOrganization.value);
     console.log('data originated: ', this.organization);
-    this.serviceOrganizations.save();
+    this.serviceOrganizations.save(this.formGroupOrganization.value).subscribe(organization => {
+      this.organization = organization;
+    },
+      error => {
+        this.formGroupOrganization.enable();
+      });
+    this.formGroupOrganization.disable();
   }
 }
