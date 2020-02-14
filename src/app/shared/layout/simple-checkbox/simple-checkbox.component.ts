@@ -19,6 +19,8 @@ export class SimpleCheckbox implements ControlValueAccessor {
   @Input()
   label: string;
 
+  disabled: boolean;
+
   @ViewChild('checkbox', {static: true})
   private checkbox: ElementRef;
 
@@ -42,5 +44,9 @@ export class SimpleCheckbox implements ControlValueAccessor {
     } else {
       this.onChange(null);
     }
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 }
