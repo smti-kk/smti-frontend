@@ -1,4 +1,4 @@
-<!--suppress HtmlFormInputWithoutLabel -->
+<!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <main class="main">
   <div class="wrapper">
     <h1>Сводные данные по организациям</h1>
@@ -33,7 +33,7 @@
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
                         item.fullName
-                      }}</option>
+                        }}</option>
                     </select>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
                         item.name
-                      }}</option>
+                        }}</option>
                     </select>
                   </div>
                 </div>
@@ -56,7 +56,7 @@
                       <option
                         [ngValue]="item"
                         *ngFor="let item of fOrganizationSMOTypes$ | async"
-                        >{{ item.name }}</option
+                      >{{ item.name }}</option
                       >
                     </select>
                   </div>
@@ -64,7 +64,7 @@
                 <div class="l-container-row is-disabled">
                   <div class="input">
                     <div class="o-item-title">Наим. организации:</div>
-                    <input formControlName="organization" type="text" />
+                    <input formControlName="organization" type="text"/>
                   </div>
                 </div>
               </div>
@@ -76,7 +76,7 @@
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                         item.fullName
-                      }}</option>
+                        }}</option>
                     </select>
                   </div>
                 </div>
@@ -87,7 +87,7 @@
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fInternetAccessTypes$ | async">{{
                         item.name
-                      }}</option>
+                        }}</option>
                     </select>
                   </div>
                 </div>
@@ -98,19 +98,19 @@
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fGovermentPrograms$ | async">{{
                         item.shortName
-                      }}</option>
+                        }}</option>
                     </select>
                   </div>
                 </div>
                 <div class="l-container-row is-disabled">
                   <div class="input">
                     <div class="o-item-title">Оператор связи:</div>
-                    <input formControlName="contractor" type="text" />
+                    <input formControlName="contractor" type="text"/>
                   </div>
                 </div>
               </div>
             </div>
-            <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр" />
+            <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
           </form>
         </div>
       </div>
@@ -119,7 +119,11 @@
           <!-- Результатов поиска: <span>{{locations.count}}</span> -->
         </div>
         <div class="c-filter-export">
-          <input type="button" class="btn" value="Выгрузить в Excel" />
+          <input
+            (click)="serviceLocation.exportExcel()"
+            type="button"
+            class="btn"
+            value="Выгрузить в Excel"/>
         </div>
       </div>
     </div>
@@ -253,5 +257,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
-  >Загрузка. . .
+>Загрузка. . .
 </ngx-spinner>

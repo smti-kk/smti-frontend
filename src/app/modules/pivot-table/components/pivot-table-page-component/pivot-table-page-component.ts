@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FilterTcPivotsService, OrderingDirection} from '@core/services/tc-pivots.service';
+import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {
   ExistingOperators,
   GovernmentProgram,
@@ -16,6 +16,7 @@ import {EnumService, GovernmentProgramService} from '@core/services';
 import {forkJoin, Subscription} from 'rxjs';
 import {debounceTime, filter, tap} from 'rxjs/operators';
 import {Signal} from '@core/models/signal';
+import { FilterTcPivotsService } from '@core/services/filter-tc-pivots.service';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -107,7 +108,6 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     return this.tcPivots.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(lcs => {
         this.locationFeatures = lcs;
-        console.log(lcs);
         this.spinner.hide();
       })
     );

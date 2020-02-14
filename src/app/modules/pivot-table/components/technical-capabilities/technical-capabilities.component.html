@@ -41,20 +41,24 @@
               <!--              Последние изменения: <span class="last-modified-date">23.06.2018</span>-->
             </div>
             <div class="edit-status">Режим: Редактирование</div>
-            <input type="button" class="btn btn-cancel-form" value="Отмена редактирования" />
             <input
+              *ngIf="locationFeaturesForm.enabled"
+              type="button"
+              class="btn btn-cancel-form"
+              value="Отмена редактирования"
+              (click)="cancelEdit()"
+            />
+            <input
+              *ngIf="locationFeaturesForm.disabled"
               type="button"
               class="btn btn-edit-form"
               value="Редактировать (Уточняющая заявка)"
               (click)="enableForm()"
             />
-            <input type="button" class="btn" value="Сохранить заявку" (click)="saveRequest() "/>
+            <input type="button" class="btn" value="Сохранить заявку" (click)="saveRequest()" />
           </div>
           <div class="edit-form">
-            <form
-              [formGroup]="locationFeaturesForm"
-              *ngIf="locationFeaturesForm"
-            >
+            <form [formGroup]="locationFeaturesForm" *ngIf="locationFeaturesForm">
               <div [ngClass]="{'disabled-form': locationFeaturesForm.disabled}">
                 <div class="edit-form-block">
                   <div class="o-item-title">Сотовая связь</div>
@@ -67,8 +71,8 @@
                       <div class="c-checkbox">
                         <app-simple-checkbox
                           [label]="cellularOperator.name"
-                          formControlName="_operator"
                           [value]="cellularOperator"
+                          formControlName="_operator"
                         >
                         </app-simple-checkbox>
                       </div>
@@ -421,10 +425,15 @@
                 <div class="edit-form-block">
                   <span>Комментарий к внесенным изменениям (к заявке)</span>
                   <div class="edit-form-comment">
-                    <textarea formControlName="_comment" id="comment" cols="30" rows="10"></textarea>
-<!--                    <button class="btn btn-save-comment" type="button" disabled="disabled">-->
-<!--                      <i class="fas fa-check"></i>-->
-<!--                    </button>-->
+                    <textarea
+                      formControlName="_comment"
+                      id="comment"
+                      cols="30"
+                      rows="10"
+                    ></textarea>
+                    <!--                    <button class="btn btn-save-comment" type="button" disabled="disabled">-->
+                    <!--                      <i class="fas fa-check"></i>-->
+                    <!--                    </button>-->
                   </div>
                 </div>
                 <!-- <input (click)="onSubmit()" type="submit" class="btn" value="Сохранить заявку" /> -->

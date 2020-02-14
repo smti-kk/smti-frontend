@@ -29,12 +29,27 @@
       </div>
     </div>
     <!-- WIP: Here we go with Organization -->
-    <input type="button" value="Редактировать" (click)="disabled = !disabled">
-    <p>{{disabled}}</p>
-    <div class="wip-organization" *ngIf="organization$ | async as organization">
+
+    <div class="wip-organization" *ngIf="organization" [formGroup]="form">
+      <input
+        *ngIf="form.enabled"
+        type="button"
+        class="btn btn-cancel-form"
+        value="Отмена редактирования"
+        (click)="cancelEdit()"
+      />
+      <input
+        *ngIf="form.disabled"
+        type="button"
+        class="btn btn-edit-form"
+        value="Редактировать (Уточняющая заявка)"
+        (click)="enableForm()"
+      />
+
+      <input type="button" class="btn" value="Сохранить заявку" *ngIf="form.enabled" (click)="saveRequest()" />
       <div>
-        <div>Краткое наименование: {{ organization.name }} <input type="text" value="{{organization.name}}"></div>
-        <div>Полное наименование: {{ organization.fullName }}</div>
+<!--        <div>Краткое наименование: {{ organization.name }} <input type="text" > </div>-->
+        <div>Полное наименование: <input type="text" formControlName="_fullName"></div>
         <div>Адрес: {{ organization.address }}</div>
         <div>ИНН: {{ organization.inn }}</div>
         <div>КПП: {{ organization.kpp }}</div>

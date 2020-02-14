@@ -45,14 +45,17 @@ export class TechnicalCapabilitiesComponent {
   }
 
   saveRequest() {
-    // this.tcService
-    // .save(this.locationFeaturesForm.value)
-    // .subscribe((response) => console.log('Успешно сохранено', response));
-    // .subscribe();
-    this.tcService
-      .save(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures))
-      .subscribe();
-    console.log(mergeDeep(this.locationFeaturesForm.value, this.locationFeatures));
+    const locationFeatures = Object.assign({}, this.locationFeatures);
+
+    console.log('actual: ', this.locationFeaturesForm.value);
+    console.log('old: ', locationFeatures);
+    this.tcService.save(new LocationFeatures(this.locationFeaturesForm.value)).subscribe();
+  }
+
+  cancelEdit() {
+    this.locationFeaturesForm.reset();
+    this.locationFeaturesForm.patchValue(this.locationFeatures);
+    this.locationFeaturesForm.disable();
   }
 
   private loadTechnicalCapability(id: number): void {
@@ -60,9 +63,14 @@ export class TechnicalCapabilitiesComponent {
 
     forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
       response => {
-        this.locationFeaturesForm = this.buildForm(this.fb, response[0], response[1]);
+        this.existingOperators = response[1].sortByLocationFeatures(response[0]);
         this.locationFeatures = response[0];
-        this.existingOperators = response[1];
+
+        this.locationFeaturesForm = this.buildForm(
+          this.fb,
+          this.locationFeatures,
+          this.existingOperators
+        );
         this.spinner.hide();
       }
     );
@@ -74,6 +82,7 @@ export class TechnicalCapabilitiesComponent {
     existingOperators: ExistingOperators
   ): FormGroup {
     const form = fb.group({
+      _location: locationFeatures.location.id,
       _cellular: fb.array([]),
       _internet: fb.array([]),
       _television: fb.array([]),
@@ -82,6 +91,7 @@ export class TechnicalCapabilitiesComponent {
       _post: fb.array([]),
       _infomat: locationFeatures.location.infomat > 0,
       _comment: null,
+      _id: null,
     });
 
     existingOperators.cellular.forEach(() => {
@@ -92,6 +102,7 @@ export class TechnicalCapabilitiesComponent {
           _type: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null,
         })
       );
     });
@@ -104,6 +115,7 @@ export class TechnicalCapabilitiesComponent {
           _channel: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null,
         })
       );
     });
@@ -116,6 +128,7 @@ export class TechnicalCapabilitiesComponent {
           _type: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null,
         })
       );
     });
@@ -127,6 +140,7 @@ export class TechnicalCapabilitiesComponent {
           _quantityPayphone: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null,
         })
       );
     });
@@ -139,6 +153,7 @@ export class TechnicalCapabilitiesComponent {
           _channel: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null,
         })
       );
     });
@@ -150,14 +165,14 @@ export class TechnicalCapabilitiesComponent {
           _type: null,
           _governmentProgram: null,
           _completed: null,
+          _id: null,
         })
       );
     });
 
+    console.log('form:', form.value, locationFeatures);
+
     form.patchValue(locationFeatures);
-
-    form.valueChanges.subscribe(value => console.log(value));
-
     form.disable();
 
     return form;

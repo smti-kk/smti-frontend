@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {InternetAccessType, Location} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {
-  LocationService,
   LocationServiceContractsWithFilterParams,
 } from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
@@ -31,7 +30,7 @@ export class CommunicationContractsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
 
   constructor(
-    private serviceLocation: LocationServiceContractsWithFilterParams,
+    public serviceLocation: LocationServiceContractsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder

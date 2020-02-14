@@ -1,7 +1,6 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
 import {Location} from '@core/models/location';
 import {AtsFeature} from '@core/models/ats-feature';
-import {LocationFeature} from '@core/models/location-feature';
 import {CellularFeature} from '@core/models/cellular-feature';
 import {RadioFeature} from '@core/models/radio-feature';
 import {InternetFeature} from '@core/models/internet-feature';
@@ -13,47 +12,95 @@ import {ID_SERIALIZER} from '@core/utils/serializers';
 export class LocationFeatures {
   @deserializeAs(Location, 'location')
   @serializeAs(ID_SERIALIZER, 'location')
-  private readonly _location: Location;
+  private _location: Location;
 
   @autoserializeAs(CellularFeature, 'cellular')
-  private readonly _cellular: CellularFeature[];
+  private _cellular: CellularFeature[];
 
   @autoserializeAs(RadioFeature, 'radio')
-  private readonly _radio: RadioFeature[];
+  private _radio: RadioFeature[];
 
   @autoserializeAs(InternetFeature, 'internet')
-  private readonly _internet: InternetFeature[];
+  private _internet: InternetFeature[];
 
   @autoserializeAs(AtsFeature, 'ats')
-  private readonly _ats: AtsFeature[];
+  private _ats: AtsFeature[];
 
   @autoserializeAs(PostFeature, 'post')
-  private readonly _post: PostFeature[];
+  private _post: PostFeature[];
 
   @autoserializeAs(TelevisionFeature, 'television')
-  private readonly _television: TelevisionFeature[];
+  private _television: TelevisionFeature[];
 
   @autoserializeAs('comment')
-  private readonly _comment: string;
+  private _comment: string;
 
   constructor(
-    location: Location,
-    cellular: CellularFeature[],
-    radio: RadioFeature[],
-    internet: InternetFeature[],
-    ats: AtsFeature[],
-    post: PostFeature[],
-    television: TelevisionFeature[]
+    value
   ) {
-    this._location = location;
-    this._cellular = cellular;
-    this._radio = radio;
-    this._internet = internet;
-    this._ats = ats;
-    this._post = post;
-    this._television = television;
+    Object.assign(this, value);
   }
 
+  get governmentPrograms(): GovernmentProgram[] {
+    return [
+      ...this.television,
+      ...this.ats,
+      ...this.radio,
+      ...this.internet,
+      ...this.post,
+      ...this.cellular,
+    ]
+      .map(locationFeature => locationFeature.governmentProgram)
+      .filter(program => program !== null);
+  }
+
+  get planYearInternetFeatures() {
+    return this.internet.filter(value => {
+      return value.planYear;
+    });
+  }
+
+  get planTwoYearInternetFeatures() {
+    return this.internet.filter(value => {
+      return value.planTwoYear;
+    });
+  }
+
+  get activeCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
+      return value.active;
+    });
+  }
+
+  get archiveCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
+      return value.archive;
+    });
+  }
+
+  get archiveInternetFeatures(): InternetFeature[] {
+    return this.internet.filter(value => {
+      return value.archive;
+    });
+  }
+
+  get planYearCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
+      return value.planYear;
+    });
+  }
+
+  get planTwoYearCellularFeatures(): CellularFeature[] {
+    return this.cellular.filter(value => {
+      return value.planTwoYear;
+    });
+  }
+
+  get activeInternetFeatures(): InternetFeature[] {
+    return this.internet.filter(value => {
+      return value.active;
+    });
+  }
 
   get comment(): string {
     return this._comment;
@@ -87,64 +134,35 @@ export class LocationFeatures {
     return this._television;
   }
 
-  get governmentPrograms(): GovernmentProgram[] {
-    return [
-      ...this.television,
-      ...this.ats,
-      ...this.radio,
-      ...this.internet,
-      ...this.post,
-      ...this.cellular,
-    ]
-      .map(locationFeature => locationFeature.governmentProgram)
-      .filter(program => program !== null);
+  set location(value: Location) {
+    this._location = value;
   }
 
-  get activeInternetFeatures(): InternetFeature[] {
-    return this.internet.filter(value => {
-      return value.active;
-    });
+  set cellular(value: CellularFeature[]) {
+    this._cellular = value;
   }
 
-  get archiveInternetFeatures(): InternetFeature[] {
-    return this.internet.filter(value => {
-      return value.archive;
-    });
+  set radio(value: RadioFeature[]) {
+    this._radio = value;
   }
 
-  get planYearInternetFeatures() {
-    return this.internet.filter(value => {
-      return value.planYear;
-    });
+  set internet(value: InternetFeature[]) {
+    this._internet = value;
   }
 
-  get planTwoYearInternetFeatures() {
-    return this.internet.filter(value => {
-      return value.planTwoYear;
-    });
+  set ats(value: AtsFeature[]) {
+    this._ats = value;
   }
 
-  get activeCellularFeatures(): CellularFeature[] {
-    return this.cellular.filter(value => {
-      return value.active;
-    });
+  set post(value: PostFeature[]) {
+    this._post = value;
   }
 
-  get archiveCellularFeatures(): CellularFeature[] {
-    return this.cellular.filter(value => {
-      return value.archive;
-    });
+  set television(value: TelevisionFeature[]) {
+    this._television = value;
   }
 
-  get planYearCellularFeatures(): CellularFeature[] {
-    return this.cellular.filter(value => {
-      return value.planYear;
-    });
-  }
-
-  get planTwoYearCellularFeatures(): CellularFeature[] {
-    return this.cellular.filter(value => {
-      return value.planTwoYear;
-    });
+  set comment(value: string) {
+    this._comment = value;
   }
 }
