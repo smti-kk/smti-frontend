@@ -57,3 +57,11 @@ p {
   font-size: 12px;
   font-weight: 600;
 }
+
+input[disabled] {
+  opacity: 0.6;
+}
+
+input.ng-invalid {
+  border-bottom: 1px solid red;
+}

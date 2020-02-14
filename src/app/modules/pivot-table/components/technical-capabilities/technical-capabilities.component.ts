@@ -13,7 +13,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {EnumService} from '@core/services';
 import {forkJoin} from 'rxjs';
 import {Signal} from '@core/models/signal';
-import {mergeDeep} from '@core/utils/merge-deep';
 
 @Component({
   selector: 'app-technical-capabilities',
@@ -24,11 +23,13 @@ export class TechnicalCapabilitiesComponent {
   locationFeaturesForm: FormGroup;
   locationFeatures: LocationFeatures;
   existingOperators: ExistingOperators;
+  tcId: number;
 
   Quality = Quality;
   TrunkChannel = TrunkChannel;
   Signal = Signal;
   MobileGeneration = MobileGeneration;
+  acceptModalVisible: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -45,17 +46,51 @@ export class TechnicalCapabilitiesComponent {
   }
 
   saveRequest() {
-    const locationFeatures = Object.assign({}, this.locationFeatures);
-
-    console.log('actual: ', this.locationFeaturesForm.value);
-    console.log('old: ', locationFeatures);
-    this.tcService.save(new LocationFeatures(this.locationFeaturesForm.value)).subscribe();
+    this.tcService.save(new LocationFeatures(this.locationFeaturesForm.value)).subscribe(
+      (lf: any) => {
+        this.tcId = lf.id;
+        this.showAcceptModel();
+      },
+      error => {
+        // todo: implement me
+      }
+    );
   }
 
   cancelEdit() {
     this.locationFeaturesForm.reset();
     this.locationFeaturesForm.patchValue(this.locationFeatures);
     this.locationFeaturesForm.disable();
+  }
+
+  accept() {
+    this.tcService.accept(this.tcId).subscribe(
+      () => {
+        this.reloadPage();
+      },
+      error => {
+        // todo: implement me
+      }
+    );
+  }
+
+  reject() {
+    this.tcService.reject(this.tcId).subscribe(
+      () => {
+        this.reloadPage();
+      },
+      error => {
+        // todo: implement me
+      }
+    );
+  }
+
+  private showAcceptModel() {
+    this.acceptModalVisible = true;
+  }
+
+  private hideAcceptModel() {
+    this.acceptModalVisible = false;
   }
 
   private loadTechnicalCapability(id: number): void {
@@ -95,67 +130,67 @@ export class TechnicalCapabilitiesComponent {
     });
 
     existingOperators.cellular.forEach(() => {
-      getArrayGroup(form, '_cellular').push(
-        fb.group({
-          _operator: null,
-          _quality: null,
-          _type: null,
-          _governmentProgram: null,
-          _completed: null,
-          _id: null,
-        })
-      );
+      const group = this.createGroup({
+        _operator: null,
+        _quality: null,
+        _type: null,
+        _governmentProgram: null,
+        _completed: null,
+        _id: null,
+      }, ['_quality', '_type']);
+
+      getArrayGroup(form, '_cellular').push(group);
     });
 
     existingOperators.internet.forEach(() => {
-      getArrayGroup(form, '_internet').push(
-        fb.group({
-          _operator: null,
-          _quality: null,
-          _channel: null,
-          _governmentProgram: null,
-          _completed: null,
-          _id: null,
-        })
-      );
+      const group = this.createGroup({
+        _operator: null,
+        _quality: null,
+        _channel: null,
+        _governmentProgram: null,
+        _completed: null,
+        _id: null,
+      }, ['_quality', '_channel']);
+
+      getArrayGroup(form, '_internet').push(group);
     });
 
     existingOperators.radio.forEach(() => {
-      getArrayGroup(form, '_radio').push(
-        fb.group({
-          _operator: null,
-          _quality: null,
-          _type: null,
-          _governmentProgram: null,
-          _completed: null,
-          _id: null,
-        })
-      );
+      const group = this.createGroup({
+        _operator: null,
+        _quality: null,
+        _type: null,
+        _governmentProgram: null,
+        _completed: null,
+        _id: null,
+      }, ['_type']);
+
+      getArrayGroup(form, '_radio').push(group);
     });
 
     existingOperators.ats.forEach(() => {
-      getArrayGroup(form, '_ats').push(
-        fb.group({
-          _operator: null,
-          _quantityPayphone: null,
-          _governmentProgram: null,
-          _completed: null,
-          _id: null,
-        })
-      );
+      const group = this.createGroup({
+        _operator: null,
+        _quantityPayphone: null,
+        _governmentProgram: null,
+        _completed: null,
+        _id: null,
+      }, []);
+
+      getArrayGroup(form, '_ats').push(group);
     });
 
     existingOperators.television.forEach(() => {
-      getArrayGroup(form, '_television').push(
-        fb.group({
-          _operator: null,
-          _quality: null,
-          _channel: null,
-          _governmentProgram: null,
-          _completed: null,
-          _id: null,
-        })
-      );
+      const group = this.createGroup({
+        _operator: null,
+        _quality: null,
+        _channel: null,
+        _governmentProgram: null,
+        _completed: null,
+        _id: null,
+      }, ['_channel']);
+
+      getArrayGroup(form, '_television').push(group);
     });
 
     existingOperators.post.forEach(() => {
@@ -170,12 +205,35 @@ export class TechnicalCapabilitiesComponent {
       );
     });
 
-    console.log('form:', form.value, locationFeatures);
-
     form.patchValue(locationFeatures);
     form.disable();
 
     return form;
+  }
+
+  // noinspection JSMethodCanBeStatic
+  private reloadPage() {
+    window.location.reload();
+  }
+
+  private createGroup(allFields: any, editableFields: string[]): FormGroup {
+    const group = this.fb.group(allFields);
+
+    group.valueChanges.subscribe(v => {
+      if (v && !v._operator && group.parent.enabled) {
+        group.reset({}, {emitEvent: false});
+
+        editableFields.forEach(f => {
+          group.get(f).disable({emitEvent: false});
+        });
+      } else if (v && v._operator && group.parent.enabled) {
+        editableFields.forEach(f => {
+          group.get(f).enable({emitEvent: false});
+        });
+      }
+    });
+
+    return group;
   }
 }
 

@@ -40,7 +40,9 @@
             <div class="last-modified">
               <!--              Последние изменения: <span class="last-modified-date">23.06.2018</span>-->
             </div>
-            <div class="edit-status">Режим: Редактирование</div>
+            <div *ngIf="locationFeaturesForm.enabled" class="edit-status">
+              Режим: Редактирование
+            </div>
             <input
               *ngIf="locationFeaturesForm.enabled"
               type="button"
@@ -55,7 +57,6 @@
               value="Редактировать (Уточняющая заявка)"
               (click)="enableForm()"
             />
-            <input type="button" class="btn" value="Сохранить заявку" (click)="saveRequest()" />
           </div>
           <div class="edit-form">
             <form [formGroup]="locationFeaturesForm" *ngIf="locationFeaturesForm">
@@ -236,11 +237,11 @@
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
                         <label
-                          ><input type="radio" name="tv-beeline" />
+                          ><input type="radio" formControlName="_channel" [value]="Signal.ATV"/>
                           <div class="c-radiobox-text">АТВ</div>
                         </label>
                         <label
-                          ><input type="radio" name="tv-beeline" />
+                          ><input type="radio" formControlName="_channel" [value]="Signal.CTV"/>
                           <div class="c-radiobox-text">ЦТВ</div>
                         </label>
                       </div>
@@ -436,7 +437,15 @@
                     <!--                    </button>-->
                   </div>
                 </div>
-                <!-- <input (click)="onSubmit()" type="submit" class="btn" value="Сохранить заявку" /> -->
+                <div class="d-flex flex-end">
+                  <input
+                    [disabled]="!(locationFeaturesForm.valid && locationFeaturesForm.enabled)"
+                    type="button"
+                    class="btn"
+                    value="Сохранить заявку"
+                    (click)="saveRequest()"
+                  />
+                </div>
               </div>
             </form>
           </div>
@@ -513,55 +522,6 @@
         </div>
       </div>
     </div>
-    <div class="c-modal">
-      <div class="c-modal-body">
-        <div class="c-modal-header">
-          <div class="c-modal-title">
-            <div>Сотовая связь, оператор Билайн, 3G</div>
-            <div class="c-location-name l-row">
-              <div class="c-location-name-item1">с. Богучаны</div>
-              <div class="c-location-name-item2">Богучанский р-н</div>
-            </div>
-          </div>
-          <div class="c-modal-close"><i class="fas fa-times"></i></div>
-        </div>
-        <div class="c-modal-content">
-          <div class="l-content">
-            <div class="l-content-item">
-              <div class="o-item-title">Программа:</div>
-              <select name="">
-                <option value="" disabled selected style="display:none;">Выберите программу</option>
-                <option value="">Программа 1</option>
-                <option value="">Программа 2</option>
-              </select>
-            </div>
-            <div class="l-content-item">
-              <div class="o-item-title">Период действия:</div>
-              <div class="c-modal-input">
-                <input type="text" /><i class="far fa-calendar-alt"></i>
-              </div>
-              <span>&nbsp;-&nbsp;</span>
-              <div class="c-modal-input">
-                <input type="text" /><i class="far fa-calendar-alt"></i>
-              </div>
-            </div>
-            <div class="l-content-item u-display-block">
-              <div class="o-item-title">Комментарий:</div>
-              <textarea cols="30" rows="10"></textarea>
-            </div>
-            <div class="l-content-item">
-              <div class="c-modal-button">
-                <input type="button" value="Отмена" class="btn cancel" /><input
-                  type="submit"
-                  value="Сохранить изменения"
-                  class="btn"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </main>
 <ngx-spinner
@@ -572,3 +532,27 @@
   class="spinner"
   [fullScreen]="false"
 ></ngx-spinner>
+<div class="c-modal" *ngIf="acceptModalVisible">
+  <div class="c-modal-body">
+    <div class="c-modal-header">
+      <div class="c-modal-title">
+        <div>Сотовая связь, оператор Билайн, 3G</div>
+        <div class="c-location-name l-row">
+          <div class="c-location-name-item1">с. Богучаны</div>
+          <div class="c-location-name-item2">Богучанский р-н</div>
+        </div>
+      </div>
+      <div class="c-modal-close" (click)="hideAcceptModel()"><i class="fas fa-times"></i></div>
+    </div>
+    <div class="c-modal-content">
+      <div class="l-content">
+        <div class="l-content-item">
+          <div class="c-modal-button">
+            <input type="button" (click)="accept()" value="Принять" class="btn" />
+            <input type="button" (click)="reject()" value="Отклонить" class="btn cancel" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

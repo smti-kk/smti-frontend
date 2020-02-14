@@ -1,11 +1,11 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {LocationFeatures} from '@core/models';
-import {environment} from '../../../environments/environment';
-import {map} from 'rxjs/operators';
-import {Deserialize, Serialize} from 'cerialize';
-import {PaginatedList} from '@core/models/paginated-list';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LocationFeatures } from '@core/models';
+import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
+import { Deserialize, Serialize } from 'cerialize';
+import { PaginatedList } from '@core/models/paginated-list';
 
 const LTC = environment.API_BASE_URL + '/api/v1/technical-capabilities';
 const CLARIFY_PETITION = environment.API_BASE_URL + '/api/v1/in-clarify-petition/';
@@ -44,16 +44,15 @@ export class TcPivotsService {
   }
 
   save(value: LocationFeatures) {
+    value.cellular = this.filterNulls(value.cellular);
+    value.post = this.filterNulls(value.post);
+    value.radio = this.filterNulls(value.radio);
+    value.television = this.filterNulls(value.television);
+    value.internet = this.filterNulls(value.internet);
+    value.ats = this.filterNulls(value.ats);
 
-    value.cellular = value.cellular.filter((c: any) => c._operator !== null); // todo: исправить any
-    value.post = value.post.filter((c: any) => c._operator !== null); // todo: исправить any
-    value.radio = value.radio.filter((c: any) => c._operator !== null); // todo: исправить any
-    value.television = value.television.filter((c: any) => c._operator !== null); // todo: исправить any
-    value.internet = value.internet.filter((c: any) => c._operator !== null); // todo: исправить any
-    value.ats = value.ats.filter((c: any) => c._operator !== null); // todo: исправить any
-
-    console.log('request', value, Serialize(value, LocationFeatures));
-    return this.httpClient.post(CLARIFY_PETITION, Serialize(value, LocationFeatures));
+    return this.httpClient
+      .post(CLARIFY_PETITION, Serialize(value, LocationFeatures));
   }
 
   accept(id: number) {
@@ -70,5 +69,10 @@ export class TcPivotsService {
     } else {
       window.location.href = environment.API_BASE_URL + '/api/v1/ltc/export/';
     }
+  }
+
+  // noinspection JSMethodCanBeStatic
+  private filterNulls(array: any[]) {
+    return array.filter((c: any) => c._operator !== null); // todo: исправить any
   }
 }
