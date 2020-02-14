@@ -38,7 +38,7 @@ export class ConnectionPointsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
 
   constructor(
-    private serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private serviceOrganizations: OrganizationsService,
