@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {
   ExistingOperators,
+  GovernmentProgram,
   LocationFeatures,
   MobileGeneration,
   Quality,
@@ -10,7 +11,7 @@ import {
 import {TcPivotsService} from '@core/services/tc-pivots.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {EnumService} from '@core/services';
+import {EnumService, GovernmentProgramService} from '@core/services';
 import {forkJoin} from 'rxjs';
 import {Signal} from '@core/models/signal';
 
@@ -23,6 +24,7 @@ export class TechnicalCapabilitiesComponent {
   locationFeaturesForm: FormGroup;
   locationFeatures: LocationFeatures;
   existingOperators: ExistingOperators;
+  governmentPrograms: GovernmentProgram[];
   tcId: number;
 
   Quality = Quality;
@@ -36,7 +38,8 @@ export class TechnicalCapabilitiesComponent {
     private tcService: TcPivotsService,
     private route: ActivatedRoute,
     private enumService: EnumService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private governmentProgramService: GovernmentProgramService
   ) {
     this.loadTechnicalCapability(route.snapshot.params.id);
   }
@@ -85,6 +88,14 @@ export class TechnicalCapabilitiesComponent {
     );
   }
 
+  compareGovProgram(gp1: GovernmentProgram, gp2: GovernmentProgram) {
+    if (gp1 === null || gp2 === null) {
+      return false;
+    }
+
+    return gp1 === gp2 || gp1.id === gp2.id;
+  }
+
   private showAcceptModel() {
     this.acceptModalVisible = true;
   }
@@ -96,19 +107,22 @@ export class TechnicalCapabilitiesComponent {
   private loadTechnicalCapability(id: number): void {
     this.spinner.show();
 
-    forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
-      response => {
-        this.existingOperators = response[1].sortByLocationFeatures(response[0]);
-        this.locationFeatures = response[0];
+    forkJoin(
+      this.tcService.one(id),
+      this.enumService.getExistingOperators(),
+      this.governmentProgramService.list()
+    ).subscribe(response => {
+      this.existingOperators = response[1].sortByLocationFeatures(response[0]); // todo kludge
+      this.locationFeatures = response[0];
+      this.governmentPrograms = response[2];
 
-        this.locationFeaturesForm = this.buildForm(
-          this.fb,
-          this.locationFeatures,
-          this.existingOperators
-        );
-        this.spinner.hide();
-      }
-    );
+      this.locationFeaturesForm = this.buildForm(
+        this.fb,
+        this.locationFeatures,
+        this.existingOperators
+      );
+      this.spinner.hide();
+    });
   }
 
   private buildForm(
@@ -130,65 +144,80 @@ export class TechnicalCapabilitiesComponent {
     });
 
     existingOperators.cellular.forEach(() => {
-      const group = this.createGroup({
-        _operator: null,
-        _quality: null,
-        _type: null,
-        _governmentProgram: null,
-        _completed: null,
-        _id: null,
-      }, ['_quality', '_type']);
+      const group = this.createGroup(
+        {
+          _operator: null,
+          _quality: null,
+          _type: null,
+          _governmentProgram: null,
+          _completed: null,
+          _id: null,
+        },
+        ['_quality', '_type']
+      );
 
       getArrayGroup(form, '_cellular').push(group);
     });
 
     existingOperators.internet.forEach(() => {
-      const group = this.createGroup({
-        _operator: null,
-        _quality: null,
-        _channel: null,
-        _governmentProgram: null,
-        _completed: null,
-        _id: null,
-      }, ['_quality', '_channel']);
+      const group = this.createGroup(
+        {
+          _operator: null,
+          _quality: null,
+          _channel: null,
+          _governmentProgram: null,
+          _completed: null,
+          _id: null,
+        },
+        ['_quality', '_channel']
+      );
 
       getArrayGroup(form, '_internet').push(group);
     });
 
     existingOperators.radio.forEach(() => {
-      const group = this.createGroup({
-        _operator: null,
-        _quality: null,
-        _type: null,
-        _governmentProgram: null,
-        _completed: null,
-        _id: null,
-      }, ['_type']);
+      const group = this.createGroup(
+        {
+          _operator: null,
+          _quality: null,
+          _type: null,
+          _governmentProgram: null,
+          _completed: null,
+          _id: null,
+        },
+        ['_type']
+      );
 
       getArrayGroup(form, '_radio').push(group);
     });
 
     existingOperators.ats.forEach(() => {
-      const group = this.createGroup({
-        _operator: null,
-        _quantityPayphone: null,
-        _governmentProgram: null,
-        _completed: null,
-        _id: null,
-      }, []);
+      const group = this.createGroup(
+        {
+          _operator: null,
+          _quantityPayphone: null,
+          _governmentProgram: null,
+          _completed: null,
+          _id: null,
+        },
+        []
+      );
 
       getArrayGroup(form, '_ats').push(group);
     });
 
     existingOperators.television.forEach(() => {
-      const group = this.createGroup({
-        _operator: null,
-        _quality: null,
-        _channel: null,
-        _governmentProgram: null,
-        _completed: null,
-        _id: null,
-      }, ['_channel']);
+      const group = this.createGroup(
+        {
+          _operator: null,
+          _quality: null,
+          _channel: null,
+          _governmentProgram: null,
+          _completed: null,
+          _id: null,
+        },
+        ['_channel']
+      );
 
       getArrayGroup(form, '_television').push(group);
     });

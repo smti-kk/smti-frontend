@@ -1425,6 +1425,14 @@ input[type='radio']:checked + .c-radiobox-text:after {
   justify-content: space-between;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
+.w-300 {
+  width: 300px;
+}
+
 .background-transparent {
   background: transparent;
 }

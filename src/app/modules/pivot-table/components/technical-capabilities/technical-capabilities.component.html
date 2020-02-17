@@ -204,11 +204,12 @@
                         </button>
                       </div>
                       <div class="edit-form-info">
-                        <div class="">
+                        <div class="d-flex align-items-center w-300">
                           Программа:
-                          <app-static-text-control
-                            formControlName="_governmentProgram"
-                          ></app-static-text-control>
+                          <select formControlName="_governmentProgram" [compareWith]="compareGovProgram">
+                            <option [ngValue]="null">Нет программы</option>
+                            <option *ngFor="let gp of governmentPrograms" [ngValue]="gp">{{gp.shortName}}</option>
+                          </select>
                         </div>
                         <div class="">
                           Период:

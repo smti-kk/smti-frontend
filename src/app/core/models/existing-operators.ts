@@ -88,16 +88,12 @@ export class ExistingOperators {
   }
 
   sortByLocationFeatures(features: LocationFeatures): ExistingOperators {
-    console.log('tadam:', this, features);
-
     this.cellular = this.sortByLocationFeature(features.cellular, this.cellular);
     this.television = this.sortByLocationFeature(features.television, this.television);
     this.post = this.sortByLocationFeature(features.post, this.post);
     this.ats = this.sortByLocationFeature(features.ats, this.ats);
     this.internet = this.sortByLocationFeature(features.internet, this.internet);
     this.radio = this.sortByLocationFeature(features.radio, this.radio);
-
-    console.log(this);
     return this;
   }
 
