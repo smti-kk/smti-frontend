@@ -65,9 +65,9 @@ export class TcPivotsService {
 
   exportExcel(params?: HttpParams) {
     if (params) {
-      window.location.href = environment.API_BASE_URL + '/api/v1/ltc/export/?' + params.toString();
+      window.location.href = LTC + '/export/?' + params.toString();
     } else {
-      window.location.href = environment.API_BASE_URL + '/api/v1/ltc/export/';
+      window.location.href = LTC + '/export/';
     }
   }
 
