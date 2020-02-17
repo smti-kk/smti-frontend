@@ -30,7 +30,8 @@ export class LocationFeature {
   @autoserializeAs('planTwoYear')
   private readonly _planTwoYear: boolean;
 
-  @autoserializeAs(GovernmentProgram, 'government_program')
+  @deserializeAs(GovernmentProgram, 'government_program')
+  @serializeAs(ID_SERIALIZER, 'government_program')
   private readonly _governmentProgram: GovernmentProgram;
 
   @autoserializeAs('commissioning')
