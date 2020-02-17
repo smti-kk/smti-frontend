@@ -89,6 +89,10 @@ export class TechnicalCapabilitiesComponent {
   }
 
   compareGovProgram(gp1: GovernmentProgram, gp2: GovernmentProgram) {
+    if (gp1 === null && gp2 === null) {
+      return false;
+    }
+
     if (gp1 === null || gp2 === null) {
       return false;
     }
@@ -153,7 +157,7 @@ export class TechnicalCapabilitiesComponent {
           _completed: null,
           _id: null,
         },
-        ['_quality', '_type']
+        ['_quality', '_type', '_governmentProgram', '_completed']
       );
 
       getArrayGroup(form, '_cellular').push(group);
@@ -169,7 +173,7 @@ export class TechnicalCapabilitiesComponent {
           _completed: null,
           _id: null,
         },
-        ['_quality', '_channel']
+        ['_quality', '_channel', '_governmentProgram', '_completed']
       );
 
       getArrayGroup(form, '_internet').push(group);
@@ -185,7 +189,7 @@ export class TechnicalCapabilitiesComponent {
           _completed: null,
           _id: null,
         },
-        ['_type']
+        ['_type, _quality', '_completed']
       );
 
       getArrayGroup(form, '_radio').push(group);
@@ -199,8 +203,9 @@ export class TechnicalCapabilitiesComponent {
           _governmentProgram: null,
           _completed: null,
           _id: null,
+          _quality: null,
         },
-        []
+        ['_quality', '_completed']
       );
 
       getArrayGroup(form, '_ats').push(group);
@@ -211,12 +216,12 @@ export class TechnicalCapabilitiesComponent {
         {
           _operator: null,
           _quality: null,
-          _channel: null,
+          _type: null,
           _governmentProgram: null,
           _completed: null,
           _id: null,
         },
-        ['_channel']
+        ['_type', '_quality', '_completed']
       );
 
       getArrayGroup(form, '_television').push(group);
@@ -236,6 +241,7 @@ export class TechnicalCapabilitiesComponent {
 
     form.patchValue(locationFeatures);
     form.disable();
+
 
     return form;
   }

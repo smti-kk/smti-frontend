@@ -1,37 +1,18 @@
 import {LocationFeature} from '@core/models/location-feature';
-import {deserializeAs, inheritSerialization, serializeAs} from 'cerialize';
-import {Quality} from '@core/models/enums';
-import {Operator} from '@core/models/operator';
-import {Signal, SIGNAL_ARRAY_DESERIALIZER} from '@core/models/signal';
-import {GovernmentProgram} from '@core/models/government-program';
-import {ID_SERIALIZER} from '@core/utils/serializers';
+import {autoserializeAs, inheritSerialization} from 'cerialize';
+import {Signal, SIGNAL_ARRAY_SERIALIZER} from '@core/models/signal';
 
 @inheritSerialization(LocationFeature)
 export class TelevisionFeature extends LocationFeature {
-  @serializeAs(ID_SERIALIZER, 'type')
-  @deserializeAs(SIGNAL_ARRAY_DESERIALIZER, 'type')
-  private readonly _type: Signal[];
+  @autoserializeAs(SIGNAL_ARRAY_SERIALIZER, 'type')
+  private readonly _type: Signal; // todo signal is array Signal[]
 
-  constructor(
-    operator: Operator,
-    quality: Quality,
-    active: boolean,
-    archive: boolean,
-    completed: number,
-    planYear: boolean,
-    planTwoYear: boolean,
-    governmentProgram: GovernmentProgram,
-    type: Signal[]
-  ) {
-    super(operator, quality, active, archive, completed, planYear, planTwoYear, governmentProgram);
-    this._type = type;
-  }
-
-  get type(): Signal[] {
+  get type(): Signal {
     return this._type;
   }
 
   get typeStr(): string {
-    return this.type.map(type => type.shortName).join(', ');
+    return this.type.shortName;
+    // return this.type.map(type => type.shortName).join(', ');
   }
 }

@@ -43,20 +43,29 @@
             <div *ngIf="locationFeaturesForm.enabled" class="edit-status">
               Режим: Редактирование
             </div>
-            <input
-              *ngIf="locationFeaturesForm.enabled"
-              type="button"
-              class="btn btn-cancel-form"
-              value="Отмена редактирования"
-              (click)="cancelEdit()"
-            />
-            <input
-              *ngIf="locationFeaturesForm.disabled"
-              type="button"
-              class="btn btn-edit-form"
-              value="Редактировать (Уточняющая заявка)"
-              (click)="enableForm()"
-            />
+            <div>
+              <input
+                *ngIf="locationFeaturesForm.disabled"
+                type="button"
+                class="btn btn-edit-form"
+                value="Редактировать (Уточняющая заявка)"
+                (click)="enableForm()"
+              />
+              <input
+                *ngIf="locationFeaturesForm.enabled"
+                type="button"
+                class="btn btn-cancel-form"
+                value="Отмена редактирования"
+                (click)="cancelEdit()"
+              />
+              <input
+                [disabled]="!(locationFeaturesForm.valid && locationFeaturesForm.enabled)"
+                type="button"
+                class="btn m-l-1"
+                value="Сохранить заявку"
+                (click)="saveRequest()"
+              />
+            </div>
           </div>
           <div class="edit-form">
             <form [formGroup]="locationFeaturesForm" *ngIf="locationFeaturesForm">
@@ -125,17 +134,16 @@
                           </button>
                         </div>
                         <div class="edit-form-info">
-                          <div class="">
+                          <div class="d-flex align-items-center w-300">
                             Программа:
-                            <app-static-text-control
-                              formControlName="_governmentProgram"
-                            ></app-static-text-control>
+                            <select class="m-l-1" formControlName="_governmentProgram" [compareWith]="compareGovProgram">
+                              <option [value]="null">Нет программы</option>
+                              <option *ngFor="let gp of governmentPrograms" [ngValue]="gp">{{gp.shortName}}</option>
+                            </select>
                           </div>
-                          <div class="">
-                            Период:
-                            <app-static-text-control
-                              formControlName="_completed"
-                            ></app-static-text-control>
+                          <div class="input u-border-left u-border-right m-t-1">
+                            Год реализации:
+                            <input class="m-l-1" type="number" formControlName="_completed">
                           </div>
                         </div>
                       </div>
@@ -206,16 +214,14 @@
                       <div class="edit-form-info">
                         <div class="d-flex align-items-center w-300">
                           Программа:
-                          <select formControlName="_governmentProgram" [compareWith]="compareGovProgram">
-                            <option [ngValue]="null">Нет программы</option>
+                          <select class="m-l-1" formControlName="_governmentProgram" [compareWith]="compareGovProgram">
+                            <option [value]="null">Нет программы</option>
                             <option *ngFor="let gp of governmentPrograms" [ngValue]="gp">{{gp.shortName}}</option>
                           </select>
                         </div>
-                        <div class="">
-                          Период:
-                          <app-static-text-control
-                            formControlName="_completed"
-                          ></app-static-text-control>
+                        <div class="input u-border-left u-border-right m-t-1">
+                          Год реализации:
+                          <input class="m-l-1" type="number" formControlName="_completed">
                         </div>
                       </div>
                     </div>
@@ -238,26 +244,31 @@
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
                         <label
-                          ><input type="radio" formControlName="_channel" [value]="Signal.ATV"/>
+                          ><input type="radio" formControlName="_type" [value]="Signal.ATV"/>
                           <div class="c-radiobox-text">АТВ</div>
                         </label>
                         <label
-                          ><input type="radio" formControlName="_channel" [value]="Signal.CTV"/>
+                          ><input type="radio" formControlName="_type" [value]="Signal.CTV"/>
                           <div class="c-radiobox-text">ЦТВ</div>
                         </label>
                       </div>
-                      <div class="edit-form-info">
-                        <div class="">
-                          Период:
-                          <app-static-text-control
-                            formControlName="_completed"
-                          ></app-static-text-control>
+                      <div class="edit-form-info flex-none">
+                        <div class="input">
+                          Год реализации:
+                          <input class="m-l-1" type="number" formControlName="_completed">
                         </div>
                       </div>
                       <div class="edit-form-btn">
                         <button type="button" class="btn-edit-item">
                           <i class="fas fa-ellipsis-v"></i>
                         </button>
+                      </div>
+                      <div class="select">
+                        <select formControlName="_quality">
+                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
+                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
+                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -277,18 +288,25 @@
                       ></app-simple-checkbox>
                     </div>
                     <div class="edit-form-wrap">
-                      <div class="edit-form-info border-left">
-                        <div class="">
+                      <div class="edit-form-info border-left flex-none">
+                        <div class="input">
                           Период:
-                          <app-static-text-control
+                          <input type="number"
                             formControlName="_completed"
-                          ></app-static-text-control>
+                          >
                         </div>
                       </div>
                       <div class="edit-form-btn">
                         <button type="button" class="btn-edit-item">
                           <i class="fas fa-ellipsis-v"></i>
                         </button>
+                      </div>
+                      <div class="select">
+                        <select formControlName="_quality">
+                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
+                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
+                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -312,18 +330,25 @@
                         <label>Количество:</label
                         ><input formControlName="_quantityPayphone" type="number" />
                       </div>
-                      <div class="edit-form-info">
-                        <div class="">
+                      <div class="edit-form-info flex-none">
+                        <div class="input">
                           Период:
-                          <app-static-text-control
-                            formControlName="_completed"
-                          ></app-static-text-control>
+                          <input type="number"
+                                 formControlName="_completed"
+                          >
                         </div>
                       </div>
                       <div class="edit-form-btn">
                         <button type="button" class="btn-edit-item">
                           <i class="fas fa-ellipsis-v"></i>
                         </button>
+                      </div>
+                      <div class="select">
+                        <select formControlName="_quality">
+                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
+                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
+                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -353,18 +378,25 @@
                           <div class="c-radiobox-text">ЦТВ</div>
                         </label>
                       </div>
-                      <div class="edit-form-info">
-                        <div class="">
+                      <div class="edit-form-info flex-none">
+                        <div class="input">
                           Период:
-                          <app-static-text-control
-                            formControlName="_completed"
-                          ></app-static-text-control>
+                          <input type="number"
+                                 formControlName="_completed"
+                          >
                         </div>
                       </div>
                       <div class="edit-form-btn">
                         <button type="button" class="btn-edit-item">
                           <i class="fas fa-ellipsis-v"></i>
                         </button>
+                      </div>
+                      <div class="select">
+                        <select formControlName="_quality">
+                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
+                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
+                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -437,15 +469,6 @@
                     <!--                      <i class="fas fa-check"></i>-->
                     <!--                    </button>-->
                   </div>
-                </div>
-                <div class="d-flex flex-end">
-                  <input
-                    [disabled]="!(locationFeaturesForm.valid && locationFeaturesForm.enabled)"
-                    type="button"
-                    class="btn"
-                    value="Сохранить заявку"
-                    (click)="saveRequest()"
-                  />
                 </div>
               </div>
             </form>

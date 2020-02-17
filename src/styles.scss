@@ -1425,12 +1425,24 @@ input[type='radio']:checked + .c-radiobox-text:after {
   justify-content: space-between;
 }
 
+.flex-none {
+  flex: none;
+}
+
 .align-items-center {
   align-items: center;
 }
 
 .w-300 {
   width: 300px;
+}
+
+.m-l-1 {
+  margin-left: 1rem;
+}
+
+.m-t-1 {
+  margin-top: 1rem;
 }
 
 .background-transparent {

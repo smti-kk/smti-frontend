@@ -1,16 +1,21 @@
 import {autoserializeAs} from 'cerialize';
 
-export const SIGNAL_ARRAY_DESERIALIZER = {
-  Deserialize(objs: {id: number}[]): Signal[] {
-    return objs.map(obj => {
-      switch (obj.id) {
+export const SIGNAL_ARRAY_SERIALIZER = {
+  Deserialize(objs: {id: number}[]): Signal {
+    if (!objs || !objs[0]) {
+      return null;
+    } else {
+      switch (objs[0].id) {
         case Signal.ATV.id:
           return Signal.ATV;
         case Signal.CTV.id:
           return Signal.CTV;
       }
-    });
+    }
   },
+  Serialize(signal: Signal) {
+    return signal ? [signal.id] : null;
+  }
 };
 
 export class Signal {
