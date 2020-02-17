@@ -100,7 +100,7 @@ export class TechnicalCapabilitiesComponent {
     this.acceptModalVisible = true;
   }
 
-  private hideAcceptModel() {
+  public hideAcceptModel() {
     this.acceptModalVisible = false;
   }
 
