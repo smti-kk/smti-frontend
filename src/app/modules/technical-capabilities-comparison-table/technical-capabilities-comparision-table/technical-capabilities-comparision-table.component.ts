@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationFeaturesService} from '@core/services/location-features.service';
-import {LocationFeatures, PaginatedList} from '@core/models';
+import {GovernmentProgram, Location, LocationFeatures, PaginatedList} from '@core/models';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
+import {GovernmentProgramService} from '@core/services';
 
 @Component({
   selector: 'app-technical-capabilities-comparision-table',
@@ -14,6 +16,9 @@ import {share, tap} from 'rxjs/operators';
 })
 export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   features$: Observable<PaginatedList<LocationFeatures>>;
+  fLocations$: Observable<Location[]>;
+  fParents$: Observable<Location[]>;
+  fGovernmentPrograms$: Observable<GovernmentProgram[]>;
   featuresTypeSelector: FormControl;
   filterForm: FormGroup;
   featureTypes = {
@@ -30,7 +35,9 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
 
   constructor(
     private serviceLocationFeatures: LocationFeaturesService,
+    private serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
     private serviceSpinner: NgxSpinnerService,
+    private serviceGovernmentProgram: GovernmentProgramService,
     private fb: FormBuilder
   ) {}
 
@@ -38,6 +45,9 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     this.buildFeaturesTypeSelector();
     this.buildFilterForm();
     this.currentYear = new Date().getFullYear();
+    this.fLocations$ = this.serviceLocation.listSimpleLocations();
+    this.fParents$ = this.serviceLocation.listParentLocations();
+    this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
   }
 
   exportXLSX() {
@@ -60,17 +70,27 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   buildFilterForm() {
     this.filterForm = this.fb.group({
       order: [null],
-      hasEspd: [false],
-      hasPayphone: [false],
-      hasInfomat: [false],
-      hasRadio: [false],
-      hasTelephone: [false],
-      mailType: [null],
-      tvType: [null],
-      mobileType: [null],
+      govProgram: [null],
+      location: [null],
+      parent: [null],
+      internetOperator: [null],
       internetType: [null],
-      program: [null],
-      locationName: [null],
+      mobileOperator: [null],
+      mobileType: [null]
+    });
+
+    this.filterForm.valueChanges.subscribe(v => {
+      // this.serviceLocation.filter(v);
+      // this.locations$ = this.loadPagedLocationWithOrganizationAccessPoints();
+      this.features$ = (this.featuresTypeSelector.value === this.featureTypes.internet
+          ? this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage)
+          : this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage)
+      ).pipe(
+        tap(() => {
+          this.serviceSpinner.hide();
+        }),
+        share()
+      );
     });
   }
 

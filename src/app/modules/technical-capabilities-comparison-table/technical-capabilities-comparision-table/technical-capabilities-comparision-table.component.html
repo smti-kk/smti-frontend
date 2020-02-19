@@ -43,185 +43,62 @@
                   </app-filter-btn>
                 </div>
                 <div class="l-container-item">
-                  <div id="mobile" class="l-container-row is-disabled">
-                    <div class="o-item-title">Сотовая связь:</div>
-                    <div class="l-vendors-row u-border-right">
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС" />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img
-                              src="../../../../assets/img/beeline.png"
-                              alt="Билайн"
-                              title="Билайн"
-                            />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img
-                              src="../../../../assets/img/megafon.png"
-                              alt="Мегафон"
-                              title="Мегафон"
-                            />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2" />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img
-                              src="../../../../assets/img/rostelecom.png"
-                              alt="РосТелеком"
-                              title="РосТелеком"
-                            />
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="c-radiobox l-radiobox-row">
-                      <label
-                        ><input type="radio" name="mobile" />
-                        <div class="c-radiobox-text">2G</div>
-                      </label>
-                      <label
-                        ><input type="radio" name="mobile" />
-                        <div class="c-radiobox-text">3G</div>
-                      </label>
-                      <label
-                        ><input type="radio" name="mobile" />
-                        <div class="c-radiobox-text">4G</div>
-                      </label>
-                      <label
-                        ><input type="radio" name="mobile" />
-                        <div class="c-radiobox-text">5G</div>
-                      </label>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Населенный пункт:</div>
+                      <select formControlName="location">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fLocations$ | async">
+                          {{ item.fullName}}</option>
+                      </select>
                     </div>
                   </div>
-                  <div id="internet" class="l-container-row is-disabled">
-                    <div class="o-item-title">Интернет:</div>
-                    <div class="l-vendors-row u-border-right">
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img src="../../../../assets/img/mts.png" alt="МТС" title="МТС" />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img
-                              src="../../../../assets/img/beeline.png"
-                              alt="Билайн"
-                              title="Билайн"
-                            />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img
-                              src="../../../../assets/img/megafon.png"
-                              alt="Мегафон"
-                              title="Мегафон"
-                            />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img src="../../../../assets/img/tele2.png" alt="Теле2" title="Теле2" />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img
-                              src="../../../../assets/img/rostelecom.png"
-                              alt="РосТелеком"
-                              title="РосТелеком"
-                            />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img src="../../../../assets/img/iskra.png" alt="Искра" title="Искра" />
-                          </div>
-                        </label>
-                      </div>
-                      <div class="c-vendor">
-                        <label>
-                          <input type="checkbox" />
-                          <div class="c-vendor-logo c-vendor-checked">
-                            <img src="../../../../assets/img/ttk.png" alt="ТТК" title="ТТК" />
-                          </div>
-                        </label>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Район:</div>
+                      <select formControlName="parent">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
+                          item.fullName
+                          }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input" id="mobile">
+                      <div class="o-item-title"><i class="fas fa-mobile-alt"></i> Сотовая связь:</div>
+                      <div class="l-vendors-row">
+                        <app-cellular-features
+                          [locationFeatures]="lc.cellular"
+                          [existed]="existingOperators.cellular"
+                        ></app-cellular-features>
                       </div>
                     </div>
-                    <div class="c-radiobox l-radiobox-row">
-                      <label
-                        ><input type="radio" name="internet" />
-                        <div class="c-radiobox-text">Спутник</div>
-                      </label>
-                      <label
-                        ><input type="radio" name="internet" />
-                        <div class="c-radiobox-text">ВОЛС</div>
-                      </label>
-                      <label
-                        ><input type="radio" name="internet" />
-                        <div class="c-radiobox-text">Медь</div>
-                      </label>
-                      <label
-                        ><input type="radio" name="internet" />
-                        <div class="c-radiobox-text">Радиоканал</div>
-                      </label>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input" id="internet">
+                      <div class="o-item-title"><i class="fab fa-internet-explorer"></i> Интернет:</div>
+                      <div class="l-vendors-row">
+                        <app-internet-features
+                          [locationFeatures]="lc.internet"
+                          [existed]="existingOperators.internet"
+                        >
+                        </app-internet-features>
+                      </div>
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="o-item-title">Программа:</div>
-                    <select name="" id="">
-                      <option value="" disabled selected style="display:none;"
-                        >Выберите программу
-                      </option>
-                      <option value="">Программа 1</option>
-                      <option value="">Программа 2</option>
+                    <select formControlName="govProgram">
+                      <option [ngValue]="null">Не выбран</option>
+                      <option [ngValue]="item" *ngFor="let item of fGovernmentPrograms$ | async">{{
+                        item.shortName
+                        }}</option>
                     </select>
                   </div>
                 </div>
               </div>
-              <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр" />
+              <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр"/>
             </form>
           </div>
         </group>
@@ -231,7 +108,7 @@
           Результатов: <span>{{ (this.features$ | async)?.count }}</span>
         </div>
         <div class="c-filter-export">
-          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel" />
+          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel"/>
         </div>
       </div>
     </div>
@@ -299,9 +176,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -321,9 +198,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -401,9 +278,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -423,9 +300,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -492,5 +369,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
-  >Загрузка. . .
+>Загрузка. . .
 </ngx-spinner>
