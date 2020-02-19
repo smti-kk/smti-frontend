@@ -117,7 +117,7 @@
       </accordion>
       <div class="c-filter-info">
         <div class="c-filter-result">
-           Результатов поиска: <span>{{(locations$ | async)?.count}}</span>
+          Результатов поиска: <span>{{(locations$ | async)?.count}}</span>
         </div>
         <div class="c-filter-export">
           <input
@@ -154,6 +154,9 @@
                 </div>
               </div>
             </accordion-header>
+            <div class="add-organization">
+              <button type="button" class="btn">Добавить организацию</button>
+            </div>
             <accordion
               class="c-accordion"
               *ngFor="let organization of location.organizations; let i = index"
@@ -162,7 +165,10 @@
                 <accordion-header class="c-accordion-title">
                   <div class="c-accordion-number">{{ i + 1 }}</div>
                   <div class="c-accordion-name">
-                    <div>{{ organization.fullName }}</div>
+                    <div style="display: flex; justify-content: space-between">
+                      <div>{{ organization.fullName }}</div>
+                      <a [routerLink]="[organization.id]" class="btn">Подробнее</a>
+                    </div>
                     <div class="c-accordion-info">
                       <div class="c-accordion-info-item">
                         <span class="u-gray">учреждение:</span>
@@ -175,7 +181,6 @@
                     </div>
                   </div>
                 </accordion-header>
-                <a [routerLink]="[organization.id]" class="btn">Подробнее</a>
                 <div class="l-contract" *ngFor="let point of organization.reaccesspoints">
                   <div class="c-contract-info u-span3">
                     <i class="far fa-map-marker-alt"></i

@@ -7,5 +7,48 @@ input.ng-invalid {
 }
 
 input:disabled{
-  background-color: lightgray;
+  background-color: #ffffff;
+}
+
+input:disabled.save {
+  background-color: #009cd3;
+  opacity: 0.5;
+  cursor: default;
+}
+
+.organ-item {
+  margin-top: 1rem;
+}
+
+label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+input,
+select {
+  margin-top: 0.2rem;
+  padding: 7px;
+  font-size: 14px;
+}
+
+.add-point {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.wip-organization-access-points {
+  margin-bottom: 2rem;
+}
+
+.point-item {
+  margin-top: 0.3rem;
+}
+
+.btn {
+  min-width: 130px;
+}
+
+.btn + .btn {
+  margin-left: 1rem;
 }

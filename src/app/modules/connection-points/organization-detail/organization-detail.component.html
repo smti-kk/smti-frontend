@@ -35,50 +35,49 @@
         *ngIf="formGroupOrganization.enabled"
         type="button"
         class="btn btn-cancel-form"
-        value="Отмена редактирования"
+        value="Отмена"
         (click)="cancelEdit()"
       />
       <input
         *ngIf="formGroupOrganization.disabled"
         type="button"
         class="btn btn-edit-form"
-        value="Редактировать (Уточняющая заявка)"
+        value="Редактировать организацию"
         (click)="enableForm()"
       />
-      <span>&nbsp;</span>
       <input
         type="button"
-        class="btn"
-        value="Сохранить заявку"
+        class="btn save"
+        value="Сохранить"
         *ngIf="formGroupOrganization.enabled"
         [disabled] = "!formGroupOrganization.valid"
         (click)="saveRequest()"
       />
-      <div>
-        <div>
+      <div class="organ">
+        <div class="organ-item">
           <label>Краткое наименование: <input type="text" formControlName="_name"/></label>
         </div>
-        <div>
+        <div class="organ-item">
           <label
             >Полное наименование: <input type="text" formControlName="_fullName"
           /></label>
         </div>
-        <div>
+        <div class="organ-item">
           <label>Адрес: <input type="text" formControlName="_address"/></label>
         </div>
-        <div>
+        <div class="organ-item">
           <label>ИНН: <input type="text" formControlName="_inn"/></label>
         </div>
-        <div>
+        <div class="organ-item">
           <label>КПП: <input type="text" formControlName="_kpp"/></label>
         </div>
-        <div>
+        <div class="organ-item">
           <label>ФИАС: <input type="text" formControlName="_fias"/></label>
           <div class="error" *ngIf="formGroupOrganization.get('_fias').invalid">
             Должно соответствовать формату "00000000-0000-0000-0000-000000000000"
           </div>
         </div>
-        <div>
+        <div class="organ-item">
           <label>Тип:
             <select formControlName="_type" [compareWith]="compareFn">
               <option [ngValue]="null">Не выбран</option>
@@ -87,7 +86,7 @@
               </option>
             </select></label>
         </div>
-        <div>
+        <div class="organ-item">
           <label>СЗО:
             <select formControlName="_smoType" [compareWith]="compareFn">
               <option [ngValue]="null">Не выбран</option>
@@ -100,23 +99,26 @@
         <div>ОКТМО: {{organization.oktmo}}</div> -->
       </div>
       <br />
+      <div class="add-point">
+        <button type="button" class="btn">Добавить точку подключения</button>
+      </div>
       <div class="wip-organization-access-points">
-        <div *ngFor="let ap of organization.reaccesspoints">
+        <div *ngFor="let ap of organization.reaccesspoints" class="point">
           <hr />
-          <div>Адрес: {{ ap.address }}</div>
-          <!-- <div>Координата: {{ap.coordinate}}</div> -->
-          <div>Отображается: <input type="checkbox" disabled checked="{{ ap.visible }}" /></div>
-          <div>Узел доступа: {{ ap.node }}</div>
-          <div>Тип подключения: {{ ap.connectionTypeString }}</div>
+          <div class="point-item">Адрес: {{ ap.address }}</div>
+          <!-- <div class="point-item">Координата: {{ap.coordinate}}</div> -->
+          <div class="point-item">Отображается: <input type="checkbox" disabled checked="{{ ap.visible }}" /></div>
+          <div class="point-item">Узел доступа: {{ ap.node }}</div>
+          <div class="point-item">Тип подключения: {{ ap.connectionTypeString }}</div>
 
-          <div>Оператор связи: {{ ap.contractor }}</div>
-          <!-- <div>Контракт: {{ap.type}}</div> -->
-          <div>Скорость по контракту: {{ ap.definedSpeed }}</div>
-          <!-- <div>Ширина канала: {{ap.type}}</div> -->
-          <div>Качество связи: {{ ap.quality }}</div>
-          <div>Государственная программа: {{ ap.governmentProgram.shortName }}</div>
-          <!-- <div>Статус участия: {{ap.type}}</div>
-          <div>Год реализации: {{ap.type}}</div> -->
+          <div class="point-item">Оператор связи: {{ ap.contractor }}</div>
+          <!-- <div class="point-item">Контракт: {{ap.type}}</div> -->
+          <div class="point-item">Скорость по контракту: {{ ap.definedSpeed }}</div>
+          <!-- <div class="point-item">Ширина канала: {{ap.type}}</div> -->
+          <div class="point-item">Качество связи: {{ ap.quality }}</div>
+          <div class="point-item">Государственная программа: {{ ap.governmentProgram.shortName }}</div>
+          <!-- <div class="point-item">Статус участия: {{ap.type}}</div>
+          <div class="point-item">Год реализации: {{ap.type}}</div> -->
         </div>
       </div>
     </div>
