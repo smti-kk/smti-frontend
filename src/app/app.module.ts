@@ -8,10 +8,11 @@ import {SharedModule} from '@shared/shared.module';
 import {RouteReuseStrategy} from '@angular/router';
 import {CustomReuseStrategy} from '@core/utils/custom-reuse-strategy';
 import {GlobalErrorHandler} from '@core/utils/global-error-handler';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, CoreModule, SharedModule],
+  imports: [BrowserModule, AppRoutingModule, CoreModule, SharedModule, BrowserAnimationsModule],
   providers: [
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
