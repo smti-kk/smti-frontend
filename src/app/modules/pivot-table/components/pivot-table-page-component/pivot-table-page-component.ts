@@ -16,7 +16,7 @@ import {EnumService, GovernmentProgramService} from '@core/services';
 import {forkJoin, Subscription} from 'rxjs';
 import {debounceTime, filter, tap} from 'rxjs/operators';
 import {Signal} from '@core/models/signal';
-import { FilterTcPivotsService } from '@core/services/filter-tc-pivots.service';
+import {FilterTcPivotsService} from '@core/services/filter-tc-pivots.service';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -70,7 +70,8 @@ export class PivotTablePageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngAfterViewInit(): void {
     window.addEventListener('keydown', e => {

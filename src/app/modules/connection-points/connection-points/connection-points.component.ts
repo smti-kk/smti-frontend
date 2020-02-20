@@ -28,7 +28,7 @@ export class ConnectionPointsComponent implements OnInit {
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
   fOrganizationTypes$: Observable<OrganizationType[]>;
   fOrganizationSMOTypes$: Observable<SmoType[]>;
-  fGovermentPrograms$: Observable<GovernmentProgram[]>;
+  fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
   pageNumber = 1;
   itemsPerPage = 10;
@@ -57,7 +57,7 @@ export class ConnectionPointsComponent implements OnInit {
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
-    this.fGovermentPrograms$ = this.serviceGovernmentProgram.list();
+    this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
 

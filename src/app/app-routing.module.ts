@@ -18,6 +18,10 @@ const routes: Routes = [
     loadChildren: './modules/pivot-table/pivot-table.module#PivotTableModule',
   },
   {
+    path: 'organizations-data-table',
+    loadChildren: './modules/organizations-data-table/organizations-data-table.module#OrganizationsDataTableModule'
+  },
+  {
     path: 'login',
     component: AuthorizationComponent,
   },

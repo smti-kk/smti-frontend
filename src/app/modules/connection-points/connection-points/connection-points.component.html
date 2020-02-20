@@ -96,7 +96,7 @@
                       <div class="o-item-title">Контракт:</div>
                       <select formControlName="contractType">
                         <option [ngValue]="null">Не выбран</option>
-                        <option [ngValue]="item" *ngFor="let item of fGovermentPrograms$ | async">{{
+                        <option [ngValue]="item" *ngFor="let item of fGovernmentPrograms$ | async">{{
                           item.shortName
                           }}</option>
                       </select>

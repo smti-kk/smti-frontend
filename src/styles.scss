@@ -138,8 +138,7 @@ select {
   width: 100%;
   border: none;
   border-bottom: 1px solid #bcbcbc;
-  background: url('assets/img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-gray.png') no-repeat 99% 50%;
   color: #575756;
   font-size: 12px;
   font-weight: 100;
@@ -148,8 +147,7 @@ select {
 
 select:focus {
   border-color: #35a584;
-  background: url('assets/img/arrow-green-bottom.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-green-bottom.png') no-repeat 99% 50%;
   outline: none;
   outline-offset: 0;
 }
@@ -205,6 +203,14 @@ input[type='text']:focus::placeholder {
   color: #009dd3;
 }
 
+.btn-small {
+  padding: 5px 12px;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  width: 120px;
+  text-decoration: none;
+}
+
 textarea {
   margin-bottom: 19px;
   width: 100%;
@@ -237,8 +243,7 @@ label {
   width: 230px;
   font-size: 12px;
   padding-left: 5px;
-  background: url('assets/img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-gray.png') no-repeat 99% 50%;
   background-size: 9px 5px;
 }
 
@@ -279,15 +284,14 @@ input.btn.cancel {
 }
 
 select {
-  padding: 5px 0 4px 1rem;
+  padding: 0 0 4px 1rem;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   width: 100%;
   border: none;
   border-bottom: 1px solid #bcbcbc;
-  background: url('assets/img/arrow-gray.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-gray.png') no-repeat 99% 50%;
   color: #575756;
   font-weight: 100;
   cursor: pointer;
@@ -295,8 +299,7 @@ select {
 
 select:focus {
   border-color: #35a584;
-  background: url('assets/img/arrow-green-bottom.png') no-repeat;
-  background-position: 99% 50%;
+  background: url('assets/img/arrow-green-bottom.png') no-repeat 99% 50%;
   outline: none;
   outline-offset: 0;
 }
@@ -362,8 +365,7 @@ select:-moz-focusring {
 
 .icon-location {
   display: inline-block;
-  background: url('assets/img/loc.png') no-repeat;
-  background-position: center;
+  background: url('assets/img/loc.png') no-repeat center;
   width: 2rem;
   height: 16px;
 }
@@ -376,14 +378,12 @@ select:-moz-focusring {
   width: 20px;
   height: 20px;
   border: none;
-  background: url('assets/img/search.png') no-repeat;
-  background-position: 50% 50%;
+  background: url('assets/img/search.png') no-repeat 50% 50%;
   cursor: pointer;
 }
 
-.search-location input[type='text']:focus + input[type='submit'] {
-  background: url('assets/img/search-green.png') no-repeat;
-  background-position: 50% 50%;
+.search-location input[type="text"]:focus + input[type="submit"] {
+  background: url('assets/img/search-green.png') no-repeat 50% 50%;
 }
 
 .l-sidebar-list {
@@ -399,6 +399,7 @@ select:-moz-focusring {
 .c-accordion {
   padding-left: 1rem;
   display: block;
+  padding-right: 1rem;
 }
 
 .c-accordion:not(:last-child) {
@@ -411,7 +412,6 @@ select:-moz-focusring {
   align-items: center;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
-  cursor: pointer;
 }
 
 .c-accordion .c-accordion .c-accordion-title {
@@ -448,6 +448,7 @@ select:-moz-focusring {
   //flex-grow: 1;
   text-align: right;
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .c-accordion-button::before {
@@ -536,6 +537,13 @@ select:-moz-focusring {
 .u-green-dot::before {
   content: url('/assets/img/green-dot.png');
 }
+.o-none::before {
+  content: '\f15b';
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.u-green-dot::before { content: url('/assets/img/green-dot.png') }
 
 .u-gray-dot::before {
   content: url('/assets/img/gray-dot.png');
@@ -644,22 +652,6 @@ select:-moz-focusring {
   margin-top: 1rem;
 }
 
-.filter-radiobox .radiobox {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 2px;
-}
-
-.filter-radiobox .radiobox label {
-  flex: 0 0 40%;
-}
-
-.filter-radiobox-name {
-  margin-bottom: 5px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
 .l-container-item .checkbox-text {
   font-size: 11px;
 }
@@ -715,22 +707,6 @@ select:-moz-focusring {
   align-items: center;
 }
 
-.l-table-location {
-  grid-template-columns: 40px 200px 60px 100px 120px 180px 1fr;
-}
-
-.l-table-location .l-table-column:nth-child(1) {
-  justify-self: center;
-}
-
-.l-table-location .l-table-column:nth-child(3) {
-  padding-left: 15px;
-}
-
-.l-table-location .u-table-header .l-table-column:nth-child(3) {
-  padding-left: 0;
-}
-
 .l-table-compare {
   grid-template-columns: 1fr 110px 200px 200px 110px;
 }
@@ -752,6 +728,17 @@ select:-moz-focusring {
 .u-false::before {
   content: '\f068';
   font-size: 13px;
+}
+
+.c-info {
+  display: flex;
+  margin-top: 14px;
+}
+
+.c-info-icon {
+  margin-right: 5px;
+  width: 18px;
+  text-align: center;
 }
 
 /* --- Фильтр. Результаты --- end --- */
@@ -956,60 +943,6 @@ input[type='radio']:checked + .c-radiobox-text:after {
 
 /* --- Радио кнопки и Чекбоксы --- end --- */
 
-/* --- Панель под хедером --- begin --- */
-.c-top-bar {
-  width: 970px;
-  margin: 15px auto 0;
-  padding: 14px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #fff;
-  font-size: 12px;
-  box-shadow: -7px 0px 18px rgba(0, 7, 3, 0.27);
-}
-
-.c-top-bar.pos-on-map {
-  position: absolute;
-  top: 15px;
-  left: 0;
-  right: 0;
-  margin-top: 0;
-}
-
-.c-top-bar-item {
-  padding-left: 12px;
-  padding-right: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.o-separator {
-  flex-shrink: 0;
-  margin: 0;
-  padding: 0;
-  width: 1px;
-  height: auto;
-  border: none;
-  background: #d2d2d2;
-}
-
-.u-flex-basis {
-  flex-basis: 200px;
-}
-
-.l-row {
-  display: flex;
-}
-
-.l-column {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-/* --- Панель под хедером --- end --- */
-
 /* --- Вкладки --- begin --- */
 .c-tab-header {
   display: flex;
@@ -1099,6 +1032,7 @@ input[type='radio']:checked + .c-radiobox-text:after {
 .input {
   display: flex;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .input input {
@@ -1113,42 +1047,6 @@ input[type='radio']:checked + .c-radiobox-text:after {
 .input .o-item-title + input {
   width: auto;
 }
-
-.edit-form-comment {
-  display: flex;
-  padding-top: 10px;
-}
-
-.edit-form-btn {
-  display: none;
-  flex-grow: 1;
-  text-align: right;
-}
-
-.btn-edit-item {
-  margin: 0;
-  padding: 3px 9px;
-  border: 0;
-  color: #fff;
-  background-color: #009dd3;
-  cursor: pointer;
-}
-
-.btn-save-comment {
-  margin-left: 10px;
-  width: 32px;
-  height: 34px;
-  font-size: 16px;
-  padding: 5px;
-  opacity: 0.2;
-}
-
-.btn-save-form {
-  margin: 0 0 0 82%;
-  white-space: nowrap !important;
-  opacity: 0.2;
-}
-
 /* --- Форма уточняющей заявки --- end --- */
 
 /* --- Модальное окно --- begin --- */
