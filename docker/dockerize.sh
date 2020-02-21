@@ -41,7 +41,7 @@ docker rmi ${hub}/${project}_${GIT_BRANCH_SHORT}:latest
 docker rmi ${hub}/${project}:${GIT_COMMIT_SHORT}
 }
 
-publish() {
+push() {
 echo "Pushing ${hub}/${project} (${GIT_BRANCH_SHORT}) at ${GIT_COMMIT_SHORT}"
 
 docker push ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/docker/version`
