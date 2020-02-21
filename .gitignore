@@ -53,3 +53,5 @@ Thumbs.db
 *.sass-cache
 api (1).http
 proxy.conf.json
+
+.ssh
