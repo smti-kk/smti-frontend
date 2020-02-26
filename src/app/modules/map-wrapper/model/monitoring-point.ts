@@ -1,5 +1,6 @@
 import {Coordinate} from '../interface/coordinate';
 import {autoserializeAs} from 'cerialize';
+import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 export const COORDINATE_DESERIALIZER = {
   Deserialize(point: {coordinates: [number, number]}): Coordinate {
@@ -8,6 +9,10 @@ export const COORDINATE_DESERIALIZER = {
       lng: point.coordinates[0],
     };
   },
+
+  Serialize(point: Coordinate) {
+    return 'SRID=4326;POINT (90.9261111 56.8919444)';
+  }
 };
 
 export abstract class MonitoringPoint {

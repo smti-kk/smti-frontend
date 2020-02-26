@@ -1,11 +1,12 @@
-import {autoserializeAs, deserializeAs, inheritSerialization} from 'cerialize';
-// import { Contract } from '@core/models/contract';
+import {autoserializeAs, deserializeAs, inheritSerialization, serializeAs} from 'cerialize';
 import {GovernmentProgram} from '@core/models/government-program';
 import {InternetAccessType} from '@core/models/internet-access-type';
 import {Operator} from '@core/models/operator';
 import {Quality} from '@core/models/enums';
 import {MonitoringPoint} from '@map-wrapper/model/monitoring-point';
 import {Avstatus} from '@core/models/avstatus';
+import {Coordinate} from '@map-wrapper/interface/coordinate';
+import {ID_SERIALIZER} from '@core/utils/serializers';
 
 const ESPD_MARKER_ACTIVE = '../../../../assets/img/ap-ena-espd.svg';
 const ESPD_MARKER_UNDEFINED = '../../../../assets/img/ap-na-espd.svg';
@@ -25,6 +26,10 @@ const LOCATION_DESERIALIZER = {
 
 @inheritSerialization(MonitoringPoint)
 export class Reaccesspoint extends MonitoringPoint {
+  constructor(point: Coordinate, id: number) {
+    super(point, id);
+  }
+
   @autoserializeAs('address')
   private readonly _address: string;
 
@@ -37,7 +42,8 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('completed')
   private readonly _completed: boolean;
 
-  @autoserializeAs(InternetAccessType, 'connection_type')
+  @deserializeAs(InternetAccessType, 'connection_type')
+  @serializeAs(ID_SERIALIZER, 'connection_type')
   private readonly _connectionType: InternetAccessType;
 
   @deserializeAs(ORGANIZATION_DESERIALIZER, 'organization')
@@ -61,7 +67,8 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('description')
   private readonly _description: string;
 
-  @autoserializeAs(GovernmentProgram, 'government_program')
+  @deserializeAs(GovernmentProgram, 'government_program')
+  @serializeAs(ID_SERIALIZER, 'government_program')
   private readonly _governmentProgram: GovernmentProgram;
 
   @autoserializeAs('ip_config')

@@ -14,9 +14,13 @@ const routes: Routes = [
     component: ConnectionPointsComponent,
   },
   {
+    path: 'new',
+    component: OrganizationDetailComponent
+  },
+  {
     path: ':id',
     component: OrganizationDetailComponent,
-  },
+  }
 ];
 
 @NgModule({

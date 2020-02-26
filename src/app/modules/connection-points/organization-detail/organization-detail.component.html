@@ -6,7 +6,7 @@
         <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="#">Главная</a></li>
         <li class="breadcrumbs-item">
           <a class="breadcrumbs-link" routerLink="/connection-points"
-            >Сводная таблица по организациям</a
+          >Сводная таблица по организациям</a
           >
         </li>
         <!-- <li class="breadcrumbs-item">
@@ -32,26 +32,35 @@
 
     <div class="wip-organization" *ngIf="organization" [formGroup]="formGroupOrganization">
       <input
-        *ngIf="formGroupOrganization.enabled"
-        type="button"
-        class="btn btn-cancel-form"
-        value="Отмена"
-        (click)="cancelEdit()"
+              *ngIf="formGroupOrganization.enabled"
+              type="button"
+              class="btn btn-cancel-form"
+              value="Отмена"
+              (click)="cancelEdit()"
       />
       <input
-        *ngIf="formGroupOrganization.disabled"
-        type="button"
-        class="btn btn-edit-form"
-        value="Редактировать организацию"
-        (click)="enableForm()"
+              *ngIf="formGroupOrganization.disabled"
+              type="button"
+              class="btn btn-edit-form"
+              value="Редактировать организацию"
+              (click)="enableForm()"
       />
       <input
-        type="button"
-        class="btn save"
-        value="Сохранить"
-        *ngIf="formGroupOrganization.enabled"
-        [disabled] = "!formGroupOrganization.valid"
-        (click)="saveRequest()"
+              type="button"
+              class="btn save"
+              value="Сохранить"
+              *ngIf="formGroupOrganization.enabled && !isCreate()"
+              [disabled]="!formGroupOrganization.valid"
+              (click)="saveRequest()"
+      />
+
+      <input
+              type="button"
+              class="btn save"
+              value="Создать"
+              *ngIf="formGroupOrganization.enabled && isCreate()"
+              [disabled]="!formGroupOrganization.valid"
+              (click)="saveOrganization()"
       />
       <div class="organ">
         <div class="organ-item">
@@ -59,7 +68,7 @@
         </div>
         <div class="organ-item">
           <label
-            >Полное наименование: <input type="text" formControlName="_fullName"
+          >Полное наименование: <input type="text" formControlName="_fullName"
           /></label>
         </div>
         <div class="organ-item">
@@ -95,19 +104,24 @@
               </option>
             </select></label>
         </div>
+        <div class="organ-item">
+          <label>Локация:
+            <select formControlName="_location">
+              <option [ngValue]="null">Не выбран</option>
+              <option *ngFor="let item of fLocations$ | async" [value]="item.id">
+                {{ item.name }} ({{ item.id}})
+              </option>
+            </select></label>
+        </div>
         <!-- <div>ОГРН: {{organization.ogrn}}</div>
         <div>ОКТМО: {{organization.oktmo}}</div> -->
       </div>
-      <br />
-      <div class="add-point">
-        <button type="button" class="btn">Добавить точку подключения</button>
-      </div>
       <div class="wip-organization-access-points">
         <div *ngFor="let ap of organization.reaccesspoints" class="point">
-          <hr />
+          <hr/>
           <div class="point-item">Адрес: {{ ap.address }}</div>
           <!-- <div class="point-item">Координата: {{ap.coordinate}}</div> -->
-          <div class="point-item">Отображается: <input type="checkbox" disabled checked="{{ ap.visible }}" /></div>
+          <div class="point-item">Отображается: <input type="checkbox" disabled checked="{{ ap.visible }}"/></div>
           <div class="point-item">Узел доступа: {{ ap.node }}</div>
           <div class="point-item">Тип подключения: {{ ap.connectionTypeString }}</div>
 
@@ -115,12 +129,71 @@
           <!-- <div class="point-item">Контракт: {{ap.type}}</div> -->
           <div class="point-item">Скорость по контракту: {{ ap.definedSpeed }}</div>
           <!-- <div class="point-item">Ширина канала: {{ap.type}}</div> -->
-          <div class="point-item">Качество связи: {{ ap.quality }}</div>
-          <div class="point-item">Государственная программа: {{ ap.governmentProgram.shortName }}</div>
+          <div class="point-item">Качество связи: {{ qualityToString(ap.quality) }}</div>
+          <div class="point-item">Государственная программа: {{ ap.governmentProgram?.shortName }}</div>
           <!-- <div class="point-item">Статус участия: {{ap.type}}</div>
           <div class="point-item">Год реализации: {{ap.type}}</div> -->
         </div>
       </div>
     </div>
+    <div class="add-point">
+      <button type="button" class="btn" (click)="addNewAccessPoint()" *ngIf="!ap && organization.id">Добавить точку подключения</button>
+    </div>
+    <div class="wip-organization-access-points" *ngIf="ap" [formGroup]="formGroupAccessPoints">
+      <hr/>
+      <div class="point-item">
+        <label>Адрес: <input type="text" formControlName="_address"/></label>
+      </div>
+      <!-- <div class="point-item">Координата: {{ap.coordinate}}</div> -->
+      <div class="point-item">
+        <label>Отображается: <input type="checkbox" checked="true" formControlName="_visible"/></label>
+      </div>
+      <div class="point-item">
+        <label>Узел доступа: <input type="text" formControlName="_node"/></label>
+      </div>
+      <div class="point-item">
+        <label>Тип:
+          <select formControlName="_connectionType" [compareWith]="compareFn">
+            <option [ngValue]="null">Не выбран</option>
+            <option *ngFor="let item of fInternetAccessTypes$ | async" [ngValue]="item">
+              {{ item.name }}
+            </option>
+          </select></label>
+      </div>
+      <div class="point-item">
+        <label>Оператор связи: <input type="text" formControlName="_contractor"/></label>
+      </div>
+      <!-- <div class="point-item">Контракт: {{ap.type}}</div> -->
+      <div class="point-item">
+        <label>Скорость по контракту: <input type="text" formControlName="_definedSpeed"/></label>
+      </div>
+      <!-- <div class="point-item">Ширина канала: {{ap.type}}</div> -->
+      <div class="point-item">
+        <label>Качество связи:
+          <select formControlName="_quality">
+            <option [ngValue]="Quality.GOOD">
+              Хорошо
+            </option>
+            <option [ngValue]="Quality.NORMAL">
+              Удовлетворительно
+            </option>
+            <option [ngValue]="Quality.ABSENT">
+              Отсутствует
+            </option>
+          </select></label>
+      </div>
+      <div class="point-item">
+        <label>Государственная программа:
+          <select formControlName="_governmentProgram" [compareWith]="compareFn">
+            <option *ngFor="let item of fGovernmentPrograms$ | async" [ngValue]="item">
+              {{ item.fullName }}
+            </option>
+          </select></label>
+      </div>
+     <!-- <div class="point-item">Статус участия: {{ap.type}}</div>
+      <div class="point-item">Год реализации: {{ap.type}}</div> -->
+      <button type="button" class="btn" (click)="saveAccessPoint()">Создать точку подключения</button>
+    </div>
+
   </div>
 </main>

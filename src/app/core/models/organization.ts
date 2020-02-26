@@ -44,8 +44,8 @@ export class Organization {
   @autoserializeAs(Contract, 'contract_set')
   private readonly _contracts: Contract[];
 
-  // @autoserializeAs(Location, 'location')
-  // private readonly _location: Location;
+  @autoserializeAs('location')
+  private _location: number;
 
   // @autoserializeAs('ogrn')
   // private readonly ogrn: string;
@@ -54,39 +54,17 @@ export class Organization {
   // private readonly oktmo: string;
 
   constructor(
-    address: string,
-    fias: string,
-    fullName: string,
-    name: string,
-    id: number,
-    inn: number,
-    kpp: number,
-    parent: Organization,
-    reaccesspoints: Reaccesspoint[],
-    type: OrganizationType,
-    smoType: SmoType,
-    // location: Location
+    locationId?: number
   ) {
-    this._address = address;
-    this._fias = fias;
-    this._fullName = fullName;
-    this._name = name;
-    this._id = id;
-    this._inn = inn;
-    this._kpp = kpp;
-    this._parent = parent;
-    this._reaccesspoints = reaccesspoints;
-    this._type = type;
-    this._smoType = smoType;
-    // this._location = location;
+    this._location = locationId;
   }
-
-  // get location(): Location {
-  //   return this._location;
-  // }
 
   get contracts(): Contract[] {
     return this._contracts;
+  }
+
+  get location(): number {
+    return this._location;
   }
 
   get address(): string {
