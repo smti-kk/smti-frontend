@@ -87,46 +87,9 @@
                         </app-simple-checkbox>
                       </div>
                       <div class="edit-form-wrap">
-                        <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                          <label
-                            ><input
-                              type="radio"
-                              [value]="MobileGeneration._2G"
-                              formControlName="_type"
-                            />
-                            <div class="c-radiobox-text">2G</div>
-                          </label>
-                          <label
-                            ><input
-                              type="radio"
-                              [value]="MobileGeneration._3G"
-                              formControlName="_type"
-                            />
-                            <div class="c-radiobox-text">3G</div>
-                          </label>
-                          <label
-                            ><input
-                              type="radio"
-                              [value]="MobileGeneration._4G"
-                              formControlName="_type"
-                            />
-                            <div class="c-radiobox-text">4G</div>
-                          </label>
-                          <label
-                            ><input
-                              type="radio"
-                              [value]="MobileGeneration._5G"
-                              formControlName="_type"
-                            />
-                            <div class="c-radiobox-text">5G</div>
-                          </label>
-                        </div>
+                        <app-mobile-generation formControlName="_type"></app-mobile-generation>
                         <div class="select">
-                          <select formControlName="_quality">
-                            <option [ngValue]="Quality.GOOD">Хорошее качество</option>
-                            <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
-                            <option [ngValue]="Quality.ABSENT">Отсутствует</option>
-                          </select>
+                          <app-quality formControlName="_quality"></app-quality>
                         </div>
                         <div class="edit-form-btn">
                           <button type="button" class="btn-edit-item">
@@ -136,14 +99,13 @@
                         <div class="edit-form-info">
                           <div class="d-flex align-items-center w-300">
                             Программа:
-                            <select class="m-l-1" formControlName="_governmentProgram" [compareWith]="compareGovProgram">
-                              <option [value]="null">Нет программы</option>
-                              <option *ngFor="let gp of governmentPrograms" [ngValue]="gp">{{gp.shortName}}</option>
-                            </select>
+                            <app-government-program
+                              formControlName="_governmentProgram"
+                            ></app-government-program>
                           </div>
                           <div class="input u-border-left u-border-right m-t-1">
                             Год реализации:
-                            <input class="m-l-1" type="number" formControlName="_completed">
+                            <input class="m-l-1" type="number" formControlName="_completed" />
                           </div>
                         </div>
                       </div>
@@ -165,46 +127,9 @@
                       ></app-simple-checkbox>
                     </div>
                     <div class="edit-form-wrap">
-                      <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
-                        <label
-                          ><input
-                            formControlName="_channel"
-                            type="radio"
-                            [value]="TrunkChannel.SATELLITE"
-                          />
-                          <div class="c-radiobox-text">Спутник</div>
-                        </label>
-                        <label
-                          ><input
-                            formControlName="_channel"
-                            type="radio"
-                            [value]="TrunkChannel.VOLS"
-                          />
-                          <div class="c-radiobox-text">ВОЛС</div>
-                        </label>
-                        <label
-                          ><input
-                            formControlName="_channel"
-                            type="radio"
-                            [value]="TrunkChannel.COPPER_CABLE"
-                          />
-                          <div class="c-radiobox-text">Медь</div>
-                        </label>
-                        <label
-                          ><input
-                            formControlName="_channel"
-                            type="radio"
-                            [value]="TrunkChannel.RADIO_CHANEL"
-                          />
-                          <div class="c-radiobox-text">Радиоканал</div>
-                        </label>
-                      </div>
+                      <app-trunk-channel formControlName="_channel"></app-trunk-channel>
                       <div class="select">
-                        <select formControlName="_quality">
-                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
-                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
-                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
-                        </select>
+                        <app-quality formControlName="_quality"></app-quality>
                       </div>
                       <div class="edit-form-btn">
                         <button type="button" class="btn-edit-item">
@@ -214,14 +139,13 @@
                       <div class="edit-form-info">
                         <div class="d-flex align-items-center w-300">
                           Программа:
-                          <select class="m-l-1" formControlName="_governmentProgram" [compareWith]="compareGovProgram">
-                            <option [value]="null">Нет программы</option>
-                            <option *ngFor="let gp of governmentPrograms" [ngValue]="gp">{{gp.shortName}}</option>
-                          </select>
+                          <app-government-program
+                            formControlName="_governmentProgram"
+                          ></app-government-program>
                         </div>
                         <div class="input u-border-left u-border-right m-t-1">
                           Год реализации:
-                          <input class="m-l-1" type="number" formControlName="_completed">
+                          <input class="m-l-1" type="number" formControlName="_completed" />
                         </div>
                       </div>
                     </div>
@@ -244,18 +168,18 @@
                     <div class="edit-form-wrap">
                       <div class="c-radiobox l-radiobox-row u-border-left u-border-right">
                         <label
-                          ><input type="radio" formControlName="_type" [value]="Signal.ATV"/>
+                          ><input type="radio" formControlName="_type" [value]="Signal.ATV" />
                           <div class="c-radiobox-text">АТВ</div>
                         </label>
                         <label
-                          ><input type="radio" formControlName="_type" [value]="Signal.CTV"/>
+                          ><input type="radio" formControlName="_type" [value]="Signal.CTV" />
                           <div class="c-radiobox-text">ЦТВ</div>
                         </label>
                       </div>
                       <div class="edit-form-info flex-none">
                         <div class="input">
                           Год реализации:
-                          <input class="m-l-1" type="number" formControlName="_completed">
+                          <input class="m-l-1" type="number" formControlName="_completed" />
                         </div>
                       </div>
                       <div class="edit-form-btn">
@@ -264,11 +188,7 @@
                         </button>
                       </div>
                       <div class="select">
-                        <select formControlName="_quality">
-                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
-                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
-                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
-                        </select>
+                        <app-quality formControlName="_quality"></app-quality>
                       </div>
                     </div>
                   </div>
@@ -291,9 +211,7 @@
                       <div class="edit-form-info border-left flex-none">
                         <div class="input">
                           Период:
-                          <input type="number"
-                            formControlName="_completed"
-                          >
+                          <input type="number" formControlName="_completed" />
                         </div>
                       </div>
                       <div class="edit-form-btn">
@@ -302,11 +220,7 @@
                         </button>
                       </div>
                       <div class="select">
-                        <select formControlName="_quality">
-                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
-                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
-                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
-                        </select>
+                        <app-quality formControlName="_quality"></app-quality>
                       </div>
                     </div>
                   </div>
@@ -333,9 +247,7 @@
                       <div class="edit-form-info flex-none">
                         <div class="input">
                           Период:
-                          <input type="number"
-                                 formControlName="_completed"
-                          >
+                          <input type="number" formControlName="_completed" />
                         </div>
                       </div>
                       <div class="edit-form-btn">
@@ -344,11 +256,7 @@
                         </button>
                       </div>
                       <div class="select">
-                        <select formControlName="_quality">
-                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
-                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
-                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
-                        </select>
+                        <app-quality formControlName="_quality"></app-quality>
                       </div>
                     </div>
                   </div>
@@ -381,9 +289,7 @@
                       <div class="edit-form-info flex-none">
                         <div class="input">
                           Период:
-                          <input type="number"
-                                 formControlName="_completed"
-                          >
+                          <input type="number" formControlName="_completed" />
                         </div>
                       </div>
                       <div class="edit-form-btn">
@@ -392,11 +298,7 @@
                         </button>
                       </div>
                       <div class="select">
-                        <select formControlName="_quality">
-                          <option [ngValue]="Quality.GOOD">Хорошее качество</option>
-                          <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
-                          <option [ngValue]="Quality.ABSENT">Отсутствует</option>
-                        </select>
+                        <app-quality formControlName="_quality"></app-quality>
                       </div>
                     </div>
                   </div>
@@ -560,10 +462,10 @@
   <div class="c-modal-body">
     <div class="c-modal-header">
       <div class="c-modal-title">
-<!--        <div>Сотовая связь, оператор Билайн, 3G</div>-->
+        <!--        <div>Сотовая связь, оператор Билайн, 3G</div>-->
         <div class="c-location-name l-row">
-<!--          <div class="c-location-name-item1">с. Богучаны</div>-->
-<!--          <div class="c-location-name-item2">Богучанский р-н</div>-->
+          <!--          <div class="c-location-name-item1">с. Богучаны</div>-->
+          <!--          <div class="c-location-name-item2">Богучанский р-н</div>-->
         </div>
       </div>
       <div class="c-modal-close" (click)="hideAcceptModel()"><i class="fas fa-times"></i></div>

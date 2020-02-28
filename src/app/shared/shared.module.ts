@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
-import {FilterBtnComponent} from '@shared/layout/filter-btn/filter-btn.component';
+import {FilterBtnComponent} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 import {CellularFeatureComponent} from '@shared/components/providers-row/cellular/cellular-feature.component';
 import {OperatorIconComponent} from '@shared/components/providers-row/operator-icon.component';
 import {InternetFeatureComponent} from '@shared/components/providers-row/internet/internet-feature.component';
@@ -14,6 +14,11 @@ import {StaticTextControl} from '@shared/layout/static-control-text/static-text-
 import {AccordionGroupComponent} from '@shared/layout/accordion/accordion-group.component';
 import {AccordionComponent} from '@shared/layout/accordion/accordion.component';
 import {AccordionHeaderComponent} from '@shared/layout/accordion/accordion-header.component';
+import { MobileGenerationComponent } from './layout/value-accessors/mobile-generation.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { GovernmentProgramComponent } from './layout/value-accessors/government-program.component';
+import { QualityComponent } from '@shared/layout/value-accessors/quality.component';
+import { TrunkChannelComponent } from '@shared/layout/value-accessors/trunk-channel.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +35,12 @@ import {AccordionHeaderComponent} from '@shared/layout/accordion/accordion-heade
     AccordionGroupComponent,
     AccordionComponent,
     AccordionHeaderComponent,
+    MobileGenerationComponent,
+    GovernmentProgramComponent,
+    QualityComponent,
+    TrunkChannelComponent
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
   providers: [],
   exports: [
     SimpleCheckbox,
@@ -47,6 +56,10 @@ import {AccordionHeaderComponent} from '@shared/layout/accordion/accordion-heade
     InternetFeatureComponent,
     TelevisionFeatureComponent,
     AccordionHeaderComponent,
+    MobileGenerationComponent,
+    GovernmentProgramComponent,
+    QualityComponent,
+    TrunkChannelComponent,
   ],
 })
 export class SharedModule {}

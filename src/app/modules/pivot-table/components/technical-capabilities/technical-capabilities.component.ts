@@ -1,17 +1,10 @@
 import {Component} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {
-  ExistingOperators,
-  GovernmentProgram,
-  LocationFeatures,
-  MobileGeneration,
-  Quality,
-  TrunkChannel,
-} from '@core/models';
+import {ExistingOperators, LocationFeatures} from '@core/models';
 import {TcPivotsService} from '@core/services/tc-pivots.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {EnumService, GovernmentProgramService} from '@core/services';
+import {EnumService} from '@core/services';
 import {forkJoin} from 'rxjs';
 import {Signal} from '@core/models/signal';
 
@@ -24,13 +17,9 @@ export class TechnicalCapabilitiesComponent {
   locationFeaturesForm: FormGroup;
   locationFeatures: LocationFeatures;
   existingOperators: ExistingOperators;
-  governmentPrograms: GovernmentProgram[];
   tcId: number;
 
-  Quality = Quality;
-  TrunkChannel = TrunkChannel;
   Signal = Signal;
-  MobileGeneration = MobileGeneration;
   acceptModalVisible: boolean;
 
   constructor(
@@ -38,8 +27,7 @@ export class TechnicalCapabilitiesComponent {
     private tcService: TcPivotsService,
     private route: ActivatedRoute,
     private enumService: EnumService,
-    private spinner: NgxSpinnerService,
-    private governmentProgramService: GovernmentProgramService
+    private spinner: NgxSpinnerService
   ) {
     this.loadTechnicalCapability(route.snapshot.params.id);
   }
@@ -88,18 +76,6 @@ export class TechnicalCapabilitiesComponent {
     );
   }
 
-  compareGovProgram(gp1: GovernmentProgram, gp2: GovernmentProgram) {
-    if (gp1 === null && gp2 === null) {
-      return false;
-    }
-
-    if (gp1 === null || gp2 === null) {
-      return false;
-    }
-
-    return gp1 === gp2 || gp1.id === gp2.id;
-  }
-
   private showAcceptModel() {
     this.acceptModalVisible = true;
   }
@@ -111,22 +87,19 @@ export class TechnicalCapabilitiesComponent {
   private loadTechnicalCapability(id: number): void {
     this.spinner.show();
 
-    forkJoin(
-      this.tcService.one(id),
-      this.enumService.getExistingOperators(),
-      this.governmentProgramService.list()
-    ).subscribe(response => {
-      this.existingOperators = response[1].sortByLocationFeatures(response[0]); // todo kludge
-      this.locationFeatures = response[0];
-      this.governmentPrograms = response[2];
+    forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
+      response => {
+        this.existingOperators = response[1].sortByLocationFeatures(response[0]); // todo kludge
+        this.locationFeatures = response[0];
 
-      this.locationFeaturesForm = this.buildForm(
-        this.fb,
-        this.locationFeatures,
-        this.existingOperators
-      );
-      this.spinner.hide();
-    });
+        this.locationFeaturesForm = this.buildForm(
+          this.fb,
+          this.locationFeatures,
+          this.existingOperators
+        );
+        this.spinner.hide();
+      }
+    );
   }
 
   private buildForm(
@@ -189,7 +162,7 @@ export class TechnicalCapabilitiesComponent {
           _completed: null,
           _id: null,
         },
-        ['_type, _quality', '_completed']
+        ['_type', '_quality', '_completed']
       );
 
       getArrayGroup(form, '_radio').push(group);
@@ -241,8 +214,9 @@ export class TechnicalCapabilitiesComponent {
 
     form.patchValue(locationFeatures);
     form.disable();
-
-
+    form.valueChanges.subscribe(v => {
+      console.log(v);
+    });
     return form;
   }
 
@@ -259,10 +233,16 @@ export class TechnicalCapabilitiesComponent {
         group.reset({}, {emitEvent: false});
 
         editableFields.forEach(f => {
+          if (!group.get(f)) {
+            console.log(group, f);
+          }
           group.get(f).disable({emitEvent: false});
         });
       } else if (v && v._operator && group.parent.enabled) {
         editableFields.forEach(f => {
+          if (!group.get(f)) {
+            console.log(group, f);
+          }
           group.get(f).enable({emitEvent: false});
         });
       }

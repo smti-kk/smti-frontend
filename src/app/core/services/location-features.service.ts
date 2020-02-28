@@ -4,7 +4,6 @@ import {
   Location,
   LocationFeatures,
   MobileGeneration,
-  Operator,
   PaginatedList,
   TrunkChannel,
 } from '@core/models';
@@ -14,9 +13,8 @@ import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
 import {environment} from '../../../environments/environment';
 import {TECHNICAL_CAPABILITIES} from '@core/constants/api';
-import {OrderingFilter} from '@shared/layout/filter-btn/filter-btn.component';
+import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
-import {FeatureTypes} from '../../modules/technical-capabilities-comparison-table/technical-capabilities-comparision-table';
 
 const TC_INTERNET = '/api/v1/tc-internet/';
 const TC_MOBILE = '/api/v1/tc-mobile/';

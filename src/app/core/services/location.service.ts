@@ -12,7 +12,7 @@ import {
   GovernmentProgram,
 } from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
-import {OrderingFilter} from '@shared/layout/filter-btn/filter-btn.component';
+import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 import {OrderingDirection} from './tc-pivots.service';
 
 const LOCATIONS_WITH_CONTRACTS =

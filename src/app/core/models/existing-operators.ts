@@ -102,6 +102,8 @@ export class ExistingOperators {
       operators = popToTop(operators, c.operator);
     });
 
+    locationFeature.reverse();
+
     return operators;
   }
 }

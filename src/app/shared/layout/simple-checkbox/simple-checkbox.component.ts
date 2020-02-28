@@ -35,7 +35,10 @@ export class SimpleCheckbox implements ControlValueAccessor {
   registerOnTouched(fn: () => {}): void {}
 
   writeValue(obj: any): void {
-    this.checkbox.nativeElement.checked = obj !== null;
+    console.log(obj, this.value);
+    if (obj && obj.id) {
+      this.checkbox.nativeElement.checked = obj.id === this.value.id;
+    }
   }
 
   inputChange(event) {

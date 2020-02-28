@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GovernmentProgram, LocationFeatures, MailType, MobileGeneration, PaginatedList, TrunkChannel } from '@core/models';
-import { OrderingFilter } from '@shared/layout/filter-btn/filter-btn.component';
+import { OrderingFilter } from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 import { Signal } from '@core/models/signal';
 import { OrderingDirection, TcPivotsService } from '@core/services/tc-pivots.service';
 
