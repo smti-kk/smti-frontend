@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, Map, MapOptions, TileLayer} from 'leaflet';
 import {LeafletControlLayersConfig} from '@asymmetrik/ngx-leaflet';
-import 'leaflet-spin/example/spin/dist/spin';
 import 'leaflet-spin';
 import {AccessPointEspdLayer} from '../../layers/access-point-espd-layer';
 import {AccessPointSmoLayer} from '../../layers/access-point-smo-layer';
