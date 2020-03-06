@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+
 import {BaseFeatureComponent} from '@shared/components/providers-row/base-feature.component';
 import {AtsFeature, Operator} from '@core/models';
 
@@ -9,5 +10,6 @@ import {AtsFeature, Operator} from '@core/models';
 })
 export class PayphoneFeatureComponent extends BaseFeatureComponent {
   @Input() locationFeatures: AtsFeature[];
+
   @Input() existed: Operator[];
 }

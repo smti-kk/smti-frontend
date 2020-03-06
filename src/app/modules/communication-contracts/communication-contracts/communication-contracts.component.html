@@ -15,13 +15,17 @@
                   <app-filter-btn
                     formControlName="order"
                     [orderings]="[
-                    {
-                      name: 'Нас.пункт',
-                      value: 'name',
-                      orderingDirection: OrderingDirection.UNDEFINED
-                    },
-                    {name: 'Район', value: 'parent', orderingDirection: OrderingDirection.UNDEFINED}
-                  ]"
+                      {
+                        name: 'Нас.пункт',
+                        value: 'name',
+                        orderingDirection: OrderingDirection.UNDEFINED
+                      },
+                      {
+                        name: 'Район',
+                        value: 'parent',
+                        orderingDirection: OrderingDirection.UNDEFINED
+                      }
+                    ]"
                   >
                   </app-filter-btn>
                 </div>
@@ -33,20 +37,20 @@
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
                           item.fullName
-                          }}</option>
+                        }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Наим. организации:</div>
-                      <input formControlName="organization" type="text"/>
+                      <input formControlName="organization" type="text" />
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Номер контракта:</div>
-                      <input formControlName="contract" type="text"/>
+                      <input formControlName="contract" type="text" />
                     </div>
                   </div>
                 </div>
@@ -58,14 +62,14 @@
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                           item.fullName
-                          }}</option>
+                        }}</option>
                       </select>
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Оператор связи:</div>
-                      <input formControlName="contractor" type="text"/>
+                      <input formControlName="contractor" type="text" />
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -73,29 +77,32 @@
                       <div class="o-item-title">Тип подключения:</div>
                       <select formControlName="connectionType">
                         <option [ngValue]="null">Не выбран</option>
-                        <option [ngValue]="item" *ngFor="let item of fInternetAccessTypes$ | async">{{
-                          item.name
-                          }}</option>
+                        <option
+                          [ngValue]="item"
+                          *ngFor="let item of fInternetAccessTypes$ | async"
+                          >{{ item.name }}</option
+                        >
                       </select>
                     </div>
                   </div>
                 </div>
               </div>
-              <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
+              <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр" />
             </form>
           </div>
         </group>
       </accordion>
       <div class="c-filter-info">
         <div class="c-filter-result">
-           Результатов поиска: <span>{{(locations$ | async)?.count}}</span>
+          Результатов поиска: <span>{{ (locations$ | async)?.count }}</span>
         </div>
         <div class="c-filter-export">
           <input
             (click)="serviceLocation.exportExcel()"
             type="button"
             class="btn"
-            value="Выгрузить в Excel"/>
+            value="Выгрузить в Excel"
+          />
         </div>
       </div>
     </div>
@@ -233,5 +240,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
->Загрузка. . .
+  >Загрузка. . .
 </ngx-spinner>

@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+
+import {LocationFeatures} from '@core/models';
+import {LocationFeaturesService} from '@core/services/location-features.service';
+
 import {RequestsService} from './service/requests.service';
 import {Request} from './model/request';
-import {LocationFeatures, TrunkChannel} from '@core/models';
-import {LocationFeaturesService} from '@core/services/location-features.service';
 
 @Component({
   selector: 'requests',
@@ -11,9 +13,8 @@ import {LocationFeaturesService} from '@core/services/location-features.service'
 })
 export class RequestsComponent implements OnInit {
   requests: Request[];
-  technicalCapability: LocationFeatures;
 
-  TrunkChannel = TrunkChannel;
+  technicalCapability: LocationFeatures;
 
   forms: {
     internet: boolean;
@@ -37,15 +38,15 @@ export class RequestsComponent implements OnInit {
     });
   }
 
-  onClarifyingClick() {
+  onClarifyingClick(): void {
     this.forms.internet = true;
   }
 
-  saveInternetClarification() {
+  saveInternetClarification(): void {
     this.forms.internet = false;
   }
 
-  onClarifyingInternetCancel() {
+  onClarifyingInternetCancel(): void {
     this.forms.internet = false;
   }
 }

@@ -37,11 +37,10 @@ export class Avstatus {
     return this._accessPointId;
   }
 
-  toString() {
+  toString(): string {
     if (this.available) {
       return 'Доступно';
-    } else {
-      return 'Недоступно';
     }
+    return 'Недоступно';
   }
 }

@@ -1,5 +1,6 @@
-import {LocationFeature} from '@core/models/location-feature';
 import {autoserializeAs, inheritSerialization} from 'cerialize';
+
+import {LocationFeature} from '@core/models/location-feature';
 import {Signal, SIGNAL_ARRAY_SERIALIZER} from '@core/models/signal';
 
 @inheritSerialization(LocationFeature)
@@ -13,6 +14,5 @@ export class TelevisionFeature extends LocationFeature {
 
   get typeStr(): string {
     return this.type.shortName;
-    // return this.type.map(type => type.shortName).join(', ');
   }
 }

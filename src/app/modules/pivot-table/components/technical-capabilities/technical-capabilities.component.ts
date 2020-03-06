@@ -1,12 +1,15 @@
 import {Component} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {ExistingOperators, LocationFeatures} from '@core/models';
-import {TcPivotsService} from '@core/services/tc-pivots.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {EnumService} from '@core/services';
 import {forkJoin} from 'rxjs';
+
+import {ExistingOperators, LocationFeatures} from '@core/models';
+import {TcPivotsService} from '@core/services/tc-pivots.service';
+import {EnumService} from '@core/services';
 import {Signal} from '@core/models/signal';
+import { getArrayGroup } from '@core/utils/reactive-form';
+import { reloadPage } from '@core/utils/window';
 
 @Component({
   selector: 'app-technical-capabilities',
@@ -15,11 +18,15 @@ import {Signal} from '@core/models/signal';
 })
 export class TechnicalCapabilitiesComponent {
   locationFeaturesForm: FormGroup;
+
   locationFeatures: LocationFeatures;
+
   existingOperators: ExistingOperators;
+
   tcId: number;
 
   Signal = Signal;
+
   acceptModalVisible: boolean;
 
   constructor(
@@ -36,51 +43,54 @@ export class TechnicalCapabilitiesComponent {
     this.locationFeaturesForm.enable();
   }
 
-  saveRequest() {
+  saveRequest(): void {
     this.tcService.save(new LocationFeatures(this.locationFeaturesForm.value)).subscribe(
-      (lf: any) => {
+      lf => {
         this.tcId = lf.id;
         this.showAcceptModel();
       },
       error => {
+        throw Error(`${error}`);
         // todo: implement me
       }
     );
   }
 
-  cancelEdit() {
+  cancelEdit(): void {
     this.locationFeaturesForm.reset();
     this.locationFeaturesForm.patchValue(this.locationFeatures);
     this.locationFeaturesForm.disable();
   }
 
-  accept() {
+  accept(): void {
     this.tcService.accept(this.tcId).subscribe(
       () => {
-        this.reloadPage();
+        reloadPage();
       },
       error => {
+        throw Error(`${error}`);
         // todo: implement me
       }
     );
   }
 
-  reject() {
+  reject(): void {
     this.tcService.reject(this.tcId).subscribe(
       () => {
-        this.reloadPage();
+        reloadPage();
       },
       error => {
+        throw Error(`${error}`);
         // todo: implement me
       }
     );
   }
 
-  private showAcceptModel() {
+  private showAcceptModel(): void {
     this.acceptModalVisible = true;
   }
 
-  public hideAcceptModel() {
+  public hideAcceptModel(): void {
     this.acceptModalVisible = false;
   }
 
@@ -88,9 +98,9 @@ export class TechnicalCapabilitiesComponent {
     this.spinner.show();
 
     forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
-      response => {
-        this.existingOperators = response[1].sortByLocationFeatures(response[0]); // todo kludge
-        this.locationFeatures = response[0];
+      ([locationFeatures, existingOperators]) => {
+        this.existingOperators = existingOperators.sortByLocationFeatures(locationFeatures); // todo kludge
+        this.locationFeatures = locationFeatures;
 
         this.locationFeaturesForm = this.buildForm(
           this.fb,
@@ -214,18 +224,11 @@ export class TechnicalCapabilitiesComponent {
 
     form.patchValue(locationFeatures);
     form.disable();
-    form.valueChanges.subscribe(v => {
-      console.log(v);
-    });
+
     return form;
   }
 
-  // noinspection JSMethodCanBeStatic
-  private reloadPage() {
-    window.location.reload();
-  }
-
-  private createGroup(allFields: any, editableFields: string[]): FormGroup {
+  private createGroup(allFields: {}, editableFields: string[]): FormGroup {
     const group = this.fb.group(allFields);
 
     group.valueChanges.subscribe(v => {
@@ -233,16 +236,10 @@ export class TechnicalCapabilitiesComponent {
         group.reset({}, {emitEvent: false});
 
         editableFields.forEach(f => {
-          if (!group.get(f)) {
-            console.log(group, f);
-          }
           group.get(f).disable({emitEvent: false});
         });
       } else if (v && v._operator && group.parent.enabled) {
         editableFields.forEach(f => {
-          if (!group.get(f)) {
-            console.log(group, f);
-          }
           group.get(f).enable({emitEvent: false});
         });
       }
@@ -251,7 +248,3 @@ export class TechnicalCapabilitiesComponent {
     return group;
   }
 }
-
-const getArrayGroup = (form: FormGroup, name: string): FormArray => {
-  return form.get(name) as FormArray;
-};

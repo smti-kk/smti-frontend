@@ -1,7 +1,9 @@
 import {Icon, Marker} from 'leaflet';
+// eslint-disable-next-line import/no-unresolved
 import * as geojson from 'geojson';
-import {MonitoringPoint} from '../model/monitoring-point';
 import {EventEmitter} from '@angular/core';
+
+import {MonitoringPoint} from '../model/monitoring-point';
 
 const ICON_WIDTH = 30;
 const ICON_HEIGHT = 41;
@@ -44,7 +46,7 @@ export class MonitoringMarker<T extends MonitoringPoint> extends Marker {
     });
   }
 
-  public updateData(point: T) {
+  public updateData(point: T): void {
     if (this.getLatLng().lng !== point.point.lng || this.getLatLng().lat !== point.point.lat) {
       this.setLatLng({
         lat: point.point.lat,

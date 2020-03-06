@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy} from '@
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
   routesToCache: string[] = ['leaflet'];
+
   storedRouteHandles = new Map<string, DetachedRouteHandle>();
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
@@ -21,6 +22,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     return this.storedRouteHandles.get(route.data.key);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
     return future.routeConfig === curr.routeConfig;
   }

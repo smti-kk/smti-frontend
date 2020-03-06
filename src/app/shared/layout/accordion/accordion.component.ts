@@ -1,4 +1,5 @@
 import {AfterContentInit, Component, ContentChildren, QueryList} from '@angular/core';
+
 import {AccordionGroupComponent} from './accordion-group.component';
 
 @Component({
@@ -12,7 +13,7 @@ export class AccordionComponent implements AfterContentInit {
   @ContentChildren(AccordionGroupComponent)
   groups: QueryList<AccordionGroupComponent>;
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this.groups.toArray().forEach(t => {
       t.toggle.subscribe(() => {
         this.openGroup(t);
@@ -20,12 +21,14 @@ export class AccordionComponent implements AfterContentInit {
     });
   }
 
-  openGroup(group: AccordionGroupComponent) {
+  openGroup(group: AccordionGroupComponent): void {
     if (group.opened === false) {
-      this.groups.toArray().forEach(t => (t.opened = false));
-      group.opened = true;
+      this.groups.toArray().forEach(t => {
+        t.isOpened(false);
+      });
+      group.isOpened(true);
     } else {
-      group.opened = false;
+      group.isOpened(false);
     }
   }
 }

@@ -1,13 +1,14 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {OrderingDirection} from '@core/services/tc-pivots.service';
+import {Component, forwardRef, Input, Provider} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+import {OrderingDirection} from '@core/services/tc-pivots.service';
 
 export interface OrderingFilter {
   orderingDirection: OrderingDirection;
   name: string;
 }
 
-export const FILTER_BUTTONS_VALUE_ACCESSOR: any = {
+export const FILTER_BUTTONS_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => FilterBtnComponent),
   multi: true,
@@ -18,15 +19,16 @@ export const FILTER_BUTTONS_VALUE_ACCESSOR: any = {
   templateUrl: './filter-btn.component.html',
   providers: [FILTER_BUTTONS_VALUE_ACCESSOR],
 })
-export class FilterBtnComponent implements OnInit, ControlValueAccessor {
+export class FilterBtnComponent implements ControlValueAccessor {
   @Input() orderings: {name: string; value: string; orderingDirection: OrderingDirection}[];
-  onChange: (_: any) => {};
+
+  onChange: (_) => {};
+
   onTouched: () => {};
+
   OrderingDirection = OrderingDirection;
 
-  constructor() {}
-
-  registerOnChange(fn: (_: any) => {}): void {
+  registerOnChange(fn: (_) => {}): void {
     this.onChange = fn;
   }
 
@@ -34,38 +36,46 @@ export class FilterBtnComponent implements OnInit, ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  writeValue(obj: any): void {
+  writeValue(obj): void {
     if (obj === null) {
       this.reset();
     }
   }
 
-  ngOnInit() {}
-
   onOrderingBtnClick(ordering: {
     name: string;
     value: string;
     orderingDirection: OrderingDirection;
-  }) {
+  }): void {
+    const orderingBuffer = {...ordering} as {
+      name: string;
+      value: string;
+      orderingDirection: OrderingDirection;
+    };
+
     if (ordering.orderingDirection === OrderingDirection.UNDEFINED) {
-      ordering.orderingDirection = OrderingDirection.ASC;
+      orderingBuffer.orderingDirection = OrderingDirection.ASC;
     } else if (ordering.orderingDirection === OrderingDirection.ASC) {
-      ordering.orderingDirection = OrderingDirection.DSC;
+      orderingBuffer.orderingDirection = OrderingDirection.DSC;
     } else {
-      ordering.orderingDirection = OrderingDirection.UNDEFINED;
+      orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
     }
 
     this.orderings.forEach(iOrdering => {
       if (iOrdering !== ordering) {
-        iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
+        orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
       }
     });
 
-    this.onChange({name: ordering.value, orderingDirection: ordering.orderingDirection});
+    this.onChange({
+      name: orderingBuffer.value,
+      orderingDirection: orderingBuffer.orderingDirection,
+    });
   }
 
-  private reset() {
+  private reset(): void {
     this.orderings.forEach(o => {
+      // eslint-disable-next-line no-param-reassign
       o.orderingDirection = OrderingDirection.UNDEFINED;
     });
   }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '@core/services';
 import {Router} from '@angular/router';
+
+import {AuthService} from '@core/services';
 import {User} from '@core/models';
 
 @Component({
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  logout() {
+  logout(): void {
     this.auth.logout();
   }
 }

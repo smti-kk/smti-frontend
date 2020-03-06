@@ -1,4 +1,5 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
+
 import {Location} from '@core/models/location';
 import {AtsFeature} from '@core/models/ats-feature';
 import {CellularFeature} from '@core/models/cellular-feature';
@@ -35,9 +36,7 @@ export class LocationFeatures {
   @autoserializeAs('comment')
   private _comment: string;
 
-  constructor(
-    value
-  ) {
+  constructor(value) {
     Object.assign(this, value);
   }
 
@@ -54,13 +53,13 @@ export class LocationFeatures {
       .filter(program => program !== null);
   }
 
-  get planYearInternetFeatures() {
+  get planYearInternetFeatures(): InternetFeature[] {
     return this.internet.filter(value => {
       return value.planYear;
     });
   }
 
-  get planTwoYearInternetFeatures() {
+  get planTwoYearInternetFeatures(): InternetFeature[] {
     return this.internet.filter(value => {
       return value.planTwoYear;
     });
@@ -106,63 +105,63 @@ export class LocationFeatures {
     return this._comment;
   }
 
+  set comment(value: string) {
+    this._comment = value;
+  }
+
   get location(): Location {
     return this._location;
-  }
-
-  get cellular(): CellularFeature[] {
-    return this._cellular;
-  }
-
-  get radio(): RadioFeature[] {
-    return this._radio;
-  }
-
-  get internet(): InternetFeature[] {
-    return this._internet;
-  }
-
-  get ats(): AtsFeature[] {
-    return this._ats;
-  }
-
-  get post(): PostFeature[] {
-    return this._post;
-  }
-
-  get television(): TelevisionFeature[] {
-    return this._television;
   }
 
   set location(value: Location) {
     this._location = value;
   }
 
+  get cellular(): CellularFeature[] {
+    return this._cellular;
+  }
+
   set cellular(value: CellularFeature[]) {
     this._cellular = value;
+  }
+
+  get radio(): RadioFeature[] {
+    return this._radio;
   }
 
   set radio(value: RadioFeature[]) {
     this._radio = value;
   }
 
+  get internet(): InternetFeature[] {
+    return this._internet;
+  }
+
   set internet(value: InternetFeature[]) {
     this._internet = value;
+  }
+
+  get ats(): AtsFeature[] {
+    return this._ats;
   }
 
   set ats(value: AtsFeature[]) {
     this._ats = value;
   }
 
+  get post(): PostFeature[] {
+    return this._post;
+  }
+
   set post(value: PostFeature[]) {
     this._post = value;
   }
 
-  set television(value: TelevisionFeature[]) {
-    this._television = value;
+  get television(): TelevisionFeature[] {
+    return this._television;
   }
 
-  set comment(value: string) {
-    this._comment = value;
+  set television(value: TelevisionFeature[]) {
+    this._television = value;
   }
 }

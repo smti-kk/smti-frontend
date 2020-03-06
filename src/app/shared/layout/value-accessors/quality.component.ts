@@ -1,8 +1,9 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
-import { Quality } from '@core/models';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Provider } from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-const VALUE_ACCESSOR: any = {
+import {Quality} from '@core/models';
+
+const VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => QualityComponent),
   multi: true,
@@ -19,17 +20,18 @@ const VALUE_ACCESSOR: any = {
   `,
   providers: [VALUE_ACCESSOR],
 })
-export class QualityComponent implements OnInit, ControlValueAccessor {
+export class QualityComponent implements ControlValueAccessor {
   quality: FormControlTyped<Quality>;
+
   Quality = Quality;
+
+  private onTouched: () => {};
 
   constructor() {
     this.quality = new FormControl(null);
   }
 
-  ngOnInit() {}
-
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (quality: Quality) => {}): void {
     this.quality.valueChanges.subscribe(value => {
       fn(value);
     });
@@ -47,5 +49,7 @@ export class QualityComponent implements OnInit, ControlValueAccessor {
     this.quality.setValue(obj, {emitEvent: false});
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: () => {}): void {
+    this.onTouched = fn;
+  }
 }

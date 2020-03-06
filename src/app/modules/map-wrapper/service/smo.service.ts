@@ -1,10 +1,11 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {LatLngBounds} from 'leaflet';
 import {Injectable} from '@angular/core';
-import {ACCESS_POINT_SMO_URL} from '@map-wrapper/constants/api.constants';
 import {Observable} from 'rxjs';
 import {Deserialize} from 'cerialize';
 import {map} from 'rxjs/operators';
+
+import {ACCESS_POINT_SMO_URL} from '@map-wrapper/constants/api.constants';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 @Injectable()

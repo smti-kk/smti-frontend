@@ -1,8 +1,9 @@
-import {Component, forwardRef} from '@angular/core';
+import { Component, forwardRef, Provider } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+
 import {GovernmentProgram} from '@core/models';
 
-export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
+export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => StaticTextControl),
   multi: true,
@@ -16,11 +17,11 @@ export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
 export class StaticTextControl implements ControlValueAccessor {
   value: string;
 
-  constructor() {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  registerOnChange = (fn: (_: {}) => {}): void => {};
 
-  registerOnChange(fn: (_: any) => {}): void {}
-
-  registerOnTouched(fn: () => {}): void {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  registerOnTouched = (fn: () => {}): void => {};
 
   writeValue(obj: string | GovernmentProgram): void {
     if (obj instanceof GovernmentProgram) {

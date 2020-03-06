@@ -1,4 +1,5 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
+
 import {OrganizationType} from '@core/models/organization-type';
 import {SmoType} from '@core/models/smo-type';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
@@ -53,9 +54,7 @@ export class Organization {
   // @autoserializeAs('oktmo')
   // private readonly oktmo: string;
 
-  constructor(
-    locationId?: number
-  ) {
+  constructor(locationId?: number) {
     this._location = locationId;
   }
 

@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+
 import {Request, RequestState, requestStateLabel} from '../../model/request';
 
 @Component({
@@ -10,5 +11,6 @@ export class RequestComponent {
   @Input() request: Request;
 
   requestStateLabel = requestStateLabel;
+
   RequestState = RequestState;
 }

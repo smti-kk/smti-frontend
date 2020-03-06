@@ -1,5 +1,6 @@
-import {Quality} from '@core/models/enums';
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
+
+import {Quality} from '@core/models/enums';
 import {Operator} from '@core/models/operator';
 import {GovernmentProgram} from '@core/models/government-program';
 import {ID_SERIALIZER} from '@core/utils/serializers';
@@ -53,6 +54,7 @@ export class LocationFeature {
   private readonly _clarifyPetition: number;
 
   @autoserializeAs('functional_customer')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly _functionalCustomer: any; // todo: Установить тип
 
   constructor(
@@ -75,29 +77,12 @@ export class LocationFeature {
     this._governmentProgram = governmentProgram;
   }
 
-
   get id(): number {
     return this._id;
   }
 
-  get clarifyPetition(): number {
-    return this._clarifyPetition;
-  }
-
-  get functionalCustomer(): any {
-    return this._functionalCustomer;
-  }
-
-  get dismissDate(): string {
-    return this._dismissDate;
-  }
-
   get previous(): LocationFeature {
     return this._previous;
-  }
-
-  get technicalStatus(): string {
-    return this._technicalStatus;
   }
 
   get requests(): number {

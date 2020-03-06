@@ -1,8 +1,9 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
-import {MobileGeneration, TrunkChannel} from '@core/models';
+import {Component, forwardRef, OnInit, Provider} from '@angular/core';
 import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-const VALUE_ACCESSOR: any = {
+import {TrunkChannel} from '@core/models';
+
+const VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => TrunkChannelComponent),
   multi: true,
@@ -21,11 +22,19 @@ const VALUE_ACCESSOR: any = {
         <div class="c-radiobox-text">ВОЛС</div>
       </label>
       <label
-        ><input formControlName="mobileGeneration" type="radio" [value]="TrunkChannel.COPPER_CABLE" />
+        ><input
+          formControlName="mobileGeneration"
+          type="radio"
+          [value]="TrunkChannel.COPPER_CABLE"
+        />
         <div class="c-radiobox-text">Медь</div>
       </label>
       <label
-        ><input formControlName="mobileGeneration" type="radio" [value]="TrunkChannel.RADIO_CHANEL" />
+        ><input
+          formControlName="mobileGeneration"
+          type="radio"
+          [value]="TrunkChannel.RADIO_CHANEL"
+        />
         <div class="c-radiobox-text">Радиоканал</div>
       </label>
     </div>
@@ -34,20 +43,22 @@ const VALUE_ACCESSOR: any = {
 })
 export class TrunkChannelComponent implements OnInit, ControlValueAccessor {
   TrunkChannel = TrunkChannel;
-  control: FormControlTyped<MobileGeneration>;
-  form: FormGroupTyped<{mobileGeneration: MobileGeneration}>;
 
-  constructor() {}
+  control: FormControlTyped<TrunkChannel>;
 
-  ngOnInit() {
+  form: FormGroupTyped<{trunkChannel: TrunkChannel}>;
+
+  private onTouched: () => {};
+
+  ngOnInit(): void {
     this.control = new FormControl(null);
 
-    this.form = new FormGroup({mobileGeneration: this.control}) as FormGroupTyped<{
-      mobileGeneration: MobileGeneration;
+    this.form = new FormGroup({trunkChannel: this.control}) as FormGroupTyped<{
+      trunkChannel: TrunkChannel;
     }>;
   }
 
-  registerOnChange(onChange: any): void {
+  registerOnChange(onChange: (value: TrunkChannel) => {}): void {
     this.control.valueChanges.subscribe(value => {
       onChange(value);
     });
@@ -61,9 +72,11 @@ export class TrunkChannelComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  writeValue(obj: MobileGeneration): void {
+  writeValue(obj: TrunkChannel): void {
     this.control.setValue(obj, {emitEvent: false});
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: () => {}): void {
+    this.onTouched = fn;
+  }
 }

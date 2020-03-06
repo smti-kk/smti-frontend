@@ -1,11 +1,11 @@
 import {autoserializeAs, deserializeAs, inheritSerialization, serializeAs} from 'cerialize';
+
 import {GovernmentProgram} from '@core/models/government-program';
 import {InternetAccessType} from '@core/models/internet-access-type';
 import {Operator} from '@core/models/operator';
 import {Quality} from '@core/models/enums';
 import {MonitoringPoint} from '@map-wrapper/model/monitoring-point';
 import {Avstatus} from '@core/models/avstatus';
-import {Coordinate} from '@map-wrapper/interface/coordinate';
 import {ID_SERIALIZER} from '@core/utils/serializers';
 
 const ESPD_MARKER_ACTIVE = '../../../../assets/img/ap-ena-espd.svg';
@@ -13,23 +13,19 @@ const ESPD_MARKER_UNDEFINED = '../../../../assets/img/ap-na-espd.svg';
 const ESPD_MARKER_DISABLED = '../../../../assets/img/ap-dis-espd.svg';
 
 const ORGANIZATION_DESERIALIZER = {
-  Deserialize(json) {
+  Deserialize(json): number {
     return json.id;
   },
 };
 
 const LOCATION_DESERIALIZER = {
-  Deserialize(json) {
+  Deserialize(json): number {
     return json.location;
   },
 };
 
 @inheritSerialization(MonitoringPoint)
 export class Reaccesspoint extends MonitoringPoint {
-  constructor(point: Coordinate, id: number) {
-    super(point, id);
-  }
-
   @autoserializeAs('address')
   private readonly _address: string;
 
@@ -119,10 +115,6 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._address;
   }
 
-  get billingId(): number {
-    return this._billingId;
-  }
-
   get completed(): boolean {
     return this._completed;
   }
@@ -133,10 +125,6 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get contractor(): string {
     return this._contractor;
-  }
-
-  get createdAt(): Date {
-    return this._createdAt;
   }
 
   get customer(): string {
@@ -159,20 +147,12 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._ipConfig;
   }
 
-  get maxAmount(): number {
-    return this._maxAmount;
-  }
-
   get name(): string {
     return this._name;
   }
 
   get netTrafficLastMonth(): string {
     return this._netTrafficLastMonth;
-  }
-
-  get netTrafficLastWeek(): string {
-    return this._netTrafficLastWeek;
   }
 
   get node(): string {
@@ -195,10 +175,6 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._ucn;
   }
 
-  get updatedAt(): Date {
-    return this._updatedAt;
-  }
-
   get visible(): boolean {
     return this._visible;
   }
@@ -207,31 +183,35 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._avstatus;
   }
 
-  get connectionTypeString() {
+  get connectionTypeString(): string {
     if (this.connectionType != null) {
       return this.connectionType.name;
     }
+    throw Error('connection type is null');
   }
 
-  get iconUrl() {
+  get iconUrl(): string {
     if (this.governmentProgram.shortName === 'СЗО') {
       return '../../../../assets/img/ap-ena-smo.svg';
-    } else if (this.governmentProgram.shortName === 'ЕСПД') {
+    }
+    if (this.governmentProgram.shortName === 'ЕСПД') {
       if (this.avstatus === null) {
         return ESPD_MARKER_UNDEFINED;
-      } else if (this.avstatus.available) {
+      }
+      if (this.avstatus.available) {
         return ESPD_MARKER_ACTIVE;
-      } else if (!this.avstatus.available) {
+      }
+      if (!this.avstatus.available) {
         return ESPD_MARKER_DISABLED;
       }
     }
+    throw Error('cant find icon url');
   }
 
   get avstateStr(): string {
     if (this.avstatus) {
       return this.avstatus.toString();
-    } else {
-      return '';
     }
+    return '';
   }
 }

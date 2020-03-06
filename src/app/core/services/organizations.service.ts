@@ -1,15 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Organization, OrganizationType, SmoType} from '@core/models';
 import {map} from 'rxjs/operators';
 import {Deserialize, Serialize} from 'cerialize';
-import {ORGANIZATION_CREATE_AP, ORGANIZATION_EDIT, ORGANIZATION_SAVE, ORGANIZATIONS} from '@core/constants/api';
-import {environment} from 'src/environments/environment';
-import {Reaccesspoint} from '@core/models/reaccesspoint';
 
-const TYPES = environment.API_BASE_URL + '/api/v1/organization-types/';
-const SMO_TYPES = environment.API_BASE_URL + '/api/v1/organization-smo-types/';
+import {Organization, OrganizationType, SmoType} from '@core/models';
+import {
+  ORGANIZATION_CREATE_AP,
+  ORGANIZATION_EDIT,
+  ORGANIZATION_SAVE,
+  ORGANIZATIONS,
+} from '@core/constants/api';
+import {Reaccesspoint} from '@core/models/reaccesspoint';
+import {environment} from 'src/environments/environment';
+
+const TYPES = `${environment.API_BASE_URL}/api/v1/organization-types/`;
+const SMO_TYPES = `${environment.API_BASE_URL}/api/v1/organization-smo-types/`;
 
 @Injectable()
 export class OrganizationsService {
@@ -40,31 +46,34 @@ export class OrganizationsService {
   }
 
   put(value): Observable<Organization> {
-    console.log('in service: ', value);
     const id = value._id;
     const url = ORGANIZATION_EDIT.replace(':id', id.toString());
     const sdata = Serialize(value, Organization); // todo: Перенести сериализацию в конец
-    if (sdata.type_smo === undefined) { // TODO какого хера сериализатор вместо null устанавливает undefined
+    if (sdata.type_smo === undefined) {
+      // TODO какого хера сериализатор вместо null устанавливает undefined
       sdata.type_smo = null;
     }
-    if (sdata.type === undefined) { // TODO какого хера сериализатор вместо null устанавливает undefined
+    if (sdata.type === undefined) {
+      // TODO какого хера сериализатор вместо null устанавливает undefined
       sdata.type = null;
     }
 
-    return this.httpClient.patch<Organization>(url,  sdata)
+    return this.httpClient
+      .patch<Organization>(url, sdata)
       .pipe(map(response => Deserialize(response, Organization)));
   }
 
-  save(organization: Organization): Observable<any> { // todo: Определить тип, параметр приходит не организация, а any
+  save(organization: Organization): Observable<{}> {
+    // todo: Определить тип, параметр приходит не организация, а any
     const orgSer = Serialize(organization, Organization);
 
     return this.httpClient.post(ORGANIZATION_SAVE, orgSer);
   }
 
-  createAccessPoint(ap: Reaccesspoint): Observable<any> { // todo: Определить тип, параметр приходит не организация, а any
-    console.log(ap);
+  createAccessPoint(ap: Reaccesspoint): Observable<{}> {
+    // todo: Определить тип, параметр приходит не организация, а any
     const item = Serialize(ap, Reaccesspoint);
     const url = ORGANIZATION_CREATE_AP.replace(':id', ap.organizationId.toString());
-    return  this.httpClient.post(url, item);
+    return this.httpClient.post(url, item);
   }
 }

@@ -1,16 +1,19 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LocationFeatures } from '@core/models';
-import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
-import { Deserialize, Serialize } from 'cerialize';
-import { PaginatedList } from '@core/models/paginated-list';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Deserialize, Serialize} from 'cerialize';
 
-const LTC = environment.API_BASE_URL + '/api/v1/technical-capabilities';
-const CLARIFY_PETITION = environment.API_BASE_URL + '/api/v1/in-clarify-petition/';
-const ACCEPT_PETITION = environment.API_BASE_URL + '/api/v1/in-clarify-petition/accept/?id=:id';
-const REJECT_PETITION = environment.API_BASE_URL + '/api/v1/in-clarify-petition/reject/?id=:id';
+import {LocationFeatures} from '@core/models';
+import {PaginatedList} from '@core/models/paginated-list';
+import {PaginatedListBackend} from '@core/models/base-interfaces';
+
+import {environment} from '../../../environments/environment';
+
+const LTC = `${environment.API_BASE_URL}/api/v1/technical-capabilities`;
+const CLARIFY_PETITION = `${environment.API_BASE_URL}/api/v1/in-clarify-petition/`;
+const ACCEPT_PETITION = `${environment.API_BASE_URL}/api/v1/in-clarify-petition/accept/?id=:id`;
+const REJECT_PETITION = `${environment.API_BASE_URL}/api/v1/in-clarify-petition/reject/?id=:id`;
 
 export enum OrderingDirection {
   ASC,
@@ -24,7 +27,7 @@ export class TcPivotsService {
 
   list(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
-      .get<any>(LTC, {params})
+      .get<PaginatedListBackend>(LTC, {params})
       .pipe(
         map(response => {
           return {
@@ -39,40 +42,44 @@ export class TcPivotsService {
 
   one(id: number): Observable<LocationFeatures> {
     return this.httpClient
-      .get(LTC + `/${id}/`)
+      .get(`${LTC}/${id}/`)
       .pipe(map(response => Deserialize(response, LocationFeatures)));
   }
 
-  save(value: LocationFeatures) {
-    value.cellular = this.filterNulls(value.cellular);
-    value.post = this.filterNulls(value.post);
-    value.radio = this.filterNulls(value.radio);
-    value.television = this.filterNulls(value.television);
-    value.internet = this.filterNulls(value.internet);
-    value.ats = this.filterNulls(value.ats);
+  save(value: LocationFeatures): Observable<{id: number}> {
+    const iValue = {...value} as LocationFeatures;
+    iValue.cellular = TcPivotsService.filterNulls(value.cellular);
+    iValue.post = TcPivotsService.filterNulls(value.post);
+    iValue.radio = TcPivotsService.filterNulls(value.radio);
+    iValue.television = TcPivotsService.filterNulls(value.television);
+    iValue.internet = TcPivotsService.filterNulls(value.internet);
+    iValue.ats = TcPivotsService.filterNulls(value.ats);
 
-    return this.httpClient
-      .post(CLARIFY_PETITION, Serialize(value, LocationFeatures));
+    return this.httpClient.post<{id: number}>(
+      CLARIFY_PETITION,
+      Serialize(iValue, LocationFeatures)
+    );
   }
 
-  accept(id: number) {
-    return this.httpClient.get(ACCEPT_PETITION.replace(':id', id.toString()));
+  accept(id: number): Observable<void> {
+    return this.httpClient.get<void>(ACCEPT_PETITION.replace(':id', id.toString()));
   }
 
-  reject(id: number) {
-    return this.httpClient.get(REJECT_PETITION.replace(':id', id.toString()));
+  reject(id: number): Observable<void> {
+    return this.httpClient.get<void>(REJECT_PETITION.replace(':id', id.toString()));
   }
 
-  exportExcel(params?: HttpParams) {
-    if (params) {
-      window.location.href = LTC + '/export/?' + params.toString();
-    } else {
-      window.location.href = LTC + '/export/';
-    }
-  }
-
-  // noinspection JSMethodCanBeStatic
-  private filterNulls(array: any[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private static filterNulls(array: any[]): any[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return array.filter((c: any) => c._operator !== null); // todo: исправить any
+  }
+
+  static exportExcel(params?: HttpParams): void {
+    if (params) {
+      window.location.href = `${LTC}/export/?${params.toString()}`;
+    } else {
+      window.location.href = `${LTC}/export/`;
+    }
   }
 }

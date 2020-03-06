@@ -1,12 +1,14 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {LatLng, Map} from 'leaflet';
+
+import {TIMER_INTERVAL} from '@core/utils/updated-list';
+
 import {MunicipalitiesLayer, MunicipalitiesLayerGeoJson} from '../../layers/municipalities-layer';
 import {AdministrativeCenterPoint} from '../../model/administrative-center-point';
 import {AdministrativeCentersLayer} from '../../layers/administrative-centers-layer';
-import {Subscription} from 'rxjs';
 import {MonitoringMarker} from '../monitoring-marker';
-import {LatLng, Map} from 'leaflet';
-import {TIMER_INTERVAL} from '@core/utils/updated-list';
 
 const FORM_PARAMS = {
   area: 'area',
@@ -20,12 +22,15 @@ const ZOOM = 14;
   templateUrl: './location-capabilities-search.component.html',
   styleUrls: ['./location-capabilities-search.component.scss'],
 })
-export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
+export class LocationCapabilitiesSearchComponent implements OnDestroy {
   @Input() private readonly leafletMap: Map;
+
   @Output() selectedPoint: EventEmitter<number> = new EventEmitter<number>();
 
   administrativePoints: AdministrativeCenterPoint[] = [];
+
   searchForm: FormGroup;
+
   observers: Subscription[] = [];
 
   private technicalCapabilitiesUpdateTimer: number;
@@ -46,8 +51,6 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     this.observers.push(observer);
   }
 
-  ngOnInit() {}
-
   ngOnDestroy(): void {
     this.observers.forEach(observer => observer.unsubscribe());
 
@@ -56,7 +59,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     }
   }
 
-  onSearchSubmit() {
+  onSearchSubmit(): void {
     if (this.administrativePoints.length > 0) {
       const selectedPoint = this.administrativePoints[0];
 
@@ -68,7 +71,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     }
   }
 
-  setSelectedPoint(administrativePoint: AdministrativeCenterPoint, animate: boolean = true) {
+  setSelectedPoint(administrativePoint: AdministrativeCenterPoint, animate = true): void {
     this.searchForm.get(FORM_PARAMS.locality).setValue(administrativePoint.fullName);
     this.leafletMap.flyTo(
       new LatLng(administrativePoint.point.lat, administrativePoint.point.lng),
@@ -78,7 +81,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     this.selectedPoint.emit(administrativePoint.id);
   }
 
-  private selectArea(selectedArea: MunicipalitiesLayerGeoJson) {
+  private selectArea(selectedArea: MunicipalitiesLayerGeoJson): void {
     this.municipalityLayer.selectLayer(selectedArea);
 
     if (selectedArea) {
@@ -93,7 +96,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     this.administrativeCentersLayer.filterByArea(selectedArea);
   }
 
-  private handleMarkerClick() {
+  private handleMarkerClick(): Subscription {
     return this.administrativeCentersLayer.onMarkerClick.subscribe(
       (marker: MonitoringMarker<AdministrativeCenterPoint>) => {
         this.onMunicipalityMarkerClick(marker);
@@ -131,7 +134,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     return form;
   }
 
-  private filterLocalities(locality: string) {
+  private filterLocalities(locality: string): void {
     if (this.administrativeCentersLayer) {
       this.administrativePoints = this.administrativeCentersLayer.filterByLocalityName(locality);
       if (
@@ -143,7 +146,7 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy, OnInit {
     }
   }
 
-  private onMunicipalityMarkerClick(marker: MonitoringMarker<AdministrativeCenterPoint>) {
+  private onMunicipalityMarkerClick(marker: MonitoringMarker<AdministrativeCenterPoint>): void {
     this.searchForm
       .get(FORM_PARAMS.area)
       .patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.district));

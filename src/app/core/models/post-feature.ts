@@ -1,5 +1,6 @@
 import {autoserializeAs, inheritSerialization} from 'cerialize';
-import {MailType, Quality} from '@core/models/enums';
+
+import {MailType} from '@core/models/enums';
 import {LocationFeature} from '@core/models/location-feature';
 
 @inheritSerialization(LocationFeature)

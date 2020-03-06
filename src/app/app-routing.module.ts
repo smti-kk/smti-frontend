@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+
 import {NotFoundPage} from '@core/pages/not-found/not-found.page';
 import {AuthorizationComponent} from '@core/pages/authorization/authorization.component';
 
@@ -19,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'organizations-data-table',
-    loadChildren: './modules/organizations-data-table/organizations-data-table.module#OrganizationsDataTableModule'
+    loadChildren:
+      './modules/organizations-data-table/organizations-data-table.module#OrganizationsDataTableModule',
   },
   {
     path: 'login',

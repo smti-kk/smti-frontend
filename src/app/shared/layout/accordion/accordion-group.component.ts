@@ -7,6 +7,7 @@ import {
   Output,
   QueryList,
 } from '@angular/core';
+
 import {AccordionHeaderComponent} from '@shared/layout/accordion/accordion-header.component';
 
 @Component({
@@ -26,16 +27,20 @@ export class AccordionGroupComponent implements AfterContentInit {
 
   @Input() title: string;
 
-  @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
+  @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
 
   @ContentChildren(AccordionHeaderComponent)
   headers: QueryList<AccordionHeaderComponent>;
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this.toggle.subscribe(() => {
       this.headers.toArray().forEach(header => {
-        header.isOpen = !this.opened;
+        header.isOpen(!this.opened);
       });
     });
+  }
+
+  isOpened(value): void {
+    this.opened = value;
   }
 }

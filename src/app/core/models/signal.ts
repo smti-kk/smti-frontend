@@ -1,25 +1,8 @@
 import {autoserializeAs} from 'cerialize';
 
-export const SIGNAL_ARRAY_SERIALIZER = {
-  Deserialize(objs: {id: number}[]): Signal {
-    if (!objs || !objs[0]) {
-      return null;
-    } else {
-      switch (objs[0].id) {
-        case Signal.ATV.id:
-          return Signal.ATV;
-        case Signal.CTV.id:
-          return Signal.CTV;
-      }
-    }
-  },
-  Serialize(signal: Signal) {
-    return signal ? [signal.id] : null;
-  }
-};
-
 export class Signal {
   public static ATV = new Signal(1, 'Аналоговое');
+
   public static CTV = new Signal(2, 'Цифровое');
 
   @autoserializeAs('id')
@@ -41,11 +24,33 @@ export class Signal {
     return this._name;
   }
 
-  get shortName() {
+  get shortName(): string {
     if (this.id === Signal.ATV.id) {
       return 'АТВ';
-    } else if (this.id === Signal.CTV.id) {
+    }
+    if (this.id === Signal.CTV.id) {
       return 'ЦТВ';
     }
+    throw Error(`Unknown signal: ${this}`);
   }
 }
+
+// noinspection JSUnusedGlobalSymbols
+export const SIGNAL_ARRAY_SERIALIZER = {
+  Deserialize(objs: {id: number}[]): Signal {
+    if (!objs || !objs[0]) {
+      return null;
+    }
+    switch (objs[0].id) {
+      case Signal.ATV.id:
+        return Signal.ATV;
+      case Signal.CTV.id:
+        return Signal.CTV;
+      default:
+        throw Error(`Unknown SIGNAL: ${objs[0]}`);
+    }
+  },
+  Serialize(signal: Signal): number[] {
+    return signal ? [signal.id] : null;
+  },
+};

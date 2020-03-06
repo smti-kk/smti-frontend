@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+
 import {AuthInterceptor} from '@core/interceptor/auth.interceptor';
 import {
   AuthService,
@@ -18,10 +19,11 @@ import {StoreService} from '@core/services/store.service';
 import {TcPivotsService} from '@core/services/tc-pivots.service';
 import {AdministrativeCentersService} from '@map-wrapper/service/administrative-centers.service';
 import {SharedModule} from '@shared/shared.module';
+import {FilterTcPivotsService} from '@core/services/filter-tc-pivots.service';
+
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
 import {NotFoundPage} from './pages/not-found/not-found.page';
 import {InternetAccessTypeService} from './services/internet-access-type.service';
-import { FilterTcPivotsService } from '@core/services/filter-tc-pivots.service';
 
 @NgModule({
   declarations: [NotFoundPage, AuthorizationComponent],

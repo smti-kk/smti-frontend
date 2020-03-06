@@ -1,6 +1,6 @@
-import {Coordinate} from '../interface/coordinate';
 import {autoserializeAs} from 'cerialize';
-import {Reaccesspoint} from '@core/models/reaccesspoint';
+
+import {Coordinate} from '../interface/coordinate';
 
 export const COORDINATE_DESERIALIZER = {
   Deserialize(point: {coordinates: [number, number]}): Coordinate {
@@ -10,9 +10,11 @@ export const COORDINATE_DESERIALIZER = {
     };
   },
 
-  Serialize(point: Coordinate) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  Serialize(point: Coordinate): string {
+    // todo убрать заглушку
     return 'SRID=4326;POINT (90.9261111 56.8919444)';
-  }
+  },
 };
 
 export abstract class MonitoringPoint {
@@ -22,12 +24,12 @@ export abstract class MonitoringPoint {
   @autoserializeAs('id')
   private readonly _id: number;
 
-  protected constructor(point: Coordinate, id: number) {
+  constructor(point: Coordinate, id: number) {
     this._point = point;
     this._id = id;
   }
 
-  get id() {
+  get id(): number {
     return this._id;
   }
 
@@ -41,8 +43,13 @@ export abstract class MonitoringPoint {
 
   abstract get iconUrl();
 
-  public static OnDeserialized(instance: MonitoringPoint, json: any): void {
+  // noinspection JSUnusedGlobalSymbols
+  public static OnDeserialized(
+    instance: MonitoringPoint,
+    json: {geo_data: {coordinates: [number, number]}}
+  ): void {
     if (!instance._point && json.geo_data) {
+      // eslint-disable-next-line no-param-reassign
       instance.point = COORDINATE_DESERIALIZER.Deserialize(json.geo_data);
     }
   }

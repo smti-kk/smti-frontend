@@ -8,44 +8,46 @@ export const TIMER_INTERVAL = MINUTES * SECONDS * MILLISECONDS;
 
 export class UpdatedList<T extends {id: number}> {
   private _items: T[] = [];
+
   private _timerId: number;
+
   private isClosedUpdate = false;
 
   constructor(private getData: () => Observable<T[]>, private onUpdate: (data: T[]) => void) {
     // this.update();
   }
 
-  get items() {
+  get items(): T[] {
     return this._items;
   }
 
-  startUpdate() {
+  startUpdate(): void {
     this._timerId = window.setInterval(() => {
       this.timerUpdate();
     }, TIMER_INTERVAL);
   }
 
-  stopUpdate() {
+  stopUpdate(): void {
     window.clearInterval(this._timerId);
     this._timerId = null;
   }
 
-  forceUpdate() {
+  forceUpdate(): void {
     if (this.isClosedUpdate) {
       return;
     }
     this.update();
   }
 
-  closeUpdate() {
+  closeUpdate(): void {
     this.isClosedUpdate = true;
   }
 
-  openUpdate() {
+  openUpdate(): void {
     this.isClosedUpdate = false;
   }
 
-  private update() {
+  private update(): void {
     let stopped = false;
 
     if (this._timerId) {
@@ -63,7 +65,7 @@ export class UpdatedList<T extends {id: number}> {
     });
   }
 
-  private timerUpdate() {
+  private timerUpdate(): void {
     this.update();
   }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, Map, MapOptions, TileLayer} from 'leaflet';
 import {LeafletControlLayersConfig} from '@asymmetrik/ngx-leaflet';
-import 'leaflet-spin';
+
 import {AccessPointEspdLayer} from '../../layers/access-point-espd-layer';
 import {AccessPointSmoLayer} from '../../layers/access-point-smo-layer';
 import {AdministrativeCentersLayer} from '../../layers/administrative-centers-layer';
@@ -21,7 +21,9 @@ export class MapPage implements OnInit {
   private readonly defaultTile;
 
   options: MapOptions;
+
   layersControl: LeafletControlLayersConfig;
+
   leaflet: Map;
 
   constructor(
@@ -47,7 +49,7 @@ export class MapPage implements OnInit {
     };
   }
 
-  public onMapReady(leaflet: Map) {
+  public onMapReady(leaflet: Map): void {
     this.leaflet = leaflet;
     this.defaultTile.addTo(leaflet);
 

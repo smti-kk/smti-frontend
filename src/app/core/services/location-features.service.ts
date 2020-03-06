@@ -1,4 +1,9 @@
 import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Deserialize} from 'cerialize';
+
 import {
   GovernmentProgram,
   Location,
@@ -7,14 +12,12 @@ import {
   PaginatedList,
   TrunkChannel,
 } from '@core/models';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Deserialize} from 'cerialize';
-import {environment} from '../../../environments/environment';
 import {TECHNICAL_CAPABILITIES} from '@core/constants/api';
 import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
+import {PaginatedListBackend} from '@core/models/base-interfaces';
+
+import {environment} from '../../../environments/environment';
 
 const TC_INTERNET = '/api/v1/tc-internet/';
 const TC_MOBILE = '/api/v1/tc-mobile/';
@@ -33,14 +36,13 @@ interface Filters {
 @Injectable()
 export class LocationFeaturesService {
   protected params: HttpParams = new HttpParams();
+
   protected filters: Filters;
 
   constructor(private httpClient: HttpClient) {}
 
   getInternetFeaturesList(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     let requestParams = params;
-
-    console.log(requestParams.keys());
 
     if (params && params.has('mobile_type')) {
       requestParams = params.delete('mobile_type');
@@ -50,10 +52,8 @@ export class LocationFeaturesService {
       requestParams = params.delete('mobile_operator');
     }
 
-    console.log(requestParams.toString());
-
     return this.httpClient
-      .get<any>(TC_INTERNET, {params: requestParams})
+      .get<PaginatedListBackend>(TC_INTERNET, {params: requestParams})
       .pipe(
         map(response => {
           return {
@@ -77,10 +77,8 @@ export class LocationFeaturesService {
       requestParams = params.delete('internet_operator');
     }
 
-    console.log(requestParams.toString());
-
     return this.httpClient
-      .get<any>(TC_MOBILE, {params: requestParams})
+      .get<PaginatedListBackend>(TC_MOBILE, {params: requestParams})
       .pipe(
         map(response => {
           return {
@@ -97,7 +95,6 @@ export class LocationFeaturesService {
     page: number,
     pageSize: number
   ): Observable<PaginatedList<LocationFeatures>> {
-    console.log('paginatedListINternet:', this.params);
     return this.getInternetFeaturesList(
       this.params.set('page', page.toString()).set('page_size', pageSize.toString())
     );
@@ -112,21 +109,25 @@ export class LocationFeaturesService {
     );
   }
 
-  exportExcelCellular() {
-    window.location.href = environment.API_BASE_URL + '/api/v1/tc-mobile/export/?';
+  // todo: указать параметры экспорта
+  // eslint-disable-next-line class-methods-use-this
+  exportExcelCellular(): void {
+    window.location.href = `${environment.API_BASE_URL}/api/v1/tc-mobile/export/?`;
   }
 
-  exportExcelInternet() {
-    window.location.href = environment.API_BASE_URL + '/api/v1/tc-internet/export/?';
+  // todo: указать параметры экспорта
+  // eslint-disable-next-line class-methods-use-this
+  exportExcelInternet(): void {
+    window.location.href = `${environment.API_BASE_URL}/api/v1/tc-internet/export/?`;
   }
 
   oneLocationFeature(id: number): Observable<LocationFeatures> {
     return this.httpClient
-      .get(TECHNICAL_CAPABILITIES + `/${id}/`)
+      .get(`${TECHNICAL_CAPABILITIES}/${id}/`)
       .pipe(map(value => Deserialize(value, LocationFeatures)));
   }
 
-  filter(filters: Filters) {
+  filter(filters: Filters): void {
     this.filters = filters;
     this.setOrder(filters.order);
     this.setParamId('location', filters.location);
@@ -138,7 +139,7 @@ export class LocationFeaturesService {
     this.setParamType('mobile_type', filters.mobileType);
   }
 
-  private setMobileOperatorFilter(providers: {[providerId: string]: boolean}[]) {
+  private setMobileOperatorFilter(providers: {[providerId: string]: boolean}[]): void {
     if (!providers) {
       return;
     }
@@ -152,7 +153,7 @@ export class LocationFeaturesService {
       });
   }
 
-  private setInternetOperatorFilter(providers: {[providerId: string]: boolean}[]) {
+  private setInternetOperatorFilter(providers: {[providerId: string]: boolean}[]): void {
     if (!providers) {
       return;
     }
@@ -166,17 +167,17 @@ export class LocationFeaturesService {
       });
   }
 
-  private setOrder(order?: OrderingFilter) {
+  private setOrder(order?: OrderingFilter): void {
     if (order && order.orderingDirection === OrderingDirection.ASC) {
       this.params = this.params.set('ordering', order.name);
     } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('ordering', '-' + order.name);
+      this.params = this.params.set('ordering', `-${order.name}`);
     } else {
       this.params = this.params.delete('ordering');
     }
   }
 
-  private setParamId(field: string, value: {id: number}) {
+  private setParamId(field: string, value: {id: number}): void {
     if (value) {
       this.params = this.params.set(field, value.id.toString());
     } else {
@@ -184,7 +185,7 @@ export class LocationFeaturesService {
     }
   }
 
-  private setParamType(field: string, value: {type: number}) {
+  private setParamType(field: string, value: {type: number}): void {
     if (value) {
       this.params = this.params.set(field, value.type.toString());
     } else {

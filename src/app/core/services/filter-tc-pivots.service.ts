@@ -1,11 +1,18 @@
-import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { GovernmentProgram, LocationFeatures, MailType, MobileGeneration, PaginatedList, TrunkChannel } from '@core/models';
-import { OrderingFilter } from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
-import { Signal } from '@core/models/signal';
-import { OrderingDirection, TcPivotsService } from '@core/services/tc-pivots.service';
+import {Injectable} from '@angular/core';
+import {HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
+import {
+  GovernmentProgram,
+  LocationFeatures,
+  MailType,
+  MobileGeneration,
+  PaginatedList,
+  TrunkChannel,
+} from '@core/models';
+import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
+import {Signal} from '@core/models/signal';
+import {OrderingDirection, TcPivotsService} from '@core/services/tc-pivots.service';
 
 interface TcFilters {
   order: OrderingFilter;
@@ -27,6 +34,7 @@ interface TcFilters {
 @Injectable()
 export class FilterTcPivotsService extends TcPivotsService {
   protected params: HttpParams = new HttpParams();
+
   protected filters: TcFilters;
 
   private TRUE = '2';
@@ -37,7 +45,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     );
   }
 
-  filter(filters: TcFilters) {
+  filter(filters: TcFilters): void {
     this.filters = filters;
 
     this.setFilterByProgram(filters.program);
@@ -55,22 +63,21 @@ export class FilterTcPivotsService extends TcPivotsService {
     this.setLocationFilter(filters.locationName);
   }
 
-  exportExcel() {
-    super.exportExcel(this.params);
-
+  exportExcel(): void {
+    TcPivotsService.exportExcel(this.params);
   }
 
-  protected setFilterOrdering(order?: OrderingFilter) {
+  protected setFilterOrdering(order?: OrderingFilter): void {
     if (order && order.orderingDirection === OrderingDirection.ASC) {
       this.params = this.params.set('ordering', order.name);
     } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('ordering', '-' + order.name);
+      this.params = this.params.set('ordering', `-${order.name}`);
     } else {
       this.params = this.params.delete('ordering');
     }
   }
 
-  private setFilterByProgram(value: GovernmentProgram) {
+  private setFilterByProgram(value: GovernmentProgram): void {
     if (value) {
       this.params = this.params.set('govenmet_programs', value.id.toString());
     } else {
@@ -78,7 +85,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setFilterBoolean(field: string, value: boolean) {
+  private setFilterBoolean(field: string, value: boolean): void {
     if (value === true) {
       this.params = this.params.set(field, this.TRUE);
     } else if (this.params.has(field)) {
@@ -86,7 +93,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setFilterByMailType(type: MailType) {
+  private setFilterByMailType(type: MailType): void {
     if (type) {
       this.params = this.params.set('post_type', type.toString());
     } else {
@@ -94,7 +101,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setFilterByTvType(type: Signal) {
+  private setFilterByTvType(type: Signal): void {
     if (type) {
       this.params = this.params.set('tv_type', type.id.toString());
     } else {
@@ -102,7 +109,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setMobileOperatorFilter(providers: {[providerId: string]: boolean}[]) {
+  private setMobileOperatorFilter(providers: {[providerId: string]: boolean}[]): void {
     if (!providers) {
       return;
     }
@@ -116,7 +123,7 @@ export class FilterTcPivotsService extends TcPivotsService {
       });
   }
 
-  private setInternetOperatorFilter(providers: {[providerId: string]: boolean}[]) {
+  private setInternetOperatorFilter(providers: {[providerId: string]: boolean}[]): void {
     if (!providers) {
       return;
     }
@@ -130,7 +137,7 @@ export class FilterTcPivotsService extends TcPivotsService {
       });
   }
 
-  private setMobileTypeFilter(mobileGeneration: MobileGeneration) {
+  private setMobileTypeFilter(mobileGeneration: MobileGeneration): void {
     if (mobileGeneration === null) {
       this.params = this.params.delete('mobile_type');
     } else {
@@ -138,7 +145,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setInternetTypeFilter(internetChannel: TrunkChannel) {
+  private setInternetTypeFilter(internetChannel: TrunkChannel): void {
     if (internetChannel === null) {
       this.params = this.params.delete('internet_type');
     } else {
@@ -146,7 +153,7 @@ export class FilterTcPivotsService extends TcPivotsService {
     }
   }
 
-  private setLocationFilter(location: string) {
+  private setLocationFilter(location: string): void {
     if (location) {
       this.params = this.params.set('locationName', location);
     } else if (this.params.has('locationName')) {

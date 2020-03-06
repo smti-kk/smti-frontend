@@ -1,4 +1,5 @@
 import {autoserializeAs} from 'cerialize';
+
 import {Organization} from '@core/models/organization';
 
 export class Location {
@@ -67,11 +68,11 @@ export class Location {
   get municipalityArea(): string {
     if (this._municipalityArea && this._municipalityArea instanceof Location) {
       return this._municipalityArea.fullName;
-    } else if (this._municipalityAreaStr) {
-      return this._municipalityAreaStr;
-    } else {
-      return '';
     }
+    if (this._municipalityAreaStr) {
+      return this._municipalityAreaStr;
+    }
+    return '';
   }
 
   get infomat(): number {
@@ -79,15 +80,17 @@ export class Location {
   }
 
   get fullName(): string {
-    return this.typeLocation + ' ' + this.name;
+    return `${this.typeLocation} ${this.name}`;
   }
 
+  // noinspection JSUnusedGlobalSymbols
   get contractCount(): number {
     return this.organizations
       .map(organization => organization.contracts.length)
       .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
   }
 
+  // noinspection JSUnusedGlobalSymbols
   get connectionPointsCount(): number {
     return this.organizations
       .map(organization => organization.reaccesspoints.length)

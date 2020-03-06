@@ -1,4 +1,5 @@
 import {autoserializeAs} from 'cerialize';
+
 import {Operator} from '@core/models/operator';
 import {popToTop} from '@core/utils/sort';
 import {LocationFeatures} from '@core/models/location-features';
@@ -43,44 +44,44 @@ export class ExistingOperators {
     return this._cellular;
   }
 
-  get radio(): Operator[] {
-    return this._radio;
-  }
-
-  get internet(): Operator[] {
-    return this._internet;
-  }
-
-  get ats(): Operator[] {
-    return this._ats;
-  }
-
-  get post(): Operator[] {
-    return this._post;
-  }
-
-  get television(): Operator[] {
-    return this._television;
-  }
-
   set cellular(value: Operator[]) {
     this._cellular = value;
+  }
+
+  get radio(): Operator[] {
+    return this._radio;
   }
 
   set radio(value: Operator[]) {
     this._radio = value;
   }
 
+  get internet(): Operator[] {
+    return this._internet;
+  }
+
   set internet(value: Operator[]) {
     this._internet = value;
+  }
+
+  get ats(): Operator[] {
+    return this._ats;
   }
 
   set ats(value: Operator[]) {
     this._ats = value;
   }
 
+  get post(): Operator[] {
+    return this._post;
+  }
+
   set post(value: Operator[]) {
     this._post = value;
+  }
+
+  get television(): Operator[] {
+    return this._television;
   }
 
   set television(value: Operator[]) {
@@ -88,22 +89,23 @@ export class ExistingOperators {
   }
 
   sortByLocationFeatures(features: LocationFeatures): ExistingOperators {
-    this.cellular = this.sortByLocationFeature(features.cellular, this.cellular);
-    this.television = this.sortByLocationFeature(features.television, this.television);
-    this.post = this.sortByLocationFeature(features.post, this.post);
-    this.ats = this.sortByLocationFeature(features.ats, this.ats);
-    this.internet = this.sortByLocationFeature(features.internet, this.internet);
-    this.radio = this.sortByLocationFeature(features.radio, this.radio);
+    this.cellular = ExistingOperators.sortByLocationFeature(features.cellular, this.cellular);
+    this.television = ExistingOperators.sortByLocationFeature(features.television, this.television);
+    this.post = ExistingOperators.sortByLocationFeature(features.post, this.post);
+    this.ats = ExistingOperators.sortByLocationFeature(features.ats, this.ats);
+    this.internet = ExistingOperators.sortByLocationFeature(features.internet, this.internet);
+    this.radio = ExistingOperators.sortByLocationFeature(features.radio, this.radio);
     return this;
   }
 
-  private sortByLocationFeature(locationFeature: LocationFeature[], operators: Operator[]) {
+  private static sortByLocationFeature(locationFeature: LocationFeature[], operators: Operator[]): Operator[] {
+    let operatorsBuf = operators;
     locationFeature.reverse().forEach(c => {
-      operators = popToTop(operators, c.operator);
+      operatorsBuf = popToTop(operators, c.operator);
     });
 
     locationFeature.reverse();
 
-    return operators;
+    return operatorsBuf;
   }
 }

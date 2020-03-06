@@ -1,4 +1,5 @@
 import {autoserializeAs, inheritSerialization} from 'cerialize';
+
 import {Quality, SignalType} from '@core/models/enums';
 import {Operator} from '@core/models/operator';
 import {LocationFeature} from '@core/models/location-feature';
@@ -31,8 +32,11 @@ export class RadioFeature extends LocationFeature {
   get typeStr(): string {
     if (this.type === SignalType.ATV) {
       return 'АТВ';
-    } else if (this.type === SignalType.CTV) {
+    }
+    if (this.type === SignalType.CTV) {
       return 'ЦТВ';
     }
+
+    throw Error(`Unknown type: ${this.type}`);
   }
 }

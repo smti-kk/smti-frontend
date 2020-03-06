@@ -1,5 +1,7 @@
+// eslint-disable-next-line import/no-unresolved
 import {BBox, Feature, MultiPoint} from 'geojson';
 import {autoserializeAs} from 'cerialize';
+
 import {LocationAreaProperties} from '@map-wrapper/model/location-area-properties';
 
 const BORDER_GEO_JSON_DESERIALIZE = {
@@ -10,6 +12,7 @@ const BORDER_GEO_JSON_DESERIALIZE = {
 
 export class LocationArea implements Feature<MultiPoint, LocationAreaProperties> {
   private _type: 'Feature' = 'Feature';
+
   private _bbox?: BBox;
 
   @autoserializeAs('full_name')

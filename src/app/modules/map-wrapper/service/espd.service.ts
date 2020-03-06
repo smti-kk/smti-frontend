@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {LatLngBounds} from 'leaflet';
-import {ACCESS_POINT_ESPD_URL} from '@map-wrapper/constants/api.constants';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
 import {Observable} from 'rxjs';
+
+import {ACCESS_POINT_ESPD_URL} from '@map-wrapper/constants/api.constants';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 @Injectable()

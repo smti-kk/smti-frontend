@@ -1,3 +1,4 @@
+/* eslint-disable */
 // BASIC TYPES DEFINED IN @angular/forms + rxjs/Observable
 type FormGroup = import('@angular/forms').FormGroup;
 type FormArray = import('@angular/forms').FormArray;

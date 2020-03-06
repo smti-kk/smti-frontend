@@ -1,10 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
-export class BaseFormComponent<T> {
-  @Output() formValue: EventEmitter<T> = new EventEmitter<T>();
-  @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
-}
+import {BaseFormComponent} from './base-form.component';
 
 interface InternetClarification {
   isActive: boolean;
@@ -28,7 +25,7 @@ export class InternetClarificationComponent extends BaseFormComponent<InternetCl
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group({
       internet: this.fb.array([]),
     });
@@ -42,7 +39,7 @@ export class InternetClarificationComponent extends BaseFormComponent<InternetCl
     return this.form.get('internet') as FormArray;
   }
 
-  private createProviders(providers: string[]) {
+  private createProviders(providers: string[]): FormGroup[] {
     return providers.map(provider => {
       return this.fb.group({
         provider: this.fb.group({
@@ -55,16 +52,4 @@ export class InternetClarificationComponent extends BaseFormComponent<InternetCl
       });
     });
   }
-
-  /*
-  {
-        provider: {
-          isActive: true,
-          name: internetItem.operator.name,
-          icon: internetItem.operator.icon
-        },
-        type: internetItem.type_trunkchannel.name === 'медный кабель' ? 'медь' : internetItem.type_trunkchannel.name,
-        quality: ''
-      };
-   */
 }

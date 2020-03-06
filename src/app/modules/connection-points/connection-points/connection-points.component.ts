@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {Observable} from 'rxjs';
+import {share, tap} from 'rxjs/operators';
+
 import {
   InternetAccessType,
   Location,
@@ -11,9 +15,6 @@ import {PaginatedList} from '@core/models/paginated-list';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Observable} from 'rxjs';
-import {share, tap} from 'rxjs/operators';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
 
 @Component({
@@ -23,14 +24,21 @@ import {GovernmentProgramService, OrganizationsService} from '@core/services';
 })
 export class ConnectionPointsComponent implements OnInit {
   locations$: Observable<PaginatedList<Location>>;
+
   fLocations$: Observable<Location[]>;
+
   fParents$: Observable<Location[]>;
+
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
+
   fOrganizationTypes$: Observable<OrganizationType[]>;
+
   fOrganizationSMOTypes$: Observable<SmoType[]>;
+
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
   pageNumber = 1;
+
   itemsPerPage = 10;
 
   form: FormGroup;
@@ -46,7 +54,7 @@ export class ConnectionPointsComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.locations$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
@@ -63,7 +71,8 @@ export class ConnectionPointsComponent implements OnInit {
 
     this.buildForm();
   }
-  buildForm() {
+
+  buildForm(): void {
     this.form = this.fb.group({
       order: null,
       location: null,
@@ -82,12 +91,12 @@ export class ConnectionPointsComponent implements OnInit {
     });
   }
 
-  onPageChange(pageNumber: number) {
+  onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
     this.locations$ = this.loadPagedLocationWithOrganizationAccessPoints();
   }
 
-  loadPagedLocationWithOrganizationAccessPoints() {
+  loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Location>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 }

@@ -1,9 +1,11 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
-import {GovernmentProgram} from '@core/models';
+import {Component, forwardRef, OnInit, Provider} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {GovernmentProgramService} from '@core/services';
 
-const VALUE_ACCESSOR: any = {
+import {GovernmentProgram} from '@core/models';
+import {GovernmentProgramService} from '@core/services';
+import {compareById} from '@core/utils/compare';
+
+const VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => GovernmentProgramComponent),
   multi: true,
@@ -12,11 +14,7 @@ const VALUE_ACCESSOR: any = {
 @Component({
   selector: 'app-government-program',
   template: `
-    <select
-      class="m-l-1"
-      [formControl]="governmentProgramControl"
-      [compareWith]="compareGovProgram"
-    >
+    <select class="m-l-1" [formControl]="governmentProgramControl" [compareWith]="compareById">
       <option [value]="null">Нет программы</option>
       <option *ngFor="let gp of governmentPrograms$ | async" [ngValue]="gp">{{
         gp.shortName
@@ -27,29 +25,26 @@ const VALUE_ACCESSOR: any = {
 })
 export class GovernmentProgramComponent implements OnInit, ControlValueAccessor {
   governmentProgramControl: FormControlTyped<GovernmentProgram>;
+
   governmentPrograms$: Observable<GovernmentProgram[]>;
+
+  onTouched: () => {};
+
+  compareById = compareById;
 
   constructor(private governmentProgramService: GovernmentProgramService) {
     this.governmentProgramControl = new FormControl(null);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.governmentPrograms$ = this.governmentProgramService.list();
   }
 
-  compareGovProgram(gp1: GovernmentProgram, gp2: GovernmentProgram) {
-    if (gp1 === null && gp2 === null) {
-      return true;
-    }
-
-    if (gp1 === null || gp2 === null) {
-      return false;
-    }
-
-    return gp1.id === gp2.id;
+  registerOnTouched(fn: () => {}): void {
+    this.onTouched = fn;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: GovernmentProgram) => {}): void {
     this.governmentProgramControl.valueChanges.subscribe(value => {
       fn(value);
     });
@@ -66,6 +61,4 @@ export class GovernmentProgramComponent implements OnInit, ControlValueAccessor 
   writeValue(obj: GovernmentProgram): void {
     this.governmentProgramControl.setValue(obj, {emitEvent: false});
   }
-
-  registerOnTouched(fn: any): void {}
 }

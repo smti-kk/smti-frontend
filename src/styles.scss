@@ -382,7 +382,7 @@ select:-moz-focusring {
   cursor: pointer;
 }
 
-.search-location input[type="text"]:focus + input[type="submit"] {
+.search-location input[type='text']:focus + input[type='submit'] {
   background: url('assets/img/search-green.png') no-repeat 50% 50%;
 }
 
@@ -543,7 +543,9 @@ select:-moz-focusring {
   font-size: 16px;
 }
 
-.u-green-dot::before { content: url('/assets/img/green-dot.png') }
+.u-green-dot::before {
+  content: url('/assets/img/green-dot.png');
+}
 
 .u-gray-dot::before {
   content: url('/assets/img/gray-dot.png');

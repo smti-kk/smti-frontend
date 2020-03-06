@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {Observable} from 'rxjs';
+import {share, tap} from 'rxjs/operators';
+
 import {InternetAccessType, Location} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {LocationServiceContractsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Observable} from 'rxjs';
-import {share, tap} from 'rxjs/operators';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 
 const FIRST_PAGE = 1;
@@ -18,11 +19,15 @@ const FIRST_PAGE = 1;
 })
 export class CommunicationContractsComponent implements OnInit {
   locations$: Observable<PaginatedList<Location>>;
+
   fLocations$: Observable<Location[]>;
+
   fParents$: Observable<Location[]>;
+
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
 
   pageNumber = FIRST_PAGE;
+
   itemsPerPage = 10;
 
   form: FormGroup;
@@ -39,7 +44,7 @@ export class CommunicationContractsComponent implements OnInit {
   ngOnInit(): void {
     this.locations$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
-        this.spinner.hide();
+        this.spinner.hide().then();
       }),
       share()
     );
@@ -51,7 +56,7 @@ export class CommunicationContractsComponent implements OnInit {
     this.buildForm();
   }
 
-  buildForm() {
+  buildForm(): void {
     this.form = this.fb.group({
       order: null,
       location: null,
@@ -68,12 +73,12 @@ export class CommunicationContractsComponent implements OnInit {
     });
   }
 
-  onPageChange(pageNumber: number) {
+  onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
     this.locations$ = this.loadPagedLocationWithContracts();
   }
 
-  loadPagedLocationWithContracts() {
+  loadPagedLocationWithContracts(): Observable<PaginatedList<Location>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 }

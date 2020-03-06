@@ -1,24 +1,31 @@
 import {EventEmitter} from '@angular/core';
-import {LatLngBounds, MarkerClusterGroup, MarkerClusterGroupOptions} from 'leaflet';
+import {LatLngBounds, MarkerClusterGroup, MarkerClusterGroupOptions, Map} from 'leaflet';
 import {Observable} from 'rxjs';
-import {MonitoringPoint} from '../model/monitoring-point';
-import 'leaflet.markercluster';
-import {MonitoringMarker} from './monitoring-marker';
+
 import {UpdatedList} from '@core/utils/updated-list';
-import {Map} from 'leaflet';
+
+import 'leaflet.markercluster';
+
+import {MonitoringMarker} from './monitoring-marker';
+import {MonitoringPoint} from '../model/monitoring-point';
 
 export const MAX_ZOOM = 12;
 
 export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerClusterGroup {
   private maxZoom = MAX_ZOOM;
+
   private pointsList: UpdatedList<T>;
+
   private leafletMap: Map;
+
   private layers: {[key: number]: MonitoringMarker<T>};
+
   public readonly onMarkerClick: EventEmitter<MonitoringMarker<T>> = new EventEmitter<
-    MonitoringMarker<T>
+  MonitoringMarker<T>
   >();
 
   protected constructor(props?: MarkerClusterGroupOptions) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     super(props);
   }
@@ -31,6 +38,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
       this.init(map);
 
       this.pointsList.startUpdate();
+      // noinspection JSUnusedGlobalSymbols
       map.on({
         moveend: () => this.updateLayer(),
       });
@@ -43,7 +51,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
     return super.getLayers() as MonitoringMarker<T>[];
   }
 
-  public getLayerByPointId(id: number) {
+  public getLayerByPointId(id: number): MonitoringMarker<T> {
     return this.layers[id];
   }
 
@@ -57,23 +65,23 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
     return super.removeLayer(layer);
   }
 
-  protected openUpdate() {
+  protected openUpdate(): void {
     this.pointsList.openUpdate();
   }
 
-  protected closeUpdate() {
+  protected closeUpdate(): void {
     this.pointsList.closeUpdate();
   }
 
   protected renderPopup?(point: T): string;
 
-  protected removeArea() {
+  protected removeArea(): void {
     this.setMaxZoom(MAX_ZOOM);
     this.openUpdate();
     this.updateLayer();
   }
 
-  protected updateLayer() {
+  protected updateLayer(): void {
     if (
       this.leafletMap &&
       this.leafletMap.getZoom() >= this.maxZoom &&
@@ -85,15 +93,15 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
     }
   }
 
-  protected setMaxZoom(zoom: number) {
+  protected setMaxZoom(zoom: number): void {
     this.maxZoom = zoom;
   }
 
-  private clearLayer() {
+  private clearLayer(): void {
     this.getLayers().forEach(l => this.removeLayer(l));
   }
 
-  private init(map: Map) {
+  private init(map: Map): void {
     this.leafletMap = map;
     this.layers = {};
     this.pointsList = new UpdatedList<T>(
@@ -113,7 +121,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
     });
   }
 
-  private setPoints(points: T[]) {
+  private setPoints(points: T[]): void {
     this.removeIrrelevantMarkers(points);
 
     points.forEach(point => {
@@ -141,7 +149,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
     );
   }
 
-  private removeIrrelevantMarkers(points: T[]) {
+  private removeIrrelevantMarkers(points: T[]): void {
     this.getLayers()
       .filter(pointMarker => !points.find(point => point.id === pointMarker.feature.properties.id))
       .forEach(pointMarker => this.removeLayer(pointMarker));

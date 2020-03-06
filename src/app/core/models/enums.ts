@@ -14,7 +14,7 @@ export enum Quality {
   ABSENT = 'absent',
 }
 
-export const qualityToString = (quality: Quality) => {
+export const qualityToString = (quality: Quality): string => {
   switch (quality) {
     case Quality.ABSENT:
       return 'Отутствует';
@@ -22,5 +22,7 @@ export const qualityToString = (quality: Quality) => {
       return 'Хорошо';
     case Quality.NORMAL:
       return 'Удовлетворительно';
+    default:
+      throw new Error(`Unknown quality: ${quality}`);
   }
 };

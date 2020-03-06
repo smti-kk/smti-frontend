@@ -1,8 +1,9 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
-import {MobileGeneration} from '@core/models';
+import { Component, forwardRef, OnInit, Provider } from '@angular/core';
 import {ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-const VALUE_ACCESSOR: any = {
+import {MobileGeneration} from '@core/models';
+
+const VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => MobileGenerationComponent),
   multi: true,
@@ -34,17 +35,20 @@ const VALUE_ACCESSOR: any = {
 })
 export class MobileGenerationComponent implements OnInit, ControlValueAccessor {
   MobileGeneration = MobileGeneration;
+
   form: FormGroupTyped<{mobileGeneration: MobileGeneration}>;
+
+  private onTouched: () => {};
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group({mobileGeneration: null}) as FormGroupTyped<{
       mobileGeneration: MobileGeneration;
     }>;
   }
 
-  registerOnChange(onChange: any): void {
+  registerOnChange(onChange: (value: MobileGeneration) => {}): void {
     this.form.valueChanges.subscribe(value => {
       onChange(value.mobileGeneration);
     });
@@ -59,9 +63,10 @@ export class MobileGenerationComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(obj: MobileGeneration): void {
-    console.log(obj);
     this.form.setValue({mobileGeneration: obj}, {emitEvent: false});
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: () => {}): void {
+    this.onTouched = fn;
+  }
 }

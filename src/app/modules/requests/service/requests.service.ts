@@ -1,24 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Request, RequestState} from '../model/request';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-@Injectable()
-export class RequestsService {
-  public requestsList(): Observable<Request[]> {
-    return of(mock).pipe(
-      map(data => {
-        return data.sort((a, b) => {
-          if (a.state > b.state) {
-            return 1;
-          } else {
-            return -1;
-          }
-        });
-      })
-    );
-  }
-}
+import {Request, RequestState} from '../model/request';
 
 const mock = [
   {
@@ -193,3 +177,21 @@ const mock = [
     state: RequestState.ACCEPTED,
   },
 ];
+
+
+@Injectable()
+export class RequestsService {
+  // eslint-disable-next-line class-methods-use-this
+  public requestsList(): Observable<Request[]> {
+    return of(mock).pipe(
+      map(data => {
+        return data.sort((a, b) => {
+          if (a.state > b.state) {
+            return 1;
+          }
+          return -1;
+        });
+      })
+    );
+  }
+}

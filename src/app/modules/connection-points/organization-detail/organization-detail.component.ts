@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {GovernmentProgramService, OrganizationsService} from '@core/services';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
+
 import {
   GovernmentProgram,
   InternetAccessType,
@@ -8,15 +11,14 @@ import {
   OrganizationType,
   Quality,
   qualityToString,
-  SmoType
+  SmoType,
 } from '@core/models';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {forkJoin, Observable} from 'rxjs';
+import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Coordinate} from '@map-wrapper/interface/coordinate';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
+import {compareById} from '@core/utils/compare';
 
 @Component({
   selector: 'app-organization-detail',
@@ -25,17 +27,28 @@ import {InternetAccessTypeService} from '@core/services/internet-access-type.ser
 })
 export class OrganizationDetailComponent implements OnInit {
   organization: Organization;
+
   formGroupOrganization: FormGroup;
+
   ap: Reaccesspoint;
+
   formGroupAccessPoints: FormGroup;
+
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
+
   fOrganizationTypes$: Observable<OrganizationType[]>;
+
   fOrganizationSMOTypes$: Observable<SmoType[]>;
+
   fLocations$: Observable<Location[]>;
+
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
   Quality = Quality;
+
   qualityToString = qualityToString;
+
+  compareFn = compareById;
 
   constructor(
     private serviceOrganizations: OrganizationsService,
@@ -47,11 +60,7 @@ export class OrganizationDetailComponent implements OnInit {
     private router: Router
   ) {}
 
-  compareFn(c1: {id: number}, c2: {id: number}): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
@@ -62,7 +71,6 @@ export class OrganizationDetailComponent implements OnInit {
 
     if (organizationId) {
       this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
-        console.log(organization);
         this.buildForm(organization);
         this.organization = organization;
       });
@@ -73,7 +81,7 @@ export class OrganizationDetailComponent implements OnInit {
     }
   }
 
-  private buildForm(o: Organization) {
+  private buildForm(o: Organization): void {
     this.formGroupOrganization = this.formBuilder.group({
       _id: null,
       _location: null,
@@ -84,11 +92,12 @@ export class OrganizationDetailComponent implements OnInit {
       _kpp: [null, Validators.required],
       _fias: [
         null,
-        Validators.pattern(
-          '\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b'
-        ),
-        ,
-        Validators.required, // todo: Странное поведение ,, две запятых подряд
+        [
+          Validators.pattern(
+            '\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b'
+          ),
+          Validators.required,
+        ],
       ],
       _type: null,
       _smoType: null,
@@ -99,47 +108,48 @@ export class OrganizationDetailComponent implements OnInit {
     this.formGroupOrganization.disable();
   }
 
-  cancelEdit() {
+  cancelEdit(): void {
     this.formGroupOrganization.reset();
     this.formGroupOrganization.patchValue(this.organization);
     this.formGroupOrganization.disable();
   }
 
-  enableForm() {
+  enableForm(): void {
     this.formGroupOrganization.enable();
   }
 
-  saveRequest() {
-    console.log('data  from FORM: ', this.formGroupOrganization.value);
-    console.log('data originated: ', this.organization);
+  saveRequest(): void {
     this.serviceOrganizations.put(this.formGroupOrganization.value).subscribe(
       organization => {
         this.organization = organization;
       },
       error => {
+        // todo: обработка ошибки
         this.formGroupOrganization.enable();
+        throw Error(`${error}`);
       }
     );
     this.formGroupOrganization.disable();
   }
 
-  isCreate() {
+  isCreate(): boolean {
     return this.organization && !this.organization.id;
   }
 
-  saveOrganization() {
+  saveOrganization(): void {
     this.serviceOrganizations.save(this.formGroupOrganization.value).subscribe(
       () => {
         this.router.navigateByUrl('connection-points');
         // todo: implement me
       },
       error => {
+        throw Error(`${error}`);
         // todo: implement me
       }
     );
   }
 
-  addNewAccessPoint() {
+  addNewAccessPoint(): void {
     const coords: Coordinate = {lat: 94, lng: 56};
     this.ap = new Reaccesspoint(coords, null);
     this.formGroupAccessPoints = this.formBuilder.group({
@@ -171,7 +181,7 @@ export class OrganizationDetailComponent implements OnInit {
     });
   }
 
-  saveAccessPoint() {
+  saveAccessPoint(): void {
     this.serviceOrganizations
       .createAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value))
       .subscribe(
@@ -179,10 +189,11 @@ export class OrganizationDetailComponent implements OnInit {
           window.location.reload();
           // todo: implement me
         },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         error => {
           // todo: implement me
+          throw Error(`${error}`);
         }
       );
   }
-
 }

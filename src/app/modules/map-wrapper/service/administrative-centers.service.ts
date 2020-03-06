@@ -1,11 +1,13 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {LOCATION_URL} from '../constants/api.constants';
 import {Injectable} from '@angular/core';
 import {LatLngBounds} from 'leaflet';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
 import {Observable} from 'rxjs';
+
 import {AdministrativeCenterPoint} from '@map-wrapper/model/administrative-center-point';
+
+import {LOCATION_URL} from '../constants/api.constants';
 
 @Injectable()
 export class AdministrativeCentersService {
@@ -24,7 +26,7 @@ export class AdministrativeCentersService {
       .pipe(map(response => Deserialize(response, AdministrativeCenterPoint)));
   }
 
-  listFilteredByArea(areaId) {
+  listFilteredByArea(areaId): Observable<AdministrativeCenterPoint[]> {
     const params = new HttpParams().set('parent', areaId.toString());
 
     return this.httpClient

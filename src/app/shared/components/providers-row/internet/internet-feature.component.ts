@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+
 import {Operator} from '@core/models';
 import {InternetFeature} from '@core/models/internet-feature';
 import {BaseFeatureComponent} from '@shared/components/providers-row/base-feature.component';
@@ -10,5 +11,6 @@ import {BaseFeatureComponent} from '@shared/components/providers-row/base-featur
 })
 export class InternetFeatureComponent extends BaseFeatureComponent {
   @Input() locationFeatures: InternetFeature[];
+
   @Input() existed: Operator[];
 }

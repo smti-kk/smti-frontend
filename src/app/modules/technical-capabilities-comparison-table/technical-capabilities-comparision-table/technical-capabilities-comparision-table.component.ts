@@ -1,16 +1,26 @@
 import {Component, OnInit} from '@angular/core';
-import {LocationFeaturesService} from '@core/services/location-features.service';
-import {GovernmentProgram, Location, LocationFeatures, MobileGeneration, Operator, PaginatedList, TrunkChannel} from '@core/models';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {forkJoin, Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
+
+import {OrderingDirection} from '@core/services/tc-pivots.service';
+import {
+  GovernmentProgram,
+  Location,
+  LocationFeatures,
+  MobileGeneration,
+  Operator,
+  PaginatedList,
+  TrunkChannel,
+} from '@core/models';
+import {LocationFeaturesService} from '@core/services/location-features.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {EnumService, GovernmentProgramService} from '@core/services';
 
 export enum FeatureTypes {
-  MOBILE= 'mobile', INTERNET = 'internet'
+  MOBILE = 'mobile',
+  INTERNET = 'internet',
 }
 
 @Component({
@@ -20,24 +30,33 @@ export enum FeatureTypes {
 })
 export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   features$: Observable<PaginatedList<LocationFeatures>>;
+
   fLocations$: Observable<Location[]>;
+
   fParents$: Observable<Location[]>;
+
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
+
   featuresTypeSelector: FormControl;
+
   filterForm: FormGroup;
 
   featureTypes = FeatureTypes;
 
   pageNumber = 1;
+
   itemsPerPage = 10;
 
   currentYear: number;
 
   OrderingDirection = OrderingDirection;
+
   internetProviders: Operator[];
+
   mobileProviders: Operator[];
 
   MobileGeneration = MobileGeneration;
+
   TrunkChannel = TrunkChannel;
 
   constructor(
@@ -47,10 +66,9 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     private serviceGovernmentProgram: GovernmentProgramService,
     private fb: FormBuilder,
     private enumService: EnumService
-  ) {
-  }
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildFeaturesTypeSelector();
     this.buildFilterForm();
     this.currentYear = new Date().getFullYear();
@@ -58,17 +76,12 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
 
-    forkJoin(
-      this.loadInternetProviders(),
-      this.loadMobileProviders()
-    ).subscribe(() => {
-      console.log(this.filterForm);
+    forkJoin(this.loadInternetProviders(), this.loadMobileProviders()).subscribe(() => {
       this.filterForm.valueChanges.subscribe(value => {
         this.serviceLocationFeatures.filter(value);
-        console.log(value);
         this.features$ = (this.featuresTypeSelector.value === this.featureTypes.INTERNET
-            ? this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage)
-            : this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage)
+          ? this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage)
+          : this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage)
         ).pipe(
           tap(() => {
             this.serviceSpinner.hide();
@@ -79,7 +92,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     });
   }
 
-  exportXLSX() {
+  exportXLSX(): void {
     if (this.featuresTypeSelector.value === this.featureTypes.INTERNET) {
       this.serviceLocationFeatures.exportExcelInternet();
     } else {
@@ -87,7 +100,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     }
   }
 
-  buildFeaturesTypeSelector() {
+  buildFeaturesTypeSelector(): void {
     this.featuresTypeSelector = this.fb.control('internet');
     this.loadFeatures();
 
@@ -96,7 +109,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     });
   }
 
-  buildFilterForm() {
+  buildFilterForm(): void {
     this.filterForm = this.fb.group({
       order: [null],
       govProgram: [null],
@@ -105,20 +118,20 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
       internetOperator: [null],
       internetType: [null],
       mobileOperator: [null],
-      mobileType: [null]
+      mobileType: [null],
     });
   }
 
-  onPageChange(pageNumber: number) {
+  onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
     this.loadFeatures();
   }
 
-  private loadFeatures() {
+  private loadFeatures(): void {
     this.serviceSpinner.show();
     this.features$ = (this.featuresTypeSelector.value === this.featureTypes.INTERNET
-        ? this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage)
-        : this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage)
+      ? this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage)
+      : this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage)
     ).pipe(
       tap(() => {
         this.serviceSpinner.hide();
@@ -127,7 +140,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     );
   }
 
-  private loadInternetProviders() {
+  private loadInternetProviders(): Observable<Operator[]> {
     return this.enumService.getInternetProvider().pipe(
       tap(response => {
         this.internetProviders = response;
@@ -146,7 +159,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     );
   }
 
-  private loadMobileProviders() {
+  private loadMobileProviders(): Observable<Operator[]> {
     return this.enumService.getMobileProvider().pipe(
       tap(response => {
         this.mobileProviders = response;

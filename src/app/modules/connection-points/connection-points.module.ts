@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ConnectionPointsComponent} from './connection-points/connection-points.component';
 import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '@shared/shared.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
+
+import {SharedModule} from '@shared/shared.module';
+
+import {ConnectionPointsComponent} from './connection-points/connection-points.component';
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
 
 const routes: Routes = [
@@ -15,12 +17,12 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: OrganizationDetailComponent
+    component: OrganizationDetailComponent,
   },
   {
     path: ':id',
     component: OrganizationDetailComponent,
-  }
+  },
 ];
 
 @NgModule({

@@ -1,10 +1,13 @@
 import {GeoJSON} from 'leaflet';
+// eslint-disable-next-line import/no-unresolved
 import {FeatureCollection, MultiPoint} from 'geojson';
-import {HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE} from '../constants/inline.style';
 import {EventEmitter, Injectable} from '@angular/core';
-import {MunicipalityService} from '../service/municipality.service';
+
 import {LocationAreaProperties} from '@map-wrapper/model/location-area-properties';
 import {LocationArea} from '@map-wrapper/model/location-area';
+
+import {MunicipalityService} from '../service/municipality.service';
+import {HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE} from '../constants/inline.style';
 
 export interface MunicipalitiesLayerGeoJson extends GeoJSON<LocationAreaProperties> {
   feature: LocationArea;
@@ -13,8 +16,9 @@ export interface MunicipalitiesLayerGeoJson extends GeoJSON<LocationAreaProperti
 @Injectable()
 export class MunicipalitiesLayer extends GeoJSON {
   public onMunicipalityClick: EventEmitter<MunicipalitiesLayerGeoJson> = new EventEmitter<
-    MunicipalitiesLayerGeoJson
+  MunicipalitiesLayerGeoJson
   >();
+
   public selectedLocation: MunicipalitiesLayerGeoJson;
 
   constructor(municipalityService: MunicipalityService) {
@@ -38,7 +42,7 @@ export class MunicipalitiesLayer extends GeoJSON {
       .sort(MunicipalitiesLayer.sortByAreaName) as MunicipalitiesLayerGeoJson[];
   }
 
-  public selectLayer(layer: MunicipalitiesLayerGeoJson) {
+  public selectLayer(layer: MunicipalitiesLayerGeoJson): void {
     if (this.selectedLocation) {
       this.selectedLocation.setStyle(MAP_TERRITORIES_STYLE);
       MunicipalitiesLayer.addEventListeners(this.selectedLocation);
@@ -60,7 +64,7 @@ export class MunicipalitiesLayer extends GeoJSON {
     return this.getLayers().find(layer => layer.feature.name === areaName);
   }
 
-  private addStyles() {
+  private addStyles(): void {
     this.eachLayer((layer: MunicipalitiesLayerGeoJson) => {
       MunicipalitiesLayer.addEventListeners(layer);
       layer.on('click', () => {
@@ -70,29 +74,29 @@ export class MunicipalitiesLayer extends GeoJSON {
     });
   }
 
-  public static addEventListeners(layer: GeoJSON) {
+  public static addEventListeners(layer: GeoJSON): void {
     layer.on('mouseover', MunicipalitiesLayer.mouseOver);
     layer.on('mouseout', MunicipalitiesLayer.mouseOut);
   }
 
-  public static removeEventListeners(layer) {
+  public static removeEventListeners(layer): void {
     layer.removeEventListener('mouseover', MunicipalitiesLayer.mouseOver);
     layer.removeEventListener('mouseout', MunicipalitiesLayer.mouseOut);
   }
 
-  private static mouseOver(event) {
+  private static mouseOver(event): void {
     event.target.setStyle(HIGHLIGHT_FEATURE);
     event.target.bringToFront();
   }
 
-  private static mouseOut(event) {
+  private static mouseOut(event): void {
     event.target.setStyle(MAP_TERRITORIES_STYLE);
   }
 
   private static sortByAreaName(
     layer1: MunicipalitiesLayerGeoJson,
     layer2: MunicipalitiesLayerGeoJson
-  ) {
+  ): number {
     if (layer1.feature.name < layer2.feature.name) {
       return -1;
     }

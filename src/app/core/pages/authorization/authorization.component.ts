@@ -1,8 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AuthService} from '@core/services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+
+import {AuthService} from '@core/services';
+
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -24,7 +26,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.tryLoginByEsia();
 
     this.authorizationForm = this.fb.group({
@@ -34,15 +36,15 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
     this.user = this.authorization.user.subscribe(user => {
       if (user) {
-        this.router.navigate(['']);
+        this.router.navigate(['']).then();
       }
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.authorization.login(this.authorizationForm.value).subscribe(isLogin => {
       if (isLogin) {
-        this.router.navigate(['']);
+        this.router.navigate(['']).then();
       }
     });
   }
@@ -51,7 +53,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     this.user.unsubscribe();
   }
 
-  private tryLoginByEsia() {
+  private tryLoginByEsia(): void {
     const esiaToken = this.activatedRoute.snapshot.queryParams.temp_token;
 
     if (esiaToken) {

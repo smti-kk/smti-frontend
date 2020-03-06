@@ -1,7 +1,7 @@
-import {Component, ElementRef, forwardRef, Input, ViewChild} from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, Provider, ViewChild } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
+export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SimpleCheckbox),
   multi: true,
@@ -14,7 +14,7 @@ export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: any = {
 })
 export class SimpleCheckbox implements ControlValueAccessor {
   @Input()
-  value: any;
+  value;
 
   @Input()
   label: string;
@@ -24,17 +24,19 @@ export class SimpleCheckbox implements ControlValueAccessor {
   @ViewChild('checkbox', {static: true})
   private checkbox: ElementRef;
 
-  private onChange: (_: any) => {};
+  private onChange: (_) => {};
 
-  constructor() {}
+  private onTouched: () => {};
 
-  registerOnChange(fn: (_: any) => {}): void {
+  registerOnChange(fn: (_) => {}): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: () => {}): void {}
+  registerOnTouched(fn: () => {}): void {
+    this.onTouched = fn;
+  }
 
-  writeValue(obj: any): void {
+  writeValue(obj: {id: number}): void {
     if (obj === null) {
       this.checkbox.nativeElement.checked = obj === this.value;
     }
@@ -44,7 +46,7 @@ export class SimpleCheckbox implements ControlValueAccessor {
     }
   }
 
-  inputChange(event) {
+  inputChange(event): void {
     if (event.target.checked === true) {
       this.onChange(this.value);
     } else {
