@@ -40,8 +40,12 @@ export class TrunkChannel {
         return 'sputnik';
       case TrunkChannel.VOLS.type:
         return 'vols';
+      case TrunkChannel.UNDEFINED.type:
+        return 'null';
+      case null:
+        return 'null';
       default:
-        throw Error(`Unknown TrunkChannel: ${this}`);
+        throw Error(`Unknown TrunkChannel: ${this.type}`);
     }
   }
 }
@@ -64,4 +68,3 @@ export const TRUNK_CHANNEL_DESERIALIZER = {
     }
   },
 };
-
