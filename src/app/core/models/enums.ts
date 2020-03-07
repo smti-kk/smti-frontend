@@ -17,11 +17,13 @@ export enum Quality {
 export const qualityToString = (quality: Quality): string => {
   switch (quality) {
     case Quality.ABSENT:
-      return 'Отутствует';
+      return 'Отсутствует';
     case Quality.GOOD:
       return 'Хорошо';
     case Quality.NORMAL:
       return 'Удовлетворительно';
+    case null:
+      return 'Отсутствует';
     default:
       throw new Error(`Unknown quality: ${quality}`);
   }

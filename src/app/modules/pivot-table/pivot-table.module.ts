@@ -4,6 +4,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {SharedModule} from '@shared/shared.module';
+import {NzTabsModule} from 'ng-zorro-antd';
 
 import {TechnicalCapabilitiesComponent} from './components/technical-capabilities/technical-capabilities.component';
 import {PivotTableRoutingModule} from './pivot-table-routing.module';
@@ -18,6 +19,7 @@ import {PivotTablePageComponent} from './components/pivot-table-page-component/p
     ReactiveFormsModule,
     NgxPaginationModule,
     SharedModule,
+    NzTabsModule,
   ],
   exports: [TechnicalCapabilitiesComponent],
   providers: [NgxPaginationModule],

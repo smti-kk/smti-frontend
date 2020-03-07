@@ -179,57 +179,62 @@
             >
               <group>
                 <accordion-header class="c-accordion-title">
-                  <div class="c-accordion-number">{{ i + 1 }}</div>
-                  <div class="c-accordion-name">
+                  <div class="c-accordion-name m-w-100-p">
                     <div style="display: flex; justify-content: space-between">
                       <div>{{ organization.fullName }}</div>
-                      <a [routerLink]="[organization.id]" class="btn">Подробнее</a>
                     </div>
-                    <div class="c-accordion-info">
-                      <div class="c-accordion-info-item">
-                        <span class="u-gray">учреждение:</span>
-                        {{ organization.type ? organization.type.name : ' ' }}
+                    <div class="c-accordion-info d-flex space-between">
+                      <div>
+                        <div class="c-accordion-info-item">
+                          <span class="u-gray">учреждение:</span>
+                          {{ organization.type ? organization.type.name : ' ' }}
+                        </div>
+                        <div class="c-accordion-info-item">
+                          <span class="u-gray">сзо:</span>
+                          {{ organization.smoType ? organization.smoType.name : ' ' }}
+                        </div>
                       </div>
-                      <div class="c-accordion-info-item">
-                        <span class="u-gray">сзо:</span>
-                        {{ organization.smoType ? organization.smoType.name : ' ' }}
-                      </div>
+                      <a [routerLink]="[organization.id]" class="btn">Подробнее</a>
                     </div>
                   </div>
                 </accordion-header>
-                <div class="l-contract" *ngFor="let point of organization.reaccesspoints">
-                  <div class="c-contract-info u-span3">
-                    <i class="far fa-map-marker-alt"></i
-                    ><span>{{ point.address ? point.address : '----' }}</span>
-                  </div>
-                  <div class="с-contract-info-container">
-                    <div class="c-contract-info" *ngIf="point.governmentProgram">
-                      <img
-                        class="c-contract-info__img"
-                        *ngIf="point.governmentProgram.shortName === 'ЕСПД'"
-                        src="../../../../assets/img/espd.svg"
-                        alt="ЕСПД"
-                      />
-                      <img
-                        class="c-contract-info__img"
-                        *ngIf="point.governmentProgram.shortName === 'СЗО'"
-                        src="../../../../assets/img/smo.svg"
-                        alt="СЗО"
-                      />
+                <nz-timeline>
+                  <nz-timeline-item [nzDot]="point.governmentProgram?.shortName === 'ЕСПД' ? espdIcon : smoIcon" *ngFor="let point of organization.reaccesspoints">
+                    <div class="l-contract">
+                      <div class="c-contract-info u-span3">
+                        <i class="far fa-map-marker-alt"></i
+                        ><span>{{ point.address ? point.address : '----' }}</span>
+                      </div>
+                      <div class="с-contract-info-container">
+                        <div class="c-contract-info">
+                          <i class="fas fa-bullhorn"></i
+                          ><span>{{ point.contractor ? point.contractor : '----' }}</span>
+                        </div>
+                        <div class="c-contract-info">
+                          <i class="fas fa-plug"></i
+                          ><span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
+                        </div>
+                        <div class="c-contract-info">
+                          <i class="fas fa-tachometer-alt"></i><span>{{ point.definedSpeed }}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="c-contract-info">
-                      <i class="fas fa-bullhorn"></i
-                      ><span>{{ point.contractor ? point.contractor : '----' }}</span>
-                    </div>
-                    <div class="c-contract-info">
-                      <i class="fas fa-plug"></i
-                      ><span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
-                    </div>
-                    <div class="c-contract-info">
-                      <i class="fas fa-tachometer-alt"></i><span>{{ point.definedSpeed }}</span>
-                    </div>
-                  </div>
-                </div>
+                  </nz-timeline-item>
+                </nz-timeline>
+                <ng-template #espdIcon>
+                  <img
+                    class="c-contract-info__img"
+                    src="../../../../assets/img/espd.svg"
+                    alt="ЕСПД"
+                  />
+                </ng-template>
+                <ng-template #smoIcon>
+                  <img
+                    class="c-contract-info__img"
+                    src="../../../../assets/img/smo.svg"
+                    alt="ЕСПД"
+                  />
+                </ng-template>
               </group>
             </accordion>
           </group>
