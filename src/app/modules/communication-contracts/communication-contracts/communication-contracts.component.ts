@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
-
 import {InternetAccessType, Location} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {LocationServiceContractsWithFilterParams} from '@core/services/location.service';

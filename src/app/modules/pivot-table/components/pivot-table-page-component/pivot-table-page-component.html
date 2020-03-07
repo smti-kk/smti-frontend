@@ -270,7 +270,7 @@
       [fullScreen]="true"
       >Загрузка. . .
     </ngx-spinner>
-    <ng-container *ngIf="locationFeatures">
+    <ng-container *ngIf="locationFeatures && existingOperators">
       <div
         class="l-table l-table-location"
         [id]="lc.location.id"

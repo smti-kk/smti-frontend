@@ -15,7 +15,6 @@
   },
   "private": true,
   "dependencies": {
-    "@dev/frontend-codestyle": "git+ssh://git@git.cifra-k.ru:1022/dev/frontend-codestyle.git",
     "@angular/animations": "~8.2.0",
     "@angular/common": "~8.2.0",
     "@angular/compiler": "~8.2.0",
@@ -31,6 +30,7 @@
     "leaflet": "^1.5.1",
     "leaflet-spin": "^1.1.0",
     "leaflet.markercluster": "^1.4.1",
+    "ng-zorro-antd": "^8.5.2",
     "ngx-pagination": "^4.1.0",
     "ngx-spinner": "^8.0.3",
     "rxjs": "~6.4.0",

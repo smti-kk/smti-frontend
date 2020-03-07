@@ -1,5 +1,4 @@
 import {autoserializeAs} from 'cerialize';
-
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 export class Contract {

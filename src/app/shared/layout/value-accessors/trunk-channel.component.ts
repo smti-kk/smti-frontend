@@ -1,6 +1,5 @@
 import {Component, forwardRef, OnInit, Provider} from '@angular/core';
 import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
-
 import {TrunkChannel} from '@core/models';
 
 const VALUE_ACCESSOR: Provider = {
@@ -14,27 +13,19 @@ const VALUE_ACCESSOR: Provider = {
   template: `
     <div class="c-radiobox l-radiobox-row u-border-left u-border-right" [formGroup]="form">
       <label
-        ><input formControlName="mobileGeneration" type="radio" [value]="TrunkChannel.SATELLITE" />
+        ><input formControlName="trunkChannel" type="radio" [value]="TrunkChannel.SATELLITE" />
         <div class="c-radiobox-text">Спутник</div>
       </label>
       <label
-        ><input formControlName="mobileGeneration" type="radio" [value]="TrunkChannel.VOLS" />
+        ><input formControlName="trunkChannel" type="radio" [value]="TrunkChannel.VOLS" />
         <div class="c-radiobox-text">ВОЛС</div>
       </label>
       <label
-        ><input
-          formControlName="mobileGeneration"
-          type="radio"
-          [value]="TrunkChannel.COPPER_CABLE"
-        />
+        ><input formControlName="trunkChannel" type="radio" [value]="TrunkChannel.COPPER_CABLE" />
         <div class="c-radiobox-text">Медь</div>
       </label>
       <label
-        ><input
-          formControlName="mobileGeneration"
-          type="radio"
-          [value]="TrunkChannel.RADIO_CHANEL"
-        />
+        ><input formControlName="trunkChannel" type="radio" [value]="TrunkChannel.RADIO_CHANEL" />
         <div class="c-radiobox-text">Радиоканал</div>
       </label>
     </div>

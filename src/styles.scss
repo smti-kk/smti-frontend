@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'normalize';
 @import 'all.min';
+@import 'ng-zorro';
 
 @font-face {
   font-family: 'Montserrat';
@@ -27,6 +28,7 @@ html {
   height: 100%;
   box-sizing: border-box;
   font-size: 14px;
+  overflow: hidden;
 }
 
 *,
@@ -45,15 +47,13 @@ html {
   font-family: 'Font Awesome 5 Brands', sans-serif;
 }
 
-html {
-  overflow-y: scroll;
-}
-
 body {
   height: 100%;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  color: #575756;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.15;
+  overflow-y: auto;
 }
 
 ul,
@@ -336,7 +336,7 @@ select:-moz-focusring {
   height: 100%;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  overflow: auto;
+  overflow-y: scroll;
   background-color: #ffffff;
   box-shadow: -7px 0 18px rgba(0, 7, 3, 0.27);
   font-weight: 400;
@@ -412,6 +412,7 @@ select:-moz-focusring {
   align-items: center;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
+  cursor: pointer;
 }
 
 .c-accordion .c-accordion .c-accordion-title {
@@ -518,7 +519,7 @@ select:-moz-focusring {
   margin-top: 5px;
   padding-left: 10px;
   padding-top: 5px;
-  width: 20px;
+  min-width: 20px;
   min-height: 18px;
   background: url('/assets/img/laptop.png') no-repeat;
 }
@@ -960,7 +961,7 @@ input[type='radio']:checked + .c-radiobox-text:after {
 }
 
 .c-tab-title.active {
-  border-bottom: 3px solid #009dd3;
+  border-bottom: 4px solid #009dd3;
   font-weight: 600;
 }
 
@@ -1242,6 +1243,7 @@ input[type='radio']:checked + .c-radiobox-text:after {
   font-size: 13px;
   color: #707171;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .breadcrumbs-item + .breadcrumbs-item:before {
@@ -1317,12 +1319,37 @@ input[type='radio']:checked + .c-radiobox-text:after {
   display: flex;
 }
 
+.f-s-13 {
+  font-size: 13px;
+}
+
+.f-w-300 {
+  font-weight: 300;
+}
+
 .flex-end {
   justify-content: flex-end;
 }
 
+.m-w-100-p {
+  min-width: 100%;
+}
+
 .space-between {
   justify-content: space-between;
+}
+
+.d-none {
+  display: none;
+}
+
+.hide-on-right {
+  transition: all 0.3s ease-in-out;
+  transform: translateX(100%);
+}
+
+.show-on-right {
+  transform: translateX(0%);
 }
 
 .flex-none {

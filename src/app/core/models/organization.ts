@@ -1,5 +1,4 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
-
 import {OrganizationType} from '@core/models/organization-type';
 import {SmoType} from '@core/models/smo-type';
 import {Reaccesspoint} from '@core/models/reaccesspoint';

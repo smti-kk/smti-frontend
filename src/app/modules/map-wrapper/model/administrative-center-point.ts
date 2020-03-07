@@ -1,5 +1,4 @@
 import {autoserializeAs, inheritSerialization} from 'cerialize';
-
 import {Coordinate} from '@map-wrapper/interface/coordinate';
 
 import {MonitoringPoint} from './monitoring-point';

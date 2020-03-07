@@ -1,5 +1,4 @@
 import {autoserializeAs} from 'cerialize';
-
 import {Organization} from '@core/models/organization';
 
 export class Location {
@@ -47,6 +46,10 @@ export class Location {
 
   get organizations(): Organization[] {
     return this._organizations;
+  }
+
+  get parent(): Location {
+    return this._municipalityArea;
   }
 
   get id(): number {

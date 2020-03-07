@@ -1,6 +1,5 @@
-import { Component, forwardRef, Provider } from '@angular/core';
+import {Component, forwardRef, Provider} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-
 import {GovernmentProgram} from '@core/models';
 
 export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: Provider = {

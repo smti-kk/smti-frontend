@@ -1,5 +1,4 @@
 import {deserializeAs, inheritSerialization, serializeAs} from 'cerialize';
-
 import {MOBILE_GENERATION_DESERIALIZER, MobileGeneration} from '@core/models/mobile-generation';
 import {Quality} from '@core/models/enums';
 import {LocationFeature} from '@core/models/location-feature';

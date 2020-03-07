@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-
 import {Operator} from '@core/models';
 
 @Component({

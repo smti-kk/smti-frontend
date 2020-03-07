@@ -1,5 +1,4 @@
 import {autoserializeAs, deserializeAs, inheritSerialization, serializeAs} from 'cerialize';
-
 import {GovernmentProgram} from '@core/models/government-program';
 import {InternetAccessType} from '@core/models/internet-access-type';
 import {Operator} from '@core/models/operator';

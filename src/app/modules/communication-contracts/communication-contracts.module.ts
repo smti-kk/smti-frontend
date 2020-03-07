@@ -5,7 +5,6 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ReactiveFormsModule} from '@angular/forms';
-
 import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';
 

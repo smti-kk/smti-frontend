@@ -11,37 +11,51 @@
           <nav class="nav hide">
             <ul>
               <li class="active"><a routerLink="">Карта</a></li>
-              <!--              <li class="active"><a routerLink="user/requests">Мои заявки</a></li>-->
-              <li class="nav-item-parent">
-                <span class="active" style="cursor: pointer">Сводные таблицы</span>
-                <ul class="nav-child">
-                  <li class="nav-child-item">
-                    <a routerLink="pivot-table">Населённые пункты (технические возможности)</a>
-                  </li>
-                  <li class="nav-child-item">
-                    <a routerLink="technical-capabilities-comparison-table"
-                      >Населённые пункты (сравнение тех.возможностей)</a
-                    >
-                  </li>
-                  <li class="nav-child-item">
-                    <a routerLink="connection-points">Организации (подключение к сети)</a>
-                  </li>
-                  <li class="nav-child-item">
-                    <a routerLink="communication-contracts">Организации (контракты услуг связи)</a>
-                  </li>
-                </ul>
+              <li class="nav-item-parent" style="margin-right: 0">
+                <button
+                  nz-button
+                  nz-dropdown
+                  [nzDropdownMenu]="menu"
+                  nzPlacement="bottomLeft"
+                  class="zorro-button-transparent"
+                >
+                  <span>Сводные таблицы</span>
+                </button>
+                <nz-dropdown-menu #menu="nzDropdownMenu" class="zorro-menu">
+                  <ul nz-menu>
+                    <li nz-menu-item routerLink="pivot-table">
+                      Населённые пункты (технические возможности)
+                    </li>
+                    <li nz-menu-item routerLink="technical-capabilities-comparison-table">
+                      Населённые пункты (сравнение тех.возможностей)
+                    </li>
+                    <li nz-menu-item routerLink="connection-points">
+                      Организации (подключение к сети)
+                    </li>
+                    <li nz-menu-item routerLink="communication-contracts">
+                      Организации (контракты услуг связи)
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
               </li>
-              <li class="active" style="cursor: pointer"><a (click)="logout()">Выход</a></li>
+              <li>
+                <button
+                  nz-button
+                  nz-dropdown
+                  [nzDropdownMenu]="userProfileMenu"
+                  class="zorro-button-transparent"
+                  nzPlacement="bottomLeft"
+                >
+                  <span>{{ user.email }}</span>
+                </button>
+                <nz-dropdown-menu #userProfileMenu="nzDropdownMenu" class="zorro-menu">
+                  <ul nz-menu>
+                    <li nz-menu-item routerLink="pivot-table" (click)="logout()">Выход</li>
+                  </ul>
+                </nz-dropdown-menu>
+              </li>
             </ul>
           </nav>
-        </div>
-        <div class="user">
-          <div class="user-avatar">
-            <img src="../assets/img/user-avatar.png" alt="avatar" />
-          </div>
-          <div class="user-name">
-            <span>{{ user.email }}</span>
-          </div>
         </div>
       </div>
     </div>
@@ -50,6 +64,4 @@
   <div class="router-container">
     <router-outlet></router-outlet>
   </div>
-
-  <footer class="footer" *ngIf="user"></footer>
 </div>

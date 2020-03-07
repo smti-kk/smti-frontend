@@ -1,8 +1,7 @@
-import {ChangeDetectorRef, Component, Input, Renderer2} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, Output, Renderer2} from '@angular/core';
 import {forkJoin} from 'rxjs';
 import {Map} from 'leaflet';
 import {tap} from 'rxjs/operators';
-
 import {EnumService, OrganizationsService} from '@core/services';
 import {ExistingOperators, LocationFeatures, Organization} from '@core/models';
 import {LocationFeaturesService} from '@core/services/location-features.service';
@@ -19,6 +18,8 @@ import {AdministrativeCentersLayer} from '@map-wrapper/layers/administrative-cen
 })
 export class MarkerInfoBarComponent {
   @Input() leafletMap: Map;
+
+  @Output() showMe: EventEmitter<void> = new EventEmitter<void>();
 
   locationFeatures: LocationFeatures;
 
@@ -75,6 +76,7 @@ export class MarkerInfoBarComponent {
       tap(([locationFeatures, organizations]) => {
         this.locationFeatures = locationFeatures;
         this.organizations = organizations;
+
         this.ref.detectChanges();
         this.leafletMap.spin(false);
       })
@@ -82,6 +84,11 @@ export class MarkerInfoBarComponent {
   }
 
   moveToPoint(point: Reaccesspoint): void {
+    if (point.governmentProgram.shortName === 'ЕСПД') {
+      this.leafletMap.addLayer(this.accessPointEspdLayer);
+    } else if (point.governmentProgram.shortName === 'СЗО') {
+      this.leafletMap.addLayer(this.accessPointSmoLayer);
+    }
     this.leafletMap.flyTo({lat: point.point.lat, lng: point.point.lng}, 18);
   }
 
@@ -135,6 +142,10 @@ export class MarkerInfoBarComponent {
     this.openAccordionForce(organization, 'is-open');
     this.openAccordionForce(point, 'is-open');
 
-    point.scrollIntoView({block: 'center'});
+    this.showMe.emit();
+
+    setTimeout(() => {
+      point.scrollIntoView({block: 'center', behavior: 'smooth'});
+    }, 300);
   }
 }

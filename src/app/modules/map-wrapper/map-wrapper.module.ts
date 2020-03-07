@@ -4,9 +4,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 import {ReactiveFormsModule} from '@angular/forms';
-
 import {SharedModule} from '@shared/shared.module';
 import {CoreModule} from '@core/core.module';
+import {
+  NzAutocompleteModule,
+  NzButtonModule,
+  NzCollapseModule,
+  NzIconModule,
+  NzInputModule,
+} from 'ng-zorro-antd';
 
 import {MapPage} from './pages/map/map.page';
 import {MarkerInfoBarComponent} from './components/marker-info-control/marker-info-bar.component';
@@ -33,6 +39,11 @@ import {AdministrativeCentersService} from './service/administrative-centers.ser
     ReactiveFormsModule,
     SharedModule,
     CoreModule,
+    NzButtonModule,
+    NzIconModule,
+    NzCollapseModule,
+    NzAutocompleteModule,
+    NzInputModule,
   ],
   providers: [
     MunicipalitiesLayer,

@@ -178,7 +178,6 @@ const mock = [
   },
 ];
 
-
 @Injectable()
 export class RequestsService {
   // eslint-disable-next-line class-methods-use-this

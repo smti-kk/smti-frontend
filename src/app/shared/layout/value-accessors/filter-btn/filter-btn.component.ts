@@ -1,6 +1,5 @@
 import {Component, forwardRef, Input, Provider} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 
 export interface OrderingFilter {
@@ -47,23 +46,19 @@ export class FilterBtnComponent implements ControlValueAccessor {
     value: string;
     orderingDirection: OrderingDirection;
   }): void {
-    const orderingBuffer = {...ordering} as {
-      name: string;
-      value: string;
-      orderingDirection: OrderingDirection;
-    };
+    const orderingBuffer = ordering;
 
-    if (ordering.orderingDirection === OrderingDirection.UNDEFINED) {
+    if (orderingBuffer.orderingDirection === OrderingDirection.UNDEFINED) {
       orderingBuffer.orderingDirection = OrderingDirection.ASC;
-    } else if (ordering.orderingDirection === OrderingDirection.ASC) {
+    } else if (orderingBuffer.orderingDirection === OrderingDirection.ASC) {
       orderingBuffer.orderingDirection = OrderingDirection.DSC;
     } else {
       orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
     }
 
     this.orderings.forEach(iOrdering => {
-      if (iOrdering !== ordering) {
-        orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
+      if (iOrdering.value !== ordering.value) {
+        iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
       }
     });
 

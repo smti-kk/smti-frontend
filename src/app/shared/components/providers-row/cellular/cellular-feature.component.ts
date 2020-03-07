@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-
 import {CellularFeature, Operator} from '@core/models';
 import {BaseFeatureComponent} from '@shared/components/providers-row/base-feature.component';
 

@@ -1,5 +1,4 @@
 import {autoserializeAs} from 'cerialize';
-
 import {Operator} from '@core/models/operator';
 import {popToTop} from '@core/utils/sort';
 import {LocationFeatures} from '@core/models/location-features';
@@ -98,7 +97,10 @@ export class ExistingOperators {
     return this;
   }
 
-  private static sortByLocationFeature(locationFeature: LocationFeature[], operators: Operator[]): Operator[] {
+  private static sortByLocationFeature(
+    locationFeature: LocationFeature[],
+    operators: Operator[]
+  ): Operator[] {
     let operatorsBuf = operators;
     locationFeature.reverse().forEach(c => {
       operatorsBuf = popToTop(operators, c.operator);

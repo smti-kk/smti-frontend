@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 export const TECHNICAL_CAPABILITIES = '/api/v1/technical-capabilities';
 export const OPERATORS = '/api/v1/operator/grouped';
@@ -13,4 +13,3 @@ export const ESIA_LOGIN = '/auth/get_token/';
 export const INTERNET_PROVIDER = `${environment.API_BASE_URL}/api/v1/operator/internet`;
 export const MOBILE_PROVIDER = `${environment.API_BASE_URL}/api/v1/operator/mobile`;
 export const GOVERNMENT_PROGRAM = `${environment.API_BASE_URL}/api/v1/gov-program`;
-

@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, Provider, ViewChild } from '@angular/core';
+import {Component, ElementRef, forwardRef, Input, Provider, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const SIMPLE_CHECKBOX_VALUE_ACCESSOR: Provider = {

@@ -1,8 +1,8 @@
-import {GeoJSON} from 'leaflet';
 // eslint-disable-next-line import/no-unresolved
 import {FeatureCollection, MultiPoint} from 'geojson';
-import {EventEmitter, Injectable} from '@angular/core';
 
+import {GeoJSON} from 'leaflet';
+import {EventEmitter, Injectable} from '@angular/core';
 import {LocationAreaProperties} from '@map-wrapper/model/location-area-properties';
 import {LocationArea} from '@map-wrapper/model/location-area';
 

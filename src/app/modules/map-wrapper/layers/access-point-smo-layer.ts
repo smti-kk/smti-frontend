@@ -1,7 +1,6 @@
 import {LatLngBounds} from 'leaflet';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 import {MonitoringLayer} from '../components/monitoring-layer';
@@ -13,7 +12,7 @@ export class AccessPointSmoLayer extends MonitoringLayer<Reaccesspoint> {
     super();
   }
 
-  getPoints(bounds?: LatLngBounds): Observable<Reaccesspoint[]> {
+  public getPoints(bounds?: LatLngBounds): Observable<Reaccesspoint[]> {
     if (bounds) {
       return this.smoService.listFilteredByBounds(bounds);
     }

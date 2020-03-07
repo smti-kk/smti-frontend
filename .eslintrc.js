@@ -10,7 +10,9 @@ module.exports = {
   },
   rules: {
     "@typescript-eslint/no-use-before-define": 'off',
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "no-param-reassign": "off"
   },
   "settings": {
     "import/resolver": {

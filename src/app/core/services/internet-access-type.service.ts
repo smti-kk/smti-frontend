@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {Deserialize} from 'cerialize';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-
 import {InternetAccessType} from '@core/models';
 import {INTERNET_ACCESS_TYPES} from '@core/constants/api';
 

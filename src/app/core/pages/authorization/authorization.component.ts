@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-
 import {AuthService} from '@core/services';
+import {NotificationService} from '@core/services/notification.service';
 
 import {environment} from '../../../../environments/environment';
 
@@ -23,7 +23,8 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authorization: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -42,11 +43,18 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.authorization.login(this.authorizationForm.value).subscribe(isLogin => {
-      if (isLogin) {
-        this.router.navigate(['']).then();
+    this.authorization.login(this.authorizationForm.value).subscribe(
+      isLogin => {
+        if (isLogin) {
+          this.router.navigate(['']).then();
+        }
+      },
+      error => {
+        if (error.status === 400) {
+          this.notificationService.error('Введен неверный логин или пароль', 'Ошибка авторизации');
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy(): void {

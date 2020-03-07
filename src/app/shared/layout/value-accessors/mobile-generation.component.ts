@@ -1,6 +1,5 @@
-import { Component, forwardRef, OnInit, Provider } from '@angular/core';
+import {Component, forwardRef, OnInit, Provider} from '@angular/core';
 import {ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR} from '@angular/forms';
-
 import {MobileGeneration} from '@core/models';
 
 const VALUE_ACCESSOR: Provider = {
@@ -12,7 +11,11 @@ const VALUE_ACCESSOR: Provider = {
 @Component({
   selector: 'app-mobile-generation',
   template: `
-    <div class="c-radiobox l-radiobox-row u-border-left u-border-right" [formGroup]="form">
+    <div
+      class="c-radiobox l-radiobox-row u-border-left u-border-right"
+      *ngIf="form"
+      [formGroup]="form"
+    >
       <label
         ><input type="radio" [value]="MobileGeneration._2G" formControlName="mobileGeneration" />
         <div class="c-radiobox-text">2G</div>

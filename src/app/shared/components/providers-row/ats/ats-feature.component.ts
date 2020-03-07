@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-
 import {BaseFeatureComponent} from '@shared/components/providers-row/base-feature.component';
 import {LocationFeature, Operator} from '@core/models';
 

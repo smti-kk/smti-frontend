@@ -3,7 +3,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {forkJoin, Subscription} from 'rxjs';
 import {tap} from 'rxjs/operators';
-
 import {EnumService, GovernmentProgramService} from '@core/services';
 import {
   ExistingOperators,
@@ -128,28 +127,34 @@ export class PivotTablePageComponent {
   ): Observable<Operator[]> {
     return operators$.pipe(
       tap(response => {
-        this.internetProviders = response;
-
-        const internetArrayControl = this.fb.array([]);
+        const control = this.fb.array([]);
         response.forEach(provider => {
-          internetArrayControl.push(
+          control.push(
             this.fb.group({
               [provider.id]: false,
             })
           );
         });
 
-        this.filterForm.addControl(controlName, internetArrayControl);
+        this.filterForm.addControl(controlName, control);
       })
     );
   }
 
   private loadInternetProviders(): Observable<Operator[]> {
-    return this.loadProviders(this.enumService.getInternetProvider(), 'internet');
+    return this.loadProviders(this.enumService.getInternetProvider(), 'internet').pipe(
+      tap(response => {
+        this.internetProviders = response;
+      })
+    );
   }
 
   private loadMobileProviders(): Observable<Operator[]> {
-    return this.loadProviders(this.enumService.getMobileProvider(), 'mobile');
+    return this.loadProviders(this.enumService.getMobileProvider(), 'mobile').pipe(
+      tap(response => {
+        this.mobileProviders = response;
+      })
+    );
   }
 
   private loadExistingOperators(): Observable<ExistingOperators> {

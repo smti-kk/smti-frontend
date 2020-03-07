@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-
 import {NotFoundPage} from '@core/pages/not-found/not-found.page';
 import {AuthorizationComponent} from '@core/pages/authorization/authorization.component';
 

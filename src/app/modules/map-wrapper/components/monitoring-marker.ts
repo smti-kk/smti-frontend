@@ -1,6 +1,7 @@
-import {Icon, Marker} from 'leaflet';
 // eslint-disable-next-line import/no-unresolved
 import * as geojson from 'geojson';
+
+import {Icon, Marker} from 'leaflet';
 import {EventEmitter} from '@angular/core';
 
 import {MonitoringPoint} from '../model/monitoring-point';

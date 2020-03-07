@@ -1,7 +1,6 @@
 import {DivIcon, LatLngBounds, MarkerCluster, Point} from 'leaflet';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-
 import {MonitoringMarker} from '@map-wrapper/components/monitoring-marker';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 

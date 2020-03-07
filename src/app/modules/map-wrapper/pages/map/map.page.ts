@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {latLng, Map, MapOptions, TileLayer} from 'leaflet';
 import {LeafletControlLayersConfig} from '@asymmetrik/ngx-leaflet';
 
@@ -26,11 +26,14 @@ export class MapPage implements OnInit {
 
   leaflet: Map;
 
+  infoBarIsVisible = false;
+
   constructor(
     private espdLayer: AccessPointEspdLayer,
     private smoLayer: AccessPointSmoLayer,
     private administrativeCentersLayer: AdministrativeCentersLayer,
-    private municipalityLayer: MunicipalitiesLayer
+    private municipalityLayer: MunicipalitiesLayer,
+    private cdr: ChangeDetectorRef
   ) {
     this.defaultTile = new TileLayer('https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -47,14 +50,32 @@ export class MapPage implements OnInit {
       center: latLng(KRASNOYARSK_CENTER_LAT, KRASNOYARSK_CENTER_LNG),
       maxZoom: 18,
     };
+
+    this.administrativeCentersLayer.onMarkerClick.subscribe(() => {
+      this.toggleBar(true);
+    });
   }
 
   public onMapReady(leaflet: Map): void {
+    leaflet.invalidateSize({animate: true});
+
     this.leaflet = leaflet;
     this.defaultTile.addTo(leaflet);
 
     leaflet.addLayer(this.municipalityLayer);
     leaflet.addLayer(this.administrativeCentersLayer);
+  }
+
+  public toggleBar(value: boolean): void {
+    this.infoBarIsVisible = value;
+
+    if (value === this.infoBarIsVisible) {
+      this.cdr.detectChanges();
+    }
+
+    setTimeout(() => {
+      this.leaflet.invalidateSize({animate: true});
+    }, 100);
   }
 
   private initLayersControl(): LeafletControlLayersConfig {

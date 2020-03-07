@@ -1,7 +1,6 @@
 import {EventEmitter} from '@angular/core';
 import {LatLngBounds, MarkerClusterGroup, MarkerClusterGroupOptions, Map} from 'leaflet';
 import {Observable} from 'rxjs';
-
 import {UpdatedList} from '@core/utils/updated-list';
 
 import 'leaflet.markercluster';
@@ -16,9 +15,9 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
 
   private pointsList: UpdatedList<T>;
 
-  private leafletMap: Map;
-
   private layers: {[key: number]: MonitoringMarker<T>};
+
+  protected leafletMap: Map;
 
   public readonly onMarkerClick: EventEmitter<MonitoringMarker<T>> = new EventEmitter<
   MonitoringMarker<T>

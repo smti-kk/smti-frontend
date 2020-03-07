@@ -1,5 +1,4 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
-
 import {Quality} from '@core/models/enums';
 import {Operator} from '@core/models/operator';
 import {GovernmentProgram} from '@core/models/government-program';

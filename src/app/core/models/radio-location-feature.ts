@@ -1,5 +1,4 @@
 import {autoserializeAs, inheritSerialization} from 'cerialize';
-
 import {LocationFeature} from '@core/models/location-feature';
 import {Signal, SIGNAL_ARRAY_SERIALIZER} from '@core/models/signal';
 

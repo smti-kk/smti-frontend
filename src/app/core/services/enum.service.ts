@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
-
 import {ExistingOperators, Operator} from '@core/models';
 import {OPERATORS, INTERNET_PROVIDER, MOBILE_PROVIDER} from '@core/constants/api';
 

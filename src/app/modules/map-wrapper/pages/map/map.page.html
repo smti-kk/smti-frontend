@@ -7,5 +7,20 @@
     (leafletMapReady)="onMapReady($event)"
     class="map"
   ></div>
-  <marker-info-bar [leafletMap]="leaflet"></marker-info-bar>
+  <div
+    class="marker-info-bar"
+    [class.hide-on-right]="!infoBarIsVisible"
+    [class.show-on-right]="infoBarIsVisible"
+  >
+    <marker-info-bar (showMe)="toggleBar(true)" [leafletMap]="leaflet"> </marker-info-bar>
+    <button
+      class="info-bar-drop"
+      (click)="toggleBar(!infoBarIsVisible)"
+      nz-button
+      nzType="secondary"
+    >
+      <i nz-icon nzType="left" *ngIf="!infoBarIsVisible"></i>
+      <i nz-icon nzType="right" *ngIf="infoBarIsVisible"></i>
+    </button>
+  </div>
 </main>
