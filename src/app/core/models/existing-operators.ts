@@ -1,4 +1,5 @@
 import {autoserializeAs} from 'cerialize';
+
 import {Operator} from '@core/models/operator';
 import {popToTop} from '@core/utils/sort';
 import {LocationFeatures} from '@core/models/location-features';

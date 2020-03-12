@@ -4,6 +4,7 @@ import {LatLngBounds} from 'leaflet';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
 import {Observable} from 'rxjs';
+
 import {AdministrativeCenterPoint} from '@map-wrapper/model/administrative-center-point';
 
 import {LOCATION_URL} from '../constants/api.constants';

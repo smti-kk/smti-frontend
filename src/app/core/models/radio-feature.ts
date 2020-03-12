@@ -1,4 +1,5 @@
 import {autoserializeAs, inheritSerialization} from 'cerialize';
+
 import {Quality, SignalType} from '@core/models/enums';
 import {Operator} from '@core/models/operator';
 import {LocationFeature} from '@core/models/location-feature';

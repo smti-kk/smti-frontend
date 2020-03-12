@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {LatLng, Map} from 'leaflet';
+
 import {TIMER_INTERVAL} from '@core/utils/updated-list';
 
 import {MunicipalitiesLayer, MunicipalitiesLayerGeoJson} from '../../layers/municipalities-layer';

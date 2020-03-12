@@ -1,5 +1,6 @@
 import {Component, forwardRef, Provider} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+
 import {Quality} from '@core/models';
 
 const VALUE_ACCESSOR: Provider = {

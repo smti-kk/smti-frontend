@@ -1,5 +1,6 @@
 /* eslint-disable no-empty */
 import {ErrorHandler, Injectable} from '@angular/core';
+
 import {NotificationService} from '@core/services/notification.service';
 
 @Injectable()

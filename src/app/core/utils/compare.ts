@@ -1,3 +1,6 @@
+import { Location } from '@core/models';
+import { AutocompleteOptionGroups } from '@shared/layout/nz-autocomplete/grouped-autocomplete.component';
+
 export const compareById = (c1: {id: number}, c2: {id: number}): boolean => {
   return c1 && c2 ? c1.id === c2.id : c1 === c2;
 };
@@ -26,4 +29,17 @@ export const groupBy = <T, R, E>(
   });
 
   return groupByResult;
+};
+
+export const locationsToOptionsGroup = (locations: Location[]): AutocompleteOptionGroups[] => {
+  return groupBy(locations, (l) => l.municipalityArea, l => l).map(group => {
+    return {
+      title: group.field,
+      children: group.value.map(location => {
+        return {
+          title: location.fullName,
+        };
+      }),
+    };
+  });
 };

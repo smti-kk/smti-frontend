@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {forkJoin} from 'rxjs';
+
 import {ExistingOperators, LocationFeatures} from '@core/models';
 import {TcPivotsService} from '@core/services/tc-pivots.service';
 import {EnumService} from '@core/services';

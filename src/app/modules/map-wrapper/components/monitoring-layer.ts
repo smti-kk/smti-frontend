@@ -1,6 +1,7 @@
 import {EventEmitter} from '@angular/core';
 import {LatLngBounds, MarkerClusterGroup, MarkerClusterGroupOptions, Map} from 'leaflet';
 import {Observable} from 'rxjs';
+
 import {UpdatedList} from '@core/utils/updated-list';
 
 import 'leaflet.markercluster';

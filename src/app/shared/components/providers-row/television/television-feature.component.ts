@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+
 import {BaseFeatureComponent} from '@shared/components/providers-row/base-feature.component';
 import {Operator} from '@core/models';
 import {TelevisionFeature} from '@core/models/radio-location-feature';

@@ -4,8 +4,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 import {ReactiveFormsModule} from '@angular/forms';
-import {SharedModule} from '@shared/shared.module';
-import {CoreModule} from '@core/core.module';
 import {
   NzAutocompleteModule,
   NzButtonModule,
@@ -13,6 +11,9 @@ import {
   NzIconModule,
   NzInputModule,
 } from 'ng-zorro-antd';
+
+import {SharedModule} from '@shared/shared.module';
+import {CoreModule} from '@core/core.module';
 
 import {MapPage} from './pages/map/map.page';
 import {MarkerInfoBarComponent} from './components/marker-info-control/marker-info-bar.component';

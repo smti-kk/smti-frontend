@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {forkJoin, Observable} from 'rxjs';
-import {share, tap} from 'rxjs/operators';
+import {map, share, tap} from 'rxjs/operators';
+
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {
   GovernmentProgram,
@@ -16,6 +17,8 @@ import {
 import {LocationFeaturesService} from '@core/services/location-features.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {EnumService, GovernmentProgramService} from '@core/services';
+import {AutocompleteOptionGroups} from '@shared/layout/nz-autocomplete/grouped-autocomplete.component';
+import {locationsToOptionsGroup} from '@core/utils/compare';
 
 export enum FeatureTypes {
   MOBILE = 'mobile',
@@ -30,7 +33,7 @@ export enum FeatureTypes {
 export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   features$: Observable<PaginatedList<LocationFeatures>>;
 
-  fLocations$: Observable<Location[]>;
+  fLocations$: Observable<AutocompleteOptionGroups[]>;
 
   fParents$: Observable<Location[]>;
 
@@ -71,7 +74,9 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     this.buildFeaturesTypeSelector();
     this.buildFilterForm();
     this.currentYear = new Date().getFullYear();
-    this.fLocations$ = this.serviceLocation.listSimpleLocations();
+    this.fLocations$ = this.serviceLocation
+      .listSimpleLocations()
+      .pipe(map(locationsToOptionsGroup));
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
 

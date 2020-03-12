@@ -4,8 +4,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {SharedModule} from '@shared/shared.module';
 import {NzIconModule, NzTimelineModule} from 'ng-zorro-antd';
+
+import {SharedModule} from '@shared/shared.module';
 
 import {ConnectionPointsComponent} from './connection-points/connection-points.component';
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';

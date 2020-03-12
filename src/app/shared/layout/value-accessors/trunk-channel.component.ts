@@ -1,5 +1,6 @@
 import {Component, forwardRef, OnInit, Provider} from '@angular/core';
 import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
+
 import {TrunkChannel} from '@core/models';
 
 const VALUE_ACCESSOR: Provider = {

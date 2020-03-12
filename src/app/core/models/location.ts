@@ -1,4 +1,5 @@
 import {autoserializeAs} from 'cerialize';
+
 import {Organization} from '@core/models/organization';
 
 export class Location {

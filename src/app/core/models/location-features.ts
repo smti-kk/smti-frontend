@@ -1,4 +1,5 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
+
 import {Location} from '@core/models/location';
 import {AtsFeature} from '@core/models/ats-feature';
 import {CellularFeature} from '@core/models/cellular-feature';

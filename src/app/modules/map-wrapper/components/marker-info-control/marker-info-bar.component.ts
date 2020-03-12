@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, Output, Renderer2} fr
 import {forkJoin} from 'rxjs';
 import {Map} from 'leaflet';
 import {tap} from 'rxjs/operators';
+
 import {EnumService, OrganizationsService} from '@core/services';
 import {ExistingOperators, LocationFeatures, Organization} from '@core/models';
 import {LocationFeaturesService} from '@core/services/location-features.service';

@@ -7,6 +7,7 @@ import {
   Output,
   QueryList,
 } from '@angular/core';
+
 import {AccordionHeaderComponent} from '@shared/layout/accordion/accordion-header.component';
 
 @Component({

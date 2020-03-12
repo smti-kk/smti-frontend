@@ -4,6 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
+
 import {LocationFeaturesService} from '@core/services/location-features.service';
 import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';

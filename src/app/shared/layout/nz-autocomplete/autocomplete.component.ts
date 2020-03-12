@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Location} from '@core/models';
 import {NzTreeNode, NzTreeNodeOptions} from 'ng-zorro-antd/core';
+
+import {Location} from '@core/models';
 
 @Component({
   selector: 'app-autocomplete',
@@ -32,5 +33,7 @@ export class AutocompleteComponent implements OnInit {
     // console.log(groupBy(this.values, (v) => v.name, (v) => v));
   }
 
-  onChange($event: any): void {}
+  onChange($event: any): void {
+    console.log($event.target.value);
+  }
 }

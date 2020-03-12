@@ -1,5 +1,6 @@
 import {Component, forwardRef, OnInit, Provider} from '@angular/core';
 import {ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR} from '@angular/forms';
+
 import {MobileGeneration} from '@core/models';
 
 const VALUE_ACCESSOR: Provider = {

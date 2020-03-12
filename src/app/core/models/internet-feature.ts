@@ -1,4 +1,5 @@
 import {deserializeAs, inheritSerialization, serializeAs} from 'cerialize';
+
 import {TRUNK_CHANNEL_DESERIALIZER, TrunkChannel} from '@core/models/trunk-channel';
 import {Operator} from '@core/models/operator';
 import {Quality} from '@core/models/enums';

@@ -1,6 +1,7 @@
 import {LatLngBounds} from 'leaflet';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
+
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 import {MonitoringLayer} from '../components/monitoring-layer';
