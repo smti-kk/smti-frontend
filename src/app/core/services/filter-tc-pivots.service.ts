@@ -3,7 +3,7 @@ import {HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {
-  GovernmentProgram,
+  GovernmentProgram, Location,
   LocationFeatures,
   MailType,
   MobileGeneration,
@@ -29,6 +29,8 @@ interface TcFilters {
   mobileType: MobileGeneration;
   internetType: TrunkChannel;
   locationName: string;
+  location: Location;
+  parent: Location;
 }
 
 @Injectable()
@@ -50,6 +52,8 @@ export class FilterTcPivotsService extends TcPivotsService {
 
     this.setFilterByProgram(filters.program);
     this.setFilterOrdering(filters.order);
+    this.setLocation('location', filters.location);
+    this.setParent('parent', filters.parent);
     this.setFilterBoolean('ats', filters.hasTelephone);
     this.setFilterBoolean('payphone', filters.hasPayphone);
     this.setFilterBoolean('infomat', filters.hasInfomat);
@@ -74,6 +78,22 @@ export class FilterTcPivotsService extends TcPivotsService {
       this.params = this.params.set('ordering', `-${order.name}`);
     } else {
       this.params = this.params.delete('ordering');
+    }
+  }
+
+  private setLocation(field: string, value: Location) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  private setParent(field: string, value: Location) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
     }
   }
 
