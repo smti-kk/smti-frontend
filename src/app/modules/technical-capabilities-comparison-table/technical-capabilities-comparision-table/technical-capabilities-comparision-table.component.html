@@ -45,18 +45,19 @@
                 <div class="l-container-item">
                   <div class="l-container-row is-disabled">
                     <div class="input">
-                      <app-grouped-autocomplete-component
-                        placeholder="Населенный пункт"
-                        [optionGroups]="locations"
-                        *ngIf="fLocations$ | async as locations"
-                      >
-                      </app-grouped-autocomplete-component>
-                      <!--                      <select formControlName="location">-->
-                      <!--                        <option [ngValue]="null">Не выбран</option>-->
-                      <!--                        <option [ngValue]="item" *ngFor="let item of fLocations$ | async">-->
-                      <!--                          {{ item.fullName }}</option-->
-                      <!--                        >-->
-                      <!--                      </select>-->
+                      <!--                      <app-grouped-autocomplete-component-->
+                      <!--                        placeholder="Населенный пункт"-->
+                      <!--                        [optionGroups]="locations"-->
+                      <!--                        *ngIf="fLocations$ | async as locations"-->
+                      <!--                      >-->
+                      <!--                      </app-grouped-autocomplete-component>-->
+                      <div class="o-item-title">Населенный пункт:</div>
+                      <select formControlName="location">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fLocations$ | async">
+                          {{ item.fullName }} ({{ item.parent.fullName }})</option
+                        >
+                      </select>
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">

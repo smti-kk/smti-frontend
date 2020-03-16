@@ -16,7 +16,7 @@ export interface MunicipalitiesLayerGeoJson extends GeoJSON<LocationAreaProperti
 @Injectable()
 export class MunicipalitiesLayer extends GeoJSON {
   public onMunicipalityClick: EventEmitter<MunicipalitiesLayerGeoJson> = new EventEmitter<
-  MunicipalitiesLayerGeoJson
+    MunicipalitiesLayerGeoJson
   >();
 
   public selectedLocation: MunicipalitiesLayerGeoJson;

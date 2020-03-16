@@ -21,7 +21,7 @@ export abstract class MonitoringLayer<T extends MonitoringPoint> extends MarkerC
   protected leafletMap: Map;
 
   public readonly onMarkerClick: EventEmitter<MonitoringMarker<T>> = new EventEmitter<
-  MonitoringMarker<T>
+    MonitoringMarker<T>
   >();
 
   protected constructor(props?: MarkerClusterGroupOptions) {

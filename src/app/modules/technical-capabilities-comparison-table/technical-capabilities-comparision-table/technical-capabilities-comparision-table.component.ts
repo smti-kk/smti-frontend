@@ -33,7 +33,7 @@ export enum FeatureTypes {
 export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   features$: Observable<PaginatedList<LocationFeatures>>;
 
-  fLocations$: Observable<AutocompleteOptionGroups[]>;
+  fLocations$: Observable<Location[]>;
 
   fParents$: Observable<Location[]>;
 
@@ -74,9 +74,8 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
     this.buildFeaturesTypeSelector();
     this.buildFilterForm();
     this.currentYear = new Date().getFullYear();
-    this.fLocations$ = this.serviceLocation
-      .listSimpleLocations()
-      .pipe(map(locationsToOptionsGroup));
+    this.fLocations$ = this.serviceLocation.listSimpleLocations();
+    // .pipe(map(locationsToOptionsGroup));
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
 

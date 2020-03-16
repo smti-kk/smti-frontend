@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import {ControlValueAccessor} from '@angular/forms';
 
 export interface AutocompleteOptionGroups {
   title: string;
@@ -74,27 +74,25 @@ export class GroupedAutocompleteComponent implements OnInit, ControlValueAccesso
   }
 
   onChange(value: string): void {
-    this.activeOptionGroups = this.optionGroups.map((og, index) => {
-      this.activeOptionGroups[index] = {
-        title: og.title,
-        children: [...og.children],
-      };
+    this.activeOptionGroups = this.optionGroups
+      .map((og, index) => {
+        this.activeOptionGroups[index] = {
+          title: og.title,
+          children: [...og.children],
+        };
 
-      this.activeOptionGroups[index].children = og.children.filter(o =>
-        o.title.toLowerCase().includes(value.toLowerCase())
-      );
+        this.activeOptionGroups[index].children = og.children.filter(o =>
+          o.title.toLowerCase().includes(value.toLowerCase())
+        );
 
-      return this.activeOptionGroups[index];
-    }).filter(og => og.children.length > 0);
+        return this.activeOptionGroups[index];
+      })
+      .filter(og => og.children.length > 0);
   }
 
-  registerOnChange(fn: any): void {
-  }
+  registerOnChange(fn: any): void {}
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
-  writeValue(obj: any): void {
-
-  }
+  writeValue(obj: any): void {}
 }

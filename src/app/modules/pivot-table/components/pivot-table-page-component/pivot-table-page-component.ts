@@ -7,7 +7,8 @@ import {tap} from 'rxjs/operators';
 import {EnumService, GovernmentProgramService} from '@core/services';
 import {
   ExistingOperators,
-  GovernmentProgram, Location,
+  GovernmentProgram,
+  Location,
   LocationFeatures,
   MailType,
   MobileGeneration,
@@ -70,7 +71,7 @@ export class PivotTablePageComponent {
     private spinner: NgxSpinnerService,
     private govProgramsService: GovernmentProgramService,
     private enumService: EnumService,
-    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams
   ) {
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fParents$ = this.serviceLocation.listParentLocations();

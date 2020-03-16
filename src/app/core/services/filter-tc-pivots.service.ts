@@ -3,7 +3,8 @@ import {HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {
-  GovernmentProgram, Location,
+  GovernmentProgram,
+  Location,
   LocationFeatures,
   MailType,
   MobileGeneration,
