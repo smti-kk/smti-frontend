@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {forkJoin, Subscription} from 'rxjs';
+import {forkJoin, Observable, Subscription} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
 import {EnumService, GovernmentProgramService} from '@core/services';
 import {
   ExistingOperators,
-  GovernmentProgram,
+  GovernmentProgram, Location,
   LocationFeatures,
   MailType,
   MobileGeneration,
@@ -18,6 +18,7 @@ import {
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {Signal} from '@core/models/signal';
 import {FilterTcPivotsService} from '@core/services/filter-tc-pivots.service';
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 
 @Component({
   selector: 'app-pivot-table-page-component',
@@ -26,6 +27,10 @@ import {FilterTcPivotsService} from '@core/services/filter-tc-pivots.service';
 })
 export class PivotTablePageComponent {
   locationFeatures: PaginatedList<LocationFeatures>;
+
+  fLocations$: Observable<Location[]>;
+
+  fParents$: Observable<Location[]>;
 
   existingOperators: ExistingOperators;
 
@@ -64,8 +69,11 @@ export class PivotTablePageComponent {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private govProgramsService: GovernmentProgramService,
-    private enumService: EnumService
+    private enumService: EnumService,
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
   ) {
+    this.fLocations$ = this.serviceLocation.listSimpleLocations();
+    this.fParents$ = this.serviceLocation.listParentLocations();
     this.buildForm();
 
     forkJoin(
@@ -111,6 +119,8 @@ export class PivotTablePageComponent {
       internetType: [null],
       program: [null],
       locationName: [null],
+      location: null,
+      parent: null,
     });
   }
 
