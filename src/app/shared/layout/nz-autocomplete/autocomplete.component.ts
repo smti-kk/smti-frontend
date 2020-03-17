@@ -34,6 +34,6 @@ export class AutocompleteComponent implements OnInit {
   }
 
   onChange($event: any): void {
-    console.log($event.target.value);
+    // console.log($event.target.value);
   }
 }
