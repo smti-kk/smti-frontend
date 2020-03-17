@@ -245,7 +245,7 @@
                 <div class="l-container-row is-disabled">
                   <div class="o-item-title">Программа:</div>
                   <select formControlName="program">
-                    <option [value]="null">Выберите программу</option>
+                    <option [ngValue]="null">Выберите программу</option>
                     <option *ngFor="let gv of govPrograms" [ngValue]="gv">{{gv.shortName}}</option>
                   </select>
                 </div>
