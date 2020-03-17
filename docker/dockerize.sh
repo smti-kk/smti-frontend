@@ -2,7 +2,7 @@
 HUB='harbor.cifra-k.ru'
 PROJECT='telecom-it/telecom-frontend'
 
-DIR="`dirname "$(readlink -f "$0")"`/.."
+DIR="`dirname "$(readlink -f "$0")"`"
 
 if [[ -z "${hub}" ]]; then
   hub=$HUB
@@ -24,19 +24,19 @@ fi
 build() {
 echo "Building ${hub}/${project} (${GIT_BRANCH_SHORT}) at ${GIT_COMMIT_SHORT}"
 
-#echo "${GIT_BRANCH_SHORT}.${GIT_COMMIT_SHORT}" > ${DIR}/revision
+echo "[ ${GIT_COMMIT_SHORT} ] ${GIT_BRANCH_SHORT}" > ${DIR}/revision
 
 docker build \
-  -t ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/docker/version` \
+  -t ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/version` \
   -t ${hub}/${project}_${GIT_BRANCH_SHORT}:latest \
   -t ${hub}/${project}:${GIT_COMMIT_SHORT} \
-  -f ${DIR}/docker/Dockerfile ${DIR}
+  -f ${DIR}/Dockerfile ${DIR}/..
 }
 
 clean() {
 echo "Cleaning ${hub}/${project} (${GIT_BRANCH_SHORT}) at ${GIT_COMMIT_SHORT}"
 
-docker rmi ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/docker/version`
+docker rmi ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/version`
 docker rmi ${hub}/${project}_${GIT_BRANCH_SHORT}:latest
 docker rmi ${hub}/${project}:${GIT_COMMIT_SHORT}
 }
@@ -44,7 +44,7 @@ docker rmi ${hub}/${project}:${GIT_COMMIT_SHORT}
 push() {
 echo "Pushing ${hub}/${project} (${GIT_BRANCH_SHORT}) at ${GIT_COMMIT_SHORT}"
 
-docker push ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/docker/version`
+docker push ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/version`
 docker push ${hub}/${project}_${GIT_BRANCH_SHORT}:latest
 docker push ${hub}/${project}:${GIT_COMMIT_SHORT}
 }
