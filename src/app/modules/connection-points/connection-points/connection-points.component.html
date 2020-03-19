@@ -37,7 +37,8 @@
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
                           item.fullName
-                        }} ({{item.parent.fullName}})</option>
+                          }} ({{item.parent.fullName}})
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -48,7 +49,7 @@
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
                           item.name
-                        }}</option>
+                          }}</option>
                       </select>
                     </div>
                   </div>
@@ -60,7 +61,7 @@
                         <option
                           [ngValue]="item"
                           *ngFor="let item of fOrganizationSMOTypes$ | async"
-                          >{{ item.name }}</option
+                        >{{ item.name }}</option
                         >
                       </select>
                     </div>
@@ -68,7 +69,7 @@
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Наим. организации:</div>
-                      <input formControlName="organization" type="text" />
+                      <input formControlName="organization" type="text"/>
                     </div>
                   </div>
                 </div>
@@ -80,7 +81,7 @@
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                           item.fullName
-                        }}</option>
+                          }}</option>
                       </select>
                     </div>
                   </div>
@@ -92,7 +93,7 @@
                         <option
                           [ngValue]="item"
                           *ngFor="let item of fInternetAccessTypes$ | async"
-                          >{{ item.name }}</option
+                        >{{ item.name }}</option
                         >
                       </select>
                     </div>
@@ -105,7 +106,7 @@
                         <option
                           [ngValue]="item"
                           *ngFor="let item of fGovernmentPrograms$ | async"
-                          >{{ item.shortName }}</option
+                        >{{ item.shortName }}</option
                         >
                       </select>
                     </div>
@@ -113,12 +114,12 @@
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Оператор связи:</div>
-                      <input formControlName="contractor" type="text" />
+                      <input formControlName="contractor" type="text"/>
                     </div>
                   </div>
                 </div>
               </div>
-              <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр" />
+              <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
             </form>
           </div>
         </group>
@@ -137,7 +138,90 @@
         </div>
       </div>
     </div>
-    <div class="c-contract">
+
+    <div class="layout-list">
+      <div
+        class="layout-list-item"
+        *ngFor="
+          let location of (locations$ | async)?.results
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: pageNumber,
+                  totalItems: (locations$ | async)?.count
+                }
+        "
+      >
+        <!--        <div class="">-->
+
+        <div class="c-location-name">
+          <div class="c-location-name-item1">{{ location.fullName }}</div>
+          <div class="c-location-name-item2">{{ location.municipalityArea }}</div>
+        </div>
+
+        <!--        </div>-->
+
+          <div
+            class="layout-col"
+            *ngFor="let organization of location.organizations; let i = index"
+          > <!-- цикл выводит МО -->
+            <div class="layout-col-item1">
+              <div>{{ organization.fullName }}</div>
+              <div>
+                <span class="u-gray">Тип организации: </span>
+                {{ organization.type ? organization.type.name : ' ' }}
+              </div>
+              <div>
+                <span class="u-gray">Тип СЗО:</span>
+                {{ organization.smoType ? organization.smoType.name : ' ' }}
+              </div>
+              <a [routerLink]="[organization.id]" class="btn">Подробнее</a>
+            </div>
+            <div class="">
+              <div
+                class="layout-point"
+                *ngFor="let point of organization.reaccesspoints"
+              >
+                <div class="layout-point-address">
+                    <div
+                      *ngIf="point.governmentProgram?.shortName === 'ЕСПД'; else smoIcon"
+                    >
+                      <img
+                        class="c-contract-info__img"
+                        src="../../../../assets/img/espd.svg"
+                        alt="ЕСПД"
+                      />
+                  </div>
+                    <ng-template #smoIcon>
+                      <img
+                        class="c-contract-info__img"
+                        src="../../../../assets/img/smo.svg"
+                        alt="ЕСПД"
+                      />
+                    </ng-template>
+                  <span>{{ point.address ? point.address : '----' }}</span>
+                </div>
+                <div class="layout-point-info">
+                  <div class="flex-row">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>{{ point.contractor ? point.contractor : '----' }}</span>
+                  </div>
+                  <div class="flex-row">
+                    <i class="fas fa-plug"></i>
+                    <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
+                  </div>
+                  <div class="flex-row">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>{{ point.definedSpeed }}</span>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- цикл выводит МО -->
+          </div>
+      </div>
+    </div>
+
+    <!--<div class="c-contract">
       <div
         class="c-contract-item"
         *ngFor="
@@ -199,7 +283,8 @@
                   </div>
                 </accordion-header>
                 <nz-timeline>
-                  <nz-timeline-item [nzDot]="point.governmentProgram?.shortName === 'ЕСПД' ? espdIcon : smoIcon" *ngFor="let point of organization.reaccesspoints">
+                  <nz-timeline-item [nzDot]="point.governmentProgram?.shortName === 'ЕСПД' ? espdIcon : smoIcon"
+                                    *ngFor="let point of organization.reaccesspoints">
                     <div class="l-contract">
                       <div class="c-contract-info u-span3">
                         <i class="far fa-map-marker-alt"></i
@@ -240,7 +325,7 @@
           </group>
         </accordion>
       </div>
-    </div>
+    </div>-->
     <div style="display: flex; justify-content: flex-end">
       <div class="pagination-count">
         <div style="margin-right: 13px">Количество строк на странице:</div>
@@ -284,5 +369,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
-  >Загрузка. . .
+>Загрузка. . .
 </ngx-spinner>
