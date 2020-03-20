@@ -1,18 +1,31 @@
-.btn {
+.header-filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+a.btn {
   display: inline-block;
   margin-top: 1rem;
 }
 
-.btn:hover {
+a.btn:hover {
   color: #ffffff;
 }
 
 .layout-list {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 1rem;
+  grid-gap: 3rem;
   margin-top: 2rem;
 }
+
+.layout-list-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+}
+
+
 .layout-list-item {
   display: grid;
   grid-template-columns: minmax(200px, 300px) 1fr;
@@ -24,7 +37,6 @@
 .layout-col {
   display: grid;
   grid-template-columns: minmax(200px, 1fr) 1fr;
-  grid-column: 2/-1;
 }
 
 .layout-col-item1 {
@@ -74,4 +86,21 @@
 
 .flex-row span {
   margin-top: 0.3rem;
+}
+
+.filter {
+}
+
+.filter-button {
+  position: fixed;
+  top: 35%;
+  right: -43px;
+
+  padding: 0.3rem 0.6rem;
+
+  background: #009cd3;
+  border: none;
+
+  color: #ffffff;
+  transform: rotate(-90deg);
 }

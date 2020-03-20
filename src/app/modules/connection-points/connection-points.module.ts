@@ -2,9 +2,16 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {NzIconModule, NzTimelineModule} from 'ng-zorro-antd';
+import {
+    NzAutocompleteModule,
+    NzDrawerModule,
+    NzFormModule,
+    NzIconModule,
+    NzInputModule, NzSelectModule,
+    NzTimelineModule
+} from 'ng-zorro-antd';
 
 import {SharedModule} from '@shared/shared.module';
 
@@ -28,15 +35,21 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ConnectionPointsComponent, OrganizationDetailComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    SharedModule,
-    NgxSpinnerModule,
-    ReactiveFormsModule,
-    NgxPaginationModule,
-    NzTimelineModule,
-    NzIconModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        SharedModule,
+        NgxSpinnerModule,
+        ReactiveFormsModule,
+        NgxPaginationModule,
+        NzTimelineModule,
+        NzIconModule,
+        NzFormModule,
+        NzDrawerModule,
+        NzInputModule,
+        NzAutocompleteModule,
+        FormsModule,
+        NzSelectModule,
+    ],
 })
 export class ConnectionPointsModule {}

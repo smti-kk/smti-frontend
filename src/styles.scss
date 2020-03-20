@@ -107,7 +107,7 @@ h1 {
 
 .wrapper {
   padding-left: 25px;
-  padding-right: 25px;
+  padding-right: 35px;
 }
 
 .page-header {
@@ -192,7 +192,7 @@ input[type='text']:focus::placeholder {
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .btn.cancel {
@@ -258,7 +258,7 @@ input.btn {
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 input.btn.cancel {
@@ -621,32 +621,7 @@ select:-moz-focusring {
   border: 1px solid #009dd3;
 }
 
-.c-filter-button {
-  position: relative;
-  margin-bottom: 5px;
-  padding: 10px 24px 10px 12px;
-  color: #575756;
-  background-color: #fff;
-  border: 1px solid #bcbcbc;
-  font-size: 11px;
-  text-align: left;
-  white-space: nowrap;
-}
 
-.c-filter-button.is-active {
-  color: #fff;
-  background: #009dd3;
-}
-
-.c-filter-button::after {
-  content: '\f884';
-  position: absolute;
-  right: 5px;
-}
-
-.u-back-sort::after {
-  content: '\f160';
-}
 
 .filter-btn-reset {
   margin-top: 1rem;

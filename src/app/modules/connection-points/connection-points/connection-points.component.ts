@@ -4,13 +4,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
 
-import {
-  InternetAccessType,
-  Location,
-  GovernmentProgram,
-  OrganizationType,
-  SmoType,
-} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
@@ -44,6 +38,13 @@ export class ConnectionPointsComponent implements OnInit {
   form: FormGroup;
 
   OrderingDirection = OrderingDirection;
+
+  setLocation: string;
+  setType: string;
+  setContractType: string;
+  setConnectionType: string;
+  setParent: string;
+  setSmo: string;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,

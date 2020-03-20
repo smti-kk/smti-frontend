@@ -17,6 +17,7 @@ export const FILTER_BUTTONS_VALUE_ACCESSOR: Provider = {
 @Component({
   selector: 'app-filter-btn',
   templateUrl: './filter-btn.component.html',
+  styleUrls: ['./filter-btn.component.scss'],
   providers: [FILTER_BUTTONS_VALUE_ACCESSOR],
 })
 export class FilterBtnComponent implements ControlValueAccessor {
