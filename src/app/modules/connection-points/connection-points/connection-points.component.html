@@ -3,7 +3,7 @@
   <div class="wrapper">
     <h1>Сводные данные по организациям</h1>
     <div class="header-filter">
-      <form [formGroup]="form" nz-form  [nzLayout]="'vertical'">
+      <form *ngIf="form" [formGroup]="form" nz-form [nzLayout]="'vertical'">
         <app-filter-btn
           formControlName="order"
           [orderings]="[
@@ -21,10 +21,18 @@
         ></app-filter-btn>
         <div class="filter">
           <div class="filter-wrap">
+            <input type="text" nz-input>
             <nz-form-item>
               <nz-form-label>Населенный пункт</nz-form-label>
               <nz-form-control>
-                <nz-select
+
+                <app-simple-select
+                  [items]="fLocations$ | async"
+                  [form]="form"
+                  [iFormControl]="'location'"
+                ></app-simple-select>
+
+                <!--<nz-select
                   nzShowSearch
                   nzAllowClear
                   nzPlaceHolder="Select"
@@ -37,7 +45,7 @@
                     [nzValue]="item"
                   >
                   </nz-option>
-                </nz-select>
+                </nz-select>-->
 
                 <!--<select formControlName="location">
                   <option [ngValue]="null">Не выбран</option>
@@ -51,147 +59,76 @@
             <nz-form-item>
               <nz-form-label>Тип учреждения</nz-form-label>
               <nz-form-control>
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder="Select"
-                  [(ngModel)]="setType"
-                  formControlName="type"
-                >
-                  <nz-option
-                    *ngFor="let item of fOrganizationTypes$ | async"
-                    [nzLabel]="item.name"
-                    [nzValue]="item"
-                  >
-                  </nz-option>
-                </nz-select>
-                <!--<select formControlName="type">
-                  <option [ngValue]="null">Не выбран</option>
-                  <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
-                    item.name
-                    }}</option>
-                </select>-->
+
+                <app-simple-select
+                  [items]="fOrganizationTypes$ | async"
+                  [form]="form"
+                  [iFormControl]="'type'"
+                ></app-simple-select>
+
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label>Тип СЗО</nz-form-label>
               <nz-form-control>
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder="Select"
-                  [(ngModel)]="setSmo"
-                  formControlName="smo"
-                >
-                  <nz-option
-                    *ngFor="let item of fOrganizationSMOTypes$ | async"
-                    [nzLabel]="item.name"
-                    [nzValue]="item"
-                  >
-                  </nz-option>
-                </nz-select>
-                <!--<select formControlName="smo">
-                  <option [ngValue]="null">Не выбран</option>
-                  <option
-                    [ngValue]="item"
-                    *ngFor="let item of fOrganizationSMOTypes$ | async"
-                  >{{ item.name }}</option
-                  >
-                </select>-->
+
+                <app-simple-select
+                  [items]="fOrganizationSMOTypes$ | async"
+                  [form]="form"
+                  [iFormControl]="'smo'"
+                ></app-simple-select>
+
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input formControlName="organization" type="text"/>
+                <input nz-input formControlName="organization" type="text"/>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label>Район</nz-form-label>
               <nz-form-control>
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder="Select"
-                  [(ngModel)]="setParent"
-                  formControlName="parent"
-                >
-                  <nz-option
-                    *ngFor="let item of fParents$ | async"
-                    [nzLabel]="item.fullName"
-                    [nzValue]="item"
-                  >
-                  </nz-option>
-                </nz-select>
-                <!--<select formControlName="parent">
-                  <option [ngValue]="null">Не выбран</option>
-                  <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
-                    item.fullName
-                    }}</option>
-                </select>-->
+
+                <app-simple-select
+                  [items]="fParents$ | async"
+                  [form]="form"
+                  [iFormControl]="'parent'"
+                ></app-simple-select>
+
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label>Подключение</nz-form-label>
               <nz-form-control>
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder="Select"
-                  [(ngModel)]="setConnectionType"
-                  formControlName="connectionType"
-                >
-                  <nz-option
-                    *ngFor="let item of fInternetAccessTypes$ | async"
-                    [nzLabel]="item.name"
-                    [nzValue]="item"
-                  >
-                  </nz-option>
-                </nz-select>
-                <!--<select formControlName="connectionType">
-                  <option [ngValue]="null">Не выбран</option>
-                  <option
-                    [ngValue]="item"
-                    *ngFor="let item of fInternetAccessTypes$ | async"
-                  >{{ item.name }}</option
-                  >
-                </select>-->
+
+                <app-simple-select
+                  [items]="fInternetAccessTypes$ | async"
+                  [form]="form"
+                  [iFormControl]="'connectionType'"
+                ></app-simple-select>
+
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label>Контракт</nz-form-label>
               <nz-form-control>
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder="Select"
-                  [(ngModel)]="setContractType"
-                  formControlName="contractType"
-                >
-                  <nz-option
-                    *ngFor="let item of fGovernmentPrograms$ | async"
-                    [nzLabel]="item.shortName"
-                    [nzValue]="item"
-                  >
-                  </nz-option>
-                </nz-select>
-                <!--<select formControlName="contractType">
-                  <option [ngValue]="null">Не выбран</option>
-                  <option
-                    [ngValue]="item"
-                    *ngFor="let item of fGovernmentPrograms$ | async"
-                  >{{ item.shortName }}</option
-                  >
-                </select>-->
+
+                <app-simple-select
+                  [items]="fGovernmentPrograms$ | async"
+                  [form]="form"
+                  [iFormControl]="'contractType'"
+                ></app-simple-select>
+
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label>Оператор связи</nz-form-label>
               <nz-form-control>
-                <input formControlName="contractor" type="text"/>
+                <input nz-input formControlName="contractor" type="text"/>
               </nz-form-control>
             </nz-form-item>
-            <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
+            <input type="button" (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
           </div>
         </div>
       </form>

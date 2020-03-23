@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
@@ -38,13 +38,6 @@ export class ConnectionPointsComponent implements OnInit {
   form: FormGroup;
 
   OrderingDirection = OrderingDirection;
-
-  setLocation: string;
-  setType: string;
-  setContractType: string;
-  setConnectionType: string;
-  setParent: string;
-  setSmo: string;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,

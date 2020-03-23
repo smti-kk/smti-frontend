@@ -1,0 +1,15 @@
+<div [formGroup]="form">
+  <nz-select
+    [formControlName]="iFormControl"
+    nzShowSearch
+    nzAllowClear
+    nzPlaceHolder=""
+  >
+    <nz-option
+      *ngFor="let item of items"
+      [nzLabel]="item.name?item.name:item.shortName"
+      [nzValue]="item"
+    >
+    </nz-option>
+  </nz-select>
+</div>
