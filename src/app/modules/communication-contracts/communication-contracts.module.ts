@@ -10,6 +10,7 @@ import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';
 
 import {CommunicationContractsComponent} from './communication-contracts/communication-contracts.component';
+import {NzInputModule, NzSelectModule} from 'ng-zorro-antd';
 
 const routes: Routes = [
   {
@@ -29,6 +30,8 @@ const routes: Routes = [
     NgxPaginationModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
+    NzSelectModule,
+    NzInputModule,
   ],
 })
 export class CommunicationContractsModule {}

@@ -52,23 +52,41 @@
                       <!--                      >-->
                       <!--                      </app-grouped-autocomplete-component>-->
                       <div class="o-item-title">Населенный пункт:</div>
-                      <select formControlName="location">
+                      <nz-select
+                        nzShowSearch
+                        nzAllowClear
+                        nzPlaceHolder=""
+                        formControlName="location"
+                      >
+                        <nz-option
+                          *ngFor="let item of fLocations$ | async"
+                          [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                          [nzValue]="item"
+                        >
+                        </nz-option>
+                      </nz-select>
+                      <!--<select formControlName="location">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fLocations$ | async">
                           {{ item.fullName }} ({{ item.parent.fullName }})</option
                         >
-                      </select>
+                      </select>-->
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Район:</div>
-                      <select formControlName="parent">
+                      <app-simple-select
+                        [items]="fParents$ | async"
+                        [form]="filterForm"
+                        [iFormControl]="'parent'"
+                      ></app-simple-select>
+                      <!--<select formControlName="parent">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                           item.fullName
                         }}</option>
-                      </select>
+                      </select>-->
                     </div>
                   </div>
                   <div
@@ -169,52 +187,59 @@
                       </div>
                       <div class="c-radiobox l-radiobox-column">
                         <label
-                          ><input
-                            formControlName="internetType"
-                            type="radio"
-                            [value]="TrunkChannel.SATELLITE"
-                          />
+                        ><input
+                          formControlName="internetType"
+                          type="radio"
+                          [value]="TrunkChannel.SATELLITE"
+                        />
                           <div class="c-radiobox-text">Спутник</div>
                         </label>
                         <label
-                          ><input
-                            formControlName="internetType"
-                            type="radio"
-                            [value]="TrunkChannel.VOLS"
-                          />
+                        ><input
+                          formControlName="internetType"
+                          type="radio"
+                          [value]="TrunkChannel.VOLS"
+                        />
                           <div class="c-radiobox-text">ВОЛС</div>
                         </label>
                         <label
-                          ><input
-                            formControlName="internetType"
-                            type="radio"
-                            [value]="TrunkChannel.COPPER_CABLE"
-                          />
+                        ><input
+                          formControlName="internetType"
+                          type="radio"
+                          [value]="TrunkChannel.COPPER_CABLE"
+                        />
                           <div class="c-radiobox-text">Медь</div>
                         </label>
                         <label
-                          ><input
-                            formControlName="internetType"
-                            type="radio"
-                            [value]="TrunkChannel.RADIO_CHANEL"
-                          />
+                        ><input
+                          formControlName="internetType"
+                          type="radio"
+                          [value]="TrunkChannel.RADIO_CHANEL"
+                        />
                           <div class="c-radiobox-text">Радиоканал</div>
                         </label>
                       </div>
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
-                    <div class="o-item-title">Программа:</div>
-                    <select formControlName="govProgram">
+                    <div class="input">
+                      <div class="o-item-title">Программа:</div>
+                      <app-simple-select
+                        [items]="fGovernmentPrograms$ | async"
+                        [form]="filterForm"
+                        [iFormControl]="'govProgram'"
+                      ></app-simple-select>
+                    </div>
+                    <!--<select formControlName="govProgram">
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fGovernmentPrograms$ | async">{{
                         item.shortName
                       }}</option>
-                    </select>
+                    </select>-->
                   </div>
                 </div>
               </div>
-              <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр" />
+              <input type="reset" class="btn filter-btn-reset" value="Сбросить фильтр"/>
             </form>
           </div>
         </group>
@@ -224,7 +249,7 @@
           Результатов: <span>{{ (this.features$ | async)?.count }}</span>
         </div>
         <div class="c-filter-export">
-          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel" />
+          <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel"/>
         </div>
       </div>
     </div>
@@ -294,9 +319,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -316,9 +341,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -396,9 +421,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -418,9 +443,9 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-                planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram.shortName
               }}</span
-              >)
+            >)
             </div>
           </div>
         </div>
@@ -487,5 +512,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
-  >Загрузка. . .
+>Загрузка. . .
 </ngx-spinner>

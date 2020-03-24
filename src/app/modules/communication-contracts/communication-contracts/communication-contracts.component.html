@@ -33,24 +33,37 @@
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Населенный пункт:</div>
-                      <select formControlName="location">
+                      <nz-select
+                        nzShowSearch
+                        nzAllowClear
+                        nzPlaceHolder=""
+                        formControlName="location"
+                      >
+                        <nz-option
+                          *ngFor="let item of fLocations$ | async"
+                          [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                          [nzValue]="item"
+                        >
+                        </nz-option>
+                      </nz-select>
+                      <!--<select formControlName="location">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
                           item.fullName
                         }} ({{item.parent.fullName}})</option>
-                      </select>
+                      </select>-->
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Наим. организации:</div>
-                      <input formControlName="organization" type="text" />
+                      <input nz-input formControlName="organization" type="text" />
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Номер контракта:</div>
-                      <input formControlName="contract" type="text" />
+                      <input nz-input formControlName="contract" type="text" />
                     </div>
                   </div>
                 </div>
@@ -58,31 +71,41 @@
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Район:</div>
-                      <select formControlName="parent">
+                      <app-simple-select
+                        [items]="fParents$ | async"
+                        [form]="form"
+                        [iFormControl]="'parent'"
+                      ></app-simple-select>
+                      <!--<select formControlName="parent">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                           item.fullName
                         }}</option>
-                      </select>
+                      </select>-->
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Оператор связи:</div>
-                      <input formControlName="contractor" type="text" />
+                      <input nz-input formControlName="contractor" type="text" />
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
                     <div class="input">
                       <div class="o-item-title">Тип подключения:</div>
-                      <select formControlName="connectionType">
+                      <app-simple-select
+                        [items]="fInternetAccessTypes$ | async"
+                        [form]="form"
+                        [iFormControl]="'connectionType'"
+                      ></app-simple-select>
+                      <!--<select formControlName="connectionType">
                         <option [ngValue]="null">Не выбран</option>
                         <option
                           [ngValue]="item"
                           *ngFor="let item of fInternetAccessTypes$ | async"
                           >{{ item.name }}</option
                         >
-                      </select>
+                      </select>-->
                     </div>
                   </div>
                 </div>

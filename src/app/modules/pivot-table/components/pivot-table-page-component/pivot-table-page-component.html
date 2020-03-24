@@ -48,31 +48,31 @@
               <div class="l-container-item">
                 <div class="c-checkbox" style="opacity: 0.7">
                   <label>
-                    <input type="checkbox" [disabled]="true" />
+                    <input type="checkbox" [disabled]="true"/>
                     <div class="c-checkbox-text">Наличие ЕСПД</div>
                   </label>
                 </div>
                 <div class="c-checkbox">
                   <label>
-                    <input type="checkbox" formControlName="hasPayphone" />
+                    <input type="checkbox" formControlName="hasPayphone"/>
                     <div class="c-checkbox-text">Наличие таксофона</div>
                   </label>
                 </div>
                 <div class="c-checkbox">
                   <label>
-                    <input formControlName="hasInfomat" type="checkbox" />
+                    <input formControlName="hasInfomat" type="checkbox"/>
                     <div class="c-checkbox-text">Наличие инфомата</div>
                   </label>
                 </div>
                 <div class="c-checkbox">
                   <label>
-                    <input type="checkbox" formControlName="hasRadio" />
+                    <input type="checkbox" formControlName="hasRadio"/>
                     <div class="c-checkbox-text">Наличие радио</div>
                   </label>
                 </div>
                 <div class="c-checkbox">
                   <label>
-                    <input type="checkbox" formControlName="hasTelephone" />
+                    <input type="checkbox" formControlName="hasTelephone"/>
                     <div class="c-checkbox-text">Наличие телефона</div>
                   </label>
                 </div>
@@ -82,7 +82,7 @@
                   <div class="o-item-title">Почта:</div>
                   <div class="c-radiobox">
                     <label>
-                      <input formControlName="mailType" type="radio" [value]="MailType.UPC" />
+                      <input formControlName="mailType" type="radio" [value]="MailType.UPC"/>
                       <div class="c-radiobox-text">ОПС</div>
                     </label>
                     <label>
@@ -99,11 +99,11 @@
                   <div class="o-item-title">ТВ:</div>
                   <div class="c-radiobox">
                     <label>
-                      <input formControlName="tvType" type="radio" [value]="Signal.ATV" />
+                      <input formControlName="tvType" type="radio" [value]="Signal.ATV"/>
                       <div class="c-radiobox-text">Аналоговое</div>
                     </label>
                     <label>
-                      <input formControlName="tvType" type="radio" [value]="Signal.CTV" />
+                      <input formControlName="tvType" type="radio" [value]="Signal.CTV"/>
                       <div class="c-radiobox-text">Цифровое</div>
                     </label>
                   </div>
@@ -113,23 +113,41 @@
                 <div class="l-container-row is-disabled">
                   <div class="input">
                     <div class="o-item-title">Населенный пункт:</div>
-                    <select formControlName="location">
+                    <nz-select
+                      nzShowSearch
+                      nzAllowClear
+                      nzPlaceHolder=""
+                      formControlName="location"
+                    >
+                      <nz-option
+                        *ngFor="let item of fLocations$ | async"
+                        [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                        [nzValue]="item"
+                      >
+                      </nz-option>
+                    </nz-select>
+                    <!--<select formControlName="location">
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
                           item.fullName
                         }} ({{item.parent.fullName}})</option>
-                    </select>
+                    </select>-->
                   </div>
                 </div>
                 <div class="l-container-row is-disabled">
                   <div class="input">
                     <div class="o-item-title">Район:</div>
-                    <select formControlName="parent">
+                    <app-simple-select
+                      [items]="fParents$ | async"
+                      [form]="filterForm"
+                      [iFormControl]="'parent'"
+                    ></app-simple-select>
+                    <!--<select formControlName="parent">
                       <option [ngValue]="null">Не выбран</option>
                       <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                           item.fullName
                         }}</option>
-                    </select>
+                    </select>-->
                   </div>
                 </div>
                 <div class="l-container-row is-disabled">
@@ -141,7 +159,7 @@
                       *ngFor="let mobileProvider of mobileProviders; let i = index"
                     >
                       <label [formGroupName]="i.toString()">
-                        <input [formControlName]="mobileProvider.id.toString()" type="checkbox" />
+                        <input [formControlName]="mobileProvider.id.toString()" type="checkbox"/>
                         <div class="c-vendor-logo c-vendor-checked">
                           <img
                             [src]="mobileProvider.icon"
@@ -196,7 +214,7 @@
                       *ngFor="let internetProvider of internetProviders; let i = index"
                     >
                       <label [formGroupName]="i.toString()">
-                        <input type="checkbox" [formControlName]="internetProvider.id.toString()" />
+                        <input type="checkbox" [formControlName]="internetProvider.id.toString()"/>
                         <div class="c-vendor-logo c-vendor-checked">
                           <img
                             [src]="internetProvider.icon"
@@ -209,45 +227,52 @@
                   </div>
                   <div class="c-radiobox l-radiobox-column">
                     <label
-                      ><input
-                        formControlName="internetType"
-                        type="radio"
-                        [value]="TrunkChannel.SATELLITE"
-                      />
+                    ><input
+                      formControlName="internetType"
+                      type="radio"
+                      [value]="TrunkChannel.SATELLITE"
+                    />
                       <div class="c-radiobox-text">Спутник</div>
                     </label>
                     <label
-                      ><input
-                        formControlName="internetType"
-                        type="radio"
-                        [value]="TrunkChannel.VOLS"
-                      />
+                    ><input
+                      formControlName="internetType"
+                      type="radio"
+                      [value]="TrunkChannel.VOLS"
+                    />
                       <div class="c-radiobox-text">ВОЛС</div>
                     </label>
                     <label
-                      ><input
-                        formControlName="internetType"
-                        type="radio"
-                        [value]="TrunkChannel.COPPER_CABLE"
-                      />
+                    ><input
+                      formControlName="internetType"
+                      type="radio"
+                      [value]="TrunkChannel.COPPER_CABLE"
+                    />
                       <div class="c-radiobox-text">Медь</div>
                     </label>
                     <label
-                      ><input
-                        formControlName="internetType"
-                        type="radio"
-                        [value]="TrunkChannel.RADIO_CHANEL"
-                      />
+                    ><input
+                      formControlName="internetType"
+                      type="radio"
+                      [value]="TrunkChannel.RADIO_CHANEL"
+                    />
                       <div class="c-radiobox-text">Радиоканал</div>
                     </label>
                   </div>
                 </div>
                 <div class="l-container-row is-disabled">
-                  <div class="o-item-title">Программа:</div>
-                  <select formControlName="program">
+                  <div class="input">
+                    <div class="o-item-title">Программа:</div>
+                    <app-simple-select
+                      [items]="govPrograms"
+                      [form]="filterForm"
+                      [iFormControl]="'program'"
+                    ></app-simple-select>
+                  </div>
+                  <!--<select formControlName="program">
                     <option [ngValue]="null">Выберите программу</option>
                     <option *ngFor="let gv of govPrograms" [ngValue]="gv">{{gv.shortName}}</option>
-                  </select>
+                  </select>-->
                 </div>
               </div>
             </div>
@@ -276,11 +301,11 @@
     </div>
     <div class="l-table u-table-header l-table-location">
       <div class="l-table-column">№</div>
-      <div class="l-table-column">Населенный пункт<br />Район<br />Численность чел.</div>
+      <div class="l-table-column">Населенный пункт<br/>Район<br/>Численность чел.</div>
       <div class="l-table-column">ЕСПД</div>
-      <div class="l-table-column">Телефон,<br />Таксофон,<br />Инфомат,<br />Почта</div>
-      <div class="l-table-column">ТВ,<br />Радио</div>
-      <div class="l-table-column">Связь<br />(сотовая, интернет)</div>
+      <div class="l-table-column">Телефон,<br/>Таксофон,<br/>Инфомат,<br/>Почта</div>
+      <div class="l-table-column">ТВ,<br/>Радио</div>
+      <div class="l-table-column">Связь<br/>(сотовая, интернет)</div>
       <div class="l-table-column">Программа</div>
     </div>
     <ngx-spinner
@@ -290,7 +315,7 @@
       type="ball-atom"
       class="spinner"
       [fullScreen]="true"
-      >Загрузка. . .
+    >Загрузка. . .
     </ngx-spinner>
     <ng-container *ngIf="locationFeatures && existingOperators">
       <div
