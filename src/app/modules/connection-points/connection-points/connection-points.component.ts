@@ -38,6 +38,7 @@ export class ConnectionPointsComponent implements OnInit {
   form: FormGroup;
 
   OrderingDirection = OrderingDirection;
+  setLocation: any;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,

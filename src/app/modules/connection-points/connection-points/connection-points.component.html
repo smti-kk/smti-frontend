@@ -2,7 +2,182 @@
 <main class="main">
   <div class="wrapper">
     <h1>Сводные данные по организациям</h1>
-    <div class="header-filter">
+    <div class="c-filter">
+      <accordion class="c-accordion">
+        <group>
+          <accordion-header class="c-accordion-title">
+            <div class="c-filter-icon">Фильтры</div>
+          </accordion-header>
+          <div>
+            <form [formGroup]="form">
+              <div class="l-container">
+                <div class="l-container-item js-filter-button">
+                  <app-filter-btn
+                    formControlName="order"
+                    [orderings]="[
+                      {
+                        name: 'Нас.пункт',
+                        value: 'name',
+                        orderingDirection: OrderingDirection.UNDEFINED
+                      },
+                      {
+                        name: 'Район',
+                        value: 'parent__name',
+                        orderingDirection: OrderingDirection.UNDEFINED
+                      }
+                    ]"
+                  >
+                  </app-filter-btn>
+                </div>
+                <div class="l-container-item">
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Населенный пункт:</div>
+                      <nz-select
+                        nzShowSearch
+                        nzAllowClear
+                        nzPlaceHolder=""
+                        [(ngModel)]="setLocation"
+                        formControlName="location"
+                      >
+                        <nz-option
+                          *ngFor="let item of fLocations$ | async"
+                          [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                          [nzValue]="item"
+                        >
+                        </nz-option>
+                      </nz-select>
+                      <!--<select formControlName="location">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
+                          item.fullName
+                          }} ({{item.parent.fullName}})</option>
+                      </select>-->
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Тип учреждения:</div>
+                      <app-simple-select
+                        [items]="fOrganizationTypes$ | async"
+                        [form]="form"
+                        [iFormControl]="'type'"
+                      ></app-simple-select>
+                      <!--<select formControlName="type">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
+                          item.name
+                          }}</option>
+                      </select>-->
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Тип СЗО:</div>
+                      <app-simple-select
+                        [items]="fOrganizationSMOTypes$ | async"
+                        [form]="form"
+                        [iFormControl]="'smo'"
+                      ></app-simple-select>
+                      <!--<select formControlName="smo">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option
+                          [ngValue]="item"
+                          *ngFor="let item of fOrganizationSMOTypes$ | async"
+                        >{{ item.name }}</option
+                        >
+                      </select>-->
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Наим. организации:</div>
+                      <input formControlName="organization" type="text" />
+                    </div>
+                  </div>
+                </div>
+                <div class="l-container-item">
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Район:</div>
+                      <app-simple-select
+                        [items]="fParents$ | async"
+                        [form]="form"
+                        [iFormControl]="'parent'"
+                      ></app-simple-select>
+                      <!--<select formControlName="parent">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
+                          item.fullName
+                          }}</option>
+                      </select>-->
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Подключение:</div>
+                      <app-simple-select
+                        [items]="fInternetAccessTypes$ | async"
+                        [form]="form"
+                        [iFormControl]="'connectionType'"
+                      ></app-simple-select>
+                      <!--<select formControlName="connectionType">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option
+                          [ngValue]="item"
+                          *ngFor="let item of fInternetAccessTypes$ | async"
+                        >{{ item.name }}</option
+                        >
+                      </select>-->
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Контракт:</div>
+                      <app-simple-select
+                        [items]="fGovernmentPrograms$ | async"
+                        [form]="form"
+                        [iFormControl]="'contractType'"
+                      ></app-simple-select>
+                      <!--<select formControlName="contractType">
+                        <option [ngValue]="null">Не выбран</option>
+                        <option
+                          [ngValue]="item"
+                          *ngFor="let item of fGovernmentPrograms$ | async"
+                        >{{ item.shortName }}</option
+                        >
+                      </select>-->
+                    </div>
+                  </div>
+                  <div class="l-container-row is-disabled">
+                    <div class="input">
+                      <div class="o-item-title">Оператор связи:</div>
+                      <input formControlName="contractor" type="text" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр" />
+            </form>
+          </div>
+        </group>
+      </accordion>
+      <div class="c-filter-info">
+        <div class="c-filter-result">
+          Результатов поиска: <span>{{ (locations$ | async)?.count }}</span>
+        </div>
+        <div class="c-filter-export">
+          <input
+            (click)="serviceLocation.exportExcel()"
+            type="button"
+            class="btn"
+            value="Выгрузить в Excel"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="header-filter">
       <form *ngIf="form" [formGroup]="form" nz-form [nzLayout]="'vertical'">
         <app-filter-btn
           formControlName="order"
@@ -26,13 +201,13 @@
               <nz-form-label>Населенный пункт</nz-form-label>
               <nz-form-control>
 
-                <app-simple-select
+                &lt;!&ndash;<app-simple-select
                   [items]="fLocations$ | async"
                   [form]="form"
                   [iFormControl]="'location'"
-                ></app-simple-select>
+                ></app-simple-select>&ndash;&gt;
 
-                <!--<nz-select
+                <nz-select
                   nzShowSearch
                   nzAllowClear
                   nzPlaceHolder="Select"
@@ -45,15 +220,15 @@
                     [nzValue]="item"
                   >
                   </nz-option>
-                </nz-select>-->
+                </nz-select>
 
-                <!--<select formControlName="location">
+                &lt;!&ndash;<select formControlName="location">
                   <option [ngValue]="null">Не выбран</option>
                   <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
                     item.fullName
                     }} ({{item.parent.fullName}})
                   </option>
-                </select>-->
+                </select>&ndash;&gt;
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -140,7 +315,8 @@
           value="Выгрузить в Excel"
         />
       </div>
-    </div>
+    </div>-->
+
     <div class="layout-list">
       <div class="layout-list-group"
            *ngFor="
@@ -338,6 +514,7 @@
         </accordion>
       </div>
     </div>-->
+
     <div style="display: flex; justify-content: flex-end">
       <div class="pagination-count">
         <div style="margin-right: 13px">Количество строк на странице:</div>
@@ -372,7 +549,6 @@
     >
     </pagination-controls>
   </div>
-  <!--  <button type="button" class="filter-button" (click)="openFilter()">Открыть фильтр</button>-->
 </main>
 
 <ngx-spinner
