@@ -6,7 +6,10 @@ import {LocationAreaProperties} from '@map-wrapper/model/location-area-propertie
 
 const BORDER_GEO_JSON_DESERIALIZE = {
   Deserialize(point): MultiPoint {
-    return JSON.parse(point);
+    if (typeof point === 'string') {
+      return JSON.parse(point);
+    }
+    return point;
   },
 };
 
