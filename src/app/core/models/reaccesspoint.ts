@@ -187,7 +187,8 @@ export class Reaccesspoint extends MonitoringPoint {
     if (this.connectionType != null) {
       return this.connectionType.name;
     }
-    throw Error('connection type is null');
+    return '';
+    // throw Error('connection type is null');
   }
 
   get iconUrl(): string {
