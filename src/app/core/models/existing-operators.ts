@@ -89,6 +89,13 @@ export class ExistingOperators {
   }
 
   sortByLocationFeatures(features: LocationFeatures): ExistingOperators {
+    features.cellular = ExistingOperators.filterDistinct(features.cellular);
+    features.television = ExistingOperators.filterDistinct(features.television);
+    features.post = ExistingOperators.filterDistinct(features.post);
+    features.ats = ExistingOperators.filterDistinct(features.ats);
+    features.internet = ExistingOperators.filterDistinct(features.internet);
+    features.radio = ExistingOperators.filterDistinct(features.radio);
+
     this.cellular = ExistingOperators.sortByLocationFeature(features.cellular, this.cellular);
     this.television = ExistingOperators.sortByLocationFeature(features.television, this.television);
     this.post = ExistingOperators.sortByLocationFeature(features.post, this.post);
@@ -98,17 +105,23 @@ export class ExistingOperators {
     return this;
   }
 
+  private static filterDistinct<T extends LocationFeature>(features: T[]): T[] {
+    return features.filter((item, index) => {
+      const findByOperator = features.find(i => i.operator.id === item.operator.id);
+      return features.indexOf(findByOperator) === index;
+    });
+  }
+
   private static sortByLocationFeature(
     locationFeature: LocationFeature[],
     operators: Operator[]
   ): Operator[] {
-    let operatorsBuf = operators;
     locationFeature.reverse().forEach(c => {
-      operatorsBuf = popToTop(operators, c.operator);
+      operators = popToTop(operators, c.operator);
     });
 
     locationFeature.reverse();
 
-    return operatorsBuf;
+    return operators;
   }
 }

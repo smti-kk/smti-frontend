@@ -47,17 +47,17 @@ export class TcPivotsService {
   }
 
   save(value: LocationFeatures): Observable<{id: number}> {
-    const iValue = {...value} as LocationFeatures;
-    iValue.cellular = TcPivotsService.filterNulls(value.cellular);
-    iValue.post = TcPivotsService.filterNulls(value.post);
-    iValue.radio = TcPivotsService.filterNulls(value.radio);
-    iValue.television = TcPivotsService.filterNulls(value.television);
-    iValue.internet = TcPivotsService.filterNulls(value.internet);
-    iValue.ats = TcPivotsService.filterNulls(value.ats);
+    value.cellular = TcPivotsService.filterNulls(value.cellular);
+    value.post = TcPivotsService.filterNulls(value.post);
+    value.radio = TcPivotsService.filterNulls(value.radio);
+    value.television = TcPivotsService.filterNulls(value.television);
+    value.internet = TcPivotsService.filterNulls(value.internet);
+    value.ats = TcPivotsService.filterNulls(value.ats);
 
+    console.log(value);
     return this.httpClient.post<{id: number}>(
       CLARIFY_PETITION,
-      Serialize(iValue, LocationFeatures)
+      Serialize(value, LocationFeatures)
     );
   }
 
@@ -71,6 +71,7 @@ export class TcPivotsService {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private static filterNulls(array: any[]): any[] {
+    console.log(array.filter((c: any) => c._operator !== null));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return array.filter((c: any) => c._operator !== null); // todo: исправить any
   }

@@ -6,8 +6,10 @@ export const ID_SERIALIZER = {
     }
     if (obj && obj._id) {
       return obj._id;
+    } else {
+      return null;
     }
-    throw Error(`Serialize obj ${obj}: unknown obj`);
+    // throw Error(`Serialize obj ${obj}: unknown obj`);
   },
 };
 
@@ -16,7 +18,9 @@ export const TYPE_SERIALIZER = {
   Serialize(obj: {type: number}): number {
     if (obj) {
       return obj.type;
+    } else {
+      return null;
     }
-    throw Error(`Serialize TYPE_SERIALIZER ${obj}: unknown obj`);
+    // throw Error(`Serialize TYPE_SERIALIZER ${obj}: unknown obj`);
   },
 };
