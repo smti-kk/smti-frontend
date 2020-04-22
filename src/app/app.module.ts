@@ -8,6 +8,9 @@ import {
   NzDropDownModule,
   NzNotificationModule,
 } from 'ng-zorro-antd';
+import { registerLocaleData } from '@angular/common';
+import ru from '@angular/common/locales/ru';
+import { NZ_I18N, ru_RU } from 'ng-zorro-antd/i18n';
 
 import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';
@@ -18,13 +21,9 @@ import {NotificationService} from '@core/services/notification.service';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 
+
 const ZN_ZORRO = [NgZorroAntdModule, NzDropDownModule, NzNotificationModule, NzAutocompleteModule];
-
-import { registerLocaleData } from '@angular/common';
-import ru from '@angular/common/locales/ru';
 registerLocaleData(ru);
-
-import { NZ_I18N, ru_RU } from 'ng-zorro-antd/i18n';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,7 +39,7 @@ import { NZ_I18N, ru_RU } from 'ng-zorro-antd/i18n';
     NotificationService,
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
-    {provide: NZ_I18N, useValue: ru_RU}
+    {provide: NZ_I18N, useValue: ru_RU},
   ],
   bootstrap: [AppComponent],
 })
