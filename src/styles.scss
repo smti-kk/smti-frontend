@@ -556,8 +556,83 @@ select:-moz-focusring {
 /* --- Акордион --- end --- */
 
 /* --- Фильтр --- begin --- */
-.c-filter {
+
+.filter {
+  margin: 0.5rem 0 1.5rem;
 }
+
+.filter-header {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.filter-title {
+  flex-grow: 1;
+  margin-right: 0.5rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 3rem;
+  cursor: pointer;
+}
+
+.filter-export-button {
+  padding: 1rem 1.5rem;
+  background: #f2f2f6;
+  border: none;
+  border-radius: 3rem;
+  cursor: pointer;
+}
+
+.filter-header-active .filter-title {
+    border: none;
+}
+
+.filter-header-active .filter-export-button {
+    background: #ffffff;
+}
+
+.filter-body {
+  height: 0;
+  overflow: hidden;
+}
+
+.filter-body-active {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  height: 100%;
+  border: 1px solid #e2e2e2;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.filter-footer {
+  display: flex;
+  align-items: center;
+}
+
+.filter-result {
+  margin-right: 1rem;
+  white-space: nowrap;
+}
+
+.filter-search,
+.filter-sort {
+  width: 0;
+  overflow: hidden;
+}
+
+.filter-footer-active .filter-sort {
+  width: 374px;
+  margin-right: 1rem;
+  overflow: visible;
+}
+
+.filter-footer-active .filter-search {
+  width: 100%;
+  margin-right: 1rem;
+  overflow: visible;
+}
+
 
 .c-filter .c-accordion {
   border: 1px solid #bcbcbc;

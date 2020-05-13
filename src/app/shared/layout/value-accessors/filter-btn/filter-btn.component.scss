@@ -1,16 +1,17 @@
 .filter-button-group {
-  display: inline-flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-gap: 0.5rem;
 }
 
 .filter-button {
   position: relative;
-  margin-bottom: 1rem;
-  padding: 10px 24px 10px 12px;
-  width: 120px;
+  padding: 10px 12px 10px 30px;
+  width: 100%;
   color: #575756;
-  background-color: #fff;
-  border: 1px solid #bcbcbc;
+  background-color: #f2f2f6;
+  border: none;
+  border-radius: 20px;
   font-size: 11px;
   text-align: left;
   white-space: nowrap;
@@ -22,12 +23,12 @@
   background: #009dd3;
 }
 
-.filter-button::after {
+.filter-button::before {
   content: '\f884';
   position: absolute;
-  right: 5px;
+  left: 10px;
 }
 
-.back-sort::after {
+.back-sort::before {
   content: '\f160';
 }

@@ -34,6 +34,8 @@ export class CommunicationContractsComponent implements OnInit {
 
   OrderingDirection = OrderingDirection;
 
+  isVisibleFilter = false;
+
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
@@ -80,5 +82,9 @@ export class CommunicationContractsComponent implements OnInit {
 
   loadPagedLocationWithContracts(): Observable<PaginatedList<Location>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
+  }
+
+  showFilterBody() {
+    this.isVisibleFilter = !this.isVisibleFilter;
   }
 }
