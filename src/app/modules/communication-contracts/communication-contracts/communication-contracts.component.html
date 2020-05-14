@@ -25,6 +25,7 @@
                   nzAllowClear
                   nzPlaceHolder=""
                   formControlName="location"
+                  [nzSuffixIcon]="suffixIconSelect"
                 >
                   <nz-option
                     *ngFor="let item of fLocations$ | async"
@@ -65,7 +66,7 @@
               <nz-form-label>Тип организации</nz-form-label>
               <nz-form-control>
                 <app-simple-select
-                  [items]="fInternetAccessTypes$ | async"
+                  [items]="fOrganizationTypes$ | async"
                   [form]="form"
                   [iFormControl]="'connectionType'"
                 ></app-simple-select>
@@ -82,7 +83,7 @@
               <nz-form-label>Тип СЗО</nz-form-label>
               <nz-form-control>
                 <app-simple-select
-                  [items]="fInternetAccessTypes$ | async"
+                  [items]="fOrganizationSMOTypes$ | async"
                   [form]="form"
                   [iFormControl]="'connectionType'"
                 ></app-simple-select>
@@ -90,7 +91,7 @@
             </nz-form-item>
             <div class="filter-container-group">
               <nz-form-item>
-                <nz-form-label>Номер контракта</nz-form-label>
+                <nz-form-label>№ контракта</nz-form-label>
                 <nz-form-control>
                   <input nz-input formControlName="contract" type="text"/>
                 </nz-form-control>
@@ -120,11 +121,19 @@
             Результатов поиска: <span>{{ (locations$ | async)?.count }}</span>
           </div>
           <div class="filter-search">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input type="text" nz-input placeholder="input search text" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search"></i>
+            </ng-template>
           </div>
         </div>
       </div>
     </form>
-
+    <ng-template #suffixIconSelect>
+      <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #35a5f9"></i>
+    </ng-template>
     <!--<div class="c-filter">
       <accordion class="c-accordion">
         <group>

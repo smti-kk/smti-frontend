@@ -10,7 +10,7 @@ import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';
 
 import {CommunicationContractsComponent} from './communication-contracts/communication-contracts.component';
-import {NzDatePickerModule, NzFormModule, NzInputModule, NzSelectModule} from 'ng-zorro-antd';
+import {NzDatePickerModule, NzFormModule, NzIconModule, NzInputModule, NzSelectModule} from 'ng-zorro-antd';
 
 const routes: Routes = [
   {
@@ -34,6 +34,7 @@ const routes: Routes = [
     NzInputModule,
     NzFormModule,
     NzDatePickerModule,
+    NzIconModule,
   ],
 })
 export class CommunicationContractsModule {}

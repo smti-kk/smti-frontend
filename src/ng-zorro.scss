@@ -13,3 +13,39 @@ textarea {
   display: flex;
   justify-content: center;
 }
+
+.ant-form-item {
+  margin: 0;
+}
+
+.ant-form-item-label {
+  line-height: normal;
+}
+
+.ant-form-item-control {
+  /*border-bottom: 1px solid #e0e0e0;*/
+}
+
+.ant-input {
+  font-weight: 100;
+  /*border: none;*/
+}
+
+/*.ant-input:focus {
+  box-shadow: unset;
+}
+
+.ant-select-selection {
+  border: none;
+}*/
+
+/* анимация стрелки select - начало */
+.ant-cascader-picker-arrow.ant-cascader-picker-arrow-expand,
+.ant-select-open .anticon-caret-down svg {
+  transform: rotate(180deg);
+}
+
+.ant-select-arrow .anticon-caret-down svg {
+  transition: transform .3s;
+}
+/* анимация стрелки select - конец */

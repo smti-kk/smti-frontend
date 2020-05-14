@@ -4,11 +4,12 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
 
-import {InternetAccessType, Location} from '@core/models';
+import {InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {LocationServiceContractsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
+import {OrganizationsService} from '@core/services';
 
 const FIRST_PAGE = 1;
 
@@ -23,6 +24,10 @@ export class CommunicationContractsComponent implements OnInit {
   fLocations$: Observable<Location[]>;
 
   fParents$: Observable<Location[]>;
+
+  fOrganizationSMOTypes$: Observable<SmoType[]>;
+
+  fOrganizationTypes$: Observable<OrganizationType[]>;
 
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
 
@@ -39,6 +44,7 @@ export class CommunicationContractsComponent implements OnInit {
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
+    private serviceOrganizations: OrganizationsService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder
   ) {}
@@ -54,6 +60,8 @@ export class CommunicationContractsComponent implements OnInit {
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
+    this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
+    this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
 
     this.buildForm();
   }

@@ -4,6 +4,7 @@
     nzShowSearch
     nzAllowClear
     nzPlaceHolder=""
+    [nzSuffixIcon]="suffixIconSelect"
   >
     <nz-option
       *ngFor="let item of items"
@@ -13,3 +14,7 @@
     </nz-option>
   </nz-select>
 </div>
+
+<ng-template #suffixIconSelect>
+  <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #35a5f9"></i>
+</ng-template>
