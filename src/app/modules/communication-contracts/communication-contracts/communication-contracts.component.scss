@@ -1,19 +1,10 @@
-.filter-container {
+.container-header {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 1.5rem;
+  grid-template-columns: 200px 2fr 3fr;
+  grid-column-gap: 0.2rem;
+  padding: 0.5rem 0;
+  color: #9da0a1;
 }
-
-.filter-container-item {
-  margin: 0;
-}
-
-.filter-container-group {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-column-gap: 1.5rem;
-}
-
 
 .container-list {
   display: grid;
@@ -37,7 +28,7 @@
 }
 
 .container-wrap2 {
-  padding: 1.2rem;
+  padding: 1.2rem 1.2rem 1.4rem;
   background: #f2f2f6;
 }
 
@@ -46,10 +37,17 @@
   background: #f2f2f6;
 }
 
+.container-wrap4 {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1.4rem;
+}
+
 .container-point {
   display: grid;
   grid-template-columns: 4fr 2fr 1fr 1fr;
-  grid-gap: 1.5rem;
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1rem;
 }
 
 .container-point + .container-point {
@@ -59,9 +57,13 @@
 }
 
 hr {
-  margin: 1rem 0;
+  margin: 2.825rem 0 1.4rem;
   border: none;
   border-top: 1px solid #ffffff;
+}
+
+.rowspan2 {
+  grid-row: 2/span 2;
 }
 
 .col2 {
@@ -72,89 +74,12 @@ hr {
   grid-column: 3/-1;
 }
 
-
-.contract-container {
-  display: grid;
-  grid-template-columns: 78px 150px 133px 198px 100px;
-  grid-gap: 3.7rem;
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
-}
-
-.c-contract-item {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  padding: 15px 10px;
-  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
-  cursor: pointer;
-}
-
-.c-contract-header {
+.container-info {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
 
-//.c-contract-info {
-//  margin-bottom: 16px;
-//}
-
-.l-contract {
-  //display: grid;
-  //grid-template-columns: 220px 150px 250px 200px;
-  //grid-gap: 2.7rem;
-  display: grid;
-  grid-template-columns: 230px 1fr;
-  grid-gap: 1rem;
-  padding: 1rem;
-  font-size: 13px;
-  background: rgba(239, 239, 239, 0.7);
-  margin-left: 0.7rem;
-}
-
-.l-contract + .l-contract {
-  margin-top: 1rem;
-}
-
-.l-contract-item {
-  display: grid;
-  grid-template-columns: 212px repeat(4, 140px);
-  grid-gap: 1rem;
-  padding-left: 1.2rem;
-}
-
-.l-contract-item + .l-contract-item {
-  padding-top: 1rem;
-  border-top: 1px solid #bcbcbc;
-}
-
-.l-contract .fas,
-.l-contract .far,
-.l-contract .fab {
-  margin-right: 5px;
-  width: 16px;
-  text-align: center;
-}
-
-.c-contract .c-accordion {
-  box-shadow: 0 2px 4px rgba(0, 7, 3, 0.27);
-}
-
-.c-contract-item .c-accordion-body {
-  padding-bottom: 0;
-}
-
-.l-contract-row {
-  display: flex;
-}
-
-.u-margin-right {
+.container-info-icon {
+  width: 2rem;
   margin-right: 1rem;
-}
-
-.u-span2 {
-  grid-column: span 2;
-}
-
-.u-span5 {
-  grid-column: span 5;
 }

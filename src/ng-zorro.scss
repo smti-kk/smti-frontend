@@ -19,7 +19,12 @@ textarea {
 }
 
 .ant-form-item-label {
+  font-weight: 600;
   line-height: normal;
+}
+
+.ant-form-item-label>label {
+  color: #9da0a1;
 }
 
 .ant-form-item-control {
@@ -27,17 +32,22 @@ textarea {
 }
 
 .ant-input {
-  font-weight: 100;
-  /*border: none;*/
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: unset;
 }
 
-/*.ant-input:focus {
+.ant-input:focus,
+.ant-select-selection:active,
+.ant-select-open .ant-select-selection{
   box-shadow: unset;
 }
 
 .ant-select-selection {
   border: none;
-}*/
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: unset;
+}
 
 /* анимация стрелки select - начало */
 .ant-cascader-picker-arrow.ant-cascader-picker-arrow-expand,

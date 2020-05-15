@@ -5,7 +5,13 @@
     <form [formGroup]="form">
       <div class="filter">
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
-          <div class="filter-title" (click)="showFilterBody()"><i class="fas fa-filter"></i>Фильтр</div>
+          <div class="filter-title" (click)="showFilterBody()">
+            <span><i class="fas fa-filter"></i>Фильтр</span>
+            <span>
+              <i nz-icon nzType="search" style="font-size: 1.5rem; color: #35a5f9"></i>
+              <i nz-icon nzType="caret-down" nzTheme="outline" style="font-size: 1.5rem; color: #35a5f9"></i>
+            </span>
+          </div>
           <div class="filter-export">
             <button
               (click)="serviceLocation.exportExcel()"
@@ -52,14 +58,36 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
+            <nz-form-item class="rowspan2">
               <nz-form-label>Район</nz-form-label>
               <nz-form-control>
-                <app-simple-select
-                  [items]="fParents$ | async"
-                  [form]="form"
-                  [iFormControl]="'parent'"
-                ></app-simple-select>
+                <!--                <app-simple-select-->
+                <!--                  [items]="fParents$ | async"-->
+                <!--                  [form]="form"-->
+                <!--                  [iFormControl]="'parent'"-->
+                <!--                ></app-simple-select>-->
+                <div [formGroup]="form">
+                  <nz-select
+                    formControlName="parent"
+                    nzShowSearch
+                    nzAllowClear
+                    [nzMaxTagCount]="10"
+                    [nzMaxTagPlaceholder]="tagPlaceHolder"
+                    nzPlaceHolder=""
+                    [nzSuffixIcon]="suffixIconSelect"
+                    nzMode="multiple"
+                  >
+                    <nz-option
+                      *ngFor="let item of fParents$ | async"
+                      [nzLabel]="item.name"
+                      [nzValue]="item.id"
+                    >
+                    </nz-option>
+                  </nz-select>
+                  <ng-template #tagPlaceHolder let-selectedList>
+                    и еще {{ selectedList.length }}
+                  </ng-template>
+                </div>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -78,7 +106,6 @@
                 <input nz-input formControlName="contractor" type="text"/>
               </nz-form-control>
             </nz-form-item>
-            <div></div>
             <nz-form-item>
               <nz-form-label>Тип СЗО</nz-form-label>
               <nz-form-control>
@@ -122,10 +149,10 @@
           </div>
           <div class="filter-search">
             <nz-input-group [nzSuffix]="suffixIconSearch">
-              <input type="text" nz-input placeholder="input search text"/>
+              <input type="text" nz-input placeholder=""/>
             </nz-input-group>
             <ng-template #suffixIconSearch>
-              <i nz-icon nzType="search"></i>
+              <i nz-icon nzType="search" style="color: #35a5f9"></i>
             </ng-template>
           </div>
         </div>
@@ -261,7 +288,11 @@
         </div>
       </div>
     </div>-->
-
+    <div class="container-header">
+      <div>Населенный пункт</div>
+      <div>Организация</div>
+      <div>Адрес</div>
+    </div>
     <div class="container-list">
       <ng-container
         *ngFor="
@@ -282,9 +313,7 @@
             <div>
               <div>{{ location.fullName }}</div>
               <div>{{ location.municipalityArea }}</div>
-            </div>
-            <div>
-              Подробнее
+              <div>{{ location.peopleCount }}</div>
             </div>
           </div>
           <div class="container-wrap2">
@@ -293,12 +322,12 @@
               <div>{{ organization.address }}</div>
             </div>
             <hr>
-            <div class="">
-              <div class="">
+            <div class="container-wrap4">
+              <div>
                 <span class="">Тип организации:</span>
                 {{ organization.type ? organization.type.name : ' ' }}
               </div>
-              <div class="">
+              <div>
                 <span class="">Тип СЗО:</span>
                 {{ organization.smoType ? organization.smoType.name : ' ' }}
               </div>
@@ -313,24 +342,34 @@
                     <span>{{ point.address ? point.address : '----' }}</span>
                   </div>
                   <div class="container-info">
-                    <div class="icon"></div>
+                    <div class="container-info-icon">
+                      <img src="/assets/2.png"/>
+                    </div>
                     <span>{{ point.contractor ? point.contractor : '----' }}</span>
                   </div>
                   <div class="container-info">
-                    <div class="icon"></div>
+                    <div class="container-info-icon">
+                      <img src="/assets/4.png"/>
+                    </div>
                     <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
                   </div>
                   <div class="container-info">
-                    <div class="icon"></div>
+                    <div class="container-info-icon">
+                      <img src="/assets/5.png"/>
+                    </div>
                     <span>{{ point.definedSpeed ? point.definedSpeed : '----' }}</span>
                   </div>
                   <div class="container-info col2">
-                    <div class="icon"></div>
+                    <div class="container-info-icon">
+                      <img src="/assets/3.png"/>
+                    </div>
                     <span>{{ contract.registrationNumber }}</span>
                   </div>
                   <div class="container-info col3">
-                    <div class="icon"></div>
-                    <span>{{ contract.amount }}</span>
+                    <div class="container-info-icon">
+                      <img src="/assets/6.png"/>
+                    </div>
+                    <span>{{ contract.amount }} руб</span>
                   </div>
                   <!--                {{ point.ipConfig ? point.ipConfig : '&#45;&#45;&#45;&#45;' }}-->
                 </div>
