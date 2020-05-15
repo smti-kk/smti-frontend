@@ -180,38 +180,39 @@
                 }
         "
       >
-        <div
-          *ngFor="let organization of location.organizations; let i = index"
-          class="container-wrap"
-        >
-          <div class="container-wrap1">
-            <div>
-              <div>{{ location.fullName }}</div>
-              <div>{{ location.municipalityArea }}</div>
-              <div>{{ location.peopleCount }}</div>
-            </div>
-            <div>
-              <a [routerLink]="[organization.id]" class="link">Подробнее</a>
-            </div>
-          </div>
-          <div class="container-wrap2">
-            <div class="">
-              <div>{{ organization.fullName }}</div>
-              <div>{{ organization.address }}</div>
-            </div>
-            <hr>
-            <div class="container-wrap4">
+        <ng-container *ngIf="location.organizations.length !== 0; else emptyOrganization">
+          <div
+            *ngFor="let organization of location.organizations;"
+            class="container-wrap"
+          >
+            <div class="container-wrap1">
               <div>
-                <span class="">Тип организации:</span>
-                {{ organization.type ? organization.type.name : ' ' }}
+                <div>{{ location.fullName }}</div>
+                <div>{{ location.municipalityArea }}</div>
+                <div>{{ location.peopleCount }}</div>
               </div>
               <div>
-                <span class="">Тип СЗО:</span>
-                {{ organization.smoType ? organization.smoType.name : ' ' }}
+                <a [routerLink]="[organization.id]" class="link">Подробнее</a>
               </div>
             </div>
-          </div>
-          <div class="container-wrap3">
+            <div class="container-wrap2">
+              <div class="">
+                <div>{{ organization.fullName }}</div>
+                <div>{{ organization.address }}</div>
+              </div>
+              <hr>
+              <div class="container-wrap4">
+                <div>
+                  <span class="">Тип организации:</span>
+                  {{ organization.type ? organization.type.name : ' ' }}
+                </div>
+                <div>
+                  <span class="">Тип СЗО:</span>
+                  {{ organization.smoType ? organization.smoType.name : ' ' }}
+                </div>
+              </div>
+            </div>
+            <div class="container-wrap3">
               <ng-container *ngFor="let point of organization.reaccesspoints">
                 <div class="container-point">
                   <div class="container-info">
@@ -245,8 +246,22 @@
                   </div>
                 </div>
               </ng-container>
+            </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-template #emptyOrganization>
+          <div class="container-wrap">
+            <div class="container-wrap1">
+              <div>
+                <div>{{ location.fullName }}</div>
+                <div>{{ location.municipalityArea }}</div>
+                <div>{{ location.peopleCount }}</div>
+              </div>
+            </div>
+            <div class="container-wrap2"></div>
+            <div class="container-wrap3"></div>
+          </div>
+        </ng-template>
       </ng-container>
     </div>
 
