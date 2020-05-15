@@ -645,6 +645,9 @@ select:-moz-focusring {
   overflow: visible;
 }
 
+.rowspan2 {
+  grid-row: 2/span 2;
+}
 
 .c-filter .c-accordion {
   border: 1px solid #bcbcbc;

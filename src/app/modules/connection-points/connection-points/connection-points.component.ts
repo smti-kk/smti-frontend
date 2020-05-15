@@ -38,6 +38,9 @@ export class ConnectionPointsComponent implements OnInit {
   form: FormGroup;
 
   OrderingDirection = OrderingDirection;
+
+  isVisibleFilter = false;
+
   setLocation: any;
 
   constructor(
@@ -75,9 +78,10 @@ export class ConnectionPointsComponent implements OnInit {
       smo: null,
       organization: null,
       parent: null,
+      contract: null,
+      contractor: null,
       connectionType: null,
       contractType: null,
-      contractor: null,
     });
 
     this.form.valueChanges.subscribe(v => {
@@ -93,5 +97,9 @@ export class ConnectionPointsComponent implements OnInit {
 
   loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Location>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
+  }
+
+  showFilterBody() {
+    this.isVisibleFilter = !this.isVisibleFilter;
   }
 }

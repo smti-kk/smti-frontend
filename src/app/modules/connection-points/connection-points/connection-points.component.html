@@ -2,7 +2,270 @@
 <main class="main">
   <div class="wrapper">
     <h1>Сводные данные по организациям</h1>
-    <div class="c-filter">
+
+    <form [formGroup]="form">
+      <div class="filter">
+        <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
+          <div class="filter-title" (click)="showFilterBody()">
+            <span><i class="fas fa-filter"></i>Фильтр</span>
+            <span>
+              <i nz-icon nzType="search" style="font-size: 1.5rem; color: #35a5f9"></i>
+              <i nz-icon nzType="caret-down" nzTheme="outline" style="font-size: 1.5rem; color: #35a5f9"></i>
+            </span>
+          </div>
+          <div class="filter-export">
+            <button
+              (click)="serviceLocation.exportExcel()"
+              type="button"
+              class="filter-export-button"
+            >Выгрузить в Excel
+            </button>
+          </div>
+        </div>
+        <div class="filter-body" [class.filter-body-active]="isVisibleFilter">
+          <div class="filter-container">
+            <nz-form-item>
+              <nz-form-label>Населенный пункт</nz-form-label>
+              <nz-form-control>
+                <nz-select
+                  nzShowSearch
+                  nzAllowClear
+                  nzPlaceHolder=""
+                  formControlName="location"
+                  [nzSuffixIcon]="suffixIconSelect"
+                >
+                  <nz-option
+                    *ngFor="let item of fLocations$ | async"
+                    [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                    [nzValue]="item"
+                  >
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Наим. организации</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="organization" type="text"/>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Тип подключения</nz-form-label>
+              <nz-form-control>
+                <app-simple-select
+                  [items]="fInternetAccessTypes$ | async"
+                  [form]="form"
+                  [iFormControl]="'connectionType'"
+                ></app-simple-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="rowspan2">
+              <nz-form-label>Район</nz-form-label>
+              <nz-form-control>
+                <!--                <app-simple-select-->
+                <!--                  [items]="fParents$ | async"-->
+                <!--                  [form]="form"-->
+                <!--                  [iFormControl]="'parent'"-->
+                <!--                ></app-simple-select>-->
+                <div [formGroup]="form">
+                  <nz-select
+                    formControlName="parent"
+                    nzShowSearch
+                    nzAllowClear
+                    [nzMaxTagCount]="10"
+                    [nzMaxTagPlaceholder]="tagPlaceHolder"
+                    nzPlaceHolder=""
+                    [nzSuffixIcon]="suffixIconSelect"
+                    nzMode="multiple"
+                  >
+                    <nz-option
+                      *ngFor="let item of fParents$ | async"
+                      [nzLabel]="item.name"
+                      [nzValue]="item.id"
+                    >
+                    </nz-option>
+                  </nz-select>
+                  <ng-template #tagPlaceHolder let-selectedList>
+                    и еще {{ selectedList.length }}
+                  </ng-template>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Тип организации</nz-form-label>
+              <nz-form-control>
+                <app-simple-select
+                  [items]="fOrganizationTypes$ | async"
+                  [form]="form"
+                  [iFormControl]="'connectionType'"
+                ></app-simple-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Оператор связи</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="contractor" type="text"/>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Тип СЗО</nz-form-label>
+              <nz-form-control>
+                <app-simple-select
+                  [items]="fOrganizationSMOTypes$ | async"
+                  [form]="form"
+                  [iFormControl]="'connectionType'"
+                ></app-simple-select>
+              </nz-form-control>
+            </nz-form-item>
+            <div class="filter-container-group">
+              <nz-form-item>
+                <nz-form-label>№ контракта</nz-form-label>
+                <nz-form-control>
+                  <input nz-input formControlName="contract" type="text"/>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>Период</nz-form-label>
+                <nz-form-control>
+                  <nz-range-picker></nz-range-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+        <div class="filter-footer" [class.filter-footer-active]="isVisibleFilter">
+          <div class="filter-sort">
+            <app-filter-btn
+              formControlName="order"
+              [orderings]="[
+                      {name: 'Нас.пункт', value: 'name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Район', value: 'parent__name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'people_count', orderingDirection: OrderingDirection.UNDEFINED }
+                  ]"
+            >
+            </app-filter-btn>
+          </div>
+          <div class="filter-result">
+            Результатов поиска: <span>{{ (locations$ | async)?.count }}</span>
+          </div>
+          <div class="filter-search">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input type="text" nz-input placeholder=""/>
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search" style="color: #35a5f9"></i>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <ng-template #suffixIconSelect>
+        <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #35a5f9"></i>
+      </ng-template>
+    </form>
+
+    <div class="container-header">
+      <div>Населенный пункт</div>
+      <div>Организация</div>
+      <div>Адрес</div>
+    </div>
+    <div class="container-list">
+      <ng-container
+        *ngFor="
+          let location of (locations$ | async)?.results
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: pageNumber,
+                  totalItems: (locations$ | async)?.count
+                }
+        "
+      >
+        <ng-container *ngIf="location.organizations.length !== 0; else emptyOrganization">
+          <div
+            *ngFor="let organization of location.organizations;"
+            class="container-wrap"
+          >
+            <div class="container-wrap1">
+              <div>
+                <div>{{ location.fullName }}</div>
+                <div>{{ location.municipalityArea }}</div>
+                <div>{{ location.peopleCount }} чел.</div>
+              </div>
+              <div>
+                <a [routerLink]="[organization.id]" class="link">Подробнее</a>
+              </div>
+            </div>
+            <div class="container-wrap2">
+              <div class="">
+                <div>{{ organization.fullName }}</div>
+                <div>{{ organization.address }}</div>
+              </div>
+              <hr>
+              <div class="container-wrap4">
+                <div>
+                  <span class="">Тип организации:</span>
+                  {{ organization.type ? organization.type.name : ' ' }}
+                </div>
+                <div>
+                  <span class="">Тип СЗО:</span>
+                  {{ organization.smoType ? organization.smoType.name : ' ' }}
+                </div>
+              </div>
+            </div>
+            <div class="container-wrap3">
+              <ng-container *ngFor="let point of organization.reaccesspoints">
+                <div class="container-point">
+                  <div class="container-info">
+                    <div class="container-info-icon">
+                      <ng-container *ngIf="point.governmentProgram?.shortName === 'ЕСПД'; else smoIcon">
+                        <img src="/assets/8.png"/>
+                      </ng-container>
+                      <ng-template #smoIcon>
+                        <img src="/assets/7.png"/>
+                      </ng-template>
+                    </div>
+                    <span>{{ point.address ? point.address : '----' }}</span>
+                  </div>
+                  <div class="container-info">
+                    <div class="container-info-icon">
+                      <img src="/assets/2.png"/>
+                    </div>
+                    <span>{{ point.contractor ? point.contractor : '----' }}</span>
+                  </div>
+                  <div class="container-info">
+                    <div class="container-info-icon">
+                      <img src="/assets/4.png"/>
+                    </div>
+                    <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
+                  </div>
+                  <div class="container-info">
+                    <div class="container-info-icon">
+                      <img src="/assets/5.png"/>
+                    </div>
+                    <span>{{ point.definedSpeed ? point.definedSpeed : '----' }}</span>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #emptyOrganization>
+          <div class="container-wrap">
+            <div class="container-wrap1">
+              <div>
+                <div>{{ location.fullName }}</div>
+                <div>{{ location.municipalityArea }}</div>
+                <div>{{ location.peopleCount }} чел.</div>
+              </div>
+            </div>
+            <div class="container-wrap2"></div>
+            <div class="container-wrap3"></div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+
+    <!--<div class="c-filter">
       <accordion class="c-accordion">
         <group>
           <accordion-header class="c-accordion-title">
@@ -47,12 +310,12 @@
                         >
                         </nz-option>
                       </nz-select>
-                      <!--<select formControlName="location">
+                      &lt;!&ndash;<select formControlName="location">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
                           item.fullName
                           }} ({{item.parent.fullName}})</option>
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -63,12 +326,12 @@
                         [form]="form"
                         [iFormControl]="'type'"
                       ></app-simple-select>
-                      <!--<select formControlName="type">
+                      &lt;!&ndash;<select formControlName="type">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fOrganizationTypes$ | async">{{
                           item.name
                           }}</option>
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -79,14 +342,14 @@
                         [form]="form"
                         [iFormControl]="'smo'"
                       ></app-simple-select>
-                      <!--<select formControlName="smo">
+                      &lt;!&ndash;<select formControlName="smo">
                         <option [ngValue]="null">Не выбран</option>
                         <option
                           [ngValue]="item"
                           *ngFor="let item of fOrganizationSMOTypes$ | async"
                         >{{ item.name }}</option
                         >
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -105,12 +368,12 @@
                         [form]="form"
                         [iFormControl]="'parent'"
                       ></app-simple-select>
-                      <!--<select formControlName="parent">
+                      &lt;!&ndash;<select formControlName="parent">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                           item.fullName
                           }}</option>
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -121,14 +384,14 @@
                         [form]="form"
                         [iFormControl]="'connectionType'"
                       ></app-simple-select>
-                      <!--<select formControlName="connectionType">
+                      &lt;!&ndash;<select formControlName="connectionType">
                         <option [ngValue]="null">Не выбран</option>
                         <option
                           [ngValue]="item"
                           *ngFor="let item of fInternetAccessTypes$ | async"
                         >{{ item.name }}</option
                         >
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -139,14 +402,14 @@
                         [form]="form"
                         [iFormControl]="'contractType'"
                       ></app-simple-select>
-                      <!--<select formControlName="contractType">
+                      &lt;!&ndash;<select formControlName="contractType">
                         <option [ngValue]="null">Не выбран</option>
                         <option
                           [ngValue]="item"
                           *ngFor="let item of fGovernmentPrograms$ | async"
                         >{{ item.shortName }}</option
                         >
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -176,147 +439,6 @@
         </div>
       </div>
     </div>
-
-    <!--<div class="header-filter">
-      <form *ngIf="form" [formGroup]="form" nz-form [nzLayout]="'vertical'">
-        <app-filter-btn
-          formControlName="order"
-          [orderings]="[
-                      {
-                        name: 'Нас.пункт',
-                        value: 'name',
-                        orderingDirection: OrderingDirection.UNDEFINED
-                      },
-                      {
-                        name: 'Район',
-                        value: 'parent__name',
-                        orderingDirection: OrderingDirection.UNDEFINED
-                      }
-                    ]"
-        ></app-filter-btn>
-        <div class="filter">
-          <div class="filter-wrap">
-            <input type="text" nz-input>
-            <nz-form-item>
-              <nz-form-label>Населенный пункт</nz-form-label>
-              <nz-form-control>
-
-                &lt;!&ndash;<app-simple-select
-                  [items]="fLocations$ | async"
-                  [form]="form"
-                  [iFormControl]="'location'"
-                ></app-simple-select>&ndash;&gt;
-
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder="Select"
-                  [(ngModel)]="setLocation"
-                  formControlName="location"
-                >
-                  <nz-option
-                    *ngFor="let item of fLocations$ | async"
-                    [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
-                    [nzValue]="item"
-                  >
-                  </nz-option>
-                </nz-select>
-
-                &lt;!&ndash;<select formControlName="location">
-                  <option [ngValue]="null">Не выбран</option>
-                  <option [ngValue]="item" *ngFor="let item of fLocations$ | async">{{
-                    item.fullName
-                    }} ({{item.parent.fullName}})
-                  </option>
-                </select>&ndash;&gt;
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Тип учреждения</nz-form-label>
-              <nz-form-control>
-
-                <app-simple-select
-                  [items]="fOrganizationTypes$ | async"
-                  [form]="form"
-                  [iFormControl]="'type'"
-                ></app-simple-select>
-
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Тип СЗО</nz-form-label>
-              <nz-form-control>
-
-                <app-simple-select
-                  [items]="fOrganizationSMOTypes$ | async"
-                  [form]="form"
-                  [iFormControl]="'smo'"
-                ></app-simple-select>
-
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Наим. организации</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="organization" type="text"/>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Район</nz-form-label>
-              <nz-form-control>
-
-                <app-simple-select
-                  [items]="fParents$ | async"
-                  [form]="form"
-                  [iFormControl]="'parent'"
-                ></app-simple-select>
-
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Подключение</nz-form-label>
-              <nz-form-control>
-
-                <app-simple-select
-                  [items]="fInternetAccessTypes$ | async"
-                  [form]="form"
-                  [iFormControl]="'connectionType'"
-                ></app-simple-select>
-
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Контракт</nz-form-label>
-              <nz-form-control>
-
-                <app-simple-select
-                  [items]="fGovernmentPrograms$ | async"
-                  [form]="form"
-                  [iFormControl]="'contractType'"
-                ></app-simple-select>
-
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Оператор связи</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="contractor" type="text"/>
-              </nz-form-control>
-            </nz-form-item>
-            <input type="button" (click)="form.reset()" class="btn filter-btn-reset" value="Сбросить фильтр"/>
-          </div>
-        </div>
-      </form>
-      <div class="export">
-        <input
-          (click)="serviceLocation.exportExcel()"
-          type="button"
-          class="btn"
-          value="Выгрузить в Excel"
-        />
-      </div>
-    </div>-->
-
     <div class="layout-list">
       <div class="layout-list-group"
            *ngFor="
@@ -372,16 +494,16 @@
                         alt="ЕСПД"
                       />
                     </ng-template>
-                    <span>{{ point.address ? point.address : '----' }}</span>
+                    <span>{{ point.address ? point.address : '&#45;&#45;&#45;&#45;' }}</span>
                   </div>
                   <div class="layout-point-info">
                     <div class="flex-row">
                       <i class="fas fa-bullhorn"></i>
-                      <span>{{ point.contractor ? point.contractor : '----' }}</span>
+                      <span>{{ point.contractor ? point.contractor : '&#45;&#45;&#45;&#45;' }}</span>
                     </div>
                     <div class="flex-row">
                       <i class="fas fa-plug"></i>
-                      <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
+                      <span>{{ point.connectionType ? point.connectionType.name : '&#45;&#45;&#45;&#45;' }}</span>
                     </div>
                     <div class="flex-row">
                       <i class="fas fa-tachometer-alt"></i>
@@ -406,112 +528,6 @@
           </div>
         </ng-template>
 
-      </div>
-    </div>
-
-    <!--<div class="c-contract">
-      <div
-        class="c-contract-item"
-        *ngFor="
-          let location of (locations$ | async)?.results
-            | paginate
-              : {
-                  itemsPerPage: itemsPerPage,
-                  currentPage: pageNumber,
-                  totalItems: (locations$ | async)?.count
-                }
-        "
-      >
-        <accordion>
-          <group>
-            <accordion-header>
-              <div class="c-contract-header" style="width: 100%">
-                <div class="c-location-name">
-                  <div class="c-location-name-item1">{{ location.fullName }}</div>
-                  <div class="c-location-name-item2">{{ location.municipalityArea }}</div>
-                </div>
-                <div class="location-count">
-                  Количество: <span>{{ location.organizations.length }}</span>
-                </div>
-              </div>
-            </accordion-header>
-            <div class="add-organization">
-              <button
-                type="button"
-                class="btn"
-                [routerLink]="['new']"
-                [queryParams]="{locationId: location.id}"
-              >
-                Добавить организацию
-              </button>
-            </div>
-            <accordion
-              class="c-accordion"
-              *ngFor="let organization of location.organizations; let i = index"
-            >
-              <group>
-                <accordion-header class="c-accordion-title">
-                  <div class="c-accordion-name m-w-100-p">
-                    <div style="display: flex; justify-content: space-between">
-                      <div>{{ organization.fullName }}</div>
-                    </div>
-                    <div class="c-accordion-info d-flex space-between">
-                      <div>
-                        <div class="c-accordion-info-item">
-                          <span class="u-gray">учреждение:</span>
-                          {{ organization.type ? organization.type.name : ' ' }}
-                        </div>
-                        <div class="c-accordion-info-item">
-                          <span class="u-gray">сзо:</span>
-                          {{ organization.smoType ? organization.smoType.name : ' ' }}
-                        </div>
-                      </div>
-                      <a [routerLink]="[organization.id]" class="btn">Подробнее</a>
-                    </div>
-                  </div>
-                </accordion-header>
-                <nz-timeline>
-                  <nz-timeline-item [nzDot]="point.governmentProgram?.shortName === 'ЕСПД' ? espdIcon : smoIcon"
-                                    *ngFor="let point of organization.reaccesspoints">
-                    <div class="l-contract">
-                      <div class="c-contract-info u-span3">
-                        <i class="far fa-map-marker-alt"></i
-                        ><span>{{ point.address ? point.address : '----' }}</span>
-                      </div>
-                      <div class="с-contract-info-container">
-                        <div class="c-contract-info">
-                          <i class="fas fa-bullhorn"></i
-                          ><span>{{ point.contractor ? point.contractor : '----' }}</span>
-                        </div>
-                        <div class="c-contract-info">
-                          <i class="fas fa-plug"></i
-                          ><span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
-                        </div>
-                        <div class="c-contract-info">
-                          <i class="fas fa-tachometer-alt"></i><span>{{ point.definedSpeed }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </nz-timeline-item>
-                </nz-timeline>
-                <ng-template #espdIcon>
-                  <img
-                    class="c-contract-info__img"
-                    src="../../../../assets/img/espd.svg"
-                    alt="ЕСПД"
-                  />
-                </ng-template>
-                <ng-template #smoIcon>
-                  <img
-                    class="c-contract-info__img"
-                    src="../../../../assets/img/smo.svg"
-                    alt="ЕСПД"
-                  />
-                </ng-template>
-              </group>
-            </accordion>
-          </group>
-        </accordion>
       </div>
     </div>-->
 
