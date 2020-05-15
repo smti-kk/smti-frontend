@@ -305,7 +305,8 @@
                 }
         "
       >
-        <div
+        <ng-container *ngIf="location.organizations.length !== 0; else emptyOrganization">
+          <div
           *ngFor="let organization of location.organizations; let i = index"
           class="container-wrap"
         >
@@ -379,6 +380,20 @@
             </ng-container>
           </div>
         </div>
+        </ng-container>
+        <ng-template #emptyOrganization>
+          <div class="container-wrap">
+            <div class="container-wrap1">
+              <div>
+                <div>{{ location.fullName }}</div>
+                <div>{{ location.municipalityArea }}</div>
+                <div>{{ location.peopleCount }}</div>
+              </div>
+            </div>
+            <div class="container-wrap2"></div>
+            <div class="container-wrap3"></div>
+          </div>
+        </ng-template>
       </ng-container>
     </div>
 
