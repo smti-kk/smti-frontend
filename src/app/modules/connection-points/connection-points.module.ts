@@ -5,12 +5,12 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {
-    NzAutocompleteModule,
-    NzDrawerModule,
-    NzFormModule,
-    NzIconModule,
-    NzInputModule, NzSelectModule,
-    NzTimelineModule
+  NzAutocompleteModule, NzDatePickerModule,
+  NzDrawerModule,
+  NzFormModule,
+  NzIconModule,
+  NzInputModule, NzSelectModule,
+  NzTimelineModule,
 } from 'ng-zorro-antd';
 
 import {SharedModule} from '@shared/shared.module';
@@ -35,21 +35,22 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ConnectionPointsComponent, OrganizationDetailComponent],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        SharedModule,
-        NgxSpinnerModule,
-        ReactiveFormsModule,
-        NgxPaginationModule,
-        NzTimelineModule,
-        NzIconModule,
-        NzFormModule,
-        NzDrawerModule,
-        NzInputModule,
-        NzAutocompleteModule,
-        FormsModule,
-        NzSelectModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    NzTimelineModule,
+    NzIconModule,
+    NzFormModule,
+    NzDrawerModule,
+    NzInputModule,
+    NzAutocompleteModule,
+    FormsModule,
+    NzSelectModule,
+    NzDatePickerModule,
+  ],
 })
 export class ConnectionPointsModule {}
