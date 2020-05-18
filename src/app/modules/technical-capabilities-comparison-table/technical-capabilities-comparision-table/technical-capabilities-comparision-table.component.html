@@ -10,7 +10,7 @@
         </select>
       </div>
     </div>
-    <div class="c-filter" *ngIf="featuresTypeSelector.value">
+    <!--<div class="c-filter" *ngIf="featuresTypeSelector.value">
       <accordion class="c-accordion">
         <group>
           <accordion-header class="c-accordion-title">
@@ -45,12 +45,12 @@
                 <div class="l-container-item">
                   <div class="l-container-row is-disabled">
                     <div class="input">
-                      <!--                      <app-grouped-autocomplete-component-->
-                      <!--                        placeholder="Населенный пункт"-->
-                      <!--                        [optionGroups]="locations"-->
-                      <!--                        *ngIf="fLocations$ | async as locations"-->
-                      <!--                      >-->
-                      <!--                      </app-grouped-autocomplete-component>-->
+                      &lt;!&ndash;                      <app-grouped-autocomplete-component&ndash;&gt;
+                      &lt;!&ndash;                        placeholder="Населенный пункт"&ndash;&gt;
+                      &lt;!&ndash;                        [optionGroups]="locations"&ndash;&gt;
+                      &lt;!&ndash;                        *ngIf="fLocations$ | async as locations"&ndash;&gt;
+                      &lt;!&ndash;                      >&ndash;&gt;
+                      &lt;!&ndash;                      </app-grouped-autocomplete-component>&ndash;&gt;
                       <div class="o-item-title">Населенный пункт:</div>
                       <nz-select
                         nzShowSearch
@@ -65,12 +65,12 @@
                         >
                         </nz-option>
                       </nz-select>
-                      <!--<select formControlName="location">
+                      &lt;!&ndash;<select formControlName="location">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fLocations$ | async">
                           {{ item.fullName }} ({{ item.parent.fullName }})</option
                         >
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div class="l-container-row is-disabled">
@@ -81,12 +81,12 @@
                         [form]="filterForm"
                         [iFormControl]="'parent'"
                       ></app-simple-select>
-                      <!--<select formControlName="parent">
+                      &lt;!&ndash;<select formControlName="parent">
                         <option [ngValue]="null">Не выбран</option>
                         <option [ngValue]="item" *ngFor="let item of fParents$ | async">{{
                           item.fullName
                         }}</option>
-                      </select>-->
+                      </select>&ndash;&gt;
                     </div>
                   </div>
                   <div
@@ -97,8 +97,8 @@
                       <div class="o-item-title">
                         <i class="fas fa-mobile-alt"></i> Сотовая связь:
                       </div>
-                      <div class="l-vendors-row">
-                        <div class="l-vendors-row u-border-right">
+                      <div class="vendors-container">
+                        <div class="vendors-container u-border-right">
                           <div
                             formGroupName="mobile"
                             class="c-vendor"
@@ -164,7 +164,7 @@
                       <div class="o-item-title">
                         <i class="fab fa-internet-explorer"></i> Интернет:
                       </div>
-                      <div class="l-vendors-column u-border-right">
+                      <div class="vendors-container u-border-right">
                         <div
                           formGroupName="internet"
                           class="c-vendor"
@@ -230,12 +230,6 @@
                         [iFormControl]="'govProgram'"
                       ></app-simple-select>
                     </div>
-                    <!--<select formControlName="govProgram">
-                      <option [ngValue]="null">Не выбран</option>
-                      <option [ngValue]="item" *ngFor="let item of fGovernmentPrograms$ | async">{{
-                        item.shortName
-                      }}</option>
-                    </select>-->
                   </div>
                 </div>
               </div>
@@ -252,7 +246,181 @@
           <input (click)="exportXLSX()" type="button" class="btn" value="Выгрузить в Excel"/>
         </div>
       </div>
-    </div>
+    </div>-->
+
+    <form [formGroup]="filterForm">
+      <div class="filter">
+        <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
+          <div class="filter-title" (click)="showFilterBody()">
+            <span><i class="fas fa-filter"></i>Фильтр</span>
+            <span>
+              <i nz-icon nzType="search" style="font-size: 1.5rem; color: #35a5f9"></i>
+              <i nz-icon nzType="caret-down" nzTheme="outline" style="font-size: 1.5rem; color: #35a5f9"></i>
+            </span>
+          </div>
+          <div class="filter-export">
+            <button
+              (click)="serviceLocation.exportExcel()"
+              type="button"
+              class="filter-export-button"
+            >Выгрузить в Excel
+            </button>
+          </div>
+        </div>
+        <div class="filter-body" [class.filter-body-active]="isVisibleFilter">
+          <div class="filter-container">
+            <nz-form-item>
+              <nz-form-label>Населенный пункт</nz-form-label>
+              <nz-form-control>
+                <nz-select
+                  nzShowSearch
+                  nzAllowClear
+                  nzPlaceHolder=""
+                  formControlName="location"
+                  [nzSuffixIcon]="suffixIconSelect"
+                >
+                  <nz-option
+                    *ngFor="let item of fLocations$ | async"
+                    [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                    [nzValue]="item"
+                  >
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <ng-container *ngIf="featuresTypeSelector.value === featureTypes.MOBILE">
+              <nz-form-item>
+                <nz-form-label>Сотовая связь</nz-form-label>
+                <nz-form-control>
+                  <div class="vendors-container">
+                    <div
+                      formGroupName="mobile"
+                      class="c-vendor"
+                      *ngFor="let mobileProvider of mobileProviders; let i = index"
+                    >
+                      <label [formGroupName]="i.toString()">
+                        <input
+                          [formControlName]="mobileProvider.id.toString()"
+                          type="checkbox"
+                        />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            [src]="mobileProvider.icon"
+                            [alt]="mobileProvider.name"
+                            [title]="mobileProvider.name"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>Тип подключения</nz-form-label>
+                <nz-form-control>
+                  <label nz-checkbox formControlName="mobileType">2G</label>
+                  <label nz-checkbox formControlName="mobileType">3G</label>
+                  <label nz-checkbox formControlName="mobileType">4G</label>
+                  <label nz-checkbox formControlName="mobileType">5G</label>
+                </nz-form-control>
+              </nz-form-item>
+            </ng-container>
+
+            <ng-container *ngIf="featuresTypeSelector.value === featureTypes.INTERNET">
+              <nz-form-item>
+                <nz-form-label>Интернет</nz-form-label>
+                <nz-form-control>
+                  <div class="vendors-container">
+                    <div
+                      formGroupName="internet"
+                      class="c-vendor"
+                      *ngFor="let internetProvider of internetProviders; let i = index"
+                    >
+                      <label [formGroupName]="i.toString()">
+                        <input
+                          type="checkbox"
+                          [formControlName]="internetProvider.id.toString()"
+                        />
+                        <div class="c-vendor-logo c-vendor-checked">
+                          <img
+                            [src]="internetProvider.icon"
+                            [alt]="internetProvider.name"
+                            [title]="internetProvider.name"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>Тип подключения</nz-form-label>
+                <nz-form-control>
+                  <label nz-checkbox formControlName="internetType">ВОЛС</label>
+                  <label nz-checkbox formControlName="internetType">Медь</label>
+                  <label nz-checkbox formControlName="internetType">Спутник</label>
+                  <label nz-checkbox formControlName="internetType">Радио</label>
+                </nz-form-control>
+              </nz-form-item>
+            </ng-container>
+
+            <nz-form-item class="rowspan2">
+              <nz-form-label>Район</nz-form-label>
+              <nz-form-control>
+                <nz-select
+                  formControlName="parent"
+                  nzShowSearch
+                  nzAllowClear
+                  [nzMaxTagCount]="10"
+                  [nzMaxTagPlaceholder]="tagPlaceHolder"
+                  nzPlaceHolder=""
+                  [nzSuffixIcon]="suffixIconSelect"
+                  nzMode="multiple"
+                >
+                  <nz-option
+                    *ngFor="let item of fParents$ | async"
+                    [nzLabel]="item.name"
+                    [nzValue]="item.id"
+                  >
+                  </nz-option>
+                </nz-select>
+                <ng-template #tagPlaceHolder let-selectedList>
+                  и еще {{ selectedList.length }}
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div class="filter-footer" [class.filter-footer-active]="isVisibleFilter">
+          <div class="filter-sort">
+            <app-filter-btn
+              formControlName="order"
+              [orderings]="[
+                      {name: 'Нас.пункт', value: 'name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Район', value: 'parent__name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'people_count', orderingDirection: OrderingDirection.UNDEFINED }
+                  ]"
+            >
+            </app-filter-btn>
+          </div>
+          <div class="filter-result">
+            Результатов поиска: <span>{{ (this.features$ | async)?.count }}</span>
+          </div>
+          <div class="filter-search">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+              <input type="text" nz-input placeholder=""/>
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i nz-icon nzType="search" style="color: #35a5f9"></i>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <ng-template #suffixIconSelect>
+        <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #35a5f9"></i>
+      </ng-template>
+    </form>
 
     <div class="container-header" *ngIf="featuresTypeSelector.value">
       <div>Населенный пункт</div>
@@ -289,7 +457,7 @@
           </div>
         </div>
         <div class="container-wrap-item">
-          <div class="l-vendors-column">
+          <div class="vendors-container">
             <div class="c-vendor" *ngFor="let activeFeature of feature.archiveInternetFeatures">
               <div class="c-vendor-logo">
                 <img
@@ -308,7 +476,7 @@
           </div>
         </div>
         <div class="container-wrap-item">
-          <div class="l-vendors-column">
+          <div class="vendors-container">
             <div class="c-vendor" *ngFor="let activeFeature of feature.activeInternetFeatures">
               <div class="c-vendor-logo">
                 <img
@@ -399,7 +567,7 @@
           </div>
         </div>
         <div class="container-wrap-item">
-          <div class="l-vendors-column">
+          <div class="vendors-container">
             <div class="c-vendor" *ngFor="let archiveFeature of feature.archiveCellularFeatures">
               <div class="c-vendor-logo">
                 <img
@@ -414,7 +582,7 @@
           </div>
         </div>
         <div class="container-wrap-item">
-          <div class="l-vendors-column">
+          <div class="vendors-container">
             <div class="c-vendor" *ngFor="let activeFeature of feature.activeCellularFeatures">
               <div class="c-vendor-logo">
                 <img

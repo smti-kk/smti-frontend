@@ -10,7 +10,14 @@ import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';
 
 import {TechnicalCapabilitiesComparisionTableComponent} from './technical-capabilities-comparision-table';
-import {NzSelectModule} from 'ng-zorro-antd';
+import {
+  NzCheckboxModule,
+  NzDatePickerModule,
+  NzFormModule,
+  NzIconModule,
+  NzInputModule, NzRadioModule,
+  NzSelectModule,
+} from 'ng-zorro-antd';
 
 const routes: Routes = [
   {
@@ -21,16 +28,22 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [TechnicalCapabilitiesComparisionTableComponent],
-    imports: [
-        CommonModule,
-        CoreModule,
-        RouterModule.forChild(routes),
-        NgxSpinnerModule,
-        ReactiveFormsModule,
-        NgxPaginationModule,
-        SharedModule,
-        NzSelectModule,
-    ],
+  imports: [
+    CommonModule,
+    CoreModule,
+    RouterModule.forChild(routes),
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    SharedModule,
+    NzSelectModule,
+    NzFormModule,
+    NzInputModule,
+    NzDatePickerModule,
+    NzCheckboxModule,
+    NzIconModule,
+    NzRadioModule,
+  ],
   providers: [LocationFeaturesService],
 })
 export class TechnicalCapabilitiesComparisonTableModule {}

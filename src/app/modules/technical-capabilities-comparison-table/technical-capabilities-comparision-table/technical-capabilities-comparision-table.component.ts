@@ -61,6 +61,8 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
 
   TrunkChannel = TrunkChannel;
 
+  isVisibleFilter = false;
+
   constructor(
     private serviceLocationFeatures: LocationFeaturesService,
     private serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
@@ -180,5 +182,9 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
         this.filterForm.addControl('mobile', mobileArrayControl);
       })
     );
+  }
+
+  showFilterBody() {
+    this.isVisibleFilter = !this.isVisibleFilter;
   }
 }

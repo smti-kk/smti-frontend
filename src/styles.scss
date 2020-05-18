@@ -811,34 +811,23 @@ select:-moz-focusring {
 
 /* --- Иконки операторов --- begin --- */
 
-.l-vendors-row {
-  display: flex;
+.vendors-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 18px);
+  grid-template-rows: 2.5rem;
+  grid-gap: 1rem;
   align-items: center;
-}
-
-.l-vendors-column {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.l-vendors-column .vendor,
-.l-vendors-column .checkbox-vendor-logo {
-  flex-basis: 15%;
-  margin-bottom: 5px;
 }
 
 .c-vendor {
   position: relative;
-  margin-right: 0.6rem;
 }
 
 .c-vendor-logo {
   display: flex;
   align-items: center;
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
 }
 
 .c-vendor-checked {
