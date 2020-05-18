@@ -97,7 +97,7 @@
                 <app-simple-select
                   [items]="fOrganizationTypes$ | async"
                   [form]="form"
-                  [iFormControl]="'connectionType'"
+                  [iFormControl]="'type'"
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
@@ -113,7 +113,7 @@
                 <app-simple-select
                   [items]="fOrganizationSMOTypes$ | async"
                   [form]="form"
-                  [iFormControl]="'connectionType'"
+                  [iFormControl]="'smo'"
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>

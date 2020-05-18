@@ -26,6 +26,8 @@ const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/v1/rep
 interface LocationWithContractsFilters {
   order: OrderingFilter;
   location: Location;
+  type: OrganizationType;
+  smo: SmoType;
   parent: Location;
   organization: string;
   contract: string;
@@ -112,11 +114,29 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setOrganization('organization', filters.organization);
     this.setContract('contract', filters.contract);
     this.setContractor('contractor', filters.contractor);
-    this.setConnectionType('type', filters.connectionType);
+    this.setType('type', filters.type);
+    this.setSmo('smo', filters.smo);
+    this.setConnectionType('connection', filters.connectionType);
   }
 
   exportExcel() {
     window.location.href = `${LOCATIONS_WITH_CONTRACTS}export/?${this.params.toString()}`;
+  }
+
+  setType(field: string, value: OrganizationType) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  setSmo(field: string, value: SmoType) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   private setOrder(order?: OrderingFilter) {

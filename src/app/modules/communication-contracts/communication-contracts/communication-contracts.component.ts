@@ -70,11 +70,14 @@ export class CommunicationContractsComponent implements OnInit {
     this.form = this.fb.group({
       order: null,
       location: null,
-      parent: null,
+      type: null,
+      smo: null,
       organization: null,
+      parent: null,
       contract: null,
       contractor: null,
       connectionType: null,
+      contractType: null,
     });
 
     this.form.valueChanges.subscribe(v => {
