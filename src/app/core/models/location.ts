@@ -21,6 +21,9 @@ export class Location {
   @autoserializeAs('population')
   private readonly _population: number;
 
+  @autoserializeAs('infomat')
+  private readonly _infomat: number;
+
   // @autoserializeAs('type_location')
   // private readonly _typeLocation: string;
   //
@@ -41,11 +44,11 @@ export class Location {
     // typeLocation: string,
     // peopleCount: number,
     // municipalityArea: Location,
-    // infomat: number,
+    infomat: number,
     // organizations: Organization[]
   ) {
     this._id = id;
-    this._parent = parent,
+    this._parent = parent;
     this._fullName = fullName;
     this._name = name;
     this._type = type;
@@ -53,7 +56,7 @@ export class Location {
     // this._typeLocation = typeLocation;
     // this._peopleCount = peopleCount;
     // this._municipalityArea = municipalityArea;
-    // this._infomat = infomat;
+    this._infomat = infomat;
     // this._organizations = organizations;
   }
 
@@ -107,9 +110,9 @@ export class Location {
   //   return '';
   // }
 
-  // get infomat(): number {
-  //   return this._infomat;
-  // }
+  get infomat(): number {
+    return this._infomat;
+  }
 
   // get fullName(): string {
   //   return `${this.typeLocation} ${this.name}`;

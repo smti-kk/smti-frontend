@@ -17,8 +17,6 @@ import {
 import {LocationFeaturesService} from '@core/services/location-features.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {EnumService, GovernmentProgramService} from '@core/services';
-import {AutocompleteOptionGroups} from '@shared/layout/nz-autocomplete/grouped-autocomplete.component';
-import {locationsToOptionsGroup} from '@core/utils/compare';
 
 export enum FeatureTypes {
   MOBILE = 'mobile',

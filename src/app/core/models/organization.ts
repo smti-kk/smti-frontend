@@ -56,7 +56,7 @@ export class Organization {
   // @autoserializeAs('oktmo')
   // private readonly oktmo: string;
 
-  constructor() {
+  constructor(locationId: number) {
     // this._location = locationId;
   }
 
