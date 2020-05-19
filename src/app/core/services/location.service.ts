@@ -10,7 +10,7 @@ import {
   InternetAccessType,
   OrganizationType,
   SmoType,
-  GovernmentProgram,
+  GovernmentProgram, Organization,
 } from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
@@ -19,16 +19,17 @@ import {environment} from '../../../environments/environment';
 import {OrderingDirection} from './tc-pivots.service';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/v1/report-organization-contracts/`;
-const LOCATIONS_SIMPLE = `${environment.API_BASE_URL}/api/v1/location/locations/`;
-const LOCATIONS_PARENTS = `${environment.API_BASE_URL}/api/v1/location/parents/`;
-const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/v1/report-organization/`;
+const LOCATIONS_SIMPLE = `${environment.API_BASE_URL}/api/location/locations/`;
+const LOCATIONS_PARENTS = `${environment.API_BASE_URL}/api/location/parents/`;
+// const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/v1/report-organization/`;
+const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
 
 interface LocationWithContractsFilters {
   order: OrderingFilter;
   location: Location;
   type: OrganizationType;
   smo: SmoType;
-  parent: Location;
+  parent: number[];
   organization: string;
   contract: string;
   contractor: string;
@@ -40,7 +41,7 @@ interface LocationWithOrganizationAccessPointsFilters {
   location: Location;
   type: OrganizationType;
   smo: SmoType;
-  parent: Location;
+  parent: number[];
   organization: string;
   contractor: string;
   connectionType: InternetAccessType;
@@ -78,7 +79,7 @@ export class LocationService {
       );
   }
 
-  listLocationsWithConnectionPoints(params?: HttpParams): Observable<PaginatedList<Location>> {
+  listLocationsWithConnectionPoints(params?: HttpParams): Observable<PaginatedList<Organization>> {
     return this.httpClient
       .get<any>(LOCATIONS_WITH_CONNECTION_POINTS, {params})
       .pipe(
@@ -87,7 +88,7 @@ export class LocationService {
             count: response.count,
             next: response.next,
             previous: response.previous,
-            results: response.results.map(item => Deserialize(item, Location)),
+            results: response.results.map(item => Deserialize(item, Organization)),
           };
         })
       );
@@ -110,13 +111,13 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.filters = filters;
     this.setOrder(filters.order);
     this.setLocation('location', filters.location);
-    this.setParent('parent', filters.parent);
+    this.setParent('parents', filters.parent);
     this.setOrganization('organization', filters.organization);
     this.setContract('contract', filters.contract);
     this.setContractor('contractor', filters.contractor);
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
-    this.setConnectionType('connection', filters.connectionType);
+    this.setConnectionType('inet', filters.connectionType);
   }
 
   exportExcel() {
@@ -157,9 +158,9 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     }
   }
 
-  private setParent(field: string, value: Location) {
+  private setParent(field: string, value: number[]) {
     if (value) {
-      this.params = this.params.set(field, value.id.toString());
+      this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);
     }
@@ -204,9 +205,9 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
 
   protected filters: LocationWithOrganizationAccessPointsFilters;
 
-  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Location>> {
+  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Organization>> {
     return super.listLocationsWithConnectionPoints(
-      this.params.set('page', page.toString()).set('page_size', pageSize.toString())
+      this.params.set('page', page.toString()).set('size', pageSize.toString())
     );
   }
 
@@ -214,10 +215,10 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.filters = filters;
     this.setOrder(filters.order);
     this.setLocation('location', filters.location);
-    this.setParent('parent', filters.parent);
+    this.setParent('parents', filters.parent);
     this.setOrganization('organization', filters.organization);
     this.setContractor('contractor', filters.contractor);
-    this.setConnectionType('connection', filters.connectionType);
+    this.setConnectionType('inet', filters.connectionType);
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
     this.setContractType('contract', filters.contractType);
@@ -269,9 +270,9 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     }
   }
 
-  private setParent(field: string, value: Location) {
+  private setParent(field: string, value: number[]) {
     if (value) {
-      this.params = this.params.set(field, value.id.toString());
+      this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);
     }

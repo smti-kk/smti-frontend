@@ -5,6 +5,7 @@ import {SmoType} from '@core/models/smo-type';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Contract} from '@core/models/contract';
 import {ID_SERIALIZER} from '@core/utils/serializers';
+import {Location} from '@core/models/location';
 
 export class Organization {
   @autoserializeAs('address')
@@ -13,14 +14,14 @@ export class Organization {
   @autoserializeAs('fias')
   private readonly _fias: string;
 
-  @autoserializeAs('full_name')
-  private readonly _fullName: string;
-
-  @autoserializeAs('name')
-  private readonly _name: string;
+  // @autoserializeAs('full_name')
+  // private readonly _fullName: string;
 
   @autoserializeAs('id')
   private readonly _id: number;
+
+  @autoserializeAs('name')
+  private readonly _name: string;
 
   @autoserializeAs('inn')
   private readonly _inn: number;
@@ -28,25 +29,26 @@ export class Organization {
   @autoserializeAs('kpp')
   private readonly _kpp: number;
 
-  @autoserializeAs(Organization, 'parent')
-  private readonly _parent: Organization;
+  // @autoserializeAs(Organization, 'parent')
+  // private readonly _parent: Organization;
 
-  @autoserializeAs(Reaccesspoint, 'reaccesspoints')
+  @autoserializeAs(Reaccesspoint, 'aps')
   private readonly _reaccesspoints: Reaccesspoint[];
 
   @deserializeAs(OrganizationType, 'type')
   @serializeAs(ID_SERIALIZER, 'type')
   private readonly _type: OrganizationType;
 
-  @deserializeAs(SmoType, 'type_smo')
-  @serializeAs(ID_SERIALIZER, 'type_smo')
+  @deserializeAs(SmoType, 'smo')
+  @serializeAs(ID_SERIALIZER, 'smo')
   private readonly _smoType: SmoType;
 
-  @autoserializeAs(Contract, 'contract_set')
-  private readonly _contracts: Contract[];
+  // @autoserializeAs(Contract, 'contract_set')
+  // private readonly _contracts: Contract[];
 
+  @deserializeAs(Location, 'location')
   @autoserializeAs('location')
-  private _location: number;
+  private readonly _location: Location;
 
   // @autoserializeAs('ogrn')
   // private readonly ogrn: string;
@@ -54,15 +56,15 @@ export class Organization {
   // @autoserializeAs('oktmo')
   // private readonly oktmo: string;
 
-  constructor(locationId?: number) {
-    this._location = locationId;
+  constructor() {
+    // this._location = locationId;
   }
 
-  get contracts(): Contract[] {
-    return this._contracts;
-  }
+  // get contracts(): Contract[] {
+  //   return this._contracts;
+  // }
 
-  get location(): number {
+  get location(): Location {
     return this._location;
   }
 
@@ -74,9 +76,9 @@ export class Organization {
     return this._fias;
   }
 
-  get fullName(): string {
-    return this._fullName;
-  }
+  // get fullName(): string {
+  //   return this._fullName;
+  // }
 
   get name(): string {
     return this._name;
@@ -94,9 +96,9 @@ export class Organization {
     return this._kpp;
   }
 
-  get parent(): Organization {
-    return this._parent;
-  }
+  // get parent(): Organization {
+  //   return this._parent;
+  // }
 
   get reaccesspoints(): Reaccesspoint[] {
     return this._reaccesspoints;

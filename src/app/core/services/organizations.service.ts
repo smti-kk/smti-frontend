@@ -14,8 +14,8 @@ import {
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {environment} from 'src/environments/environment';
 
-const TYPES = `${environment.API_BASE_URL}/api/v1/organization-types/`;
-const SMO_TYPES = `${environment.API_BASE_URL}/api/v1/organization-smo-types/`;
+const TYPES = `${environment.API_BASE_URL}/api/type/organization/`;
+const SMO_TYPES = `${environment.API_BASE_URL}/api/type/smo/`;
 
 @Injectable()
 export class OrganizationsService {

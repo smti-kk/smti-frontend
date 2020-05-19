@@ -4,7 +4,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
 
-import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Location, Organization, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
@@ -17,7 +17,8 @@ import {GovernmentProgramService, OrganizationsService} from '@core/services';
   styleUrls: ['./connection-points.component.scss'],
 })
 export class ConnectionPointsComponent implements OnInit {
-  locations$: Observable<PaginatedList<Location>>;
+  // locations$: Observable<PaginatedList<Location>>;
+  organization$: Observable<PaginatedList<Organization>>;
 
   fLocations$: Observable<Location[]>;
 
@@ -53,7 +54,7 @@ export class ConnectionPointsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.locations$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+    this.organization$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
       }),
@@ -86,16 +87,16 @@ export class ConnectionPointsComponent implements OnInit {
 
     this.form.valueChanges.subscribe(v => {
       this.serviceLocation.filter(v);
-      this.locations$ = this.loadPagedLocationWithOrganizationAccessPoints();
+      this.organization$ = this.loadPagedLocationWithOrganizationAccessPoints();
     });
   }
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    this.locations$ = this.loadPagedLocationWithOrganizationAccessPoints();
+    this.organization$ = this.loadPagedLocationWithOrganizationAccessPoints();
   }
 
-  loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Location>> {
+  loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Organization>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 

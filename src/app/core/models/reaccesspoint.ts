@@ -38,8 +38,8 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('completed')
   private readonly _completed: boolean;
 
-  @deserializeAs(InternetAccessType, 'connection_type')
-  @serializeAs(ID_SERIALIZER, 'connection_type')
+  @deserializeAs(InternetAccessType, 'type')
+  @serializeAs(ID_SERIALIZER, 'type')
   private readonly _connectionType: InternetAccessType;
 
   @deserializeAs(ORGANIZATION_DESERIALIZER, 'organization')
@@ -57,8 +57,8 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('customer')
   private readonly _customer: string;
 
-  @autoserializeAs('defined_speed')
-  private readonly _definedSpeed: string;
+  @autoserializeAs('declaredSpeed')
+  private readonly _declaredSpeed: string;
 
   @autoserializeAs('description')
   private readonly _description: string;
@@ -131,8 +131,8 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._customer;
   }
 
-  get definedSpeed(): string {
-    return this._definedSpeed;
+  get declaredSpeed(): string {
+    return this._declaredSpeed;
   }
 
   get description(): string {
