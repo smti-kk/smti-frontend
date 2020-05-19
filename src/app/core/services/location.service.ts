@@ -19,10 +19,9 @@ import {environment} from '../../../environments/environment';
 import {OrderingDirection} from './tc-pivots.service';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/v1/report-organization-contracts/`;
+const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
 const LOCATIONS_SIMPLE = `${environment.API_BASE_URL}/api/location/locations/`;
 const LOCATIONS_PARENTS = `${environment.API_BASE_URL}/api/location/parents/`;
-// const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/v1/report-organization/`;
-const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
 
 interface LocationWithContractsFilters {
   order: OrderingFilter;
