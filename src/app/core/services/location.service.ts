@@ -63,7 +63,7 @@ export class LocationService {
       .pipe(map(response => Deserialize(response, Location)));
   }
 
-  listLocationsWithContracts(params?: HttpParams): Observable<PaginatedList<Location>> {
+  listLocationsWithContracts(params?: HttpParams): Observable<PaginatedList<Organization>> {
     return this.httpClient
       .get<any>(LOCATIONS_WITH_CONTRACTS, {params})
       .pipe(
@@ -100,7 +100,7 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
 
   protected filters: LocationWithContractsFilters;
 
-  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Location>> {
+  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Organization>> {
     return super.listLocationsWithContracts(
       this.params.set('page', page.toString()).set('page_size', pageSize.toString())
     );
@@ -141,11 +141,11 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
 
   private setOrder(order?: OrderingFilter) {
     if (order && order.orderingDirection === OrderingDirection.ASC) {
-      this.params = this.params.set('ordering', order.name);
+      this.params = this.params.set('sort', order.name);
     } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('ordering', `-${order.name}`);
+      this.params = this.params.set('sort', `-${order.name}`);
     } else {
-      this.params = this.params.delete('ordering');
+      this.params = this.params.delete('sort');
     }
   }
 
@@ -253,11 +253,11 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
 
   private setOrder(order?: OrderingFilter) {
     if (order && order.orderingDirection === OrderingDirection.ASC) {
-      this.params = this.params.set('ordering', order.name);
+      this.params = this.params.set('sort', order.name);
     } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('ordering', `-${order.name}`);
+      this.params = this.params.set('sort', `-${order.name}`);
     } else {
-      this.params = this.params.delete('ordering');
+      this.params = this.params.delete('sort');
     }
   }
 

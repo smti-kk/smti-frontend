@@ -4,7 +4,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
 
-import {InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
+import {InternetAccessType, Location, Organization, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {LocationServiceContractsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
@@ -19,7 +19,7 @@ const FIRST_PAGE = 1;
   styleUrls: ['./communication-contracts.component.scss'],
 })
 export class CommunicationContractsComponent implements OnInit {
-  locations$: Observable<PaginatedList<Location>>;
+  organization$: Observable<PaginatedList<Organization>>;
 
   fLocations$: Observable<Location[]>;
 
@@ -50,7 +50,7 @@ export class CommunicationContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.locations$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+    this.organization$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide().then();
       }),
@@ -88,10 +88,10 @@ export class CommunicationContractsComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    this.locations$ = this.loadPagedLocationWithContracts();
+    this.organization$ = this.loadPagedLocationWithContracts();
   }
 
-  loadPagedLocationWithContracts(): Observable<PaginatedList<Location>> {
+  loadPagedLocationWithContracts(): Observable<PaginatedList<Organization>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 
