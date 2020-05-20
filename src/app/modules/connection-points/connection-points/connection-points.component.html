@@ -119,8 +119,8 @@
             <app-filter-btn
               formControlName="order"
               [orderings]="[
-                      {name: 'Нас.пункт', value: 'organization.location', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Район', value: 'organization.location.parent', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Нас.пункт', value: 'organization.location.name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Район', value: 'organization.location.parent.name', orderingDirection: OrderingDirection.UNDEFINED },
                       {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED }
                   ]"
             >
