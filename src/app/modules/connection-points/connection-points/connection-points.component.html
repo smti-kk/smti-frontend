@@ -202,7 +202,7 @@
                 <div class="container-point">
                   <div class="container-info">
                     <div class="container-info-icon">
-                      <ng-container *ngIf="point.governmentProgram?.shortName === 'ЕСПД'; else smoIcon">
+                      <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
                         <img src="/assets/8.png"/>
                       </ng-container>
                       <ng-template #smoIcon>
@@ -221,7 +221,7 @@
                     <div class="container-info-icon">
                       <img src="/assets/4.png"/>
                     </div>
-                    <span>{{ point.connectionType ? point.connectionType : '----' }}</span>
+                    <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
                   </div>
                   <div class="container-info">
                     <div class="container-info-icon">

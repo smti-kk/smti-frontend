@@ -38,8 +38,8 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('completed')
   private readonly _completed: boolean;
 
-  @deserializeAs(InternetAccessType, 'type')
-  @serializeAs(ID_SERIALIZER, 'type')
+  @deserializeAs(InternetAccessType, 'internetAccess')
+  @serializeAs(ID_SERIALIZER, 'internetAccess')
   private readonly _connectionType: InternetAccessType;
 
   @deserializeAs(ORGANIZATION_DESERIALIZER, 'organization')
@@ -102,6 +102,9 @@ export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs('visible')
   private readonly _visible: boolean;
+
+  @autoserializeAs('type')
+  private readonly _type: string;
 
   get locationId(): number {
     return this._locationId;
@@ -177,6 +180,10 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get visible(): boolean {
     return this._visible;
+  }
+
+  get type(): string {
+    return this._type;
   }
 
   get avstatus(): Avstatus {
