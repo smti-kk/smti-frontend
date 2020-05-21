@@ -583,7 +583,7 @@ select:-moz-focusring {
 
 .filter-export-button {
   padding: 1rem 1.5rem;
-  background: #f2f2f6;
+  background: #d9d9d9;
   border: none;
   cursor: pointer;
 }
@@ -1455,6 +1455,10 @@ input[type='radio']:checked + .c-radiobox-text:after {
   padding-bottom: 10px;
 }
 
+.pagination-controls .ngx-pagination .current {
+  background: #ff5700;
+}
+
 .status-pos {
   position: absolute;
   right: 1px;
@@ -1463,7 +1467,7 @@ input[type='radio']:checked + .c-radiobox-text:after {
 
 .pagination-count-button {
   border: none;
-  color: #009dd3;
+  color: #727272;
   background: transparent;
   text-decoration: underline;
   cursor: pointer;
@@ -1471,7 +1475,7 @@ input[type='radio']:checked + .c-radiobox-text:after {
 }
 
 .pagination-count-button.active {
-  color: #35a584;
+  color: #ff5700;
 }
 
 .pagination-count {

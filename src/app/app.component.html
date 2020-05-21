@@ -12,15 +12,15 @@
             <ul>
               <li class="active"><a routerLink="">Карта</a></li>
               <li class="nav-item-parent" style="margin-right: 0">
-                <button
-                  nz-button
+                <a
                   nz-dropdown
                   [nzDropdownMenu]="menu"
                   nzPlacement="bottomLeft"
                   class="zorro-button-transparent"
                 >
                   <span>Сводные таблицы</span>
-                </button>
+                  <i nz-icon nzType="caret-down" nzTheme="outline"></i>
+                </a>
                 <nz-dropdown-menu #menu="nzDropdownMenu" class="zorro-menu">
                   <ul nz-menu>
                     <li nz-menu-item routerLink="pivot-table">
@@ -39,15 +39,14 @@
                 </nz-dropdown-menu>
               </li>
               <li>
-                <button
-                  nz-button
+                <a
                   nz-dropdown
                   [nzDropdownMenu]="userProfileMenu"
                   class="zorro-button-transparent"
                   nzPlacement="bottomLeft"
                 >
-                  <span>{{ user.email }}</span>
-                </button>
+                  <span>{{ user.email }}</span><i nz-icon nzType="caret-down" nzTheme="outline"></i>
+                </a>
                 <nz-dropdown-menu #userProfileMenu="nzDropdownMenu" class="zorro-menu">
                   <ul nz-menu>
                     <li nz-menu-item routerLink="pivot-table" (click)="logout()">Выход</li>
