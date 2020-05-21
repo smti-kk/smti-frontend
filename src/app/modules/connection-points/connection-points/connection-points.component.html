@@ -127,7 +127,7 @@
             </app-filter-btn>
           </div>
           <div class="filter-result">
-            Результатов поиска: <span>{{ (organization$ | async)?.count }}</span>
+            Результатов поиска: <span>{{ (points$ | async)?.count }}</span>
           </div>
           <div class="filter-search">
             <nz-input-group [nzSuffix]="suffixIconSearch">
@@ -152,47 +152,43 @@
     <div class="container-list">
       <ng-container
         *ngFor="
-          let organization of (organization$ | async)?.results
+          let point of (points$ | async)?.results
             | paginate
               : {
                   itemsPerPage: itemsPerPage,
                   currentPage: pageNumber,
-                  totalItems: (organization$ | async)?.count
+                  totalItems: (points$ | async)?.count
                 }
         "
       >
-        <ng-container *ngIf="true; else emptyOrganization">
-          <div
-            class="container-wrap"
-          >
+          <div class="container-wrap">
             <div class="container-wrap1">
               <div>
-                <div>{{ organization?.location.fullName }}</div>
-                <div>{{ organization?.location?.parent?.fullName }}</div>
-                <div>{{ organization?.location.population }} чел.</div>
+                <div>{{ point?.organization?.location.name }}</div>
+                <div>{{ point?.organization?.location.parent }}</div>
+                <div>{{ point?.organization?.location.population }} чел.</div>
               </div>
               <div>
-                <a [routerLink]="[organization.id]" class="link">Подробнее</a>
+                <a [routerLink]="[point.id]" class="link">Подробнее</a>
               </div>
             </div>
             <div class="container-wrap2">
               <div class="">
-                <div>{{ organization?.name }}</div>
+                <div>{{ point?.organization?.name }}</div>
               </div>
               <hr>
               <div class="container-wrap4">
                 <div>
                   <span class="">Тип организации:</span>
-                  {{ organization.type ? organization.type.name : ' ' }}
+                  {{ point?.organization?.type ? point?.organization?.type.name : ' ' }}
                 </div>
                 <div>
                   <span class="">Тип СЗО:</span>
-                  {{ organization.smoType ? organization.smoType.name : ' ' }}
+                  {{ point?.organization?.smoType ? point?.organization?.smoType.name : ' ' }}
                 </div>
               </div>
             </div>
             <div class="container-wrap3">
-              <ng-container *ngFor="let point of organization.reaccesspoints">
                 <div class="container-point">
                   <div class="container-info">
                     <div class="container-info-icon">
@@ -224,23 +220,8 @@
                     <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
                   </div>
                 </div>
-              </ng-container>
             </div>
           </div>
-        </ng-container>
-        <ng-template #emptyOrganization>
-          <div class="container-wrap">
-            <div class="container-wrap1">
-              <div>
-                <div>{{ organization?.location.fullName }}</div>
-                <div>{{ organization?.location?.parent?.fullName }}</div>
-                <div>{{ organization?.location.population }} чел.</div>
-              </div>
-            </div>
-            <div class="container-wrap2"></div>
-            <div class="container-wrap3"></div>
-          </div>
-        </ng-template>
       </ng-container>
     </div>
 
@@ -251,21 +232,21 @@
           class="pagination-count-button"
           [class.active]="itemsPerPage === 10"
           type="button"
-          (click)="itemsPerPage = 10; organization$ = loadPagedLocationWithOrganizationAccessPoints()"
+          (click)="itemsPerPage = 10; points$ = loadPagedLocationWithOrganizationAccessPoints()"
           value="10"
         />
         <input
           class="pagination-count-button"
           [class.active]="itemsPerPage === 20"
           type="button"
-          (click)="itemsPerPage = 20; organization$ = loadPagedLocationWithOrganizationAccessPoints()"
+          (click)="itemsPerPage = 20; points$ = loadPagedLocationWithOrganizationAccessPoints()"
           value="20"
         />
         <input
           class="pagination-count-button"
           [class.active]="itemsPerPage === 100"
           type="button"
-          (click)="itemsPerPage = 100; organization$ = loadPagedLocationWithOrganizationAccessPoints()"
+          (click)="itemsPerPage = 100; points$ = loadPagedLocationWithOrganizationAccessPoints()"
           value="100"
         />
       </div>

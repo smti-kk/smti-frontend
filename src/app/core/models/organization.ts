@@ -32,8 +32,8 @@ export class Organization {
   // @autoserializeAs(Organization, 'parent')
   // private readonly _parent: Organization;
 
-  @autoserializeAs(Reaccesspoint, 'aps')
-  private readonly _reaccesspoints: Reaccesspoint[];
+  // @autoserializeAs(Reaccesspoint, 'aps')
+  // private readonly _reaccesspoints: Reaccesspoint[];
 
   @deserializeAs(OrganizationType, 'type')
   @serializeAs(ID_SERIALIZER, 'type')
@@ -100,9 +100,9 @@ export class Organization {
   //   return this._parent;
   // }
 
-  get reaccesspoints(): Reaccesspoint[] {
-    return this._reaccesspoints;
-  }
+  // get reaccesspoints(): Reaccesspoint[] {
+  //   return this._reaccesspoints;
+  // }
 
   get type(): OrganizationType {
     return this._type;

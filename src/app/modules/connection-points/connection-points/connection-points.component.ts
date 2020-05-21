@@ -10,6 +10,7 @@ import {InternetAccessTypeService} from '@core/services/internet-access-type.ser
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
+import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 @Component({
   selector: 'app-connection-points',
@@ -17,8 +18,7 @@ import {GovernmentProgramService, OrganizationsService} from '@core/services';
   styleUrls: ['./connection-points.component.scss'],
 })
 export class ConnectionPointsComponent implements OnInit {
-  // locations$: Observable<PaginatedList<Location>>;
-  organization$: Observable<PaginatedList<Organization>>;
+  points$: Observable<PaginatedList<Reaccesspoint>>;
 
   fLocations$: Observable<Location[]>;
 
@@ -54,7 +54,7 @@ export class ConnectionPointsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.organization$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+    this.points$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
       }),
@@ -87,16 +87,16 @@ export class ConnectionPointsComponent implements OnInit {
 
     this.form.valueChanges.subscribe(v => {
       this.serviceLocation.filter(v);
-      this.organization$ = this.loadPagedLocationWithOrganizationAccessPoints();
+      this.points$ = this.loadPagedLocationWithOrganizationAccessPoints();
     });
   }
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    this.organization$ = this.loadPagedLocationWithOrganizationAccessPoints();
+    this.points$ = this.loadPagedLocationWithOrganizationAccessPoints();
   }
 
-  loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Organization>> {
+  loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Reaccesspoint>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 

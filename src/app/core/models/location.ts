@@ -7,7 +7,7 @@ export class Location {
   private readonly _id: number;
 
   @autoserializeAs('parent')
-  private readonly _parent: Location;
+  private readonly _parent: string;
 
   @autoserializeAs('fullName')
   private readonly _fullName: string;
@@ -36,7 +36,7 @@ export class Location {
 
   constructor(
     id: number,
-    parent: Location,
+    parent: string,
     fullName: string,
     name: string,
     type: string,
@@ -72,7 +72,7 @@ export class Location {
     return this._id;
   }
 
-  get parent(): Location {
+  get parent(): string {
     return this._parent;
   }
 
