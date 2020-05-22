@@ -1,61 +1,59 @@
 <div class="core-container">
   <header class="header" *ngIf="user">
-    <div class="wrapper">
-      <div class="flex-header">
-        <div class="logo">
-          <a routerLink="">
-            <img src="../assets/img/logo.svg" alt="" />
-          </a>
-        </div>
-        <div class="header-menu">
-          <nav class="nav hide">
-            <ul>
-              <li class="active"><a routerLink="">Карта</a></li>
-              <li class="nav-item-parent" style="margin-right: 0">
-                <a
-                  nz-dropdown
-                  [nzDropdownMenu]="menu"
-                  nzPlacement="bottomLeft"
-                  class="zorro-button-transparent"
-                >
-                  <span>Сводные таблицы</span>
-                  <i nz-icon nzType="caret-down" nzTheme="outline"></i>
-                </a>
-                <nz-dropdown-menu #menu="nzDropdownMenu" class="zorro-menu">
-                  <ul nz-menu>
-                    <li nz-menu-item routerLink="pivot-table">
-                      Населённые пункты
-                    </li>
-                    <li nz-menu-item routerLink="technical-capabilities-comparison-table">
-                      Сравнение технических возможностей
-                    </li>
-                    <li nz-menu-item routerLink="connection-points">
-                      Организации (подключение к сети)
-                    </li>
-                    <li nz-menu-item routerLink="communication-contracts">
-                      Контракты на услуги связи
-                    </li>
-                  </ul>
-                </nz-dropdown-menu>
-              </li>
-              <li>
-                <a
-                  nz-dropdown
-                  [nzDropdownMenu]="userProfileMenu"
-                  class="zorro-button-transparent"
-                  nzPlacement="bottomLeft"
-                >
-                  <span>{{ user.email }}</span><i nz-icon nzType="caret-down" nzTheme="outline"></i>
-                </a>
-                <nz-dropdown-menu #userProfileMenu="nzDropdownMenu" class="zorro-menu">
-                  <ul nz-menu>
-                    <li nz-menu-item routerLink="pivot-table" (click)="logout()">Выход</li>
-                  </ul>
-                </nz-dropdown-menu>
-              </li>
-            </ul>
-          </nav>
-        </div>
+    <div class="flex-header">
+      <div class="logo">
+        <a routerLink="">
+          <img src="../assets/img/logo.png" alt=""/>
+        </a>
+      </div>
+      <div class="header-menu">
+        <nav class="nav hide">
+          <ul>
+            <li class="active"><a routerLink="">Карта</a></li>
+            <li class="">
+              <a
+                nz-dropdown
+                [nzDropdownMenu]="menu"
+                nzPlacement="bottomLeft"
+                class="zorro-button-transparent"
+              >
+                <span>Сводные таблицы</span>
+                <i nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </a>
+              <nz-dropdown-menu #menu="nzDropdownMenu" class="zorro-menu">
+                <ul nz-menu>
+                  <li nz-menu-item routerLink="pivot-table">
+                    Населённые пункты
+                  </li>
+                  <li nz-menu-item routerLink="technical-capabilities-comparison-table">
+                    Сравнение технических возможностей
+                  </li>
+                  <li nz-menu-item routerLink="connection-points">
+                    Организации (подключение к сети)
+                  </li>
+                  <li nz-menu-item routerLink="communication-contracts">
+                    Контракты на услуги связи
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+            </li>
+            <li>
+              <a
+                nz-dropdown
+                [nzDropdownMenu]="userProfileMenu"
+                class="zorro-button-transparent"
+                nzPlacement="bottomLeft"
+              >
+                <span>{{ user.email }}</span><i nz-icon nzType="caret-down" nzTheme="outline"></i>
+              </a>
+              <nz-dropdown-menu #userProfileMenu="nzDropdownMenu" class="zorro-menu">
+                <ul nz-menu>
+                  <li nz-menu-item routerLink="pivot-table" (click)="logout()">Выход</li>
+                </ul>
+              </nz-dropdown-menu>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </header>
