@@ -58,11 +58,11 @@ export class FilterBtnComponent implements ControlValueAccessor {
       orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
     }
 
-    this.orderings.forEach(iOrdering => {
-      if (iOrdering.value !== ordering.value) {
-        iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
-      }
-    });
+    // this.orderings.forEach(iOrdering => {
+    //   if (iOrdering.value !== ordering.value) {
+    //     iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
+    //   }
+    // });
 
     this.onChange({
       name: orderingBuffer.value,

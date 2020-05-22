@@ -3,8 +3,8 @@
     type="button"
     class="filter-button"
     [ngClass]="{
-      'is-active': ordering.orderingDirection !== OrderingDirection.UNDEFINED,
-      'back-sort': ordering.orderingDirection === OrderingDirection.DSC
+      'is-asc': ordering.orderingDirection === OrderingDirection.ASC,
+      'is-dsc': ordering.orderingDirection === OrderingDirection.DSC
     }"
     (click)="onOrderingBtnClick(ordering)"
     *ngFor="let ordering of orderings"
