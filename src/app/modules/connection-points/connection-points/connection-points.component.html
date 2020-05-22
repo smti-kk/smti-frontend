@@ -9,7 +9,7 @@
           <div class="filter-title" (click)="showFilterBody()">
             <span><i class="fas fa-filter"></i>Фильтр</span>
             <span style="font-size: 1.5rem; color: #ff5700">
-              <i nz-icon nzType="search" ></i>
+              <i nz-icon nzType="search"></i>
               <i nz-icon nzType="caret-down" nzTheme="outline"></i>
             </span>
           </div>
@@ -162,67 +162,69 @@
                 }
         "
       >
-          <div class="container-wrap">
-            <div class="container-wrap1">
-              <div>
-                <div>{{ point?.organization?.location.name }}</div>
-                <div>{{ point?.organization?.location.parent }}</div>
-                <div>{{ point?.organization?.location.population }} чел.</div>
-              </div>
-              <div>
-                <a [routerLink]="[point.organization.id]" class="link">Подробнее</a>
-              </div>
+        <div class="container-wrap">
+          <div class="container-wrap1">
+            <div>
+              <div>{{ point?.organization?.location.name }}</div>
+              <div>{{ point?.organization?.location.parent }}</div>
+              <div>{{ point?.organization?.location.population }} чел.</div>
             </div>
-            <div class="container-wrap2">
-              <div class="">
-                <div>{{ point?.organization?.name }}</div>
-              </div>
-              <hr>
-              <div class="container-wrap4">
-                <div>
-                  <span class="">Тип организации:</span>
-                  {{ point?.organization?.type ? point?.organization?.type.name : ' ' }}
-                </div>
-                <div>
-                  <span class="">Тип СЗО:</span>
-                  {{ point?.organization?.smoType ? point?.organization?.smoType.name : ' ' }}
-                </div>
-              </div>
-            </div>
-            <div class="container-wrap3">
-                <div class="container-point">
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
-                        <img src="/assets/8.png"/>
-                      </ng-container>
-                      <ng-template #smoIcon>
-                        <img src="/assets/7.png"/>
-                      </ng-template>
-                    </div>
-                    <span>{{ point.address ? point.address : '----' }}</span>
-                  </div>
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <img src="/assets/2.png"/>
-                    </div>
-                    <span>{{ point.contractor ? point.contractor : '----' }}</span>
-                  </div>
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <img src="/assets/4.png"/>
-                    </div>
-                    <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
-                  </div>
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <img src="/assets/5.png"/>
-                    </div>
-                    <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
-                  </div>
-                </div>
+            <div>
+              <!--                <a [routerLink]="[point.organization.id]" class="link">Подробнее</a>-->
             </div>
           </div>
+          <div class="container-wrap2">
+            <div class="">
+              <a [routerLink]="[point.organization.id]" class="link">
+                <span>{{ point?.organization?.name }}</span>
+              </a>
+            </div>
+            <hr>
+            <div class="container-wrap4">
+              <div>
+                <span class="">Тип организации:</span>
+                {{ point?.organization?.type ? point?.organization?.type.name : ' ' }}
+              </div>
+              <div>
+                <span class="">Тип СЗО:</span>
+                {{ point?.organization?.smoType ? point?.organization?.smoType.name : ' ' }}
+              </div>
+            </div>
+          </div>
+          <div class="container-wrap3">
+            <div class="container-point">
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
+                    <img src="/assets/8.png"/>
+                  </ng-container>
+                  <ng-template #smoIcon>
+                    <img src="/assets/7.png"/>
+                  </ng-template>
+                </div>
+                <span>{{ point.address ? point.address : '----' }}</span>
+              </div>
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <img src="/assets/2.png"/>
+                </div>
+                <span>{{ point.contractor ? point.contractor : '----' }}</span>
+              </div>
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <img src="/assets/4.png"/>
+                </div>
+                <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
+              </div>
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <img src="/assets/5.png"/>
+                </div>
+                <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </ng-container>
     </div>
 

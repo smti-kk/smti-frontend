@@ -17,6 +17,94 @@
         </li> -->
       </ul>
     </div>
+
+    <div class="container">
+      <div>
+        <h2>Организация</h2>
+        <form [formGroup]="formGroupOrganization" nz-form>
+          <nz-form-item>
+            <nz-form-label>Наименование</nz-form-label>
+            <nz-form-control>
+<!--              <input nz-input type="text" formControlName="_name"/>-->
+              <textarea
+                formControlName="_name"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Адрес</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="_address"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>ИНН</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="_inn"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>КПП</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="_kpp"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>ФИАС</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="_fias"/>
+              <div class="error" *ngIf="formGroupOrganization.get('_fias').invalid">
+                Должно соответствовать формату "00000000-0000-0000-0000-000000000000"
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Тип</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="_type" [compareWith]="compareFn">
+                <nz-option
+                  *ngFor="let item of fOrganizationTypes$ | async"
+                  [nzValue]="item"
+                  [nzLabel]="item.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>СЗО</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="_smoType" [compareWith]="compareFn">
+                <nz-option
+                  *ngFor="let item of fOrganizationSMOTypes$ | async"
+                  [nzValue]="item"
+                  [nzLabel]="item.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Локация</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="_location" [compareWith]="compareFn">
+                <nz-option
+                  *ngFor="let item of fLocations$ | async"
+                  [nzValue]="item"
+                  [nzLabel]="item.name + (item.id)"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+      <div>
+        <h2>Точки подключения</h2>
+        <div class=""></div>
+      </div>
+    </div>
+
     <div class="l-location-info">
       <div class="c-location-name">
         <div class="c-location-name-item1">
@@ -76,7 +164,8 @@
           <label>ИНН: <input nz-input type="text" formControlName="_inn"/></label>
         </div>
         <div class="organ-item">
-          <label>КПП: <input nz-input type="text" formControlName="_kpp"/></label>
+          <label>КПП:
+            <input nz-input type="text" formControlName="_kpp"/></label>
         </div>
         <div class="organ-item">
           <label>ФИАС: <input nz-input type="text" formControlName="_fias"/></label>
@@ -221,3 +310,7 @@
     </div>
   </div>
 </main>
+
+<ng-template #suffixIconSelect>
+  <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+</ng-template>

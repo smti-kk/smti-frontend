@@ -14,7 +14,7 @@
 
 .container-wrap {
   display: grid;
-  grid-template-columns: 200px 2fr 3fr;
+  grid-template-columns: 200px 1fr 1fr;
   grid-column-gap: 0.2rem;
 
 }
@@ -40,7 +40,7 @@
 
 .container-wrap4 {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-gap: 0.5rem;
 }
 
@@ -87,7 +87,11 @@ hr {
 }
 
 .link {
-  color: #727272;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.link:hover {
+  text-decoration: underline;
 }
 
 
