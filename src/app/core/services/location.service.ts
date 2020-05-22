@@ -37,7 +37,7 @@ interface LocationWithContractsFilters {
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
-  order: OrderingFilter;
+  order: OrderingFilter[];
   location: Location;
   type: OrganizationType;
   smo: SmoType;
@@ -252,14 +252,29 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     window.location.href = `${LOCATIONS_WITH_CONNECTION_POINTS}export/?${this.params.toString()}`;
   }
 
-  private setOrder(order?: OrderingFilter) {
-    if (order && order.orderingDirection === OrderingDirection.ASC) {
-      this.params = this.params.set('sort', order.name);
-    } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('sort', `-${order.name}`);
+  private setOrder(order?: any) {
+    let req: string[] = [];
+
+    for (let item in order) {
+      if (item && order[item].orderingDirection === OrderingDirection.ASC) {
+        req.push(order[item].name);
+      } else if (item && order[item].orderingDirection === OrderingDirection.DSC) {
+        req.push(`-${order[item].name}`);
+      }
+    }
+    if (req.length !== 0) {
+      this.params = this.params.set('sort', req.toString());
     } else {
       this.params = this.params.delete('sort');
     }
+
+    // if (order && order.orderingDirection === OrderingDirection.ASC) {
+    //   this.params = this.params.set('sort', order.name);
+    // } else if (order && order.orderingDirection === OrderingDirection.DSC) {
+    //   this.params = this.params.set('sort', `-${order.name}`);
+    // } else {
+    //   this.params = this.params.delete('sort');
+    // }
   }
 
   private setLocation(field: string, value: Location) {

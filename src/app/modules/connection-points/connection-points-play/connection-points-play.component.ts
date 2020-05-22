@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
@@ -13,11 +13,12 @@ import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 @Component({
-  selector: 'app-connection-points',
-  templateUrl: './connection-points.component.html',
-  styleUrls: ['./connection-points.component.scss'],
+  selector: 'app-connection-points-play',
+  templateUrl: './connection-points-play.component.html',
+  styleUrls: ['./connection-points-play.component.scss'],
 })
-export class ConnectionPointsComponent implements OnInit {
+export class ConnectionPointsPlayComponent implements OnInit {
+  // locations$: Observable<PaginatedList<Location>>;
   points$: Observable<PaginatedList<Reaccesspoint>>;
 
   fLocations$: Observable<Location[]>;
@@ -60,6 +61,10 @@ export class ConnectionPointsComponent implements OnInit {
       }),
       share()
     );
+
+    this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).subscribe(data => {
+
+    })
 
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fParents$ = this.serviceLocation.listParentLocations();
