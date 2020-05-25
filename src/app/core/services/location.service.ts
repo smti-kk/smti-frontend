@@ -17,6 +17,7 @@ import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-b
 
 import {environment} from '../../../environments/environment';
 import {OrderingDirection} from './tc-pivots.service';
+import {Reaccesspoint} from '@core/models/reaccesspoint';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/v1/report-organization-contracts/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
@@ -36,7 +37,7 @@ interface LocationWithContractsFilters {
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
-  order: OrderingFilter;
+  order: OrderingFilter[];
   location: Location;
   type: OrganizationType;
   smo: SmoType;
@@ -78,7 +79,7 @@ export class LocationService {
       );
   }
 
-  listLocationsWithConnectionPoints(params?: HttpParams): Observable<PaginatedList<Organization>> {
+  listLocationsWithConnectionPoints(params?: HttpParams): Observable<PaginatedList<Reaccesspoint>> {
     return this.httpClient
       .get<any>(LOCATIONS_WITH_CONNECTION_POINTS, {params})
       .pipe(
@@ -87,7 +88,7 @@ export class LocationService {
             count: response.count,
             next: response.next,
             previous: response.previous,
-            results: response.results.map(item => Deserialize(item, Organization)),
+            results: response.results.map(item => Deserialize(item, Reaccesspoint)),
           };
         })
       );
@@ -204,7 +205,7 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
 
   protected filters: LocationWithOrganizationAccessPointsFilters;
 
-  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Organization>> {
+  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Reaccesspoint>> {
     return super.listLocationsWithConnectionPoints(
       this.params.set('page', page.toString()).set('size', pageSize.toString())
     );
@@ -251,14 +252,29 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     window.location.href = `${LOCATIONS_WITH_CONNECTION_POINTS}export/?${this.params.toString()}`;
   }
 
-  private setOrder(order?: OrderingFilter) {
-    if (order && order.orderingDirection === OrderingDirection.ASC) {
-      this.params = this.params.set('sort', order.name);
-    } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('sort', `-${order.name}`);
+  private setOrder(order?: any) {
+    let req: string[] = [];
+
+    for (let item in order) {
+      if (item && order[item].orderingDirection === OrderingDirection.ASC) {
+        req.push(order[item].name);
+      } else if (item && order[item].orderingDirection === OrderingDirection.DSC) {
+        req.push(`-${order[item].name}`);
+      }
+    }
+    if (req.length !== 0) {
+      this.params = this.params.set('sort', req.toString());
     } else {
       this.params = this.params.delete('sort');
     }
+
+    // if (order && order.orderingDirection === OrderingDirection.ASC) {
+    //   this.params = this.params.set('sort', order.name);
+    // } else if (order && order.orderingDirection === OrderingDirection.DSC) {
+    //   this.params = this.params.set('sort', `-${order.name}`);
+    // } else {
+    //   this.params = this.params.delete('sort');
+    // }
   }
 
   private setLocation(field: string, value: Location) {

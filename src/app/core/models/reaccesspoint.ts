@@ -7,6 +7,8 @@ import {Quality} from '@core/models/enums';
 import {MonitoringPoint} from '@map-wrapper/model/monitoring-point';
 import {Avstatus} from '@core/models/avstatus';
 import {ID_SERIALIZER} from '@core/utils/serializers';
+import {OrganizationType} from '@core/models/organization-type';
+import {Organization} from '@core/models/organization';
 
 const ESPD_MARKER_ACTIVE = '../../../../assets/img/ap-ena-espd.svg';
 const ESPD_MARKER_UNDEFINED = '../../../../assets/img/ap-na-espd.svg';
@@ -105,6 +107,14 @@ export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs('type')
   private readonly _type: string;
+
+  @deserializeAs(Organization, 'organization')
+  @serializeAs('organization')
+  private readonly _organization: Organization;
+
+  get organization(): Organization {
+    return this._organization;
+  }
 
   get locationId(): number {
     return this._locationId;

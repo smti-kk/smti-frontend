@@ -2,6 +2,7 @@ import {Component, forwardRef, Input, Provider} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {OrderingDirection} from '@core/services/tc-pivots.service';
+import {stringify} from 'querystring';
 
 export interface OrderingFilter {
   orderingDirection: OrderingDirection;
@@ -29,7 +30,14 @@ export class FilterBtnComponent implements ControlValueAccessor {
 
   OrderingDirection = OrderingDirection;
 
-  registerOnChange(fn: (_) => {}): void {
+  changes = {
+    name: {},
+    parentName: {},
+    population: {},
+    organization: {},
+  };
+
+  registerOnChange(fn: (_: []) => {}): void {
     this.onChange = fn;
   }
 
@@ -58,16 +66,55 @@ export class FilterBtnComponent implements ControlValueAccessor {
       orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
     }
 
-    this.orderings.forEach(iOrdering => {
-      if (iOrdering.value !== ordering.value) {
-        iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
-      }
-    });
+    // this.orderings.forEach(iOrdering => {
+    //   if (iOrdering.value !== ordering.value) {
+    //     iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
+    //   }
+    // });
 
-    this.onChange({
-      name: orderingBuffer.value,
-      orderingDirection: orderingBuffer.orderingDirection,
-    });
+    switch (orderingBuffer.value) {
+      case 'organization.location.name':
+        this.changes.name = {
+          name: orderingBuffer.value,
+          orderingDirection: orderingBuffer.orderingDirection,
+        };
+        this.onChange(this.changes);
+        return;
+
+        case 'organization.location.parent.name':
+        this.changes.parentName = {
+          name: orderingBuffer.value,
+          orderingDirection: orderingBuffer.orderingDirection,
+        };
+        this.onChange(this.changes);
+        return;
+
+        case 'organization.location.population':
+        this.changes.population = {
+          name: orderingBuffer.value,
+          orderingDirection: orderingBuffer.orderingDirection,
+        };
+        this.onChange(this.changes);
+        return;
+
+        case 'organization.name':
+        this.changes.organization = {
+          name: orderingBuffer.value,
+          orderingDirection: orderingBuffer.orderingDirection,
+        };
+        this.onChange(this.changes);
+        return;
+
+      default:
+        return;
+    }
+
+    // this.arrChanged.push({
+    //   name: orderingBuffer.value,
+    //   orderingDirection: orderingBuffer.orderingDirection,
+    // });
+
+    // this.onChange(this.arrChanged);
   }
 
   private reset(): void {

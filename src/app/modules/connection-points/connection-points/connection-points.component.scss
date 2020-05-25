@@ -14,7 +14,7 @@
 
 .container-wrap {
   display: grid;
-  grid-template-columns: 200px 2fr 3fr;
+  grid-template-columns: 200px 1fr 1fr;
   grid-column-gap: 0.2rem;
 
 }
@@ -40,8 +40,8 @@
 
 .container-wrap4 {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 1.4rem;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 0.5rem;
 }
 
 .container-point {
@@ -58,7 +58,7 @@
 }
 
 hr {
-  margin: 2.825rem 0 1.4rem;
+  margin: 0.5rem 0;
   border: none;
   border-top: 1px solid #ffffff;
 }
@@ -87,7 +87,11 @@ hr {
 }
 
 .link {
-  color: #727272;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.link:hover {
+  text-decoration: underline;
 }
 
 

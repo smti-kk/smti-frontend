@@ -1,6 +1,6 @@
 .filter-button-group {
   display: grid;
-  grid-template-columns: repeat(3, 120px);
+  grid-template-columns: repeat(4, 120px);
   grid-gap: 0.5rem;
 }
 
@@ -17,17 +17,18 @@
   cursor: pointer;
 }
 
-.filter-button.is-active {
-  color: #fff;
-  background: #009dd3;
-}
-
 .filter-button::before {
   content: '\f884';
   position: absolute;
   left: 10px;
 }
 
-.back-sort::before {
+.is-asc,
+.is-dsc {
+  color: #fff;
+  background: #ff5700;
+}
+
+.is-dsc::before {
   content: '\f160';
 }
