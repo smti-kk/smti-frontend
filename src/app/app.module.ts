@@ -3,8 +3,8 @@ import {ErrorHandler, NgModule} from '@angular/core';
 import {RouteReuseStrategy} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  NgZorroAntdModule,
-  NzAutocompleteModule,
+  NgZorroAntdModule, NZ_CONFIG,
+  NzAutocompleteModule, NzConfig,
   NzDropDownModule,
   NzNotificationModule,
 } from 'ng-zorro-antd';
@@ -25,6 +25,10 @@ import {AppRoutingModule} from './app-routing.module';
 const ZN_ZORRO = [NgZorroAntdModule, NzDropDownModule, NzNotificationModule, NzAutocompleteModule];
 registerLocaleData(ru);
 
+const ngZorroConfig: NzConfig = {
+  notification: {nzPlacement: 'bottomLeft'}
+}
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -40,6 +44,7 @@ registerLocaleData(ru);
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
     {provide: NZ_I18N, useValue: ru_RU},
+    {provide: NZ_CONFIG, useValue: ngZorroConfig}
   ],
   bootstrap: [AppComponent],
 })
