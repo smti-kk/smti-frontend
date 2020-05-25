@@ -26,7 +26,10 @@ const ZN_ZORRO = [NgZorroAntdModule, NzDropDownModule, NzNotificationModule, NzA
 registerLocaleData(ru);
 
 const ngZorroConfig: NzConfig = {
-  notification: {nzPlacement: 'bottomLeft'}
+  notification: {
+    nzPlacement: 'bottomLeft',
+    nzMaxStack: 3,
+  }
 }
 
 @NgModule({
