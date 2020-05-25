@@ -19,7 +19,7 @@ import {environment} from '../../../environments/environment';
 import {OrderingDirection} from './tc-pivots.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 
-const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/v1/report-organization-contracts/`;
+const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
 const LOCATIONS_SIMPLE = `${environment.API_BASE_URL}/api/location/locations/`;
 const LOCATIONS_PARENTS = `${environment.API_BASE_URL}/api/location/parents/`;
@@ -37,7 +37,7 @@ interface LocationWithContractsFilters {
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
-  order: OrderingFilter[];
+  order: string[];
   location: Location;
   type: OrganizationType;
   smo: SmoType;
@@ -103,7 +103,7 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
 
   paginatedList(page: number, pageSize: number): Observable<PaginatedList<Organization>> {
     return super.listLocationsWithContracts(
-      this.params.set('page', page.toString()).set('page_size', pageSize.toString())
+      this.params.set('page', page.toString()).set('size', pageSize.toString())
     );
   }
 
@@ -252,29 +252,12 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     window.location.href = `${LOCATIONS_WITH_CONNECTION_POINTS}export/?${this.params.toString()}`;
   }
 
-  private setOrder(order?: any) {
-    let req: string[] = [];
-
-    for (let item in order) {
-      if (item && order[item].orderingDirection === OrderingDirection.ASC) {
-        req.push(order[item].name);
-      } else if (item && order[item].orderingDirection === OrderingDirection.DSC) {
-        req.push(`-${order[item].name}`);
-      }
-    }
-    if (req.length !== 0) {
-      this.params = this.params.set('sort', req.toString());
+  private setOrder(order?: string[]) {
+    if (order) {
+      this.params = this.params.set('sort', order.toString());
     } else {
       this.params = this.params.delete('sort');
     }
-
-    // if (order && order.orderingDirection === OrderingDirection.ASC) {
-    //   this.params = this.params.set('sort', order.name);
-    // } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-    //   this.params = this.params.set('sort', `-${order.name}`);
-    // } else {
-    //   this.params = this.params.delete('sort');
-    // }
   }
 
   private setLocation(field: string, value: Location) {

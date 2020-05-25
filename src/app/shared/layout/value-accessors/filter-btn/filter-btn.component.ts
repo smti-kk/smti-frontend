@@ -2,11 +2,11 @@ import {Component, forwardRef, Input, Provider} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {OrderingDirection} from '@core/services/tc-pivots.service';
-import {stringify} from 'querystring';
 
 export interface OrderingFilter {
   orderingDirection: OrderingDirection;
   name: string;
+  priority: number
 }
 
 export const FILTER_BUTTONS_VALUE_ACCESSOR: Provider = {
@@ -30,12 +30,7 @@ export class FilterBtnComponent implements ControlValueAccessor {
 
   OrderingDirection = OrderingDirection;
 
-  changes = {
-    name: {},
-    parentName: {},
-    population: {},
-    organization: {},
-  };
+  sortParams: string[] = [];
 
   registerOnChange(fn: (_: []) => {}): void {
     this.onChange = fn;
@@ -58,63 +53,38 @@ export class FilterBtnComponent implements ControlValueAccessor {
   }): void {
     const orderingBuffer = ordering;
 
-    if (orderingBuffer.orderingDirection === OrderingDirection.UNDEFINED) {
-      orderingBuffer.orderingDirection = OrderingDirection.ASC;
-    } else if (orderingBuffer.orderingDirection === OrderingDirection.ASC) {
-      orderingBuffer.orderingDirection = OrderingDirection.DSC;
-    } else {
-      orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
+    switch (orderingBuffer.orderingDirection) {
+      case OrderingDirection.UNDEFINED:
+        orderingBuffer.orderingDirection = OrderingDirection.ASC;
+        break;
+
+      case OrderingDirection.ASC:
+        orderingBuffer.orderingDirection = OrderingDirection.DSC;
+        break;
+
+      case OrderingDirection.DSC:
+        orderingBuffer.orderingDirection = OrderingDirection.UNDEFINED;
+        break;
     }
 
-    // this.orderings.forEach(iOrdering => {
-    //   if (iOrdering.value !== ordering.value) {
-    //     iOrdering.orderingDirection = OrderingDirection.UNDEFINED;
-    //   }
-    // });
+    switch (orderingBuffer.orderingDirection) {
+      case OrderingDirection.ASC:
+        this.sortParams.push(orderingBuffer.value);
+        break;
 
-    switch (orderingBuffer.value) {
-      case 'organization.location.name':
-        this.changes.name = {
-          name: orderingBuffer.value,
-          orderingDirection: orderingBuffer.orderingDirection,
-        };
-        this.onChange(this.changes);
-        return;
+      case OrderingDirection.DSC:
+        this.sortParams.splice(this.sortParams.indexOf(orderingBuffer.value, 0), 1, `-${orderingBuffer.value}`);
+        break;
 
-        case 'organization.location.parent.name':
-        this.changes.parentName = {
-          name: orderingBuffer.value,
-          orderingDirection: orderingBuffer.orderingDirection,
-        };
-        this.onChange(this.changes);
-        return;
-
-        case 'organization.location.population':
-        this.changes.population = {
-          name: orderingBuffer.value,
-          orderingDirection: orderingBuffer.orderingDirection,
-        };
-        this.onChange(this.changes);
-        return;
-
-        case 'organization.name':
-        this.changes.organization = {
-          name: orderingBuffer.value,
-          orderingDirection: orderingBuffer.orderingDirection,
-        };
-        this.onChange(this.changes);
-        return;
+      case OrderingDirection.UNDEFINED:
+        this.sortParams.splice(this.sortParams.indexOf(`-${orderingBuffer.value}`, 0), 1);
+        break;
 
       default:
-        return;
+        break;
     }
 
-    // this.arrChanged.push({
-    //   name: orderingBuffer.value,
-    //   orderingDirection: orderingBuffer.orderingDirection,
-    // });
-
-    // this.onChange(this.arrChanged);
+    this.onChange(this.sortParams);
   }
 
   private reset(): void {
