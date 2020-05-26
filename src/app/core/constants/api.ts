@@ -1,6 +1,6 @@
 import {environment} from '../../../environments/environment';
 
-export const TECHNICAL_CAPABILITIES = '/api/v1/technical-capabilities';
+export const TECHNICAL_CAPABILITIES = '/api/technical-capabilities';
 
 export const ORGANIZATIONS = '/api/organization';
 export const ORGANIZATION_SAVE = '/api/organization/';

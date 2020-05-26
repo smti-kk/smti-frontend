@@ -10,7 +10,7 @@ import {PaginatedListBackend} from '@core/models/base-interfaces';
 
 import {environment} from '../../../environments/environment';
 
-const LTC = `${environment.API_BASE_URL}/api/v1/technical-capabilities`;
+const LTC = `${environment.API_BASE_URL}/api/technical-capabilities`;
 const CLARIFY_PETITION = `${environment.API_BASE_URL}/api/v1/in-clarify-petition/`;
 const ACCEPT_PETITION = `${environment.API_BASE_URL}/api/v1/in-clarify-petition/accept/?id=:id`;
 const REJECT_PETITION = `${environment.API_BASE_URL}/api/v1/in-clarify-petition/reject/?id=:id`;
