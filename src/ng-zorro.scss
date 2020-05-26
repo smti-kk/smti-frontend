@@ -38,8 +38,9 @@ textarea {
 }
 
 .ant-input:focus,
+.ant-calendar-picker:focus .ant-calendar-picker-input:not(.ant-input-disabled),
 .ant-select-selection:active,
-.ant-select-open .ant-select-selection{
+.ant-select-open .ant-select-selection {
   box-shadow: unset;
 }
 

@@ -19,11 +19,13 @@ import {environment} from '../../../environments/environment';
 import {OrderingDirection} from './tc-pivots.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Contract} from '@core/models/contract';
+import {formatDate} from '@angular/common';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
 const LOCATIONS_SIMPLE = `${environment.API_BASE_URL}/api/location/locations/`;
 const LOCATIONS_PARENTS = `${environment.API_BASE_URL}/api/location/parents/`;
+const LOCATIONS_ALL = `${environment.API_BASE_URL}/api/location/`;
 
 interface LocationWithContractsFilters {
   order: OrderingFilter;
@@ -35,7 +37,8 @@ interface LocationWithContractsFilters {
   contract: string;
   contractor: string;
   connectionType: InternetAccessType;
-  time: string
+  contractStart: string;
+  contractEnd: string;
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
@@ -53,6 +56,15 @@ interface LocationWithOrganizationAccessPointsFilters {
 @Injectable()
 export class LocationService {
   constructor(private httpClient: HttpClient) {}
+
+  getLocationByName(name: string): Observable<Location[]> {
+
+    const params = new HttpParams().set('location', name);
+
+    return this.httpClient
+      .get(LOCATIONS_ALL, {params})
+      .pipe(map(response => Deserialize(response, Location)));
+  }
 
   listSimpleLocations(): Observable<Location[]> {
     return this.httpClient
@@ -120,7 +132,8 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
     this.setConnectionType('inet', filters.connectionType);
-    this.setTime('time', filters.time);
+    this.setContractStart('contract-start', filters.contractStart);
+    this.setContractEnd('contract-end', filters.contractEnd);
   }
 
   exportExcel() {
@@ -201,9 +214,19 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     }
   }
 
-  private setTime(field: string, value: string) {
+  private setContractStart(field: string, value: string) {
     if (value) {
-      this.params = this.params.set(field, value);
+      const date = formatDate(value, 'yyyy-MM-dd', 'ru-RU');
+      this.params = this.params.set(field, date);
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  private setContractEnd(field: string, value: string) {
+    if (value) {
+      const date = formatDate(value, 'yyyy-MM-dd', 'ru-RU');
+      this.params = this.params.set(field, date);
     } else {
       this.params = this.params.delete(field);
     }

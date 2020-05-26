@@ -85,3 +85,10 @@ hr {
   width: 2rem;
   margin-right: 1rem;
 }
+
+.wrapper-date-picker {
+  display: grid;
+  grid-template-columns: 10px 1fr 18px 1fr;
+  grid-gap: 0.5rem;
+  align-items: center;
+}

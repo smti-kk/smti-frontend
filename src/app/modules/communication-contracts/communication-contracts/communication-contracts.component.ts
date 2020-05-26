@@ -43,6 +43,8 @@ export class CommunicationContractsComponent implements OnInit {
 
   isVisibleFilter = false;
 
+  dateFormat: string = 'dd.MM.yyyy';
+
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
@@ -81,6 +83,8 @@ export class CommunicationContractsComponent implements OnInit {
       connectionType: null,
       contractType: null,
       time: null,
+      contractStart: null,
+      contractEnd: null,
     });
 
     this.form.valueChanges.subscribe(v => {

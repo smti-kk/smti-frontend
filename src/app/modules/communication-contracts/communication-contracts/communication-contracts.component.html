@@ -2,7 +2,7 @@
 <main class="main">
   <div class="wrapper">
     <h1>Сводная таблица - Контракты услуг связи</h1>
-    <form [formGroup]="form">
+    <form [formGroup]="form" nz-form>
       <div class="filter">
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
           <div class="filter-title" (click)="showFilterBody()">
@@ -121,7 +121,20 @@
               <nz-form-item>
                 <nz-form-label>Период</nz-form-label>
                 <nz-form-control>
-                  <nz-range-picker></nz-range-picker>
+                  <div class="wrapper-date-picker">
+                    <span>c</span>
+                    <nz-date-picker
+                      [nzFormat]="dateFormat"
+                      formControlName="contractStart"
+                    >
+                    </nz-date-picker>
+                    <span>по</span>
+                    <nz-date-picker
+                      [nzFormat]="dateFormat"
+                      formControlName="contractEnd"
+                    >
+                    </nz-date-picker>
+                  </div>
                 </nz-form-control>
               </nz-form-item>
             </div>
