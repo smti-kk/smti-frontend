@@ -10,6 +10,8 @@ import {LocationServiceContractsWithFilterParams} from '@core/services/location.
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {OrganizationsService} from '@core/services';
+import {Contract} from '@core/models/contract';
+import {formatDate} from '@angular/common';
 
 const FIRST_PAGE = 1;
 
@@ -19,7 +21,7 @@ const FIRST_PAGE = 1;
   styleUrls: ['./communication-contracts.component.scss'],
 })
 export class CommunicationContractsComponent implements OnInit {
-  organization$: Observable<PaginatedList<Organization>>;
+  contracts$: Observable<PaginatedList<Contract>>;
 
   fLocations$: Observable<Location[]>;
 
@@ -50,7 +52,7 @@ export class CommunicationContractsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.organization$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+    this.contracts$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide().then();
       }),
@@ -78,6 +80,7 @@ export class CommunicationContractsComponent implements OnInit {
       contractor: null,
       connectionType: null,
       contractType: null,
+      time: null,
     });
 
     this.form.valueChanges.subscribe(v => {
@@ -88,10 +91,10 @@ export class CommunicationContractsComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    this.organization$ = this.loadPagedLocationWithContracts();
+    this.contracts$ = this.loadPagedLocationWithContracts();
   }
 
-  loadPagedLocationWithContracts(): Observable<PaginatedList<Organization>> {
+  loadPagedLocationWithContracts(): Observable<PaginatedList<Contract>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 

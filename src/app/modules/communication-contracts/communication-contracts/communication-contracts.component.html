@@ -35,7 +35,7 @@
                 >
                   <nz-option
                     *ngFor="let item of fLocations$ | async"
-                    [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                    [nzLabel]="item?.fullName + '(' + item?.parent + ')'"
                     [nzValue]="item"
                   >
                   </nz-option>
@@ -74,8 +74,8 @@
                   >
                     <nz-option
                       *ngFor="let item of fParents$ | async"
-                      [nzLabel]="item.name"
-                      [nzValue]="item.id"
+                      [nzLabel]="item?.name"
+                      [nzValue]="item?.id"
                     >
                     </nz-option>
                   </nz-select>
@@ -134,13 +134,14 @@
               [orderings]="[
                       {name: 'Нас.пункт', value: 'organization.location', orderingDirection: OrderingDirection.UNDEFINED },
                       {name: 'Район', value: 'organization.location.parent', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED }
+                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Организация', value: 'organization.name', orderingDirection: OrderingDirection.UNDEFINED }
                   ]"
             >
             </app-filter-btn>
           </div>
           <div class="filter-result">
-            Результатов поиска: <span>{{ (locations$ | async)?.count }}</span>
+            Результатов поиска: <span>{{ (contracts$ | async)?.count }}</span>
           </div>
           <div class="filter-search">
             <nz-input-group [nzSuffix]="suffixIconSearch">
@@ -154,7 +155,7 @@
       </div>
     </form>
     <ng-template #suffixIconSelect>
-      <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #35a5f9"></i>
+      <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
     </ng-template>
     <div class="container-header">
       <div>Населенный пункт</div>
@@ -164,99 +165,80 @@
     <div class="container-list">
       <ng-container
         *ngFor="
-          let organization of (organization$ | async)?.results
+          let contract of (contracts$ | async)?.results
             | paginate
               : {
                   itemsPerPage: itemsPerPage,
                   currentPage: pageNumber,
-                  totalItems: (organization$ | async)?.count
+                  totalItems: (contracts$ | async)?.count
                 }
         "
       >
-        <ng-container *ngIf="true; else emptyOrganization">
-          <div
-            class="container-wrap"
-          >
-            <div class="container-wrap1">
-              <div>
-                <div>{{ organization?.location.fullName }}</div>
-                <div>{{ organization?.location?.parent?.fullName }}</div>
-                <div>{{ organization?.location.population }} чел.</div>
-              </div>
-            </div>
-            <div class="container-wrap2">
-              <div class="">
-                <div>{{ organization.name }}</div>
-              </div>
-              <hr>
-              <div class="container-wrap4">
-                <div>
-                  <span class="">Тип организации:</span>
-                  {{ organization.type ? organization.type.name : ' ' }}
-                </div>
-                <div>
-                  <span class="">Тип СЗО:</span>
-                  {{ organization.smoType ? organization.smoType.name : ' ' }}
-                </div>
-              </div>
-            </div>
-            <div class="container-wrap3">
-              <ng-container *ngFor="let point of organization.reaccesspoints">
-                <div class="container-point">
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <img src="/assets/1.png"/>
-                    </div>
-                    <span>{{ point.address ? point.address : '----' }}</span>
-                  </div>
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <img src="/assets/2.png"/>
-                    </div>
-                    <span>{{ point.contractor ? point.contractor : '----' }}</span>
-                  </div>
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <img src="/assets/4.png"/>
-                    </div>
-                    <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
-                  </div>
-                  <div class="container-info">
-                    <div class="container-info-icon">
-                      <img src="/assets/5.png"/>
-                    </div>
-                    <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
-                  </div>
-                  <div class="container-info col2">
-                    <div class="container-info-icon">
-                      <img src="/assets/3.png"/>
-                    </div>
-                    <span>{{ point.registrationNumber }}</span>
-                  </div>
-                  <div class="container-info col3">
-                    <div class="container-info-icon">
-                      <img src="/assets/6.png"/>
-                    </div>
-                    <span>{{ point.amount }} руб</span>
-                  </div>
-                </div>
-              </ng-container>
+        <div class="container-wrap">
+          <div class="container-wrap1">
+            <div>
+              <div>{{ contract?.organization?.location.name }}</div>
+              <div>{{ contract?.organization?.location.parent }}</div>
+              <div>{{ contract?.organization?.location.population }} чел.</div>
             </div>
           </div>
-        </ng-container>
-        <ng-template #emptyOrganization>
-          <div class="container-wrap">
-            <div class="container-wrap1">
+          <div class="container-wrap2">
+            <div class="">
+              <div>{{ contract?.organization?.name }}</div>
+            </div>
+            <hr>
+            <div class="container-wrap4">
               <div>
-                <div>{{ organization?.location.fullName }}</div>
-                <div>{{ organization?.location?.parent?.fullName }}</div>
-                <div>{{ organization?.location.population }} чел.</div>
+                <span class="">Тип организации:</span>
+                {{ contract.organization.type ? contract.organization.type.name : ' ' }}
+              </div>
+              <div>
+                <span class="">Тип СЗО:</span>
+                {{ contract.organization.smoType ? contract.organization.smoType.name : ' ' }}
               </div>
             </div>
-            <div class="container-wrap2"></div>
-            <div class="container-wrap3"></div>
           </div>
-        </ng-template>
+          <div class="container-wrap3">
+            <div class="container-point">
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <img src="/assets/1.png"/>
+                </div>
+                <span>{{ contract.address ? contract.address : '----' }}</span>
+              </div>
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <img src="/assets/2.png"/>
+                </div>
+                <span>{{ contract.contractor ? contract.contractor : '----' }}</span>
+              </div>
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <img src="/assets/4.png"/>
+                </div>
+                <span>{{ contract.internetAccessType ? contract.internetAccessType.name : '----' }}</span>
+              </div>
+              <div class="container-info">
+                <div class="container-info-icon">
+                  <img src="/assets/5.png"/>
+                </div>
+                <span>{{ contract.declaredSpeed ? contract.declaredSpeed : '----' }}</span>
+              </div>
+              <div class="container-info col2">
+                <div class="container-info-icon">
+                  <img src="/assets/3.png"/>
+                </div>
+                <span>{{ contract.number }}</span>
+              </div>
+              <div class="container-info col3">
+                <div class="container-info-icon">
+                  <img src="/assets/6.png"/>
+                </div>
+                <span>{{ contract.amount / 100 }} руб</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </ng-container>
     </div>
     <div style="display: flex; justify-content: flex-end">
@@ -266,21 +248,21 @@
           class="pagination-count-button"
           [class.active]="itemsPerPage === 10"
           type="button"
-          (click)="itemsPerPage = 10; organization$ = loadPagedLocationWithContracts()"
+          (click)="itemsPerPage = 10; contracts$ = loadPagedLocationWithContracts()"
           value="10"
         />
         <input
           class="pagination-count-button"
           [class.active]="itemsPerPage === 20"
           type="button"
-          (click)="itemsPerPage = 20; organization$ = loadPagedLocationWithContracts()"
+          (click)="itemsPerPage = 20; contracts$ = loadPagedLocationWithContracts()"
           value="20"
         />
         <input
           class="pagination-count-button"
           [class.active]="itemsPerPage === 100"
           type="button"
-          (click)="itemsPerPage = 100; organization$ = loadPagedLocationWithContracts()"
+          (click)="itemsPerPage = 100; contracts$ = loadPagedLocationWithContracts()"
           value="100"
         />
       </div>

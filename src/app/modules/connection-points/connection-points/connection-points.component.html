@@ -36,7 +36,7 @@
                 >
                   <nz-option
                     *ngFor="let item of fLocations$ | async"
-                    [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                    [nzLabel]="item?.fullName + '(' + item?.parent + ')'"
                     [nzValue]="item"
                   >
                   </nz-option>
@@ -75,8 +75,8 @@
                   >
                     <nz-option
                       *ngFor="let item of fParents$ | async"
-                      [nzLabel]="item.name"
-                      [nzValue]="item.id"
+                      [nzLabel]="item?.name"
+                      [nzValue]="item?.id"
                     >
                     </nz-option>
                   </nz-select>
@@ -175,7 +175,7 @@
           </div>
           <div class="container-wrap2">
             <div class="">
-              <a [routerLink]="[point.organization.id]" class="link">
+              <a [routerLink]="[point?.organization?.id]" class="link">
                 <span>{{ point?.organization?.name }}</span>
               </a>
             </div>

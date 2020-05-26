@@ -18,6 +18,7 @@ import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-b
 import {environment} from '../../../environments/environment';
 import {OrderingDirection} from './tc-pivots.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
+import {Contract} from '@core/models/contract';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
@@ -34,6 +35,7 @@ interface LocationWithContractsFilters {
   contract: string;
   contractor: string;
   connectionType: InternetAccessType;
+  time: string
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
@@ -64,7 +66,7 @@ export class LocationService {
       .pipe(map(response => Deserialize(response, Location)));
   }
 
-  listLocationsWithContracts(params?: HttpParams): Observable<PaginatedList<Organization>> {
+  listLocationsWithContracts(params?: HttpParams): Observable<PaginatedList<Contract>> {
     return this.httpClient
       .get<any>(LOCATIONS_WITH_CONTRACTS, {params})
       .pipe(
@@ -73,7 +75,7 @@ export class LocationService {
             count: response.count,
             next: response.next,
             previous: response.previous,
-            results: response.results.map(item => Deserialize(item, Location)),
+            results: response.results.map(item => Deserialize(item, Contract)),
           };
         })
       );
@@ -101,7 +103,7 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
 
   protected filters: LocationWithContractsFilters;
 
-  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Organization>> {
+  paginatedList(page: number, pageSize: number): Observable<PaginatedList<Contract>> {
     return super.listLocationsWithContracts(
       this.params.set('page', page.toString()).set('size', pageSize.toString())
     );
@@ -118,6 +120,7 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
     this.setConnectionType('inet', filters.connectionType);
+    this.setTime('time', filters.time);
   }
 
   exportExcel() {
@@ -193,6 +196,14 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
   private setConnectionType(field: string, value: InternetAccessType) {
     if (value) {
       this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  private setTime(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
     } else {
       this.params = this.params.delete(field);
     }

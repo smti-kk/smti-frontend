@@ -73,7 +73,7 @@ img {
 
 h1 {
   font-size: 20px;
-  color: #35a584;
+  color: #ff5700;
 }
 
 .leaflet-info-control {
@@ -563,7 +563,7 @@ select:-moz-focusring {
 
 .filter-header {
   display: flex;
-  margin-bottom: 1rem;
+  align-items: flex-end;
 }
 
 .filter-title {
@@ -634,7 +634,7 @@ select:-moz-focusring {
 }
 
 .filter-footer-active .filter-sort {
-  width: 501px;
+  width: 841px;
   margin-right: 1rem;
   overflow: visible;
 }
