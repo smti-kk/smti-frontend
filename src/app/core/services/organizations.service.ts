@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, pipe} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Deserialize, Serialize} from 'cerialize';
 
 import {Organization, OrganizationType, SmoType} from '@core/models';
 import {
+  ORGANIZATION_AP,
   ORGANIZATION_CREATE_AP,
   ORGANIZATION_EDIT,
   ORGANIZATION_SAVE,
@@ -27,6 +28,11 @@ export class OrganizationsService {
     return this.httpClient
       .get(ORGANIZATIONS, {params})
       .pipe(map(response => Deserialize(response, Organization)));
+  }
+
+  getPoints(id: string): Observable<Reaccesspoint[]> {
+    return this.httpClient.get(ORGANIZATION_AP.replace(':id', id))
+    .pipe(map(response => Deserialize(response, Reaccesspoint)));
   }
 
   getByIdentifier(id: string): Observable<Organization> {
@@ -59,7 +65,7 @@ export class OrganizationsService {
     }
 
     return this.httpClient
-      .patch<Organization>(url, sdata)
+      .put<Organization>(url, sdata)
       .pipe(map(response => Deserialize(response, Organization)));
   }
 

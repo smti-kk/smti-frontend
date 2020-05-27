@@ -6,6 +6,7 @@ export const ORGANIZATIONS = '/api/organization';
 export const ORGANIZATION_SAVE = '/api/organization/';
 export const ORGANIZATION_EDIT = '/api/organization/:id/';
 export const ORGANIZATION_CREATE_AP = '/api/v1/organization/:id/add_access_point/';
+export const ORGANIZATION_AP = '/api/organization/:id/ap/';
 
 export const INTERNET_ACCESS_TYPES = '/api/type/internet-access/';
 

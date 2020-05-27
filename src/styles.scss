@@ -158,36 +158,12 @@ select:-moz-focusring {
   text-shadow: 0 0 0 #575756;
 }
 
-/*input[type='text'] {
-  padding: 0 0 4px 7px;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #bcbcbc;
-  color: #575756;
-  font-weight: 100;
-}
-
-input[type='text']::placeholder {
-  color: #969696;
-  font-weight: 100;
-  opacity: 1;
-}
-
-input[type='text']:focus {
-  outline: none !important;
-  outline-offset: unset !important;
-  border-color: #35a584;
-}
-
-input[type='text']:focus::placeholder {
-  color: transparent;
-}*/
-
 .btn {
-  padding: 9px 23px;
-  background: #009dd3;
-  border: 3px solid #009dd3;
-  color: #ffffff;
+  padding: 10px 1.5rem;
+  min-width: 130px;
+  background: #d7d7d7;
+  border: none;
+  color: #575756;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
@@ -195,9 +171,9 @@ input[type='text']:focus::placeholder {
   white-space: nowrap;
 }
 
-.btn.cancel {
-  background: none;
-  color: #009dd3;
+.btn:hover {
+  color: #ffffff;
+  background: #ff5700;
 }
 
 .btn-small {
@@ -248,23 +224,6 @@ label {
   border-bottom: 1px solid #009dd3;
 }
 /* --- Формы --- end --- */
-
-input.btn {
-  padding: 9px 23px;
-  background: #009dd3 none;
-  border: 3px solid #009dd3;
-  color: #ffffff;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-input.btn.cancel {
-  background: none;
-  color: #009dd3;
-}
 
 .cluster {
   width: 30px;

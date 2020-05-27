@@ -196,10 +196,10 @@
               <div class="container-info">
                 <div class="container-info-icon">
                   <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
-                    <img src="/assets/8.png"/>
+                    <img src="/assets/espd.png"/>
                   </ng-container>
                   <ng-template #smoIcon>
-                    <img src="/assets/7.png"/>
+                    <img src="/assets/smo.png"/>
                   </ng-template>
                 </div>
                 <span>{{ point.address ? point.address : '----' }}</span>

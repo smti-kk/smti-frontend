@@ -1,11 +1,10 @@
-
 .container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
   grid-gap: 3rem;
+  padding: 1.5rem;
+  background: #efefef;
 }
-
-
 
 input[type='checkbox'] {
   display: inline-block;
@@ -15,12 +14,11 @@ input.ng-invalid {
   border-bottom: 1px solid red;
 }
 
-input:disabled {
+/*input:disabled {
   background-color: #ffffff;
-}
+}*/
 
 input:disabled.save {
-  background-color: #009cd3;
   opacity: 0.5;
   cursor: default;
 }
@@ -29,35 +27,55 @@ input:disabled.save {
   margin-top: 1rem;
 }
 
-label {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-input,
-select {
-  margin-top: 0.2rem;
-  padding: 7px;
-  font-size: 14px;
-}
-
 .add-point {
   margin-top: 3rem;
   margin-bottom: 1rem;
+  text-align: right;
 }
 
-.wip-organization-access-points {
-  margin-bottom: 2rem;
-}
-
-.point-item {
-  margin-top: 0.3rem;
-}
-
-.btn {
-  min-width: 130px;
+.organization-btn-group {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .btn + .btn {
   margin-left: 1rem;
+}
+
+.points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  //grid-template-rows: repeat(auto-fill, minmax(390px, 1fr));
+  grid-column-gap: 2rem;
+}
+
+.point-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.point-img {
+  width: 30px;
+  margin-right: 0.5rem;
+}
+
+table {
+  width: 100%;
+  background: #ffffff;
+}
+
+table td {
+  padding: 0.5rem 1rem;
+  border: 1px solid #efefef;
+}
+
+table tr td:first-child {
+  white-space: nowrap;
+}
+
+table .ant-select {
+  width: 100%;
 }

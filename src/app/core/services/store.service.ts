@@ -23,7 +23,7 @@ export class StoreService {
     }
   }
 
-  static get(key): string {
+  static get(key: string): string {
     return localStorage.getItem(key);
   }
 }

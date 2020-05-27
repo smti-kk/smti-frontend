@@ -12,6 +12,7 @@ import {
 } from '@core/services';
 import {LocationFeaturesService} from '@core/services/location-features.service';
 import {
+  LocationService,
   LocationServiceContractsWithFilterParams,
   LocationServiceOrganizationAccessPointsWithFilterParams,
 } from '@core/services/location.service';
@@ -37,6 +38,7 @@ import {InternetAccessTypeService} from './services/internet-access-type.service
     LocationFeaturesService,
     InternetAccessTypeService,
     TcPivotsService,
+    LocationService,
     LocationServiceContractsWithFilterParams,
     LocationServiceOrganizationAccessPointsWithFilterParams,
     AdministrativeCentersService,

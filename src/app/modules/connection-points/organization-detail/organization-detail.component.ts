@@ -14,7 +14,10 @@ import {
   SmoType,
 } from '@core/models';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
-import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
+import {
+  LocationService,
+  LocationServiceOrganizationAccessPointsWithFilterParams,
+} from '@core/services/location.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Coordinate} from '@map-wrapper/interface/coordinate';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
@@ -27,6 +30,10 @@ import {compareById} from '@core/utils/compare';
 })
 export class OrganizationDetailComponent implements OnInit {
   organization: Organization;
+
+  currentOrganizationLocation: Location;
+
+  points$: Observable<Reaccesspoint[]>;
 
   formGroupOrganization: FormGroup;
 
@@ -42,6 +49,8 @@ export class OrganizationDetailComponent implements OnInit {
 
   fLocations$: Observable<Location[]>;
 
+  locations$: Observable<Location[]>;
+
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
   Quality = Quality;
@@ -53,6 +62,7 @@ export class OrganizationDetailComponent implements OnInit {
   constructor(
     private serviceOrganizations: OrganizationsService,
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
+    private locationsService: LocationService,
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private activatedRoute: ActivatedRoute,
@@ -69,15 +79,23 @@ export class OrganizationDetailComponent implements OnInit {
     const organizationId = this.activatedRoute.snapshot.params.id;
     const locationId = parseInt(this.activatedRoute.snapshot.queryParams.locationId, 10);
 
+    this.points$ = this.serviceOrganizations.getPoints(organizationId);
+
     if (organizationId) {
       this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
         this.buildForm(organization);
         this.organization = organization;
+        // this.currentOrganizationLocation = this.organization.location;
+        // this.formGroupOrganization.get('_location').setValue(organization.location);
+        this.locations$ = this.locationsService.getLocationByName(organization.location.name);
       });
     } else {
       const organization = new Organization(locationId);
       this.buildForm(organization);
       this.organization = organization;
+      // this.currentOrganizationLocation = this.organization.location;
+      // this.formGroupOrganization.get('_location').setValue(organization.location);
+      this.locations$ = this.locationsService.getLocationByName(organization.location.name);
     }
   }
 
@@ -195,5 +213,9 @@ export class OrganizationDetailComponent implements OnInit {
           throw Error(`${error}`);
         }
       );
+  }
+
+  onChange($event): void {
+    this.locations$ = this.locationsService.getLocationByName($event.target.value);
   }
 }
