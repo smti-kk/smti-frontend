@@ -3,13 +3,13 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   NzAutocompleteModule,
   NzButtonModule,
   NzCollapseModule,
   NzIconModule,
-  NzInputModule,
+  NzInputModule, NzSelectModule,
 } from 'ng-zorro-antd';
 
 import {SharedModule} from '@shared/shared.module';
@@ -27,6 +27,7 @@ import {MunicipalityService} from './service/municipality.service';
 import {EspdService} from './service/espd.service';
 import {SmoService} from './service/smo.service';
 import {AdministrativeCentersService} from './service/administrative-centers.service';
+import {LocationService} from '@core/services/location.service';
 
 @NgModule({
   declarations: [MapPage, MarkerInfoBarComponent, LocationCapabilitiesSearchComponent],
@@ -45,6 +46,8 @@ import {AdministrativeCentersService} from './service/administrative-centers.ser
     NzCollapseModule,
     NzAutocompleteModule,
     NzInputModule,
+    NzSelectModule,
+    FormsModule,
   ],
   providers: [
     MunicipalitiesLayer,
@@ -55,6 +58,7 @@ import {AdministrativeCentersService} from './service/administrative-centers.ser
     EspdService,
     SmoService,
     AdministrativeCentersService,
+    LocationService
   ],
 })
 export class MapWrapperModule {}

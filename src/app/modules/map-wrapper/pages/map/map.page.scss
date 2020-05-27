@@ -1,35 +1,11 @@
-main {
-  display: flex;
+.map-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-auto-flow: dense;
   height: 100%;
-  font-weight: 100;
-  color: #575756;
-  justify-content: space-between;
-  min-height: 100%;
 }
 
 .map {
-  flex-grow: 1;
+  grid-column: 2/-1;
   position: relative;
-}
-
-.marker-info-bar {
-  position: absolute;
-  right: 0;
-  top: 55px;
-  z-index: 1000;
-  height: 100%;
-  transition: transform 0.3s cubic-bezier(0.7, 0.3, 0.1, 1),
-    box-shadow 0.3s cubic-bezier(0.7, 0.3, 0.1, 1);
-}
-
-.info-bar-drop {
-  background-color: #35a584;
-  color: white;
-  width: 20px;
-  position: absolute;
-  z-index: 1000;
-  left: -20px;
-  top: 26%;
-  border: none;
-  height: 114px;
 }
