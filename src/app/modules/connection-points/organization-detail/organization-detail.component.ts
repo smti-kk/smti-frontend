@@ -104,7 +104,7 @@ export class OrganizationDetailComponent implements OnInit {
       _id: null,
       _location: null,
       _name: [null, Validators.required],
-      // _fullName: [null, Validators.required],
+      _acronym: [null, Validators.required],
       _address: [null, Validators.required],
       _inn: [null, Validators.required],
       _kpp: [null, Validators.required],

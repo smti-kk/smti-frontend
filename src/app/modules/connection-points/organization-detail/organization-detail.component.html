@@ -25,7 +25,18 @@
         <h2>Организация</h2>
         <form [formGroup]="formGroupOrganization" nz-form>
           <nz-form-item>
-            <nz-form-label>Наименование</nz-form-label>
+            <nz-form-label>Краткое наименование</nz-form-label>
+            <nz-form-control>
+              <textarea
+                formControlName="_acronym"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Полное наименование</nz-form-label>
             <nz-form-control>
               <textarea
                 formControlName="_name"
@@ -113,7 +124,6 @@
 
               <nz-autocomplete
                 #autoComplete
-                [compareWith]="compareFn"
               >
                 <nz-auto-option
                   *ngFor="let location of locations$ | async"
@@ -128,7 +138,7 @@
           </nz-form-item>
           <nz-form-item>
             <nz-form-control>
-              <div class="organization-btn-group" *ngIf="organization" [formGroup]="formGroupOrganization">
+              <div class="btn-group" *ngIf="organization" [formGroup]="formGroupOrganization">
                 <input
                   *ngIf="formGroupOrganization.enabled"
                   type="button"
@@ -165,7 +175,7 @@
           </nz-form-item>
         </form>
       </div>
-      <div>
+      <div class="wrapper-points">
         <h2>Точки подключения</h2>
         <div class="points">
           <div *ngFor="let ap of points$ | async" class="point">
@@ -190,7 +200,9 @@
               </tr>
               <tr>
                 <td>Отображается</td>
-                <td><input type="checkbox" disabled checked="{{ ap.visible }}"/></td>
+                <td>
+                  <label nz-checkbox disabled [(ngModel)]="ap.visible"></label>
+                </td>
               </tr>
               <tr>
                 <td>Узел доступа</td>
@@ -214,12 +226,16 @@
               </tr>
               <tr>
                 <td>Государственная программа</td>
-                <td>{{ ap.governmentProgram?.shortName }}</td>
+                <td>{{ ap.governmentProgram?.acronym }}</td>
               </tr>
             </table>
           </div>
-          <div style="grid-column: span 2" class="wip-organization-access-points" *ngIf="ap" [formGroup]="formGroupAccessPoints">
-
+          <div
+            *ngIf="ap"
+            [formGroup]="formGroupAccessPoints"
+            class="wip-organization-access-points"
+            style="grid-column: span 2"
+          >
             <table style="margin-top: 58px">
               <tr>
                 <td>Адрес</td>
@@ -236,7 +252,11 @@
               <tr>
                 <td>Тип</td>
                 <td>
-                  <nz-select formControlName="_connectionType" [compareWith]="compareFn">
+                  <nz-select
+                    formControlName="_connectionType"
+                    [compareWith]="compareFn"
+                    [nzSuffixIcon]="suffixIconSelect"
+                  >
                     <nz-option
                       *ngFor="let item of fInternetAccessTypes$ | async"
                       [nzValue]="item"
@@ -252,7 +272,10 @@
               <tr>
                 <td>Качество связи</td>
                 <td>
-                  <nz-select formControlName="_quality">
+                  <nz-select
+                    formControlName="_quality"
+                    [nzSuffixIcon]="suffixIconSelect"
+                  >
                     <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошо"></nz-option>
                     <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
                     <nz-option [nzValue]="Quality.ABSENT" nzLabel="Отсутствует"></nz-option>
@@ -266,23 +289,30 @@
               <tr>
                 <td>Государственная программа</td>
                 <td>
-                  <nz-select formControlName="_governmentProgram">
+                  <nz-select
+                    formControlName="_governmentProgram"
+                    [nzSuffixIcon]="suffixIconSelect"
+                  >
                     <nz-option
                       *ngFor="let item of fGovernmentPrograms$ | async"
                       [nzValue]="item"
-                      [nzLabel]="item.fullName"
+                      [nzLabel]="item.name"
                     ></nz-option>
                   </nz-select>
                 </td>
               </tr>
             </table>
-
-            <button type="button" class="btn" (click)="saveAccessPoint()">
-              Создать точку подключения
-            </button>
+            <ng-template #suffixIconSelect>
+              <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+            </ng-template>
+            <div class="btn-group">
+              <button type="button" class="btn" (click)="saveAccessPoint()">
+                Создать точку подключения
+              </button>
+            </div>
           </div>
         </div>
-        <div class="add-point">
+        <div class="btn-group">
           <button
             type="button"
             class="btn"
