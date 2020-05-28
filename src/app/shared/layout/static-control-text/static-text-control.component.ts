@@ -25,7 +25,7 @@ export class StaticTextControl implements ControlValueAccessor {
 
   writeValue(obj: string | GovernmentProgram): void {
     if (obj instanceof GovernmentProgram) {
-      this.value = obj.shortName;
+      this.value = obj.acronym;
     } else if (obj !== null) {
       this.value = obj;
     } else {

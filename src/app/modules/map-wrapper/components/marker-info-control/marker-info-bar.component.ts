@@ -85,9 +85,9 @@ export class MarkerInfoBarComponent {
   }
 
   moveToPoint(point: Reaccesspoint): void {
-    if (point.governmentProgram.shortName === 'ЕСПД') {
+    if (point.governmentProgram.acronym === 'ЕСПД') {
       this.leafletMap.addLayer(this.accessPointEspdLayer);
-    } else if (point.governmentProgram.shortName === 'СЗО') {
+    } else if (point.governmentProgram.acronym === 'СЗО') {
       this.leafletMap.addLayer(this.accessPointSmoLayer);
     }
     this.leafletMap.flyTo({lat: point.point.lat, lng: point.point.lng}, 18);
