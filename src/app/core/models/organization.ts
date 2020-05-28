@@ -14,14 +14,14 @@ export class Organization {
   @autoserializeAs('fias')
   private readonly _fias: string;
 
-  // @autoserializeAs('full_name')
-  // private readonly _fullName: string;
-
   @autoserializeAs('id')
   private readonly _id: number;
 
   @autoserializeAs('name')
   private readonly _name: string;
+
+  @autoserializeAs('acronym')
+  private readonly _acronym: string;
 
   @autoserializeAs('inn')
   private readonly _inn: number;
@@ -47,7 +47,7 @@ export class Organization {
   // private readonly _contracts: Contract[];
 
   @deserializeAs(Location, 'location')
-  @autoserializeAs('location')
+  @autoserializeAs(ID_SERIALIZER,'location')
   private readonly _location: Location;
 
   // @autoserializeAs('ogrn')
@@ -76,12 +76,12 @@ export class Organization {
     return this._fias;
   }
 
-  // get fullName(): string {
-  //   return this._fullName;
-  // }
-
   get name(): string {
     return this._name;
+  }
+
+  get acronym(): string {
+    return this._acronym;
   }
 
   get id(): number {

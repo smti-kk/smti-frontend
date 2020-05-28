@@ -209,10 +209,10 @@ export class Reaccesspoint extends MonitoringPoint {
   }
 
   get iconUrl(): string {
-    if (this.governmentProgram.shortName === 'СЗО') {
+    if (this.governmentProgram.acronym === 'СЗО') {
       return '../../../../assets/img/ap-ena-smo.svg';
     }
-    if (this.governmentProgram.shortName === 'ЕСПД') {
+    if (this.governmentProgram.acronym === 'ЕСПД') {
       if (this.avstatus === null) {
         return ESPD_MARKER_UNDEFINED;
       }

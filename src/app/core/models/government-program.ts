@@ -4,28 +4,28 @@ export class GovernmentProgram {
   @autoserializeAs('id')
   private readonly _id: number;
 
-  @autoserializeAs('short_name')
-  private readonly _shortName: string;
+  @autoserializeAs('acronym')
+  private readonly _acronym: string;
 
-  @autoserializeAs('full_name')
-  private readonly _fullName: string;
+  @autoserializeAs('name')
+  private readonly _name: string;
 
   @autoserializeAs('description')
   private readonly _description: string;
 
-  constructor(id: number, shortName: string, fullName: string, description: string) {
+  constructor(id: number, acronym: string, name: string, description: string) {
     this._id = id;
-    this._shortName = shortName;
-    this._fullName = fullName;
+    this._acronym = acronym;
+    this._name = name;
     this._description = description;
   }
 
-  get shortName(): string {
-    return this._shortName;
+  get acronym(): string {
+    return this._acronym;
   }
 
-  get fullName(): string {
-    return this._fullName;
+  get name(): string {
+    return this._name;
   }
 
   get description(): string {
