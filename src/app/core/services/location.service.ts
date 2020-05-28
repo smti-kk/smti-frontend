@@ -39,6 +39,8 @@ interface LocationWithContractsFilters {
   connectionType: InternetAccessType;
   contractStart: string;
   contractEnd: string;
+  populationStart: number;
+  populationEnd: number;
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
@@ -51,6 +53,8 @@ interface LocationWithOrganizationAccessPointsFilters {
   contractor: string;
   connectionType: InternetAccessType;
   contractType: GovernmentProgram; // possible
+  populationStart: number;
+  populationEnd: number;
 }
 
 @Injectable()
@@ -134,6 +138,8 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setConnectionType('inet', filters.connectionType);
     this.setContractStart('contract-start', filters.contractStart);
     this.setContractEnd('contract-end', filters.contractEnd);
+    this.populationStart('population-start', filters.populationStart)
+    this.populationEnd('population-end', filters.populationEnd)
   }
 
   exportExcel() {
@@ -231,6 +237,22 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
       this.params = this.params.delete(field);
     }
   }
+
+  private populationStart(field: string, value: number) {
+    if (value) {
+      this.params = this.params.set(field, value.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  private populationEnd(field: string, value: number) {
+    if (value) {
+      this.params = this.params.set(field, value.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
 }
 
 @Injectable()
@@ -256,6 +278,8 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
     this.setContractType('contract', filters.contractType);
+    this.populationStart('population-start', filters.populationStart)
+    this.populationEnd('population-end', filters.populationEnd)
   }
 
   setType(field: string, value: OrganizationType) {
@@ -329,6 +353,22 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
   private setConnectionType(field: string, value: InternetAccessType) {
     if (value) {
       this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  private populationStart(field: string, value: number) {
+    if (value) {
+      this.params = this.params.set(field, value.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  private populationEnd(field: string, value: number) {
+    if (value) {
+      this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);
     }

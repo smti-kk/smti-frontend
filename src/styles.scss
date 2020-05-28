@@ -524,6 +524,9 @@ select:-moz-focusring {
 .filter-footer {
   display: flex;
   align-items: center;
+
+  //display: grid;
+  //grid-template-columns: minmax(0, 841px) minmax(0, 250px) minmax(0, 1fr);
 }
 
 .filter-result {
@@ -538,9 +541,13 @@ select:-moz-focusring {
   overflow: hidden;
 }
 
+.filter-sort {
+  display: flex;
+  flex-shrink: 0;
+}
+
 .filter-footer-active .filter-sort {
-  width: 841px;
-  margin-right: 1rem;
+  width: 44%;
   overflow: visible;
 }
 

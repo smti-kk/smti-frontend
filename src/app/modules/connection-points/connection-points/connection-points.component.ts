@@ -83,6 +83,8 @@ export class ConnectionPointsComponent implements OnInit {
       contractor: null,
       connectionType: null,
       contractType: null,
+      populationStart: null,
+      populationEnd: null,
     });
 
     this.form.valueChanges.subscribe(v => {

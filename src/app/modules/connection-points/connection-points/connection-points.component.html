@@ -112,6 +112,21 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Тип точки</nz-form-label>
+              <nz-form-control>
+                <nz-select
+                  nzMode="multiple"
+                  [nzSuffixIcon]="suffixIconSelect"
+                >
+                  <nz-option nzLabel="СЗО" nzValue="СЗО"></nz-option>
+                  <nz-option nzLabel="ЕСПД" nzValue="ЕСПД"></nz-option>
+                  <nz-option nzLabel="РСЗО" nzValue="РСЗО"></nz-option>
+                  <nz-option nzLabel="СЗПД" nzValue="СЗПД"></nz-option>
+                  <nz-option nzLabel="Контракт" nzValue="Контракт"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
           </div>
         </div>
         <div class="filter-footer" [class.filter-footer-active]="isVisibleFilter">
@@ -121,11 +136,17 @@
               [orderings]="[
                       {name: 'Нас.пункт', value: 'organization.location.name', orderingDirection: OrderingDirection.UNDEFINED },
                       {name: 'Район', value: 'organization.location.parent.name', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Организация', value: 'organization.name', orderingDirection: OrderingDirection.UNDEFINED }
+                      {name: 'Организация', value: 'organization.name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED }
                   ]"
             >
             </app-filter-btn>
+            <div class="wrap-input">
+              <span>от</span>
+              <input nz-input formControlName="populationStart">
+              <span>до</span>
+              <input nz-input formControlName="populationEnd">
+            </div>
           </div>
           <div class="filter-result">
             Результатов поиска: <span>{{ (points$ | async)?.count }}</span>

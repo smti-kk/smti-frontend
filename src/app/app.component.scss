@@ -40,19 +40,20 @@
   padding-left: 0;
 }
 
-.header-menu ul li {
-  margin-right: 24px;
-}
-
-.header-menu ul .active {
-  color: #fff;
-}
-
-.header-menu a {
+.header-menu-link {
+  display: block;
+  padding: 0 1.5rem;
   text-decoration: none;
   color: #686868;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
+  line-height: 80px;
+}
+
+.active-link {
+  color: #ffffff;
+  background: #8b8b8b;
+  text-decoration: underline;
 }
 
 .nav-item-parent {
@@ -88,12 +89,7 @@
   align-items: center;
 }
 
-.zorro-menu {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  cursor: pointer;
-}
+
 
 .user-avatar {
   width: 24px;

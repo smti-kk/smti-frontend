@@ -147,11 +147,17 @@
               [orderings]="[
                       {name: 'Нас.пункт', value: 'organization.location', orderingDirection: OrderingDirection.UNDEFINED },
                       {name: 'Район', value: 'organization.location.parent', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Организация', value: 'organization.name', orderingDirection: OrderingDirection.UNDEFINED }
+                      {name: 'Организация', value: 'organization.name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED }
                   ]"
             >
             </app-filter-btn>
+            <div class="wrap-input">
+              <span>от</span>
+              <input nz-input formControlName="populationStart">
+              <span>до</span>
+              <input nz-input formControlName="populationEnd">
+            </div>
           </div>
           <div class="filter-result">
             Результатов поиска: <span>{{ (contracts$ | async)?.count }}</span>
@@ -161,7 +167,7 @@
               <input type="text" nz-input placeholder=""/>
             </nz-input-group>
             <ng-template #suffixIconSearch>
-              <i nz-icon nzType="search" style="color: #35a5f9"></i>
+              <i nz-icon nzType="search" style="color: #ff5700"></i>
             </ng-template>
           </div>
         </div>

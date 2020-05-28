@@ -1,27 +1,7 @@
 .filter-button-group {
   display: grid;
-  grid-template-columns: repeat(4, 120px) 300px;
+  grid-template-columns: repeat(4, 120px);
   grid-gap: 0.5rem;
-}
-
-.wrap-input {
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  background-color: #f2f2f6;
-  font-size: 11px;
-}
-
-.wrap-input input {
-  max-width: 120px;
-  height: 22px;
-  background-color: #f2f2f6;
-}
-
-.wrap-input span {
-  padding: 0 0.2rem;
-  font-weight: 500;
-  color: #575756;
 }
 
 .filter-button {

@@ -215,7 +215,7 @@ export class OrganizationDetailComponent implements OnInit {
       );
   }
 
-  onChange($event): void {
-    this.locations$ = this.locationsService.getLocationByName($event.target.value);
+  onChange(location: string): void {
+    this.locations$ = this.locationsService.getLocationByName(location);
   }
 }

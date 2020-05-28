@@ -81,7 +81,11 @@
           <nz-form-item>
             <nz-form-label>Тип</nz-form-label>
             <nz-form-control>
-              <nz-select formControlName="_type" [compareWith]="compareFn">
+              <nz-select
+                formControlName="_type"
+                [compareWith]="compareFn"
+                [nzSuffixIcon]="suffixIconSelect"
+              >
                 <nz-option
                   *ngFor="let item of fOrganizationTypes$ | async"
                   [nzValue]="item"
@@ -93,7 +97,11 @@
           <nz-form-item>
             <nz-form-label>СЗО</nz-form-label>
             <nz-form-control>
-              <nz-select formControlName="_smoType" [compareWith]="compareFn">
+              <nz-select
+                formControlName="_smoType"
+                [nzSuffixIcon]="suffixIconSelect"
+                [compareWith]="compareFn"
+              >
                 <nz-option
                   *ngFor="let item of fOrganizationSMOTypes$ | async"
                   [nzValue]="item"
@@ -113,7 +121,21 @@
               <!--                ></nz-option>-->
               <!--              </nz-select>-->
 
-              <nz-input-group>
+              <nz-select
+                nzShowSearch
+                (nzOnSearch)="onChange($event)"
+                formControlName="_location"
+                [compareWith]="compareFn"
+                [nzSuffixIcon]="suffixIconSelect"
+              >
+                <nz-option
+                  *ngFor="let location of locations$ | async"
+                  [nzValue]="location"
+                  [nzLabel]="location?.type + ' ' + location?.name + ' ' + '(' +location?.parent + ')'"
+                ></nz-option>
+              </nz-select>
+
+              <!--<nz-input-group>
                 <input
                   nz-input
                   [nzAutocomplete]="autoComplete"
@@ -121,10 +143,7 @@
                   formControlName="_location"
                 >
               </nz-input-group>
-
-              <nz-autocomplete
-                #autoComplete
-              >
+              <nz-autocomplete #autoComplete>
                 <nz-auto-option
                   *ngFor="let location of locations$ | async"
                   [nzValue]="location"
@@ -132,7 +151,7 @@
                 >
                   {{location?.type}} {{location?.name}} ({{location?.parent}})
                 </nz-auto-option>
-              </nz-autocomplete>
+              </nz-autocomplete>-->
 
             </nz-form-control>
           </nz-form-item>
