@@ -184,30 +184,6 @@ select:-moz-focusring {
   text-decoration: none;
 }
 
-textarea {
-  margin-bottom: 19px;
-  width: 100%;
-  height: 90px;
-  border: none;
-  border-bottom: 1px solid #bbbbbb;
-  color: #575756;
-  font-weight: 100;
-}
-
-textarea::placeholder {
-  font-size: 10px;
-  color: #bbbbbb;
-}
-
-textarea:focus {
-  border-bottom: 1px solid #009cd3;
-}
-
-label {
-  color: #676767;
-  font-size: 12px;
-}
-
 .select {
   margin-left: 19px;
 }
@@ -237,36 +213,6 @@ label {
 
 .cluster-green {
   background-color: rgba(110, 204, 57, 0.6);
-}
-
-select {
-  padding: 0 0 4px 1rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #bcbcbc;
-  background: url('assets/img/arrow-gray.png') no-repeat 99% 50%;
-  color: #575756;
-  font-weight: 100;
-  cursor: pointer;
-}
-
-select:focus {
-  border-color: #35a584;
-  background: url('assets/img/arrow-green-bottom.png') no-repeat 99% 50%;
-  outline: none;
-  outline-offset: 0;
-}
-
-select::-ms-expand {
-  display: none;
-}
-
-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #575756;
 }
 
 .marker-cluster {
