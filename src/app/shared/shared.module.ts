@@ -17,8 +17,6 @@ import {AccordionComponent} from '@shared/layout/accordion/accordion.component';
 import {AccordionHeaderComponent} from '@shared/layout/accordion/accordion-header.component';
 import {QualityComponent} from '@shared/layout/value-accessors/quality.component';
 import {TrunkChannelComponent} from '@shared/layout/value-accessors/trunk-channel.component';
-import {AutocompleteComponent} from '@shared/layout/nz-autocomplete/autocomplete.component';
-import {GroupedAutocompleteComponent} from '@shared/layout/nz-autocomplete/grouped-autocomplete.component';
 
 import {GovernmentProgramComponent} from './layout/value-accessors/government-program.component';
 import {MobileGenerationComponent} from './layout/value-accessors/mobile-generation.component';
