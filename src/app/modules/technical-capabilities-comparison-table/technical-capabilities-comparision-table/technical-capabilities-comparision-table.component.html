@@ -4,10 +4,14 @@
     <div class="page-header" style="align-items: center">
       <h1>Сводная таблица - Сравнение технических возмоностей</h1>
       <div style="width: 215px;height: 23px;">
-        <select [formControl]="featuresTypeSelector">
-          <option value="internet">Интернет</option>
-          <option value="mobile">Сотовая связь</option>
-        </select>
+        <nz-select
+          [formControl]="featuresTypeSelector"
+          [nzSuffixIcon]="suffixIconSelect"
+          style="width: 100%"
+        >
+          <nz-option nzLabel="Интернет" nzValue="internet"></nz-option>
+          <nz-option nzLabel="Сотовая связь" nzValue="mobile"></nz-option>
+        </nz-select>
       </div>
     </div>
     <!--<div class="c-filter" *ngIf="featuresTypeSelector.value">
@@ -253,9 +257,9 @@
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
           <div class="filter-title" (click)="showFilterBody()">
             <span><i class="fas fa-filter"></i>Фильтр</span>
-            <span>
-              <i nz-icon nzType="search" style="font-size: 1.5rem; color: #35a5f9"></i>
-              <i nz-icon nzType="caret-down" nzTheme="outline" style="font-size: 1.5rem; color: #35a5f9"></i>
+            <span style="font-size: 1.5rem; color: #ff5700">
+              <i nz-icon nzType="search"></i>
+              <i nz-icon nzType="caret-down" nzTheme="outline"></i>
             </span>
           </div>
           <div class="filter-export">
@@ -281,90 +285,87 @@
                 >
                   <nz-option
                     *ngFor="let item of fLocations$ | async"
-                    [nzLabel]="item.fullName + '(' + item.parent.fullName + ')'"
+                    [nzLabel]="item.fullName + '(' + item.parent + ')'"
                     [nzValue]="item"
                   >
                   </nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
-
-            <ng-container *ngIf="featuresTypeSelector.value === featureTypes.MOBILE">
-              <nz-form-item>
-                <nz-form-label>Сотовая связь</nz-form-label>
-                <nz-form-control>
-                  <div class="vendors-container">
-                    <div
-                      formGroupName="mobile"
-                      class="c-vendor"
-                      *ngFor="let mobileProvider of mobileProviders; let i = index"
-                    >
-                      <label [formGroupName]="i.toString()">
-                        <input
-                          [formControlName]="mobileProvider.id.toString()"
-                          type="checkbox"
+            <nz-form-item>
+              <nz-form-label>Сотовая связь</nz-form-label>
+              <nz-form-control>
+<!--                <div class="vendors-container">-->
+                 <!-- <div
+                    formGroupName="mobile"
+                    class="c-vendor"
+                    *ngFor="let mobileProvider of mobileProviders; let i = index"
+                  >
+                    <label [formGroupName]="i.toString()">
+                      <input
+                        [formControlName]="mobileProvider.id.toString()"
+                        type="checkbox"
+                      />
+                      <div class="c-vendor-logo c-vendor-checked">
+                        <img
+                          [src]="mobileProvider.icon"
+                          [alt]="mobileProvider.name"
+                          [title]="mobileProvider.name"
                         />
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            [src]="mobileProvider.icon"
-                            [alt]="mobileProvider.name"
-                            [title]="mobileProvider.name"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-label>Тип подключения</nz-form-label>
-                <nz-form-control>
-                  <label nz-checkbox formControlName="mobileType">2G</label>
-                  <label nz-checkbox formControlName="mobileType">3G</label>
-                  <label nz-checkbox formControlName="mobileType">4G</label>
-                  <label nz-checkbox formControlName="mobileType">5G</label>
-                </nz-form-control>
-              </nz-form-item>
-            </ng-container>
-
-            <ng-container *ngIf="featuresTypeSelector.value === featureTypes.INTERNET">
-              <nz-form-item>
-                <nz-form-label>Интернет</nz-form-label>
-                <nz-form-control>
-                  <div class="vendors-container">
-                    <div
-                      formGroupName="internet"
-                      class="c-vendor"
-                      *ngFor="let internetProvider of internetProviders; let i = index"
-                    >
-                      <label [formGroupName]="i.toString()">
-                        <input
-                          type="checkbox"
-                          [formControlName]="internetProvider.id.toString()"
+                      </div>
+                    </label>
+                  </div>-->
+                  <label nz-checkbox>Билайн</label>
+                  <label nz-checkbox>Мегафон</label>
+                  <label nz-checkbox>Теле2</label>
+                  <label nz-checkbox>МТС</label>
+<!--                </div>-->
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Тип подключения</nz-form-label>
+              <nz-form-control>
+                <label nz-checkbox formControlName="mobileType">2G</label>
+                <label nz-checkbox formControlName="mobileType">3G</label>
+                <label nz-checkbox formControlName="mobileType">4G</label>
+                <label nz-checkbox formControlName="mobileType">5G</label>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Интернет</nz-form-label>
+              <nz-form-control>
+                <div class="vendors-container">
+                  <div
+                    formGroupName="internet"
+                    class="c-vendor"
+                    *ngFor="let internetProvider of internetProviders; let i = index"
+                  >
+                    <label [formGroupName]="i.toString()">
+                      <input
+                        type="checkbox"
+                        [formControlName]="internetProvider.id.toString()"
+                      />
+                      <div class="c-vendor-logo c-vendor-checked">
+                        <img
+                          [src]="internetProvider.icon"
+                          [alt]="internetProvider.name"
+                          [title]="internetProvider.name"
                         />
-                        <div class="c-vendor-logo c-vendor-checked">
-                          <img
-                            [src]="internetProvider.icon"
-                            [alt]="internetProvider.name"
-                            [title]="internetProvider.name"
-                          />
-                        </div>
-                      </label>
-                    </div>
+                      </div>
+                    </label>
                   </div>
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-label>Тип подключения</nz-form-label>
-                <nz-form-control>
-                  <label nz-checkbox formControlName="internetType">ВОЛС</label>
-                  <label nz-checkbox formControlName="internetType">Медь</label>
-                  <label nz-checkbox formControlName="internetType">Спутник</label>
-                  <label nz-checkbox formControlName="internetType">Радио</label>
-                </nz-form-control>
-              </nz-form-item>
-            </ng-container>
-
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Тип подключения</nz-form-label>
+              <nz-form-control>
+                <label nz-checkbox formControlName="internetType">ВОЛС</label>
+                <label nz-checkbox formControlName="internetType">Медь</label>
+                <label nz-checkbox formControlName="internetType">Спутник</label>
+                <label nz-checkbox formControlName="internetType">Радио</label>
+              </nz-form-control>
+            </nz-form-item>
             <nz-form-item class="rowspan2">
               <nz-form-label>Район</nz-form-label>
               <nz-form-control>
@@ -397,28 +398,35 @@
             <app-filter-btn
               formControlName="order"
               [orderings]="[
-                      {name: 'Нас.пункт', value: 'name', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Район', value: 'parent__name', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Численность', value: 'people_count', orderingDirection: OrderingDirection.UNDEFINED }
+                      {name: 'Нас.пункт', value: 'organization.location', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Район', value: 'organization.location.parent', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Организация', value: 'organization.name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED }
                   ]"
             >
             </app-filter-btn>
+            <div class="filter-sort-population">
+              <span>от</span>
+              <input nz-input formControlName="populationStart">
+              <span>до</span>
+              <input nz-input formControlName="populationEnd">
+            </div>
           </div>
           <div class="filter-result">
-            Результатов поиска: <span>{{ (this.features$ | async)?.count }}</span>
+            Результатов поиска: <span>{{ (features$ | async)?.count }}</span>
           </div>
           <div class="filter-search">
             <nz-input-group [nzSuffix]="suffixIconSearch">
               <input type="text" nz-input placeholder=""/>
             </nz-input-group>
             <ng-template #suffixIconSearch>
-              <i nz-icon nzType="search" style="color: #35a5f9"></i>
+              <i nz-icon nzType="search" style="color: #ff5700"></i>
             </ng-template>
           </div>
         </div>
       </div>
       <ng-template #suffixIconSelect>
-        <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #35a5f9"></i>
+        <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
       </ng-template>
     </form>
 
@@ -448,12 +456,12 @@
         <div class="container-wrap-item">
           <div class="c-location-name">
             <div class="c-location-name-item1">
-              {{ feature.location.typeLocation }} {{ feature.location.name }}
+              {{ feature.location }} {{ feature.location.name }}
             </div>
-            <div class="c-location-name-item2">{{ feature.location.municipalityArea }}</div>
+            <div class="c-location-name-item2">{{ feature.location }}</div>
           </div>
           <div class="c-location-peoples">
-            <span>{{ feature.location.peopleCount }}</span> чел.
+            <span>{{ feature.location }}</span> чел.
           </div>
         </div>
         <div class="container-wrap-item">
@@ -507,7 +515,7 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram
               }}</span
             >)
             </div>
@@ -529,7 +537,7 @@
             </div>
             <div>
               :<span>{{ planYearFeature.channel.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram
               }}</span
             >)
             </div>
@@ -558,12 +566,12 @@
         <div class="container-wrap-item">
           <div class="c-location-name">
             <div class="c-location-name-item1">
-              {{ feature.location.typeLocation }} {{ feature.location.name }}
+              {{ feature.location }} {{ feature.location.name }}
             </div>
-            <div class="c-location-name-item2">{{ feature.location.municipalityArea }}</div>
+            <div class="c-location-name-item2">{{ feature.location }}</div>
           </div>
           <div class="c-location-peoples">
-            <span>{{ feature.location.peopleCount }}</span> чел.
+            <span>{{ feature.location }}</span> чел.
           </div>
         </div>
         <div class="container-wrap-item">
@@ -609,7 +617,7 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram
               }}</span
             >)
             </div>
@@ -631,7 +639,7 @@
             </div>
             <div>
               :<span>{{ planYearFeature.type.name }}</span> (<span>{{
-              planYearFeature.governmentProgram.shortName
+              planYearFeature.governmentProgram
               }}</span
             >)
             </div>

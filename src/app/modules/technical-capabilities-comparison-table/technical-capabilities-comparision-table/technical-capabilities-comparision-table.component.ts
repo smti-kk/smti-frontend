@@ -87,7 +87,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
           : this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage)
         ).pipe(
           tap(() => {
-            this.serviceSpinner.hide();
+            // this.serviceSpinner.hide();
           }),
           share()
         );
@@ -131,13 +131,13 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
   }
 
   private loadFeatures(): void {
-    this.serviceSpinner.show();
+    // this.serviceSpinner.show();
     this.features$ = (this.featuresTypeSelector.value === this.featureTypes.INTERNET
       ? this.serviceLocationFeatures.paginatedListInternet(this.pageNumber, this.itemsPerPage)
       : this.serviceLocationFeatures.paginatedListCellular(this.pageNumber, this.itemsPerPage)
     ).pipe(
       tap(() => {
-        this.serviceSpinner.hide();
+        // this.serviceSpinner.hide();
       }),
       share()
     );

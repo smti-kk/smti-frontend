@@ -6,8 +6,8 @@
   ></location-capabilities-search>
   <div *ngIf="locationFeatures">
     <div class="c-location-name">
-      <div>{{ locationFeatures.location.typeLocation }} {{ locationFeatures.location.name }}</div>
-      <div>{{ locationFeatures.location.municipalityArea }}</div>
+      <div>{{ locationFeatures.location }} {{ locationFeatures.location.name }}</div>
+      <div>{{ locationFeatures.location }}</div>
     </div>
     <div class="c-accordion u-bgc-blue">
       <div class="c-accordion-title" (click)="openAccordion($event.target, 'is-open')">
@@ -16,7 +16,7 @@
       </div>
       <div class="c-accordion-body">
         <div class="c-location-peoples">
-          <span>{{ locationFeatures.location.peopleCount }}</span> чел.
+          <span>{{ locationFeatures.location }}</span> чел.
         </div>
         <div class="l-sidebar-list">
           <div class="l-sidebar-list-item">
@@ -99,17 +99,16 @@
             (click)="openAccordion($event.target, 'is-open')"
             [id]="organization.id"
           >
-            <div class="f-s-13 f-w-300">{{ organization.fullName }}</div>
+            <div class="f-s-13 f-w-300">{{ organization }}</div>
             <div class="c-accordion-button"></div>
           </div>
           <div class="c-accordion-body">
-            <div class="c-accordion u-bgc-green" *ngFor="let point of organization.reaccesspoints">
+            <div class="c-accordion u-bgc-green" *ngFor="let point of organization">
               <div
                 (click)="openAccordion($event.target, 'is-open'); moveToPoint(point)"
                 [id]="point.id"
                 [ngClass]="{
-                  'o-espd': point.governmentProgram.shortName === 'ЕСПД',
-                  'o-szo': point.governmentProgram.shortName === 'СЗО',
+                  'o-espd': point === 'ЕСПД',
                   'u-green-dot': false
                 }"
                 class="c-accordion-title u-green-dot"
@@ -120,19 +119,19 @@
               <div class="c-accordion-body organizations">
                 <div class="item line">
                   <div class="name">Программа:</div>
-                  <div class="value">{{ point.governmentProgram.shortName }}</div>
+                  <div class="value">{{ point }}</div>
                 </div>
                 <div class="item line">
                   <div class="name">Заказчик:</div>
-                  <div class="value">{{ point.customer }}</div>
+                  <div class="value">{{ point }}</div>
                 </div>
                 <div class="item line">
                   <div class="name">Подрядчик:</div>
-                  <div class="value">{{ point.contractor }}</div>
+                  <div class="value">{{ point }}</div>
                 </div>
                 <div class="item line">
                   <div class="name">Технология подключения:</div>
-                  <div class="value">{{ point.connectionTypeString }}</div>
+                  <div class="value">{{ point }}</div>
                 </div>
                 <div class="item line">
                   <div class="name">Точка подключения:</div>
@@ -140,20 +139,20 @@
                 </div>
                 <div class="item line">
                   <div class="name">Скорость по контракту:</div>
-                  <div class="value">{{ point.definedSpeed }}</div>
+                  <div class="value">{{ point }}</div>
                 </div>
                 <div class="item line">
                   <div class="name">Состояние:</div>
                   <div class="value">
-                    {{ point.avstateStr }}
+                    {{ point }}
                     {{
-                      point.avstatus ? (point.avstatus.timeMark | date: '(dd.MM.yyyy HH:mm)') : ''
+                      point ? (point | date: '(dd.MM.yyyy HH:mm)') : ''
                     }}
                   </div>
                 </div>
                 <div class="item line">
                   <div class="name">Входящий трафик:</div>
-                  <div class="value">{{ point.netTrafficLastMonth }}</div>
+                  <div class="value">{{ point }}</div>
                 </div>
               </div>
             </div>
