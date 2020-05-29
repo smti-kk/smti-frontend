@@ -63,12 +63,14 @@ export class PivotTablePageComponent {
 
   filterForm: FormGroup;
 
+  isVisibleFilter = false;
+
   private observer: Subscription;
 
   constructor(
     public tcPivots: FilterTcPivotsService,
     private fb: FormBuilder,
-    private spinner: NgxSpinnerService,
+    // private spinner: NgxSpinnerService,
     private govProgramsService: GovernmentProgramService,
     private enumService: EnumService,
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams
@@ -97,11 +99,11 @@ export class PivotTablePageComponent {
   }
 
   loadPivotsTable(): Observable<PaginatedList<LocationFeatures>> {
-    this.spinner.show();
+    // this.spinner.show();
     return this.tcPivots.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(lcs => {
         this.locationFeatures = lcs;
-        this.spinner.hide();
+        // this.spinner.hide();
       })
     );
   }
@@ -122,6 +124,8 @@ export class PivotTablePageComponent {
       locationName: [null],
       location: null,
       parent: null,
+      populationStart: null,
+      populationEnd: null,
     });
   }
 
@@ -175,5 +179,9 @@ export class PivotTablePageComponent {
         this.existingOperators = response;
       })
     );
+  }
+
+  showFilterBody() {
+    this.isVisibleFilter = !this.isVisibleFilter;
   }
 }

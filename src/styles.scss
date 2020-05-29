@@ -546,6 +546,28 @@ select:-moz-focusring {
   flex-shrink: 0;
 }
 
+.filter-sort-population {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  padding: 0 10px;
+  background-color: #f2f2f6;
+  font-size: 11px;
+}
+
+.filter-sort-population input {
+  max-width: 120px;
+  height: 22px;
+  background-color: #f2f2f6;
+}
+
+.filter-sort-population span {
+  padding: 0 0.2rem;
+  font-weight: 500;
+  color: #575756;
+}
+
 .filter-footer-active .filter-sort {
   width: 44%;
   overflow: visible;

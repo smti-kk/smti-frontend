@@ -3,7 +3,14 @@ import {CommonModule} from '@angular/common';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {NzInputModule, NzSelectModule, NzTabsModule} from 'ng-zorro-antd';
+import {
+  NzCheckboxModule,
+  NzFormModule, NzIconModule,
+  NzInputModule,
+  NzRadioModule,
+  NzSelectModule,
+  NzTabsModule,
+} from 'ng-zorro-antd';
 
 import {SharedModule} from '@shared/shared.module';
 
@@ -23,6 +30,10 @@ import {PivotTablePageComponent} from './components/pivot-table-page-component/p
     NzTabsModule,
     NzSelectModule,
     NzInputModule,
+    NzCheckboxModule,
+    NzFormModule,
+    NzRadioModule,
+    NzIconModule,
   ],
   exports: [TechnicalCapabilitiesComponent],
   providers: [NgxPaginationModule],

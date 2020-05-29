@@ -295,31 +295,37 @@
             <nz-form-item>
               <nz-form-label>Сотовая связь</nz-form-label>
               <nz-form-control>
-<!--                <div class="vendors-container">-->
-                 <!-- <div
-                    formGroupName="mobile"
-                    class="c-vendor"
-                    *ngFor="let mobileProvider of mobileProviders; let i = index"
+                <ng-container
+                  *ngFor="let mobileProvider of mobileProviders; let i = index"
+                >
+                  <label
+                    nz-checkbox
+                    [formControlName]="mobileProvider.id.toString()"
                   >
-                    <label [formGroupName]="i.toString()">
-                      <input
-                        [formControlName]="mobileProvider.id.toString()"
-                        type="checkbox"
-                      />
-                      <div class="c-vendor-logo c-vendor-checked">
-                        <img
-                          [src]="mobileProvider.icon"
-                          [alt]="mobileProvider.name"
-                          [title]="mobileProvider.name"
-                        />
-                      </div>
-                    </label>
-                  </div>-->
-                  <label nz-checkbox>Билайн</label>
-                  <label nz-checkbox>Мегафон</label>
-                  <label nz-checkbox>Теле2</label>
-                  <label nz-checkbox>МТС</label>
-<!--                </div>-->
+                    {{mobileProvider.name}}
+                  </label>
+                </ng-container>
+                <!--                <div class="vendors-container">-->
+                <!-- <div
+                   formGroupName="mobile"
+                   class="c-vendor"
+                   *ngFor="let mobileProvider of mobileProviders; let i = index"
+                 >
+                   <label [formGroupName]="i.toString()">
+                     <input
+                       [formControlName]="mobileProvider.id.toString()"
+                       type="checkbox"
+                     />
+                     <div class="c-vendor-logo c-vendor-checked">
+                       <img
+                         [src]="mobileProvider.icon"
+                         [alt]="mobileProvider.name"
+                         [title]="mobileProvider.name"
+                       />
+                     </div>
+                   </label>
+                 </div>-->
+                <!--                </div>-->
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -334,7 +340,17 @@
             <nz-form-item>
               <nz-form-label>Интернет</nz-form-label>
               <nz-form-control>
-                <div class="vendors-container">
+                <ng-container
+                  *ngFor="let internetProvider of internetProviders; let i = index"
+                >
+                  <label
+                    nz-checkbox
+                    [formControlName]="internetProvider.id.toString()"
+                  >
+                    {{internetProvider.name}}
+                  </label>
+                </ng-container>
+                <!--<div class="vendors-container">
                   <div
                     formGroupName="internet"
                     class="c-vendor"
@@ -354,7 +370,7 @@
                       </div>
                     </label>
                   </div>
-                </div>
+                </div>-->
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
