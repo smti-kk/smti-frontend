@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {LatLng, Map} from 'leaflet';
 
 import {TIMER_INTERVAL} from '@core/utils/updated-list';
@@ -9,6 +9,8 @@ import {MunicipalitiesLayer, MunicipalitiesLayerGeoJson} from '../../layers/muni
 import {AdministrativeCenterPoint} from '../../model/administrative-center-point';
 import {AdministrativeCentersLayer} from '../../layers/administrative-centers-layer';
 import {MonitoringMarker} from '../monitoring-marker';
+import {LocationService} from '@core/services/location.service';
+import {Location} from '@core/models';
 
 const ZOOM = 14;
 
@@ -33,11 +35,14 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy {
 
   observers: Subscription[] = [];
 
+  locations$: Observable<Location[]>;
+
   private technicalCapabilitiesUpdateTimer: number;
 
   constructor(
     private readonly fb: FormBuilder,
     private administrativeCentersLayer: AdministrativeCentersLayer,
+    private locationsService: LocationService,
     public municipalityLayer: MunicipalitiesLayer
   ) {
     this.searchForm = this.buildForm();
@@ -151,5 +156,9 @@ export class LocationCapabilitiesSearchComponent implements OnDestroy {
       .get(FORM_PARAMS.area)
       .patchValue(this.municipalityLayer.getLayerByAreaName(marker.feature.properties.district));
     this.setSelectedPoint(marker.feature.properties, true);
+  }
+
+  onChange($event): void {
+    this.locations$ = this.locationsService.getLocationByName($event.target.value);
   }
 }

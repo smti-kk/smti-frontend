@@ -1,7 +1,38 @@
 <!--suppress HtmlFormInputWithoutLabel -->
 <div class="select-location">
-  <form style="position: relative" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
-    <select formControlName="area">
+<!--  <form style="position: relative" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">-->
+
+    <nz-input-group>
+      <input
+        nz-input
+        [nzAutocomplete]="autoComplete"
+        (input)="onChange($event)"
+      >
+    </nz-input-group>
+
+    <nz-autocomplete
+      #autoComplete
+      (selectionChange)="setSelectedPoint($event.nzValue)"
+    >
+      <nz-auto-option
+        *ngFor="let location of locations$ | async"
+        [nzValue]="location"
+        [nzLabel]="location?.type + ' ' + location?.name + ' ' + '(' +location?.parent + ')'"
+      >
+        {{location?.type}} {{location?.name}} ({{location?.parent}})
+      </nz-auto-option>
+    </nz-autocomplete>
+
+    <!--<nz-select nzShowSearch>
+      <nz-option
+      *ngFor="let location of municipalityLayer?.getLayers()"
+      [nzValue]="location"
+      [nzLabel]="location.feature.name"
+      ></nz-option>
+    </nz-select>-->
+
+<!--    <select formControlName="area">-->
+    <select>
       <option [ngValue]="null" selected>Выберите район</option>
       <option *ngFor="let location of municipalityLayer?.getLayers()" [ngValue]="location">
         {{ location.feature.name }}
@@ -9,9 +40,9 @@
     </select>
     <div class="search-location">
       <div class="icon-location"></div>
+<!--      formControlName="locality"-->
       <input
         #locationSearch
-        formControlName="locality"
         placeholder="Поиск по населенным пунктам"
         type="text"
       />
@@ -29,5 +60,5 @@
         {{ administrativePoint.fullName }}
       </div>
     </div>
-  </form>
+<!--  </form>-->
 </div>

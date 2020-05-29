@@ -9,7 +9,8 @@ import {
   NzButtonModule,
   NzCollapseModule,
   NzIconModule,
-  NzInputModule, NzSelectModule,
+  NzInputModule,
+  NzSelectModule,
 } from 'ng-zorro-antd';
 
 import {SharedModule} from '@shared/shared.module';
@@ -27,7 +28,6 @@ import {MunicipalityService} from './service/municipality.service';
 import {EspdService} from './service/espd.service';
 import {SmoService} from './service/smo.service';
 import {AdministrativeCentersService} from './service/administrative-centers.service';
-import {LocationService} from '@core/services/location.service';
 
 @NgModule({
   declarations: [MapPage, MarkerInfoBarComponent, LocationCapabilitiesSearchComponent],
@@ -58,7 +58,6 @@ import {LocationService} from '@core/services/location.service';
     EspdService,
     SmoService,
     AdministrativeCentersService,
-    LocationService
   ],
 })
 export class MapWrapperModule {}
