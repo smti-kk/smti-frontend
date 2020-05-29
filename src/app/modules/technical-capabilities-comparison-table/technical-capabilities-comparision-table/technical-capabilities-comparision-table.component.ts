@@ -63,7 +63,7 @@ export class TechnicalCapabilitiesComparisionTableComponent implements OnInit {
 
   constructor(
     private serviceLocationFeatures: LocationFeaturesService,
-    private serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
     private serviceSpinner: NgxSpinnerService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private fb: FormBuilder,
