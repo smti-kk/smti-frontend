@@ -95,7 +95,7 @@ export class TechnicalCapabilitiesComponent {
   }
 
   private loadTechnicalCapability(id: number): void {
-    this.spinner.show();
+    // this.spinner.show();
 
     forkJoin(this.tcService.one(id), this.enumService.getExistingOperators()).subscribe(
       ([locationFeatures, existingOperators]) => {
@@ -107,7 +107,7 @@ export class TechnicalCapabilitiesComponent {
           this.locationFeatures,
           this.existingOperators
         );
-        this.spinner.hide();
+        // this.spinner.hide();
       }
     );
   }

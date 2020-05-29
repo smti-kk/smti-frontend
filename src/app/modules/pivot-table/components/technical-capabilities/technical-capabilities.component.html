@@ -11,8 +11,8 @@
         </li>
         <li class="breadcrumbs-item">
           <span class="breadcrumbs-link">
-            {{ locationFeatures.location.typeLocation }} {{ locationFeatures.location.name }} ,
-            {{ locationFeatures.location.municipalityArea }}
+            {{ locationFeatures.location }} {{ locationFeatures.location.name }} ,
+            {{ locationFeatures.location }}
           </span>
         </li>
       </ul>
@@ -20,12 +20,12 @@
     <div class="l-location-info">
       <div class="c-location-name">
         <div class="c-location-name-item1">
-          {{ locationFeatures.location.typeLocation }} {{ locationFeatures.location.name }}
+          {{ locationFeatures.location }} {{ locationFeatures.location.name }}
         </div>
-        <div class="c-location-name-item2">{{ locationFeatures.location.municipalityArea }}</div>
+        <div class="c-location-name-item2">{{ locationFeatures.location }}</div>
       </div>
       <div class="c-location-peoples">
-        <span>{{ locationFeatures.location.peopleCount }}</span> чел.
+        <span>{{ locationFeatures.location }}</span> чел.
       </div>
     </div>
     <nz-tabset nzSize="large" [nzAnimated]="false">
