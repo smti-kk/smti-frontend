@@ -34,15 +34,6 @@ input:disabled.save {
   text-align: right;
 }
 
-.btn-group {
-  margin-top: 1rem;
-  text-align: right;
-}
-
-.btn + .btn {
-  margin-left: 1rem;
-}
-
 .points {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -11,6 +11,8 @@ import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/ser
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
+import {NzModalService} from 'ng-zorro-antd';
+import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
 
 @Component({
   selector: 'app-connection-points',
@@ -50,7 +52,8 @@ export class ConnectionPointsComponent implements OnInit {
     private serviceGovernmentProgram: GovernmentProgramService,
     private serviceOrganizations: OrganizationsService,
     private spinner: NgxSpinnerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -104,5 +107,13 @@ export class ConnectionPointsComponent implements OnInit {
 
   showFilterBody() {
     this.isVisibleFilter = !this.isVisibleFilter;
+  }
+
+  openModal() {
+    this.modal.create({
+      nzTitle: 'Добавить новую организацию',
+      nzContent: FormOrganizationComponent,
+      nzFooter: null,
+    });
   }
 }

@@ -22,7 +22,8 @@
     <h2>{{organization.location.parent}}</h2>
     <div class="container">
       <div>
-        <h2>Организация</h2>
+        <app-form-organization [organizationForEdit]="organization"></app-form-organization>
+        <!--<h2>Организация</h2>
         <form [formGroup]="formGroupOrganization" nz-form>
           <nz-form-item>
             <nz-form-label>Краткое наименование</nz-form-label>
@@ -113,13 +114,13 @@
           <nz-form-item>
             <nz-form-label>Локация</nz-form-label>
             <nz-form-control>
-              <!--              <nz-select formControlName="_location" [compareWith]="compareFn">-->
-              <!--                <nz-option-->
-              <!--                  *ngFor="let item of fLocations$ | async"-->
-              <!--                  [nzValue]="item"-->
-              <!--                  [nzLabel]="item.name + ' (' + item.parent +')'"-->
-              <!--                ></nz-option>-->
-              <!--              </nz-select>-->
+              &lt;!&ndash;              <nz-select formControlName="_location" [compareWith]="compareFn">&ndash;&gt;
+              &lt;!&ndash;                <nz-option&ndash;&gt;
+              &lt;!&ndash;                  *ngFor="let item of fLocations$ | async"&ndash;&gt;
+              &lt;!&ndash;                  [nzValue]="item"&ndash;&gt;
+              &lt;!&ndash;                  [nzLabel]="item.name + ' (' + item.parent +')'"&ndash;&gt;
+              &lt;!&ndash;                ></nz-option>&ndash;&gt;
+              &lt;!&ndash;              </nz-select>&ndash;&gt;
 
               <nz-select
                 nzShowSearch
@@ -135,7 +136,7 @@
                 ></nz-option>
               </nz-select>
 
-              <!--<nz-input-group>
+              &lt;!&ndash;<nz-input-group>
                 <input
                   nz-input
                   [nzAutocomplete]="autoComplete"
@@ -151,7 +152,7 @@
                 >
                   {{location?.type}} {{location?.name}} ({{location?.parent}})
                 </nz-auto-option>
-              </nz-autocomplete>-->
+              </nz-autocomplete>&ndash;&gt;
 
             </nz-form-control>
           </nz-form-item>
@@ -192,7 +193,7 @@
               </div>
             </nz-form-control>
           </nz-form-item>
-        </form>
+        </form>-->
       </div>
       <div class="wrapper-points">
         <h2>Точки подключения</h2>

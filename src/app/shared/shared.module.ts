@@ -2,7 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NzAutocompleteModule, NzIconModule, NzInputModule, NzSelectModule, NzTreeSelectModule} from 'ng-zorro-antd';
+import {
+  NzAutocompleteModule,
+  NzFormModule,
+  NzIconModule,
+  NzInputModule,
+  NzSelectModule,
+  NzTreeSelectModule,
+} from 'ng-zorro-antd';
 
 import {FilterBtnComponent} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 import {CellularFeatureComponent} from '@shared/components/providers-row/cellular/cellular-feature.component';
@@ -24,6 +31,7 @@ import {PayphoneFeatureComponent} from './components/providers-row/payphone/payp
 import {AtsFeatureComponent} from './components/providers-row/ats/ats-feature.component';
 import { SimpleSelectComponent } from './layout/simple-select/simple-select.component';
 import { GroupSelectComponent } from './layout/group-select/group-select.component';
+import { FormOrganizationComponent } from './components/form-organization/form-organization.component';
 
 @NgModule({
   declarations: [
@@ -46,39 +54,42 @@ import { GroupSelectComponent } from './layout/group-select/group-select.compone
     TrunkChannelComponent,
     SimpleSelectComponent,
     GroupSelectComponent,
+    FormOrganizationComponent,
   ],
-    imports: [
-        CommonModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        NzAutocompleteModule,
-        NzInputModule,
-        NzIconModule,
-        NzTreeSelectModule,
-        FormsModule,
-        NzSelectModule,
-    ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NzAutocompleteModule,
+    NzInputModule,
+    NzIconModule,
+    NzTreeSelectModule,
+    FormsModule,
+    NzSelectModule,
+    NzFormModule,
+  ],
   providers: [],
-    exports: [
-        SimpleCheckbox,
-        StaticTextControl,
-        FilterBtnComponent,
-        AccordionComponent,
-        AtsFeatureComponent,
-        RadioFeatureComponent,
-        OperatorIconComponent,
-        AccordionGroupComponent,
-        PayphoneFeatureComponent,
-        CellularFeatureComponent,
-        InternetFeatureComponent,
-        TelevisionFeatureComponent,
-        AccordionHeaderComponent,
-        MobileGenerationComponent,
-        GovernmentProgramComponent,
-        QualityComponent,
-        TrunkChannelComponent,
-        SimpleSelectComponent,
-        GroupSelectComponent,
-    ],
+  exports: [
+    SimpleCheckbox,
+    StaticTextControl,
+    FilterBtnComponent,
+    AccordionComponent,
+    AtsFeatureComponent,
+    RadioFeatureComponent,
+    OperatorIconComponent,
+    AccordionGroupComponent,
+    PayphoneFeatureComponent,
+    CellularFeatureComponent,
+    InternetFeatureComponent,
+    TelevisionFeatureComponent,
+    AccordionHeaderComponent,
+    MobileGenerationComponent,
+    GovernmentProgramComponent,
+    QualityComponent,
+    TrunkChannelComponent,
+    SimpleSelectComponent,
+    GroupSelectComponent,
+    FormOrganizationComponent,
+  ],
 })
 export class SharedModule {}

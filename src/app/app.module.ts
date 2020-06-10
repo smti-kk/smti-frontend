@@ -3,14 +3,16 @@ import {ErrorHandler, NgModule} from '@angular/core';
 import {RouteReuseStrategy} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  NgZorroAntdModule, NZ_CONFIG,
-  NzAutocompleteModule, NzConfig,
+  NgZorroAntdModule,
+  NZ_CONFIG,
+  NzAutocompleteModule,
+  NzConfig,
   NzDropDownModule,
   NzNotificationModule,
 } from 'ng-zorro-antd';
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import ru from '@angular/common/locales/ru';
-import { NZ_I18N, ru_RU } from 'ng-zorro-antd/i18n';
+import {NZ_I18N, ru_RU} from 'ng-zorro-antd/i18n';
 
 import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';
@@ -20,6 +22,7 @@ import {NotificationService} from '@core/services/notification.service';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
+import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
 
 
 const ZN_ZORRO = [NgZorroAntdModule, NzDropDownModule, NzNotificationModule, NzAutocompleteModule];
@@ -50,5 +53,8 @@ const ngZorroConfig: NzConfig = {
     {provide: NZ_CONFIG, useValue: ngZorroConfig}
   ],
   bootstrap: [AppComponent],
+  entryComponents: [
+    FormOrganizationComponent,
+  ],
 })
 export class AppModule {}

@@ -1,18 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 
-import {
-  GovernmentProgram,
-  InternetAccessType,
-  Location,
-  Organization,
-  OrganizationType,
-  Quality,
-  qualityToString,
-  SmoType,
-} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Location, Organization, Quality, qualityToString} from '@core/models';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {
   LocationService,
@@ -31,11 +22,7 @@ import {compareById} from '@core/utils/compare';
 export class OrganizationDetailComponent implements OnInit {
   organization: Organization;
 
-  currentOrganizationLocation: Location;
-
   points$: Observable<Reaccesspoint[]>;
-
-  formGroupOrganization: FormGroup;
 
   ap: Reaccesspoint;
 
@@ -43,13 +30,7 @@ export class OrganizationDetailComponent implements OnInit {
 
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
 
-  fOrganizationTypes$: Observable<OrganizationType[]>;
-
-  fOrganizationSMOTypes$: Observable<SmoType[]>;
-
   fLocations$: Observable<Location[]>;
-
-  locations$: Observable<Location[]>;
 
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
@@ -67,12 +48,9 @@ export class OrganizationDetailComponent implements OnInit {
     private serviceGovernmentProgram: GovernmentProgramService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
-    this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
@@ -83,88 +61,12 @@ export class OrganizationDetailComponent implements OnInit {
 
     if (organizationId) {
       this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
-        this.buildForm(organization);
         this.organization = organization;
-        // this.currentOrganizationLocation = this.organization.location;
-        // this.formGroupOrganization.get('_location').setValue(organization.location);
-        this.locations$ = this.locationsService.getLocationByName(organization.location.name);
       });
     } else {
       const organization = new Organization(locationId);
-      this.buildForm(organization);
       this.organization = organization;
-      // this.currentOrganizationLocation = this.organization.location;
-      // this.formGroupOrganization.get('_location').setValue(organization.location);
-      this.locations$ = this.locationsService.getLocationByName(organization.location.name);
     }
-  }
-
-  private buildForm(o: Organization): void {
-    this.formGroupOrganization = this.formBuilder.group({
-      _id: null,
-      _location: null,
-      _name: [null, Validators.required],
-      _acronym: [null, Validators.required],
-      _address: [null, Validators.required],
-      _inn: [null, Validators.required],
-      _kpp: [null, Validators.required],
-      _fias: [
-        null,
-        [
-          Validators.pattern(
-            '\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b'
-          ),
-          Validators.required,
-        ],
-      ],
-      _type: null,
-      _smoType: null,
-    });
-
-    this.formGroupOrganization.patchValue(o);
-
-    this.formGroupOrganization.disable();
-  }
-
-  cancelEdit(): void {
-    this.formGroupOrganization.reset();
-    this.formGroupOrganization.patchValue(this.organization);
-    this.formGroupOrganization.disable();
-  }
-
-  enableForm(): void {
-    this.formGroupOrganization.enable();
-  }
-
-  saveRequest(): void {
-    this.serviceOrganizations.put(this.formGroupOrganization.value).subscribe(
-      organization => {
-        this.organization = organization;
-      },
-      error => {
-        // todo: обработка ошибки
-        this.formGroupOrganization.enable();
-        throw Error(`${error}`);
-      }
-    );
-    this.formGroupOrganization.disable();
-  }
-
-  isCreate(): boolean {
-    return this.organization && !this.organization.id;
-  }
-
-  saveOrganization(): void {
-    this.serviceOrganizations.save(this.formGroupOrganization.value).subscribe(
-      () => {
-        this.router.navigateByUrl('connection-points');
-        // todo: implement me
-      },
-      error => {
-        throw Error(`${error}`);
-        // todo: implement me
-      }
-    );
   }
 
   addNewAccessPoint(): void {
@@ -213,9 +115,5 @@ export class OrganizationDetailComponent implements OnInit {
           throw Error(`${error}`);
         }
       );
-  }
-
-  onChange(location: string): void {
-    this.locations$ = this.locationsService.getLocationByName(location);
   }
 }

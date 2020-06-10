@@ -1,0 +1,164 @@
+<div class="test"></div>
+<ng-container *ngIf="organizationForEdit">
+  <h2>Организация</h2>
+</ng-container>
+<form [formGroup]="formGroupOrganization" nz-form>
+  <nz-form-item>
+    <nz-form-label>Краткое наименование</nz-form-label>
+    <nz-form-control>
+              <textarea
+                formControlName="_acronym"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Полное наименование</nz-form-label>
+    <nz-form-control>
+              <textarea
+                formControlName="_name"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Адрес</nz-form-label>
+    <nz-form-control>
+              <textarea
+                formControlName="_address"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>ИНН</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_inn"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>КПП</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_kpp"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>ФИАС</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_fias"/>
+      <div class="error" *ngIf="formGroupOrganization.get('_fias').invalid">
+        Должно соответствовать формату "00000000-0000-0000-0000-000000000000"
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Тип</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzAllowClear
+        formControlName="_type"
+        [compareWith]="compareFn"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let item of fOrganizationTypes$ | async"
+          [nzValue]="item"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>СЗО</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        formControlName="_smoType"
+        nzAllowClear
+        [nzSuffixIcon]="suffixIconSelect"
+        [compareWith]="compareFn"
+      >
+        <nz-option
+          *ngFor="let item of fOrganizationSMOTypes$ | async"
+          [nzValue]="item"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Локация</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        (nzOnSearch)="onChange($event)"
+        formControlName="_location"
+        [compareWith]="compareFn"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let location of locations$ | async"
+          [nzValue]="location"
+          [nzLabel]="location?.type + ' ' + location?.name + ' ' + '(' +location?.parent + ')'"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <div class="btn-group" *ngIf="organizationForEdit; else createOrganization">
+        <input
+          *ngIf="formGroupOrganization.enabled"
+          type="button"
+          class="btn"
+          value="Отмена"
+          (click)="cancelEdit()"
+        />
+        <input
+          *ngIf="formGroupOrganization.disabled"
+          type="button"
+          class="btn"
+          value="Редактировать организацию"
+          (click)="enableForm()"
+        />
+        <input
+          type="button"
+          class="btn"
+          value="Сохранить"
+          *ngIf="formGroupOrganization.enabled && !isCreate()"
+          [disabled]="!formGroupOrganization.valid"
+          (click)="saveEditOrganization()"
+        />
+      </div>
+      <ng-template #createOrganization>
+        <div class="btn-group">
+          <input
+            *ngIf="formGroupOrganization.enabled"
+            type="button"
+            class="btn"
+            value="Отмена"
+            (click)="cancelEdit()"
+          />
+          <input
+            type="button"
+            class="btn"
+            value="Сохранить"
+            *ngIf="formGroupOrganization.enabled && !isCreate()"
+            [disabled]="!formGroupOrganization.valid"
+            (click)="saveNewOrganization()"
+          />
+        </div>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<ng-template #suffixIconSelect>
+  <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+</ng-template>

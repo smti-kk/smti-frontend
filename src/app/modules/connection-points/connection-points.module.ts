@@ -5,7 +5,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {
-  NzAutocompleteModule, NzCheckboxModule, NzDatePickerModule,
+  NzAutocompleteModule, NzButtonModule, NzCheckboxModule, NzDatePickerModule,
   NzDrawerModule,
   NzFormModule,
   NzIconModule,
@@ -19,6 +19,7 @@ import {ConnectionPointsComponent} from './connection-points/connection-points.c
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
 import {LocationService} from '@core/services/location.service';
 import {CoreModule} from '@core/core.module';
+import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,7 @@ const routes: Routes = [
     NzDatePickerModule,
     CoreModule,
     NzCheckboxModule,
+    NzButtonModule
   ],
   providers: [],
 })
