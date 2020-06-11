@@ -49,7 +49,7 @@ export class OrganizationDetailComponent implements OnInit {
 
   addNewAccessPoint() {
     this.modal.create({
-      nzTitle: 'Добавить точку доступа',
+      nzTitle: 'Добавление точки доступа',
       nzContent: FormAccessPointComponent,
       nzFooter: null,
       nzComponentParams: {
@@ -60,7 +60,7 @@ export class OrganizationDetailComponent implements OnInit {
 
   editAccessPoint(point: Reaccesspoint) {
     this.modal.create({
-      nzTitle: 'Добавить точку доступа',
+      nzTitle: 'Редактирование точки доступа',
       nzContent: FormAccessPointComponent,
       nzFooter: null,
       nzComponentParams: {
