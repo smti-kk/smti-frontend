@@ -1415,3 +1415,12 @@ input[type='radio']:checked + .c-radiobox-text:after {
   display: flex;
   padding: 10px;
 }
+
+.btn-group {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.btn + .btn {
+  margin-left: 1rem;
+}

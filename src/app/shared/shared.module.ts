@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-  NzAutocompleteModule,
+  NzAutocompleteModule, NzCheckboxModule,
   NzFormModule,
   NzIconModule,
   NzInputModule,
@@ -32,6 +32,7 @@ import {AtsFeatureComponent} from './components/providers-row/ats/ats-feature.co
 import { SimpleSelectComponent } from './layout/simple-select/simple-select.component';
 import { GroupSelectComponent } from './layout/group-select/group-select.component';
 import { FormOrganizationComponent } from './components/form-organization/form-organization.component';
+import { FormAccessPointComponent } from './components/form-access-point/form-access-point.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { FormOrganizationComponent } from './components/form-organization/form-o
     SimpleSelectComponent,
     GroupSelectComponent,
     FormOrganizationComponent,
+    FormAccessPointComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +69,7 @@ import { FormOrganizationComponent } from './components/form-organization/form-o
     FormsModule,
     NzSelectModule,
     NzFormModule,
+    NzCheckboxModule,
   ],
   providers: [],
   exports: [

@@ -23,6 +23,7 @@ import {NotificationService} from '@core/services/notification.service';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
+import {FormAccessPointComponent} from '@shared/components/form-access-point/form-access-point.component';
 
 
 const ZN_ZORRO = [NgZorroAntdModule, NzDropDownModule, NzNotificationModule, NzAutocompleteModule];
@@ -55,6 +56,7 @@ const ngZorroConfig: NzConfig = {
   bootstrap: [AppComponent],
   entryComponents: [
     FormOrganizationComponent,
+    FormAccessPointComponent
   ],
 })
 export class AppModule {}

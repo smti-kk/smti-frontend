@@ -5,6 +5,10 @@
   padding: 1.5rem;
   margin: 1rem 0 4rem;
   background: #efefef;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 input[type='checkbox'] {
@@ -36,7 +40,7 @@ input:disabled.save {
 
 .points {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   grid-column-gap: 2rem;
   flex-grow: 1;
 }
