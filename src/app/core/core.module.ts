@@ -25,6 +25,7 @@ import {FilterTcPivotsService} from '@core/services/filter-tc-pivots.service';
 import {AuthorizationComponent} from './pages/authorization/authorization.component';
 import {NotFoundPage} from './pages/not-found/not-found.page';
 import {InternetAccessTypeService} from './services/internet-access-type.service';
+import {AccessPointTypeService} from '@core/services/accesspoint-type.service';
 
 @NgModule({
   declarations: [NotFoundPage, AuthorizationComponent],
@@ -42,6 +43,7 @@ import {InternetAccessTypeService} from './services/internet-access-type.service
     LocationServiceContractsWithFilterParams,
     LocationServiceOrganizationAccessPointsWithFilterParams,
     AdministrativeCentersService,
+    AccessPointTypeService,
     {provide: FilterTcPivotsService, useClass: FilterTcPivotsService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],

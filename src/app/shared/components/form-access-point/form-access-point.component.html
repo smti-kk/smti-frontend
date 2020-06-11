@@ -1,4 +1,20 @@
 <form [formGroup]="formGroupAccessPoints" nz-form>
+  <nz-form-item *ngIf="!accessPointForEdit">
+    <nz-form-label>Тип точки</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        formControlName="_pointType"
+        [compareWith]="compareFn"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let item of accessPointType$ | async"
+          [nzValue]="item"
+          [nzLabel]="item.desc"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
   <nz-form-item>
     <nz-form-label>Адрес</nz-form-label>
     <nz-form-control>

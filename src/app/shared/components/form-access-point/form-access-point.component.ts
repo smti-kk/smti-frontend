@@ -7,6 +7,8 @@ import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {Observable} from 'rxjs';
 import {GovernmentProgram, InternetAccessType, Organization, Quality, qualityToString} from '@core/models';
+import {AccessPointType} from '@core/models/accesspoint-type';
+import {AccessPointTypeService} from '@core/services/accesspoint-type.service';
 
 @Component({
   selector: 'app-form-access-point',
@@ -23,6 +25,8 @@ export class FormAccessPointComponent implements OnInit {
 
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
+  accessPointType$: Observable<AccessPointType[]>;
+
   formGroupAccessPoints: FormGroup;
 
   ap: Reaccesspoint;
@@ -37,6 +41,7 @@ export class FormAccessPointComponent implements OnInit {
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private serviceOrganizations: OrganizationsService,
+    private serviceAccessPointType: AccessPointTypeService,
     private formBuilder: FormBuilder,
   ) {
   }
@@ -44,6 +49,7 @@ export class FormAccessPointComponent implements OnInit {
   ngOnInit() {
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
+    this.accessPointType$ = this.serviceAccessPointType.getAccessPointType();
 
     if (this.accessPointForEdit) {
       this.buildForm(this.accessPointForEdit);
@@ -84,6 +90,7 @@ export class FormAccessPointComponent implements OnInit {
       _ucn: null,
       // _updatedAt: null,
       _visible: true,
+      _pointType: null
     });
 
     if (point) {
