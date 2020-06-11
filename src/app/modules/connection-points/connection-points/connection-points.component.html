@@ -219,29 +219,29 @@
               <div class="container-info">
                 <div class="container-info-icon">
                   <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
-                    <img src="/assets/espd.png"/>
+                    <img src="/assets/img/icon/espd.png"/>
                   </ng-container>
                   <ng-template #smoIcon>
-                    <img src="/assets/smo.png"/>
+                    <img src="/assets/img/icon/smo.png"/>
                   </ng-template>
                 </div>
                 <span>{{ point.address ? point.address : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/2.png"/>
+                  <img src="/assets/img/icon/contractor.png"/>
                 </div>
                 <span>{{ point.contractor ? point.contractor : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/4.png"/>
+                  <img src="/assets/img/icon/connection.png"/>
                 </div>
                 <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/5.png"/>
+                  <img src="/assets/img/icon/declaredSpeed.png"/>
                 </div>
                 <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
               </div>

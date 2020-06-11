@@ -227,33 +227,33 @@
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/2.png"/>
+                  <img src="/assets/img/icon/contractor.png"/>
                 </div>
                 <span>{{ contract.contractor ? contract.contractor : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/4.png"/>
+                  <img src="/assets/img/icon/connection.png"/>
                 </div>
                 <span>{{ contract.internetAccessType ? contract.internetAccessType.name : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/5.png"/>
+                  <img src="/assets/img/icon/declaredSpeed.png"/>
                 </div>
                 <span>{{ contract.declaredSpeed ? contract.declaredSpeed : '----' }}</span>
               </div>
               <div class="container-info col2">
                 <div class="container-info-icon">
-                  <img src="/assets/3.png"/>
+                  <img src="/assets/img/icon/number.png"/>
                 </div>
-                <span>{{ contract.number }}</span>
+                <span>{{ contract?.number }}</span>
               </div>
               <div class="container-info col3">
                 <div class="container-info-icon">
-                  <img src="/assets/6.png"/>
+                  <img src="/assets/img/icon/amount.png"/>
                 </div>
-                <span>{{ contract.amount / 100 }} руб</span>
+                <span>{{ contract?.amount / 100 }} руб</span>
               </div>
             </div>
           </div>

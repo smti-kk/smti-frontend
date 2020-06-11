@@ -56,9 +56,6 @@ export class FormAccessPointComponent implements OnInit {
     } else {
       this.buildForm();
     }
-
-    console.log(this.accessPointForEdit);
-    console.log(this.organization);
   }
 
   private buildForm(point?: Reaccesspoint): void {
