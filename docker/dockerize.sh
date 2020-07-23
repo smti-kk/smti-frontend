@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
+
 HUB='harbor.cifra-k.ru'
+HUB_USER='ci'
+HUB_PASSWORD='ReKj#%QA'
 PROJECT='telecom-it/telecom-frontend'
 
 DIR="`dirname "$(readlink -f "$0")"`"
@@ -44,13 +47,15 @@ docker rmi ${hub}/${project}:${GIT_COMMIT_SHORT}
 push() {
 echo "Pushing ${hub}/${project} (${GIT_BRANCH_SHORT}) at ${GIT_COMMIT_SHORT}"
 
+docker login $HUB -u $HUB_USER -p $HUB_PASSWORD
+
 docker push ${hub}/${project}_${GIT_BRANCH_SHORT}:`cat ${DIR}/version`
 docker push ${hub}/${project}_${GIT_BRANCH_SHORT}:latest
 docker push ${hub}/${project}:${GIT_COMMIT_SHORT}
 }
 
-dump() {
-docker save ${hub}/${project}_${GIT_BRANCH_SHORT}:latest > ${project}.tar
+update_dev() {
+sshpass -v -p "$DEV_HOST_PWD" ssh -v -o "StrictHostKeyChecking no" "${DEV_HOST_USER}"@"${DEV_HOST}" "cd $PROJECT_PATH; echo $DEV_HOST_PWD | sudo -S docker-compose pull frontend; echo $DEV_HOST_PWD | sudo -S docker-compose stop frontend; echo $DEV_HOST_PWD | sudo -S docker-compose rm -f frontend; echo $DEV_HOST_PWD | sudo -S docker-compose up -d frontend"
 }
 
 
