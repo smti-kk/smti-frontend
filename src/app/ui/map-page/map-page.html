@@ -1,0 +1,9 @@
+<info-bar (toggle)="onToggleBar($event)" [opened]="barIsOpened">
+  <search (selectLocation)="onSelectLocation($event)" class="location-search"></search>
+  <location-info-bar *ngIf="location$ | async as location" [location]="location"></location-info-bar>
+  <div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+<!--  <organizations-info-bar></organizations-info-bar>-->
+</info-bar>
+<best-map [centredOnLocation]="centeredLocation" (locationClick)="onSelectLocation($event)"></best-map>

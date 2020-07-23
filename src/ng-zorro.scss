@@ -18,6 +18,10 @@ textarea {
   margin: 0;
 }
 
+.ant-row {
+  display: block;
+}
+
 .ant-form-item-label {
   font-weight: 600;
   line-height: normal;
@@ -44,14 +48,14 @@ textarea {
   box-shadow: unset;
 }
 
-.ant-select-selection {
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-  border-radius: unset;
+.ant-select-selector {
+  border: none !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  border-radius: unset !important;
 }
 
-.ant-select-selection-selected-value {
-  font-weight: 400;
+.ant-select-item-option-content {
+  font-weight: 600 !important;
 }
 
 /* анимация стрелки select - начало */

@@ -1,0 +1,7 @@
+export enum UserRole {
+  ADMIN,
+  GUEST,
+  MUNICIPALITY,
+  ORGANIZATION,
+  OPERATOR,
+}

@@ -1,0 +1,183 @@
+:host {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  display: grid;
+  top: 0;
+  transition: 2s all;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+  background: #343A3B;
+}
+
+svg {
+  max-width: 100%;
+}
+
+@-webkit-keyframes pulse {
+  to {
+    -webkit-transform: rotateY(0) skewY(0) scale(1);
+    transform: rotateY(0) skewY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  to {
+    -webkit-transform: rotateY(0) skewY(0) scale(1);
+    transform: rotateY(0) skewY(0) scale(1);
+  }
+}
+.loader {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.loader svg {
+  width: 20px;
+  height: 20px;
+  -webkit-animation: pulse 400ms cubic-bezier(0.17, 0.67, 0.49, 0.93) infinite alternate forwards;
+  animation: pulse 400ms cubic-bezier(0.17, 0.67, 0.49, 0.93) infinite alternate forwards;
+  -webkit-transform: rotateY(-180deg) skewY(-45deg) scale(0);
+  transform: rotateY(-180deg) skewY(-45deg) scale(0);
+  -webkit-transform-origin: top center;
+  transform-origin: top center;
+}
+.loader svg rect {
+  fill: #E77C7C;
+}
+
+.loader svg:nth-of-type(1) {
+  -webkit-animation-delay: 0.0575s;
+  animation-delay: 0.0575s;
+}
+.loader svg:nth-of-type(1) rect {
+  fill: #e97a7a;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #eb7878;
+}
+
+.loader svg:nth-of-type(2) {
+  -webkit-animation-delay: 0.115s;
+  animation-delay: 0.115s;
+}
+.loader svg:nth-of-type(2) rect {
+  fill: #ea7979;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #ef7474;
+}
+
+.loader svg:nth-of-type(3) {
+  -webkit-animation-delay: 0.1725s;
+  animation-delay: 0.1725s;
+}
+.loader svg:nth-of-type(3) rect {
+  fill: #ec7777;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #f37070;
+}
+
+.loader svg:nth-of-type(4) {
+  -webkit-animation-delay: 0.23s;
+  animation-delay: 0.23s;
+}
+.loader svg:nth-of-type(4) rect {
+  fill: #ed7676;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #f76d6d;
+}
+
+.loader svg:nth-of-type(5) {
+  -webkit-animation-delay: 0.2875s;
+  animation-delay: 0.2875s;
+}
+.loader svg:nth-of-type(5) rect {
+  fill: #ef7474;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #fa6969;
+}
+
+.loader svg:nth-of-type(6) {
+  -webkit-animation-delay: 0.345s;
+  animation-delay: 0.345s;
+}
+.loader svg:nth-of-type(6) rect {
+  fill: #f07373;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #fe6565;
+}
+
+.loader svg:nth-of-type(7) {
+  -webkit-animation-delay: 0.4025s;
+  animation-delay: 0.4025s;
+}
+.loader svg:nth-of-type(7) rect {
+  fill: #f27171;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #ff6464;
+}
+
+.loader svg:nth-of-type(8) {
+  -webkit-animation-delay: 0.46s;
+  animation-delay: 0.46s;
+}
+.loader svg:nth-of-type(8) rect {
+  fill: #f37070;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #ff6464;
+}
+
+.loader svg:nth-of-type(9) {
+  -webkit-animation-delay: 0.5175s;
+  animation-delay: 0.5175s;
+}
+.loader svg:nth-of-type(9) rect {
+  fill: #f56e6e;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #ff6464;
+}
+
+.loader svg:nth-of-type(10) {
+  -webkit-animation-delay: 0.575s;
+  animation-delay: 0.575s;
+}
+.loader svg:nth-of-type(10) rect {
+  fill: #f76d6d;
+}
+
+.loader svg:nth-of-type(odd) rect {
+  fill: #ff6464;
+}

@@ -1,0 +1,23 @@
+@startuml
+package api {
+}
+
+package service {
+}
+
+package storage {
+}
+
+package ui {
+}
+
+package "points-layer" {
+}
+
+
+ui --> service
+service --> storage
+service --> api
+service --> "points-layer"
+api -> storage
+@enduml

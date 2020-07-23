@@ -1,0 +1,61 @@
+<!--<organization-filters></organization-filters>-->
+<div class="table" *ngIf="organizations">
+  <div class="table__header">
+    <div class="table__header-column">Населенный пункт</div>
+    <div class="table__header-column">Организация</div>
+    <div class="table__header-column">Адрес</div>
+    <div class="table__header-column">Оператор</div>
+    <div class="table__header-column">Типы подключения</div>
+    <div class="table__header-column">Ширина канала</div>
+  </div>
+  <div class="table__row" *ngFor="let organization of organizations">
+    <div class="table__column">
+      <div class="table__location">
+        <div class="table__location-name">{{organization.locationName}}</div>
+        {{organization.area}}<br>
+        {{organization.population}} чел.
+      </div>
+      <div class="table__detail-button">
+        Подробнее
+      </div>
+    </div>
+    <div class="table__column">
+      <div class="table__organization">
+        <div class="table__organization-title">
+          {{organization.name}}
+        </div>
+      </div>
+      <div class="table__organization-type">
+        Тип организации: {{organization.type}}
+      </div>
+      <div class="table__szo-type">
+        Тип СЗО: {{organization.szoType}}
+      </div>
+    </div>
+    <div class="table__column">
+      <div class="table__access-points">
+        <div class="table__access-point" *ngFor="let connectionPoint of organization.connectionPoints">
+          <div class="table__access-point-info">
+            <img src="/assets/espd-bordered.svg" alt=""> <div>{{connectionPoint.address}}</div>
+          </div>
+          <div class="table__access-point-info">
+            <img src="/assets/operator-bordered.svg" alt=""> <div>{{connectionPoint.operator}}</div>
+          </div>
+          <div class="table__access-point-info">
+            <img src="/assets/channel-width-bordered.svg" alt=""> <div>{{connectionPoint.connectionType}}</div>
+          </div>
+          <div class="table__access-point-info">
+            <img src="/assets/connection-type-bordered.svg" alt=""> <div>{{connectionPoint.channelWidth}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="organizations && organizations.length === 0">
+  Нет данных
+</div>
+<div class="spinner-container">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
+

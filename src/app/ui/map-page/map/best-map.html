@@ -1,0 +1,27 @@
+<div class="layers-selection" *ngIf="map">
+  <div class="layers-selection__item">
+    <mat-checkbox #locationsCheckbox
+                  color="primary"
+                  (change)="removeOrAddLayer('locations', locationsCheckbox.checked)"
+                  [checked]="true">Населённые пункты</mat-checkbox>
+  </div>
+  <div class="layers-selection__item">
+    <mat-checkbox #espdCheckbox
+                  color="accent"
+                  (change)="removeOrAddLayer('ESPD', espdCheckbox.checked)"
+                  [checked]="false">ЕСПД</mat-checkbox>
+  </div>
+  <div class="layers-selection__item">
+    <mat-checkbox #smoCheckbox
+                  color="warn"
+                  (change)="removeOrAddLayer('SMO', smoCheckbox.checked)"
+                  [checked]="false">СМО</mat-checkbox>
+  </div>
+</div>
+<div class="leaflet-map"
+     *ngIf="leafletOptions$ | async as leafletOptions"
+     leaflet
+     [leafletOptions]="leafletOptions"
+     (leafletMapReady)="initializeMap($event)">
+</div>
+

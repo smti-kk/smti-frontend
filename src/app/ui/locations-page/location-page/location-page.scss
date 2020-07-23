@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  padding: 15px;
+}
+
+.tc-item {
+  width: 1000px;
+}
+
+.operator-block {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  align-items: center;
+}
+
+.tc-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-gap: 10px;
+  align-items: center;
+}
+
+.some-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1px;
+  width: 400px;
+}

@@ -1,15 +1,24 @@
 {
   "/api/*": {
     "secure": false,
-    "target": "http://telecom-it.cifra-k.ru/api",
+    "target": "http://localhost:8080/api",
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
       "^/api": ""
     }
   },
+  "/GetCityDetails/*": {
+    "secure": false,
+    "target": "http://gd.geobytes.com/GetCityDetails",
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/GetCityDetails": ""
+    }
+  },
   "/media/*": {
-    "target": "http://telecom-it.cifra-k.ru/media",
+    "target": "http://localhost:8080/media",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
@@ -18,7 +27,7 @@
     }
   },
   "/auth/*": {
-    "target": "http://telecom-it.cifra-k.ru/auth",
+    "target": "http://localhost:8080/auth",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
@@ -27,7 +36,7 @@
     }
   },
   "/esia-auth/*": {
-    "target": "http://telecom-it.cifra-k.ru/auth",
+    "target": "http://localhost:8080/auth",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,

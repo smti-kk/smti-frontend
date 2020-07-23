@@ -1,6 +1,0 @@
-.git
-
-docker
-!docker/nginx.conf
-!docker/version
-!docker/revision

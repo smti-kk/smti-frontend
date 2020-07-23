@@ -1,0 +1,5 @@
+<menu></menu>
+<loader *ngIf="loaderService.isLoading()"></loader>
+<div class="container" [class.before-load-hide]="loaderService.isLoading()">
+  <router-outlet></router-outlet>
+</div>

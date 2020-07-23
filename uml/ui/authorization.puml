@@ -1,0 +1,48 @@
+@startuml
+class Authorization {
+  +form: FormGroup;
+  +isIncorrectLoginOrPassword;
+}
+
+interface AuthorizationService {
+  +authorize(email, password): Observable<void>
+}
+
+class AuthorizationServiceImpl {
+}
+
+class WithAccountService {
+
+}
+
+class WithUpdateUser {
+}
+
+class FormBuilder {}
+
+class MatDialogRef<Authorization> {}
+
+interface AuthorizationApi {
+  +authorize(email, password): Observable<token>;
+}
+
+interface StorageService {
+  +save<T>(id: string, value: T): void;
+  +get<T>(id: string): T;
+  +saveToken(token: string): void;
+  +getToken(): string;
+}
+
+class LocalStorageService {}
+
+Authorization o-- FormBuilder
+Authorization o-- AuthorizationService
+Authorization o-- MatDialogRef
+AuthorizationService <|.. AuthorizationServiceImpl
+AuthorizationService <|.. WithUpdateUser
+WithUpdateUser o-- AuthorizationService
+WithUpdateUser o-- AccountService
+AuthorizationServiceImpl o-- StorageService
+AuthorizationServiceImpl o-- AuthorizationApi
+StorageService <|.. LocalStorageService
+@enduml

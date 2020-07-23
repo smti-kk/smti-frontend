@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28.264" height="42.611" viewBox="0 0 28.264 42.611">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #129cc7;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="РСЗО_1" transform="translate(22637.264 2500)">
+    <g id="Group_997" data-name="Group 997" transform="translate(-23191.051 -2653.695)">
+      <path id="Path_1356" data-name="Path 1356" class="cls-1" d="M416.423-183.476c2.682-4.386,11.08-20.137,11.457-22.429a14.211,14.211,0,0,0,.4-3.342,14.148,14.148,0,0,0-14.132-14.131,14.147,14.147,0,0,0-14.131,14.131,14.19,14.19,0,0,0,.4,3.342c.377,2.292,8.775,18.043,11.458,22.429l1.344,2.19a1.094,1.094,0,0,0,.929.518,1.094,1.094,0,0,0,.929-.518Z" transform="translate(153.77 377.073)"/>
+      <g id="Component_88_21" data-name="Component 88 – 21" transform="translate(556 156)">
+        <path id="Path_1560" data-name="Path 1560" class="cls-2" d="M12,0A12,12,0,1,1,0,12,12,12,0,0,1,12,0Z"/>
+        <g id="Group_986" data-name="Group 986" transform="translate(20917.027 2801.582)">
+          <g id="Group_841" data-name="Group 841" transform="translate(-20912.115 -2796.547)">
+            <path id="Path_1482" data-name="Path 1482" class="cls-1" d="M-3270.732,1855.049h-10.9a1.661,1.661,0,0,1-1.741-1.562v-6.744a1.661,1.661,0,0,1,1.741-1.562h10.9a1.661,1.661,0,0,1,1.74,1.562v6.744A1.661,1.661,0,0,1-3270.732,1855.049Zm-10.9-9.106a.85.85,0,0,0-.891.8v6.744a.85.85,0,0,0,.891.8h10.9a.851.851,0,0,0,.892-.8v-6.744a.851.851,0,0,0-.892-.8Z" transform="translate(3283.369 -1845.181)"/>
+          </g>
+          <g id="Group_842" data-name="Group 842" transform="translate(-20913.736 -2784.864)">
+            <rect id="Rectangle_2696" data-name="Rectangle 2696" class="cls-1" width="17.81" height="1.311" transform="translate(0 0)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

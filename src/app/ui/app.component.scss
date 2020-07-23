@@ -1,0 +1,11 @@
+menu {
+  height: 87px;
+}
+
+.container {
+  height: calc(100% - 87px);
+}
+
+.before-load-hide {
+  transform: translateX(0);
+}

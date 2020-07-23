@@ -1,0 +1,40 @@
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #fff !important;
+}
+//
+//.mat-form-field-infix input {
+//  margin-top: 16px !important;
+//}
+//
+//mat-label {
+//  color: #95989a !important;
+//  font-family: "Segoe UI", sans-serif;
+//  font-size: 18px !important;
+//  font-weight: 600 !important;
+//  line-height: 19px !important;
+//  letter-spacing: 0.4px;
+//}
+//
+//.mat-form-field-label-wrapper {
+//  top: -0.637em !important;
+//}
+//
+//.mat-form-field-appearance-fill .mat-form-field-label {
+//  //margin-top: -0.8em !important;
+//}
+
+.mat-checkbox-frame {
+  border: 1px solid #707070 !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+  background-color: #e0e0e0;
+}
+
+.mat-form-field-underline {
+  height: 0 !important;
+}
+
+.ng-select .ng-select-container {
+  border: none !important;
+}

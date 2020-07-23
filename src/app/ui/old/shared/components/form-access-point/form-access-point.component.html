@@ -1,0 +1,105 @@
+<form [formGroup]="formGroupAccessPoints" nz-form>
+  <nz-form-item *ngIf="!accessPointForEdit">
+    <nz-form-label>Тип точки</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        formControlName="_type"
+        [compareWith]="compareFn"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let item of accessPointType$ | async"
+          [nzValue]="item"
+          [nzLabel]="item.desc"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Адрес</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_address"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Отображается</nz-form-label>
+    <nz-form-control>
+      <label nz-checkbox formControlName="_visible"></label>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Узел доступа</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_node"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Тип</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        formControlName="_connectionType"
+        [compareWith]="compareFn"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let item of fInternetAccessTypes$ | async"
+          [nzValue]="item"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Оператор связи</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_contractor"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Качество связи</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        formControlName="_quality"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошо"></nz-option>
+        <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
+        <nz-option [nzValue]="Quality.ABSENT" nzLabel="Отсутствует"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Скорость по контракту</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_declaredSpeed"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Государственная программа</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        formControlName="_governmentProgram"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let item of fGovernmentPrograms$ | async"
+          [nzValue]="item"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <div class="btn-group">
+        <button type="button" class="btn" (click)="saveAccessPoint()">
+          Сохранить
+        </button>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<ng-template #suffixIconSelect>
+  <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+</ng-template>

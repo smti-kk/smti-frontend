@@ -1,0 +1,17 @@
+@startuml
+class AppComponent {}
+class Menu {}
+class MapPage {}
+class Search {}
+class LocationInfoBar
+class OrganizationInfoBar
+class Map
+
+AppComponent *-- Menu
+Menu *-- MapPage
+MapPage *-- LocationInfoBar
+MapPage *-- OrganizationInfoBar
+MapPage *-- Search
+MapPage *-- Map
+
+@enduml

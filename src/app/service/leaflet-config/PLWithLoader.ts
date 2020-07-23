@@ -1,0 +1,41 @@
+import {PointsLayer} from './PointsLayer';
+import {LatLngBounds, Map} from 'leaflet';
+import {Observable} from 'rxjs';
+import {Point} from '../points/Point';
+import {tap} from 'rxjs/operators';
+
+export class PLWithLoader implements PointsLayer {
+  private readonly origin: PointsLayer;
+  private map: Map;
+
+  constructor(origin: PointsLayer) {
+    this.origin = origin;
+  }
+
+  addToMap(map: Map): void {
+    this.map = map;
+    this.origin.addToMap(map);
+  }
+
+  reloadByBounds(bounds: LatLngBounds): Observable<Point[]> {
+    if (!this.map) {
+      return this.origin.reloadByBounds(bounds);
+    }
+    this.map.spin(true);
+    return this.origin.reloadByBounds(bounds).pipe(
+      tap(() => {
+        this.map.spin(false);
+      }, () => {
+        this.map.spin(false);
+      })
+    );
+  }
+
+  removeFromMap(map: Map): void {
+    this.origin.removeFromMap(map);
+  }
+
+  moveToPoint(id: number): void {
+    this.origin.moveToPoint(id);
+  }
+}

@@ -1,0 +1,35 @@
+.marker-cluster-administrative-centers {
+  background-color: rgba(0, 157, 211, 0.6);
+
+  & div {
+    background-color: rgb(0, 157, 211, 1);
+  }
+}
+
+
+
+.marker-cluster.smo {
+  background-color: #147774;
+}
+
+.marker-cluster.espd {
+  background-color: #FF5353;
+}
+
+.marker-cluster-active {
+  & div {
+    background-color: rgba(0, 255, 55, 1);
+  }
+}
+
+.marker-cluster-disabled {
+  & div {
+    background-color: rgba(252, 3, 15, 1);
+  }
+}
+
+.marker-cluster-undefined {
+  & div {
+    background-color: rgba(133, 133, 133, 1);
+  }
+}

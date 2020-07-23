@@ -32,7 +32,6 @@ speed-measure-plugin*.json
 .history/*
 
 # misc
-/app/src/*.css
 /.sass-cache
 /connect.lock
 /coverage
@@ -45,15 +44,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-# scss cache
-
-*.css
-*css.map
-*.sass-cache
-api (1).http
-
-proxy.conf.json
-
-.ssh
-docker/revision
