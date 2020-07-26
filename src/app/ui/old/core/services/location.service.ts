@@ -138,8 +138,8 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setConnectionType('inet', filters.connectionType);
     this.setContractStart('contract-start', filters.contractStart);
     this.setContractEnd('contract-end', filters.contractEnd);
-    this.populationStart('population-start', filters.populationStart)
-    this.populationEnd('population-end', filters.populationEnd)
+    this.populationStart('population-start', filters.populationStart);
+    this.populationEnd('population-end', filters.populationEnd);
   }
 
   exportExcel() {
@@ -278,8 +278,8 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
     this.setContractType('contract', filters.contractType);
-    this.populationStart('population-start', filters.populationStart)
-    this.populationEnd('population-end', filters.populationEnd)
+    this.populationStart('population-start', filters.populationStart);
+    this.populationEnd('population-end', filters.populationEnd);
   }
 
   setType(field: string, value: OrganizationType) {

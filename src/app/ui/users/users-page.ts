@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {UsersService} from "@service/account/UsersService";
-import {UserFromApi} from "@api/dto/UserFromApi";
-import {DLocationBase} from "@api/dto/DLocationBase";
-import {DLocationsService} from "@service/locations/DLocationsService";
+import {UsersService} from '@service/account/UsersService';
+import {UserFromApi} from '@api/dto/UserFromApi';
+import {DLocationBase} from '@api/dto/DLocationBase';
+import {DLocationsService} from '@service/locations/DLocationsService';
 
 @Component({
   selector: 'app-users',
@@ -19,11 +19,11 @@ export class UsersPage implements OnInit {
 
   constructor(usersService: UsersService, dLocationService: DLocationsService) {
     this.roles = {};
-    this.roles['ADMIN'] = 'Администратор';
-    this.roles['GUEST'] = 'Посетитель';
-    this.roles['MUNICIPALITY'] = 'Муниципалитет';
-    this.roles['ORGANIZATION'] = 'Оператор - Организации';
-    this.roles['OPERATOR'] = 'Оператор - Локации';
+    this.roles.ADMIN = 'Администратор';
+    this.roles.GUEST = 'Посетитель';
+    this.roles.MUNICIPALITY = 'Муниципалитет';
+    this.roles.ORGANIZATION = 'Оператор - Организации';
+    this.roles.OPERATOR = 'Оператор - Локации';
     this.usersService = usersService;
     this.dLocationService = dLocationService;
   }

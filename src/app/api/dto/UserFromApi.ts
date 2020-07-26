@@ -1,4 +1,4 @@
-import {DLocationBase} from "@api/dto/DLocationBase";
+import {DLocationBase} from '@api/dto/DLocationBase';
 
 export interface UserFromApi {
   id: number;

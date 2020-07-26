@@ -25,6 +25,21 @@ export enum OrderingDirection {
 export class TcPivotsService {
   constructor(private httpClient: HttpClient) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private static filterNulls(array: any[]): any[] {
+    console.log(array.filter((c: any) => c._operator !== null));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return array.filter((c: any) => c._operator !== null); // todo: исправить any
+  }
+
+  static exportExcel(params?: HttpParams): void {
+    if (params) {
+      window.location.href = `${LTC}/export/?${params.toString()}`;
+    } else {
+      window.location.href = `${LTC}/export/`;
+    }
+  }
+
   list(params?: HttpParams): Observable<PaginatedList<LocationFeatures>> {
     return this.httpClient
       .get<PaginatedListBackend>(LTC, {params})
@@ -67,20 +82,5 @@ export class TcPivotsService {
 
   reject(id: number): Observable<void> {
     return this.httpClient.get<void>(REJECT_PETITION.replace(':id', id.toString()));
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private static filterNulls(array: any[]): any[] {
-    console.log(array.filter((c: any) => c._operator !== null));
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return array.filter((c: any) => c._operator !== null); // todo: исправить any
-  }
-
-  static exportExcel(params?: HttpParams): void {
-    if (params) {
-      window.location.href = `${LTC}/export/?${params.toString()}`;
-    } else {
-      window.location.href = `${LTC}/export/`;
-    }
   }
 }

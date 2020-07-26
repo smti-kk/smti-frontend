@@ -6,7 +6,7 @@ import {OrderingDirection} from '@core/services/tc-pivots.service';
 export interface OrderingFilter {
   orderingDirection: OrderingDirection;
   name: string;
-  priority: number
+  priority: number;
 }
 
 export const FILTER_BUTTONS_VALUE_ACCESSOR: Provider = {

@@ -47,7 +47,7 @@ export class Organization {
   // private readonly _contracts: Contract[];
 
   @deserializeAs(Location, 'location')
-  @autoserializeAs(ID_SERIALIZER,'location')
+  @autoserializeAs(ID_SERIALIZER, 'location')
   private readonly _location: Location;
 
   // @autoserializeAs('ogrn')

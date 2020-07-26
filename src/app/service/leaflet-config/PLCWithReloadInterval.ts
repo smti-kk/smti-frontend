@@ -5,15 +5,17 @@ import {Map} from 'leaflet';
 export class PLCWithReloadInterval implements PointLayerController {
   private readonly origin: PointLayerController;
   private interval;
+  private readonly timeoutMS: number;
 
-  constructor(origin: PointLayerController) {
+  constructor(origin: PointLayerController, timeoutMS: number) {
     this.origin = origin;
+    this.timeoutMS = timeoutMS;
   }
 
   addTo(map: Map): void {
     this.interval = setInterval(() => {
       this.reloadLayer();
-    }, 1000*60*1);
+    }, this.timeoutMS);
     this.origin.addTo(map);
   }
 

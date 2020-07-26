@@ -1,8 +1,8 @@
-import {Observable} from "rxjs";
-import {UserFromApi} from "../dto/UserFromApi";
-import {UsersApi} from "./UsersApi";
-import {HttpClient} from "@angular/common/http";
-import {USERS_API} from "../../../environments/api.routes";
+import {Observable} from 'rxjs';
+import {UserFromApi} from '../dto/UserFromApi';
+import {UsersApi} from './UsersApi';
+import {HttpClient} from '@angular/common/http';
+import {USERS_API} from '../../../environments/api.routes';
 
 export class UsersApiImpl implements UsersApi {
   constructor(private httpClient: HttpClient) {

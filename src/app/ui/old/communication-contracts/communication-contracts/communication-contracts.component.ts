@@ -42,7 +42,7 @@ export class CommunicationContractsComponent implements OnInit {
 
   isVisibleFilter = false;
 
-  dateFormat: string = 'dd.MM.yyyy';
+  dateFormat = 'dd.MM.yyyy';
 
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,

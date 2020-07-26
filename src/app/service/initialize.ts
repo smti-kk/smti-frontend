@@ -65,14 +65,15 @@ import {LocationsApiImpl} from '@api/locations/LocationsApiImpl';
 import {LocationSearchApiImpl} from '@api/locations/LocationSearchApiImpl';
 import {DetailLocations} from '@service/locations/DetailLocations';
 import {DetailLocationsFromApi} from '@service/locations/DetailLocationsFromApi';
-import {DLocationsServiceImpl} from "@service/locations/DLocationsServiceImpl";
-import {DLocationBaseApiImpl} from "@api/locations/DLocationBaseApiImpl";
-import {DLocationsService} from "@service/locations/DLocationsService";
-import {UsersServiceImpl} from "@service/account/UsersServiceImpl";
-import {UsersApiImpl} from "@api/account/UsersApiImpl";
-import {UsersService} from "@service/account/UsersService";
+import {DLocationsServiceImpl} from '@service/locations/DLocationsServiceImpl';
+import {DLocationBaseApiImpl} from '@api/locations/DLocationBaseApiImpl';
+import {DLocationsService} from '@service/locations/DLocationsService';
+import {UsersServiceImpl} from '@service/account/UsersServiceImpl';
+import {UsersApiImpl} from '@api/account/UsersApiImpl';
+import {UsersService} from '@service/account/UsersService';
 
 export const factory = (): Provider[] => {
+  // noinspection JSNonASCIINames
   const httpClient = new HttpService(
     new HttpXhrBackend(
       new ɵangular_packages_common_http_http_d()

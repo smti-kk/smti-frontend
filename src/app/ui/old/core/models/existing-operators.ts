@@ -6,23 +6,6 @@ import {LocationFeatures} from '@core/models/location-features';
 import {LocationFeature} from '@core/models/location-feature';
 
 export class ExistingOperators {
-  @autoserializeAs(Operator, 'cellurar')
-  private _cellular: Operator[];
-
-  @autoserializeAs(Operator, 'radio')
-  private _radio: Operator[];
-
-  @autoserializeAs(Operator, 'internet')
-  private _internet: Operator[];
-
-  @autoserializeAs(Operator, 'ats')
-  private _ats: Operator[];
-
-  @autoserializeAs(Operator, 'post')
-  private _post: Operator[];
-
-  @autoserializeAs(Operator, 'television')
-  private _television: Operator[];
 
   constructor(
     cellular: Operator[],
@@ -87,23 +70,23 @@ export class ExistingOperators {
   set television(value: Operator[]) {
     this._television = value;
   }
+  @autoserializeAs(Operator, 'cellurar')
+  private _cellular: Operator[];
 
-  sortByLocationFeatures(features: LocationFeatures): ExistingOperators {
-    features.cellular = ExistingOperators.filterDistinct(features.cellular);
-    features.television = ExistingOperators.filterDistinct(features.television);
-    features.post = ExistingOperators.filterDistinct(features.post);
-    features.ats = ExistingOperators.filterDistinct(features.ats);
-    features.internet = ExistingOperators.filterDistinct(features.internet);
-    features.radio = ExistingOperators.filterDistinct(features.radio);
+  @autoserializeAs(Operator, 'radio')
+  private _radio: Operator[];
 
-    this.cellular = ExistingOperators.sortByLocationFeature(features.cellular, this.cellular);
-    this.television = ExistingOperators.sortByLocationFeature(features.television, this.television);
-    this.post = ExistingOperators.sortByLocationFeature(features.post, this.post);
-    this.ats = ExistingOperators.sortByLocationFeature(features.ats, this.ats);
-    this.internet = ExistingOperators.sortByLocationFeature(features.internet, this.internet);
-    this.radio = ExistingOperators.sortByLocationFeature(features.radio, this.radio);
-    return this;
-  }
+  @autoserializeAs(Operator, 'internet')
+  private _internet: Operator[];
+
+  @autoserializeAs(Operator, 'ats')
+  private _ats: Operator[];
+
+  @autoserializeAs(Operator, 'post')
+  private _post: Operator[];
+
+  @autoserializeAs(Operator, 'television')
+  private _television: Operator[];
 
   private static filterDistinct<T extends LocationFeature>(features: T[]): T[] {
     return features.filter((item, index) => {
@@ -123,5 +106,22 @@ export class ExistingOperators {
     locationFeature.reverse();
 
     return operators;
+  }
+
+  sortByLocationFeatures(features: LocationFeatures): ExistingOperators {
+    features.cellular = ExistingOperators.filterDistinct(features.cellular);
+    features.television = ExistingOperators.filterDistinct(features.television);
+    features.post = ExistingOperators.filterDistinct(features.post);
+    features.ats = ExistingOperators.filterDistinct(features.ats);
+    features.internet = ExistingOperators.filterDistinct(features.internet);
+    features.radio = ExistingOperators.filterDistinct(features.radio);
+
+    this.cellular = ExistingOperators.sortByLocationFeature(features.cellular, this.cellular);
+    this.television = ExistingOperators.sortByLocationFeature(features.television, this.television);
+    this.post = ExistingOperators.sortByLocationFeature(features.post, this.post);
+    this.ats = ExistingOperators.sortByLocationFeature(features.ats, this.ats);
+    this.internet = ExistingOperators.sortByLocationFeature(features.internet, this.internet);
+    this.radio = ExistingOperators.sortByLocationFeature(features.radio, this.radio);
+    return this;
   }
 }

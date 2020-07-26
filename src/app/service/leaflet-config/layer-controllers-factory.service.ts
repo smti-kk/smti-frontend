@@ -1,6 +1,6 @@
 import {LocationsPointsService} from '../locations/LocationsPointsService';
 import {HttpClient} from '@angular/common/http';
-import {LocationPointsConverter} from '../locations/LocationPointsConverter';
+import {LocationPointsConverter} from '@service/locations';
 import {MapLocationsApiImpl} from '@api/locations/MapLocationsApiImpl';
 import {BoundsToStringConverter} from '@api/util/bounds.to.string.converter';
 import {Injectable} from '@angular/core';
@@ -50,7 +50,8 @@ export class LayerControllersFactory {
             )
           )
         )
-      )
+      ),
+      500
     );
   }
 
@@ -76,9 +77,10 @@ export class LayerControllersFactory {
               new PointUniquenessFilterImpl()
             ),
             'espd'
-          )
+          ),
         )
-      )
+      ),
+      500
     );
   }
 
@@ -106,7 +108,8 @@ export class LayerControllersFactory {
             'smo'
           )
         )
-      )
+      ),
+      500
     );
   }
 }

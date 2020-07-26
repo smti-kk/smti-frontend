@@ -1,8 +1,8 @@
-import {Observable} from "rxjs";
-import {DLocationBase} from "../dto/DLocationBase";
-import {DLocationBaseApi} from "./DLocationBaseApi";
-import {HttpClient} from "@angular/common/http";
-import {DLOCATION_BASE_API} from "../../../environments/api.routes";
+import {Observable} from 'rxjs';
+import {DLocationBase} from '../dto/DLocationBase';
+import {DLocationBaseApi} from './DLocationBaseApi';
+import {HttpClient} from '@angular/common/http';
+import {DLOCATION_BASE_API} from '../../../environments/api.routes';
 
 export class DLocationBaseApiImpl implements DLocationBaseApi {
   private readonly httpClient: HttpClient;
