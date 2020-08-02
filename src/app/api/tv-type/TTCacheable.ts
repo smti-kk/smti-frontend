@@ -1,17 +1,17 @@
 import {Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {TvTypeApi} from './TvTypeApi';
-import {TvType} from '../dto/TvType';
+import {Signal} from '../dto/Signal';
 
 export class TTCacheable implements TvTypeApi {
   private readonly origin: TvTypeApi;
-  private history: TvType[];
+  private history: Signal[];
 
   constructor(origin: TvTypeApi) {
     this.origin = origin;
   }
 
-  list(): Observable<TvType[]> {
+  list(): Observable<Signal[]> {
     if (this.history) {
       return of(this.history);
     }

@@ -3,6 +3,10 @@
   padding: 15px;
 }
 
+mat-card {
+  margin-top: 10px;
+}
+
 .tc-item {
   width: 1000px;
 }
@@ -10,14 +14,18 @@
 .operator-block {
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
-  align-items: center;
+  padding-top: 11px;
+  padding-bottom: 11px;
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid #ccc;
+  }
 }
 
 .tc-options {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
   grid-gap: 10px;
-  align-items: center;
 }
 
 .some-buttons {

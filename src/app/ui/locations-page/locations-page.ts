@@ -32,7 +32,6 @@ export class LocationsPage implements OnInit {
     this.locationsFullInformationService.get(this.page, this.countPerPage)
       .subscribe(response => {
         this.locations.setItems(response.content);
-        console.log(response.content);
         this.totalElements = response.totalElements;
         this.isLoading = false;
         this.loaderService.stopLoader();

@@ -1,4 +1,5 @@
 import {LogicalCondition} from '@service/dto/LogicalCondition';
+import {OrderingFilter} from '../../buttons/filter-btn/filter-btn.component';
 
 export interface LocationFilter {
   label: string;
@@ -15,10 +16,18 @@ export interface LocationFilters {
   cellularOperators: LocationFilter[];
   location: string;
   parent: number[];
-  govProgram: number[];
+  govProgram: number;
   hasESPD: boolean;
   hasSMO: boolean;
   hasZSPD: boolean;
   hasRSZO: boolean;
   logicalCondition: LogicalCondition;
+  hasATS: boolean;
+  hasPayphone: boolean;
+  hasInfomat: boolean;
+  hasRadio: boolean;
+  hasCellular: boolean;
+  hasInternet: boolean;
+  govYear: number;
+  ordering: OrderingFilter;
 }

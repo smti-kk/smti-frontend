@@ -1,5 +1,5 @@
-<div class="location" *ngIf="operators && mobileTypes">
-  <div class="some-buttons">
+<div class="location" *ngIf="operators && mobileTypes && tcs">
+  <div class="some-buttons" *ngIf="account$ | async">
     <button
       mat-raised-button
       color="primary"
@@ -20,6 +20,7 @@
     >Сохранить</button>
   </div>
   <mat-card>
+    <mat-card-title>{{tcs.type}} {{tcs.name}} (нас. {{tcs.population}} чел.)</mat-card-title>
     <mat-card class="tc-item">
       <form name="tc-form">
         <div>
@@ -35,23 +36,42 @@
           <mat-radio-group
             [disabled]="!tcs.cellular.tcs[operator.id]"
             [name]="'channel-opt-cellular' + operator.id"
-            [ngModel]="tcs.cellular.tcs[operator.id]?.typeId"
-            (ngModelChange)="tcs.cellular.tcs[operator.id].typeId = $event"
+            [ngModel]="tcs.cellular.tcs[operator.id]?.typeMobile"
+            (ngModelChange)="tcs.cellular.tcs[operator.id].typeMobile = $event"
             class="tc-options">
             <mat-radio-button *ngFor="let mt of mobileTypes" [value]="mt.id">{{mt.name}}</mat-radio-button>
           </mat-radio-group>
-          <gov-program-select
-            [disabled]="!tcs.cellular.tcs[operator.id]"
-            [ngModel]="tcs.cellular.tcs[operator.id]?.govProgramId"
-            (ngModelChange)="tcs.cellular.tcs[operator.id] ? tcs.cellular.tcs[operator.id].govProgramId = $event : null"
-            [name]="'channel-opt-cellular-select' + operator.id"
-          >
-          </gov-program-select>
+          <div class="">
+            <gov-program-select
+              [disabled]="!tcs.cellular.tcs[operator.id]"
+              [ngModel]="tcs.cellular.tcs[operator.id]?.governmentDevelopmentProgram"
+              (ngModelChange)="tcs.cellular.tcs[operator.id] ? tcs.cellular.tcs[operator.id].governmentDevelopmentProgram = $event : null"
+              [name]="'channel-opt-cellular-select' + operator.id"
+            >
+            </gov-program-select>
+            <mat-form-field class="example-form-field">
+              <mat-label>Год</mat-label>
+              <input matInput
+                     [disabled]="!tcs.cellular.tcs[operator.id]"
+                     [name]="'cellular-year-complete' + operator.id"
+                     type="number"
+                     [ngModel]="tcs.cellular.tcs[operator.id]?.govYearComplete"
+                     (ngModelChange)="tcs.cellular.tcs[operator.id] ? tcs.cellular.tcs[operator.id].govYearComplete = $event : null"
+              >
+              <button mat-button
+                      *ngIf="tcs.cellular.tcs[operator.id] && tcs.cellular.tcs[operator.id].govYearComplete"
+                      matSuffix
+                      mat-icon-button
+                      aria-label="Clear"
+                      [disabled]="!tcs.cellular.tcs[operator.id]"
+                      (click)="tcs.cellular.tcs[operator.id] ? tcs.cellular.tcs[operator.id].govYearComplete = null : null">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
         </div>
       </form>
     </mat-card>
-  </mat-card>
-  <mat-card>
     <mat-card class="tc-item">
       <form name="tc-form">
         <div>
@@ -66,28 +86,47 @@
           </mat-checkbox>
           <mat-radio-group
             [disabled]="!tcs.internet.tcs[operator.id]"
-            [ngModel]="tcs.internet.tcs[operator.id]?.typeId"
-            (ngModelChange)="tcs.internet.tcs[operator.id].typeId = $event"
+            [ngModel]="tcs.internet.tcs[operator.id]?.trunkChannel"
+            (ngModelChange)="tcs.internet.tcs[operator.id].trunkChannel = $event"
             [name]="'channel-opt-internet' + operator.id"
             class="tc-options">
             <mat-radio-button *ngFor="let it of internetTypes" [value]="it.id">{{it.name}}</mat-radio-button>
           </mat-radio-group>
-          <gov-program-select
-            [disabled]="!tcs.internet.tcs[operator.id]"
-            [ngModel]="tcs.internet.tcs[operator.id]?.govProgramId"
-            (ngModelChange)="tcs.internet.tcs[operator.id] ? tcs.internet.tcs[operator.id].govProgramId = $event : null"
-            [name]="'channel-opt-internet-select' + operator.id"
-          >
-          </gov-program-select>
+          <div>
+            <gov-program-select
+              [disabled]="!tcs.internet.tcs[operator.id]"
+              [ngModel]="tcs.internet.tcs[operator.id]?.governmentDevelopmentProgram"
+              (ngModelChange)="tcs.internet.tcs[operator.id] ? tcs.internet.tcs[operator.id].governmentDevelopmentProgram = $event : null"
+              [name]="'channel-opt-internet-select' + operator.id"
+            >
+            </gov-program-select>
+            <mat-form-field class="example-form-field">
+              <mat-label>Год</mat-label>
+              <input matInput
+                     [disabled]="!tcs.internet.tcs[operator.id]"
+                     [name]="'internet-year-complete' + operator.id"
+                     type="number"
+                     [ngModel]="tcs.internet.tcs[operator.id]?.govYearComplete"
+                     (ngModelChange)="tcs.internet.tcs[operator.id] ? tcs.internet.tcs[operator.id].govYearComplete = $event : null"
+              >
+              <button mat-button
+                      *ngIf="tcs.internet.tcs[operator.id] && tcs.internet.tcs[operator.id].govYearComplete"
+                      matSuffix
+                      mat-icon-button
+                      aria-label="Clear"
+                      [disabled]="!tcs.internet.tcs[operator.id]"
+                      (click)="tcs.internet.tcs[operator.id] ? tcs.internet.tcs[operator.id].govYearComplete = null : null">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
         </div>
       </form>
     </mat-card>
-  </mat-card>
-  <mat-card>
     <mat-card class="tc-item">
       <form name="tc-form">
         <div>
-          <mat-label>ТВ</mat-label>
+          <mat-label>Телевидение</mat-label>
         </div>
         <div class="operator-block" *ngFor="let operator of operators.television">
           <mat-checkbox
@@ -96,50 +135,45 @@
           >
             {{operator.name}}
           </mat-checkbox>
-          <mat-radio-group
+          <signal-control
             [disabled]="!tcs.tv.tcs[operator.id]"
-            [ngModel]="tcs.tv.tcs[operator.id]?.typeId"
-            (ngModelChange)="tcs.tv.tcs[operator.id].typeId = $event"
-            [name]="'channel-opt-television' + operator.id"
-            class="tc-options">
-            <mat-radio-button *ngFor="let it of tvTypes" [value]="it.id">{{it.name}}</mat-radio-button>
-          </mat-radio-group>
-          <gov-program-select
-            [disabled]="!tcs.tv.tcs[operator.id]"
-            [ngModel]="tcs.tv.tcs[operator.id]?.govProgramId"
-            (ngModelChange)="tcs.tv.tcs[operator.id] ? tcs.tv.tcs[operator.id].govProgramId = $event : null"
-            [name]="'channel-opt-television-select' + operator.id"
+            [ngModel]="tcs.tv.tcs[operator.id]?.tvOrRadioTypes"
+            (ngModelChange)="tcs.tv.tcs[operator.id].tvOrRadioTypes = $event"
+            [name]="'channel-opt-tv' + operator.id"
+            class="tc-options"
           >
-          </gov-program-select>
+          </signal-control>
+<!--          <div>-->
+<!--            <gov-program-select-->
+<!--              [disabled]="!tcs.tv.tcs[operator.id]"-->
+<!--              [ngModel]="tcs.tv.tcs[operator.id]?.governmentDevelopmentProgram"-->
+<!--              (ngModelChange)="tcs.tv.tcs[operator.id] ? tcs.tv.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
+<!--              [name]="'channel-opt-tv-select' + operator.id"-->
+<!--            >-->
+<!--            </gov-program-select>-->
+<!--            <mat-form-field class="example-form-field">-->
+<!--              <mat-label>Год</mat-label>-->
+<!--              <input matInput-->
+<!--                     [disabled]="!tcs.tv.tcs[operator.id]"-->
+<!--                     [name]="'tv-year-complete' + operator.id"-->
+<!--                     type="number"-->
+<!--                     [ngModel]="tcs.tv.tcs[operator.id]?.govYearComplete"-->
+<!--                     (ngModelChange)="tcs.tv.tcs[operator.id] ? tcs.tv.tcs[operator.id].govYearComplete = $event : null"-->
+<!--              >-->
+<!--              <button mat-button-->
+<!--                      *ngIf="tcs.tv.tcs[operator.id] && tcs.tv.tcs[operator.id].govYearComplete"-->
+<!--                      matSuffix-->
+<!--                      mat-icon-button-->
+<!--                      aria-label="Clear"-->
+<!--                      [disabled]="!tcs.tv.tcs[operator.id]"-->
+<!--                      (click)="tcs.tv.tcs[operator.id] ? tcs.tv.tcs[operator.id].govYearComplete = null : null">-->
+<!--                <mat-icon>close</mat-icon>-->
+<!--              </button>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
         </div>
       </form>
     </mat-card>
-  </mat-card>
-  <mat-card>
-    <mat-card class="tc-item">
-      <form name="tc-form">
-        <div>
-          <mat-label>Стационарный телефон</mat-label>
-        </div>
-        <div class="operator-block" *ngFor="let operator of operators.ats">
-          <mat-checkbox
-            (change)="onAddOrRemoveOperator($event, tcs.telephone, operator.id)"
-            [checked]="!!tcs.telephone.tcs[operator.id]"
-          >
-            {{operator.name}}
-          </mat-checkbox>
-          <gov-program-select
-            [disabled]="!tcs.telephone.tcs[operator.id]"
-            [ngModel]="tcs.telephone.tcs[operator.id]?.govProgramId"
-            (ngModelChange)="tcs.telephone.tcs[operator.id] ? tcs.telephone.tcs[operator.id].govProgramId = $event : null"
-            [name]="'channel-opt-telephone-select' + operator.id"
-          >
-          </gov-program-select>
-        </div>
-      </form>
-    </mat-card>
-  </mat-card>
-  <mat-card>
     <mat-card class="tc-item">
       <form name="tc-form">
         <div>
@@ -152,21 +186,221 @@
           >
             {{operator.name}}
           </mat-checkbox>
-          <mat-radio-group
+          <signal-control
             [disabled]="!tcs.radio.tcs[operator.id]"
-            [ngModel]="tcs.radio.tcs[operator.id]?.typeId"
-            (ngModelChange)="tcs.radio.tcs[operator.id].typeId = $event"
+            [ngModel]="tcs.radio.tcs[operator.id]?.tvOrRadioTypes"
+            (ngModelChange)="tcs.radio.tcs[operator.id].tvOrRadioTypes = $event"
             [name]="'channel-opt-radio' + operator.id"
-            class="tc-options">
-            <mat-radio-button *ngFor="let it of tvTypes" [value]="it.id">{{it.name}}</mat-radio-button>
-          </mat-radio-group>
-          <gov-program-select
-            [disabled]="!tcs.radio.tcs[operator.id]"
-            [ngModel]="tcs.radio.tcs[operator.id]?.govProgramId"
-            (ngModelChange)="tcs.radio.tcs[operator.id] ? tcs.radio[operator.id].govProgramId = $event : null"
-            [name]="'channel-opt-radio-select' + operator.id"
+            class="tc-options"
           >
-          </gov-program-select>
+          </signal-control>
+<!--          <div>-->
+<!--            <gov-program-select-->
+<!--              [disabled]="!tcs.radio.tcs[operator.id]"-->
+<!--              [ngModel]="tcs.radio.tcs[operator.id]?.governmentDevelopmentProgram"-->
+<!--              (ngModelChange)="tcs.radio.tcs[operator.id] ? tcs.radio.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
+<!--              [name]="'channel-opt-tv-select' + operator.id"-->
+<!--            >-->
+<!--            </gov-program-select>-->
+<!--            <mat-form-field class="example-form-field">-->
+<!--              <mat-label>Год</mat-label>-->
+<!--              <input matInput-->
+<!--                     [disabled]="!tcs.radio.tcs[operator.id]"-->
+<!--                     [name]="'radioyear-complete' + operator.id"-->
+<!--                     type="number"-->
+<!--                     [ngModel]="tcs.radio.tcs[operator.id]?.govYearComplete"-->
+<!--                     (ngModelChange)="tcs.radio.tcs[operator.id] ? tcs.radio.tcs[operator.id].govYearComplete = $event : null"-->
+<!--              >-->
+<!--              <button mat-button-->
+<!--                      *ngIf="tcs.radio.tcs[operator.id] && tcs.radio.tcs[operator.id].govYearComplete"-->
+<!--                      matSuffix-->
+<!--                      mat-icon-button-->
+<!--                      aria-label="Clear"-->
+<!--                      [disabled]="!tcs.radio.tcs[operator.id]"-->
+<!--                      (click)="tcs.radio.tcs[operator.id] ? tcs.radio.tcs[operator.id].govYearComplete = null : null">-->
+<!--                <mat-icon>close</mat-icon>-->
+<!--              </button>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+        </div>
+      </form>
+    </mat-card>
+    <mat-card class="tc-item">
+      <form name="tc-form">
+        <div>
+          <mat-label>Стационарный телефон</mat-label>
+        </div>
+        <div class="operator-block" *ngFor="let operator of operators.ats">
+          <mat-checkbox
+            (change)="onAddOrRemoveOperator($event, tcs.telephone, operator.id)"
+            [checked]="!!tcs.telephone.tcs[operator.id]"
+          >
+            {{operator.name}}
+          </mat-checkbox>
+<!--          <div>-->
+<!--            <gov-program-select-->
+<!--              [disabled]="!tcs.telephone.tcs[operator.id]"-->
+<!--              [ngModel]="tcs.telephone.tcs[operator.id]?.governmentDevelopmentProgram"-->
+<!--              (ngModelChange)="tcs.telephone.tcs[operator.id] ? tcs.telephone.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
+<!--              [name]="'channel-opt-telephone-select' + operator.id"-->
+<!--            >-->
+<!--            </gov-program-select>-->
+<!--            <mat-form-field class="example-form-field">-->
+<!--              <mat-label>Год</mat-label>-->
+<!--              <input matInput-->
+<!--                     [disabled]="!tcs.telephone.tcs[operator.id]"-->
+<!--                     [name]="'telephone-year-complete' + operator.id"-->
+<!--                     type="number"-->
+<!--                     [ngModel]="tcs.telephone.tcs[operator.id]?.govYearComplete"-->
+<!--                     (ngModelChange)="tcs.telephone.tcs[operator.id] ? tcs.telephone.tcs[operator.id].govYearComplete = $event : null"-->
+<!--              >-->
+<!--              <button mat-button-->
+<!--                      *ngIf="tcs.telephone.tcs[operator.id] && tcs.telephone.tcs[operator.id].govYearComplete"-->
+<!--                      matSuffix-->
+<!--                      mat-icon-button-->
+<!--                      aria-label="Clear"-->
+<!--                      [disabled]="!tcs.telephone.tcs[operator.id]"-->
+<!--                      (click)="tcs.telephone.tcs[operator.id] ? tcs.telephone.tcs[operator.id].govYearComplete = null : null">-->
+<!--                <mat-icon>close</mat-icon>-->
+<!--              </button>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+        </div>
+      </form>
+    </mat-card>
+    <mat-card class="tc-item">
+      <form name="tc-form">
+        <div>
+          <mat-label>Таксофон</mat-label>
+        </div>
+        <div class="operator-block" *ngFor="let operator of operators.payphone">
+          <mat-checkbox
+            (change)="onAddOrRemoveOperator($event, tcs.payphone, operator.id)"
+            [checked]="!!tcs.payphone.tcs[operator.id]"
+          >
+            {{operator.name}}
+          </mat-checkbox>
+<!--          <div>-->
+<!--            <gov-program-select-->
+<!--              [disabled]="!tcs.payphone.tcs[operator.id]"-->
+<!--              [ngModel]="tcs.payphone.tcs[operator.id]?.governmentDevelopmentProgram"-->
+<!--              (ngModelChange)="tcs.payphone.tcs[operator.id] ? tcs.payphone.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
+<!--              [name]="'channel-opt-payphone-select' + operator.id"-->
+<!--            >-->
+<!--            </gov-program-select>-->
+<!--            <mat-form-field class="example-form-field">-->
+<!--              <mat-label>Год</mat-label>-->
+<!--              <input matInput-->
+<!--                     [disabled]="!tcs.payphone.tcs[operator.id]"-->
+<!--                     [name]="'payphone-year-complete' + operator.id"-->
+<!--                     type="number"-->
+<!--                     [ngModel]="tcs.payphone.tcs[operator.id]?.govYearComplete"-->
+<!--                     (ngModelChange)="tcs.payphone.tcs[operator.id] ? tcs.payphone.tcs[operator.id].govYearComplete = $event : null"-->
+<!--              >-->
+<!--              <button mat-button-->
+<!--                      *ngIf="tcs.payphone.tcs[operator.id] && tcs.payphone.tcs[operator.id].govYearComplete"-->
+<!--                      matSuffix-->
+<!--                      mat-icon-button-->
+<!--                      aria-label="Clear"-->
+<!--                      [disabled]="!tcs.payphone.tcs[operator.id]"-->
+<!--                      (click)="tcs.payphone.tcs[operator.id] ? tcs.payphone.tcs[operator.id].govYearComplete = null : null">-->
+<!--                <mat-icon>close</mat-icon>-->
+<!--              </button>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+        </div>
+      </form>
+    </mat-card>
+    <mat-card class="tc-item">
+      <form name="tc-form">
+        <div>
+          <mat-label>Почта</mat-label>
+        </div>
+        <div class="operator-block" *ngFor="let operator of operators.post">
+          <mat-checkbox
+            (change)="onAddOrRemoveOperator($event, tcs.post, operator.id)"
+            [checked]="!!tcs.post.tcs[operator.id]"
+          >
+            {{operator.name}}
+          </mat-checkbox>
+          <mat-radio-group
+            [disabled]="!tcs.post.tcs[operator.id]"
+            [ngModel]="tcs.post.tcs[operator.id]?.typePost"
+            (ngModelChange)="tcs.post.tcs[operator.id].typePost = $event"
+            [name]="'channel-opt-post' + operator.id"
+            class="tc-options">
+            <mat-radio-button *ngFor="let it of postTypes" [value]="it.id">{{it.name}}</mat-radio-button>
+          </mat-radio-group>
+<!--          <div>-->
+<!--            <gov-program-select-->
+<!--              [disabled]="!tcs.post.tcs[operator.id]"-->
+<!--              [ngModel]="tcs.post.tcs[operator.id]?.governmentDevelopmentProgram"-->
+<!--              (ngModelChange)="tcs.post.tcs[operator.id] ? tcs.post.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
+<!--              [name]="'channel-opt-post-select' + operator.id"-->
+<!--            >-->
+<!--            </gov-program-select>-->
+<!--            <mat-form-field class="example-form-field">-->
+<!--              <mat-label>Год</mat-label>-->
+<!--              <input matInput-->
+<!--                     [disabled]="!tcs.post.tcs[operator.id]"-->
+<!--                     [name]="'post-year-complete' + operator.id"-->
+<!--                     type="number"-->
+<!--                     [ngModel]="tcs.post.tcs[operator.id]?.govYearComplete"-->
+<!--                     (ngModelChange)="tcs.post.tcs[operator.id] ? tcs.post.tcs[operator.id].govYearComplete = $event : null"-->
+<!--              >-->
+<!--              <button mat-button-->
+<!--                      *ngIf="tcs.post.tcs[operator.id] && tcs.post.tcs[operator.id].govYearComplete"-->
+<!--                      matSuffix-->
+<!--                      mat-icon-button-->
+<!--                      aria-label="Clear"-->
+<!--                      [disabled]="!tcs.post.tcs[operator.id]"-->
+<!--                      (click)="tcs.post.tcs[operator.id] ? tcs.post.tcs[operator.id].govYearComplete = null : null">-->
+<!--                <mat-icon>close</mat-icon>-->
+<!--              </button>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+        </div>
+      </form>
+    </mat-card>
+    <mat-card class="tc-item">
+      <form name="tc-form">
+        <div>
+          <mat-label>Инфомат</mat-label>
+        </div>
+        <div class="operator-block" *ngFor="let operator of operators.infomat">
+          <mat-checkbox
+            (change)="onAddOrRemoveOperator($event, tcs.infomat, operator.id)"
+            [checked]="!!tcs.infomat.tcs[operator.id]"
+          >
+          </mat-checkbox>
+<!--          <div>-->
+<!--            <gov-program-select-->
+<!--              [disabled]="!tcs.infomat.tcs[operator.id]"-->
+<!--              [ngModel]="tcs.infomat.tcs[operator.id]?.governmentDevelopmentProgram"-->
+<!--              (ngModelChange)="tcs.infomat.tcs[operator.id] ? tcs.infomat.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
+<!--              [name]="'channel-opt-infomat-select' + operator.id"-->
+<!--            >-->
+<!--            </gov-program-select>-->
+<!--            <mat-form-field class="example-form-field">-->
+<!--              <mat-label>Год</mat-label>-->
+<!--              <input matInput-->
+<!--                     [disabled]="!tcs.infomat.tcs[operator.id]"-->
+<!--                     [name]="'infomat-year-complete' + operator.id"-->
+<!--                     type="number"-->
+<!--                     [ngModel]="tcs.infomat.tcs[operator.id]?.govYearComplete"-->
+<!--                     (ngModelChange)="tcs.infomat.tcs[operator.id] ? tcs.infomat.tcs[operator.id].govYearComplete = $event : null"-->
+<!--              >-->
+<!--              <button mat-button-->
+<!--                      *ngIf="tcs.infomat.tcs[operator.id] && tcs.infomat.tcs[operator.id].govYearComplete"-->
+<!--                      matSuffix-->
+<!--                      mat-icon-button-->
+<!--                      aria-label="Clear"-->
+<!--                      [disabled]="!tcs.infomat.tcs[operator.id]"-->
+<!--                      (click)="tcs.infomat.tcs[operator.id] ? tcs.infomat.tcs[operator.id].govYearComplete = null : null">-->
+<!--                <mat-icon>close</mat-icon>-->
+<!--              </button>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
         </div>
       </form>
     </mat-card>

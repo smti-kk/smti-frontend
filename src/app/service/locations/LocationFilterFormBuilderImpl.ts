@@ -20,13 +20,21 @@ export class LocationFilterFormBuilderImpl implements LocationFilterFormBuilder 
             internetOperators: this.buildFormArray(filters.internetOperators),
             cellularOperators: this.buildFormArray(filters.cellularOperators),
             location: new FormControl(''),
-            parent: new FormControl(null),
-            govProgram: new FormControl(null),
-            hasESPD: new FormControl(false),
-            hasSMO: new FormControl(false),
-            hasZSPD: new FormControl(false),
-            hasRSZO: new FormControl(false),
-            logicalCondition: new FormControl('AND')
+            parent: new FormControl(filters.parent),
+            govProgram: new FormControl(filters.govProgram),
+            hasESPD: new FormControl(filters.hasESPD),
+            hasSMO: new FormControl(filters.hasSMO),
+            hasZSPD: new FormControl(filters.hasZSPD),
+            hasRSZO: new FormControl(filters.hasRSZO),
+            logicalCondition: new FormControl(filters.logicalCondition),
+            hasATS: new FormControl(filters.hasATS),
+            hasPayphone: new FormControl(filters.hasPayphone),
+            hasInfomat: new FormControl(filters.hasInfomat),
+            hasRadio: new FormControl(filters.hasRadio),
+            hasCellular: new FormControl(filters.hasCellular),
+            hasInternet: new FormControl(filters.hasInternet),
+            ordering: new FormControl(filters.hasInternet),
+            govYear: new FormControl(filters.govYear),
           });
         }
       ));

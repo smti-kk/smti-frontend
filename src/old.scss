@@ -607,11 +607,6 @@ select:-moz-focusring {
   display: flex;
 }
 
-.l-container-item {
-  display: flex;
-  flex-direction: column;
-}
-
 .l-container-item:not(:last-child) {
   margin-right: 20px;
 }

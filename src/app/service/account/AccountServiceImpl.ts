@@ -5,34 +5,28 @@ import {AccountApi} from '@api/account/account.api';
 import {Account} from '@service/account/Account';
 import {AccountFromApi} from '@api/dto/AccountFromApi';
 import {AccountConverter} from '@service/account/AccountConverter';
+import {map} from 'rxjs/operators';
 
 export class AccountServiceImpl implements AccountService {
-  private readonly currentAccount: ReplaySubject<Account>;
-
   constructor(private accountApi: AccountApi,
               private accountConverter: AccountConverter<AccountFromApi>) {
-    this.currentAccount = new ReplaySubject<Account>(1);
-    this.accountApi.get().subscribe(account => {
-      this.currentAccount.next(accountConverter.convert(account));
-    });
   }
 
-  get(): ReplaySubject<Account> {
-    return this.currentAccount;
+  get(): Observable<Account> {
+    return this.accountApi.get().pipe(
+      map(account => this.accountConverter.convert(account))
+    );
   }
 
   getRole(): Observable<UserRole[]> {
-    return new Observable<UserRole[]>(subscriber => {
-      const subscription = this.currentAccount.subscribe(account => {
-        subscriber.next(account.getRole());
-        subscription.unsubscribe();
-      });
-    });
+    return this.accountApi.get().pipe(
+      map(account => this.accountConverter.convert(account).getRole())
+    );
   }
 
   updateAccount(): void {
-    this.accountApi.get().subscribe(account => {
-      this.currentAccount.next(this.accountConverter.convert(account));
-    });
+    // this.accountApi.get().subscribe(account => {
+    //   this.currentAccount.next(this.accountConverter.convert(account));
+    // });
   }
 }

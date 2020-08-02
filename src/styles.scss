@@ -117,6 +117,46 @@ input[type="checkbox" i] {
   justify-content: center;
 }
 
+.c-filter-button {
+  position: relative;
+  margin-bottom: 5px;
+  padding: 8px 24px 10px 12px;
+  color: #575756;
+  background-color: #fff;
+  border: 1px solid #bcbcbc;
+  font-size: 11px;
+  text-align: left;
+  white-space: nowrap;
+  margin-top: 6px;
+}
+
+.c-filter-button.is-active {
+  color: #fff;
+  background: #ff5700;
+}
+
+.c-filter-button::after {
+  content: '\f884';
+  position: absolute;
+  right: 5px;
+}
+
+.l-container-item {
+  display: flex;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.u-back-sort::after {
+  content: '\f160';
+}
+
+.text-align-center {
+  text-align: center;
+}
+
 @import "material";
 @import "leaflet";
 @import "~@ng-select/ng-select/themes/default.theme.css";

@@ -16,3 +16,4 @@ export const TV_TYPES_API = API_VERSION + '/type/tv/';
 export const LOCATION_AREAS_API = API_VERSION + '/detail-locations/parents';
 export const GOV_PROGRAM_API = API_VERSION + '/gov-program';
 export const USERS_API = API_VERSION + '/user/';
+export const LOCATION_FEATURES = API_VERSION + '/location-features';

@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {LocationDetail, WriteableLocation} from '../dto/LocationDetail';
+import {LocationDetail, LocationFeaturesSaveRequest} from '../dto/LocationDetail';
 import {LocationDetailApi} from './LocationDetailApi';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {LOCATION_DETAIL_API} from '../../../environments/api.routes';
@@ -33,7 +33,11 @@ export class LocationDetailApiImpl implements LocationDetailApi {
     return this.httpClient.get<LocationDetail>(`${LOCATION_DETAIL_API}/${id}`);
   }
 
-  save(location: WriteableLocation): Observable<LocationDetail> {
+  save(location: LocationFeaturesSaveRequest): Observable<LocationDetail> {
     return this.httpClient.post<LocationDetail>(LOCATION_DETAIL_API, location);
+  }
+
+  govYears(): Observable<number[]> {
+    return this.httpClient.get<number[]>(LOCATION_DETAIL_API + '/gov-years');
   }
 }

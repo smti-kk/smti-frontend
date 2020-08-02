@@ -5,6 +5,8 @@ import {OperatorIcon} from '../dto/OperatorIcon';
 import {OperatorIconsFactory} from './OperatorIconsFactory';
 import {CellularIcon} from '@service/dto/CellularIcon';
 import {InternetIcon} from '@service/dto/InternetIcon';
+import {TvOrRadioIcon} from '@service/dto/TvOrRadioIcon';
+import {PostIcon} from '@service/dto/PostIcon';
 
 export class OperatorIconsFactoryImpl implements OperatorIconsFactory {
   operatorIcons(operators: Operator[],
@@ -15,9 +17,9 @@ export class OperatorIconsFactoryImpl implements OperatorIconsFactory {
         return tcItem.operatorId === operator.id && tcItem.type === type;
       });
       if (tc) {
-        return new OperatorIcon(operator.id, true, operator.icon, operator.name);
+        return new OperatorIcon(operator.id, true, operator.icon, operator.name, tc.govYearComplete);
       } else {
-        return new OperatorIcon(operator.id, false, operator.icon, operator.name);
+        return new OperatorIcon(operator.id, false, operator.icon, operator.name, null);
       }
     });
   }
@@ -31,9 +33,9 @@ export class OperatorIconsFactoryImpl implements OperatorIconsFactory {
       });
       if (tc) {
         const cellularType = tc.typeMobile ? tc.typeMobile.name : 'UNDEFINED';
-        return new CellularIcon(operator.id, true, operator.icon, operator.name, cellularType);
+        return new CellularIcon(operator.id, true, operator.icon, operator.name, tc.govYearComplete, cellularType);
       } else {
-        return new CellularIcon(operator.id, false, operator.icon, operator.name, 'UNDEFINED');
+        return new CellularIcon(operator.id, false, operator.icon, operator.name, null, 'UNDEFINED');
       }
     });
   }
@@ -47,9 +49,39 @@ export class OperatorIconsFactoryImpl implements OperatorIconsFactory {
       });
       if (tc) {
         const internetType = tc.trunkChannel ? tc.trunkChannel.name : 'Неопределено';
-        return new InternetIcon(operator.id, true, operator.icon, operator.name, internetType);
+        return new InternetIcon(operator.id, true, operator.icon, operator.name, tc.govYearComplete, internetType);
       } else {
-        return new InternetIcon(operator.id, false, operator.icon, operator.name, 'Неопределено');
+        return new InternetIcon(operator.id, false, operator.icon, operator.name, null, 'Неопределено');
+      }
+    });
+  }
+
+  tvOrRadioIcons(operators: Operator[],
+                 technicalCapabilities: ShortTechnicalCapability[],
+                 type: TechnicalCapabilityType): TvOrRadioIcon[] {
+    return operators.map(operator => {
+      const tc = technicalCapabilities.find(tcItem => {
+        return tcItem.operatorId === operator.id && tcItem.type === type;
+      });
+      if (tc) {
+        return new TvOrRadioIcon(operator.id, true, operator.icon, operator.name, tc.govYearComplete, tc.tvOrRadioTypes);
+      } else {
+        return new TvOrRadioIcon(operator.id, false, operator.icon, operator.name, null, null);
+      }
+    });
+  }
+
+  postIcons(operators: Operator[],
+            technicalCapabilities: ShortTechnicalCapability[],
+            type: TechnicalCapabilityType): PostIcon[] {
+    return operators.map(operator => {
+      const tc = technicalCapabilities.find(tcItem => {
+        return tcItem.operatorId === operator.id && tcItem.type === type;
+      });
+      if (tc) {
+        return new PostIcon(operator.id, true, operator.icon, operator.name, tc.govYearComplete, tc.typePost);
+      } else {
+        return new PostIcon(operator.id, false, operator.icon, operator.name, null, null);
       }
     });
   }

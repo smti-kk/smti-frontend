@@ -37,16 +37,16 @@
       <td class="align-left">{{location.area.name}}</td>
       <td class="align-left">{{location.name}}</td>
       <td>{{location.population}}</td>
-      <td>
+      <td class="text-align-center">
         <img *ngIf="location.hasESPD" src="/assets/table-ok.svg" alt="">
       </td>
-      <td>
+      <td class="text-align-center">
         <img *ngIf="location.hasSMO" src="/assets/table-ok.svg" alt="">
       </td>
-      <td>
+      <td class="text-align-center">
         <img *ngIf="location.hasRSZO" src="/assets/table-ok.svg" alt="">
       </td>
-      <td>
+      <td class="text-align-center">
         <img *ngIf="location.hasZSPD" src="/assets/table-ok.svg" alt="">
       </td>
       <td>
@@ -67,11 +67,21 @@
           </div>
         </div>
       </td>
-      <td>
-        <img [matTooltip]="operator.name" *ngFor="let operator of location.infomat" [src]="operator.iconUrl" alt="">
+      <td class="text-align-center">
+        <img *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive" src="/assets/table-ok.svg" alt="">
       </td>
       <td>
-        <img [matTooltip]="operator.name" *ngFor="let operator of location.post" [src]="operator.iconUrl" alt="">
+        <div class="td-container">
+          <div class="feature__icon"
+               [class.disabled]="!operator.isActive"
+               *ngFor="let operator of location.post">
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+            <div class="feature__icon-type with-signal" *ngIf="operator.postType">
+              <span *ngIf="operator.postType.id === 'POST'">ПС</span>
+              <span *ngIf="operator.postType.id !== 'POST'">{{operator.postType.name}}</span>
+            </div>
+          </div>
+        </div>
       </td>
       <td>
         <div class="td-container">
@@ -79,6 +89,9 @@
                [class.disabled]="!operator.isActive"
                *ngFor="let operator of location.television">
             <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+            <div class="feature__icon-type with-signal" *ngIf="operator.type">
+              {{operator.signalsToString()}}
+            </div>
           </div>
         </div>
       </td>
@@ -88,6 +101,9 @@
                [class.disabled]="!operator.isActive"
                *ngFor="let operator of location.radio">
             <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+            <div class="feature__icon-type with-signal" *ngIf="operator.type">
+              {{operator.signalsToString()}}
+            </div>
           </div>
         </div>
       </td>
@@ -116,7 +132,7 @@
           </div>
         </div>
       </td>
-      <td><div *ngFor="let contract of location.contract">{{contract.name}}</div></td>
+      <td><div *ngFor="let contract of location.contract">{{contract.acronym}} <span *ngIf="contract.govYearComplete">{{contract.govYearComplete}}</span></div></td>
     </tr>
     </tbody>
   </table>

@@ -1,6 +1,8 @@
 import {OperatorIcon} from '@service/dto/OperatorIcon';
 import {CellularIcon} from '@service/dto/CellularIcon';
 import {InternetIcon} from '@service/dto/InternetIcon';
+import {PostIcon} from '@service/dto/PostIcon';
+import {TvOrRadioIcon} from '@service/dto/TvOrRadioIcon';
 
 export interface LocationInfoBarValue {
   population: number;
@@ -8,9 +10,9 @@ export interface LocationInfoBarValue {
   telephone: OperatorIcon[];
   internet: InternetIcon[];
   cellular: CellularIcon[];
-  radio: OperatorIcon[];
-  tv: OperatorIcon[];
+  radio: TvOrRadioIcon[];
+  tv: TvOrRadioIcon[];
   payphone: OperatorIcon[];
-  mail: OperatorIcon[];
+  mail: PostIcon[];
   infomat: OperatorIcon[];
 }

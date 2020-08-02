@@ -6,6 +6,7 @@
 table {
   margin-top: 10px;
   border-collapse: unset;
+
   & thead {
     color: #95989a;
     font-family: "Segoe UI", sans-serif;
@@ -25,7 +26,6 @@ table {
 
   & tbody {
     & td {
-      text-align: center;
       color: #454544;
       font-family: "Segoe UI", sans-serif;
       font-size: 14px;
@@ -33,6 +33,7 @@ table {
       line-height: 16px;
       background-color: #efefef;
       padding: 8px;
+
       & img {
         width: 16px;
         height: 16px;
@@ -58,10 +59,12 @@ table {
     position: relative;
     width: 21px;
     margin-right: 16px;
+
     &.disabled {
       filter: grayscale(1);
       opacity: 0.6;
     }
+
     & img {
       width: 100%;
       vertical-align: unset;
@@ -78,6 +81,12 @@ table {
     font-weight: 400;
     line-height: 14px;
     text-transform: uppercase;
+
+    &.with-signal {
+      white-space: nowrap;
+      width: 17px;
+      font-size: 8px;
+    }
   }
 
   &__internet-type-icon {
@@ -98,12 +107,11 @@ table {
 }
 
 .location-link {
-  text-decoration: underline;
   cursor: pointer;
 }
 
 .location-row {
-  transition: all 1s;
+  //transition: all 1s;
   //animation: showRow 0.5s;
 }
 

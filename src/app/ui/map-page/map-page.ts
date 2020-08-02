@@ -35,7 +35,6 @@ export class MapPage {
       tap(
         (location) => {
           this.isLoading = false;
-          console.log(location);
         },
         () => this.isLoading = false
       )

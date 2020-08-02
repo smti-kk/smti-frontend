@@ -1,7 +1,7 @@
 import {Observable} from 'rxjs';
-import {TvType} from '../dto/TvType';
+import {Signal} from '../dto/Signal';
 
 export abstract class TvTypeApi {
-  abstract list(): Observable<TvType[]>;
+  abstract list(): Observable<Signal[]>;
 }
 

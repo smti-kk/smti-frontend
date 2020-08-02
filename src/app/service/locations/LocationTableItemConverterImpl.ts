@@ -23,17 +23,17 @@ export class LocationTableItemConverterImpl implements LocationTableItemConverte
       population: location.population.toString(),
       ats: this.operatorIconsFactory.operatorIcons(operators.ats, location.technicalCapabilities, 'ATS'),
       cellular: this.operatorIconsFactory.cellularIcons(operators.mobile, location.technicalCapabilities, 'MOBILE'),
-      infomat: [],
+      infomat: this.operatorIconsFactory.operatorIcons(operators.infomat, location.technicalCapabilities, 'INFOMAT'),
       internet: this.operatorIconsFactory.internetIcons(operators.internet, location.technicalCapabilities, 'INET'),
-      payphone: this.operatorIconsFactory.operatorIcons(operators.ats, location.technicalCapabilities, 'ATS'),
-      post: [],
-      radio: this.operatorIconsFactory.operatorIcons(operators.radio, location.technicalCapabilities, 'RADIO'),
-      television: this.operatorIconsFactory.operatorIcons(operators.television, location.technicalCapabilities, 'TV'),
+      payphone: this.operatorIconsFactory.operatorIcons(operators.payphone, location.technicalCapabilities, 'PAYPHONE'),
+      post: this.operatorIconsFactory.postIcons(operators.post, location.technicalCapabilities, 'POST'),
+      radio: this.operatorIconsFactory.tvOrRadioIcons(operators.radio, location.technicalCapabilities, 'RADIO'),
+      television: this.operatorIconsFactory.tvOrRadioIcons(operators.television, location.technicalCapabilities, 'TV'),
       contract: this.contracts(location),
       hasZSPD: false,
       hasRSZO: false,
       hasSMO: this.hasSMO(location),
-      hasESPD: this.hasEspd(location)
+      hasESPD: this.hasEspd(location),
     };
   }
 
@@ -64,17 +64,23 @@ export class LocationTableItemConverterImpl implements LocationTableItemConverte
   }
 
   contracts(location: LocationDetail): GovProgram[] {
-    const result = [];
+    const result: GovProgram[] = [];
     location.organizations.forEach(o => {
       o.accessPoints.forEach(ap => {
         if (ap.governmentDevelopmentProgram) {
-          result.push(ap.governmentDevelopmentProgram);
+          result.push({
+            govYearComplete: null,
+            ...ap.governmentDevelopmentProgram
+          });
         }
       });
     });
     location.technicalCapabilities.forEach(tc => {
       if (tc.governmentDevelopmentProgram) {
-        result.push(tc.governmentDevelopmentProgram);
+        result.push({
+          govYearComplete: tc.govYearComplete,
+          ...tc.governmentDevelopmentProgram,
+        });
       }
     });
     return result;

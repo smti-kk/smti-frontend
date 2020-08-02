@@ -55,10 +55,18 @@ import {
   LFISThrottled,
   LocationFilterFormBuilder,
   LocationFilterFormBuilderImpl,
-  LocationFiltersInitializationImpl, LocationInfoBarConverterImpl, LocationsFiltrationImpl,
+  LocationFiltersInitializationImpl,
+  LocationInfoBarConverterImpl,
+  LocationsFiltrationImpl,
   LocationsFullInformationService,
-  LocationsFullInformationServiceImpl, LocationsService, LocationsServiceImpl,
-  LocationTableItemConverterImpl, LSWithDelay, NotStrictFilterImpl, OperatorIconsFactoryImpl, StrictFilterImpl
+  LocationsFullInformationServiceImpl,
+  LocationsService,
+  LocationsServiceImpl,
+  LocationTableItemConverterImpl,
+  LSWithDelay,
+  NotStrictFilterImpl,
+  OperatorIconsFactoryImpl,
+  StrictFilterImpl
 } from '@service/locations';
 import {LocationDetailApiImpl} from '@api/locations/LocationDetailApiImpl';
 import {LocationsApiImpl} from '@api/locations/LocationsApiImpl';
@@ -71,6 +79,9 @@ import {DLocationsService} from '@service/locations/DLocationsService';
 import {UsersServiceImpl} from '@service/account/UsersServiceImpl';
 import {UsersApiImpl} from '@api/account/UsersApiImpl';
 import {UsersService} from '@service/account/UsersService';
+import {LocationFeaturesImpl} from '@api/location-features/LocationFeaturesImpl';
+import {GPSCacheable} from '@service/gov-program/GPSCacheable';
+import {LocationDetailApi} from "@api/locations/LocationDetailApi";
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -84,8 +95,10 @@ export const factory = (): Provider[] => {
       )
     ]
   );
-  const govProgramService: GovProgramService = new GovProgramServiceImpl(
-    new GovProgramApiImpl(httpClient)
+  const govProgramService: GovProgramService = new GPSCacheable(
+    new GovProgramServiceImpl(
+      new GovProgramApiImpl(httpClient)
+    )
   );
   const selectAreasService: SelectAreasService = new SelectAreasServiceImpl(
     new LAACacheable(
@@ -95,7 +108,7 @@ export const factory = (): Provider[] => {
   const operatorsApi: OperatorsApi = new OACacheable(
     new OperatorsApiImpl(httpClient)
   );
-  const locationDetailApi =  new LocationDetailApiImpl(httpClient);
+  const locationDetailApi = new LocationDetailApiImpl(httpClient);
   const trunkChannelTypeApi: TrunkChannelTypeApi = new TCTAExcludeUndefined(
     new TCTACacheable(
       new TrunkChannelTypeApiImpl(httpClient)
@@ -120,7 +133,7 @@ export const factory = (): Provider[] => {
     )
   );
   const locationsFullInformationService: LocationsFullInformationService = new LFISThrottled(
-    new LFISFilterNullSafely(
+    // new LFISFilterNullSafely(
       new LFISFullPreloaded(
         new LocationsFullInformationServiceImpl(
           locationDetailApi,
@@ -131,10 +144,9 @@ export const factory = (): Provider[] => {
           new FiltersToHttpParamsConverterImpl()
         ),
         new LocationsFiltrationImpl(
-          new StrictFilterImpl(),
-          new NotStrictFilterImpl()
+          new StrictFilterImpl()
         )
-      ),
+      // ),
     ),
     new ThrottleImpl(1)
   );
@@ -175,7 +187,8 @@ export const factory = (): Provider[] => {
     new ThrottleImpl(500)
   );
   const detailLocations: DetailLocations = new DetailLocationsFromApi(
-    locationDetailApi
+    locationDetailApi,
+    new LocationFeaturesImpl(httpClient)
   );
   const usersService = new UsersServiceImpl(
     new UsersApiImpl(httpClient)
@@ -259,6 +272,10 @@ export const factory = (): Provider[] => {
     {
       provide: DLocationsService,
       useValue: dLocationsService
+    },
+    {
+      provide: LocationDetailApi,
+      useValue: locationDetailApi
     }
   ];
 };

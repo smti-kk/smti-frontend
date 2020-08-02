@@ -16,16 +16,16 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LocationsPage} from './locations-page/locations-page';
 import {ServiceModule} from '@service/service.module';
-import { Authorization } from './authorization/authorization';
+import {Authorization} from './authorization/authorization';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PermissionsDirective} from './directives/permissions.directive';
-import { FeaturesPage } from './features-page/features-page';
-import { OrganizationsPage } from './organizations-page/organizations-page';
-import { ContractsPage } from './contracts-page/contracts-page';
-import { LocationFiltersComponent } from './locations-page/location-filters/location-filters.component';
+import {FeaturesPage} from './features-page/features-page';
+import {OrganizationsPage} from './organizations-page/organizations-page';
+import {ContractsPage} from './contracts-page/contracts-page';
+import {LocationFiltersComponent} from './locations-page/location-filters/location-filters.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {InfoBar} from './map-page/info-bar/InfoBar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -37,17 +37,20 @@ import {Loader} from './loader/Loader';
 import {LoaderService} from './loader/LoaderService';
 import {LoaderServiceImpl} from './loader/LoaderServiceImpl';
 import {NgSelectModule} from '@ng-select/ng-select';
-import { UsersPage } from './users/users-page';
-import { JoinPipe } from './users/pipe/join.pipe';
-import { HttpClientModule } from '@angular/common/http';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { ru_RU } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {UsersPage} from './users/users-page';
+import {JoinPipe} from './users/pipe/join.pipe';
+import {HttpClientModule} from '@angular/common/http';
+import {NZ_I18N, ru_RU} from 'ng-zorro-antd/i18n';
+import {registerLocaleData} from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import {LocationPage} from './locations-page/location-page/location-page';
 import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {SelectorsModule} from './selectors/SelectorsModule';
+import {ThreeStateButton} from './buttons/three-state-button/ThreeStateButton';
+import {FilterBtnComponent} from "./buttons/filter-btn/filter-btn.component";
+import {MatIconModule} from "@angular/material/icon";
+import {SignalControl} from "./buttons/signal-control/SignalControl";
 
 registerLocaleData(ru);
 
@@ -73,7 +76,10 @@ registerLocaleData(ru);
     Loader,
     JoinPipe,
     Loader,
-    LocationPage
+    LocationPage,
+    ThreeStateButton,
+    FilterBtnComponent,
+    SignalControl
   ],
   imports: [
     BrowserModule,
@@ -98,14 +104,15 @@ registerLocaleData(ru);
     HttpClientModule,
     MatCardModule,
     MatRadioModule,
-    SelectorsModule
+    SelectorsModule,
+    MatIconModule
   ],
   providers: [
     {
       provide: LoaderService,
       useClass: LoaderServiceImpl
     },
-    { provide: NZ_I18N, useValue: ru_RU }
+    {provide: NZ_I18N, useValue: ru_RU}
   ],
   bootstrap: [AppComponent]
 })

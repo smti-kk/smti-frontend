@@ -12,127 +12,160 @@
   <button class="export-button" mat-raised-button>Выгрузить в Exel</button>
 </div>
 <form *ngIf="filterForm && filtersIsOpened" [formGroup]="filterForm" class="filters">
-  <div class="filters__column filters__column-1">
-    <div class="filter">
-      <mat-form-field appearance="standard" class="location-filter">
-        <mat-label>Населенный пункт</mat-label>
-        <input matInput formControlName="location">
-      </mat-form-field>
-    </div>
-    <div class="filter">
-      <div class="filters__column-label">
-        <div class="filters__column-label-text">Почта:</div>
+  <div class="d-flex">
+    <div class="filters__column filters__column-1">
+      <div class="filter">
+        <mat-form-field appearance="standard" class="location-filter">
+          <mat-label>Населенный пункт</mat-label>
+          <input matInput formControlName="location">
+        </mat-form-field>
       </div>
-      <mat-checkbox [formControl]="control.get('isSelected')"
-                    *ngFor="let control of postTypeControls().controls">
-        {{control.get('label').value}}
-      </mat-checkbox>
-    </div>
-    <div class="filter">
-      <ng-select class="area-filter" placeholder="Район" [multiple]="true" formControlName="parent">
-        <ng-option [value]="area.id" *ngFor="let area of areas">
-          {{area.label}}
-        </ng-option>
-      </ng-select>
-    </div>
-    <div class="filter">
-      <div class="filters__column-label">
-        <div class="filters__column-label-text">ТВ:</div>
-      </div>
-      <mat-checkbox [formControl]="control.get('isSelected')"
-                    *ngFor="let control of tvTypeControls().controls">
-        {{control.get('label').value}}
-      </mat-checkbox>
-    </div>
-  </div>
-  <div class="i-dont-know-what-is-it-but-ok">
-    <img src="/assets/table-phone.svg" alt="">
-    <img src="/assets/table-phone-2.svg" alt="">
-    <img src="/assets/table-phone-3.svg" alt="">
-    <img src="/assets/table-micro.svg" alt="">
-  </div>
-  <div class="filters__column filters__column-2">
-    <div class="filter">
-      <div class="filters__column-label with-icon">
-        <div><img src="/assets/table-phone-4.svg" alt=""></div>
-        <div class="filters__column-label-text">Уровень сигнала:</div>
-      </div>
-      <div class="filters__filter-block" formArrayName="signalLevel">
+      <div class="filter">
+        <div class="filters__column-label">
+          <div class="filters__column-label-text">Почта:</div>
+        </div>
         <mat-checkbox [formControl]="control.get('isSelected')"
-                      *ngFor="let control of signalTypeControls().controls">
+                      *ngFor="let control of postTypeControls().controls">
+          {{control.get('label').value}}
+        </mat-checkbox>
+      </div>
+      <div class="filter">
+        <ng-select class="area-filter" placeholder="Район" [multiple]="true" formControlName="parent">
+          <ng-option [value]="area.id" *ngFor="let area of areas">
+            {{area.label}}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="filter">
+        <div class="filters__column-label">
+          <div class="filters__column-label-text">ТВ:</div>
+        </div>
+        <mat-checkbox [formControl]="control.get('isSelected')"
+                      *ngFor="let control of tvTypeControls().controls">
           {{control.get('label').value}}
         </mat-checkbox>
       </div>
     </div>
-    <div class="filter">
-      <div class="filters__column-label with-icon">
-        <div><img src="/assets/connection-type.svg" alt=""></div>
-        <div class="filters__column-label-text">Тип подключения:</div>
-      </div>
-      <div class="filters__filter-block">
-        <mat-checkbox [formControl]="control.get('isSelected')" *ngFor="let control of connectionTypeControls().controls">
-          {{control.get('label').value}}
-        </mat-checkbox>
-      </div>
+    <div class="i-dont-know-what-is-it-but-ok">
+      <three-state-button formControlName="hasATS">
+        <img src="/assets/table-phone.svg" alt="">
+      </three-state-button>
+      <three-state-button formControlName="hasPayphone">
+        <img src="/assets/table-phone-2.svg" alt="">
+      </three-state-button>
+      <three-state-button formControlName="hasInfomat">
+        <img src="/assets/table-phone-3.svg" alt="">
+      </three-state-button>
+      <three-state-button formControlName="hasRadio">
+        <img src="/assets/table-micro.svg" alt="">
+      </three-state-button>
     </div>
-    <div class="filter">
-      <mat-form-field appearance="fill">
-        <mat-label>Условие</mat-label>
-        <mat-select [disabled]="true" formControlName="logicalCondition">
-          <mat-option [value]="'OR'">ИЛИ</mat-option>
-          <mat-option [value]="'AND'">И</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="filter">
-      <div class="filter__ap-type-container">
-        <div class="imageable-checkbox">
-          <input type="checkbox" formControlName="hasESPD">
-          <img src="/assets/table-computer.svg" alt="">
+    <div class="filters__column filters__column-2">
+      <div class="filter">
+        <div class="filters__column-label with-icon">
+          <div>
+            <three-state-button formControlName="hasCellular">
+              <img src="/assets/table-phone-4.svg" alt="">
+            </three-state-button>
+          </div>
+          <div class="filters__column-label-text">Уровень сигнала:</div>
         </div>
-        <div class="imageable-checkbox">
-          <input type="checkbox" formControlName="hasSMO">
-          <img src="/assets/table-house.svg" alt="">
-        </div>
-        <div class="imageable-checkbox">
-          <input type="checkbox" formControlName="hasZSPD">
-          <img src="/assets/table-sputnik.svg"  alt="">
-        </div>
-        <div class="imageable-checkbox">
-          <input type="checkbox" formControlName="hasRSZO">
-          <img src="/assets/table-radio.svg" alt="">
+        <div class="filters__filter-block" formArrayName="signalLevel">
+          <mat-checkbox [formControl]="control.get('isSelected')"
+                        *ngFor="let control of signalTypeControls().controls">
+            {{control.get('label').value}}
+          </mat-checkbox>
         </div>
       </div>
-    </div>
-    <div class="filter">
-      <div class="filters__column-label">
-        <div class="filters__column-label-text">Оператор сотовый:</div>
-      </div>
-      <div class="filters__filter-block">
-        <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
-          <input type="checkbox" [formControl]="operator.get('isSelected')">
-          <img [src]="'/media/' + operator.get('label').value" alt="">
+      <div class="filter">
+        <div class="filters__column-label with-icon">
+          <three-state-button formControlName="hasInternet">
+            <img src="/assets/connection-type.svg" alt="">
+          </three-state-button>
+          <div class="filters__column-label-text">Тип подключения:</div>
+        </div>
+        <div class="filters__filter-block">
+          <mat-checkbox [formControl]="control.get('isSelected')"
+                        *ngFor="let control of connectionTypeControls().controls">
+            {{control.get('label').value}}
+          </mat-checkbox>
         </div>
       </div>
-    </div>
-    <div class="filter">
-      <div class="filters__column-label">
-        <div class="filters__column-label-text">Оператор интернет:</div>
+      <div class="filter">
+        <mat-form-field appearance="fill" class="location-filter">
+          <mat-label>Условие</mat-label>
+          <mat-select formControlName="logicalCondition">
+            <mat-option [value]="'OR'">ИЛИ</mat-option>
+            <mat-option [value]="'AND'">И</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="filters__filter-block">
-        <div class="imageable-checkbox" *ngFor="let control of internetOperatorsControls().controls">
-          <input type="checkbox" [formControl]="control.get('isSelected')">
-          <img [src]="'/media/' + control.get('label').value" alt="">
+      <div class="filter">
+        <div class="filter__ap-type-container">
+          <div class="imageable-checkbox">
+            <input type="checkbox" formControlName="hasESPD">
+            <img src="/assets/table-computer.svg" alt="">
+          </div>
+          <div class="imageable-checkbox">
+            <input type="checkbox" formControlName="hasSMO">
+            <img src="/assets/table-house.svg" alt="">
+          </div>
+          <div class="imageable-checkbox">
+            <input type="checkbox" formControlName="hasZSPD">
+            <img src="/assets/table-sputnik.svg" alt="">
+          </div>
+          <div class="imageable-checkbox">
+            <input type="checkbox" formControlName="hasRSZO">
+            <img src="/assets/table-radio.svg" alt="">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="filter">
-      <mat-form-field appearance="fill" class="location-filter">
-        <mat-label>Государственная программа</mat-label>
-        <mat-select formControlName="govProgram" [multiple]="true">
-          <mat-option *ngFor="let program of programs" [value]="program.id">{{program.acronym}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="filter">
+        <div class="filters__column-label">
+          <div class="filters__column-label-text">Оператор сотовый:</div>
+        </div>
+        <div class="filters__filter-block">
+          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
+            <input type="checkbox" [formControl]="operator.get('isSelected')">
+            <img [src]="'/media/' + operator.get('label').value" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filters__column-label">
+          <div class="filters__column-label-text">Оператор интернет:</div>
+        </div>
+        <div class="filters__filter-block">
+          <div class="imageable-checkbox" *ngFor="let control of internetOperatorsControls().controls">
+            <input type="checkbox" [formControl]="control.get('isSelected')">
+            <img [src]="'/media/' + control.get('label').value" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <mat-form-field appearance="fill" class="location-filter">
+          <mat-label>Государственная программа</mat-label>
+          <mat-select formControlName="govProgram">
+            <mat-option [value]="null">Государственная программа</mat-option>
+            <mat-option *ngFor="let program of programs" [value]="program.id">{{program.acronym}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="filter">
+        <mat-form-field appearance="fill" class="location-filter">
+          <mat-label>Год</mat-label>
+          <mat-select formControlName="govYear">
+            <mat-option [value]="null">Год</mat-option>
+            <mat-option *ngFor="let year of govYears" [value]="year">{{year}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </div>
+  <sort-btn formControlName="ordering" [orderings]="[
+                      {name: 'Нас.пункт', value: 'name', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Район', value: 'parent', orderingDirection: OrderingDirection.UNDEFINED },
+                      {name: 'Численность', value: 'people_count', orderingDirection: OrderingDirection.UNDEFINED }
+                  ]"
+  ></sort-btn>
 </form>

@@ -15,13 +15,13 @@ export class LocationInfoBarConverterImpl implements LocationInfoBarConverter {
     return {
       locationName: location.type + ' ' + location.name,
       population: location.population,
-      mail: this.operatorIconsFactory.operatorIcons(operators.post, location.technicalCapability, 'POST'),
+      mail: this.operatorIconsFactory.postIcons(operators.post, location.technicalCapability, 'POST'),
       payphone: this.operatorIconsFactory.operatorIcons(operators.ats, location.technicalCapability, 'ATS'),
-      tv: this.operatorIconsFactory.operatorIcons(operators.television, location.technicalCapability, 'TV'),
+      tv: this.operatorIconsFactory.tvOrRadioIcons(operators.television, location.technicalCapability, 'TV'),
       internet: this.operatorIconsFactory.internetIcons(operators.internet, location.technicalCapability, 'INET'),
       cellular: this.operatorIconsFactory.cellularIcons(operators.mobile, location.technicalCapability, 'MOBILE'),
       telephone: this.operatorIconsFactory.operatorIcons(operators.ats, location.technicalCapability, 'ATS'),
-      radio: this.operatorIconsFactory.operatorIcons(operators.radio, location.technicalCapability, 'RADIO'),
+      radio: this.operatorIconsFactory.tvOrRadioIcons(operators.radio, location.technicalCapability, 'RADIO'),
       infomat: []
     };
   }

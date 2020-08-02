@@ -1,11 +1,12 @@
-import {LocationDetail, WriteableLocation} from '../dto/LocationDetail';
+import {LocationDetail, LocationFeaturesSaveRequest} from '../dto/LocationDetail';
 import {Observable} from 'rxjs';
 import {Pageable} from '@api/dto/Pageable';
 import {HttpParams} from '@angular/common/http';
 
-export interface LocationDetailApi {
-  list(page: number, size: number): Observable<Pageable<LocationDetail[]>>;
-  listFiltered(page: number, size: number, filters: HttpParams): Observable<Pageable<LocationDetail[]>>;
-  one(id: number): Observable<LocationDetail>;
-  save(location: WriteableLocation): Observable<LocationDetail>;
+export abstract class LocationDetailApi {
+  abstract list(page: number, size: number): Observable<Pageable<LocationDetail[]>>;
+  abstract listFiltered(page: number, size: number, filters: HttpParams): Observable<Pageable<LocationDetail[]>>;
+  abstract one(id: number): Observable<LocationDetail>;
+  abstract save(location: LocationFeaturesSaveRequest): Observable<LocationDetail>;
+  abstract govYears(): Observable<number[]>;
 }

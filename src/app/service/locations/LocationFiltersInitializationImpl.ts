@@ -72,7 +72,7 @@ export class LocationFiltersInitializationImpl implements LocationFiltersInitial
               label: st.name
             };
           }),
-          postType: postTypes.map(pt => {
+          postType: postTypes.map((pt: any) => {
             return {
               id: pt.id,
               label: pt.name,
@@ -86,12 +86,20 @@ export class LocationFiltersInitializationImpl implements LocationFiltersInitial
               isSelected: false
             };
           }),
-          govProgram: [],
+          govProgram: null,
           hasZSPD: false,
           hasRSZO: false,
           hasSMO: false,
           hasESPD: false,
-          logicalCondition: 'OR'
+          logicalCondition: 'AND',
+          hasATS: null,
+          hasInfomat: null,
+          hasPayphone: null,
+          hasRadio: null,
+          hasCellular: null,
+          hasInternet: null,
+          ordering: null,
+          govYear: null
         };
       })
     );

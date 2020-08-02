@@ -1,5 +1,6 @@
 import {ShortTechnicalCapability, WriteableTechnicalCapability} from './ShortTechnicalCapability';
 import {OrganizationForTable} from '@api/dto/OrganizationForTable';
+import {LocationFeatureWritable} from "@api/location-features/LocationFeatureWritable";
 
 export interface LocationParent {
   id: number;
@@ -7,14 +8,9 @@ export interface LocationParent {
   name: string;
 }
 
-export interface WriteableLocation {
-  id: number;
-  type: string;
-  name: string;
-  population: number;
-  locationParent: LocationParent;
-  technicalCapabilities: WriteableTechnicalCapability[];
-  organizations: OrganizationForTable[];
+export interface LocationFeaturesSaveRequest {
+  features: WriteableTechnicalCapability[];
+  comment: string;
 }
 
 export interface LocationDetail {

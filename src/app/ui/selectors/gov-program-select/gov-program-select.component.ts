@@ -42,7 +42,6 @@ export class GovProgramSelect implements ControlValueAccessor, OnInit {
   }
 
   writeValue(obj: GovProgram): void {
-    console.log(obj);
     this.formControl.setValue(obj);
   }
 

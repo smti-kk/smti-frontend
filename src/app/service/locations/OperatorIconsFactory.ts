@@ -4,6 +4,8 @@ import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
 import {OperatorIcon} from '@service/dto/OperatorIcon';
 import {CellularIcon} from '@service/dto/CellularIcon';
 import {InternetIcon} from '@service/dto/InternetIcon';
+import {TvOrRadioIcon} from "@service/dto/TvOrRadioIcon";
+import {PostIcon} from "@service/dto/PostIcon";
 
 /**
  * Конструирование операторских иконок
@@ -27,5 +29,13 @@ export abstract class OperatorIconsFactory {
   abstract internetIcons(operators: Operator[],
                          technicalCapabilities: ShortTechnicalCapability[],
                          type: TechnicalCapabilityType): InternetIcon[];
+
+  abstract tvOrRadioIcons(operators: Operator[],
+                          technicalCapabilities: ShortTechnicalCapability[],
+                          type: TechnicalCapabilityType): TvOrRadioIcon[];
+
+  abstract postIcons(operators: Operator[],
+                     technicalCapabilities: ShortTechnicalCapability[],
+                     type: TechnicalCapabilityType): PostIcon[];
 }
 

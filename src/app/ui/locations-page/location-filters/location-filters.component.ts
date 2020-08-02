@@ -7,6 +7,8 @@ import {SelectAreaItem} from '@service/dto/SelectAreaItem';
 import {SelectAreasService} from '@service/area/SelectAreasService';
 import {GovProgramService} from '@service/gov-program/GovProgramService';
 import {GovProgram} from '@api/dto/GovProgram';
+import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
+import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 
 @Component({
   selector: 'location-filters',
@@ -18,23 +20,27 @@ export class LocationFiltersComponent implements OnInit {
   areas: SelectAreaItem[];
   programs: GovProgram[];
   filtersIsOpened: boolean;
+  OrderingDirection = OrderingDirection;
+  govYears: number[];
   @Output() filters: EventEmitter<LocationFilters>;
 
   constructor(private readonly filterFormBuilder: LocationFilterFormBuilder,
+              private readonly apiLocationDetail: LocationDetailApi,
               private readonly selectAreasService: SelectAreasService,
               private readonly govProgramService: GovProgramService) {
     this.filtersIsOpened = false;
     forkJoin([
       filterFormBuilder.build(),
       selectAreasService.areas(),
-      govProgramService.list()
-    ]).subscribe(([form, areas, programs]) => {
+      govProgramService.list(),
+      apiLocationDetail.govYears(),
+    ]).subscribe(([form, areas, programs, govYears]) => {
       this.filterForm = form;
       this.areas = areas;
       this.programs = programs;
+      this.govYears = govYears;
       this.filterForm.valueChanges.subscribe(value => {
         this.filters.emit(value);
-        console.log(value);
       });
     });
     this.filters = new EventEmitter<LocationFilters>();

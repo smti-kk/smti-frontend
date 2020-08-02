@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TvTypeApi} from './TvTypeApi';
 import {TV_TYPES_API} from '../../../environments/api.routes';
-import {TvType} from '../dto/TvType';
+import {Signal} from '../dto/Signal';
 
 export class TvTypeApiImpl implements TvTypeApi {
   private readonly httpClient: HttpClient;
@@ -11,7 +11,7 @@ export class TvTypeApiImpl implements TvTypeApi {
     this.httpClient = httpClient;
   }
 
-  list(): Observable<TvType[]> {
-    return this.httpClient.get<TvType[]>(TV_TYPES_API);
+  list(): Observable<Signal[]> {
+    return this.httpClient.get<Signal[]>(TV_TYPES_API);
   }
 }

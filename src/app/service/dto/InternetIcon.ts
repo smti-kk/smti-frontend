@@ -5,8 +5,13 @@ export class InternetIcon extends OperatorIcon {
   type: InternetType;
   typeIcon: string;
 
-  constructor(id: number, state: boolean, iconUrl: string, name: string, type: InternetType) {
-    super(id, state, iconUrl, name);
+  constructor(id: number,
+              state: boolean,
+              iconUrl: string,
+              name: string,
+              govYearComplete: number,
+              type: InternetType) {
+    super(id, state, iconUrl, name, govYearComplete);
     this.type = type;
     this.typeIcon = '/assets/' + type + '.svg';
   }

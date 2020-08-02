@@ -4,10 +4,12 @@ import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {map} from 'rxjs/operators';
 import {TcEditionFromApi} from '../dto/TcEditionFromApi';
 import {Observable} from 'rxjs';
+import {LocationFeatures} from '@api/location-features/LocationFeatures';
 
 export class DetailLocationsFromApi implements DetailLocations {
 
-  constructor(private readonly locationDetailApi: LocationDetailApi) {
+  constructor(private readonly locationDetailApi: LocationDetailApi,
+              private readonly locationFeatures: LocationFeatures) {
   }
 
   location(id: string): Observable<TechnicalCapabilityEdition> {
@@ -16,9 +18,9 @@ export class DetailLocationsFromApi implements DetailLocations {
     );
   }
 
-  save(tc: TcEditionFromApi): Observable<TechnicalCapabilityEdition> {
-    return this.locationDetailApi.save(tc.toWriteableLocation()).pipe(
-      map((location) => new TcEditionFromApi(location))
+  save(tc: TcEditionFromApi, locationId: number): Observable<TechnicalCapabilityEdition> {
+    return this.locationFeatures.saveAll(tc.toLocationFeaturesSaveRequest(), locationId).pipe(
+      map((location) => null)
     );
   }
 }
