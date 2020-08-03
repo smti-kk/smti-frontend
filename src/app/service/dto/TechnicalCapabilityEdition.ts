@@ -30,7 +30,8 @@ export class TcEdition {
         locationId,
         quality: 'GOOD',
         govYearComplete: null,
-        typePost: 'UPS'
+        typePost: 'UPS',
+        state: 'WAIT_FOR_STATE_TO_BE_SET'
       };
     }
   }

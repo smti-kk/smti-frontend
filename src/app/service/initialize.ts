@@ -81,7 +81,11 @@ import {UsersApiImpl} from '@api/account/UsersApiImpl';
 import {UsersService} from '@service/account/UsersService';
 import {LocationFeaturesImpl} from '@api/location-features/LocationFeaturesImpl';
 import {GPSCacheable} from '@service/gov-program/GPSCacheable';
-import {LocationDetailApi} from "@api/locations/LocationDetailApi";
+import {LocationDetailApi} from '@api/locations/LocationDetailApi';
+import {CurrentYearService, CurrentYearServiceImpl} from '@service/util/CurrentYearService';
+import {FeaturesComparingServiceImpl} from '@service/features-comparing/FeaturesComparingServiceImpl';
+import {LocationFCApiImpl} from '@api/features-comparing/LocationFCApiImpl';
+import {FeaturesComparingService} from '@service/features-comparing/FeaturesComparingService';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -196,6 +200,11 @@ export const factory = (): Provider[] => {
   const dLocationsService = new DLocationsServiceImpl(
     new DLocationBaseApiImpl(httpClient)
   );
+  const currentYearService = new CurrentYearServiceImpl();
+  const featuresComparingService = new FeaturesComparingServiceImpl(
+    new LocationFCApiImpl(httpClient),
+    currentYearService
+  );
   return [
     {
       provide: GovProgramService,
@@ -276,6 +285,14 @@ export const factory = (): Provider[] => {
     {
       provide: LocationDetailApi,
       useValue: locationDetailApi
+    },
+    {
+      provide: CurrentYearService,
+      useValue: currentYearService
+    },
+    {
+      provide: FeaturesComparingService,
+      useValue: featuresComparingService
     }
   ];
 };

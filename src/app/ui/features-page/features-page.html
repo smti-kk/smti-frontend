@@ -1,1 +1,78 @@
-<p>features-page works!</p>
+<div class="location-features-container">
+  <location-filters></location-filters>
+  <div class="filter-result-count">
+    Результатов поиска: 1743
+  </div>
+  <div class="features-table" *ngIf="features">
+    <div class="features-table__header">
+      <div class="features-table__header-column">Населенный пункт</div>
+      <div class="features-table__header-column">Архив 2019</div>
+      <div class="features-table__header-column">План 2021</div>
+      <div class="features-table__header-column">План 2022</div>
+      <div class="features-table__header-column">План 2023</div>
+    </div>
+    <div class="features-table__body">
+      <div class="features-table__row" *ngFor="let feature of features">
+        <div class="features-table__column features-table__location">
+          <div class="features-table__location-info">
+            {{feature.type}} {{feature.name}}<br>
+            {{feature.locationParent?.type}} {{feature.locationParent?.name}}<br>
+            {{feature.population}}
+          </div>
+          <div class="features-table__location-detail">
+            подробнее
+          </div>
+        </div>
+        <div class="features-table__column features-table__archive-column">
+          <div class="features-table__operator" *ngFor="let tc of feature.archive">
+            <div class="features-table__operator-icon">
+              <img [src]="'/media/' + tc.operator.icon" alt="">
+            </div>
+            <div class="features-table__feature-type" *ngIf="tc.type === 'INET' && tc.trunkChannel">
+              <img [src]="'/assets/' + tc.trunkChannel.name + '.svg'" alt="">
+            </div>
+            <div class="features-table__feature-type" *ngIf="tc.type === 'MOBILE' && tc.typeMobile">
+              {{tc.typeMobile.name}}
+            </div>
+          </div>
+        </div>
+        <div class="features-table__column">
+          <div class="features-table__plan-row" *ngFor="let tc of feature.planYear" (click)="showDialog(tc, feature.id)">
+            <img [src]="'/media/' + tc.operator.icon" alt="">
+            <span *ngIf="tc.type === 'INET' && tc.trunkChannel">
+              {{tc.trunkChannel.name}}
+            </span>
+            <span *ngIf="tc.type === 'MOBILE' && tc.typeMobile">
+              {{tc.typeMobile.name}}
+            </span>
+            : {{tc.governmentDevelopmentProgram.acronym}} {{tc.govYearComplete}}
+          </div>
+        </div>
+        <div class="features-table__column">
+          <div class="features-table__plan-row" (click)="showDialog(tc, feature.id)" *ngFor="let tc of feature.planTwoYear">
+            <img [src]="'/media/' + tc.operator.icon" alt="">
+            <span *ngIf="tc.type === 'INET' && tc.trunkChannel">
+              {{tc.trunkChannel.name}}
+            </span>
+            <span *ngIf="tc.type === 'MOBILE' && tc.typeMobile">
+              {{tc.typeMobile.name}}
+            </span>
+            : {{tc.governmentDevelopmentProgram.acronym}} {{tc.govYearComplete}}
+          </div>
+        </div>
+        <div class="features-table__column">
+          <div class="features-table__plan-row" *ngFor="let tc of feature.planThreeYear" (click)="showDialog(tc, feature.id)">
+            <img [src]="'/media/' + tc.operator.icon" alt="">
+            <span *ngIf="tc.type === 'INET' && tc.trunkChannel">
+              {{tc.trunkChannel.name}}
+            </span>
+            <span *ngIf="tc.type === 'MOBILE' && tc.typeMobile">
+              {{tc.typeMobile.name}}
+            </span>
+            : {{tc.governmentDevelopmentProgram.acronym}} {{tc.govYearComplete}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

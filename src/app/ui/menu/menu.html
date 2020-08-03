@@ -4,7 +4,7 @@
   </div>
   <div class="link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
   <div class="link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
-<!--  <div class="link" routerLink="/features" [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>-->
+  <div class="link" routerLink="/features" [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
   <div class="link" *ngIf="account" routerLink="/connection-points" [class.active]="currentRouteIs('/connection-points')"><span>Организации</span></div>
   <div class="link" *ngIf="account" routerLink="/communication-contracts" [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
   <div class="link" *ngIf="account" routerLink="/users" [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>

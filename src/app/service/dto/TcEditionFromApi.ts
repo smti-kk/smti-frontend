@@ -63,7 +63,8 @@ export class TcEditionFromApi extends TechnicalCapabilityEdition {
       id: short.id,
       govYearComplete: short.govYearComplete,
       tvOrRadioTypes: short.tvOrRadioTypes,
-      typePost: short.typePost ? short.typePost.id : null
+      typePost: short.typePost ? short.typePost.id : null,
+      state: short.state
     };
   }
 
@@ -97,7 +98,8 @@ export class TcEditionFromApi extends TechnicalCapabilityEdition {
         locationId: edition.tcs[operatorId].locationId,
         govYearComplete: edition.tcs[operatorId].govYearComplete,
         tvOrRadioTypes: edition.tcs[operatorId].tvOrRadioTypes,
-        typePost: edition.tcs[operatorId].typePost
+        typePost: edition.tcs[operatorId].typePost,
+        state: edition.tcs[operatorId].state
       };
     });
   }

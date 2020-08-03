@@ -5,6 +5,22 @@ import {MobileType} from '@api/dto/MobileType';
 import {Quality} from '@api/dto/Quality';
 import {PostType} from '@api/dto/PostType';
 import {Signal} from '@api/dto/Signal';
+import {TcState} from '@api/dto/TcState';
+import {Operator} from '@api/dto/Operator';
+
+export interface FCTechnicalCapability {
+  id: number;
+  operator: Operator;
+  type: TechnicalCapabilityType;
+  governmentDevelopmentProgram: GovernmentProgram;
+  trunkChannel?: TrunkChannelType;
+  typeMobile?: MobileType;
+  locationId: number;
+  tvOrRadioTypes: Signal[];
+  typePost: PostType;
+  govYearComplete: number;
+  state: TcState;
+}
 
 export interface ShortTechnicalCapability {
   id: number;
@@ -17,6 +33,7 @@ export interface ShortTechnicalCapability {
   tvOrRadioTypes: Signal[];
   typePost: PostType;
   govYearComplete: number;
+  state: TcState;
 }
 
 export interface WriteableTechnicalCapability {
@@ -31,4 +48,5 @@ export interface WriteableTechnicalCapability {
   quality: Quality;
   typePost: string;
   govYearComplete: number;
+  state: TcState;
 }

@@ -48,9 +48,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {SelectorsModule} from './selectors/SelectorsModule';
 import {ThreeStateButton} from './buttons/three-state-button/ThreeStateButton';
-import {FilterBtnComponent} from "./buttons/filter-btn/filter-btn.component";
-import {MatIconModule} from "@angular/material/icon";
-import {SignalControl} from "./buttons/signal-control/SignalControl";
+import {FilterBtnComponent} from './buttons/filter-btn/filter-btn.component';
+import {MatIconModule} from '@angular/material/icon';
+import {SignalControl} from './buttons/signal-control/SignalControl';
+import {PlanPage} from './locations-page/plan-page/PlanPage';
+import {MoveToArchiveDialog} from "./features-page/move-to-archive-dialog/MoveToArchiveDialog";
 
 registerLocaleData(ru);
 
@@ -79,7 +81,9 @@ registerLocaleData(ru);
     LocationPage,
     ThreeStateButton,
     FilterBtnComponent,
-    SignalControl
+    SignalControl,
+    PlanPage,
+    MoveToArchiveDialog
   ],
   imports: [
     BrowserModule,

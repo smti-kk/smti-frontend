@@ -12,6 +12,9 @@ export class AppComponent {
 
   constructor(loaderService: LoaderService) {
     this.loaderService = loaderService;
-    // this.loaderService.startLoader();
+  //   this.loaderService.startLoader();
+  //   setTimeout(() => {
+  //     this.loaderService.stopLoader();
+  //   }, 2500);
   }
 }
