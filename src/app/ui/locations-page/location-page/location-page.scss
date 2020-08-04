@@ -3,29 +3,71 @@
   padding: 15px;
 }
 
-mat-card {
-  margin-top: 10px;
+.page-header {
+  margin: 20px 0 30px 10px;
+
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .tc-item {
-  width: 1000px;
+  padding: 12px 10px 0 10px;
+}
+
+.tc-item + .tc-item {
+  border-top: 2px solid #BCBCBC;
+}
+
+.tc-label {
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .operator-block {
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: 200px 1fr;
+  grid-column-gap: 2rem;
+  grid-row-gap: 0.5rem;
+
   padding-top: 11px;
   padding-bottom: 11px;
 
-  &:not(:last-of-type) {
+ /* &:not(:last-of-type) {
     border-bottom: 1px solid #ccc;
-  }
+  }*/
+}
+
+.operator-block-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 180px 1fr 26px;
+  grid-column-gap: 2rem;
+  grid-row-gap: 0.5rem;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #ccc;
+}
+
+.operator-block:last-child .operator-block-wrap{
+  padding-bottom: 0;
+
+  border-bottom: none;
+}
+
+.gov-program-select {
+  //grid-column: 2;
 }
 
 .tc-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
   grid-gap: 10px;
+
+  margin-top: 11px;
+  padding: 0 2rem;
+
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
 }
 
 .some-buttons {
@@ -33,4 +75,60 @@ mat-card {
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1px;
   width: 400px;
+}
+
+.tc-button {
+  grid-column: -1/-2;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+
+  color: #BCBCBC;
+
+  border: 1px solid #BCBCBC;
+  background-color: #fff;
+}
+
+.tc-button:hover {
+  cursor: pointer;
+
+  color: #FF5700;
+
+  border: 1px solid #FF5700;
+}
+
+.tc-button.active {
+  color: #fff;
+
+  border: 1px solid #FF5700;
+  background-color: #FF5700;
+}
+
+.tc-button .material-icons {
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.tc-comment {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr 26px;
+  grid-gap: 2rem;
+}
+
+.tc-comment textarea {
+  padding: 10px 16px 8px;
+  background: #F6F6F6;
+}
+
+.tc-btn-group {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 10px 10px 20px;
+}
+
+.tc-btn-group button {
+  border-radius: 0;
+  background-color: #707070;
 }
