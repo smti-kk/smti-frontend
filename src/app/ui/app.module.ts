@@ -53,6 +53,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {SignalControl} from './buttons/signal-control/SignalControl';
 import {PlanPage} from './locations-page/plan-page/PlanPage';
 import {MoveToArchiveDialog} from "./features-page/move-to-archive-dialog/MoveToArchiveDialog";
+import {MatTabsModule} from '@angular/material/tabs';
 
 registerLocaleData(ru);
 
@@ -109,7 +110,8 @@ registerLocaleData(ru);
     MatCardModule,
     MatRadioModule,
     SelectorsModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule,
   ],
   providers: [
     {
