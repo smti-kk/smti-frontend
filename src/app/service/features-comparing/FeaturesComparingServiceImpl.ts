@@ -5,6 +5,7 @@ import {LocationFCApi} from '@api/features-comparing/LocationFCApi';
 import {map} from 'rxjs/operators';
 import {FCTechnicalCapability} from '@api/dto/ShortTechnicalCapability';
 import {CurrentYearService} from '@service/util/CurrentYearService';
+import {TechnicalCapabilityType} from "@api/dto/TechnicalCapabilityType";
 
 export class FeaturesComparingServiceImpl implements FeaturesComparingService {
   private readonly currentYear;
@@ -14,7 +15,7 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
     this.currentYear = currentYearService.currentYear();
   }
 
-  featuresComparing(): Observable<FeaturesComparing[]> {
+  featuresComparing(type?: TechnicalCapabilityType): Observable<FeaturesComparing[]> {
     return this.api.locations().pipe(
       map(locations => {
         return locations
@@ -25,7 +26,7 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
             const planThreeYear: FCTechnicalCapability[] = [];
             const active: FCTechnicalCapability[] = [];
             location.technicalCapabilities
-              .filter(tc => tc.type === 'MOBILE' || tc.type === 'INET')
+              .filter(tc => type ? (tc.type === type) : (tc.type === 'MOBILE' || tc.type === 'INET'))
               .forEach(tc => {
                 if (tc.state === 'ARCHIVE') {
                   archive.push(tc);

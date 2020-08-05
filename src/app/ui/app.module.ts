@@ -64,6 +64,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { AreaInfoBarComponent } from './map-page/area-info-bar/area-info-bar.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 registerLocaleData(ru);
 
@@ -132,7 +133,8 @@ registerLocaleData(ru);
     MatPaginatorModule,
     DialogsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonToggleModule
   ],
   providers: [
     {
