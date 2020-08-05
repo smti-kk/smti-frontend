@@ -1,1 +1,59 @@
-<p>area-info-bar works!</p>
+<mat-accordion>
+  <mat-expansion-panel
+    [expanded]="panelOpenState"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="panel-title">ИНФОРМАЦИЯ: район</div>
+        <ng-container *ngIf="!panelOpenState">
+          <div>Численность: 256151</div>
+          <div>Количество населенных пунктов: 254</div>
+        </ng-container>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="features-list">
+      <div class="feature feature-header">
+        <div class="feature__label">Услуги связи</div>
+        <div class="feature__amount">Обеспечено (нас.пункт/жители)</div>
+        <div class="feature__percent">%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Сотовая связь:</div>
+        <div class="feature__amount">82/5537</div>
+        <div class="feature__percent">84%/72%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Интернет:</div>
+        <div class="feature__amount">82/5537</div>
+        <div class="feature__percent">5%/72%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Тв:</div>
+        <div class="feature__amount">2/537</div>
+        <div class="feature__percent">100%/100%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Таксофон:</div>
+        <div class="feature__amount">82/5537</div>
+        <div class="feature__percent">84%/72%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Телефон:</div>
+        <div class="feature__amount">2/37</div>
+        <div class="feature__percent">84%/72%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Радио:</div>
+        <div class="feature__amount">8/55437</div>
+        <div class="feature__percent">84%/72%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Почта:</div>
+        <div class="feature__amount">Нет информации</div>
+        <div class="feature__percent"></div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
