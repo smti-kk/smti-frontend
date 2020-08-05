@@ -1,14 +1,22 @@
 .host-container {
-  height: 100%;
-  display: block;
-  width: 446px;
-  border-right: 6px solid #8b8b8b;
   position: relative;
+
+  width: 500px;
+  height: 100%;
+
   transition: 0.5s all;
 
+  border-right: 6px solid #8b8b8b;
+
   &.hided {
-    margin-left: -446px;
+    margin-left: -500px;
   }
+}
+
+.content-wrap {
+  overflow-y: auto;
+
+  height: 100%;
 }
 
 .toggler {
