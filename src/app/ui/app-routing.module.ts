@@ -9,6 +9,7 @@ import {LocationPage} from './locations-page/location-page/location-page';
 import {UsersPage} from './users/users-page';
 import {PlanPage} from './locations-page/plan-page/PlanPage';
 import {BaseStationsComponent} from "./base-stations/base-stations.component";
+import {TrunkChannelsComponent} from "./trunk-channels/trunk-channels.component";
 
 
 const routes: Routes = [
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'base-stations',
     component: BaseStationsComponent
+  },
+  {
+    path: 'trunk-channels',
+    component: TrunkChannelsComponent
   },
   {
     path: 'locations',

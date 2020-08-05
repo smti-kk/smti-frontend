@@ -61,6 +61,7 @@ import {DialogsModule} from './dialogs/dialogs.module';
 import { TrunkChannelsComponent } from './trunk-channels/trunk-channels.component';
 import { CreateTrunkChannelComponent } from './trunk-channels/create-trunk-channel/create-trunk-channel.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { AreaInfoBarComponent } from './map-page/area-info-bar/area-info-bar.component';
 
 registerLocaleData(ru);
 
@@ -95,7 +96,8 @@ registerLocaleData(ru);
     BaseStationsComponent,
     CreateBaseStationComponent,
     TrunkChannelsComponent,
-    CreateTrunkChannelComponent
+    CreateTrunkChannelComponent,
+    AreaInfoBarComponent,
   ],
   imports: [
     BrowserModule,

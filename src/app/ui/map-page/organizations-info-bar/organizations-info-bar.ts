@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'organizations-info-bar',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./organizations-info-bar.scss']
 })
 export class OrganizationsInfoBar implements OnInit {
+  @Input() organizations: {}[];
 
   constructor() { }
 

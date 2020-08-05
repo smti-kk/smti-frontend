@@ -46,7 +46,7 @@ export class TrunkChannelsComponent implements OnInit {
     });
   }
 
-  deleteStation(row: TrunkChannel): void {
+  delete(row: TrunkChannel): void {
     const dialogRef = this.dialog.open(AreYouSureComponent, {
       width: '450px',
       data: 'Вы уверены, что хотите удалить магистральный канал?'
@@ -60,7 +60,7 @@ export class TrunkChannelsComponent implements OnInit {
     });
   }
 
-  editStation(row: TrunkChannel): void {
+  edit(row: TrunkChannel): void {
     const dialogRef = this.dialog.open(CreateTrunkChannelComponent, {
       width: '450px',
       data: row
