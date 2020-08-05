@@ -14,7 +14,7 @@ import {MatPaginator} from '@angular/material/paginator';
 })
 export class TrunkChannelsComponent implements OnInit {
 
-  displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'select'];
+  displayedColumns: string[] = ['locationStart', 'locationEnd', 'operator', 'typeTrunkChannel', 'commissioning', 'decommissioning', 'program', 'completed', 'select'];
   dataSource: MatTableDataSource<TrunkChannel>;
   baseStations: TrunkChannel[];
 

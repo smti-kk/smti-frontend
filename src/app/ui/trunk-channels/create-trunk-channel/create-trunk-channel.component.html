@@ -1,1 +1,59 @@
-<p>create-trunk-channel works!</p>
+<h1 mat-dialog-title *ngIf="action === 'CREATE'">Создание магистрального канала</h1>
+<h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование магистрального канала</h1>
+<form #form="ngForm" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Начало канала</mat-label>
+    <mat-select [(ngModel)]="trunkChannel.locationStart" name="locationStart" [compareWith]="compareById" required>
+      <mat-option value="null">ТНачало канала</mat-option>
+      <mat-option [value]="location" *ngFor="let location of locations">{{location.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Конец канала</mat-label>
+    <mat-select [(ngModel)]="trunkChannel.locationEnd" name="locationEnd" [compareWith]="compareById" required>
+      <mat-option value="null">Конец канала</mat-option>
+      <mat-option [value]="location" *ngFor="let location of locations">{{location.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Оператор</mat-label>
+    <mat-select [(ngModel)]="trunkChannel.operator" name="operator" [compareWith]="compareById" required>
+      <mat-option value="null">Оператор</mat-option>
+      <mat-option [value]="operator" *ngFor="let operator of operators$ | async">{{operator.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Тип канала</mat-label>
+    <mat-select [(ngModel)]="trunkChannel.typeTrunkChannel" name="typeTrunkChannel" [compareWith]="compareById" required>
+      <mat-option value="null">Тип мобильной связи</mat-option>
+      <mat-option [value]="type" *ngFor="let type of trunkChannelTypes$ | async">{{type.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Программа</mat-label>
+    <mat-select [(ngModel)]="trunkChannel.program" name="program" [compareWith]="compareById" required>
+      <mat-option value="null">Программа</mat-option>
+      <mat-option [value]="program" *ngFor="let program of govPrograms$ | async">{{program.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field color="accent" appearance="fill">
+    <mat-label>Дата ввода в эксплуатацию</mat-label>
+    <input matInput [matDatepicker]="picker1" [(ngModel)]="trunkChannel.commissioning" name="commissioning">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field color="accent" appearance="fill">
+    <mat-label>Дата вывода из эксплуатации</mat-label>
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="trunkChannel.decommissioning" name="decommissioning">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Период</mat-label>
+    <input matInput type="number" [(ngModel)]="trunkChannel.completed" name="lng" required>
+  </mat-form-field>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Отмена</button>
+  <button mat-button [disabled]="!form.valid" [mat-dialog-close]="trunkChannel">Сохранить</button>
+</div>

@@ -23,6 +23,12 @@
                   (change)="removeOrAddLayer('baseStations', baseStationsCheckbox.checked)"
                   [checked]="false">Базовые станции</mat-checkbox>
   </div>
+  <div class="layers-selection__item">
+    <mat-checkbox #trunkChannelsLayerCheckbox
+                  color="warn"
+                  (change)="removeOrAddLayer('trunkChannelsLayer', trunkChannelsLayerCheckbox.checked)"
+                  [checked]="false">Магистральные каналы</mat-checkbox>
+  </div>
 </div>
 <div class="leaflet-map"
      *ngIf="leafletOptions$ | async as leafletOptions"

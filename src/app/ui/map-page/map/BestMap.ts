@@ -8,6 +8,7 @@ import {LocationsService} from '@service/locations/LocationsService';
 import {tap} from 'rxjs/operators';
 import {LoaderService} from '../../loader/LoaderService';
 import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
+import {TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
 
 @Component({
   selector: 'best-map',
@@ -25,6 +26,7 @@ export class BestMap implements OnInit, OnDestroy {
               private locationsService: LocationsService,
               private leafletOptionsConfigurator: LeafletOptionsConfigurator,
               private municipalitiesLayer: MunicipalitiesLayer,
+              private trunkChannelsLayer: TrunkChannelsLayer,
               private readonly loaderService: LoaderService) {
     this.leafletOptions$ = this.leafletOptionsConfigurator.configure().pipe(
       tap(() => this.loaderService.stopLoader())
@@ -33,7 +35,8 @@ export class BestMap implements OnInit, OnDestroy {
       locations: this.layersFactory.locationLayerController(),
       ESPD: this.layersFactory.espdLayerController(),
       SMO: this.layersFactory.smoLayerLayerController(),
-      baseStations: this.layersFactory.baseStationsLayerLayerController()
+      baseStations: this.layersFactory.baseStationsLayerLayerController(),
+      trunkChannelsLayer: trunkChannelsLayer as any
     };
     this.locationClick =  this.pointsLayers.locations.onPointClick();
   }

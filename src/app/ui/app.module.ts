@@ -62,6 +62,8 @@ import { TrunkChannelsComponent } from './trunk-channels/trunk-channels.componen
 import { CreateTrunkChannelComponent } from './trunk-channels/create-trunk-channel/create-trunk-channel.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AreaInfoBarComponent } from './map-page/area-info-bar/area-info-bar.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 registerLocaleData(ru);
 
@@ -128,7 +130,9 @@ registerLocaleData(ru);
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    DialogsModule
+    DialogsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     {

@@ -92,6 +92,10 @@ import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
 import {MunicipalitiesApi} from '@api/municipalities-api/MunicipalitiesApi';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
+import {MapLocationsApiImpl} from "@api/locations/MapLocationsApiImpl";
+import {MapLocationsApi} from "@api/locations/MapLocationsApi";
+import {BoundsToStringConverter} from "@api/util/bounds.to.string.converter";
+import {TrunkChannelsLayer} from "@service/leaflet-config/TrunkChannelsLayer";
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -213,6 +217,7 @@ export const factory = (): Provider[] => {
   );
   const apiFeaturesRequests = new ApiFeaturesRequestsImpl(httpClient);
   const trunkChannelsApi = new TrunkChannelsApi(httpClient);
+  const trunkChannelsLayer = new TrunkChannelsLayer(trunkChannelsApi);
   return [
     {
       provide: GovProgramService,
@@ -317,6 +322,14 @@ export const factory = (): Provider[] => {
     {
       provide: TrunkChannelsApi,
       useValue: trunkChannelsApi
+    },
+    {
+      provide: MapLocationsApi,
+      useValue: new MapLocationsApiImpl(httpClient, new BoundsToStringConverter())
+    },
+    {
+      provide: TrunkChannelsLayer,
+      useValue: trunkChannelsLayer
     }
   ];
 };
