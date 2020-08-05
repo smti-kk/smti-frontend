@@ -91,6 +91,7 @@ import {ApiFeaturesRequestsImpl} from '@api/features-requests/ApiFeaturesRequest
 import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
 import {MunicipalitiesApi} from '@api/municipalities-api/MunicipalitiesApi';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
+import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -211,6 +212,7 @@ export const factory = (): Provider[] => {
     currentYearService
   );
   const apiFeaturesRequests = new ApiFeaturesRequestsImpl(httpClient);
+  const trunkChannelsApi = new TrunkChannelsApi(httpClient);
   return [
     {
       provide: GovProgramService,
@@ -311,6 +313,10 @@ export const factory = (): Provider[] => {
     {
       provide: BaseStationsApi,
       useValue: new BaseStationsApi(httpClient)
+    },
+    {
+      provide: TrunkChannelsApi,
+      useValue: trunkChannelsApi
     }
   ];
 };
