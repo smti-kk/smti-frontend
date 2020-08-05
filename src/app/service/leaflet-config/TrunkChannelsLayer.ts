@@ -1,5 +1,5 @@
 import {LayerGroup, Polyline} from 'leaflet';
-import {TrunkChannelsApi} from '../../api/trunk-channels/TrunkChannelsApi';
+import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 
 export class TrunkChannelsLayer extends LayerGroup {
   constructor(private channelsApi: TrunkChannelsApi) {

@@ -25,11 +25,13 @@ import {ESPDIconFromState} from '@service/access-points/ESPDIconFromState';
 import {SMOIconFromState} from '@service/access-points/SMOIconFromState';
 import {BaseStationsPointsService} from '@service/points/BaseStationsPointsService';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
-import {BaseStationsLayer} from "@service/leaflet-config/BaseStationsLayer";
+import {TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
+import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 
 @Injectable()
 export class LayerControllersFactory {
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private trunkChannelsApi: TrunkChannelsApi) {
   }
 
   locationLayerController(): PointLayerController {
@@ -121,13 +123,13 @@ export class LayerControllersFactory {
       new PointLayerControllerImpl(
         new PLClickable(
           new PLWithLoader(
-            new BaseStationsLayer(
+            new LocationsLayer(
               new PSWithUniqueResponseParts(
                 new PSFullPreloaded(
                   new BaseStationsPointsService(
                     new BaseStationsApi(
                       this.httpClient,
-                    )
+                    ),
                   )
                 ),
                 new PointUniquenessFilterImpl()
@@ -138,5 +140,9 @@ export class LayerControllersFactory {
       ),
       500
     );
+  }
+
+  trunkChannelsLayer(): TrunkChannelsLayer {
+    return new TrunkChannelsLayer(this.trunkChannelsApi);
   }
 }

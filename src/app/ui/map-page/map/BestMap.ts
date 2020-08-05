@@ -26,7 +26,6 @@ export class BestMap implements OnInit, OnDestroy {
               private locationsService: LocationsService,
               private leafletOptionsConfigurator: LeafletOptionsConfigurator,
               private municipalitiesLayer: MunicipalitiesLayer,
-              private trunkChannelsLayer: TrunkChannelsLayer,
               private readonly loaderService: LoaderService) {
     this.leafletOptions$ = this.leafletOptionsConfigurator.configure().pipe(
       tap(() => this.loaderService.stopLoader())
@@ -35,13 +34,13 @@ export class BestMap implements OnInit, OnDestroy {
       locations: this.layersFactory.locationLayerController(),
       ESPD: this.layersFactory.espdLayerController(),
       SMO: this.layersFactory.smoLayerLayerController(),
-      baseStations: this.layersFactory.baseStationsLayerLayerController(),
-      trunkChannelsLayer: trunkChannelsLayer as any
+      trunkChannelsLayer: layersFactory.trunkChannelsLayer() as any
     };
     this.locationClick =  this.pointsLayers.locations.onPointClick();
   }
 
   ngOnInit(): void {
+    this.pointsLayers.baseStations = this.layersFactory.baseStationsLayerLayerController();
   }
 
   initializeMap(map: Map): void {
