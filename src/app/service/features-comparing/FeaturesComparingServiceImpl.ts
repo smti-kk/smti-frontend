@@ -23,17 +23,20 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
             const planYear: FCTechnicalCapability[] = [];
             const planTwoYear: FCTechnicalCapability[] = [];
             const planThreeYear: FCTechnicalCapability[] = [];
+            const active: FCTechnicalCapability[] = [];
             location.technicalCapabilities
               .filter(tc => tc.type === 'MOBILE' || tc.type === 'INET')
               .forEach(tc => {
                 if (tc.state === 'ARCHIVE') {
                   archive.push(tc);
-                } else if (tc.state === 'PLAN' && tc.govYearComplete === this.currentYear + 1) {
+                } else if (tc.state === 'PLAN' && tc.govYearComplete === this.currentYear) {
                   planYear.push(tc);
-                } else if (tc.state === 'PLAN' && tc.govYearComplete === this.currentYear + 2) {
+                } else if (tc.state === 'PLAN' && tc.govYearComplete === this.currentYear + 1) {
                   planTwoYear.push(tc);
-                } else if (tc.state === 'PLAN' && tc.govYearComplete === this.currentYear + 3) {
+                } else if (tc.state === 'PLAN' && tc.govYearComplete === this.currentYear + 2) {
                   planThreeYear.push(tc);
+                } else if (tc.state === 'ACTIVE') {
+                  active.push(tc);
                 }
               });
             return {
@@ -46,6 +49,7 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
               planYear,
               planTwoYear,
               planThreeYear,
+              active
             };
           })
           .filter(location => {

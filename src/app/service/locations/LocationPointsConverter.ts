@@ -9,7 +9,7 @@ export class LocationPointsConverter implements PointsConverter<MapLocation> {
   convert(location: MapLocation): Point {
     return new Point(
       location.id,
-      location.point,
+      location.geoData.administrativeCenter,
       {
         icon: new Icon({iconUrl: this.ICON_URL, iconSize: [30, 41]})
       }

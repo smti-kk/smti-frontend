@@ -1,6 +1,5 @@
 import {ShortTechnicalCapability, WriteableTechnicalCapability} from './ShortTechnicalCapability';
 import {OrganizationForTable} from '@api/dto/OrganizationForTable';
-import {LocationFeatureWritable} from "@api/location-features/LocationFeatureWritable";
 
 export interface LocationParent {
   id: number;

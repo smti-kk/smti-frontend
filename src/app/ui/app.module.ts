@@ -52,7 +52,14 @@ import {FilterBtnComponent} from './buttons/filter-btn/filter-btn.component';
 import {MatIconModule} from '@angular/material/icon';
 import {SignalControl} from './buttons/signal-control/SignalControl';
 import {PlanPage} from './locations-page/plan-page/PlanPage';
-import {MoveToArchiveDialog} from "./features-page/move-to-archive-dialog/MoveToArchiveDialog";
+import {MoveToArchiveDialog} from './features-page/move-to-archive-dialog/MoveToArchiveDialog';
+import { BaseStationsComponent } from './base-stations/base-stations.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { CreateBaseStationComponent } from './base-stations/create-base-station/create-base-station.component';
+import {DialogsModule} from './dialogs/dialogs.module';
+import { TrunkChannelsComponent } from './trunk-channels/trunk-channels.component';
+import { CreateTrunkChannelComponent } from './trunk-channels/create-trunk-channel/create-trunk-channel.component';
 
 registerLocaleData(ru);
 
@@ -83,7 +90,11 @@ registerLocaleData(ru);
     FilterBtnComponent,
     SignalControl,
     PlanPage,
-    MoveToArchiveDialog
+    MoveToArchiveDialog,
+    BaseStationsComponent,
+    CreateBaseStationComponent,
+    TrunkChannelsComponent,
+    CreateTrunkChannelComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +120,10 @@ registerLocaleData(ru);
     MatCardModule,
     MatRadioModule,
     SelectorsModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    DialogsModule
   ],
   providers: [
     {

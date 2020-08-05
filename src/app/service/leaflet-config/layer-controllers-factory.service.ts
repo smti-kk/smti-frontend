@@ -23,6 +23,9 @@ import {DateConverterImpl} from '@api/util/DateConverterImpl';
 import {AccessPointsModificationsApiImpl} from '@api/access-points/AccessPointsModificationsApiImpl';
 import {ESPDIconFromState} from '@service/access-points/ESPDIconFromState';
 import {SMOIconFromState} from '@service/access-points/SMOIconFromState';
+import {BaseStationsPointsService} from '@service/points/BaseStationsPointsService';
+import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
+import {BaseStationsLayer} from "@service/leaflet-config/BaseStationsLayer";
 
 @Injectable()
 export class LayerControllersFactory {
@@ -106,6 +109,30 @@ export class LayerControllersFactory {
               new PointUniquenessFilterImpl()
             ),
             'smo'
+          )
+        )
+      ),
+      500
+    );
+  }
+
+  baseStationsLayerLayerController(): PointLayerController {
+    return new PLCWithReloadInterval(
+      new PointLayerControllerImpl(
+        new PLClickable(
+          new PLWithLoader(
+            new BaseStationsLayer(
+              new PSWithUniqueResponseParts(
+                new PSFullPreloaded(
+                  new BaseStationsPointsService(
+                    new BaseStationsApi(
+                      this.httpClient,
+                    )
+                  )
+                ),
+                new PointUniquenessFilterImpl()
+              )
+            )
           )
         )
       ),

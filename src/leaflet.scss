@@ -6,6 +6,14 @@
   }
 }
 
+.marker-cluster-base-stations {
+  background-color: rgba(152, 85, 7, 0.6);
+
+  & div {
+    background-color: rgba(152, 85, 7, 0.6);
+  }
+}
+
 
 
 .marker-cluster.smo {

@@ -86,6 +86,11 @@ import {CurrentYearService, CurrentYearServiceImpl} from '@service/util/CurrentY
 import {FeaturesComparingServiceImpl} from '@service/features-comparing/FeaturesComparingServiceImpl';
 import {LocationFCApiImpl} from '@api/features-comparing/LocationFCApiImpl';
 import {FeaturesComparingService} from '@service/features-comparing/FeaturesComparingService';
+import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
+import {ApiFeaturesRequestsImpl} from '@api/features-requests/ApiFeaturesRequestsImpl';
+import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
+import {MunicipalitiesApi} from '@api/municipalities-api/MunicipalitiesApi';
+import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -205,6 +210,7 @@ export const factory = (): Provider[] => {
     new LocationFCApiImpl(httpClient),
     currentYearService
   );
+  const apiFeaturesRequests = new ApiFeaturesRequestsImpl(httpClient);
   return [
     {
       provide: GovProgramService,
@@ -293,6 +299,18 @@ export const factory = (): Provider[] => {
     {
       provide: FeaturesComparingService,
       useValue: featuresComparingService
+    },
+    {
+      provide: ApiFeaturesRequests,
+      useValue: apiFeaturesRequests
+    },
+    {
+      provide: MunicipalitiesLayer,
+      useValue: new MunicipalitiesLayer(new MunicipalitiesApi(httpClient))
+    },
+    {
+      provide: BaseStationsApi,
+      useValue: new BaseStationsApi(httpClient)
     }
   ];
 };

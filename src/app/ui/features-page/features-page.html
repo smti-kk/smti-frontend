@@ -6,10 +6,11 @@
   <div class="features-table" *ngIf="features">
     <div class="features-table__header">
       <div class="features-table__header-column">Населенный пункт</div>
-      <div class="features-table__header-column">Архив 2019</div>
-      <div class="features-table__header-column">План 2021</div>
-      <div class="features-table__header-column">План 2022</div>
-      <div class="features-table__header-column">План 2023</div>
+      <div class="features-table__header-column">Архив {{currentYear - 1}}</div>
+      <div class="features-table__header-column">Текущие {{currentYear}}</div>
+      <div class="features-table__header-column">План {{currentYear}}</div>
+      <div class="features-table__header-column">План {{currentYear + 1}}</div>
+      <div class="features-table__header-column">План {{currentYear + 2}}</div>
     </div>
     <div class="features-table__body">
       <div class="features-table__row" *ngFor="let feature of features">
@@ -25,6 +26,19 @@
         </div>
         <div class="features-table__column features-table__archive-column">
           <div class="features-table__operator" *ngFor="let tc of feature.archive">
+            <div class="features-table__operator-icon">
+              <img [src]="'/media/' + tc.operator.icon" alt="">
+            </div>
+            <div class="features-table__feature-type" *ngIf="tc.type === 'INET' && tc.trunkChannel">
+              <img [src]="'/assets/' + tc.trunkChannel.name + '.svg'" alt="">
+            </div>
+            <div class="features-table__feature-type" *ngIf="tc.type === 'MOBILE' && tc.typeMobile">
+              {{tc.typeMobile.name}}
+            </div>
+          </div>
+        </div>
+        <div class="features-table__column features-table__archive-column">
+          <div class="features-table__operator" *ngFor="let tc of feature.active">
             <div class="features-table__operator-icon">
               <img [src]="'/media/' + tc.operator.icon" alt="">
             </div>

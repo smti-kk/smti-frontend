@@ -15,7 +15,13 @@
     <mat-checkbox #smoCheckbox
                   color="warn"
                   (change)="removeOrAddLayer('SMO', smoCheckbox.checked)"
-                  [checked]="false">СМО</mat-checkbox>
+                  [checked]="false">СЗО</mat-checkbox>
+  </div>
+  <div class="layers-selection__item">
+    <mat-checkbox #baseStationsCheckbox
+                  color="warn"
+                  (change)="removeOrAddLayer('baseStations', baseStationsCheckbox.checked)"
+                  [checked]="false">Базовые станции</mat-checkbox>
   </div>
 </div>
 <div class="leaflet-map"

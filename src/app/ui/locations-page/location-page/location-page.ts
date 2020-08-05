@@ -89,7 +89,6 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   save(): void {
-    console.log(this.tcs);
     this.detailLocations.save(this.tcs, parseInt(this.locationId, 10)).subscribe();
   }
 }

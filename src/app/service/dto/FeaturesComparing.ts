@@ -8,6 +8,7 @@ export interface FeaturesComparing {
   population: number;
   locationParent: LocationParent;
   archive: FCTechnicalCapability[];
+  active: FCTechnicalCapability[];
   planYear: FCTechnicalCapability[];
   planTwoYear: FCTechnicalCapability[];
   planThreeYear: FCTechnicalCapability[];

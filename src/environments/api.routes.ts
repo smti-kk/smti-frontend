@@ -18,3 +18,7 @@ export const GOV_PROGRAM_API = API_VERSION + '/gov-program';
 export const USERS_API = API_VERSION + '/user/';
 export const LOCATION_FEATURES = API_VERSION + '/location-features';
 export const LOCATION_FC_API = API_VERSION + '/features-comparing';
+export const API_FEATURES_REQUESTS = API_VERSION + '/features-requests';
+export const LOCATION_AREA_URL = API_VERSION + '/location-area/';
+export const BASE_STATIONS_API = API_VERSION + '/base-stations';
+export const TRUNK_CHANNEL_API = API_VERSION + '/trunk-channels';

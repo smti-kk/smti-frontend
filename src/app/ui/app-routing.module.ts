@@ -7,6 +7,8 @@ import {OrganizationsPage} from './organizations-page/organizations-page';
 import {ContractsPage} from './contracts-page/contracts-page';
 import {LocationPage} from './locations-page/location-page/location-page';
 import {UsersPage} from './users/users-page';
+import {PlanPage} from './locations-page/plan-page/PlanPage';
+import {BaseStationsComponent} from "./base-stations/base-stations.component";
 
 
 const routes: Routes = [
@@ -20,12 +22,20 @@ const routes: Routes = [
     component: MapPage
   },
   {
+    path: 'base-stations',
+    component: BaseStationsComponent
+  },
+  {
     path: 'locations',
     component: LocationsPage,
   },
   {
     path: 'locations/:id',
     component: LocationPage
+  },
+  {
+    path: 'locations/:id/plan',
+    component: PlanPage
   },
   {
     path: 'features',

@@ -1,4 +1,7 @@
 export interface GeoData {
-  lat: number;
-  lng: number;
+  id: number;
+  administrativeCenter: {
+    lat: number;
+    lng: number;
+  };
 }

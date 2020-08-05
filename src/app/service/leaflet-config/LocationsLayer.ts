@@ -1,6 +1,6 @@
 import {PointsLayerImpl} from './PointsLayerImpl';
 import {PointsService} from '../points/PointsService';
-import {DivIcon, Point, MarkerCluster} from 'leaflet';
+import {DivIcon, MarkerCluster, Point} from 'leaflet';
 
 export class LocationsLayer extends PointsLayerImpl {
   constructor(pointsService: PointsService) {
@@ -17,3 +17,4 @@ export class LocationsLayer extends PointsLayerImpl {
     });
   }
 }
+

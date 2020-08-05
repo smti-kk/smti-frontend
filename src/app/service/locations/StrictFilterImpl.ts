@@ -83,7 +83,6 @@ export class StrictFilterImpl extends StrictFilter {
   }
 
   sort(locations: LocationTableItem[], order: OrderingFilter): LocationTableItem[] {
-    console.log(order);
     if (!order) {
       return locations;
     }

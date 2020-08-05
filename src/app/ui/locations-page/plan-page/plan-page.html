@@ -1,0 +1,20 @@
+<mat-card class="example-card" *ngFor="let request of requests">
+  <mat-card-header>
+    <mat-card-title>Заявка от {{request.created | date: 'dd.MM.yyyy'}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngFor="let edit of request.featureEdits">
+      <span [ngSwitch]="edit.action">
+        <span *ngSwitchCase="'DELETE'">
+          Удалена: {{edit.tc.operator.name}} {{edit.tc.typeMobile?.name}} {{edit.tc.trunkChannel?.name}}
+        </span>
+        <span *ngSwitchCase="'UPDATE'">
+          Изменена: {{edit.tc.operator.name}} {{edit.tc.typeMobile?.name}} {{edit.tc.trunkChannel?.name}} на {{edit.newValue.operator.name}} {{edit.newValue.typeMobile?.name}} {{edit.newValue.trunkChannel?.name}}
+        </span>
+        <span *ngSwitchCase="'CREATE'">
+          Добавлена: {{edit.tc.operator.name}} {{edit.tc.typeMobile?.name}} {{edit.tc.trunkChannel?.name}}
+        </span>
+      </span>
+    </p>
+  </mat-card-content>
+</mat-card>

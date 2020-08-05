@@ -4,6 +4,7 @@ import {FeaturesComparing} from '@service/dto/FeaturesComparing';
 import {FCTechnicalCapability} from '@api/dto/ShortTechnicalCapability';
 import {MatDialog} from '@angular/material/dialog';
 import {MoveToArchiveDialog} from './move-to-archive-dialog/MoveToArchiveDialog';
+import {CurrentYearService} from '@service/util/CurrentYearService';
 
 @Component({
   selector: 'features-page',
@@ -12,9 +13,12 @@ import {MoveToArchiveDialog} from './move-to-archive-dialog/MoveToArchiveDialog'
 })
 export class FeaturesPage implements OnInit {
   features: FeaturesComparing[];
+  readonly currentYear: number;
 
   constructor(private readonly featuresService: FeaturesComparingService,
+              private readonly currentYearService: CurrentYearService,
               public dialog: MatDialog) {
+    this.currentYear = currentYearService.currentYear();
     this.featuresService.featuresComparing().subscribe(features => {
       this.features = features;
     });
