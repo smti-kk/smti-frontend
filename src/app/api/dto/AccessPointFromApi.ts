@@ -1,7 +1,7 @@
-import {GeoData} from './GeoData';
+import {GeoPoint} from './GeoData';
 
 export interface AccessPointFromApi {
   id: number;
-  point: GeoData;
+  point: GeoPoint;
   state: boolean;
 }

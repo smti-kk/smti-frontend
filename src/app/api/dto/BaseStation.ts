@@ -1,6 +1,6 @@
 import {Operator} from './Operator';
 import {MobileType} from './MobileType';
-import {GeoData} from './GeoData';
+import {GeoData, GeoPoint} from './GeoData';
 
 export interface BaseStation {
   id: number;
@@ -10,5 +10,5 @@ export interface BaseStation {
   operator: Operator;
   mobileType: MobileType;
   coverageRadius: number;
-  point: GeoData;
+  point: GeoPoint;
 }

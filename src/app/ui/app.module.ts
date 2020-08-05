@@ -60,7 +60,6 @@ import { CreateBaseStationComponent } from './base-stations/create-base-station/
 import {DialogsModule} from './dialogs/dialogs.module';
 import { TrunkChannelsComponent } from './trunk-channels/trunk-channels.component';
 import { CreateTrunkChannelComponent } from './trunk-channels/create-trunk-channel/create-trunk-channel.component';
-import {MoveToArchiveDialog} from "./features-page/move-to-archive-dialog/MoveToArchiveDialog";
 import {MatTabsModule} from '@angular/material/tabs';
 
 registerLocaleData(ru);
