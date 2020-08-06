@@ -1,11 +1,11 @@
 import {AccountService} from './AccountService';
-import {Observable, ReplaySubject} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {UserRole} from './UserRole';
 import {AccountApi} from '@api/account/account.api';
 import {Account} from '@service/account/Account';
 import {AccountFromApi} from '@api/dto/AccountFromApi';
 import {AccountConverter} from '@service/account/AccountConverter';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 
 export class AccountServiceImpl implements AccountService {
   constructor(private accountApi: AccountApi,
@@ -14,13 +14,20 @@ export class AccountServiceImpl implements AccountService {
 
   get(): Observable<Account> {
     return this.accountApi.get().pipe(
+      catchError(() => of(null)),
       map(account => this.accountConverter.convert(account))
     );
   }
 
   getRole(): Observable<UserRole[]> {
     return this.accountApi.get().pipe(
-      map(account => this.accountConverter.convert(account).getRole())
+      catchError(() => of(null)),
+      map(account => {
+        if (account === null) {
+          return ['GUEST'];
+        }
+        return this.accountConverter.convert(account).getRole();
+      })
     );
   }
 

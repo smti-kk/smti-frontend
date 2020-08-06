@@ -4,14 +4,32 @@
   </div>
   <div class="link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
   <div class="link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
-  <div class="link" routerLink="/features" [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
-  <div class="link" *ngIf="account" routerLink="/connection-points" [class.active]="currentRouteIs('/connection-points')"><span>Организации</span></div>
-  <div class="link" *ngIf="account" routerLink="/communication-contracts" [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
-  <div class="link" *ngIf="account" routerLink="/users" [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>
-  <div class="link" *ngIf="account" routerLink="/base-stations" [class.active]="currentRouteIs('/base-stations')"><span>Базовые станции</span></div>
-  <div class="link" *ngIf="account" routerLink="/trunk-channels" [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
+  <div class="link"
+       routerLink="/features"
+       *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+       [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
+  <div class="link"
+       routerLink="/connection-points"
+       *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
+       [class.active]="currentRouteIs('/connection-points')"><span>Организации</span></div>
+  <div class="link"
+       routerLink="/communication-contracts"
+       *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
+       [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
+  <div class="link"
+       *permissions="['ADMIN']"
+       routerLink="/users"
+       [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>
+  <div class="link"
+       *permissions="['ADMIN', 'OPERATOR']"
+       routerLink="/base-stations"
+       [class.active]="currentRouteIs('/base-stations')"><span>Базовые станции</span></div>
+  <div class="link"
+       *permissions="['ADMIN', 'OPERATOR']"
+       routerLink="/trunk-channels"
+       [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
 </div>
 <div class="link td-underline" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
 <div class="link" *ngIf="account">
-  <span>{{account.getName()}} <img src="../../../assets/exit.png" alt="Выход"></span>
+  <span>{{account.getName()}} <img src="../../../assets/exit.png" alt="Выход" (click)="logout()"></span>
 </div>

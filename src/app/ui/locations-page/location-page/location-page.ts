@@ -16,6 +16,9 @@ import {DetailLocations} from '@service/locations/DetailLocations';
 import {ActivatedRoute} from '@angular/router';
 import {AccountService} from '@service/account/AccountService';
 import {Account} from '@service/account/Account';
+import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
+import {LocationFeatureEditingRequest} from '@api/dto/LocationFeatureEditingRequest';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'location-page',
@@ -32,6 +35,8 @@ export class LocationPage implements OnInit, OnDestroy {
   postTypes: PostType[];
   locationId: string;
   account$: Observable<Account>;
+  archiveRequests: LocationFeatureEditingRequest[];
+  planRequests: LocationFeatureEditingRequest[];
   private subscription: Subscription;
 
   constructor(private mobileTypeApi: MobileTypeApi,
@@ -41,6 +46,8 @@ export class LocationPage implements OnInit, OnDestroy {
               private tvTypeApi: TvTypeApi,
               private postTypeApi: PostTypeApi,
               private operatorsApi: OperatorsApi,
+              private readonly requestsService: ApiFeaturesRequests,
+              private snackBar: MatSnackBar,
               private detailLocations: DetailLocations) {
     this.locationId = activatedRoute.snapshot.params.id;
     this.isEdition = true;
@@ -66,6 +73,14 @@ export class LocationPage implements OnInit, OnDestroy {
       this.postTypes = postTypes;
       this.tcs = location;
     });
+    this.requestsService.archive(parseInt(this.locationId, 10)).subscribe(requests => {
+      console.log(requests);
+      this.archiveRequests = requests;
+    });
+    this.requestsService.plan(parseInt(this.locationId, 10)).subscribe(requests => {
+      console.log(requests);
+      this.planRequests = requests;
+    });
   }
 
   ngOnInit(): void {
@@ -89,6 +104,16 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   save(): void {
-    this.detailLocations.save(this.tcs, parseInt(this.locationId, 10)).subscribe();
+    this.detailLocations.save(this.tcs, parseInt(this.locationId, 10)).subscribe(() => {
+      window.location.reload();
+    }, error => this.snackBar.open('Произошла ошибка, данные не сохранены'));
+  }
+
+  hasArchive(request: LocationFeatureEditingRequest): boolean {
+    return !!request.featureEdits.find(r => !(r.action === 'UPDATE' && r.newValue && r.newValue.state === 'PLAN'));
+  }
+
+  signalsToString(tvOrRadioTypes: Signal[]): string {
+    return tvOrRadioTypes.map(tvOrRadioType => tvOrRadioType.name).join(', ');
   }
 }

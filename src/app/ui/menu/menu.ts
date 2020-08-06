@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {Authorization} from '../authorization/authorization';
 import {AccountService} from '@service/account/AccountService';
 import {Account} from '@service/account/Account';
+import {AuthorizationService} from '@service/authorization/authorization.service';
 
 @Component({
   selector: 'menu',
@@ -13,7 +14,8 @@ export class Menu implements OnInit {
   account: Account;
 
   constructor(public dialog: MatDialog,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private authService: AuthorizationService) {
   }
 
   ngOnInit(): void {
@@ -28,5 +30,9 @@ export class Menu implements OnInit {
 
   showAuthForm(): void {
     this.dialog.open(Authorization);
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

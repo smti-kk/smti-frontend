@@ -18,4 +18,9 @@ export class WithUpdateUser implements AuthorizationService {
       })
     );
   }
+
+  logout(): void {
+    this.origin.logout();
+    this.accountService.updateAccount();
+  }
 }

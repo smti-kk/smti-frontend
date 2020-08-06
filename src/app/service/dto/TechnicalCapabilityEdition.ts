@@ -19,18 +19,32 @@ export class TcEdition {
     if (this.cachedTcsIds[operatorId]) {
       this.tcs[operatorId] = this.cachedTcsIds[operatorId];
     } else {
+      let trunkChannel;
+      let typeMobile;
+      let typePost;
+      switch (this.type) {
+        case 'INET':
+          trunkChannel = 3;
+          break;
+        case 'MOBILE':
+          typeMobile = 1;
+          break;
+        case 'POST':
+          typePost = 'UPS';
+          break;
+      }
       this.tcs[operatorId] = {
         id: null,
         operatorId,
-        trunkChannel: 3,
-        typeMobile: 1,
+        trunkChannel,
+        typeMobile,
         governmentDevelopmentProgram: null,
         tvOrRadioTypes: null,
         type: this.type,
         locationId,
         quality: 'GOOD',
         govYearComplete: null,
-        typePost: 'UPS',
+        typePost,
         state: 'WAIT_FOR_STATE_TO_BE_SET'
       };
     }

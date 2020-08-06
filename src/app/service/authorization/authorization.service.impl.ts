@@ -19,7 +19,13 @@ export class AuthorizationServiceImpl implements AuthorizationService {
       tap(response => {
         this.storageService.saveToken(response.token);
       }),
-      map(() => {}),
+      map(() => {
+      }),
     );
+  }
+
+  logout(): void {
+    this.storageService.saveToken(null);
+    window.location.reload();
   }
 }

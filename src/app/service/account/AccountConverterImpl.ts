@@ -8,6 +8,9 @@ export class AccountConverterFromApi implements AccountConverter<AccountFromApi>
   }
 
   convert(value: AccountFromApi): Account {
+    if (value === null) {
+      return null;
+    }
     return new Account(this.roleConverter.convert(value.roles), value.firstName);
   }
 }

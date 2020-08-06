@@ -8,8 +8,9 @@ import {ContractsPage} from './contracts-page/contracts-page';
 import {LocationPage} from './locations-page/location-page/location-page';
 import {UsersPage} from './users/users-page';
 import {PlanPage} from './locations-page/plan-page/PlanPage';
-import {BaseStationsComponent} from "./base-stations/base-stations.component";
-import {TrunkChannelsComponent} from "./trunk-channels/trunk-channels.component";
+import {BaseStationsComponent} from './base-stations/base-stations.component';
+import {TrunkChannelsComponent} from './trunk-channels/trunk-channels.component';
+import {RouteProxyService} from './route.proxy.service';
 
 
 const routes: Routes = [
@@ -24,11 +25,19 @@ const routes: Routes = [
   },
   {
     path: 'base-stations',
-    component: BaseStationsComponent
+    component: BaseStationsComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR'],
+    },
   },
   {
     path: 'trunk-channels',
-    component: TrunkChannelsComponent
+    component: TrunkChannelsComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR'],
+    },
   },
   {
     path: 'locations',
@@ -44,28 +53,44 @@ const routes: Routes = [
   },
   {
     path: 'features',
-    component: FeaturesPage
+    component: FeaturesPage,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
   },
   {
     path: 'organizations',
-    component: OrganizationsPage
-  },
-  {
-    path: 'contracts',
-    component: ContractsPage
+    component: OrganizationsPage,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION']
+    },
   },
   {
     path: 'users',
     component: UsersPage,
-    data: {title: 'Список пользователей в системе'}
+    canActivate: [RouteProxyService],
+    data: {
+      title: 'Список пользователей в системе',
+      permissions: ['ADMIN']
+    },
   },
   {
     path: 'communication-contracts',
     loadChildren: () => import('./old/communication-contracts/communication-contracts.module')
       .then(module => module.CommunicationContractsModule),
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION']
+    },
   },
   {
     path: 'connection-points',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION']
+    },
     loadChildren: () => import('./old/connection-points/connection-points.module')
       .then(module => module.ConnectionPointsModule),
   },
@@ -73,7 +98,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [RouteProxyService]
 })
 export class AppRoutingModule {
 }

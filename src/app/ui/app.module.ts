@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -65,6 +65,8 @@ import { AreaInfoBarComponent } from './map-page/area-info-bar/area-info-bar.com
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {GlobalErrorHandler} from "./global-error-handler";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 registerLocaleData(ru);
 
@@ -134,14 +136,16 @@ registerLocaleData(ru);
     DialogsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSnackBarModule
   ],
   providers: [
     {
       provide: LoaderService,
       useClass: LoaderServiceImpl
     },
-    {provide: NZ_I18N, useValue: ru_RU}
+    {provide: NZ_I18N, useValue: ru_RU},
+    {provide: ErrorHandler, useClass: GlobalErrorHandler}
   ],
   bootstrap: [AppComponent]
 })

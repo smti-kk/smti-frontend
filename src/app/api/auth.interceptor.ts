@@ -12,7 +12,6 @@ export class AuthInterceptor implements HttpInterceptor {
   // eslint-disable-next-line class-methods-use-this
   intercept(req: HttpRequest<{}>, next: HttpHandler): Observable<HttpEvent<{}>> {
     const token = this.storage.getToken();
-
     if (token) {
       const authReq = req.clone({setHeaders: {Authorization: `Token ${token}`}});
       return next.handle(authReq);

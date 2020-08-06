@@ -1,7 +1,1 @@
-export enum UserRole {
-  ADMIN,
-  GUEST,
-  MUNICIPALITY,
-  ORGANIZATION,
-  OPERATOR,
-}
+export type UserRole = 'ADMIN' | 'GUEST' | 'MUNICIPALITY' | 'ORGANIZATION' | 'OPERATOR';

@@ -1,27 +1,4 @@
 <div class="location" *ngIf="operators && mobileTypes && tcs">
-  <div class="some-buttons" *ngIf="account$ | async">
-    <button
-      mat-raised-button
-      color="primary"
-      *ngIf="!isEdition"
-      (click)="isEdition = true"
-    >Редактировать
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      *ngIf="isEdition"
-      (click)="isEdition = false"
-    >Отмена
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      *ngIf="isEdition"
-      (click)="save()"
-    >Сохранить
-    </button>
-  </div>
   <div class="page-header">
     <div class="page-header-item">
       <span class="material-icons">account_balance</span>
@@ -70,10 +47,13 @@
                   <mat-label>Качество связи</mat-label>
                   <mat-select
                     [disabled]="!tcs.cellular.tcs[operator.id]"
+                    [ngModel]="tcs.cellular.tcs[operator.id]?.quality"
+                    (ngModelChange)="tcs.cellular.tcs[operator.id].quality = $event"
+                    [name]="'quality-opt-cellular' + operator.id"
                   >
-                    <mat-option value="Хорошее качество">Хорошее качество</mat-option>
-                    <mat-option value="Удовлетворительное качество">Удовлетворительное качество</mat-option>
-                    <mat-option value="Отсутствует">Отсутствует</mat-option>
+                    <mat-option value="GOOD">Хорошее качество</mat-option>
+                    <mat-option value="NORMAL">Удовлетворительное качество</mat-option>
+                    <mat-option value="ABSENT">Отсутствует</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="example-form-field">
@@ -103,11 +83,6 @@
                   class="gov-program-select"
                 >
                 </gov-program-select>
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
-                <div class="tc-comment">
-                  <textarea matInput placeholder=""></textarea>
-                  <mat-checkbox></mat-checkbox>
-                </div>
               </div>
             </div>
           </form>
@@ -141,10 +116,13 @@
                   <mat-label>Качество связи</mat-label>
                   <mat-select
                     [disabled]="!tcs.internet.tcs[operator.id]"
+                    [ngModel]="tcs.internet.tcs[operator.id]?.quality"
+                    (ngModelChange)="tcs.internet.tcs[operator.id].quality = $event"
+                    [name]="'quality-opt-internet' + operator.id"
                   >
-                    <mat-option value="Хорошее качество">Хорошее качество</mat-option>
-                    <mat-option value="Удовлетворительное качество">Удовлетворительное качество</mat-option>
-                    <mat-option value="Отсутствует">Отсутствует</mat-option>
+                    <mat-option value="GOOD">Хорошее качество</mat-option>
+                    <mat-option value="NORMAL">Удовлетворительное качество</mat-option>
+                    <mat-option value="ABSENT">Отсутствует</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="example-form-field">
@@ -173,7 +151,7 @@
                   [name]="'channel-opt-internet-select' + operator.id"
                 >
                 </gov-program-select>
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
+                <!--                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>-->
               </div>
             </div>
           </form>
@@ -194,48 +172,15 @@
               </div>
               <div class="operator-block-wrap">
                 <div>
-                  <!--              <signal-control-->
-                  <!--                [disabled]="!tcs.tv.tcs[operator.id]"-->
-                  <!--                [ngModel]="tcs.tv.tcs[operator.id]?.tvOrRadioTypes"-->
-                  <!--                (ngModelChange)="tcs.tv.tcs[operator.id].tvOrRadioTypes = $event"-->
-                  <!--                [name]="'channel-opt-tv' + operator.id"-->
-                  <!--                class="tc-options"-->
-                  <!--              >-->
-                  <!--              </signal-control>-->
-                  <mat-radio-group
+                  <signal-control
+                    [disabled]="!tcs.tv.tcs[operator.id]"
+                    [ngModel]="tcs.tv.tcs[operator.id]?.tvOrRadioTypes"
+                    (ngModelChange)="tcs.tv.tcs[operator.id].tvOrRadioTypes = $event"
+                    [name]="'channel-opt-tv' + operator.id"
                     class="tc-options"
                   >
-                    <mat-radio-button>Аналоговое</mat-radio-button>
-                    <mat-radio-button>Цифровое</mat-radio-button>
-                  </mat-radio-group>
+                  </signal-control>
                 </div>
-                <!--            <gov-program-select-->
-                <!--              [disabled]="!tcs.tv.tcs[operator.id]"-->
-                <!--              [ngModel]="tcs.tv.tcs[operator.id]?.governmentDevelopmentProgram"-->
-                <!--              (ngModelChange)="tcs.tv.tcs[operator.id] ? tcs.tv.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
-                <!--              [name]="'channel-opt-tv-select' + operator.id"-->
-                <!--            >-->
-                <!--            </gov-program-select>-->
-                <mat-form-field class="example-form-field">
-                  <mat-label>Год</mat-label>
-                  <input matInput
-                         [disabled]="!!tcs.tv.tcs[operator.id]"
-                         [name]="'tv-year-complete' + operator.id"
-                         type="number"
-                         [ngModel]="tcs.tv.tcs[operator.id]?.govYearComplete"
-                         (ngModelChange)="tcs.tv.tcs[operator.id] ? tcs.tv.tcs[operator.id].govYearComplete = $event : null"
-                  >
-                  <button mat-button
-                          *ngIf="tcs.tv.tcs[operator.id] && tcs.tv.tcs[operator.id].govYearComplete"
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          [disabled]="!tcs.tv.tcs[operator.id]"
-                          (click)="tcs.tv.tcs[operator.id] ? tcs.tv.tcs[operator.id].govYearComplete = null : null">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
               </div>
             </div>
           </form>
@@ -255,33 +200,6 @@
                 </mat-checkbox>
               </div>
               <div class="operator-block-wrap">
-                <!--            <gov-program-select-->
-                <!--              [disabled]="!tcs.telephone.tcs[operator.id]"-->
-                <!--              [ngModel]="tcs.telephone.tcs[operator.id]?.governmentDevelopmentProgram"-->
-                <!--              (ngModelChange)="tcs.telephone.tcs[operator.id] ? tcs.telephone.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
-                <!--              [name]="'channel-opt-telephone-select' + operator.id"-->
-                <!--            >-->
-                <!--            </gov-program-select>-->
-                <mat-form-field class="example-form-field">
-                  <mat-label>Год</mat-label>
-                  <input matInput
-                         [disabled]="!tcs.telephone.tcs[operator.id]"
-                         [name]="'telephone-year-complete' + operator.id"
-                         type="number"
-                         [ngModel]="tcs.telephone.tcs[operator.id]?.govYearComplete"
-                         (ngModelChange)="tcs.telephone.tcs[operator.id] ? tcs.telephone.tcs[operator.id].govYearComplete = $event : null"
-                  >
-                  <button mat-button
-                          *ngIf="tcs.telephone.tcs[operator.id] && tcs.telephone.tcs[operator.id].govYearComplete"
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          [disabled]="!tcs.telephone.tcs[operator.id]"
-                          (click)="tcs.telephone.tcs[operator.id] ? tcs.telephone.tcs[operator.id].govYearComplete = null : null">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
               </div>
             </div>
           </form>
@@ -301,45 +219,18 @@
                 </mat-checkbox>
               </div>
               <div class="operator-block-wrap">
-                <!--            <gov-program-select-->
-                <!--              [disabled]="!tcs.payphone.tcs[operator.id]"-->
-                <!--              [ngModel]="tcs.payphone.tcs[operator.id]?.governmentDevelopmentProgram"-->
-                <!--              (ngModelChange)="tcs.payphone.tcs[operator.id] ? tcs.payphone.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
-                <!--              [name]="'channel-opt-payphone-select' + operator.id"-->
-                <!--            >-->
-                <!--            </gov-program-select>-->
                 <mat-form-field>
                   <mat-label>Количество</mat-label>
                   <input matInput placeholder="" [disabled]="!tcs.payphone.tcs[operator.id]">
                 </mat-form-field>
-                <mat-form-field class="example-form-field">
-                  <mat-label>Год</mat-label>
-                  <input matInput
-                         [disabled]="!tcs.payphone.tcs[operator.id]"
-                         [name]="'payphone-year-complete' + operator.id"
-                         type="number"
-                         [ngModel]="tcs.payphone.tcs[operator.id]?.govYearComplete"
-                         (ngModelChange)="tcs.payphone.tcs[operator.id] ? tcs.payphone.tcs[operator.id].govYearComplete = $event : null"
-                  >
-                  <button mat-button
-                          *ngIf="tcs.payphone.tcs[operator.id] && tcs.payphone.tcs[operator.id].govYearComplete"
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          [disabled]="!tcs.payphone.tcs[operator.id]"
-                          (click)="tcs.payphone.tcs[operator.id] ? tcs.payphone.tcs[operator.id].govYearComplete = null : null">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
               </div>
             </div>
           </form>
         </div>
-        <!--<div class="tc-item">
+        <div class="tc-item">
           <form name="tc-form">
             <div>
-              <mat-label>Почта</mat-label>
+              <div class="tc-label">Почта</div>
             </div>
             <div class="operator-block" *ngFor="let operator of operators.post">
               <div class="operator-block-name">
@@ -359,39 +250,10 @@
                   class="tc-options">
                   <mat-radio-button *ngFor="let it of postTypes" [value]="it.id">{{it.name}}</mat-radio-button>
                 </mat-radio-group>
-                &lt;!&ndash;          <div>&ndash;&gt;
-                &lt;!&ndash;            <gov-program-select&ndash;&gt;
-                &lt;!&ndash;              [disabled]="!tcs.post.tcs[operator.id]"&ndash;&gt;
-                &lt;!&ndash;              [ngModel]="tcs.post.tcs[operator.id]?.governmentDevelopmentProgram"&ndash;&gt;
-                &lt;!&ndash;              (ngModelChange)="tcs.post.tcs[operator.id] ? tcs.post.tcs[operator.id].governmentDevelopmentProgram = $event : null"&ndash;&gt;
-                &lt;!&ndash;              [name]="'channel-opt-post-select' + operator.id"&ndash;&gt;
-                &lt;!&ndash;            >&ndash;&gt;
-                &lt;!&ndash;            </gov-program-select>&ndash;&gt;
-                &lt;!&ndash;            <mat-form-field class="example-form-field">&ndash;&gt;
-                &lt;!&ndash;              <mat-label>Год</mat-label>&ndash;&gt;
-                &lt;!&ndash;              <input matInput&ndash;&gt;
-                &lt;!&ndash;                     [disabled]="!tcs.post.tcs[operator.id]"&ndash;&gt;
-                &lt;!&ndash;                     [name]="'post-year-complete' + operator.id"&ndash;&gt;
-                &lt;!&ndash;                     type="number"&ndash;&gt;
-                &lt;!&ndash;                     [ngModel]="tcs.post.tcs[operator.id]?.govYearComplete"&ndash;&gt;
-                &lt;!&ndash;                     (ngModelChange)="tcs.post.tcs[operator.id] ? tcs.post.tcs[operator.id].govYearComplete = $event : null"&ndash;&gt;
-                &lt;!&ndash;              >&ndash;&gt;
-                &lt;!&ndash;              <button mat-button&ndash;&gt;
-                &lt;!&ndash;                      *ngIf="tcs.post.tcs[operator.id] && tcs.post.tcs[operator.id].govYearComplete"&ndash;&gt;
-                &lt;!&ndash;                      matSuffix&ndash;&gt;
-                &lt;!&ndash;                      mat-icon-button&ndash;&gt;
-                &lt;!&ndash;                      aria-label="Clear"&ndash;&gt;
-                &lt;!&ndash;                      [disabled]="!tcs.post.tcs[operator.id]"&ndash;&gt;
-                &lt;!&ndash;                      (click)="tcs.post.tcs[operator.id] ? tcs.post.tcs[operator.id].govYearComplete = null : null">&ndash;&gt;
-                &lt;!&ndash;                <mat-icon>close</mat-icon>&ndash;&gt;
-                &lt;!&ndash;              </button>&ndash;&gt;
-                &lt;!&ndash;            </mat-form-field>&ndash;&gt;
-                &lt;!&ndash;          </div>&ndash;&gt;
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
               </div>
             </div>
           </form>
-        </div>-->
+        </div>
         <div class="tc-item">
           <form name="tc-form">
             <div class="tc-label">
@@ -408,48 +270,15 @@
               </div>
               <div class="operator-block-wrap">
                 <div>
-                  <!--              <signal-control-->
-                  <!--                [disabled]="!tcs.radio.tcs[operator.id]"-->
-                  <!--                [ngModel]="tcs.radio.tcs[operator.id]?.tvOrRadioTypes"-->
-                  <!--                (ngModelChange)="tcs.radio.tcs[operator.id].tvOrRadioTypes = $event"-->
-                  <!--                [name]="'channel-opt-radio' + operator.id"-->
-                  <!--                class="tc-options"-->
-                  <!--              >-->
-                  <!--              </signal-control>-->
-                  <mat-radio-group
+                  <signal-control
+                    [disabled]="!tcs.radio.tcs[operator.id]"
+                    [ngModel]="tcs.radio.tcs[operator.id]?.tvOrRadioTypes"
+                    (ngModelChange)="tcs.radio.tcs[operator.id].tvOrRadioTypes = $event"
+                    [name]="'channel-opt-radio' + operator.id"
                     class="tc-options"
                   >
-                    <mat-radio-button>Аналоговое</mat-radio-button>
-                    <mat-radio-button>Цифровое</mat-radio-button>
-                  </mat-radio-group>
+                  </signal-control>
                 </div>
-                <!--            <gov-program-select-->
-                <!--              [disabled]="!tcs.radio.tcs[operator.id]"-->
-                <!--              [ngModel]="tcs.radio.tcs[operator.id]?.governmentDevelopmentProgram"-->
-                <!--              (ngModelChange)="tcs.radio.tcs[operator.id] ? tcs.radio.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
-                <!--              [name]="'channel-opt-tv-select' + operator.id"-->
-                <!--            >-->
-                <!--            </gov-program-select>-->
-                <mat-form-field class="example-form-field">
-                  <mat-label>Год</mat-label>
-                  <input matInput
-                         [disabled]="!tcs.radio.tcs[operator.id]"
-                         [name]="'radioyear-complete' + operator.id"
-                         type="number"
-                         [ngModel]="tcs.radio.tcs[operator.id]?.govYearComplete"
-                         (ngModelChange)="tcs.radio.tcs[operator.id] ? tcs.radio.tcs[operator.id].govYearComplete = $event : null"
-                  >
-                  <button mat-button
-                          *ngIf="tcs.radio.tcs[operator.id] && tcs.radio.tcs[operator.id].govYearComplete"
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          [disabled]="!tcs.radio.tcs[operator.id]"
-                          (click)="tcs.radio.tcs[operator.id] ? tcs.radio.tcs[operator.id].govYearComplete = null : null">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
               </div>
             </div>
           </form>
@@ -465,36 +294,7 @@
                 [checked]="!!tcs.infomat.tcs[operator.id]"
               >
               </mat-checkbox>
-              <!--          <div>-->
-              <!--            <gov-program-select-->
-              <!--              [disabled]="!tcs.infomat.tcs[operator.id]"-->
-              <!--              [ngModel]="tcs.infomat.tcs[operator.id]?.governmentDevelopmentProgram"-->
-              <!--              (ngModelChange)="tcs.infomat.tcs[operator.id] ? tcs.infomat.tcs[operator.id].governmentDevelopmentProgram = $event : null"-->
-              <!--              [name]="'channel-opt-infomat-select' + operator.id"-->
-              <!--            >-->
-              <!--            </gov-program-select>-->
-              <!--            <mat-form-field class="example-form-field">-->
-              <!--              <mat-label>Год</mat-label>-->
-              <!--              <input matInput-->
-              <!--                     [disabled]="!tcs.infomat.tcs[operator.id]"-->
-              <!--                     [name]="'infomat-year-complete' + operator.id"-->
-              <!--                     type="number"-->
-              <!--                     [ngModel]="tcs.infomat.tcs[operator.id]?.govYearComplete"-->
-              <!--                     (ngModelChange)="tcs.infomat.tcs[operator.id] ? tcs.infomat.tcs[operator.id].govYearComplete = $event : null"-->
-              <!--              >-->
-              <!--              <button mat-button-->
-              <!--                      *ngIf="tcs.infomat.tcs[operator.id] && tcs.infomat.tcs[operator.id].govYearComplete"-->
-              <!--                      matSuffix-->
-              <!--                      mat-icon-button-->
-              <!--                      aria-label="Clear"-->
-              <!--                      [disabled]="!tcs.infomat.tcs[operator.id]"-->
-              <!--                      (click)="tcs.infomat.tcs[operator.id] ? tcs.infomat.tcs[operator.id].govYearComplete = null : null">-->
-              <!--                <mat-icon>close</mat-icon>-->
-              <!--              </button>-->
-              <!--            </mat-form-field>-->
-              <!--          </div>-->
               <div class="operator-block-wrap">
-                <button type="button" class="tc-button"><span class="material-icons">more_horiz</span></button>
               </div>
             </div>
           </form>
@@ -507,71 +307,227 @@
             <div class="operator-block">
               <div class="tc-comment">
                 <textarea matInput placeholder="" rows="5"></textarea>
-                <mat-checkbox class="custom-color"></mat-checkbox>
               </div>
             </div>
           </form>
         </div>
         <div class="tc-btn-group">
-          <button mat-flat-button color="primary" class="custom-btn">Сохранить заявку</button>
+          <button mat-flat-button color="primary" class="custom-btn" (click)="save()">Сохранить</button>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Архив">
-      <div class="tab-wrap">
+      <div class="tab-wrap" *ngIf="archiveRequests && archiveRequests.length > 0">
         <div class="tab-header">
           <div>
-            Последние изменения: <span class="color">23.06.2018</span>
+            Последние изменения: <span class="color">{{archiveRequests[0].created | date: 'dd.MM.yyyy'}}</span>
           </div>
         </div>
-        <div class="card-container">
-          <div class="card">
-            <span class="card-number">№115а</span> от
-            <span class="card-date">15.08.19</span>
-            <p>Внесенные изменения:</p>
-            <ul class="card-list">
-              <li class="card-list-item">
-                <span class="underline">Таксофон:</span> Изменено количество таксофонов с 4 до
-                5 шт
-              </li>
-              <li class="card-list-item">
-                <span class="underline">Сотовая связь:</span> МТС - с 2G на 3G, подключение
-                Мегафон
-              </li>
-              <li class="card-list-item">
-                <span class="underline">Интернет:</span> Мегафон - проведен ВОЛС(качество
-                удовлетворительное); Tele2 - подключение,медь (качество хорошее)
-              </li>
-            </ul>
+        <ng-container *ngFor="let request of archiveRequests">
+          <div class="card-container">
+            <div class="card">
+              <span class="card-number">№{{request.id}}</span> от
+              <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
+              <p>Внесенные изменения:</p>
+              <ng-container *ngFor="let edit of request.featureEdits">
+                <ul class="card-list" [ngSwitch]="edit.tc.type">
+                  <li class="card-list-item" *ngSwitchCase="'ATS'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">АТС:</span> Подключен {{edit.tc.operator.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">АТС:</span> Отключен {{edit.tc.operator.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'PAYPHONE'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Таксофоны:</span> Подключен {{edit.tc.operator.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">Таксофоны:</span> Отключен {{edit.tc.operator.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'INFOMAT'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Инфомат:</span> Подключен
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">Инфомат:</span> Отключен
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'INET'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Интернет:</span>
+                        Подключен {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">Интернет:</span>
+                        Отключен {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <span class="underline">Интернет ({{edit.tc.operator.name}}):</span>
+                        <ng-container *ngIf="edit.tc.trunkChannel.id !== edit.newValue.trunkChannel.id">
+                          Изменен тип подключения с {{edit.tc.trunkChannel.name}} на {{edit.newValue.trunkChannel.name}}
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'MOBILE'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Мобильная связь:</span>
+                        Подключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">Мобильная связь:</span>
+                        Отключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <span class="underline">Мобильная связь ({{edit.tc.operator.name}}):</span>
+                        <ng-container *ngIf="edit.tc.typeMobile.id !== edit.newValue.typeMobile.id">
+                          Изменен тип сотовой связи с {{edit.tc.typeMobile.name}} на {{edit.newValue.typeMobile.name}}
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'POST'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Почта:</span>
+                        Подключен {{edit.tc.operator.name}} {{edit.tc.typePost.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">Почта:</span>
+                        Отключен {{edit.tc.operator.name}} {{edit.tc.typePost.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <span class="underline">Почта ({{edit.tc.operator.name}}):</span>
+                        <ng-container *ngIf="edit.tc.typePost.id !== edit.newValue.typePost.id">
+                          Изменен тип почты с {{edit.tc.typePost.name}} на {{edit.newValue.typePost.name}}
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'RADIO'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Радио:</span>
+                        Подключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">Радио:</span>
+                        Отключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <span class="underline">Радио ({{edit.tc.operator.name}}):</span>
+                        <ng-container *ngIf="edit.tc.typePost.id !== edit.newValue.typePost.id">
+                          Изменен тип радио с {{signalsToString(edit.tc.tvOrRadioTypes)}}
+                          на {{signalsToString(edit.newValue.tvOrRadioTypes)}}
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'TV'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">ТВ:</span>
+                        Подключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">ТВ:</span>
+                        Отключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <span class="underline">ТВ ({{edit.tc.operator.name}}):</span>
+                        <ng-container *ngIf="edit.tc.typePost.id !== edit.newValue.typePost.id">
+                          Изменен тип тв с {{signalsToString(edit.tc.tvOrRadioTypes)}}
+                          на {{signalsToString(edit.newValue.tvOrRadioTypes)}}
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                </ul>
+              </ng-container>
+            </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </mat-tab>
-    <mat-tab label="План">
+    <mat-tab label="План" *ngIf="planRequests && planRequests.length > 0">
       <div class="tab-wrap">
         <div class="tab-header">
           <div>
-            Последние изменения: <span class="color">23.06.2018</span>
+            Последние изменения: <span class="color">{{planRequests[0].created | date: 'dd.MM.yyyy'}}</span>
           </div>
           <button mat-flat-button color="primary" class="custom-btn">Внести изменения</button>
         </div>
-        <div class="card-container">
-          <div class="card">
-            <span class="card-number">№106</span> от
-            <span class="card-date">15.08.19</span>
-            <p>Планируемые изменения:</p>
-            <ul class="card-list">
-              <li class="card-list-item">
-                <span class="underline">Сотовая связь:</span> МТС - с 2G на 3G (Программа
-                "Субсидии Lorem ipsum" на период: 15.10.2018 - 2020)
-              </li>
-              <li class="card-list-item">
-                <span class="underline">Интернет:</span> Мегафон - подключение ВОЛС (Программа
-                "Субсидии Lorem ipsum" на период: 15.10.2018 - 2021)
-              </li>
-            </ul>
+        <ng-container *ngFor="let request of planRequests">
+          <div class="card-container">
+            <div class="card">
+              <span class="card-number">№{{request.id}}</span> от
+              <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
+              <p>Планируемые изменения:</p>
+              <ng-container *ngFor="let edit of request.featureEdits">
+                <ul class="card-list" [ngSwitch]="edit.tc.type">
+                  <li class="card-list-item" *ngSwitchCase="'INET'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Интернет:</span>
+                        Подключение {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
+                        (по программе {{edit.tc.governmentDevelopmentProgram.acronym}} {{edit.tc.govYearComplete}})
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <span class="underline">Интернет ({{edit.tc.operator.name}}):</span>
+                        <ng-container *ngIf="edit.tc.trunkChannel.id !== edit.newValue.trunkChannel.id">
+                          Изменение типа подключения с {{edit.tc.trunkChannel.name}}
+                          на {{edit.newValue.trunkChannel.name}}
+                          (по программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}})
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                  <li class="card-list-item" *ngSwitchCase="'MOBILE'">
+                    <ng-container [ngSwitch]="edit.action">
+                      <ng-container *ngSwitchCase="'CREATE'">
+                        <span class="underline">Мобильная связь:</span>
+                        Подключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'DELETE'">
+                        <span class="underline">Мобильная связь:</span>
+                        Отключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        (по программе {{edit.tc.governmentDevelopmentProgram.acronym}} {{edit.tc.govYearComplete}})
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'UPDATE'">
+                        <span class="underline">Мобильная связь ({{edit.tc.operator.name}}):</span>
+                        <ng-container *ngIf="edit.tc.typeMobile.id !== edit.newValue.typeMobile.id">
+                          Изменение типа сотовой связи с {{edit.tc.typeMobile.name}}
+                          на {{edit.newValue.typeMobile.name}}
+                          (по программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}})
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </li>
+                </ul>
+              </ng-container>
+            </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </mat-tab>
   </mat-tab-group>
