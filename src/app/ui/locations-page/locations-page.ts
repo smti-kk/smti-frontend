@@ -62,4 +62,8 @@ export class LocationsPage implements OnInit {
         this.totalElements = locations.totalElements;
       });
   }
+
+  exportExcel(): void {
+    this.locationsFullInformationService.exportExcel();
+  }
 }

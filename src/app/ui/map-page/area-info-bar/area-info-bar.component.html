@@ -6,10 +6,10 @@
   >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div class="panel-title">ИНФОРМАЦИЯ: район</div>
-        <ng-container *ngIf="!panelOpenState">
-          <div>Численность: 256151</div>
-          <div>Количество населенных пунктов: 254</div>
+        <div class="panel-title">ИНФОРМАЦИЯ: {{area.type}} {{area.name}}</div>
+        <ng-container>
+          <div>Численность: {{area.population}}</div>
+          <div>Количество населенных пунктов: {{area.locationsCount}}</div>
         </ng-container>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -21,38 +21,43 @@
       </div>
       <div class="feature">
         <div class="feature__label">Сотовая связь:</div>
-        <div class="feature__amount">82/5537</div>
-        <div class="feature__percent">84%/72%</div>
+        <div class="feature__amount">{{area.cellular.locationsCount}}/{{area.cellular.population}}</div>
+        <div class="feature__percent">{{area.cellular.locationsPercents}}%/{{area.cellular.populationPercents}}%</div>
       </div>
       <div class="feature">
         <div class="feature__label">Интернет:</div>
-        <div class="feature__amount">82/5537</div>
-        <div class="feature__percent">5%/72%</div>
+        <div class="feature__amount">{{area.internet.locationsCount}}/{{area.internet.population}}</div>
+        <div class="feature__percent">{{area.internet.locationsPercents}}%/{{area.internet.populationPercents}}%</div>
       </div>
       <div class="feature">
         <div class="feature__label">Тв:</div>
-        <div class="feature__amount">2/537</div>
-        <div class="feature__percent">100%/100%</div>
+        <div class="feature__amount">{{area.tv.locationsCount}}/{{area.tv.population}}</div>
+        <div class="feature__percent">{{area.tv.locationsPercents}}%/{{area.tv.populationPercents}}%</div>
       </div>
       <div class="feature">
         <div class="feature__label">Таксофон:</div>
-        <div class="feature__amount">82/5537</div>
-        <div class="feature__percent">84%/72%</div>
+        <div class="feature__amount">{{area.payphone.locationsCount}}/{{area.payphone.population}}</div>
+        <div class="feature__percent">{{area.payphone.locationsPercents}}%/{{area.payphone.populationPercents}}%</div>
       </div>
       <div class="feature">
         <div class="feature__label">Телефон:</div>
-        <div class="feature__amount">2/37</div>
-        <div class="feature__percent">84%/72%</div>
+        <div class="feature__amount">{{area.ats.locationsCount}}/{{area.ats.population}}</div>
+        <div class="feature__percent">{{area.ats.locationsPercents}}%/{{area.ats.populationPercents}}%</div>
       </div>
       <div class="feature">
         <div class="feature__label">Радио:</div>
-        <div class="feature__amount">8/55437</div>
-        <div class="feature__percent">84%/72%</div>
+        <div class="feature__amount">{{area.radio.locationsCount}}/{{area.radio.population}}</div>
+        <div class="feature__percent">{{area.radio.locationsPercents}}%/{{area.radio.populationPercents}}%</div>
       </div>
       <div class="feature">
         <div class="feature__label">Почта:</div>
-        <div class="feature__amount">Нет информации</div>
-        <div class="feature__percent"></div>
+        <div class="feature__amount">{{area.post.locationsCount}}/{{area.post.population}}</div>
+        <div class="feature__percent">{{area.post.locationsPercents}}%/{{area.post.populationPercents}}%</div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Инфомат:</div>
+        <div class="feature__amount">{{area.infomat.locationsCount}}/{{area.infomat.population}}</div>
+        <div class="feature__percent">{{area.infomat.locationsPercents}}%/{{area.infomat.populationPercents}}%</div>
       </div>
     </div>
   </mat-expansion-panel>

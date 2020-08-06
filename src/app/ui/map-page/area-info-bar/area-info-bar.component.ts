@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
 
 @Component({
   selector: 'area-info-bar',
@@ -7,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class AreaInfoBarComponent implements OnInit {
 
-  @Input() areas: {}[];
+  @Input() area: LocationProvidingInfo;
 
   panelOpenState = true;
 

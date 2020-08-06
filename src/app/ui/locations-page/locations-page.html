@@ -1,4 +1,4 @@
-<location-filters (filters)="filter($event)"></location-filters>
+<location-filters (filters)="filter($event)" (exportExcel)="exportExcel()"></location-filters>
 <div class="filter-result-count" *ngIf="totalElements">
   Результатов поиска: {{totalElements}}
 </div>

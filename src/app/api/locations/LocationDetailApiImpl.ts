@@ -4,6 +4,7 @@ import {LocationDetailApi} from './LocationDetailApi';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {LOCATION_DETAIL_API} from '../../../environments/api.routes';
 import {Pageable} from '@api/dto/Pageable';
+import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
 
 export class LocationDetailApiImpl implements LocationDetailApi {
   private readonly httpClient: HttpClient;
@@ -39,5 +40,13 @@ export class LocationDetailApiImpl implements LocationDetailApi {
 
   govYears(): Observable<number[]> {
     return this.httpClient.get<number[]>(LOCATION_DETAIL_API + '/gov-years');
+  }
+
+  locationProvidingInfo(locationId: number): Observable<LocationProvidingInfo> {
+    return this.httpClient.get<LocationProvidingInfo>(LOCATION_DETAIL_API + `/location-providing-info/${locationId}`);
+  }
+
+  exportExcel(locations: number[]): Observable<void> {
+    return this.httpClient.post<void>(LOCATION_DETAIL_API + `/export-excel`, locations);
   }
 }

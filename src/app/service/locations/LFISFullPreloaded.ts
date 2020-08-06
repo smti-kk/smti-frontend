@@ -5,19 +5,23 @@ import {Observable, of} from 'rxjs';
 import {LocationFilters} from '../../ui/locations-page/location-filters/LocationFilters';
 import {Paginator} from '@service/dto/Paginator';
 import {LocationsFiltration} from '@service/locations/LocationsFiltration';
+import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 
 export class LFISFullPreloaded implements LocationsFullInformationService {
   private readonly origin: LocationsFullInformationService;
   private cache: Paginator<LocationTableItem>;
   private readonly filtration: LocationsFiltration;
+  private lastFilters: LocationFilters;
 
   constructor(origin: LocationsFullInformationService,
+              private readonly api: LocationDetailApi,
               filtration: LocationsFiltration) {
     this.origin = origin;
     this.filtration = filtration;
   }
 
   filteredLocations(page: number, size: number, filters: LocationFilters): Observable<Pageable<LocationTableItem[]>> {
+    this.lastFilters = filters;
     const locations = new Paginator(this.filtration.filter(this.cache.allElements(), filters));
     return of({
       totalElements: locations.totalElements(),
@@ -38,6 +42,14 @@ export class LFISFullPreloaded implements LocationsFullInformationService {
       });
     } else {
       return this.origin.get(page, size);
+    }
+  }
+
+  exportExcel(): void {
+    if (!this.lastFilters) {
+      this.api.exportExcel(this.cache.allElements().map(l => l.id)).subscribe();
+    } else {
+      this.api.exportExcel(this.filtration.filter(this.cache.allElements(), this.lastFilters).map(l => l.id)).subscribe();
     }
   }
 }

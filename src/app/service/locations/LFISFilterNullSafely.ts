@@ -22,4 +22,8 @@ export class LFISFilterNullSafely implements LocationsFullInformationService {
   get(page: number, size: number): Observable<Pageable<LocationTableItem[]>> {
     return this.origin.get(page, size);
   }
+
+  exportExcel(): void {
+    this.origin.exportExcel();
+  }
 }

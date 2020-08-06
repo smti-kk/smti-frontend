@@ -7,7 +7,7 @@ import {MapLayers} from '@service/leaflet-config/MapLayers';
 import {LocationsService} from '@service/locations/LocationsService';
 import {tap} from 'rxjs/operators';
 import {LoaderService} from '../../loader/LoaderService';
-import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
+import {MunicipalitiesLayer, MunicipalitiesLayerGeoJson} from '@service/leaflet-config/MunicipalitiesLayer';
 import {TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
 
 @Component({
@@ -16,8 +16,8 @@ import {TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
   styleUrls: ['./best-map.scss'],
 })
 export class BestMap implements OnInit, OnDestroy {
-  @Output()
-  readonly locationClick: EventEmitter<number>;
+  @Output() readonly locationClick: EventEmitter<number>;
+  @Output() readonly areaClick: EventEmitter<MunicipalitiesLayerGeoJson>;
   readonly pointsLayers: MapLayers;
   readonly leafletOptions$: Observable<MapOptions>;
   map: Map;
@@ -37,6 +37,7 @@ export class BestMap implements OnInit, OnDestroy {
       trunkChannelsLayer: layersFactory.trunkChannelsLayer() as any
     };
     this.locationClick =  this.pointsLayers.locations.onPointClick();
+    this.areaClick = this.municipalitiesLayer.onMunicipalityClick;
   }
 
   ngOnInit(): void {

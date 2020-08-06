@@ -506,11 +506,12 @@
                     <ng-container [ngSwitch]="edit.action">
                       <ng-container *ngSwitchCase="'CREATE'">
                         <span class="underline">Мобильная связь:</span>
-                        Подключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        Подключение {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        (по программе {{edit.tc.governmentDevelopmentProgram.acronym}} {{edit.tc.govYearComplete}})
                       </ng-container>
                       <ng-container *ngSwitchCase="'DELETE'">
                         <span class="underline">Мобильная связь:</span>
-                        Отключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        Отключение {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
                         (по программе {{edit.tc.governmentDevelopmentProgram.acronym}} {{edit.tc.govYearComplete}})
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">

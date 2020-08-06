@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {LocationsService} from '@service/locations/LocationsService';
 import {BestMap} from './map/BestMap';
 import {tap} from 'rxjs/operators';
+import {LocationDetailApi} from '@api/locations/LocationDetailApi';
+import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
 
 @Component({
   selector: 'map-page',
@@ -15,9 +17,11 @@ export class MapPage {
   isLoading: boolean;
   centeredLocation: number;
   barIsOpened: boolean;
+  locationProvidingInfo: LocationProvidingInfo;
   @ViewChild(BestMap) bestMap: BestMap;
 
-  constructor(private locationsService: LocationsService) {
+  constructor(private locationsService: LocationsService,
+              private readonly locationDetails: LocationDetailApi) {
     this.isLoading = false;
     this.barIsOpened = true;
   }
@@ -35,6 +39,7 @@ export class MapPage {
       tap(
         (location) => {
           this.isLoading = false;
+          this.locationProvidingInfo = null;
         },
         () => this.isLoading = false
       )
@@ -65,5 +70,12 @@ export class MapPage {
    */
   centerOnLocation(locationId: number): void {
     this.centeredLocation = locationId;
+  }
+
+  onAreaClick(area: {feature: {id: number}}): void {
+    this.locationDetails.locationProvidingInfo(area.feature.id).subscribe(info => {
+      this.locationProvidingInfo = info;
+      this.location$ = null;
+    });
   }
 }

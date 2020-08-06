@@ -53,4 +53,9 @@ export class LocationsFullInformationServiceImpl implements LocationsFullInforma
       })
     );
   }
+
+  exportExcel(): void {
+    // todo: implement
+    this.locationDetailApi.exportExcel([]);
+  }
 }

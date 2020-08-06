@@ -157,9 +157,10 @@ export const factory = (): Provider[] => {
           operatorsApi,
           new FiltersToHttpParamsConverterImpl()
         ),
+        locationDetailApi,
         new LocationsFiltrationImpl(
           new StrictFilterImpl()
-        )
+        ),
       // ),
     ),
     new ThrottleImpl(1)

@@ -23,11 +23,13 @@ export class LocationFiltersComponent implements OnInit {
   OrderingDirection = OrderingDirection;
   govYears: number[];
   @Output() filters: EventEmitter<LocationFilters>;
+  @Output() exportExcel: EventEmitter<void>;
 
   constructor(private readonly filterFormBuilder: LocationFilterFormBuilder,
               private readonly apiLocationDetail: LocationDetailApi,
               private readonly selectAreasService: SelectAreasService,
               private readonly govProgramService: GovProgramService) {
+    this.exportExcel = new EventEmitter<void>();
     this.filtersIsOpened = false;
     forkJoin([
       filterFormBuilder.build(),
@@ -75,5 +77,9 @@ export class LocationFiltersComponent implements OnInit {
 
   cellularOperatorsControls(): FormArray {
     return this.filterForm.get('cellularOperators') as FormArray;
+  }
+
+  exportExcelClick(): void {
+    this.exportExcel.emit();
   }
 }
