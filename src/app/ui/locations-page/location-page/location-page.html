@@ -418,7 +418,7 @@
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
                         <span class="underline">Почта ({{edit.tc.operator.name}}):</span>
-                        <ng-container *ngIf="edit.tc.typePost.id !== edit.newValue.typePost.id">
+                        <ng-container *ngIf="edit.tc.typePost && edit.newValue.typePost && edit.tc.typePost.id !== edit.newValue.typePost.id">
                           Изменен тип почты с {{edit.tc.typePost.name}} на {{edit.newValue.typePost.name}}
                         </ng-container>
                       </ng-container>
@@ -455,7 +455,7 @@
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
                         <span class="underline">ТВ ({{edit.tc.operator.name}}):</span>
-                        <ng-container *ngIf="edit.tc.typePost.id !== edit.newValue.typePost.id">
+                        <ng-container>
                           Изменен тип тв с {{signalsToString(edit.tc.tvOrRadioTypes)}}
                           на {{signalsToString(edit.newValue.tvOrRadioTypes)}}
                         </ng-container>
