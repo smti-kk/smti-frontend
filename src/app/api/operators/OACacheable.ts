@@ -24,7 +24,7 @@ export class OACacheable implements OperatorsApi {
   }
 
   findAll(): Observable<Operator[]> {
-    if (this.cachedOperators) {
+    if (this.cachedOperatorsFull) {
       return of(this.cachedOperatorsFull);
     } else {
       return this.origin.findAll().pipe(

@@ -13,7 +13,7 @@
     <mat-label>Оператор</mat-label>
     <mat-select [(ngModel)]="baseStation.operator" name="operator" [compareWith]="compareById" required>
       <mat-option value="null">Оператор</mat-option>
-      <mat-option [value]="operator" *ngFor="let operator of operators$ | async">{{operator.name}}</mat-option>
+      <mat-option [value]="operator" *ngFor="let operator of operators">{{operator.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>

@@ -5,7 +5,7 @@ import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateBaseStationComponent} from './create-base-station/create-base-station.component';
 import {BaseStation} from '@api/dto/BaseStation';
-import {AreYouSureComponent} from "../dialogs/are-you-sure/are-you-sure.component";
+import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.component';
 
 @Component({
   selector: 'app-base-stations',

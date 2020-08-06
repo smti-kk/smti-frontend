@@ -6,4 +6,3 @@ export abstract class ApiFeaturesRequests {
   abstract archive(locationId: number): Observable<LocationFeatureEditingRequest[]>;
   abstract plan(locationId: number): Observable<LocationFeatureEditingRequest[]>;
 }
-

@@ -3,8 +3,6 @@ import {BaseStation} from '@api/dto/BaseStation';
 import {OperatorsApi} from '@api/operators/OperatorsApi';
 import {Operator} from '@api/dto/Operator';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TrunkChannelTypeApi} from '@api/trunk-channel/TrunkChannelTypeApi';
-import {TrunkChannelType} from '@api/dto/TrunkChannelType';
 import {MobileTypeApi} from '@api/mobile-type/MobileTypeApi';
 import {MobileType} from '@api/dto/MobileType';
 
@@ -15,7 +13,7 @@ import {MobileType} from '@api/dto/MobileType';
 })
 export class CreateBaseStationComponent implements OnInit {
   baseStation: BaseStation;
-  operators$: Observable<Operator[]>;
+  operators: Operator[];
   mobileTypes$: Observable<MobileType[]>;
   action: 'EDIT' | 'CREATE';
 
@@ -42,10 +40,12 @@ export class CreateBaseStationComponent implements OnInit {
       };
       this.action = 'CREATE';
     }
+    this.operatorsApi.findAll().subscribe(operators => {
+      this.operators = operators;
+    });
   }
 
   ngOnInit(): void {
-    this.operators$ = this.operatorsApi.findAll();
     this.mobileTypes$ = this.mobileTypeApi.list();
   }
 
