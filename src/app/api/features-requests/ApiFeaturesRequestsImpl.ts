@@ -21,7 +21,8 @@ export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
           .map(r => {
             return {
               ...r,
-              featureEdits: r.featureEdits.filter(fe => !(fe.action === 'UPDATE' && fe.newValue.state === 'PLAN'))
+              featureEdits: r.featureEdits.filter(fe => !((fe.action === 'UPDATE' && fe.newValue.state === 'PLAN')
+                || (fe.action === 'CREATE' && fe.tc.state === 'PLAN')))
             };
           })
           .filter(r => r.featureEdits.length > 0);
@@ -36,7 +37,8 @@ export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
           .map(r => {
             return {
               ...r,
-              featureEdits: r.featureEdits.filter(fe => fe.action === 'UPDATE' && fe.newValue.state === 'PLAN')
+              featureEdits: r.featureEdits.filter(fe => (fe.action === 'UPDATE' && fe.newValue.state === 'PLAN')
+                || (fe.action === 'CREATE' && fe.tc.state === 'PLAN'))
             };
           })
           .filter(r => r.featureEdits.length > 0);
