@@ -49,8 +49,8 @@ export class BestMap implements OnInit, OnDestroy {
     this.pointsLayers.locations.addTo(map);
   }
 
-  removeOrAddLayer(id: string, checked: boolean): void {
-    if (!checked) {
+  removeOrAddLayer(id: string, checked: any): void {
+    if (!checked.target.checked) {
       this.pointsLayers[id].removeFrom(this.map);
     } else {
       this.pointsLayers[id].addTo(this.map);

@@ -9,6 +9,8 @@ export class AreaInfoBarComponent implements OnInit {
 
   @Input() areas: {}[];
 
+  panelOpenState = true;
+
   constructor() { }
 
   ngOnInit(): void {
