@@ -90,6 +90,10 @@ $telecomit-theme: mat-light-theme((
   font-display: swap;
 }
 
+* {
+  outline: none;
+}
+
 body {
   font: unset !important;
 }

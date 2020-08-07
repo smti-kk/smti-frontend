@@ -11,6 +11,7 @@ import {PlanPage} from './locations-page/plan-page/PlanPage';
 import {BaseStationsComponent} from './base-stations/base-stations.component';
 import {TrunkChannelsComponent} from './trunk-channels/trunk-channels.component';
 import {RouteProxyService} from './route.proxy.service';
+import {MunRequestsComponent} from "./mun-requests/mun-requests.component";
 
 
 const routes: Routes = [
@@ -93,6 +94,14 @@ const routes: Routes = [
     },
     loadChildren: () => import('./old/connection-points/connection-points.module')
       .then(module => module.ConnectionPointsModule),
+  },
+  {
+    path: 'mun-requests',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+    component: MunRequestsComponent
   },
 ];
 

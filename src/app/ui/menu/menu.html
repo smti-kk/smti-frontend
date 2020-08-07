@@ -2,32 +2,39 @@
   <div class="logo">
     <img src="../../../assets/logo.png" alt="Логотип">
   </div>
-  <div class="link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
-  <div class="link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
-  <div class="link"
-       routerLink="/features"
-       *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
-       [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
-  <div class="link"
-       routerLink="/connection-points"
-       *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
-       [class.active]="currentRouteIs('/connection-points')"><span>Организации</span></div>
-  <div class="link"
-       routerLink="/communication-contracts"
-       *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
-       [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
-  <div class="link"
+  <div class="link root-link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
+  <div class="link root-link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
+  <button class="link" mat-button [matMenuTriggerFor]="menu">Сводные таблицы</button>
+  <mat-menu #menu="matMenu">
+    <div class="link"
+         routerLink="/features"
+         *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+         [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
+    <div class="link"
+         routerLink="/connection-points"
+         *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
+         [class.active]="currentRouteIs('/connection-points')"><span>Организации</span></div>
+    <div class="link"
+         routerLink="/communication-contracts"
+         *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
+         [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
+    <div class="link"
+         *permissions="['ADMIN', 'OPERATOR']"
+         routerLink="/base-stations"
+         [class.active]="currentRouteIs('/base-stations')"><span>Базовые станции</span></div>
+    <div class="link"
+         *permissions="['ADMIN', 'OPERATOR']"
+         routerLink="/trunk-channels"
+         [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
+  </mat-menu>
+  <div class="link root-link"
+       *permissions="['ADMIN']"
+       routerLink="/mun-requests"
+       [class.active]="currentRouteIs('/mun-requests')"><span>Профиль</span></div>
+  <div class="link root-link"
        *permissions="['ADMIN']"
        routerLink="/users"
        [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>
-  <div class="link"
-       *permissions="['ADMIN', 'OPERATOR']"
-       routerLink="/base-stations"
-       [class.active]="currentRouteIs('/base-stations')"><span>Базовые станции</span></div>
-  <div class="link"
-       *permissions="['ADMIN', 'OPERATOR']"
-       routerLink="/trunk-channels"
-       [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
 </div>
 <div class="link td-underline" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
 <div class="link" *ngIf="account">

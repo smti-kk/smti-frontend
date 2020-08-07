@@ -62,11 +62,13 @@ import { TrunkChannelsComponent } from './trunk-channels/trunk-channels.componen
 import { CreateTrunkChannelComponent } from './trunk-channels/create-trunk-channel/create-trunk-channel.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AreaInfoBarComponent } from './map-page/area-info-bar/area-info-bar.component';
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {GlobalErrorHandler} from "./global-error-handler";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {GlobalErrorHandler} from './global-error-handler';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
+import { MunRequestsComponent } from './mun-requests/mun-requests.component';
 
 registerLocaleData(ru);
 
@@ -103,6 +105,7 @@ registerLocaleData(ru);
     TrunkChannelsComponent,
     CreateTrunkChannelComponent,
     AreaInfoBarComponent,
+    MunRequestsComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,7 +140,8 @@ registerLocaleData(ru);
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   providers: [
     {
