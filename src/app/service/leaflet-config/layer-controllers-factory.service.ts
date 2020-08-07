@@ -85,7 +85,7 @@ export class LayerControllersFactory {
           ),
         )
       ),
-      500
+      2000
     );
   }
 
@@ -114,7 +114,7 @@ export class LayerControllersFactory {
           )
         )
       ),
-      500
+      2000
     );
   }
 

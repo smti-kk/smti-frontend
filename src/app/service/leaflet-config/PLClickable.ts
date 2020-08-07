@@ -14,12 +14,12 @@ export class PLClickable implements PointsLayer {
     this.onMarkerClick = new EventEmitter<number>();
   }
 
-  addToMap(map: Map): void {
-    this.origin.addToMap(map);
+  addToMap(map: Map): boolean {
+    return this.origin.addToMap(map);
   }
 
-  removeFromMap(map: Map): void {
-    this.origin.removeFromMap(map);
+  removeFromMap(map: Map): boolean {
+    return this.origin.removeFromMap(map);
   }
 
   reloadByBounds(bounds: LatLngBounds): Observable<Point[]> {

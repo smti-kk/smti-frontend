@@ -22,7 +22,8 @@ export class LocationInfoBarConverterImpl implements LocationInfoBarConverter {
       cellular: this.operatorIconsFactory.cellularIcons(operators.mobile, location.technicalCapability, 'MOBILE'),
       telephone: this.operatorIconsFactory.operatorIcons(operators.ats, location.technicalCapability, 'ATS'),
       radio: this.operatorIconsFactory.tvOrRadioIcons(operators.radio, location.technicalCapability, 'RADIO'),
-      infomat: []
+      infomat: [],
+      id: location.id
     };
   }
 }

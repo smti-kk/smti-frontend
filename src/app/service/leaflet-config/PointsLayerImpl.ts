@@ -18,13 +18,21 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
     this.existedPoints = {};
   }
 
-  addToMap(map: Map): void {
+  addToMap(map: Map): boolean {
     this.map = map;
+    if (map.hasLayer(this)) {
+      return false;
+    }
     map.addLayer(this);
+    return true;
   }
 
-  removeFromMap(map: Map): void {
-    map.removeLayer(this);
+  removeFromMap(map: Map): boolean {
+    if (map.hasLayer(this)) {
+      map.removeLayer(this);
+      return true;
+    }
+    return false;
   }
 
   reloadByBounds(bounds: LatLngBounds): Observable<Point[]> {

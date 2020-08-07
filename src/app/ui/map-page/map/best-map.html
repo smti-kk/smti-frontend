@@ -4,7 +4,7 @@
     <label class="checkbox-label">
       <input
         type="checkbox"
-        [checked]="true"
+        [checked]="layersChecked['locations']"
         (change)="removeOrAddLayer('locations', $event)"
       >
       <span class="checkbox-text locations"><span>Населённые пункты</span></span>
@@ -16,12 +16,11 @@
     <!--                  [checked]="true">Населённые пункты-->
     <!--    </mat-checkbox>-->
   </div>
-  <div class="layers-selection__item">
-
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
     <label class="checkbox-label">
       <input
         type="checkbox"
-        [checked]="false"
+        [checked]="layersChecked['ESPD']"
         (change)="removeOrAddLayer('ESPD', $event)"
       >
       <span class="checkbox-text espd">ЕСПД</span>
@@ -33,12 +32,12 @@
     <!--                  [checked]="false">ЕСПД-->
     <!--    </mat-checkbox>-->
   </div>
-  <div class="layers-selection__item">
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
 
     <label class="checkbox-label">
       <input
         type="checkbox"
-        [checked]="false"
+        [checked]="layersChecked['SMO']"
         (change)="removeOrAddLayer('SMO', $event)"
       >
       <span class="checkbox-text smo">СЗО</span>
@@ -50,12 +49,12 @@
     <!--                  [checked]="false">СЗО-->
     <!--    </mat-checkbox>-->
   </div>
-  <div class="layers-selection__item">
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
 
     <label class="checkbox-label">
       <input
         type="checkbox"
-        [checked]="false"
+        [checked]="layersChecked['baseStations']"
         (change)="removeOrAddLayer('baseStations', $event)"
       >
       <span class="checkbox-text base-stations">Базовые станции</span>
@@ -67,7 +66,7 @@
                   [checked]="false">Базовые станции
     </mat-checkbox>-->
   </div>
-  <div class="layers-selection__item">
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
     <mat-checkbox #trunkChannelsLayerCheckbox
                   color="warn"
                   (change)="removeOrAddLayer('trunkChannelsLayer', trunkChannelsLayerCheckbox.checked)"
@@ -75,143 +74,147 @@
   </div>
 </div>
 
-<div class="layers-selection layers-selection-right" *ngIf="map">
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text column g4">4G</span>
-    </label>
+<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+  <div class="layers-selection layers-selection-right" *ngIf="map">
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text column g4">4G</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text column g3">3G</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text column g2">2G</span>
+      </label>
+    </div>
   </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text column g3">3G</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text column g2">2G</span>
-    </label>
-  </div>
-</div>
+</ng-container>
 
-<div class="layers-selection layers-selection-bottom" *ngIf="map">
-  <div class="layers-selection__item">
-    Магистральные каналы:
+<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+  <div class="layers-selection layers-selection-bottom" *ngIf="map">
+    <div class="layers-selection__item">
+      Магистральные каналы:
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text vols">ВОЛС</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text med">Медь</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text sputnik">Спутник</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text radio">Радио</span>
+      </label>
+    </div>
+    <div class="layers-selection__item" style="margin-left: 5rem;">
+      <img src="assets/ethernet.png" alt="">
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text provider">Теле2</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text provider">Билайн</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text provider">МТС</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text provider">Мегафон</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text provider">СибТТК</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text provider">Искра</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [checked]="false"
+        >
+        <span class="checkbox-text provider">Ростелеком</span>
+      </label>
+    </div>
   </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text vols">ВОЛС</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text med">Медь</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text sputnik">Спутник</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text radio">Радио</span>
-    </label>
-  </div>
-  <div class="layers-selection__item" style="margin-left: 5rem;">
-    <img src="assets/ethernet.png" alt="">
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text provider">Теле2</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text provider">Билайн</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text provider">МТС</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text provider">Мегафон</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text provider">СибТТК</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text provider">Искра</span>
-    </label>
-  </div>
-  <div class="layers-selection__item">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="false"
-      >
-      <span class="checkbox-text provider">Ростелеком</span>
-    </label>
-  </div>
-</div>
+</ng-container>
 
 <div class="leaflet-map"
      *ngIf="leafletOptions$ | async as leafletOptions"

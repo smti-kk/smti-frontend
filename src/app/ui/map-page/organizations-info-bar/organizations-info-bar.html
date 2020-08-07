@@ -1,72 +1,75 @@
 <mat-accordion>
-  <mat-expansion-panel [expanded]="false">
+  <mat-expansion-panel [expanded]="openOrganizationBar.value" (opened)="onOpen($event)" (closed)="onClose()">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        ОРГАНИЗАЦИЙ (111)
+        ОРГАНИЗАЦИЙ ({{organizationsCount}})
       </mat-panel-title>
     </mat-expansion-panel-header>
+    <ng-container *ngIf="organizations">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let organization of organizations" [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{organization.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
 
-    <mat-accordion>
-      <mat-expansion-panel [expanded]="false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Центральная городская библиотека МБУК "Централизованная библиотечная система города Дивногорска" (Центральная городская библиоте
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <mat-accordion>
-          <mat-expansion-panel [expanded]="false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <div class="panel-title">
-                  <div class="panel-img">
-                    <!--<img src="" alt="">-->
+          <mat-accordion *ngFor="let accessPoint of organization.accesspoints">
+            <mat-expansion-panel [expanded]="false" (opened)="onOpenAccesspointBar(accessPoint)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="panel-title">
+                    <div class="panel-img">
+                      <!--<img src="" alt="">-->
+                    </div>
+                    <div>{{accessPoint.address}}</div>
                   </div>
-                  <div>Дивногорск г., Комсомольская ул., 8</div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="features-list">
+                <div class="feature">
+                  <div class="feature__label">Программа</div>
+                  <div class="feature__value">{{accessPoint.type}}</div>
                 </div>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
+                <div class="feature">
+                  <div class="feature__label">Заказчик</div>
+                  <div class="feature__value">{{accessPoint.customer}}</div>
+                </div>
+                <div class="feature">
+                  <div class="feature__label">Подрядчик</div>
+                  <div class="feature__value">{{accessPoint.contractor}}</div>
+                </div>
+                <div class="feature">
+                  <div class="feature__label">Технология подключения</div>
+                  <div class="feature__value">{{accessPoint.type}}</div>
+                </div>
+                <div class="feature">
+                  <div class="feature__label">Точка подключения</div>
+                  <div class="feature__value">{{accessPoint.internetAccess.name}}</div>
+                </div>
+                <div class="feature">
+                  <div class="feature__label">Скорость по контракту</div>
+                  <div class="feature__value">{{accessPoint.declaredSpeed}}</div>
+                </div>
+                <div class="feature">
+                  <div class="feature__label">Состояние</div>
+                  <div class="feature__value"></div>
+                </div>
+                <div class="feature">
+                  <div class="feature__label">Входящий трафик</div>
+                  <div class="feature__value"></div>
+                </div>
+              </div>
 
-            <div class="features-list">
-              <div class="feature">
-                <div class="feature__label">Программа</div>
-                <div class="feature__value">ЕСПД</div>
-              </div>
-              <div class="feature">
-                <div class="feature__label">Заказчик</div>
-                <div class="feature__value">МинКульт</div>
-              </div>
-              <div class="feature">
-                <div class="feature__label">Подрядчик</div>
-                <div class="feature__value">РТК</div>
-              </div>
-              <div class="feature">
-                <div class="feature__label">Технология подключения</div>
-                <div class="feature__value">Отсутствует</div>
-              </div>
-              <div class="feature">
-                <div class="feature__label">Точка подключения</div>
-                <div class="feature__value"></div>
-              </div>
-              <div class="feature">
-                <div class="feature__label">Скорость по контракту</div>
-                <div class="feature__value"></div>
-              </div>
-              <div class="feature">
-                <div class="feature__label">Состояние</div>
-                <div class="feature__value"></div>
-              </div>
-              <div class="feature">
-                <div class="feature__label">Входящий трафик</div>
-                <div class="feature__value"></div>
-              </div>
-            </div>
+            </mat-expansion-panel>
+          </mat-accordion>
 
-          </mat-expansion-panel>
-        </mat-accordion>
-
-      </mat-expansion-panel>
-    </mat-accordion>
-
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
+    <div class="spinner-container" *ngIf="!organizations">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>

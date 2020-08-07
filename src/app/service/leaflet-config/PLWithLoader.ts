@@ -12,9 +12,9 @@ export class PLWithLoader implements PointsLayer {
     this.origin = origin;
   }
 
-  addToMap(map: Map): void {
+  addToMap(map: Map): boolean {
     this.map = map;
-    this.origin.addToMap(map);
+    return this.origin.addToMap(map);
   }
 
   reloadByBounds(bounds: LatLngBounds): Observable<Point[]> {
@@ -31,8 +31,8 @@ export class PLWithLoader implements PointsLayer {
     );
   }
 
-  removeFromMap(map: Map): void {
-    this.origin.removeFromMap(map);
+  removeFromMap(map: Map): boolean {
+    return this.origin.removeFromMap(map);
   }
 
   moveToPoint(id: number): void {

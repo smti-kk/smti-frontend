@@ -9,11 +9,14 @@ export class PLCWithReloadOnMove implements PointLayerController {
     this.origin = origin;
   }
 
-  addTo(map: Map): void {
-    map.on({
-      moveend: () => this.origin.reloadLayer()
-    });
-    this.origin.addTo(map);
+  addTo(map: Map): boolean {
+    if (this.origin.addTo(map)) {
+      map.on({
+        moveend: () => this.origin.reloadLayer()
+      });
+      return true;
+    }
+    return false;
   }
 
   onPointClick(): EventEmitter<number> {
@@ -24,9 +27,13 @@ export class PLCWithReloadOnMove implements PointLayerController {
     this.origin.reloadLayer();
   }
 
-  removeFrom(map: Map): void {
-    map.off('moveend');
-    this.origin.removeFrom(map);
+  removeFrom(map: Map): boolean {
+    if (this.origin.removeFrom(map)) {
+      map.off('moveend');
+      return true;
+    } else {
+      return false;
+    }
   }
 
   moveTo(id: number): void {

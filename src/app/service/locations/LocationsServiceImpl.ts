@@ -3,7 +3,7 @@ import {LocationInfoBarValue} from '../dto/LocationInfoBarValue';
 import {forkJoin, Observable, of} from 'rxjs';
 import {LocationsApi} from '@api/locations/LocationsApi';
 import {OperatorsApi} from '@api/operators/OperatorsApi';
-import {map} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
 import {LocationInfoBarConverter} from '@service/locations/LocationInfoBarConverter';
 
 export class LocationsServiceImpl implements LocationsService {
@@ -20,7 +20,8 @@ export class LocationsServiceImpl implements LocationsService {
     ]).pipe(
       map(([location, operators]) => {
         return this.locationInfoBarConverter.convert(location, operators);
-      })
+      }),
+      shareReplay()
     );
   }
 }

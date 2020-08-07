@@ -98,7 +98,7 @@
 
   border-radius: 50%;
   background: none;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
 }
 
 .checkbox-text.column {
@@ -121,11 +121,11 @@ input[type="checkbox"]:checked + .checkbox-text.locations::after {
 }
 
 input[type="checkbox"]:checked + .checkbox-text.espd::after {
-  background: #ff5353;
+  background: #147774;
 }
 
 input[type="checkbox"]:checked + .checkbox-text.smo::after {
-  background: #147774;
+  background: #ff5353;
 }
 
 input[type="checkbox"]:checked + .checkbox-text.base-stations::after {

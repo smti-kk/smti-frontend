@@ -36,7 +36,7 @@
        routerLink="/users"
        [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>
 </div>
-<div class="link td-underline" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
-<div class="link" *ngIf="account">
+<div class="link td-underline root-link" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
+<div class="link root-link" *ngIf="account">
   <span>{{account.getName()}} <img src="../../../assets/exit.png" alt="Выход" (click)="logout()"></span>
 </div>

@@ -1,11 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {LocationInfoBarValue} from '@service/dto/LocationInfoBarValue';
 import {Observable} from 'rxjs';
 import {LocationsService} from '@service/locations/LocationsService';
 import {BestMap} from './map/BestMap';
-import {tap} from 'rxjs/operators';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
+import {ApiOrganization} from '@api/organizations/ApiOrganization';
+import {AORAccessPoint} from '@api/dto/ApiOrganizationResponse';
+import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
 
 @Component({
   selector: 'map-page',
@@ -13,15 +15,20 @@ import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
   styleUrls: ['./map-page.scss'],
 })
 export class MapPage {
-  location$: Observable<LocationInfoBarValue>;
+  location: LocationInfoBarValue;
   isLoading: boolean;
   centeredLocation: number;
   barIsOpened: boolean;
   locationProvidingInfo: LocationProvidingInfo;
+  organizationsCount$: Observable<number>;
+  organizations$: Observable<any>;
+  isOpenOrganization = {value: false};
   @ViewChild(BestMap) bestMap: BestMap;
 
   constructor(private locationsService: LocationsService,
-              private readonly locationDetails: LocationDetailApi) {
+              private readonly locationDetails: LocationDetailApi,
+              private readonly accessPointsApi: AccessPointsApi,
+              private readonly apiOrganization: ApiOrganization) {
     this.isLoading = false;
     this.barIsOpened = true;
   }
@@ -32,17 +39,18 @@ export class MapPage {
    * @param locationId - id локации
    */
   onSelectLocation(locationId: number): void {
+    this.locationProvidingInfo = null;
+    this.location = null;
     this.isLoading = true;
     this.centerOnLocation(locationId);
     this.openBar();
-    this.location$ = this.locationsService.get(locationId).pipe(
-      tap(
-        (location) => {
-          this.isLoading = false;
-          this.locationProvidingInfo = null;
-        },
-        () => this.isLoading = false
-      )
+    this.organizationsCount$ = this.apiOrganization.count(locationId);
+    this.locationsService.get(locationId).subscribe(
+      (location) => {
+        this.location = location;
+        this.isLoading = false;
+      },
+      () => this.isLoading = false
     );
   }
 
@@ -73,9 +81,36 @@ export class MapPage {
   }
 
   onAreaClick(area: {feature: {id: number}}): void {
+    this.location = null;
     this.locationDetails.locationProvidingInfo(area.feature.id).subscribe(info => {
       this.locationProvidingInfo = info;
-      this.location$ = null;
     });
+  }
+
+  onOpenOrganizationInfo(location: LocationInfoBarValue): void {
+    this.organizations$ = this.apiOrganization.organizationsByLocation(location.id);
+  }
+
+  onOpenAccessPointBar(accessPoint: AORAccessPoint): void {
+    switch (accessPoint.type) {
+      case 'ESPD':
+        this.bestMap.addLayer('ESPD');
+        break;
+      case 'SMO':
+        this.bestMap.addLayer('SMO');
+        break;
+    }
+    setTimeout(() => {
+      this.bestMap.moveToPoint(accessPoint.id, accessPoint.type);
+    }, 1000);
+  }
+
+  async onAccessPointClick(point: {type: string; id: number}): Promise<void> {
+    const locationId = await this.accessPointsApi.getLocationId(point.id).toPromise();
+    console.log(this.location);
+    if (!this.location || this.location.id !== locationId) {
+      this.onSelectLocation(locationId);
+    }
+    this.isOpenOrganization = {value: true};
   }
 }

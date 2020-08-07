@@ -8,7 +8,6 @@ import {LocationsService} from '@service/locations/LocationsService';
 import {tap} from 'rxjs/operators';
 import {LoaderService} from '../../loader/LoaderService';
 import {MunicipalitiesLayer, MunicipalitiesLayerGeoJson} from '@service/leaflet-config/MunicipalitiesLayer';
-import {TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
 
 @Component({
   selector: 'best-map',
@@ -18,9 +17,16 @@ import {TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
 export class BestMap implements OnInit, OnDestroy {
   @Output() readonly locationClick: EventEmitter<number>;
   @Output() readonly areaClick: EventEmitter<MunicipalitiesLayerGeoJson>;
+  @Output() readonly accessPointClick: EventEmitter<{ type: string, id: number }>;
   readonly pointsLayers: MapLayers;
   readonly leafletOptions$: Observable<MapOptions>;
   map: Map;
+  layersChecked = {
+    SMO: false,
+    ESPD: false,
+    trunkChannelsLayer: false,
+    locations: true
+  };
 
   constructor(private layersFactory: LayerControllersFactory,
               private locationsService: LocationsService,
@@ -36,8 +42,16 @@ export class BestMap implements OnInit, OnDestroy {
       SMO: this.layersFactory.smoLayerLayerController(),
       trunkChannelsLayer: layersFactory.trunkChannelsLayer() as any
     };
-    this.locationClick =  this.pointsLayers.locations.onPointClick();
+    this.locationClick = this.pointsLayers.locations.onPointClick();
     this.areaClick = this.municipalitiesLayer.onMunicipalityClick;
+    this.accessPointClick = new EventEmitter<{ type: string, id: number }>();
+    Object.keys(this.pointsLayers)
+      .filter((key) => key !== 'trunkChannelsLayer')
+      .forEach((key) => {
+        this.pointsLayers[key]
+          .onPointClick()
+          .subscribe((id) => this.accessPointClick.emit({id, type: key}));
+      });
   }
 
   ngOnInit(): void {
@@ -52,10 +66,20 @@ export class BestMap implements OnInit, OnDestroy {
 
   removeOrAddLayer(id: string, checked: any): void {
     if (!checked.target.checked) {
-      this.pointsLayers[id].removeFrom(this.map);
+      this.removeLayer(id);
     } else {
-      this.pointsLayers[id].addTo(this.map);
+      this.addLayer(id);
     }
+  }
+
+  addLayer(id: string): void {
+    this.layersChecked[id] = true;
+    this.pointsLayers[id].addTo(this.map);
+  }
+
+  removeLayer(id: string): void {
+    this.layersChecked[id] = false;
+    this.pointsLayers[id].removeFrom(this.map);
   }
 
   @Input()
@@ -75,5 +99,9 @@ export class BestMap implements OnInit, OnDestroy {
     Object.keys(this.pointsLayers).forEach(key => {
       this.pointsLayers[key].removeFrom(this.map);
     });
+  }
+
+  moveToPoint(pointId: number, layerId: string): void {
+    this.pointsLayers[layerId].moveTo(pointId);
   }
 }

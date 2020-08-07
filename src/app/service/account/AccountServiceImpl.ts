@@ -5,28 +5,31 @@ import {AccountApi} from '@api/account/account.api';
 import {Account} from '@service/account/Account';
 import {AccountFromApi} from '@api/dto/AccountFromApi';
 import {AccountConverter} from '@service/account/AccountConverter';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, shareReplay} from 'rxjs/operators';
 
 export class AccountServiceImpl implements AccountService {
+  private readonly account: Observable<Account>;
+
   constructor(private accountApi: AccountApi,
               private accountConverter: AccountConverter<AccountFromApi>) {
-  }
-
-  get(): Observable<Account> {
-    return this.accountApi.get().pipe(
+    this.account = this.accountApi.get().pipe(
       catchError(() => of(null)),
-      map(account => this.accountConverter.convert(account))
+      map(account => this.accountConverter.convert(account)),
+      shareReplay(1)
     );
   }
 
+  get(): Observable<Account> {
+    return this.account;
+  }
+
   getRole(): Observable<UserRole[]> {
-    return this.accountApi.get().pipe(
-      catchError(() => of(null)),
+    return this.account.pipe(
       map(account => {
         if (account === null) {
           return ['GUEST'];
         }
-        return this.accountConverter.convert(account).getRole();
+        return account.getRole();
       })
     );
   }

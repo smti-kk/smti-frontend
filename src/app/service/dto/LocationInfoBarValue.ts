@@ -15,4 +15,5 @@ export interface LocationInfoBarValue {
   payphone: OperatorIcon[];
   mail: PostIcon[];
   infomat: OperatorIcon[];
+  id: number;
 }

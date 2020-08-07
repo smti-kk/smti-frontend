@@ -12,11 +12,15 @@ export class PLCWithReloadInterval implements PointLayerController {
     this.timeoutMS = timeoutMS;
   }
 
-  addTo(map: Map): void {
-    this.interval = setInterval(() => {
-      this.reloadLayer();
-    }, this.timeoutMS);
-    this.origin.addTo(map);
+  addTo(map: Map): boolean {
+    if (this.origin.addTo(map)) {
+      this.interval = setInterval(() => {
+        this.reloadLayer();
+      }, this.timeoutMS);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   onPointClick(): EventEmitter<number> {
@@ -27,9 +31,13 @@ export class PLCWithReloadInterval implements PointLayerController {
     this.origin.reloadLayer();
   }
 
-  removeFrom(map: Map): void {
-    clearInterval(this.interval);
-    this.origin.removeFrom(map);
+  removeFrom(map: Map): boolean {
+    if (this.origin.removeFrom(map)) {
+      clearInterval(this.interval);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   moveTo(id: number): void {

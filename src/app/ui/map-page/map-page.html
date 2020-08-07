@@ -1,13 +1,22 @@
 <info-bar (toggle)="onToggleBar($event)" [opened]="barIsOpened">
   <search (selectLocation)="onSelectLocation($event)" class="location-search"></search>
   <area-info-bar *ngIf="locationProvidingInfo" [area]="locationProvidingInfo"></area-info-bar>
-  <location-info-bar *ngIf="location$ | async as location" [location]="location"></location-info-bar>
-<!--  <organizations-info-bar [organizations]="[{}]"></organizations-info-bar>-->
+  <location-info-bar *ngIf="location" [location]="location"></location-info-bar>
+  <ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+    <organizations-info-bar
+      *ngIf="organizationsCount$ && location"
+      [organizationsCount]="organizationsCount$ | async"
+      [organizations]="organizations$ | async"
+      [(openOrganizationBar)]="isOpenOrganization"
+      (openBar)="onOpenOrganizationInfo(location)"
+      (openAccessPointBar)="onOpenAccessPointBar($event)"
+     ></organizations-info-bar>
+  </ng-container>
   <div class="spinner-container" *ngIf="isLoading">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
-<!--  <organizations-info-bar></organizations-info-bar>-->
 </info-bar>
 <best-map [centredOnLocation]="centeredLocation"
           (areaClick)="onAreaClick($event)"
+          (accessPointClick)="onAccessPointClick($event)"
           (locationClick)="onSelectLocation($event)"></best-map>

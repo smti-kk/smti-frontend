@@ -11,14 +11,18 @@ export class PointLayerControllerImpl implements PointLayerController {
     this.pointsLayer = pointsLayer;
   }
 
-  addTo(map: Map): void {
+  addTo(map: Map): boolean {
     this.map = map;
-    this.reloadLayer();
-    this.pointsLayer.addToMap(map);
+    if (this.pointsLayer.addToMap(map)) {
+      this.reloadLayer();
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  removeFrom(map: Map): void {
-    this.pointsLayer.removeFromMap(map);
+  removeFrom(map: Map): boolean {
+    return this.pointsLayer.removeFromMap(map);
   }
 
   onPointClick(): EventEmitter<number> {
