@@ -3,12 +3,12 @@ import {PointsService} from '../points/PointsService';
 import 'leaflet.markercluster';
 import {PointsLayer} from './PointsLayer';
 import {Observable} from 'rxjs';
-import {Point} from '../points/Point';
+import {MonitoringPoint} from '../points/MonitoringPoint';
 import {tap} from 'rxjs/operators';
 
 export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
   private readonly pointsService: PointsService;
-  private readonly existedPoints: { [id: string]: Point };
+  private readonly existedPoints: { [id: string]: MonitoringPoint };
   private map: Map;
 
   constructor(pointsService: PointsService, options?: MarkerClusterGroupOptions) {
@@ -35,7 +35,7 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
     return false;
   }
 
-  reloadByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  reloadByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     return this.pointsService.getPointsByBounds(bounds)
       .pipe(
         tap(points => {

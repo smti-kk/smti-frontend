@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {Point} from '../points/Point';
+import {MonitoringPoint} from '../points/MonitoringPoint';
 import {LatLngBounds} from 'leaflet';
 import {PointsService} from '../points/PointsService';
 import {PointsConverter} from '../points/PointsConverter';
@@ -12,13 +12,13 @@ export class SMOPointsService implements PointsService {
               private pointsConverter: PointsConverter<AccessPointFromApi>) {
   }
 
-  getPoints(): Observable<Point[]> {
+  getPoints(): Observable<MonitoringPoint[]> {
     return this.accessPointsApi.get('SMO').pipe(
       map(points => points.map(point => this.pointsConverter.convert(point)))
     );
   }
 
-  getPointsByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  getPointsByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     return this.accessPointsApi.getByBounds(bounds, 'SMO').pipe(
       map(points => points.map(point => this.pointsConverter.convert(point)))
     );

@@ -9,10 +9,11 @@ import {AORAccessPoint, ApiOrganizationResponse} from '@api/dto/ApiOrganizationR
 export class OrganizationsInfoBar implements OnInit {
   @Input() organizations: ApiOrganizationResponse[];
   @Input() organizationsCount: number;
-  @Input() openOrganizationBar: {value: boolean};
+  @Input() openOrganizationBar: {value: boolean} = {value: false};
   @Output() openOrganizationBarChange: EventEmitter<{value: boolean}>;
   @Output() openBar: EventEmitter<void>;
   @Output() openAccessPointBar: EventEmitter<AORAccessPoint>;
+  expandedAP: {value: number} = {value: null};
 
   constructor() {
     this.openBar = new EventEmitter<void>();
@@ -35,5 +36,17 @@ export class OrganizationsInfoBar implements OnInit {
 
   onOpenAccesspointBar(accessPoint: AORAccessPoint): void {
     this.openAccessPointBar.emit(accessPoint);
+  }
+
+  @Input()
+  set openAccessPoint(point: {value: boolean, id: number, type: string}) {
+    if (!point) {
+      return;
+    }
+    this.openOrganizationBar = {value: point.value};
+    setTimeout(() => {
+      this.expandedAP = {value: point.id};
+      document.getElementById('access-point-bar-' + point.id).scrollIntoView({block: 'center'});
+    }, 5000);
   }
 }

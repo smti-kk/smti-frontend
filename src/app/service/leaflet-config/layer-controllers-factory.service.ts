@@ -25,13 +25,14 @@ import {ESPDIconFromState} from '@service/access-points/ESPDIconFromState';
 import {SMOIconFromState} from '@service/access-points/SMOIconFromState';
 import {BaseStationsPointsService} from '@service/points/BaseStationsPointsService';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
-import {TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
-import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
+import {TrunkChannelFilters, TrunkChannelsLayer} from '@service/leaflet-config/TrunkChannelsLayer';
+import {BaseStationsLayer} from '@service/leaflet-config/BaseStationsLayer';
+import {CellularType} from '@api/dto/CellularType';
+import {TrunkChannel} from '@api/dto/TrunkChannel';
 
 @Injectable()
 export class LayerControllersFactory {
-  constructor(private httpClient: HttpClient,
-              private trunkChannelsApi: TrunkChannelsApi) {
+  constructor(private httpClient: HttpClient) {
   }
 
   locationLayerController(): PointLayerController {
@@ -56,7 +57,7 @@ export class LayerControllersFactory {
           )
         )
       ),
-      500
+      500 // dont touch me
     );
   }
 
@@ -118,12 +119,12 @@ export class LayerControllersFactory {
     );
   }
 
-  baseStationsLayerLayerController(): PointLayerController {
+  baseStationsLayerLayerController(mobileTypes: CellularType[]): PointLayerController {
     return new PLCWithReloadInterval(
       new PointLayerControllerImpl(
         new PLClickable(
-          new PLWithLoader(
-            new LocationsLayer(
+          // new PLWithLoader(
+            new BaseStationsLayer(
               new PSWithUniqueResponseParts(
                 new PSFullPreloaded(
                   new BaseStationsPointsService(
@@ -133,16 +134,17 @@ export class LayerControllersFactory {
                   )
                 ),
                 new PointUniquenessFilterImpl()
-              )
+              ),
+              mobileTypes
             )
-          )
+          // )
         )
       ),
       500
     );
   }
 
-  trunkChannelsLayer(): TrunkChannelsLayer {
-    return new TrunkChannelsLayer(this.trunkChannelsApi);
+  trunkChannelsLayer(channels: TrunkChannel[], filters: TrunkChannelFilters): TrunkChannelsLayer {
+    return new TrunkChannelsLayer(channels, filters);
   }
 }

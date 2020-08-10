@@ -163,3 +163,35 @@ input[type="checkbox"]:checked + .checkbox-text.radio::after {
 input[type="checkbox"]:checked + .checkbox-text.provider::after {
   background: #1b62ef;
 }
+
+input[type="checkbox"]:checked + .checkbox-text.Теле2::after {
+  background: black;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Мегафон::after {
+  background: green;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.МТС::after {
+  background: red;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Билайн::after {
+  background: yellow;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.РТРС::after {
+  background: purple;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.СибТТК::after {
+  background: lightblue;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Искра::after {
+  background: brown;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Ростелеком::after {
+  background: orange;
+}

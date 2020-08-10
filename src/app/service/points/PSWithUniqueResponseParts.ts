@@ -1,6 +1,6 @@
 import {LatLngBounds} from 'leaflet';
 import {Observable} from 'rxjs';
-import {Point} from './Point';
+import {MonitoringPoint} from './MonitoringPoint';
 import {PointsService} from './PointsService';
 import {map} from 'rxjs/operators';
 import {PointUniquenessFilter} from '@service/points/PointUniquenessFilter';
@@ -18,13 +18,13 @@ export class PSWithUniqueResponseParts implements PointsService {
     this.uniquenessFilter = uniquenessFilter;
   }
 
-  getPointsByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  getPointsByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     return this.origin.getPointsByBounds(bounds).pipe(
       map(points => this.uniquenessFilter.filter(points))
     );
   }
 
-  getPoints(): Observable<Point[]> {
+  getPoints(): Observable<MonitoringPoint[]> {
     return this.origin.getPoints().pipe(
       map(points => this.uniquenessFilter.filter(points))
     );

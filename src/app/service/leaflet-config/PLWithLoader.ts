@@ -1,7 +1,7 @@
 import {PointsLayer} from './PointsLayer';
 import {LatLngBounds, Map} from 'leaflet';
 import {Observable} from 'rxjs';
-import {Point} from '../points/Point';
+import {MonitoringPoint} from '../points/MonitoringPoint';
 import {tap} from 'rxjs/operators';
 
 export class PLWithLoader implements PointsLayer {
@@ -17,7 +17,7 @@ export class PLWithLoader implements PointsLayer {
     return this.origin.addToMap(map);
   }
 
-  reloadByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  reloadByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     if (!this.map) {
       return this.origin.reloadByBounds(bounds);
     }

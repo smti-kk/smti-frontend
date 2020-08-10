@@ -15,7 +15,9 @@
           </mat-expansion-panel-header>
 
           <mat-accordion *ngFor="let accessPoint of organization.accesspoints">
-            <mat-expansion-panel [expanded]="false" (opened)="onOpenAccesspointBar(accessPoint)">
+            <mat-expansion-panel [id]="'access-point-bar-' + accessPoint.id"
+
+                                 (opened)="onOpenAccesspointBar(accessPoint)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <div class="panel-title">

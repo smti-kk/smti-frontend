@@ -1,7 +1,7 @@
 import {PointsService} from '../points/PointsService';
 import {LatLngBounds} from 'leaflet';
 import {Observable} from 'rxjs';
-import {Point} from '../points/Point';
+import {MonitoringPoint} from '../points/MonitoringPoint';
 import {MapLocationsApi} from '@api/locations/MapLocationsApi';
 import {map} from 'rxjs/operators';
 import {PointsConverter} from '../points/PointsConverter';
@@ -12,7 +12,7 @@ export class LocationsPointsService implements PointsService {
               private pointsConverter: PointsConverter<MapLocation>) {
   }
 
-  getPointsByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  getPointsByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     return this.locationsApi.getLocationsByBounds(bounds).pipe(
       map(value => {
         return value.map(p => this.pointsConverter.convert(p));
@@ -20,7 +20,7 @@ export class LocationsPointsService implements PointsService {
     );
   }
 
-  getPoints(): Observable<Point[]> {
+  getPoints(): Observable<MonitoringPoint[]> {
     return this.locationsApi.getLocations().pipe(
       map(value => {
         return value.map(p => this.pointsConverter.convert(p));

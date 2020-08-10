@@ -64,7 +64,6 @@ import {
   LocationsServiceImpl,
   LocationTableItemConverterImpl,
   LSWithDelay,
-  NotStrictFilterImpl,
   OperatorIconsFactoryImpl,
   StrictFilterImpl
 } from '@service/locations';
@@ -96,7 +95,7 @@ import {MapLocationsApiImpl} from '@api/locations/MapLocationsApiImpl';
 import {MapLocationsApi} from '@api/locations/MapLocationsApi';
 import {BoundsToStringConverter} from '@api/util/bounds.to.string.converter';
 import {ApiOrganization} from '@api/organizations/ApiOrganization';
-import {AccessPointsApi} from "@api/access-points/AccessPointsApi";
+import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -218,7 +217,7 @@ export const factory = (): Provider[] => {
   );
   const apiFeaturesRequests = new ApiFeaturesRequestsImpl(httpClient);
   const trunkChannelsApi = new TrunkChannelsApi(httpClient);
-  const layerControllersFactory: LayerControllersFactory = new LayerControllersFactory(httpClient, trunkChannelsApi);
+  const layerControllersFactory: LayerControllersFactory = new LayerControllersFactory(httpClient);
   const apiOrganization = new ApiOrganization(httpClient);
   const accessPointsApi = new AccessPointsApi(httpClient);
   return [

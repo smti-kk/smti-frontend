@@ -6,7 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {MoveToArchiveDialog} from './move-to-archive-dialog/MoveToArchiveDialog';
 import {CurrentYearService} from '@service/util/CurrentYearService';
 import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
-import {MatButtonToggleChange} from "@angular/material/button-toggle";
+import {MatButtonToggleChange} from '@angular/material/button-toggle';
 
 @Component({
   selector: 'features-page',

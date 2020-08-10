@@ -3,7 +3,7 @@ import {LatLngBounds, Map} from 'leaflet';
 import {Observable} from 'rxjs';
 import {EventEmitter} from '@angular/core';
 import {tap} from 'rxjs/operators';
-import {Point} from '../points/Point';
+import {MonitoringPoint} from '../points/MonitoringPoint';
 
 export class PLClickable implements PointsLayer {
   private readonly origin: PointsLayer;
@@ -22,7 +22,7 @@ export class PLClickable implements PointsLayer {
     return this.origin.removeFromMap(map);
   }
 
-  reloadByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  reloadByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     return this.origin.reloadByBounds(bounds).pipe(
       tap(points => {
         points.forEach(p => p.addEventListener(

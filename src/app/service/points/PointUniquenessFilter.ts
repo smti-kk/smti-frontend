@@ -1,6 +1,6 @@
-import {Point} from './Point';
+import {MonitoringPoint} from './MonitoringPoint';
 
 export abstract class PointUniquenessFilter {
-  abstract filter(points: Point[]): Point[];
+  abstract filter(points: MonitoringPoint[]): MonitoringPoint[];
 }
 

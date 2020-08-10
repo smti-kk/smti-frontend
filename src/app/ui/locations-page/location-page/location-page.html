@@ -51,9 +51,9 @@
                     (ngModelChange)="tcs.cellular.tcs[operator.id].quality = $event"
                     [name]="'quality-opt-cellular' + operator.id"
                   >
-                    <mat-option value="GOOD">Хорошее качество</mat-option>
+                    <mat-option value="GOOD">(Хорошее качество)</mat-option>
                     <mat-option value="NORMAL">Удовлетворительное качество</mat-option>
-                    <mat-option value="ABSENT">Отсутствует</mat-option>
+                    <mat-option value="ABSENT">(Отсутствует)</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="example-form-field">
@@ -120,9 +120,9 @@
                     (ngModelChange)="tcs.internet.tcs[operator.id].quality = $event"
                     [name]="'quality-opt-internet' + operator.id"
                   >
-                    <mat-option value="GOOD">Хорошее качество</mat-option>
+                    <mat-option value="GOOD">(Хорошее качество)</mat-option>
                     <mat-option value="NORMAL">Удовлетворительное качество</mat-option>
-                    <mat-option value="ABSENT">Отсутствует</mat-option>
+                    <mat-option value="ABSENT">(Отсутствует)</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="example-form-field">
@@ -352,13 +352,13 @@
                   <li class="card-list-item" *ngSwitchCase="'PAYPHONE'">
                     <ng-container [ngSwitch]="edit.action">
                       <ng-container *ngSwitchCase="'CREATE'">
-                        <span class="underline">Таксофоны:</span> Подключен {{edit.tc.operator.name}}
+                        <span class="underline">Таксофоны:</span> Подключен {{edit.tc.operator.name}}  Количество таксофонов: {{edit.tc.payphones}}
                       </ng-container>
                       <ng-container *ngSwitchCase="'DELETE'">
-                        <span class="underline">Таксофоны:</span> Отключен {{edit.tc.operator.name}}
+                        <span class="underline">Таксофоны:</span> Отключен {{edit.tc.operator.name}}.
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
-                        <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
+                        Изменено количество таксофонов с {{edit.tc.payphones}} на {{edit.newValue.payphones}}
                       </ng-container>
                     </ng-container>
                   </li>
@@ -380,15 +380,35 @@
                       <ng-container *ngSwitchCase="'CREATE'">
                         <span class="underline">Интернет:</span>
                         Подключен {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
+                        <ng-container [ngSwitch]="edit.tc.quality">
+                          <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                          <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                          <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                        </ng-container>
                       </ng-container>
                       <ng-container *ngSwitchCase="'DELETE'">
                         <span class="underline">Интернет:</span>
                         Отключен {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
+                        <ng-container [ngSwitch]="edit.tc.quality">
+                          <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                          <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                          <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                        </ng-container>
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
                         <span class="underline">Интернет ({{edit.tc.operator.name}}):</span>
                         <ng-container *ngIf="edit.tc.trunkChannel.id !== edit.newValue.trunkChannel.id">
-                          Изменен тип подключения с {{edit.tc.trunkChannel.name}} на {{edit.newValue.trunkChannel.name}}
+                          Изменен тип подключения с {{edit.tc.trunkChannel.name}}
+                          <ng-container [ngSwitch]="edit.tc.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container> на {{edit.newValue.trunkChannel.name}}
+                          <ng-container [ngSwitch]="edit.newValue.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container>
                         </ng-container>
                       </ng-container>
                     </ng-container>
@@ -398,15 +418,35 @@
                       <ng-container *ngSwitchCase="'CREATE'">
                         <span class="underline">Мобильная связь:</span>
                         Подключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        <ng-container [ngSwitch]="edit.tc.quality">
+                          <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                          <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                          <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                        </ng-container>
                       </ng-container>
                       <ng-container *ngSwitchCase="'DELETE'">
                         <span class="underline">Мобильная связь:</span>
                         Отключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        <ng-container [ngSwitch]="edit.tc.quality">
+                          <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                          <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                          <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                        </ng-container>
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
                         <span class="underline">Мобильная связь ({{edit.tc.operator.name}}):</span>
                         <ng-container *ngIf="edit.tc.typeMobile.id !== edit.newValue.typeMobile.id">
-                          Изменен тип сотовой связи с {{edit.tc.typeMobile.name}} на {{edit.newValue.typeMobile.name}}
+                          Изменен тип сотовой связи с {{edit.tc.typeMobile.name}}
+                          <ng-container [ngSwitch]="edit.tc.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container> на {{edit.newValue.typeMobile.name}}
+                          <ng-container [ngSwitch]="edit.newValue.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container>
                         </ng-container>
                       </ng-container>
                     </ng-container>
@@ -480,7 +520,7 @@
           <div>
             Последние изменения: <span class="color">{{planRequests[0].created | date: 'dd.MM.yyyy'}}</span>
           </div>
-          <button mat-flat-button color="primary" class="custom-btn">Внести изменения</button>
+<!--          <button mat-flat-button color="primary" class="custom-btn">Внести изменения</button>-->
         </div>
         <ng-container *ngFor="let request of planRequests">
           <div class="card-container">
@@ -495,13 +535,28 @@
                       <ng-container *ngSwitchCase="'CREATE'">
                         <span class="underline">Интернет:</span>
                         Подключение {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
+                        <ng-container [ngSwitch]="edit.tc.quality">
+                          <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                          <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                          <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                        </ng-container>
                         (по программе {{edit.tc.governmentDevelopmentProgram.acronym}} {{edit.tc.govYearComplete}})
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
                         <span class="underline">Интернет ({{edit.tc.operator.name}}):</span>
                         <ng-container *ngIf="edit.tc.trunkChannel.id !== edit.newValue.trunkChannel.id">
                           Изменение типа подключения с {{edit.tc.trunkChannel.name}}
+                          <ng-container [ngSwitch]="edit.tc.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container>
                           на {{edit.newValue.trunkChannel.name}}
+                          <ng-container [ngSwitch]="edit.newValue.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container>
                           (по программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}})
                         </ng-container>
                       </ng-container>
@@ -512,18 +567,38 @@
                       <ng-container *ngSwitchCase="'CREATE'">
                         <span class="underline">Мобильная связь:</span>
                         Подключение {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        <ng-container [ngSwitch]="edit.tc.quality">
+                          <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                          <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                          <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                        </ng-container>
                         (по программе {{edit.tc.governmentDevelopmentProgram.acronym}} {{edit.tc.govYearComplete}})
                       </ng-container>
                       <ng-container *ngSwitchCase="'DELETE'">
                         <span class="underline">Мобильная связь:</span>
                         Отключение {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                        <ng-container [ngSwitch]="edit.tc.quality">
+                          <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                          <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                          <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                        </ng-container>
                         (по программе {{edit.tc.governmentDevelopmentProgram.acronym}} {{edit.tc.govYearComplete}})
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
                         <span class="underline">Мобильная связь ({{edit.tc.operator.name}}):</span>
                         <ng-container *ngIf="edit.tc.typeMobile.id !== edit.newValue.typeMobile.id">
                           Изменение типа сотовой связи с {{edit.tc.typeMobile.name}}
+                          <ng-container [ngSwitch]="edit.tc.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container>
                           на {{edit.newValue.typeMobile.name}}
+                          <ng-container [ngSwitch]="edit.newValue.quality">
+                            <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
+                            <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
+                            <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
+                          </ng-container>
                           (по программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}})
                         </ng-container>
                       </ng-container>

@@ -66,6 +66,7 @@ export class BaseStationsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(bs => {
       if (bs) {
+        console.log(bs);
         this.api.update(bs).subscribe(() => {
           const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
           this.dataSource.data[index] = bs;

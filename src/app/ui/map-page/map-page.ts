@@ -22,7 +22,7 @@ export class MapPage {
   locationProvidingInfo: LocationProvidingInfo;
   organizationsCount$: Observable<number>;
   organizations$: Observable<any>;
-  isOpenOrganization = {value: false};
+  isOpenAccessPoint: {value: boolean, type: string; id: number };
   @ViewChild(BestMap) bestMap: BestMap;
 
   constructor(private locationsService: LocationsService,
@@ -106,11 +106,10 @@ export class MapPage {
   }
 
   async onAccessPointClick(point: {type: string; id: number}): Promise<void> {
-    const locationId = await this.accessPointsApi.getLocationId(point.id).toPromise();
-    console.log(this.location);
-    if (!this.location || this.location.id !== locationId) {
-      this.onSelectLocation(locationId);
-    }
-    this.isOpenOrganization = {value: true};
+    // const locationId = await this.accessPointsApi.getLocationId(point.id).toPromise();
+    // if (!this.location || this.location.id !== locationId) {
+    //   this.onSelectLocation(locationId);
+    // }
+    // this.isOpenAccessPoint = {value: true, ...point};
   }
 }

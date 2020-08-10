@@ -1,8 +1,8 @@
-import {Point} from './Point';
+import {MonitoringPoint} from './MonitoringPoint';
 import {LatLngExpression, MarkerOptions} from 'leaflet';
 import {PointState} from './PointState';
 
-export class PointWithState extends Point {
+export class PointWithState extends MonitoringPoint {
   private readonly state: PointState;
 
   constructor(id: number,

@@ -4,7 +4,7 @@
   </div>
   <div class="link root-link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
   <div class="link root-link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
-  <button class="link" mat-button [matMenuTriggerFor]="menu">Сводные таблицы</button>
+  <button class="link" mat-button *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
   <mat-menu #menu="matMenu">
     <div class="link"
          routerLink="/features"

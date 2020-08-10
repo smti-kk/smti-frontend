@@ -16,6 +16,7 @@ export class BaseStationsApi {
   }
 
   update(station: BaseStation): Observable<BaseStation> {
+    console.log(station);
     return this.httpClient.put<BaseStation>(`${BASE_STATIONS_API}`, station);
   }
 

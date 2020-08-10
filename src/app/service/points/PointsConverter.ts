@@ -1,5 +1,5 @@
-import {Point} from './Point';
+import {MonitoringPoint} from './MonitoringPoint';
 
 export interface PointsConverter<T> {
-  convert(point: T): Point;
+  convert(point: T): MonitoringPoint;
 }

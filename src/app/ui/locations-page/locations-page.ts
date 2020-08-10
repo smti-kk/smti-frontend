@@ -4,6 +4,8 @@ import {LocationTableItem} from '@service/dto/LocationTableItem';
 import {LocationFilters} from './location-filters/LocationFilters';
 import {LoaderService} from '../loader/LoaderService';
 import {LazyArray} from '@service/util/LazyArray';
+import {AccountService} from '@service/account/AccountService';
+import {Account} from '@service/account/Account';
 
 @Component({
   selector: 'locations-page',
@@ -17,9 +19,14 @@ export class LocationsPage implements OnInit {
   countPerPage: number;
   isLoading: boolean;
   private filters: LocationFilters;
+  user: Account;
 
   constructor(private readonly locationsFullInformationService: LocationsFullInformationService,
+              private readonly accountService: AccountService,
               private readonly loaderService: LoaderService) {
+    accountService.get().subscribe(user => {
+      this.user = user;
+    });
     this.loaderService = loaderService;
     this.page = 0;
     this.countPerPage = 60;

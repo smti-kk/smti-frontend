@@ -7,7 +7,7 @@
       *ngIf="organizationsCount$ && location"
       [organizationsCount]="organizationsCount$ | async"
       [organizations]="organizations$ | async"
-      [(openOrganizationBar)]="isOpenOrganization"
+      [openAccessPoint]="isOpenAccessPoint"
       (openBar)="onOpenOrganizationInfo(location)"
       (openAccessPointBar)="onOpenAccessPointBar($event)"
      ></organizations-info-bar>

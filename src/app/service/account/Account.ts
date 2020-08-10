@@ -16,4 +16,8 @@ export class Account {
   getName(): string {
     return this.name;
   }
+
+  isOperatorOrAdmin(): boolean {
+    return this.role.indexOf('ADMIN') !== -1 || this.role.indexOf('OPERATOR') !== -1;
+  }
 }

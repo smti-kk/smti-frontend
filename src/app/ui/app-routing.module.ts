@@ -47,7 +47,11 @@ const routes: Routes = [
   },
   {
     path: 'locations/:id',
-    component: LocationPage
+    component: LocationPage,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR'],
+    },
   },
   {
     path: 'locations/:id/plan',

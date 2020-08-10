@@ -52,13 +52,13 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
               planThreeYear,
               active
             };
-          })
-          .filter(location => {
-            return location.archive.length > 0 ||
-              location.planYear.length > 0 ||
-              location.planTwoYear.length > 0 ||
-              location.planThreeYear.length > 0;
           });
+          // .filter(location => {
+          //   return location.archive.length > 0 ||
+          //     location.planYear.length > 0 ||
+          //     location.planTwoYear.length > 0 ||
+          //     location.planThreeYear.length > 0;
+          // });
       })
     );
   }

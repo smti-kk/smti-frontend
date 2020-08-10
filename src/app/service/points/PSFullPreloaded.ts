@@ -1,13 +1,13 @@
 import {PointsService} from './PointsService';
 import {Observable, of} from 'rxjs';
-import {Point} from './Point';
+import {MonitoringPoint} from './MonitoringPoint';
 import {LatLngBounds} from 'leaflet';
 
 /**
  * Предзагрузка всех точек
  */
 export class PSFullPreloaded implements PointsService {
-  private loadedFullPointsList: Point[];
+  private loadedFullPointsList: MonitoringPoint[];
   private readonly origin: PointsService;
 
   constructor(origin: PointsService) {
@@ -17,7 +17,7 @@ export class PSFullPreloaded implements PointsService {
     });
   }
 
-  getPoints(): Observable<Point[]> {
+  getPoints(): Observable<MonitoringPoint[]> {
     if (this.loadedFullPointsList) {
       return of(this.loadedFullPointsList);
     } else {
@@ -25,7 +25,7 @@ export class PSFullPreloaded implements PointsService {
     }
   }
 
-  getPointsByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  getPointsByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     if (this.loadedFullPointsList) {
       return of(this.loadedFullPointsList);
     } else {

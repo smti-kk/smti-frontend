@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {Point} from '../points/Point';
+import {MonitoringPoint} from '../points/MonitoringPoint';
 import {LatLngBounds} from 'leaflet';
 import {PointsService} from '../points/PointsService';
 import {MapAccessPointsApi} from '@api/access-points/MapAccessPointsApi';
@@ -12,13 +12,13 @@ export class ESPDPointsService implements PointsService {
               private pointsConverter: PointsConverter<AccessPointFromApi>) {
   }
 
-  getPoints(): Observable<Point[]> {
+  getPoints(): Observable<MonitoringPoint[]> {
     return this.accessPointsApi.get('ESPD').pipe(
       map(points => points.map(point => this.pointsConverter.convert(point)))
     );
   }
 
-  getPointsByBounds(bounds: LatLngBounds): Observable<Point[]> {
+  getPointsByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     return this.accessPointsApi.getByBounds(bounds, 'ESPD').pipe(
       map(points => points.map(point => this.pointsConverter.convert(point)))
     );

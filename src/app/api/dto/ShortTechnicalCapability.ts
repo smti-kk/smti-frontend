@@ -21,6 +21,7 @@ export interface FCTechnicalCapability {
   govYearComplete: number;
   state: TcState;
   payphones: number;
+  quality: Quality;
 }
 
 export interface ShortTechnicalCapability {

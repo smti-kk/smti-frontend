@@ -33,7 +33,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr class="location-row location-link" [routerLink]="[location.id]" *ngFor="let location of locations.array">
+    <tr class="location-row location-link" [routerLink]="[user ? (user.isOperatorOrAdmin() ? location.id : null) : null]" *ngFor="let location of locations.array">
       <td class="align-left">{{location.area.name}}</td>
       <td class="align-left">{{location.name}}</td>
       <td>{{location.population}}</td>
