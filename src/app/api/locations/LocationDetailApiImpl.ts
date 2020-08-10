@@ -49,4 +49,8 @@ export class LocationDetailApiImpl implements LocationDetailApi {
   exportExcel(locations: number[]): Observable<void> {
     return this.httpClient.post<void>(LOCATION_DETAIL_API + `/export-excel`, locations);
   }
+
+  listByUser(): Observable<LocationDetail[]> {
+    return this.httpClient.get<LocationDetail[]>(LOCATION_DETAIL_API + '/by-user');
+  }
 }

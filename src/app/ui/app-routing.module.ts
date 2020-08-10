@@ -11,7 +11,8 @@ import {PlanPage} from './locations-page/plan-page/PlanPage';
 import {BaseStationsComponent} from './base-stations/base-stations.component';
 import {TrunkChannelsComponent} from './trunk-channels/trunk-channels.component';
 import {RouteProxyService} from './route.proxy.service';
-import {MunRequestsComponent} from "./mun-requests/mun-requests.component";
+import {MunRequestsComponent} from './mun-requests/mun-requests.component';
+import {OperProfileComponent} from "./oper-profile/oper-profile.component";
 
 
 const routes: Routes = [
@@ -99,9 +100,17 @@ const routes: Routes = [
     path: 'mun-requests',
     canActivate: [RouteProxyService],
     data: {
-      permissions: ['ADMIN']
+      permissions: ['MUNICIPALITY']
     },
     component: MunRequestsComponent
+  },
+  {
+    path: 'oper-profile',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['OPERATOR']
+    },
+    component: OperProfileComponent
   },
 ];
 

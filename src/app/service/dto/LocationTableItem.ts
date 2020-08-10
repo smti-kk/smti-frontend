@@ -4,6 +4,7 @@ import {InternetIcon} from '@service/dto/InternetIcon';
 import {GovProgram} from '@api/dto/GovProgram';
 import {TvOrRadioIcon} from '@service/dto/TvOrRadioIcon';
 import {PostIcon} from '@service/dto/PostIcon';
+import {PayphoneIcon} from "@service/dto/PayphoneIcon";
 
 interface LocationArea {
   id: number;
@@ -16,7 +17,7 @@ export interface LocationTableItem {
   area: LocationArea;
   name: string;
   ats: OperatorIcon[];
-  payphone: OperatorIcon[];
+  payphone: PayphoneIcon[];
   infomat: OperatorIcon[];
   post: PostIcon[];
   television: TvOrRadioIcon[];

@@ -12,4 +12,8 @@ export class LocationFeaturesImpl implements LocationFeatures {
   saveAll(request: LocationFeaturesSaveRequest, locationId: number): Observable<void> {
     return this.httpClient.post<void>(`${LOCATION_FEATURES}/${locationId}`, request);
   }
+
+  sendRequest(features: LocationFeaturesSaveRequest, locationId: number): Observable<void> {
+    return this.httpClient.post<void>(`${LOCATION_FEATURES}/${locationId}/request`, features);
+  }
 }

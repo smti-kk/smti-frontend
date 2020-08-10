@@ -26,4 +26,10 @@ export class LFISThrottled implements LocationsFullInformationService {
   exportExcel(): void {
     this.origin.exportExcel();
   }
+
+  listByUser(): Observable<LocationTableItem[]> {
+    return this.throttle.throttle(this.origin.listByUser());
+  }
+
+
 }

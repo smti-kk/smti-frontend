@@ -7,6 +7,7 @@ import {CellularIcon} from '@service/dto/CellularIcon';
 import {InternetIcon} from '@service/dto/InternetIcon';
 import {TvOrRadioIcon} from '@service/dto/TvOrRadioIcon';
 import {PostIcon} from '@service/dto/PostIcon';
+import {PayphoneIcon} from "@service/dto/PayphoneIcon";
 
 export class OperatorIconsFactoryImpl implements OperatorIconsFactory {
   operatorIcons(operators: Operator[],
@@ -82,6 +83,21 @@ export class OperatorIconsFactoryImpl implements OperatorIconsFactory {
         return new PostIcon(operator.id, true, operator.icon, operator.name, tc.govYearComplete, tc.typePost);
       } else {
         return new PostIcon(operator.id, false, operator.icon, operator.name, null, null);
+      }
+    });
+  }
+
+  payphoneIcons(operators: Operator[],
+                technicalCapabilities: ShortTechnicalCapability[],
+                type: TechnicalCapabilityType): PayphoneIcon[] {
+    return operators.map(operator => {
+      const tc = technicalCapabilities.find(tcItem => {
+        return tcItem.operatorId === operator.id && tcItem.type === type;
+      });
+      if (tc) {
+        return new PayphoneIcon(operator.id, true, operator.icon, operator.name, tc.govYearComplete, tc.payphones);
+      } else {
+        return new PayphoneIcon(operator.id, false, operator.icon, operator.name, null, null);
       }
     });
   }

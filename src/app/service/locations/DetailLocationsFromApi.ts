@@ -23,4 +23,10 @@ export class DetailLocationsFromApi implements DetailLocations {
       map((location) => null)
     );
   }
+
+  sendRequest(tc: TcEditionFromApi, locationId: number): Observable<TechnicalCapabilityEdition> {
+    return this.locationFeatures.sendRequest(tc.toLocationFeaturesSaveRequest(), locationId).pipe(
+      map((location) => null)
+    );
+  }
 }

@@ -6,6 +6,7 @@ import {CellularIcon} from '@service/dto/CellularIcon';
 import {InternetIcon} from '@service/dto/InternetIcon';
 import {TvOrRadioIcon} from "@service/dto/TvOrRadioIcon";
 import {PostIcon} from "@service/dto/PostIcon";
+import {PayphoneIcon} from "@service/dto/PayphoneIcon";
 
 /**
  * Конструирование операторских иконок
@@ -37,5 +38,9 @@ export abstract class OperatorIconsFactory {
   abstract postIcons(operators: Operator[],
                      technicalCapabilities: ShortTechnicalCapability[],
                      type: TechnicalCapabilityType): PostIcon[];
+
+  abstract payphoneIcons(operators: Operator[],
+                         technicalCapabilities: ShortTechnicalCapability[],
+                         type: TechnicalCapabilityType): PayphoneIcon[];
 }
 

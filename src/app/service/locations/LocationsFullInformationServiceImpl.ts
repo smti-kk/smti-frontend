@@ -58,4 +58,15 @@ export class LocationsFullInformationServiceImpl implements LocationsFullInforma
     // todo: implement
     this.locationDetailApi.exportExcel([]);
   }
+
+  listByUser(): Observable<LocationTableItem[]> {
+    return forkJoin([
+      this.operatorsApi.get(),
+      this.locationDetailApi.listByUser()
+    ]).pipe(
+      map(([operators, locations]) => {
+        return locations.map(l => this.locationTableItemConverter.convert(l, operators));
+      })
+    );
+  }
 }

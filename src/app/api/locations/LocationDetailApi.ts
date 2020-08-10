@@ -12,4 +12,5 @@ export abstract class LocationDetailApi {
   abstract govYears(): Observable<number[]>;
   abstract locationProvidingInfo(locationId: number): Observable<LocationProvidingInfo>;
   abstract exportExcel(locations: number[]): Observable<void>;
+  abstract listByUser(): Observable<LocationDetail[]>;
 }

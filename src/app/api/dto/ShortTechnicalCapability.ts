@@ -20,6 +20,7 @@ export interface FCTechnicalCapability {
   typePost: PostType;
   govYearComplete: number;
   state: TcState;
+  payphones: number;
 }
 
 export interface ShortTechnicalCapability {
@@ -34,6 +35,8 @@ export interface ShortTechnicalCapability {
   typePost: PostType;
   govYearComplete: number;
   state: TcState;
+  quality: Quality;
+  payphones: number;
 }
 
 export interface WriteableTechnicalCapability {
@@ -49,4 +52,5 @@ export interface WriteableTechnicalCapability {
   typePost: string;
   govYearComplete: number;
   state: TcState;
+  payphones: number;
 }

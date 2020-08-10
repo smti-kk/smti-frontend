@@ -45,7 +45,8 @@ export class TcEdition {
         quality: 'GOOD',
         govYearComplete: null,
         typePost,
-        state: 'WAIT_FOR_STATE_TO_BE_SET'
+        state: 'WAIT_FOR_STATE_TO_BE_SET',
+        payphones: 0
       };
     }
   }

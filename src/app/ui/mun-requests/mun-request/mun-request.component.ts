@@ -1,31 +1,33 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MobileTypeApi} from '@api/mobile-type/MobileTypeApi';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MobileType} from '@api/dto/MobileType';
-import {OperatorsApi} from '@api/operators/OperatorsApi';
+import {TrunkChannelType} from '@api/dto/TrunkChannelType';
 import {Operators} from '@api/dto/Operators';
 import {TcEdition, TechnicalCapabilityEdition} from '@service/dto/TechnicalCapabilityEdition';
-import {MatCheckboxChange} from '@angular/material/checkbox';
-import {forkJoin, Subscription} from 'rxjs';
-import {TrunkChannelTypeApi} from '@api/trunk-channel/TrunkChannelTypeApi';
-import {TrunkChannelType} from '@api/dto/TrunkChannelType';
-import {TvTypeApi} from '@api/tv-type/TvTypeApi';
-import {PostTypeApi} from '@api/post-type/PostTypeApi';
 import {Signal} from '@api/dto/Signal';
 import {PostType} from '@api/dto/PostType';
-import {DetailLocations} from '@service/locations/DetailLocations';
-import {ActivatedRoute} from '@angular/router';
-import {AccountService} from '@service/account/AccountService';
 import {Account} from '@service/account/Account';
-import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {LocationFeatureEditingRequest} from '@api/dto/LocationFeatureEditingRequest';
+import {forkJoin, Subscription} from 'rxjs';
+import {MobileTypeApi} from '@api/mobile-type/MobileTypeApi';
+import {ActivatedRoute} from '@angular/router';
+import {TrunkChannelTypeApi} from '@api/trunk-channel/TrunkChannelTypeApi';
+import {AccountService} from '@service/account/AccountService';
+import {TvTypeApi} from '@api/tv-type/TvTypeApi';
+import {PostTypeApi} from '@api/post-type/PostTypeApi';
+import {OperatorsApi} from '@api/operators/OperatorsApi';
+import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {DetailLocations} from '@service/locations/DetailLocations';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
-  selector: 'location-page',
-  templateUrl: 'location-page.html',
-  styleUrls: ['location-page.scss']
+  selector: 'app-mun-request',
+  templateUrl: './mun-request.component.html',
+  styleUrls: ['./mun-request.component.scss']
 })
-export class LocationPage implements OnInit, OnDestroy {
+export class MunRequestComponent implements OnInit, OnDestroy {
+
   isEdition: boolean;
   mobileTypes: MobileType[];
   internetTypes: TrunkChannelType[];
@@ -36,7 +38,6 @@ export class LocationPage implements OnInit, OnDestroy {
   locationId: string;
   account$: Observable<Account>;
   archiveRequests: LocationFeatureEditingRequest[];
-  planRequests: LocationFeatureEditingRequest[];
   private subscription: Subscription;
 
   constructor(private mobileTypeApi: MobileTypeApi,
@@ -46,10 +47,11 @@ export class LocationPage implements OnInit, OnDestroy {
               private tvTypeApi: TvTypeApi,
               private postTypeApi: PostTypeApi,
               private operatorsApi: OperatorsApi,
-              private readonly requestsService: ApiFeaturesRequests,
               private snackBar: MatSnackBar,
+              private dialogRef: MatDialogRef<MunRequestComponent>,
+              @Inject(MAT_DIALOG_DATA) locationId: number,
               private detailLocations: DetailLocations) {
-    this.locationId = activatedRoute.snapshot.params.id;
+    this.locationId = `${locationId}`;
     this.isEdition = true;
     this.subscription = forkJoin([
       mobileTypeApi.list(),
@@ -73,22 +75,10 @@ export class LocationPage implements OnInit, OnDestroy {
       this.postTypes = postTypes;
       this.tcs = location;
     });
-    this.requestsService.archive(parseInt(this.locationId, 10)).subscribe(requests => {
-      console.log(requests);
-      this.archiveRequests = requests;
-    });
-    this.requestsService.plan(parseInt(this.locationId, 10)).subscribe(requests => {
-      console.log(requests);
-      this.planRequests = requests;
-    });
   }
 
   ngOnInit(): void {
     this.account$ = this.accountService.get();
-  }
-
-  onChange(tcs: TechnicalCapabilityEdition): void {
-    console.log(tcs);
   }
 
   onAddOrRemoveOperator(event: MatCheckboxChange, tcEdition: TcEdition, operatorId: number): void {
@@ -111,9 +101,5 @@ export class LocationPage implements OnInit, OnDestroy {
 
   hasArchive(request: LocationFeatureEditingRequest): boolean {
     return !!request.featureEdits.find(r => !(r.action === 'UPDATE' && r.newValue && r.newValue.state === 'PLAN'));
-  }
-
-  signalsToString(tvOrRadioTypes: Signal[]): string {
-    return tvOrRadioTypes.map(tvOrRadioType => tvOrRadioType.name).join(', ');
   }
 }

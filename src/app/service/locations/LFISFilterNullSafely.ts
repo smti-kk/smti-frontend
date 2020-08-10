@@ -26,4 +26,8 @@ export class LFISFilterNullSafely implements LocationsFullInformationService {
   exportExcel(): void {
     this.origin.exportExcel();
   }
+
+  listByUser(): Observable<LocationTableItem[]> {
+    return this.origin.listByUser();
+  }
 }

@@ -7,5 +7,6 @@ export abstract class LocationsFullInformationService {
   abstract get(page: number, size: number): Observable<Pageable<LocationTableItem[]>>;
   abstract filteredLocations(page: number, size: number, filters: LocationFilters): Observable<Pageable<LocationTableItem[]>>;
   abstract exportExcel(): void;
+  abstract listByUser(): Observable<LocationTableItem[]>;
 }
 

@@ -25,7 +25,7 @@ export class LocationTableItemConverterImpl implements LocationTableItemConverte
       cellular: this.operatorIconsFactory.cellularIcons(operators.mobile, location.technicalCapabilities, 'MOBILE'),
       infomat: this.operatorIconsFactory.operatorIcons(operators.infomat, location.technicalCapabilities, 'INFOMAT'),
       internet: this.operatorIconsFactory.internetIcons(operators.internet, location.technicalCapabilities, 'INET'),
-      payphone: this.operatorIconsFactory.operatorIcons(operators.payphone, location.technicalCapabilities, 'PAYPHONE'),
+      payphone: this.operatorIconsFactory.payphoneIcons(operators.payphone, location.technicalCapabilities, 'PAYPHONE'),
       post: this.operatorIconsFactory.postIcons(operators.post, location.technicalCapabilities, 'POST'),
       radio: this.operatorIconsFactory.tvOrRadioIcons(operators.radio, location.technicalCapabilities, 'RADIO'),
       television: this.operatorIconsFactory.tvOrRadioIcons(operators.television, location.technicalCapabilities, 'TV'),

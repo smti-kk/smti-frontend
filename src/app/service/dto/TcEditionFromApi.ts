@@ -1,7 +1,8 @@
 import {TcEdition, TechnicalCapabilityEdition} from './TechnicalCapabilityEdition';
-import {LocationDetail, LocationFeaturesSaveRequest} from '@api/dto/LocationDetail';
+import {LocationDetail, LocationFeaturesSaveRequest, LocationParent} from '@api/dto/LocationDetail';
 import {ShortTechnicalCapability, WriteableTechnicalCapability} from '@api/dto/ShortTechnicalCapability';
 import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
+import {OrganizationForTable} from "@api/dto/OrganizationForTable";
 
 export class TcEditionFromApi extends TechnicalCapabilityEdition {
   constructor(location: LocationDetail) {
@@ -53,7 +54,7 @@ export class TcEditionFromApi extends TechnicalCapabilityEdition {
 
   writableFeatureFromShort(short: ShortTechnicalCapability): WriteableTechnicalCapability {
     return {
-      quality: 'GOOD',
+      quality: short.quality,
       type: short.type,
       governmentDevelopmentProgram: short.governmentDevelopmentProgram ? short.governmentDevelopmentProgram.id : null,
       operatorId: short.operatorId,
@@ -64,7 +65,8 @@ export class TcEditionFromApi extends TechnicalCapabilityEdition {
       govYearComplete: short.govYearComplete,
       tvOrRadioTypes: short.tvOrRadioTypes,
       typePost: short.typePost ? short.typePost.id : null,
-      state: short.state
+      state: short.state,
+      payphones: short.payphones
     };
   }
 
@@ -94,12 +96,13 @@ export class TcEditionFromApi extends TechnicalCapabilityEdition {
         typeMobile: edition.tcs[operatorId].typeMobile,
         governmentDevelopmentProgram: edition.tcs[operatorId].governmentDevelopmentProgram,
         type,
-        quality: 'NORMAL',
+        quality: edition.tcs[operatorId].quality,
         locationId: edition.tcs[operatorId].locationId,
         govYearComplete: edition.tcs[operatorId].govYearComplete,
         tvOrRadioTypes: edition.tcs[operatorId].tvOrRadioTypes,
         typePost: edition.tcs[operatorId].typePost,
-        state: edition.tcs[operatorId].state
+        state: edition.tcs[operatorId].state,
+        payphones: edition.tcs[operatorId].payphones,
       };
     });
   }

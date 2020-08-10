@@ -69,6 +69,9 @@ import {GlobalErrorHandler} from './global-error-handler';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import { MunRequestsComponent } from './mun-requests/mun-requests.component';
+import { MunRequestComponent } from './mun-requests/mun-request/mun-request.component';
+import { OperProfileComponent } from './oper-profile/oper-profile.component';
+import { ReqDeclineFormComponent } from './oper-profile/req-decline-form/req-decline-form.component';
 
 registerLocaleData(ru);
 
@@ -106,6 +109,9 @@ registerLocaleData(ru);
     CreateTrunkChannelComponent,
     AreaInfoBarComponent,
     MunRequestsComponent,
+    MunRequestComponent,
+    OperProfileComponent,
+    ReqDeclineFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -221,7 +221,12 @@
               <div class="operator-block-wrap">
                 <mat-form-field>
                   <mat-label>Количество</mat-label>
-                  <input matInput placeholder="" [disabled]="!tcs.payphone.tcs[operator.id]">
+                  <input matInput
+                         placeholder=""
+                         [ngModel]="tcs.payphone.tcs[operator.id]?.payphones"
+                         (ngModelChange)="tcs.payphone.tcs[operator.id].payphones = $event"
+                         [name]="'payphone-opt-count' + operator.id"
+                         [disabled]="!tcs.payphone.tcs[operator.id]">
                 </mat-form-field>
               </div>
             </div>

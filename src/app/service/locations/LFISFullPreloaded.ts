@@ -52,4 +52,8 @@ export class LFISFullPreloaded implements LocationsFullInformationService {
       this.api.exportExcel(this.filtration.filter(this.cache.allElements(), this.lastFilters).map(l => l.id)).subscribe();
     }
   }
+
+  listByUser(): Observable<LocationTableItem[]> {
+    return this.origin.listByUser();
+  }
 }

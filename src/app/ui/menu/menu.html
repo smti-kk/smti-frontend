@@ -28,9 +28,13 @@
          [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
   </mat-menu>
   <div class="link root-link"
-       *permissions="['ADMIN']"
+       *permissions="['MUNICIPALITY']"
        routerLink="/mun-requests"
        [class.active]="currentRouteIs('/mun-requests')"><span>Профиль</span></div>
+  <div class="link root-link"
+       *permissions="['OPERATOR']"
+       routerLink="/oper-profile"
+       [class.active]="currentRouteIs('/oper-profile')"><span>Профиль</span></div>
   <div class="link root-link"
        *permissions="['ADMIN']"
        routerLink="/users"
