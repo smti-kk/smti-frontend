@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
 
-import {GovernmentProgram, InternetAccessType, Location, Organization, OrganizationType, SmoType} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
@@ -13,6 +13,8 @@ import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {NzModalService} from 'ng-zorro-antd';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
+import {AccessPointTypeService} from '../../core/services/accesspoint-type.service';
+import {AccessPointType} from '../../core/models/accesspoint-type';
 
 @Component({
   selector: 'app-connection-points',
@@ -34,6 +36,8 @@ export class ConnectionPointsComponent implements OnInit {
 
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
+  fPoints$: Observable<AccessPointType[]>;
+
   pageNumber = 1;
 
   itemsPerPage = 10;
@@ -51,10 +55,12 @@ export class ConnectionPointsComponent implements OnInit {
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private serviceOrganizations: OrganizationsService,
+    private serviceAccessPointTypeService: AccessPointTypeService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private modal: NzModalService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.points$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
@@ -70,6 +76,7 @@ export class ConnectionPointsComponent implements OnInit {
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
+    this.fPoints$ = this.serviceAccessPointTypeService.getAccessPointType();
 
     this.buildForm();
   }
@@ -88,6 +95,7 @@ export class ConnectionPointsComponent implements OnInit {
       contractType: null,
       populationStart: null,
       populationEnd: null,
+      point: null,
     });
 
     this.form.valueChanges.subscribe(v => {

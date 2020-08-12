@@ -118,12 +118,11 @@
                 <nz-select
                   nzMode="multiple"
                   [nzSuffixIcon]="suffixIconSelect"
+                  formControlName="point"
                 >
-                  <nz-option nzLabel="СЗО" nzValue="СЗО"></nz-option>
-                  <nz-option nzLabel="ЕСПД" nzValue="ЕСПД"></nz-option>
-                  <nz-option nzLabel="РСЗО" nzValue="РСЗО"></nz-option>
-                  <nz-option nzLabel="СЗПД" nzValue="СЗПД"></nz-option>
-                  <nz-option nzLabel="Контракт" nzValue="Контракт"></nz-option>
+                  <ng-container *ngFor="let item of fPoints$ | async">
+                    <nz-option [nzLabel]="item.desc" [nzValue]="item.name"></nz-option>
+                  </ng-container>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>

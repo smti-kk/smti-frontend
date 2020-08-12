@@ -55,6 +55,7 @@ interface LocationWithOrganizationAccessPointsFilters {
   contractType: GovernmentProgram; // possible
   populationStart: number;
   populationEnd: number;
+  point: string[];
 }
 
 @Injectable()
@@ -280,7 +281,17 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setContractType('contract', filters.contractType);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
+    this.setPoint('ap', filters.point);
   }
+
+  setPoint(field: string, value: any) {
+    if (value.length !== 0) {
+      this.params = this.params.set(field, value.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
 
   setType(field: string, value: OrganizationType) {
     if (value) {
