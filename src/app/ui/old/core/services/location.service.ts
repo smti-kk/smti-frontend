@@ -284,8 +284,8 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setPoint('ap', filters.point);
   }
 
-  setPoint(field: string, value: any) {
-    if (value.length !== 0) {
+  setPoint(field: string, value: string[] | null) {
+    if (value !== null && value.length !== 0) {
       this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);
