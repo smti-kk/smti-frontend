@@ -16,7 +16,7 @@
     <tr>
       <td class="align-left">Населенный пункт</td>
       <td></td>
-      <td>Числ-ость</td>
+      <td><span class="material-icons">people</span></td>
       <td><img src="/assets/table-computer.svg" matTooltip="ЕСПД" alt=""></td>
       <td><img src="/assets/table-house.svg" matTooltip="СЗО" alt=""></td>
       <td><img src="/assets/table-sputnik.svg" matTooltip="РСЗО" alt=""></td>
@@ -36,7 +36,7 @@
     <tr class="location-row location-link" [routerLink]="[user ? (user.isOperatorOrAdmin() ? location.id : null) : null]" *ngFor="let location of locations.array">
       <td class="align-left">{{location.area.name}}</td>
       <td class="align-left">{{location.name}}</td>
-      <td>{{location.population}}</td>
+      <td class="text-align-center">{{location.population}}</td>
       <td class="text-align-center">
         <img *ngIf="location.hasESPD" src="/assets/table-ok.svg" alt="">
       </td>
