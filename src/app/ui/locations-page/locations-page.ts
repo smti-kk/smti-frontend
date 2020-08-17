@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {LocationsFullInformationService} from '@service/locations/LocationsFullInformationService';
 import {LocationTableItem} from '@service/dto/LocationTableItem';
 import {LocationFilters} from './location-filters/LocationFilters';
@@ -10,9 +10,29 @@ import {Account} from '@service/account/Account';
 @Component({
   selector: 'locations-page',
   templateUrl: './locations-page.html',
-  styleUrls: ['./locations-page.scss']
+  styleUrls: ['./locations-page.scss'],
 })
 export class LocationsPage implements OnInit {
+
+  displayedColumns = [
+    'areaName',
+    'name',
+    'population',
+    'hasESPD',
+    'hasSMO',
+    'hasRSZO',
+    'hasZSPD',
+    'ats',
+    'payphone',
+    'infomat',
+    'post',
+    'television',
+    'radio',
+    'cellular',
+    'internet',
+    'contract',
+  ];
+
   locations: LazyArray<LocationTableItem>;
   totalElements: number;
   page: number;
