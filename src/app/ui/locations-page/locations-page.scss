@@ -84,6 +84,10 @@ td {
   cursor: pointer;
 }
 
+.location-link:hover {
+  text-decoration: underline;
+}
+
 .location-row {
   //transition: all 1s;
   //animation: showRow 0.5s;

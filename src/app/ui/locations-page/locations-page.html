@@ -22,7 +22,12 @@
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td class="align-left" mat-cell *matCellDef="let location"> {{location.name}} </td>
+      <td
+        mat-cell
+        class="align-left location-link"
+        *matCellDef="let location"
+        [routerLink]="[user ? (user.isOperatorOrAdmin() ? location.id : null) : null]"
+      > {{location.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="population">
