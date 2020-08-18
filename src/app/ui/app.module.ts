@@ -72,6 +72,7 @@ import { MunRequestsComponent } from './mun-requests/mun-requests.component';
 import { MunRequestComponent } from './mun-requests/mun-request/mun-request.component';
 import { OperProfileComponent } from './oper-profile/oper-profile.component';
 import { ReqDeclineFormComponent } from './oper-profile/req-decline-form/req-decline-form.component';
+import { PointTypePipe } from './map-page/pipes/point-type.pipe';
 
 registerLocaleData(ru);
 
@@ -112,6 +113,7 @@ registerLocaleData(ru);
     MunRequestComponent,
     OperProfileComponent,
     ReqDeclineFormComponent,
+    PointTypePipe,
   ],
   imports: [
     BrowserModule,
