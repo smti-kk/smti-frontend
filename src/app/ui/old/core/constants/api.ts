@@ -21,3 +21,11 @@ export const INTERNET_PROVIDER = `${environment.API_BASE_URL}/api/operator/inter
 export const MOBILE_PROVIDER = `${environment.API_BASE_URL}/api/operator/mobile`;
 
 export const ACCESS_POINT_TYPE = 'api/type/access-point/';
+
+export const IMPORT_LOCATION = '/api/import/location';
+export const IMPORT_TC_INTERNET = '/api/import/tc-internet';
+export const IMPORT_TC_MOBILE = '/api/import/tc-mobile';
+export const IMPORT_TC_PAYPHONE = '/api/import/tc-payphone';
+export const IMPORT_TC_TV = '/api/import/tc-tv';
+export const IMPORT_TC_RADIO = '/api/import/tc-radio';
+export const IMPORT_TC_POST = '/api/import/tc-post';

@@ -1,0 +1,16 @@
+<br>
+<div class="name-import">
+Импорт технических возможностей - телевидения
+</div>
+<br>
+<br>
+<br>
+<div class="select-file">
+  <input type="file" name="file" id="fileImport" class="input-file" (change)="selectFile($event)">
+  <label for="fileImport">Выберите файл для импорта</label>
+  <span>: {{getFileName()}}</span>
+</div>
+<br>
+<br>
+<div [ngClass]="successImport ? 'successImport' : 'errorImport'"
+  >{{answer}}</div>

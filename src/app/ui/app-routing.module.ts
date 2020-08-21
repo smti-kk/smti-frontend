@@ -13,6 +13,13 @@ import {TrunkChannelsComponent} from './trunk-channels/trunk-channels.component'
 import {RouteProxyService} from './route.proxy.service';
 import {MunRequestsComponent} from './mun-requests/mun-requests.component';
 import {OperProfileComponent} from "./oper-profile/oper-profile.component";
+import {ImportLocationComponent} from './import-location/import-location.component';
+import {ImportTcInternetComponent} from './import-tc-internet/import-tc-internet.component';
+import {ImportTcPayphoneComponent} from './import-tc-payphone/import-tc-payphone.component';
+import {ImportTcMobileComponent} from './import-tc-mobile/import-tc-mobile.component';
+import {ImportTcPostComponent} from './import-tc-post/import-tc-post.component';
+import {ImportTcRadioComponent} from './import-tc-radio/import-tc-radio.component';
+import {ImportTcTvComponent} from './import-tc-tv/import-tc-tv.component';
 
 
 const routes: Routes = [
@@ -115,6 +122,62 @@ const routes: Routes = [
       permissions: ['OPERATOR']
     },
     component: OperProfileComponent
+  },
+  {
+    path: 'import-location',
+    component: ImportLocationComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-internet',
+    component: ImportTcInternetComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-payphone',
+    component: ImportTcPayphoneComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-mobile',
+    component: ImportTcMobileComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-post',
+    component: ImportTcPostComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-radio',
+    component: ImportTcRadioComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-tv',
+    component: ImportTcTvComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
   },
 ];
 

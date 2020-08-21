@@ -73,6 +73,13 @@ import { MunRequestComponent } from './mun-requests/mun-request/mun-request.comp
 import { OperProfileComponent } from './oper-profile/oper-profile.component';
 import { ReqDeclineFormComponent } from './oper-profile/req-decline-form/req-decline-form.component';
 import { PointTypePipe } from './map-page/pipes/point-type.pipe';
+import { ImportLocationComponent } from './import-location/import-location.component';
+import {ImportTcInternetComponent} from './import-tc-internet/import-tc-internet.component';
+import {ImportTcMobileComponent} from './import-tc-mobile/import-tc-mobile.component';
+import {ImportTcPayphoneComponent} from './import-tc-payphone/import-tc-payphone.component';
+import {ImportTcPostComponent} from './import-tc-post/import-tc-post.component';
+import {ImportTcRadioComponent} from './import-tc-radio/import-tc-radio.component';
+import {ImportTcTvComponent} from './import-tc-tv/import-tc-tv.component';
 
 registerLocaleData(ru);
 
@@ -114,6 +121,13 @@ registerLocaleData(ru);
     OperProfileComponent,
     ReqDeclineFormComponent,
     PointTypePipe,
+    ImportLocationComponent,
+    ImportTcInternetComponent,
+    ImportTcMobileComponent,
+    ImportTcPayphoneComponent,
+    ImportTcPostComponent,
+    ImportTcRadioComponent,
+    ImportTcTvComponent,
   ],
   imports: [
     BrowserModule,

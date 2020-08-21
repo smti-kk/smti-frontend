@@ -5,6 +5,7 @@
   <div class="link root-link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
   <div class="link root-link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
   <button class="link" mat-button *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
+  <button class="link" mat-button *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']" [matMenuTriggerFor]="menuImport">Импорт</button>
   <mat-menu #menu="matMenu">
     <div class="link"
          routerLink="/features"
@@ -26,6 +27,36 @@
          *permissions="['ADMIN', 'OPERATOR']"
          routerLink="/trunk-channels"
          [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
+  </mat-menu>
+  <mat-menu #menuImport="matMenu">
+      <div class="link"
+           routerLink="/import-location"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-location')"><span>Населённые пункты</span></div>
+      <div class="link"
+           routerLink="/import-tc-internet"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-internet')"><span>Т/В интернет</span></div>
+      <div class="link"
+           routerLink="/import-tc-mobile"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-mobile')"><span>Т/В мобильная связь</span></div>
+      <div class="link"
+           routerLink="/import-tc-payphone"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-payphone')"><span>Т/В таксофоны</span></div>
+      <div class="link"
+           routerLink="/import-tc-post"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-post')"><span>Т/В почтовая связь</span></div>
+      <div class="link"
+           routerLink="/import-tc-radio"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-radio')"><span>Т/В радио</span></div>
+      <div class="link"
+           routerLink="/import-tc-tv"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-tv')"><span>Т/В телевидение</span></div>
   </mat-menu>
   <div class="link root-link"
        *permissions="['MUNICIPALITY']"

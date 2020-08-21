@@ -39,8 +39,7 @@
               "./node_modules/leaflet/dist/leaflet.css",
               "./node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -134,6 +133,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "telecomit"
+    }
+  },
+  "defaultProject": "telecomit",
+  "cli": {
+    "analytics": "4e23b502-d629-4c6f-bc30-be3ff31d2318"
+  }
 }
