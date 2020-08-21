@@ -26,7 +26,7 @@ export class ImportTcPayphoneComponent implements OnInit {
   }
 
   private sendFile(file: File) {
-    debugger;
+
     this.http.post(IMPORT_TC_PAYPHONE, this.createForm(file), {
       responseType: 'text'
     })

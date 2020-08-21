@@ -26,7 +26,7 @@ export class ImportTcRadioComponent implements OnInit {
   }
 
   private sendFile(file: File) {
-    debugger;
+
     this.http.post(IMPORT_TC_RADIO, this.createForm(file), {
       responseType: 'text'
     })

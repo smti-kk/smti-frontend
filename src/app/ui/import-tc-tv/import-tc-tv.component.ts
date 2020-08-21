@@ -26,7 +26,7 @@ export class ImportTcTvComponent implements OnInit {
   }
 
   private sendFile(file: File) {
-    debugger;
+
     this.http.post(IMPORT_TC_TV, this.createForm(file), {
       responseType: 'text'
     })

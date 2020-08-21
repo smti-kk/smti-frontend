@@ -26,7 +26,7 @@ export class ImportTcMobileComponent implements OnInit {
   }
 
   private sendFile(file: File) {
-    debugger;
+
     this.http.post(IMPORT_TC_MOBILE, this.createForm(file), {
       responseType: 'text'
     })

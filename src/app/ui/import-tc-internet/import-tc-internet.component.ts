@@ -26,7 +26,7 @@ export class ImportTcInternetComponent implements OnInit {
   }
 
   private sendFile(file: File) {
-    debugger;
+
     this.http.post(IMPORT_TC_INTERNET, this.createForm(file), {
       responseType: 'text'
     })
