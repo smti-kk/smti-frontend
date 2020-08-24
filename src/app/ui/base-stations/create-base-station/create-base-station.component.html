@@ -12,14 +12,14 @@
   <mat-form-field>
     <mat-label>Оператор</mat-label>
     <mat-select [(ngModel)]="baseStation.operator" name="operator" [compareWith]="compareById" required>
-      <mat-option value="null">Оператор</mat-option>
+      <mat-option disabled value="null">Оператор</mat-option>
       <mat-option [value]="operator" *ngFor="let operator of operators">{{operator.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Тип мобильной связи</mat-label>
     <mat-select [(ngModel)]="baseStation.mobileType" name="mobileType" [compareWith]="compareById" required>
-      <mat-option value="null">Тип мобильной связи</mat-option>
+      <mat-option disabled value="null">Тип мобильной связи</mat-option>
       <mat-option [value]="mobileType" *ngFor="let mobileType of mobileTypes$ | async">{{mobileType.name}}</mat-option>
     </mat-select>
   </mat-form-field>
