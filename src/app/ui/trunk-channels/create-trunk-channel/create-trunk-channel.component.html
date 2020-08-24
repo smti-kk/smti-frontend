@@ -4,35 +4,35 @@
   <mat-form-field>
     <mat-label>Начало канала</mat-label>
     <mat-select [(ngModel)]="trunkChannel.locationStart" name="locationStart" [compareWith]="compareById" required>
-      <mat-option value="null">ТНачало канала</mat-option>
+      <mat-option disabled value="null">Начало канала</mat-option>
       <mat-option [value]="location" *ngFor="let location of locations">{{location.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Конец канала</mat-label>
     <mat-select [(ngModel)]="trunkChannel.locationEnd" name="locationEnd" [compareWith]="compareById" required>
-      <mat-option value="null">Конец канала</mat-option>
+      <mat-option disabled value="null">Конец канала</mat-option>
       <mat-option [value]="location" *ngFor="let location of locations">{{location.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Оператор</mat-label>
     <mat-select [(ngModel)]="trunkChannel.operator" name="operator" [compareWith]="compareById" required>
-      <mat-option value="null">Оператор</mat-option>
+      <mat-option disabled value="null">Оператор</mat-option>
       <mat-option [value]="operator" *ngFor="let operator of operators$ | async">{{operator.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Тип канала</mat-label>
     <mat-select [(ngModel)]="trunkChannel.typeTrunkChannel" name="typeTrunkChannel" [compareWith]="compareById" required>
-      <mat-option value="null">Тип мобильной связи</mat-option>
+      <mat-option disabled value="null">Тип мобильной связи</mat-option>
       <mat-option [value]="type" *ngFor="let type of trunkChannelTypes$ | async">{{type.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Программа</mat-label>
     <mat-select [(ngModel)]="trunkChannel.program" name="program" [compareWith]="compareById" required>
-      <mat-option value="null">Программа</mat-option>
+      <mat-option disabled value="null">Программа</mat-option>
       <mat-option [value]="program" *ngFor="let program of govPrograms$ | async">{{program.name}}</mat-option>
     </mat-select>
   </mat-form-field>
