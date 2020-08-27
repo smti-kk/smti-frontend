@@ -29,3 +29,7 @@ export const IMPORT_TC_PAYPHONE = '/api/import/tc-payphone';
 export const IMPORT_TC_TV = '/api/import/tc-tv';
 export const IMPORT_TC_RADIO = '/api/import/tc-radio';
 export const IMPORT_TC_POST = '/api/import/tc-post';
+export const IMPORT_ACCESS_POINT = '/api/import/access-point';
+export const IMPORT_TRUNK_CHANNEL = '/api/import/trunk-channel';
+export const IMPORT_TC_ATS = '/api/import/tc-ats';
+export const IMPORT_TC_INFOMAT = '/api/import/tc-infomat';

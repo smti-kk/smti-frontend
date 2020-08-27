@@ -57,6 +57,22 @@
            routerLink="/import-tc-tv"
            *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
            [class.active]="currentRouteIs('/import-tc-tv')"><span>Т/В телевидение</span></div>
+      <div class="link"
+           routerLink="/import-tc-infomat"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-infomat')"><span>Т/В инфоматы</span></div>
+      <div class="link"
+           routerLink="/import-tc-ats"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-ats')"><span>Т/В АТС</span></div>
+      <div class="link"
+           routerLink="/import-access-point"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-access-point')"><span>Организации и точки доступа</span></div>
+      <div class="link"
+           routerLink="/import-trunk-channel"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-trunk-channel')"><span>Магистральные каналы</span></div>
   </mat-menu>
   <div class="link root-link"
        *permissions="['MUNICIPALITY']"

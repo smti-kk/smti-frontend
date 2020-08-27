@@ -80,6 +80,10 @@ import {ImportTcPayphoneComponent} from './import-tc-payphone/import-tc-payphone
 import {ImportTcPostComponent} from './import-tc-post/import-tc-post.component';
 import {ImportTcRadioComponent} from './import-tc-radio/import-tc-radio.component';
 import {ImportTcTvComponent} from './import-tc-tv/import-tc-tv.component';
+import {ImportAccessPointComponent} from './import-access-point/import-access-point.component';
+import {ImportTcAtsComponent} from './import-tc-ats/import-tc-ats.component';
+import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.component';
+import {ImportTrunkChannelComponent} from './import-trunk-channel/import-trunk-channel.component';
 
 registerLocaleData(ru);
 
@@ -128,6 +132,10 @@ registerLocaleData(ru);
     ImportTcPostComponent,
     ImportTcRadioComponent,
     ImportTcTvComponent,
+    ImportAccessPointComponent,
+    ImportTcAtsComponent,
+    ImportTcInfomatComponent,
+    ImportTrunkChannelComponent
   ],
   imports: [
     BrowserModule,
