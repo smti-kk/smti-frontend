@@ -20,6 +20,10 @@ import {ImportTcMobileComponent} from './import-tc-mobile/import-tc-mobile.compo
 import {ImportTcPostComponent} from './import-tc-post/import-tc-post.component';
 import {ImportTcRadioComponent} from './import-tc-radio/import-tc-radio.component';
 import {ImportTcTvComponent} from './import-tc-tv/import-tc-tv.component';
+import {ImportAccessPointComponent} from './import-access-point/import-access-point.component';
+import {ImportTrunkChannelComponent} from './import-trunk-channel/import-trunk-channel.component';
+import {ImportTcAtsComponent} from './import-tc-ats/import-tc-ats.component';
+import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.component';
 
 
 const routes: Routes = [
@@ -174,6 +178,38 @@ const routes: Routes = [
   {
     path: 'import-tc-tv',
     component: ImportTcTvComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-access-point',
+    component: ImportAccessPointComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-trunk-channel',
+    component: ImportTrunkChannelComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-ats',
+    component: ImportTcAtsComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'import-tc-infomat',
+    component: ImportTcInfomatComponent,
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
