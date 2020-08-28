@@ -23,9 +23,9 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Тип канала</mat-label>
+    <mat-label>Тип магистрального канала</mat-label>
     <mat-select [(ngModel)]="trunkChannel.typeTrunkChannel" name="typeTrunkChannel" [compareWith]="compareById" required>
-      <mat-option disabled value="null">Тип мобильной связи</mat-option>
+      <mat-option disabled value="null">Тип магистрального канала</mat-option>
       <mat-option [value]="type" *ngFor="let type of trunkChannelTypes$ | async">{{type.name}}</mat-option>
     </mat-select>
   </mat-form-field>
