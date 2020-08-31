@@ -25,7 +25,8 @@
           <div class="filters__column-label-text">Почта:</div>
         </div>
         <mat-checkbox [formControl]="control.get('isSelected')"
-                      *ngFor="let control of postTypeControls().controls">
+                      *ngFor="let control of postTypeControls().controls"
+                      class="with-bottom-margin-5px">
           {{control.get('label').value}}
         </mat-checkbox>
       </div>
@@ -41,7 +42,8 @@
           <div class="filters__column-label-text">ТВ:</div>
         </div>
         <mat-checkbox [formControl]="control.get('isSelected')"
-                      *ngFor="let control of tvTypeControls().controls">
+                      *ngFor="let control of tvTypeControls().controls"
+                      class="with-bottom-margin-5px">
           {{control.get('label').value}}
         </mat-checkbox>
       </div>
@@ -102,19 +104,19 @@
       </div>
       <div class="filter">
         <div class="filter__ap-type-container">
-          <div class="imageable-checkbox">
+          <div class="imageable-checkbox connection-points">
             <input type="checkbox" formControlName="hasESPD">
             <img src="/assets/table-computer.svg" alt="">
           </div>
-          <div class="imageable-checkbox">
+          <div class="imageable-checkbox connection-points">
             <input type="checkbox" formControlName="hasSMO">
             <img src="/assets/table-house.svg" alt="">
           </div>
-          <div class="imageable-checkbox">
+          <div class="imageable-checkbox connection-points">
             <input type="checkbox" formControlName="hasZSPD">
             <img src="/assets/table-sputnik.svg" alt="">
           </div>
-          <div class="imageable-checkbox">
+          <div class="imageable-checkbox connection-points">
             <input type="checkbox" formControlName="hasRSZO">
             <img src="/assets/table-radio.svg" alt="">
           </div>
@@ -122,7 +124,7 @@
       </div>
       <div class="filter">
         <div class="filters__column-label">
-          <div class="filters__column-label-text">Оператор сотовый:</div>
+          <div class="filters__column-label-text">Оператор (сотовый):</div>
         </div>
         <div class="filters__filter-block">
           <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
@@ -133,7 +135,7 @@
       </div>
       <div class="filter">
         <div class="filters__column-label">
-          <div class="filters__column-label-text">Оператор интернет:</div>
+          <div class="filters__column-label-text">Оператор (интернет):</div>
         </div>
         <div class="filters__filter-block">
           <div class="imageable-checkbox" *ngFor="let control of internetOperatorsControls().controls">
@@ -144,9 +146,9 @@
       </div>
       <div class="filter">
         <mat-form-field appearance="fill" class="location-filter">
-          <mat-label>Государственная программа</mat-label>
+          <mat-label>Программа</mat-label>
           <mat-select formControlName="govProgram">
-            <mat-option [value]="null">Государственная программа</mat-option>
+            <mat-option [value]="null">Программа</mat-option>
             <mat-option *ngFor="let program of programs" [value]="program.id">{{program.acronym}}</mat-option>
           </mat-select>
         </mat-form-field>

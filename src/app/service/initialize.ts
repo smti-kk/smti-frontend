@@ -50,7 +50,6 @@ import {LocationSearchResultConverterImpl} from '@service/location-search/Locati
 import {TCTAExcludeUndefined} from '@api/trunk-channel/TCTAExcludeUndefined';
 import {
   FiltersToHttpParamsConverterImpl,
-  LFISFilterNullSafely,
   LFISFullPreloaded,
   LFISThrottled,
   LocationFilterFormBuilder,
@@ -96,6 +95,7 @@ import {MapLocationsApi} from '@api/locations/MapLocationsApi';
 import {BoundsToStringConverter} from '@api/util/bounds.to.string.converter';
 import {ApiOrganization} from '@api/organizations/ApiOrganization';
 import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
+import {MTAWithout5G} from "@api/mobile-type/MTAWithout5G";
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -128,8 +128,10 @@ export const factory = (): Provider[] => {
       new TrunkChannelTypeApiImpl(httpClient)
     )
   );
-  const mobileTypeApi: MobileTypeApi = new MTACacheable(
-    new MobileTypeApiImpl(httpClient)
+  const mobileTypeApi: MobileTypeApi = new MTAWithout5G(
+    new MTACacheable(
+      new MobileTypeApiImpl(httpClient)
+    )
   );
   const postTypeApi: PostTypeApi = new PTACacheable(
     new PostTypeApiImpl(httpClient)
@@ -148,19 +150,19 @@ export const factory = (): Provider[] => {
   );
   const locationsFullInformationService: LocationsFullInformationService = new LFISThrottled(
     // new LFISFilterNullSafely(
-      new LFISFullPreloaded(
-        new LocationsFullInformationServiceImpl(
-          locationDetailApi,
-          new LocationTableItemConverterImpl(
-            new OperatorIconsFactoryImpl()
-          ),
-          operatorsApi,
-          new FiltersToHttpParamsConverterImpl()
-        ),
+    new LFISFullPreloaded(
+      new LocationsFullInformationServiceImpl(
         locationDetailApi,
-        new LocationsFiltrationImpl(
-          new StrictFilterImpl()
+        new LocationTableItemConverterImpl(
+          new OperatorIconsFactoryImpl()
         ),
+        operatorsApi,
+        new FiltersToHttpParamsConverterImpl()
+      ),
+      locationDetailApi,
+      new LocationsFiltrationImpl(
+        new StrictFilterImpl()
+      ),
       // ),
     ),
     new ThrottleImpl(1)
