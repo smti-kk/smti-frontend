@@ -17,7 +17,7 @@
   <table mat-table [dataSource]="locations.array">
     <ng-container matColumnDef="areaName">
       <th class="align-left" mat-header-cell *matHeaderCellDef>Населенный пункт</th>
-      <td class="align-left" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
+      <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
