@@ -237,7 +237,7 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="'UPDATE'">
                     <span class="underline">Радио ({{edit.tc.operator.name}}):</span>
-                    <ng-container *ngIf="edit.tc.typePost.id !== edit.newValue.typePost.id">
+                    <ng-container>
                       Изменен тип радио с {{signalsToString(edit.tc.tvOrRadioTypes)}}
                       на {{signalsToString(edit.newValue.tvOrRadioTypes)}}
                     </ng-container>
