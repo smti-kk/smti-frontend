@@ -1,21 +1,22 @@
 import {GovProgramService} from './GovProgramService';
 import {GovProgram} from '@api/dto/GovProgram';
 import {Observable, of} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {shareReplay, tap} from 'rxjs/operators';
 
 export class GPSCacheable implements GovProgramService {
-  private cache: GovProgram[];
+  private request: Observable<GovProgram[]>;
 
   constructor(private readonly origin: GovProgramService) {
   }
 
   list(): Observable<GovProgram[]> {
-    if (this.cache) {
-      return of(this.cache);
+    if (this.request) {
+      return this.request;
     } else {
-      return this.origin.list().pipe(
-        tap(gps => this.cache = gps)
+      this.request = this.origin.list().pipe(
+        shareReplay()
       );
+      return this.request;
     }
   }
 }
