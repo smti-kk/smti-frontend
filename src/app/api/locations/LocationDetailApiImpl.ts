@@ -5,6 +5,8 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {LOCATION_DETAIL_API} from '../../../environments/api.routes';
 import {Pageable} from '@api/dto/Pageable';
 import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
+import {tap} from 'rxjs/operators';
+import {saveAs} from 'file-saver';
 
 export class LocationDetailApiImpl implements LocationDetailApi {
   private readonly httpClient: HttpClient;
@@ -46,8 +48,13 @@ export class LocationDetailApiImpl implements LocationDetailApi {
     return this.httpClient.get<LocationProvidingInfo>(LOCATION_DETAIL_API + `/location-providing-info/${locationId}`);
   }
 
-  exportExcel(locations: number[]): Observable<void> {
-    return this.httpClient.post<void>(LOCATION_DETAIL_API + `/export-excel`, locations);
+  exportExcel(locations: number[]): Observable<any> {
+    return this.httpClient.post(LOCATION_DETAIL_API + `/export-excel`, locations, {responseType: 'blob'})
+      .pipe(
+        tap(response => {
+          saveAs(response, 'report.xlsx');
+        })
+      );
   }
 
   listByUser(): Observable<LocationDetail[]> {
