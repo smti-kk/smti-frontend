@@ -8,7 +8,7 @@ import {
   RTRS_COLOR,
   SIBTTK_COLOR,
   TELE2_COLOR, UNKNOWN_COLOR
-} from "../../../environments/styles";
+} from '../../../environments/styles';
 
 export interface TrunkChannelFilters {
   channelTypes: InternetType[];
@@ -35,6 +35,8 @@ export class TrunkChannelsLayer extends LayerGroup {
       })
       .forEach(channel => {
         let lineColor: string;
+        let dashArray: number[];
+        let dashOffset: string;
         switch (channel.operator.name) {
           case 'Билайн':
             lineColor = BEELINE_COLOR;
@@ -64,10 +66,28 @@ export class TrunkChannelsLayer extends LayerGroup {
             lineColor = UNKNOWN_COLOR;
             break;
         }
+        switch (channel.typeTrunkChannel.name) {
+          case 'Неопределено':
+            break;
+          case 'ВОЛС':
+            dashArray = [20, 20, 20];
+            break;
+          case 'Спутник':
+            dashArray = [60, 60];
+            break;
+          case 'Медь':
+            dashArray = [];
+            break;
+          case 'Радио':
+            dashArray = [20, 5, 20];
+            break;
+        }
         this.addLayer(new Polyline(
           [channel.locationStart.geoData.administrativeCenter, channel.locationEnd.geoData.administrativeCenter],
           {
             color: lineColor,
+            dashArray,
+            dashOffset: '2'
           }
         ));
       });
