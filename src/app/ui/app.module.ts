@@ -84,6 +84,8 @@ import {ImportAccessPointComponent} from './import-access-point/import-access-po
 import {ImportTcAtsComponent} from './import-tc-ats/import-tc-ats.component';
 import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.component';
 import {ImportTrunkChannelComponent} from './import-trunk-channel/import-trunk-channel.component';
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import { AreaSelectComponent } from './selectors/area-select/area-select.component';
 
 registerLocaleData(ru);
 
@@ -135,7 +137,8 @@ registerLocaleData(ru);
     ImportAccessPointComponent,
     ImportTcAtsComponent,
     ImportTcInfomatComponent,
-    ImportTrunkChannelComponent
+    ImportTrunkChannelComponent,
+    AreaSelectComponent
   ],
   imports: [
     BrowserModule,
@@ -171,7 +174,8 @@ registerLocaleData(ru);
     MatNativeDateModule,
     MatButtonToggleModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     {

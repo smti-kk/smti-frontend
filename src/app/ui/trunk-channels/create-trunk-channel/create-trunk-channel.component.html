@@ -5,14 +5,14 @@
     <mat-label>Начало канала</mat-label>
     <mat-select [(ngModel)]="trunkChannel.locationStart" name="locationStart" [compareWith]="compareById" required>
       <mat-option disabled value="null">Начало канала</mat-option>
-      <mat-option [value]="location" *ngFor="let location of locations">{{location.name}}</mat-option>
+      <mat-option [value]="location" *ngFor="let location of locations">{{location.type}} {{location.name}} ({{location.parent?.type}} {{location.parent?.name}})</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Конец канала</mat-label>
     <mat-select [(ngModel)]="trunkChannel.locationEnd" name="locationEnd" [compareWith]="compareById" required>
       <mat-option disabled value="null">Конец канала</mat-option>
-      <mat-option [value]="location" *ngFor="let location of locations">{{location.name}}</mat-option>
+      <mat-option [value]="location" *ngFor="let location of locations">{{location.type}} {{location.name}} ({{location.parent?.type}} {{location.parent?.name}})</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>

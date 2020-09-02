@@ -31,11 +31,12 @@
         </mat-checkbox>
       </div>
       <div class="filter">
-        <ng-select class="area-filter" placeholder="Район" [multiple]="true" formControlName="parent">
-          <ng-option [value]="area.id" *ngFor="let area of areas">
-            {{area.label}}
-          </ng-option>
-        </ng-select>
+        <app-area-select formControlName="parent"></app-area-select>
+<!--        <ng-select class="area-filter" placeholder="Район" [multiple]="true" formControlName="parent">-->
+<!--          <ng-option >-->
+<!--            {{area.label}}-->
+<!--          </ng-option>-->
+<!--        </ng-select>-->
       </div>
       <div class="filter">
         <div class="filters__column-label">

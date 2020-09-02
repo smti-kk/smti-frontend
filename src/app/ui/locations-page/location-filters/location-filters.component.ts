@@ -2,8 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {LocationFilters} from './LocationFilters';
 import {LocationFilterFormBuilder} from '@service/locations/LocationFilterForm';
-import {forkJoin, Observable} from 'rxjs';
-import {SelectAreaItem} from '@service/dto/SelectAreaItem';
+import {forkJoin} from 'rxjs';
 import {SelectAreasService} from '@service/area/SelectAreasService';
 import {GovProgramService} from '@service/gov-program/GovProgramService';
 import {GovProgram} from '@api/dto/GovProgram';
@@ -17,7 +16,6 @@ import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 })
 export class LocationFiltersComponent implements OnInit {
   filterForm: FormGroup;
-  areas: SelectAreaItem[];
   programs: GovProgram[];
   filtersIsOpened: boolean;
   OrderingDirection = OrderingDirection;
@@ -38,7 +36,6 @@ export class LocationFiltersComponent implements OnInit {
       apiLocationDetail.govYears(),
     ]).subscribe(([form, areas, programs, govYears]) => {
       this.filterForm = form;
-      this.areas = areas;
       this.programs = programs;
       this.govYears = govYears;
       this.filterForm.valueChanges.subscribe(value => {

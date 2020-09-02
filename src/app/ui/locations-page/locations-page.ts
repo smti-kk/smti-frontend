@@ -13,6 +13,8 @@ import {Account} from '@service/account/Account';
   styleUrls: ['./locations-page.scss'],
 })
 export class LocationsPage implements OnInit {
+  TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS = 'calc(100vh - 144px)';
+  TABLE_HEIGHT_WHEN_OPENED_FILTERS = 'calc(100vh - 346px)';
 
   displayedColumns = [
     'areaName',

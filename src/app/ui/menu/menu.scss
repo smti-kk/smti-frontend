@@ -4,11 +4,15 @@
   background-color: #d9d9d9;
   display: flex;
   justify-content: space-between;
+  //position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .logo {
-  padding: 24px 19px 18px 23px;
   background-color: #616161;
+  padding: 8px;
 }
 
 .link {
@@ -43,6 +47,6 @@
   text-decoration: underline;
 }
 
-.root-link {
-  padding-top: 39px;
+.mat-menu-select {
+  padding: 15px 14px 18px 14px;
 }

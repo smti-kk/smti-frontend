@@ -129,6 +129,7 @@
         <div class="card-body">
           <span class="card-number">№{{request.id}}</span> от
           <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
+          <p>{{request.locationId}}</p>
           <p>Внесенные изменения:</p>
           <ng-container *ngFor="let edit of request.featureEdits">
             <ul class="card-list" [ngSwitch]="edit.tc.type">

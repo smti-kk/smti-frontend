@@ -87,7 +87,7 @@ import {FeaturesComparingService} from '@service/features-comparing/FeaturesComp
 import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {ApiFeaturesRequestsImpl} from '@api/features-requests/ApiFeaturesRequestsImpl';
 import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
-import {MunicipalitiesApi} from '@api/municipalities-api/MunicipalitiesApi';
+import {MunicipalitiesApiImpl} from '@api/municipalities-api/MunicipalitiesApi';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 import {MapLocationsApiImpl} from '@api/locations/MapLocationsApiImpl';
@@ -95,7 +95,8 @@ import {MapLocationsApi} from '@api/locations/MapLocationsApi';
 import {BoundsToStringConverter} from '@api/util/bounds.to.string.converter';
 import {ApiOrganization} from '@api/organizations/ApiOrganization';
 import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
-import {MTAWithout5G} from "@api/mobile-type/MTAWithout5G";
+import {MTAWithout5G} from '@api/mobile-type/MTAWithout5G';
+import {MACacheable} from '@api/municipalities-api/MACacheable';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -317,7 +318,11 @@ export const factory = (): Provider[] => {
     },
     {
       provide: MunicipalitiesLayer,
-      useValue: new MunicipalitiesLayer(new MunicipalitiesApi(httpClient))
+      useValue: new MunicipalitiesLayer(
+        new MACacheable(
+          new MunicipalitiesApiImpl(httpClient)
+        )
+      )
     },
     {
       provide: BaseStationsApi,

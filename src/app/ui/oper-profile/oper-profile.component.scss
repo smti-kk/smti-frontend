@@ -160,6 +160,10 @@ p {
 .card-status.orange {
   border: 1px solid #ffd860;
   background-color: #ffd860;
+
+  & button {
+    margin: 10px;
+  }
 }
 
 .card-status.green {

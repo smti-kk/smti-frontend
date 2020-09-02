@@ -1,12 +1,12 @@
 import {OperatorsApi} from './OperatorsApi';
 import {Operators} from '../dto/Operators';
 import {Observable, of} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {shareReplay, tap} from 'rxjs/operators';
 import {Operator} from '@api/dto/Operator';
 
 export class OACacheable implements OperatorsApi {
   private readonly origin: OperatorsApi;
-  private cachedOperators: Operators;
+  private cachedOperators: Observable<Operators>;
   private cachedOperatorsFull: Operator[];
 
   constructor(origin: OperatorsApi) {
@@ -14,13 +14,12 @@ export class OACacheable implements OperatorsApi {
   }
 
   get(): Observable<Operators> {
-    if (this.cachedOperators) {
-      return of(this.cachedOperators);
-    } else {
-      return this.origin.get().pipe(
-        tap(response => this.cachedOperators = response)
+    if (!this.cachedOperators) {
+      this.cachedOperators = this.origin.get().pipe(
+        shareReplay()
       );
     }
+    return this.cachedOperators;
   }
 
   findAll(): Observable<Operator[]> {

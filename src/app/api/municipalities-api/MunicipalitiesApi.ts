@@ -3,7 +3,12 @@ import {LocationArea} from './LocationArea';
 import {LOCATION_AREA_URL} from '../../../environments/api.routes';
 import {Observable} from 'rxjs';
 
-export class MunicipalitiesApi {
+export abstract class MunicipalitiesApi {
+  abstract list(): Observable<LocationArea[]>;
+}
+
+
+export class MunicipalitiesApiImpl implements MunicipalitiesApi {
   constructor(private httpClient: HttpClient) {
   }
 
