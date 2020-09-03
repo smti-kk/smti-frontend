@@ -4,6 +4,7 @@ import {Authorization} from '../authorization/authorization';
 import {AccountService} from '@service/account/AccountService';
 import {Account} from '@service/account/Account';
 import {AuthorizationService} from '@service/authorization/authorization.service';
+import {CookieStorageService} from '../../storage/cookie-storage.service';
 
 @Component({
   selector: 'menu',
@@ -15,7 +16,8 @@ export class Menu implements OnInit {
 
   constructor(public dialog: MatDialog,
               private accountService: AccountService,
-              private authService: AuthorizationService) {
+              private authService: AuthorizationService,
+              private cookieStorage: CookieStorageService) {
   }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class Menu implements OnInit {
   }
 
   logout(): void {
+    this.cookieStorage.removeAll();
     this.authService.logout();
   }
 }

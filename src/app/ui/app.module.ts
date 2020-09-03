@@ -86,6 +86,8 @@ import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.co
 import {ImportTrunkChannelComponent} from './import-trunk-channel/import-trunk-channel.component';
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { AreaSelectComponent } from './selectors/area-select/area-select.component';
+import {StorageService} from '../storage/storage.service';
+import {LocalStorageService} from '../storage/local-storage.service';
 
 registerLocaleData(ru);
 
@@ -183,7 +185,8 @@ registerLocaleData(ru);
       useClass: LoaderServiceImpl
     },
     {provide: NZ_I18N, useValue: ru_RU},
-    {provide: ErrorHandler, useClass: GlobalErrorHandler}
+    {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    {provide: StorageService, useClass: LocalStorageService}
   ],
   bootstrap: [AppComponent]
 })
