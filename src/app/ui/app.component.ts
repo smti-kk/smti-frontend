@@ -27,6 +27,7 @@ export class AppComponent {
       if (this.cookieStorage.get('_auth_token')) {
         const cookieToken = this.cookieStorage.get('_auth_token');
         this.localStorage.saveToken(cookieToken);
+        window.location.reload();
       }
     }
   }
