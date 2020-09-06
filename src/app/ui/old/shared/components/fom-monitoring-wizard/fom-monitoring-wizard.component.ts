@@ -2,8 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 // @ts-ignore
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 // @ts-ignore
-import {GovernmentProgram, InternetAccessType, Organization, Quality, qualityToString} from '@core/models';
+import {Organization} from '@core/models';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+// @ts-ignore
+import {OrganizationsService} from '@core/services';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-fom-monitoring-wizard',
@@ -14,8 +17,14 @@ export class FomMonitoringWizardComponent implements OnInit {
   @Input() accessPointForEdit: Reaccesspoint;
   @Input() organization: Organization;
   monitoringFormGroup: FormGroup;
-  // tslint:disable-next-line:variable-name
-  constructor(private _formBuilder: FormBuilder) { }
+
+  constructor(
+    // tslint:disable-next-line:variable-name
+    private _formBuilder: FormBuilder,
+    private serviceOrganizations: OrganizationsService,
+    // tslint:disable-next-line:variable-name
+    private _snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.monitoringFormGroup = this._formBuilder.group({
@@ -43,6 +52,29 @@ export class FomMonitoringWizardComponent implements OnInit {
       })
     });
 
+  }
+
+  goForMonitoring(): void {
+    this.serviceOrganizations
+      // .initMonitoring(Object.assign(this.accessPointForEdit, this.monitoringFormGroup.value))
+      .initMonitoring(this.accessPointForEdit.id, this.organization.id, this.monitoringFormGroup.value)
+      .subscribe(
+        () => {
+          this._snackBar.open('Добавленно в системы мониторинга', '', {
+            duration: 5 * 1000,
+          });
+          window.location.reload();
+          // todo: implement me
+        },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        error => {
+          // todo: implement me
+          this._snackBar.open(error.error.error, '', {
+            duration: 5 * 1000,
+          });
+          // throw Error(`${error}`);
+        },
+      );
   }
 
 }

@@ -9,11 +9,13 @@ import {
   ORGANIZATION_AP,
   ORGANIZATION_CREATE_AP,
   ORGANIZATION_EDIT,
+  ORGANIZATION_INIT_MONITORING_AP,
   ORGANIZATION_SAVE,
   ORGANIZATIONS,
 } from '@core/constants/api';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {environment} from 'src/environments/environment';
+import {waitForDebugger} from 'inspector';
 
 const TYPES = `${environment.API_BASE_URL}/api/type/organization/`;
 const SMO_TYPES = `${environment.API_BASE_URL}/api/type/smo/`;
@@ -81,5 +83,19 @@ export class OrganizationsService {
     const item = Serialize(ap, Reaccesspoint);
     const url = ORGANIZATION_CREATE_AP.replace(':id', ap.organizationId.toString());
     return this.httpClient.post(url, item);
+  }
+
+  initMonitoring(apid: number, orgid: number, foo: any): Observable<{}> {
+    // todo: Определить тип, параметр приходит не организация, а any
+    // console.log('service::ap:: ' + apid);
+    // console.log('service::org:: ' + orgid);
+    // console.log('service::foo:: ' + foo);
+    // debugger;
+    // const item = Serialize(ap, Reaccesspoint);
+    const url = ORGANIZATION_INIT_MONITORING_AP
+      .replace(':id', String(orgid))
+      .replace(':apid', String(apid));
+    return this.httpClient.post(url, foo);
+    // return null;
   }
 }

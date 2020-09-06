@@ -103,11 +103,10 @@
 
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+      <ng-template matStepLabel>Подвердить подключение</ng-template>
       <div>
-        <button mat-button matStepperPrevious type="button">Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button matStepperPrevious type="button">Назад</button>
+        <button mat-button (click)="goForMonitoring()">Подключиться к системам мониторинга</button>
       </div>
     </mat-step>
   </mat-vertical-stepper>
