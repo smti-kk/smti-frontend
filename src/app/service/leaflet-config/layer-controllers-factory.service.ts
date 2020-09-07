@@ -29,10 +29,16 @@ import {TrunkChannelFilters, TrunkChannelsLayer} from '@service/leaflet-config/T
 import {BaseStationsLayer} from '@service/leaflet-config/BaseStationsLayer';
 import {CellularType} from '@api/dto/CellularType';
 import {TrunkChannel} from '@api/dto/TrunkChannel';
+import {MapAccessPointsApi} from '@api/access-points/MapAccessPointsApi';
 
-@Injectable()
 export class LayerControllersFactory {
+  private readonly mapAccessPointApi: MapAccessPointsApi;
+
   constructor(private httpClient: HttpClient) {
+    this.mapAccessPointApi = new MapAccessPointsApiImpl(
+      this.httpClient,
+      new BoundsToStringConverter()
+    );
   }
 
   locationLayerController(): PointLayerController {
@@ -69,10 +75,7 @@ export class LayerControllersFactory {
             new PSWithUniqueResponseParts(
               new ESPDPointsService(
                 new MAPAWithModificationsOnlyAndIgnoreBounds(
-                  new MapAccessPointsApiImpl(
-                    this.httpClient,
-                    new BoundsToStringConverter()
-                  ),
+                  this.mapAccessPointApi,
                   new AccessPointsModificationsApiImpl(this.httpClient),
                   new DateConverterImpl()
                 ),
@@ -98,10 +101,7 @@ export class LayerControllersFactory {
             new PSWithUniqueResponseParts(
               new SMOPointsService(
                 new MAPAWithModificationsOnlyAndIgnoreBounds(
-                  new MapAccessPointsApiImpl(
-                    this.httpClient,
-                    new BoundsToStringConverter()
-                  ),
+                  this.mapAccessPointApi,
                   new AccessPointsModificationsApiImpl(this.httpClient),
                   new DateConverterImpl()
                 ),
@@ -124,19 +124,19 @@ export class LayerControllersFactory {
       new PointLayerControllerImpl(
         new PLClickable(
           // new PLWithLoader(
-            new BaseStationsLayer(
-              new PSWithUniqueResponseParts(
-                new PSFullPreloaded(
-                  new BaseStationsPointsService(
-                    new BaseStationsApi(
-                      this.httpClient,
-                    ),
-                  )
-                ),
-                new PointUniquenessFilterImpl()
+          new BaseStationsLayer(
+            new PSWithUniqueResponseParts(
+              new PSFullPreloaded(
+                new BaseStationsPointsService(
+                  new BaseStationsApi(
+                    this.httpClient,
+                  ),
+                )
               ),
-              mobileTypes
-            )
+              new PointUniquenessFilterImpl()
+            ),
+            mobileTypes
+          )
           // )
         )
       ),

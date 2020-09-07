@@ -5,6 +5,8 @@ import {OrganizationService} from '@service/organizations/OrganizationService';
 import {OrganizationServiceImpl} from '@service/organizations/OrganizationServiceImpl';
 import {factory} from '@service/initialize';
 
+const services = factory();
+
 @NgModule({
   providers: [
     {
@@ -14,7 +16,7 @@ import {factory} from '@service/initialize';
       },
       deps: [HttpClient]
     },
-    ...factory()
+    ...services
   ],
   imports: [
     HttpClientModule

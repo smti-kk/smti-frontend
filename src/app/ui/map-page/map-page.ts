@@ -8,6 +8,7 @@ import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
 import {ApiOrganization} from '@api/organizations/ApiOrganization';
 import {AORAccessPoint} from '@api/dto/ApiOrganizationResponse';
 import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
+import {MunicipalitiesLayer} from "@service/leaflet-config/MunicipalitiesLayer";
 
 @Component({
   selector: 'map-page',
@@ -28,6 +29,7 @@ export class MapPage {
   constructor(private locationsService: LocationsService,
               private readonly locationDetails: LocationDetailApi,
               private readonly accessPointsApi: AccessPointsApi,
+              private readonly municipalitiesLayer: MunicipalitiesLayer,
               private readonly apiOrganization: ApiOrganization) {
     this.isLoading = false;
     this.barIsOpened = true;
@@ -111,5 +113,10 @@ export class MapPage {
     //   this.onSelectLocation(locationId);
     // }
     // this.isOpenAccessPoint = {value: true, ...point};
+  }
+
+  onSelectGroup($event: number): void {
+    this.municipalitiesLayer.selectMunicipality($event);
+    this.onAreaClick({feature: {id: $event}});
   }
 }

@@ -5,5 +5,6 @@ export interface LocationSearchItem {
 
 export interface LocationSearchGroup {
   label: string;
+  id: number;
   locations: LocationSearchItem[];
 }

@@ -13,10 +13,10 @@ export class AccessPointsConverter implements PointsConverter<AccessPointFromApi
   convert(point: AccessPointFromApi): PointWithState {
     return new PointWithState(
       point.id,
-      point.state,
+      point.connectionState,
       point.point,
       {
-        icon: this.iconFromState.icon(point.state)
+        icon: this.iconFromState.icon(point.connectionState)
       }
     );
   }

@@ -17,7 +17,15 @@ export class SearchServiceImpl implements SearchService {
 
   search(searchString: string): Observable<LocationSearchGroup[]> {
     return this.searchApi.search(searchString).pipe(
-      map(response => this.locationSearchResultConverter.convert(response))
+      map(response => {
+        return this.locationSearchResultConverter.convert(response).map(group => {
+          return {
+            id: group.id,
+            label: group.label,
+            locations: group.locations.filter(l => l.label.toLowerCase().includes(searchString.toLowerCase()))
+          };
+        });
+      })
     );
   }
 }
