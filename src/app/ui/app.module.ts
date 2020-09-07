@@ -39,7 +39,7 @@ import {LoaderServiceImpl} from './loader/LoaderServiceImpl';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {UsersPage} from './users/users-page';
 import {JoinPipe} from './users/pipe/join.pipe';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NZ_I18N, ru_RU} from 'ng-zorro-antd/i18n';
 import {registerLocaleData} from '@angular/common';
 import ru from '@angular/common/locales/ru';
@@ -88,6 +88,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { AreaSelectComponent } from './selectors/area-select/area-select.component';
 import {StorageService} from '../storage/storage.service';
 import {LocalStorageService} from '../storage/local-storage.service';
+import {AuthInterceptor} from '@api/auth.interceptor';
 
 registerLocaleData(ru);
 
@@ -186,7 +187,8 @@ registerLocaleData(ru);
     },
     {provide: NZ_I18N, useValue: ru_RU},
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
-    {provide: StorageService, useClass: LocalStorageService}
+    {provide: StorageService, useClass: LocalStorageService},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
