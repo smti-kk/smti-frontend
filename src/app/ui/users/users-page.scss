@@ -1,5 +1,7 @@
 table {
   margin-top: 10px;
+  border-collapse: unset;
+  border-spacing: 2px;
   & thead {
     color: #95989a;
     font-family: "Segoe UI", sans-serif;
