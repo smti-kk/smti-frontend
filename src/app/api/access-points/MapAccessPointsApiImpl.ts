@@ -9,6 +9,16 @@ import {BoundsToStringConverter} from '../util/bounds.to.string.converter';
 export class MapAccessPointsApiImpl implements MapAccessPointsApi {
   constructor(private httpClient: HttpClient,
               private boundsToStringConverter: BoundsToStringConverter) {
+    // const socket = new WebSocket(ACCESS_POINTS_SOCKET);
+    // socket.onopen = (e) => {
+    //   console.log('telecom connnected');
+    //   socket.onmessage = (message) => {
+    //     console.log(message, 'Данные получены с сервера');
+    //   };
+    // };
+    // const socket = webSocket(ACCESS_POINTS_SOCKET).subscribe(message => {
+    //   console.log(message);
+    // });
   }
 
   get(type: string): Observable<AccessPointFromApi[]> {

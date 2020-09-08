@@ -26,3 +26,11 @@
   position: relative;
   background-color: transparent;
 }
+
+mat-optgroup ::ng-deep .mat-optgroup-label {
+  cursor: pointer !important;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+}

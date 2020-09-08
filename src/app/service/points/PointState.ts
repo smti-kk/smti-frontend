@@ -1,1 +1,1 @@
-export type PointState = true | false | null | undefined;
+export type PointState = 'ACTIVE' | 'DISABLED' | 'NOT_MONITORED';

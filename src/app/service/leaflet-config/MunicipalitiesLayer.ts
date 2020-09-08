@@ -90,4 +90,9 @@ export class MunicipalitiesLayer extends GeoJSON {
     }
     return 0;
   }
+
+  selectMunicipality(munId: number): void {
+    const municipalityLayer = this.getLayers().find(layer => layer.feature.id === munId);
+    this.selectLayer(municipalityLayer);
+  }
 }

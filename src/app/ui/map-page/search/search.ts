@@ -16,8 +16,12 @@ export class Search implements OnInit {
   @Output()
   selectLocation: EventEmitter<number>;
 
+  @Output()
+  selectGroup: EventEmitter<number>;
+
   constructor(private readonly searchService: SearchService) {
     this.selectLocation = new EventEmitter<number>();
+    this.selectGroup = new EventEmitter<number>();
     this.searchControl = new FormControl();
     this.searchControl.valueChanges.subscribe(value => {
       searchService.search(value).subscribe(filterOptions => {
@@ -38,5 +42,9 @@ export class Search implements OnInit {
       return '';
     }
     return option.label;
+  }
+
+  onSelectArea(group: LocationSearchGroup): void {
+    this.selectGroup.emit(group.id);
   }
 }

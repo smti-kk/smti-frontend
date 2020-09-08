@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   API_BASE_URL: '',
+  WS_BASE_URL: 'ws://0.0.0.0:8080',
 };
 
 /*
