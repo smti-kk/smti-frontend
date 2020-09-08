@@ -53,27 +53,27 @@ import {MatIconModule} from '@angular/material/icon';
 import {SignalControl} from './buttons/signal-control/SignalControl';
 import {PlanPage} from './locations-page/plan-page/PlanPage';
 import {MoveToArchiveDialog} from './features-page/move-to-archive-dialog/MoveToArchiveDialog';
-import { BaseStationsComponent } from './base-stations/base-stations.component';
+import {BaseStationsComponent} from './base-stations/base-stations.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { CreateBaseStationComponent } from './base-stations/create-base-station/create-base-station.component';
+import {CreateBaseStationComponent} from './base-stations/create-base-station/create-base-station.component';
 import {DialogsModule} from './dialogs/dialogs.module';
-import { TrunkChannelsComponent } from './trunk-channels/trunk-channels.component';
-import { CreateTrunkChannelComponent } from './trunk-channels/create-trunk-channel/create-trunk-channel.component';
+import {TrunkChannelsComponent} from './trunk-channels/trunk-channels.component';
+import {CreateTrunkChannelComponent} from './trunk-channels/create-trunk-channel/create-trunk-channel.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { AreaInfoBarComponent } from './map-page/area-info-bar/area-info-bar.component';
+import {AreaInfoBarComponent} from './map-page/area-info-bar/area-info-bar.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {GlobalErrorHandler} from './global-error-handler';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
-import { MunRequestsComponent } from './mun-requests/mun-requests.component';
-import { MunRequestComponent } from './mun-requests/mun-request/mun-request.component';
-import { OperProfileComponent } from './oper-profile/oper-profile.component';
-import { ReqDeclineFormComponent } from './oper-profile/req-decline-form/req-decline-form.component';
-import { PointTypePipe } from './map-page/pipes/point-type.pipe';
-import { ImportLocationComponent } from './import-location/import-location.component';
+import {MunRequestsComponent} from './mun-requests/mun-requests.component';
+import {MunRequestComponent} from './mun-requests/mun-request/mun-request.component';
+import {OperProfileComponent} from './oper-profile/oper-profile.component';
+import {ReqDeclineFormComponent} from './oper-profile/req-decline-form/req-decline-form.component';
+import {PointTypePipe} from './map-page/pipes/point-type.pipe';
+import {ImportLocationComponent} from './import-location/import-location.component';
 import {ImportTcInternetComponent} from './import-tc-internet/import-tc-internet.component';
 import {ImportTcMobileComponent} from './import-tc-mobile/import-tc-mobile.component';
 import {ImportTcPayphoneComponent} from './import-tc-payphone/import-tc-payphone.component';
@@ -84,11 +84,12 @@ import {ImportAccessPointComponent} from './import-access-point/import-access-po
 import {ImportTcAtsComponent} from './import-tc-ats/import-tc-ats.component';
 import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.component';
 import {ImportTrunkChannelComponent} from './import-trunk-channel/import-trunk-channel.component';
-import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
-import { AreaSelectComponent } from './selectors/area-select/area-select.component';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {AreaSelectComponent} from './selectors/area-select/area-select.component';
 import {StorageService} from '../storage/storage.service';
 import {LocalStorageService} from '../storage/local-storage.service';
 import {AuthInterceptor} from '@api/auth.interceptor';
+import {LocationComparingFiltersComponent} from './features-page/location-comparing-filters/location-comparing-filters.component';
 
 registerLocaleData(ru);
 
@@ -141,7 +142,8 @@ registerLocaleData(ru);
     ImportTcAtsComponent,
     ImportTcInfomatComponent,
     ImportTrunkChannelComponent,
-    AreaSelectComponent
+    AreaSelectComponent,
+    LocationComparingFiltersComponent
   ],
   imports: [
     BrowserModule,

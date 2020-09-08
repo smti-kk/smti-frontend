@@ -37,6 +37,10 @@ const routes: Routes = [
     component: MapPage
   },
   {
+    path: '',
+    component: MapPage
+  },
+  {
     path: 'base-stations',
     component: BaseStationsComponent,
     canActivate: [RouteProxyService],

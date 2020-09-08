@@ -1,7 +1,7 @@
 <div class="location-features-container">
-  <location-filters></location-filters>
+  <app-location-comparing-filters [type]="type" (filters)="filter($event)"></app-location-comparing-filters>
   <div class="filter-result-count">
-    Результатов поиска: 1743
+    Результатов поиска: {{totalElements}}
   </div>
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (change)="onChangeType($event)" class="type-select">
     <mat-button-toggle [checked]="this.type === 'INET'" value="INET">Интернет</mat-button-toggle>
@@ -16,7 +16,13 @@
       <div class="features-table__header-column">План {{currentYear + 1}}</div>
       <div class="features-table__header-column">План {{currentYear + 2}}</div>
     </div>
-    <div class="features-table__body">
+    <div class="features-table__body"
+         infinite-scroll
+         [infiniteScrollDistance]="1"
+         [infiniteScrollUpDistance]="2"
+         [infiniteScrollThrottle]="300"
+         (scrolled)="onScrollDown()"
+    >
       <div class="features-table__row" *ngFor="let feature of features">
         <div class="features-table__column features-table__location">
           <div class="features-table__location-info">
