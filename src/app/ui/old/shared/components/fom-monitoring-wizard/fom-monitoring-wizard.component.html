@@ -1,0 +1,112 @@
+<form [formGroup]="monitoringFormGroup">
+  <mat-vertical-stepper #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Данные для билинга UTM5</ng-template>
+      <mat-form-field>
+        <mat-label>Сети</mat-label>
+        <input matInput placeholder="xxx.xxx.xxx.xxx/xx;..." formControlName="networks" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext type="button">Дальше</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Данные для мониторнга Zabbix</ng-template>
+      <mat-grid-list cols="2" rowHeight="500px">
+        <mat-grid-tile>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Устройство</mat-card-title>
+            </mat-card-header>
+            <mat-card-content formGroupName="device">
+              <mat-form-field>
+                <mat-label>Название хоста</mat-label>
+                <input matInput formControlName="hostName" placeholder="m000U.00.CityName" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>IP адресс</mat-label>
+                <input matInput formControlName="ip" placeholder="xxx.xxx.xxx.xxx" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Группа</mat-label>
+                <input matInput formControlName="groupid" placeholder="34" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Тег</mat-label>
+                <input matInput formControlName="tag" placeholder="project" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Тег значение</mat-label>
+                <input matInput formControlName="tagValue" placeholder="telecom-it" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Шаблон</mat-label>
+                <input matInput formControlName="templateid" placeholder="10233" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Макрос</mat-label>
+                <input matInput formControlName="macro" placeholder="{$SNMP_COMMUNITY}" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Макрос значение</mat-label>
+                <input matInput formControlName="macroValue" placeholder="ESPD_monitor" required>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Сенсор</mat-card-title>
+            </mat-card-header>
+            <mat-card-content formGroupName="sensor">
+              <mat-form-field>
+                <mat-label>Название хоста</mat-label>
+                <input matInput formControlName="hostName" placeholder="mS000U.00.CityName" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>IP адресс</mat-label>
+                <input matInput formControlName="ip" placeholder="xxx.xxx.xxx.xxx" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Группа</mat-label>
+                <input matInput formControlName="groupid" placeholder="34" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Тег</mat-label>
+                <input matInput formControlName="tag" placeholder="project" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Тег значение</mat-label>
+                <input matInput formControlName="tagValue" placeholder="telecom-it" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Шаблон</mat-label>
+                <input matInput formControlName="templateid" placeholder="10233" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Макрос</mat-label>
+                <input matInput formControlName="macro" placeholder="{$SNMP_COMMUNITY}" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Макрос значение</mat-label>
+                <input matInput formControlName="macroValue" placeholder="ESPD_monitor" required>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div>
+        <button mat-button matStepperPrevious type="button">Назад</button>
+        <button mat-button matStepperNext type="button">Дальше</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Подвердить подключение</ng-template>
+      <div>
+        <button mat-button matStepperPrevious type="button">Назад</button>
+        <button mat-button (click)="goForMonitoring()">Подключиться к системам мониторинга</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>

@@ -8,6 +8,7 @@ import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/ser
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {NzModalService} from 'ng-zorro-antd';
 import {FormAccessPointComponent} from '@shared/components/form-access-point/form-access-point.component';
+import {FomMonitoringWizardComponent} from '@shared/components/fom-monitoring-wizard/fom-monitoring-wizard.component';
 
 @Component({
   selector: 'app-organization-detail',
@@ -62,6 +63,18 @@ export class OrganizationDetailComponent implements OnInit {
     this.modal.create({
       nzTitle: 'Редактирование точки доступа',
       nzContent: FormAccessPointComponent,
+      nzFooter: null,
+      nzComponentParams: {
+        accessPointForEdit: point,
+        organization: this.organization,
+      },
+    });
+  }
+
+  initMonitoringAccessPoint(point: Reaccesspoint) {
+    this.modal.create({
+      nzTitle: 'Подключить к системам мониторинга',
+      nzContent: FomMonitoringWizardComponent,
       nzFooter: null,
       nzComponentParams: {
         accessPointForEdit: point,

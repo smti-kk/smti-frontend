@@ -7,6 +7,7 @@ export const ORGANIZATION_SAVE = '/api/organization/';
 export const ORGANIZATION_EDIT = '/api/organization/:id/';
 export const ORGANIZATION_AP = '/api/organization/:id/ap/';
 export const ORGANIZATION_CREATE_AP = '/api/organization/:id/ap/';
+export const ORGANIZATION_INIT_MONITORING_AP = '/api/organization/:id/ap/:apid/init-monitoring';
 
 export const INTERNET_ACCESS_TYPES = '/api/type/internet-access/';
 
