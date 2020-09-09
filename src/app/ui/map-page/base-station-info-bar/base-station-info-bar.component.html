@@ -1,0 +1,41 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Информация о базовой станции по адресу {{station.address}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="features-list">
+      <div class="feature">
+        <div class="feature__label">Тип мобильной связи:</div>
+        <div class="feature__value">
+          {{station.mobileType?.name}}
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Оператор:</div>
+        <div class="feature__value">
+          {{station.operator?.name}}
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Высота опоры:</div>
+        <div class="feature__value">
+          {{station.propHeight}}
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Радиус покрытия:</div>
+        <div class="feature__value">
+          {{station.coverageRadius}}
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature__label">Срок действия:</div>
+        <div class="feature__value">
+          {{station.actionDate}}
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

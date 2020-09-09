@@ -90,6 +90,7 @@ import {StorageService} from '../storage/storage.service';
 import {LocalStorageService} from '../storage/local-storage.service';
 import {AuthInterceptor} from '@api/auth.interceptor';
 import {LocationComparingFiltersComponent} from './features-page/location-comparing-filters/location-comparing-filters.component';
+import { BaseStationInfoBarComponent } from './map-page/base-station-info-bar/base-station-info-bar.component';
 
 registerLocaleData(ru);
 
@@ -143,7 +144,8 @@ registerLocaleData(ru);
     ImportTcInfomatComponent,
     ImportTrunkChannelComponent,
     AreaSelectComponent,
-    LocationComparingFiltersComponent
+    LocationComparingFiltersComponent,
+    BaseStationInfoBarComponent
   ],
   imports: [
     BrowserModule,

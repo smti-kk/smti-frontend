@@ -8,7 +8,9 @@ import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
 import {ApiOrganization} from '@api/organizations/ApiOrganization';
 import {AORAccessPoint} from '@api/dto/ApiOrganizationResponse';
 import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
-import {MunicipalitiesLayer} from "@service/leaflet-config/MunicipalitiesLayer";
+import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
+import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
+import {BaseStation} from '@api/dto/BaseStation';
 
 @Component({
   selector: 'map-page',
@@ -23,13 +25,15 @@ export class MapPage {
   locationProvidingInfo: LocationProvidingInfo;
   organizationsCount$: Observable<number>;
   organizations$: Observable<any>;
-  isOpenAccessPoint: {value: boolean, type: string; id: number };
+  isOpenAccessPoint: { value: boolean, type: string; id: number };
+  station: BaseStation;
   @ViewChild(BestMap) bestMap: BestMap;
 
   constructor(private locationsService: LocationsService,
               private readonly locationDetails: LocationDetailApi,
               private readonly accessPointsApi: AccessPointsApi,
               private readonly municipalitiesLayer: MunicipalitiesLayer,
+              private readonly baseStationApi: BaseStationsApi,
               private readonly apiOrganization: ApiOrganization) {
     this.isLoading = false;
     this.barIsOpened = true;
@@ -43,6 +47,7 @@ export class MapPage {
   onSelectLocation(locationId: number): void {
     this.locationProvidingInfo = null;
     this.location = null;
+    this.station = null;
     this.isLoading = true;
     this.centerOnLocation(locationId);
     this.openBar();
@@ -82,8 +87,10 @@ export class MapPage {
     this.centeredLocation = locationId;
   }
 
-  onAreaClick(area: {feature: {id: number}}): void {
+  onAreaClick(area: { feature: { id: number } }): void {
     this.location = null;
+    this.station = null;
+    this.organizations$ = null;
     this.locationDetails.locationProvidingInfo(area.feature.id).subscribe(info => {
       this.locationProvidingInfo = info;
     });
@@ -107,7 +114,7 @@ export class MapPage {
     }, 1000);
   }
 
-  async onAccessPointClick(point: {type: string; id: number}): Promise<void> {
+  async onAccessPointClick(point: { type: string; id: number }): Promise<void> {
     // const locationId = await this.accessPointsApi.getLocationId(point.id).toPromise();
     // if (!this.location || this.location.id !== locationId) {
     //   this.onSelectLocation(locationId);
@@ -118,5 +125,14 @@ export class MapPage {
   onSelectGroup($event: number): void {
     this.municipalitiesLayer.selectMunicipality($event);
     this.onAreaClick({feature: {id: $event}});
+  }
+
+  onSelectBaseStation(baseStationId: number): void {
+    this.baseStationApi.findOne(baseStationId).subscribe(station => {
+      this.station = station;
+      this.location = null;
+      this.locationProvidingInfo = null;
+      this.organizations$ = null;
+    });
   }
 }

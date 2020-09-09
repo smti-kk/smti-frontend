@@ -13,17 +13,6 @@ import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 import {TrunkChannel} from '@api/dto/TrunkChannel';
 import {TrunkChannelFilters} from '@service/leaflet-config/TrunkChannelsLayer';
 import {InternetType} from '@api/dto/InternetType';
-import {
-  BEELINE_COLOR,
-  ISKRA_COLOR,
-  MEGAPHONE_COLOR,
-  MTS_COLOR,
-  ROSTELECOM_COLOR,
-  RTRS_COLOR,
-  SIBTTK_COLOR,
-  TELE2_COLOR,
-  UNKNOWN_COLOR
-} from 'src/environments/styles';
 
 @Component({
   selector: 'best-map',
@@ -34,6 +23,7 @@ export class BestMap implements OnInit, OnDestroy {
   @Output() readonly locationClick: EventEmitter<number>;
   @Output() readonly areaClick: EventEmitter<MunicipalitiesLayerGeoJson>;
   @Output() readonly accessPointClick: EventEmitter<{ type: string, id: number }>;
+  @Output() readonly baseStationClick: EventEmitter<number>;
   readonly pointsLayers: MapLayers;
   readonly leafletOptions$: Observable<MapOptions>;
   readonly existedTrunkChannelOperators: { [key: string]: boolean } = {};
@@ -69,6 +59,7 @@ export class BestMap implements OnInit, OnDestroy {
     };
     this.locationClick = this.pointsLayers.locations.onPointClick();
     this.areaClick = this.municipalitiesLayer.onMunicipalityClick;
+    this.baseStationClick = new EventEmitter<number>();
     this.accessPointClick = new EventEmitter<{ type: string, id: number }>();
     Object.keys(this.pointsLayers)
       .filter((key) => key !== 'trunkChannelsLayer' && key !== 'locations')
@@ -141,6 +132,7 @@ export class BestMap implements OnInit, OnDestroy {
       .filter(mobileType => this.selectedMobileTypes[mobileType] === true) as CellularType[];
     this.pointsLayers.baseStations = this.layersFactory.baseStationsLayerLayerController(mobileTypes);
     this.pointsLayers.baseStations.addTo(this.map);
+    this.pointsLayers.baseStations.onPointClick().subscribe((id) => this.baseStationClick.emit(id));
   }
 
   updateTrunkChannelsLayer(): void {
