@@ -2,7 +2,9 @@
   <search (selectLocation)="onSelectLocation($event)" (selectGroup)="onSelectGroup($event)" class="location-search"></search>
   <area-info-bar *ngIf="locationProvidingInfo" [area]="locationProvidingInfo"></area-info-bar>
   <location-info-bar *ngIf="location" [location]="location"></location-info-bar>
-  <app-base-station-info-bar *ngIf="station" [station]="station"></app-base-station-info-bar>
+  <ng-container *permissions="['ADMIN', 'OPERATOR']">
+    <app-base-station-info-bar *ngIf="station" [station]="station"></app-base-station-info-bar>
+  </ng-container>
   <ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
     <organizations-info-bar
       *ngIf="organizationsCount$ && location"
