@@ -4,12 +4,16 @@
     <!-- Position Column -->
     <ng-container matColumnDef="locationStart">
       <th mat-header-cell *matHeaderCellDef> Начало канала </th>
-      <td mat-cell *matCellDef="let element"> {{element.locationStart.name}} </td>
+      <td mat-cell *matCellDef="let element">
+        {{element.locationStart.type}} {{element.locationStart.name}} ({{element.locationStart.parent.type}} {{element.locationStart.parent.name}})
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="locationEnd">
       <th mat-header-cell *matHeaderCellDef> Конец канала </th>
-      <td mat-cell *matCellDef="let element"> {{element.locationEnd.name}} </td>
+      <td mat-cell *matCellDef="let element">
+        {{element.locationEnd.type}} {{element.locationEnd.name}} ({{element.locationEnd.parent.type}} {{element.locationEnd.parent.name}})
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="operator">
