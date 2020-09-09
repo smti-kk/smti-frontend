@@ -82,7 +82,7 @@
                *ngFor="let operator of location.post">
             <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
             <div class="feature__icon-type" *ngIf="operator.postType != 'UNDEFINED'">
-              {{operator.postType.name}}
+              {{operator.postType?.name}}
             </div>
           </div>
         </div>

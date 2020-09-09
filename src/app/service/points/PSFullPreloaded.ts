@@ -2,34 +2,26 @@ import {PointsService} from './PointsService';
 import {Observable, of} from 'rxjs';
 import {MonitoringPoint} from './MonitoringPoint';
 import {LatLngBounds} from 'leaflet';
+import {shareReplay} from 'rxjs/operators';
 
 /**
  * Предзагрузка всех точек
  */
 export class PSFullPreloaded implements PointsService {
-  private loadedFullPointsList: MonitoringPoint[];
+  private loadedFullPointsList$: Observable<MonitoringPoint[]>;
   private readonly origin: PointsService;
 
   constructor(origin: PointsService) {
     this.origin = origin;
-    origin.getPoints().subscribe(points => {
-      this.loadedFullPointsList = points;
-    });
+    this.loadedFullPointsList$ = origin.getPoints().pipe(shareReplay());
+    this.loadedFullPointsList$.subscribe(response => {});
   }
 
   getPoints(): Observable<MonitoringPoint[]> {
-    if (this.loadedFullPointsList) {
-      return of(this.loadedFullPointsList);
-    } else {
-      return this.origin.getPoints();
-    }
+    return this.loadedFullPointsList$;
   }
 
   getPointsByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
-    if (this.loadedFullPointsList) {
-      return of(this.loadedFullPointsList);
-    } else {
-      return this.origin.getPointsByBounds(bounds);
-    }
+    return this.loadedFullPointsList$;
   }
 }

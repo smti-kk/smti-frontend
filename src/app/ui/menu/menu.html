@@ -4,20 +4,20 @@
   </div>
   <div class="link root-link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
   <div class="link root-link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
-  <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
-  <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']" [matMenuTriggerFor]="menuImport">Импорт</button>
+  <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
+  <button class="link mat-menu-select" mat-button *permissions="['ADMIN']" [matMenuTriggerFor]="menuImport">Импорт</button>
   <mat-menu #menu="matMenu">
     <div class="link"
          routerLink="/features"
-         *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+         *permissions="['ADMIN', 'ORGANIZATION', 'OPERATOR']"
          [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
     <div class="link"
          routerLink="/connection-points"
-         *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
+         *permissions="['ADMIN', 'ORGANIZATION']"
          [class.active]="currentRouteIs('/connection-points')"><span>Организации</span></div>
     <div class="link"
          routerLink="/communication-contracts"
-         *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']"
+         *permissions="['ADMIN', 'ORGANIZATION']"
          [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
     <div class="link"
          *permissions="['ADMIN', 'OPERATOR']"

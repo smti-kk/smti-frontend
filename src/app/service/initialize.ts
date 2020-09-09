@@ -87,7 +87,7 @@ import {FeaturesComparingService} from '@service/features-comparing/FeaturesComp
 import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {ApiFeaturesRequestsImpl} from '@api/features-requests/ApiFeaturesRequestsImpl';
 import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
-import {MunicipalitiesApiImpl} from '@api/municipalities-api/MunicipalitiesApi';
+import {MunicipalitiesApi, MunicipalitiesApiImpl} from '@api/municipalities-api/MunicipalitiesApi';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 import {MapLocationsApiImpl} from '@api/locations/MapLocationsApiImpl';
@@ -317,12 +317,14 @@ export const factory = (): Provider[] => {
       useValue: apiFeaturesRequests
     },
     {
-      provide: MunicipalitiesLayer,
-      useValue: new MunicipalitiesLayer(
-        new MACacheable(
-          new MunicipalitiesApiImpl(httpClient)
-        )
+      provide: MunicipalitiesApi,
+      useValue: new MACacheable(
+        new MunicipalitiesApiImpl(httpClient)
       )
+    },
+    {
+      provide: MunicipalitiesLayer,
+      useClass: MunicipalitiesLayer
     },
     {
       provide: BaseStationsApi,

@@ -547,11 +547,16 @@ select:-moz-focusring {
 .filter-sort-population {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
   margin-left: 0.5rem;
   padding: 0 10px;
   background-color: #f2f2f6;
   font-size: 11px;
+  width: 300px;
+}
+
+// hack
+.filter-footer-active .filter-sort {
+  width: unset !important;
 }
 
 .filter-sort-population input {
