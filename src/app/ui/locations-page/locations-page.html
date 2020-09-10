@@ -139,7 +139,7 @@
         </th>
         <td mat-cell *matCellDef="let location">
           <div class="td-container">
-            <div class="feature__icon"
+            <div class="feature__icon signal-type"
                  [class.disabled]="!operator.isActive"
                  *ngFor="let operator of location.television">
               <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
@@ -210,8 +210,8 @@
         <th mat-header-cell *matHeaderCellDef>
           <img src="/assets/table-contract.svg" matTooltip="Программа" alt="">
         </th>
-        <td mat-cell *matCellDef="let location">
-          <div *ngFor="let contract of location.contract">{{contract.acronym}} <span
+        <td mat-cell *matCellDef="let location" class="align-left">
+          <div *ngFor="let contract of location.contract" style="white-space: nowrap">{{contract.acronym}} <span
             *ngIf="contract.govYearComplete">{{contract.govYearComplete}}</span></div>
         </td>
       </ng-container>

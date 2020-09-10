@@ -16,6 +16,7 @@ table {
   margin-top: 10px;
   border-collapse: unset;
   border-spacing: 2px 2px !important;
+  padding: 0px 14px;
 }
 
 th {
@@ -34,7 +35,7 @@ th {
   border-width: 0 !important;
 
   &.align-left {
-    text-align: unset !important;
+    text-align: left !important;
   }
 
   & img {
@@ -46,7 +47,7 @@ th {
 }
 
 td {
-  padding: 8px !important;
+  padding: 8px 2px !important;
 
   color: #454544;
 
@@ -56,13 +57,17 @@ td {
   line-height: 16px;
 
   background-color: #efefef;
+  text-align: center;
   border-width: 0 !important;
 
   & img {
     width: 16px;
     height: 16px;
-    margin-left: 10px;
-    margin-right: 10px;
+  }
+
+  &.align-left {
+    text-align: left !important;
+    padding-left: 8px !important;
   }
 }
 
@@ -78,8 +83,9 @@ td {
 
 .td-container {
   display: flex;
-  justify-content: center;
   position: relative;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .search-results {
@@ -102,6 +108,26 @@ td {
 
 .hide-locations {
   animation: hideRow 0.5s;
+}
+
+.feature__icon {
+  margin-right: 8px;
+  margin-bottom: 2px;
+}
+
+.feature__icon-type {
+  position: unset;
+  margin-left: 14px;
+  margin-top: -5px;
+}
+
+.feature__icon-type.with-signal {
+  margin-left: 4px !important;
+}
+
+.feature__internet-type-icon {
+  position: unset;
+  margin-top: -3px;
 }
 
 @keyframes showRow {
