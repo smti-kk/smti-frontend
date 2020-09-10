@@ -49,7 +49,7 @@ export class LazyArray<T> {
       )];
       return true;
     } else {
-      this.array = [...this.array, ...items.slice(this.countPerIteration * iteration, items.length)];
+      this.array = [...this.array, ...items.slice(this.countPerIteration * (iteration - 1), items.length)];
       return false;
     }
   }
