@@ -33,6 +33,7 @@ export class TcEdition {
           typePost = 'UPS';
           break;
       }
+      const payphones = this.type === 'PAYPHONE' ? 0 : null;
       this.tcs[operatorId] = {
         id: null,
         operatorId,
@@ -46,7 +47,7 @@ export class TcEdition {
         govYearComplete: null,
         typePost,
         state: 'WAIT_FOR_STATE_TO_BE_SET',
-        payphones: 0
+        payphones
       };
     }
   }
