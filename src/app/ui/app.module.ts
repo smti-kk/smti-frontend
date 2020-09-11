@@ -63,7 +63,7 @@ import {CreateTrunkChannelComponent} from './trunk-channels/create-trunk-channel
 import {MatTabsModule} from '@angular/material/tabs';
 import {AreaInfoBarComponent} from './map-page/area-info-bar/area-info-bar.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {GlobalErrorHandler} from './global-error-handler';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -91,6 +91,7 @@ import {LocalStorageService} from '../storage/local-storage.service';
 import {AuthInterceptor} from '@api/auth.interceptor';
 import {LocationComparingFiltersComponent} from './features-page/location-comparing-filters/location-comparing-filters.component';
 import { BaseStationInfoBarComponent } from './map-page/base-station-info-bar/base-station-info-bar.component';
+import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
 
 registerLocaleData(ru);
 
@@ -145,7 +146,8 @@ registerLocaleData(ru);
     ImportTrunkChannelComponent,
     AreaSelectComponent,
     LocationComparingFiltersComponent,
-    BaseStationInfoBarComponent
+    BaseStationInfoBarComponent,
+    ReportMonitoringComponent
   ],
   imports: [
     BrowserModule,
@@ -192,7 +194,8 @@ registerLocaleData(ru);
     {provide: NZ_I18N, useValue: ru_RU},
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
     {provide: StorageService, useClass: LocalStorageService},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: MAT_DATE_LOCALE,  useValue: 'ru-RU'},
   ],
   bootstrap: [AppComponent]
 })

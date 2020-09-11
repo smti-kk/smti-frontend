@@ -24,6 +24,7 @@ import {ImportAccessPointComponent} from './import-access-point/import-access-po
 import {ImportTrunkChannelComponent} from './import-trunk-channel/import-trunk-channel.component';
 import {ImportTcAtsComponent} from './import-tc-ats/import-tc-ats.component';
 import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.component';
+import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
 
 
 const routes: Routes = [
@@ -217,6 +218,14 @@ const routes: Routes = [
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
+    path: 'report-monitoring',
+    component: ReportMonitoringComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR']
     },
   },
 ];
