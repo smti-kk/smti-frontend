@@ -48,18 +48,19 @@ export class OrganizationDetailComponent implements OnInit {
     }
   }
 
-  addNewAccessPoint() {
+  addNewAccessPoint(): void {
     this.modal.create({
       nzTitle: 'Добавление точки доступа',
       nzContent: FormAccessPointComponent,
       nzFooter: null,
       nzComponentParams: {
         organization: this.organization,
+        mode: 'CREATE'
       },
     });
   }
 
-  editAccessPoint(point: Reaccesspoint) {
+  editAccessPoint(point: Reaccesspoint): void {
     this.modal.create({
       nzTitle: 'Редактирование точки доступа',
       nzContent: FormAccessPointComponent,
@@ -67,11 +68,12 @@ export class OrganizationDetailComponent implements OnInit {
       nzComponentParams: {
         accessPointForEdit: point,
         organization: this.organization,
+        mode: 'UPDATE'
       },
     });
   }
 
-  initMonitoringAccessPoint(point: Reaccesspoint) {
+  initMonitoringAccessPoint(point: Reaccesspoint): void {
     this.modal.create({
       nzTitle: 'Подключить к системам мониторинга',
       nzContent: FomMonitoringWizardComponent,

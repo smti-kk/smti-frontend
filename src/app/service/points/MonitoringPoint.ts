@@ -8,7 +8,8 @@ export class MonitoringPoint extends Marker {
               latLng: LatLngExpression,
               options?: MarkerOptions,
               origin?: any) {
-    super(latLng, options);
+    // @ts-ignore
+    super(latLng, {...options});
     this.origin = origin;
     this.id = id;
   }

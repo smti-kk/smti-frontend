@@ -11,6 +11,7 @@ export interface AORAccessPoint {
   declaredSpeed: string;
   internetAccess: AORInternetAccess;
   type: string;
+  opened: boolean;
 }
 
 export interface AORLocation {
@@ -32,4 +33,5 @@ export interface ApiOrganizationResponse {
   address: string;
   location: AORLocation;
   accesspoints: AORAccessPoint[];
+  opened: boolean;
 }

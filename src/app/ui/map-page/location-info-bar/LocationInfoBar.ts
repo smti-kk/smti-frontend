@@ -5,7 +5,6 @@ import {LocationInfoBarValue} from '@service/dto/LocationInfoBarValue';
   selector: 'location-info-bar',
   templateUrl: './location-info-bar.html',
   styleUrls: ['./location-info-bar.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LocationInfoBar implements OnInit {
   @Input()

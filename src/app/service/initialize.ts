@@ -62,7 +62,6 @@ import {
   LocationsService,
   LocationsServiceImpl,
   LocationTableItemConverterImpl,
-  LSWithDelay,
   OperatorIconsFactoryImpl,
   StrictFilterImpl
 } from '@service/locations';
@@ -168,13 +167,11 @@ export const factory = (): Provider[] => {
     ),
     new ThrottleImpl(1)
   );
-  const locationsService: LocationsService = new LSWithDelay(
-    new LocationsServiceImpl(
-      new LocationsApiImpl(httpClient),
-      operatorsApi,
-      new LocationInfoBarConverterImpl(
-        new OperatorIconsFactoryImpl()
-      )
+  const locationsService: LocationsService = new LocationsServiceImpl(
+    new LocationsApiImpl(httpClient),
+    operatorsApi,
+    new LocationInfoBarConverterImpl(
+      new OperatorIconsFactoryImpl()
     )
   );
   const accountService: AccountService = new AccountServiceImpl(

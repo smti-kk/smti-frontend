@@ -9,7 +9,7 @@
       >
         <nz-option
           *ngFor="let item of accessPointType$ | async"
-          [nzValue]="item"
+          [nzValue]="item.name"
           [nzLabel]="item.desc"
         ></nz-option>
       </nz-select>

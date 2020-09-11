@@ -11,6 +11,7 @@ import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
 import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {BaseStation} from '@api/dto/BaseStation';
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'map-page',
@@ -25,7 +26,7 @@ export class MapPage {
   locationProvidingInfo: LocationProvidingInfo;
   organizationsCount$: Observable<number>;
   organizations$: Observable<any>;
-  isOpenAccessPoint: { value: boolean, type: string; id: number };
+  isOpenAccessPoint: { value: boolean, type: string; id: number; };
   station: BaseStation;
   @ViewChild(BestMap) bestMap: BestMap;
 
@@ -43,13 +44,23 @@ export class MapPage {
    * Событие выбора локации (при нажатии на маркер и при поиске)
    * требуется центрировать карту на точке и открыть окно инофрмации о локации
    * @param locationId - id локации
+   * @param withFocusOnLocation - фокусироваться на локации
+   * @param withLoadOrganizations - отображать организации
    */
-  onSelectLocation(locationId: number): void {
+  onSelectLocation(locationId: number, withFocusOnLocation: boolean = true, withLoadOrganizations = true): void {
+    if (this.location && locationId === this.location.id) {
+      return;
+    }
     this.locationProvidingInfo = null;
     this.location = null;
     this.station = null;
     this.isLoading = true;
-    this.centerOnLocation(locationId);
+    if (withLoadOrganizations) {
+      this.organizations$ = this.apiOrganization.organizationsByLocation(locationId);
+    }
+    if (withFocusOnLocation) {
+      this.centerOnLocation(locationId);
+    }
     this.openBar();
     this.organizationsCount$ = this.apiOrganization.count(locationId);
     this.locationsService.get(locationId).subscribe(
@@ -97,7 +108,6 @@ export class MapPage {
   }
 
   onOpenOrganizationInfo(location: LocationInfoBarValue): void {
-    this.organizations$ = this.apiOrganization.organizationsByLocation(location.id);
   }
 
   onOpenAccessPointBar(accessPoint: AORAccessPoint): void {
@@ -111,15 +121,21 @@ export class MapPage {
     }
     setTimeout(() => {
       this.bestMap.moveToPoint(accessPoint.id, accessPoint.type);
-    }, 1000);
+    }, 1);
   }
 
   async onAccessPointClick(point: { type: string; id: number }): Promise<void> {
-    // const locationId = await this.accessPointsApi.getLocationId(point.id).toPromise();
-    // if (!this.location || this.location.id !== locationId) {
-    //   this.onSelectLocation(locationId);
-    // }
-    // this.isOpenAccessPoint = {value: true, ...point};
+    const locationId = await this.accessPointsApi.getLocationId(point.id).toPromise();
+    if (!this.location || this.location.id !== locationId) {
+      this.onSelectLocation(locationId, false, false);
+      this.organizations$ = this.apiOrganization.organizationsByLocation(locationId).pipe(
+        tap(() => {
+          this.isOpenAccessPoint = {value: true, ...point};
+        })
+      );
+      return;
+    }
+    this.isOpenAccessPoint = {value: true, ...point};
   }
 
   onSelectGroup($event: number): void {

@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  margin-top: 10px;
+}
+
 .feature {
   display: flex;
   flex-direction: column;
@@ -48,4 +53,37 @@ mat-expansion-panel-header {
 
   margin-right: 5px;
 }
+
+mat-panel-title {
+  color: #000000;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+}
+
+.mat-expansion-panel {
+  box-shadow: unset !important;
+  border-bottom: 1px solid #95989a;
+  border-top: 1px solid #95989a;
+  border-radius: unset !important;
+  padding: 0 8px !important;
+  &.mat-expanded {
+    background-color: #efefef;
+  }
+  &:hover {
+    background-color: #efefef;
+  }
+}
+
+.mat-expansion-panel-header {
+  &:hover {
+    background-color: #efefef !important;
+  }
+}
+
+.mat-expansion-indicator::after {
+  color: #ff5700;
+}
+
 

@@ -66,6 +66,10 @@
   height: 22px;
 }
 
+.mat-menu-panel {
+  max-width: unset !important;
+}
+
 //mat-optgroup .mat-optgroup-label ::ng-deep {
 //  cursor: pointer !important;
 //}

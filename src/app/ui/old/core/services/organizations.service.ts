@@ -85,6 +85,13 @@ export class OrganizationsService {
     return this.httpClient.post(url, item);
   }
 
+  updateAccessPoint(ap: Reaccesspoint): Observable<{}> {
+    // todo: Определить тип, параметр приходит не организация, а any
+    const item = Serialize(ap, Reaccesspoint);
+    const url = ORGANIZATION_CREATE_AP.replace(':id', ap.organizationId.toString());
+    return this.httpClient.put(url, item);
+  }
+
   initMonitoring(apid: number, orgid: number, foo: any): Observable<{}> {
     // todo: Определить тип, параметр приходит не организация, а any
     // console.log('service::ap:: ' + apid);
