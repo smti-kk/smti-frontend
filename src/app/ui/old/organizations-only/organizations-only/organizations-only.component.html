@@ -1,7 +1,7 @@
 <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <main class="main">
   <div class="wrapper">
-    <h1>Сводные данные по организациям</h1>
+    <h1>Справочник организаций</h1>
 
     <form [formGroup]="form">
       <div class="filter">
@@ -170,7 +170,7 @@
     <div class="container-header">
       <div>Населенный пункт</div>
       <div>Организация</div>
-      <div>Адрес</div>
+<!--      <div>Адрес</div>-->
     </div>
     <div class="container-list">
       <ng-container
@@ -213,6 +213,7 @@
               </div>
             </div>
           </div>
+<!--
           <div class="container-wrap3">
             <div class="container-point">
               <div class="container-info">
@@ -224,28 +225,29 @@
                     <img src="/assets/img/icon/smo.png"/>
                   </ng-template>
                 </div>
-                <span>{{ point.address ? point.address : '----' }}</span>
+                <span>{{ point.address ? point.address : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
                   <img src="/assets/img/icon/contractor.png"/>
                 </div>
-                <span>{{ point.contractor ? point.contractor : '----' }}</span>
+                <span>{{ point.contractor ? point.contractor : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
                   <img src="/assets/img/icon/connection.png"/>
                 </div>
-                <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
+                <span>{{ point.connectionType ? point.connectionType.name : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
                   <img src="/assets/img/icon/declaredSpeed.png"/>
                 </div>
-                <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
+                <span>{{ point.declaredSpeed ? point.declaredSpeed : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
             </div>
           </div>
+-->
         </div>
       </ng-container>
     </div>
