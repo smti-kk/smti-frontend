@@ -100,7 +100,8 @@ export class OrganizationsService {
 
     const params = new HttpParams().set('start', start.toString()).set('end', end.toString());
 
-    this.httpClient.get(url, {params, responseType: 'blob', observe: 'response'})
+    // TODO: HINT:: https://stackoverflow.com/a/50887300
+    this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
       .subscribe(
         (response) => {
           const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
