@@ -15,209 +15,211 @@
      (scrolled)="onScrollDown()"
 >
   <div class="sticky-table-container">
-    <table mat-table [dataSource]="locations.array">
-      <ng-container matColumnDef="areaName">
-        <th class="align-left" mat-header-cell *matHeaderCellDef>Населенный пункт</th>
-        <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
-      </ng-container>
+    <table mat-table [dataSource]="locations">
+<!--      <cdk-virtual-scroll-viewport itemSize="50">-->
+        <ng-container matColumnDef="areaName">
+          <th class="align-left" mat-header-cell *matHeaderCellDef>Населенный пункт</th>
+          <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td
-          mat-cell
-          class="align-left location-link"
-          *matCellDef="let location"
-          [routerLink]="[user ? (user.isOperatorOrAdmin() ? location.id : null) : null]"
-        > {{location.name}} </td>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            class="align-left location-link"
+            *matCellDef="let location"
+            [routerLink]="[user ? (user.isOperatorOrAdmin() ? location.id : null) : null]"
+          > {{location.name}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="population">
-        <th mat-header-cell *matHeaderCellDef>
-          <span class="material-icons" matTooltip="Численность">people</span>
-        </th>
-        <td class="text-align-center" mat-cell *matCellDef="let location"> {{location.population}} </td>
-      </ng-container>
+        <ng-container matColumnDef="population">
+          <th mat-header-cell *matHeaderCellDef>
+            <span class="material-icons" matTooltip="Численность">people</span>
+          </th>
+          <td class="text-align-center" mat-cell *matCellDef="let location"> {{location.population}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="hasESPD">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-computer.svg" matTooltip="ЕСПД" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <img *ngIf="location.hasESPD" src="/assets/table-ok.svg" alt="">
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="hasESPD">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-computer.svg" matTooltip="ЕСПД" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <img *ngIf="location.hasESPD" src="/assets/table-ok.svg" alt="">
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="hasSMO">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-house.svg" matTooltip="СЗО" alt="">
-        </th>
-        <td class="text-align-center" mat-cell *matCellDef="let location">
-          <img *ngIf="location.hasSMO" src="/assets/table-ok.svg" alt="">
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="hasSMO">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-house.svg" matTooltip="СЗО" alt="">
+          </th>
+          <td class="text-align-center" mat-cell *matCellDef="let location">
+            <img *ngIf="location.hasSMO" src="/assets/table-ok.svg" alt="">
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="hasRSZO">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-sputnik.svg" matTooltip="РСЗО" alt="">
-        </th>
-        <td class="text-align-center" mat-cell *matCellDef="let location">
-          <img *ngIf="location.hasRSZO" src="/assets/table-ok.svg" alt="">
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="hasRSZO">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-sputnik.svg" matTooltip="РСЗО" alt="">
+          </th>
+          <td class="text-align-center" mat-cell *matCellDef="let location">
+            <img *ngIf="location.hasRSZO" src="/assets/table-ok.svg" alt="">
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="hasZSPD">
-        <th class="text-align-center" mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-radio.svg" matTooltip="ЗСПД" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <img *ngIf="location.hasZSPD" src="/assets/table-ok.svg" alt="">
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="hasZSPD">
+          <th class="text-align-center" mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-radio.svg" matTooltip="ЗСПД" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <img *ngIf="location.hasZSPD" src="/assets/table-ok.svg" alt="">
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="ats">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-phone.svg" matTooltip="АТС" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <div class="td-container">
-            <div class="feature__icon"
-                 [class.disabled]="!operator.isActive"
-                 *ngFor="let operator of location.ats">
-              <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-            </div>
-          </div>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="payphone">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-phone-2.svg" matTooltip="Таксофоны" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <div class="td-container">
-            <div class="feature__icon"
-                 [class.disabled]="!operator.isActive"
-                 *ngFor="let operator of location.payphone">
-              <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-            </div>
-          </div>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="infomat">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-phone-3.svg" matTooltip="Инфомат" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <img *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive"
-               src="/assets/table-ok.svg" alt="">
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="post">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-mail.svg" matTooltip="Почта" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <div class="td-container">
-            <div class="feature__icon"
-                 [class.disabled]="!operator.isActive"
-                 *ngFor="let operator of location.post">
-              <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-              <div class="feature__icon-type with-signal" *ngIf="operator.postType">
-                <span *ngIf="operator.postType.id === 'POST'">ПС</span>
-                <span *ngIf="operator.postType.id !== 'POST'">{{operator.postType.name}}</span>
+        <ng-container matColumnDef="ats">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-phone.svg" matTooltip="АТС" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <div class="td-container">
+              <div class="feature__icon"
+                   [class.disabled]="!operator.isActive"
+                   *ngFor="let operator of location.ats">
+                <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
               </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="television">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-television.svg" matTooltip="ТВ" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <div class="td-container">
-            <div class="feature__icon signal-type"
-                 [class.disabled]="!operator.isActive"
-                 *ngFor="let operator of location.television">
-              <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-              <div class="feature__icon-type with-signal" *ngIf="operator.type">
-                {{operator.signalsToString()}}
+        <ng-container matColumnDef="payphone">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-phone-2.svg" matTooltip="Таксофоны" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <div class="td-container">
+              <div class="feature__icon"
+                   [class.disabled]="!operator.isActive"
+                   *ngFor="let operator of location.payphone">
+                <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
               </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="radio">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-micro.svg" matTooltip="Радио" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <div class="td-container">
-            <div class="feature__icon"
-                 [class.disabled]="!operator.isActive"
-                 *ngFor="let operator of location.radio">
-              <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-              <div class="feature__icon-type with-signal" *ngIf="operator.type">
-                {{operator.signalsToString()}}
+        <ng-container matColumnDef="infomat">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-phone-3.svg" matTooltip="Инфомат" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <img *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive"
+                 src="/assets/table-ok.svg" alt="">
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="post">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-mail.svg" matTooltip="Почта" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <div class="td-container">
+              <div class="feature__icon"
+                   [class.disabled]="!operator.isActive"
+                   *ngFor="let operator of location.post">
+                <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+                <div class="feature__icon-type with-signal" *ngIf="operator.postType">
+                  <span *ngIf="operator.postType.id === 'POST'">ПС</span>
+                  <span *ngIf="operator.postType.id !== 'POST'">{{operator.postType.name}}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="cellular">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-phone-4.svg" matTooltip="Сотовая связь" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <div class="td-container">
-            <div class="feature__icon"
-                 [class.disabled]="!operator.isActive"
-                 *ngFor="let operator of location.cellular">
-              <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-              <div class="feature__icon-type" *ngIf="operator.type != 'UNDEFINED'">
-                {{operator.type}}
+        <ng-container matColumnDef="television">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-television.svg" matTooltip="ТВ" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <div class="td-container">
+              <div class="feature__icon signal-type"
+                   [class.disabled]="!operator.isActive"
+                   *ngFor="let operator of location.television">
+                <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+                <div class="feature__icon-type with-signal" *ngIf="operator.type">
+                  {{operator.signalsToString()}}
+                </div>
               </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="internet">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-internet.svg" matTooltip="Интернет" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location">
-          <div class="td-container">
-            <div class="feature__icon"
-                 [class.disabled]="!operator.isActive"
-                 *ngFor="let operator of location.internet">
-              <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-              <img *ngIf="operator.type != 'Неопределено'"
-                   [matTooltip]="operator.type"
-                   class="feature__internet-type-icon"
-                   [src]="operator.typeIcon" alt="">
+        <ng-container matColumnDef="radio">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-micro.svg" matTooltip="Радио" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <div class="td-container">
+              <div class="feature__icon"
+                   [class.disabled]="!operator.isActive"
+                   *ngFor="let operator of location.radio">
+                <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+                <div class="feature__icon-type with-signal" *ngIf="operator.type">
+                  {{operator.signalsToString()}}
+                </div>
+              </div>
             </div>
-          </div>
-        </td>
-      </ng-container>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="contract">
-        <th mat-header-cell *matHeaderCellDef>
-          <img src="/assets/table-contract.svg" matTooltip="Программа" alt="">
-        </th>
-        <td mat-cell *matCellDef="let location" class="align-left">
-          <div *ngFor="let contract of location.contract" style="white-space: nowrap">{{contract.acronym}} <span
-            *ngIf="contract.govYearComplete">{{contract.govYearComplete}}</span></div>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="cellular">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-phone-4.svg" matTooltip="Сотовая связь" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <div class="td-container">
+              <div class="feature__icon"
+                   [class.disabled]="!operator.isActive"
+                   *ngFor="let operator of location.cellular">
+                <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+                <div class="feature__icon-type" *ngIf="operator.type != 'UNDEFINED'">
+                  {{operator.type}}
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <ng-container matColumnDef="internet">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-internet.svg" matTooltip="Интернет" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location">
+            <div class="td-container">
+              <div class="feature__icon"
+                   [class.disabled]="!operator.isActive"
+                   *ngFor="let operator of location.internet">
+                <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+                <img *ngIf="operator.type != 'Неопределено'"
+                     [matTooltip]="operator.type"
+                     class="feature__internet-type-icon"
+                     [src]="operator.typeIcon" alt="">
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contract">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="/assets/table-contract.svg" matTooltip="Программа" alt="">
+          </th>
+          <td mat-cell *matCellDef="let location" class="align-left">
+            <div *ngFor="let contract of location.contract" style="white-space: nowrap">{{contract.acronym}} <span
+              *ngIf="contract.govYearComplete">{{contract.govYearComplete}}</span></div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<!--      </cdk-virtual-scroll-viewport>-->
     </table>
   </div>
   <div class="spinner-container">

@@ -7,7 +7,10 @@
     </mat-expansion-panel-header>
     <ng-container *ngIf="organizations">
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let organization of organizations" [expanded]="organization.opened">
+        <mat-expansion-panel *ngFor="let organization of organizations"
+                             (opened)="organization.opened = true"
+                             (closed)="organization.opened = false"
+                             [expanded]="organization.opened">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{organization.name}}
@@ -16,12 +19,14 @@
 
           <mat-accordion *ngFor="let accessPoint of organization.accesspoints">
             <mat-expansion-panel [expanded]="accessPoint.opened"
-                                 (opened)="onOpenAccesspointBar(accessPoint)">
+                                 (closed)="accessPoint.opened = false"
+                                 (opened)="accessPoint.opened = true; onOpenAccesspointBar(accessPoint)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <div class="panel-title">
                     <div class="panel-img">
-                      <!--<img src="" alt="">-->
+                      <img *ngIf="accessPoint.type === 'ESPD'" src="/assets/espd.png" alt="">
+                      <img *ngIf="accessPoint.type === 'SMO'" src="/assets/smo.png" alt="">
                     </div>
                     <div>{{accessPoint.address}}</div>
                   </div>

@@ -4,7 +4,6 @@
     <nz-form-control>
       <nz-select
         formControlName="_type"
-        [compareWith]="compareFn"
         [nzSuffixIcon]="suffixIconSelect"
       >
         <nz-option
@@ -27,12 +26,12 @@
       <label nz-checkbox formControlName="_visible"></label>
     </nz-form-control>
   </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>Узел доступа</nz-form-label>
-    <nz-form-control>
-      <input nz-input type="text" formControlName="_node"/>
-    </nz-form-control>
-  </nz-form-item>
+<!--  <nz-form-item>-->
+<!--    <nz-form-label>Узел доступа</nz-form-label>-->
+<!--    <nz-form-control>-->
+<!--      <input nz-input type="text" formControlName="_node"/>-->
+<!--    </nz-form-control>-->
+<!--  </nz-form-item>-->
   <nz-form-item>
     <nz-form-label>Тип</nz-form-label>
     <nz-form-control>

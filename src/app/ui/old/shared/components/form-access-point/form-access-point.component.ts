@@ -98,7 +98,7 @@ export class FormAccessPointComponent implements OnInit {
         .updateAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value));
     }
     subscription.subscribe(
-      () => {
+      (response) => {
         window.location.reload();
         // todo: implement me
       },

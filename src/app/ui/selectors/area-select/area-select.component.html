@@ -1,6 +1,6 @@
 <mat-select [formControl]="bankMultiCtrl" placeholder="Районы" [multiple]="true" #multiSelect>
   <mat-option>
-    <ngx-mat-select-search placeholderLabel="Поиск..." [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+    <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
   </mat-option>
   <mat-option *ngFor="let area of filteredAreas | async" [value]="area.id">
     {{area.label}}

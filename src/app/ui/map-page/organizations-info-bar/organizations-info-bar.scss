@@ -50,8 +50,12 @@ mat-expansion-panel-header {
 
 .panel-img {
   flex: 0 0 20px;
-
+  height: 100%;
   margin-right: 5px;
+
+  & img {
+    width: 100%;
+  }
 }
 
 mat-panel-title {
