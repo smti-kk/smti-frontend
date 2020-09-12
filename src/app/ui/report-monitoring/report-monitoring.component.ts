@@ -28,14 +28,10 @@ export class ReportMonitoringComponent implements OnInit {
   }
 
   goForMonitoring(): void {
-    this.serviceOrganizations.reportMonitoring2(
+    this.serviceOrganizations.reportMonitoring(
       new Date(this.reportMapsFG.get('start').value).getTime() / 1000,
       new Date(this.reportMapsFG.get('end').value).getTime() / 1000
     );
   }
 
-  exportExcel() {
-    this.params.set('start', (new Date(this.reportMapsFG.get('start').value).getTime() / 1000).toString()).set('end', (new Date(this.reportMapsFG.get('end').value).getTime() / 1000).toString());
-    window.location.href = `${ORGANIZATION_REPORT_MONITORING}?${this.params.toString()}`;
-  }
 }

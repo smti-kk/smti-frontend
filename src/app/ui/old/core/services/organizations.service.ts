@@ -103,45 +103,13 @@ export class OrganizationsService {
     this.httpClient.get(url, {params, responseType: 'blob', observe: 'response'})
       .subscribe(
         (response) => {
-          saveAs(response, response.headers.get('content-disposition'));
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
         },
         error => {
           console.log(error);
         }
       );
   }
-
-  reportMonitoring2(start: number, end: number, filename: string = null): void {
-    const url = ORGANIZATION_REPORT_MONITORING;
-
-    const params = new HttpParams().set('start', start.toString()).set('end', end.toString());
-
-    // HINT::https://stackoverflow.com/questions/53284400/download-a-file-using-angular-6-and-spring-rest-api
-    this.httpClient.get(url, {params, responseType: 'blob', observe: 'response'}).subscribe((res) => {
-      // @ts-ignore
-      const file = new Blob([res], {
-        type: 'application/octet-stream',
-      });
-      const a = document.createElement('a');
-      a.href = url+"?"+params.toString();// + (<any> res)._body;
-      a.target = '_blank';
-      document.body.appendChild(a);
-      a.click();
-      return res;
-    }, error => {
-      let alert: any = {
-        title: 'Notify Title',
-        body: 'Notify Body',
-      };
-      alert.body = error.error.message || JSON.stringify(error.error);
-      alert.title = error.error.error;
-      // alert = this.alertService.handleError(error);
-      alert.position = 'rightTop';
-      console.log(error);
-      // this.alertService.notifyError(alert);
-      return error;
-    });
-  }
-
 
 }
