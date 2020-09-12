@@ -3,26 +3,29 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, pipe} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Deserialize, Serialize} from 'cerialize';
+import {saveAs} from 'file-saver';
 
 import {Organization, OrganizationType, SmoType} from '@core/models';
 import {
   ORGANIZATION_AP,
   ORGANIZATION_CREATE_AP,
   ORGANIZATION_EDIT,
-  ORGANIZATION_INIT_MONITORING_AP,
+  ORGANIZATION_INIT_MONITORING_AP, ORGANIZATION_REPORT_MONITORING,
   ORGANIZATION_SAVE,
   ORGANIZATIONS,
 } from '@core/constants/api';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {environment} from 'src/environments/environment';
-import {waitForDebugger} from 'inspector';
+// import {waitForDebugger} from 'inspector';
 
 const TYPES = `${environment.API_BASE_URL}/api/type/organization/`;
 const SMO_TYPES = `${environment.API_BASE_URL}/api/type/smo/`;
 
 @Injectable()
 export class OrganizationsService {
-  constructor(private readonly httpClient: HttpClient) {}
+
+  constructor(private readonly httpClient: HttpClient) {
+  }
 
   getList(location: number): Observable<Organization[]> {
     const params = new HttpParams().append('location', location.toString());
@@ -34,7 +37,7 @@ export class OrganizationsService {
 
   getPoints(id: string): Observable<Reaccesspoint[]> {
     return this.httpClient.get(ORGANIZATION_AP.replace(':id', id))
-    .pipe(map(response => Deserialize(response, Reaccesspoint)));
+      .pipe(map(response => Deserialize(response, Reaccesspoint)));
   }
 
   getByIdentifier(id: string): Observable<Organization> {
@@ -93,16 +96,28 @@ export class OrganizationsService {
   }
 
   initMonitoring(apid: number, orgid: number, foo: any): Observable<{}> {
-    // todo: Определить тип, параметр приходит не организация, а any
-    // console.log('service::ap:: ' + apid);
-    // console.log('service::org:: ' + orgid);
-    // console.log('service::foo:: ' + foo);
-    // debugger;
-    // const item = Serialize(ap, Reaccesspoint);
     const url = ORGANIZATION_INIT_MONITORING_AP
       .replace(':id', String(orgid))
       .replace(':apid', String(apid));
     return this.httpClient.post(url, foo);
-    // return null;
   }
+
+  reportMonitoring(start: number, end: number): void {
+    const url = ORGANIZATION_REPORT_MONITORING;
+
+    const params = new HttpParams().set('start', start.toString()).set('end', end.toString());
+
+    // TODO: HINT:: https://stackoverflow.com/a/50887300
+    this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
+      .subscribe(
+        (response) => {
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
 }
