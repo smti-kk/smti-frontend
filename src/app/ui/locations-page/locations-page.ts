@@ -39,8 +39,8 @@ export class LocationsPage implements OnInit {
   page: number;
   countPerPage: number;
   isLoading: boolean;
-  private filters: LocationFilters;
   user: Account;
+  private filters: LocationFilters;
 
   constructor(private readonly locationsFullInformationService: LocationsFullInformationService,
               private readonly accountService: AccountService,

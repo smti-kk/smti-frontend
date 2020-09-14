@@ -57,12 +57,12 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
 
   @Input()
   set openAccessPoint(point: { value: boolean, id: number, type: string }) {
+    if (!point) {
+      return;
+    }
     this.openOrganizationBar = {value: true};
     if (!this.organizations) {
       setTimeout(() => this.openAccessPoint = point, 10);
-      return;
-    }
-    if (!point) {
       return;
     }
     this.organizations.forEach(organization => {
