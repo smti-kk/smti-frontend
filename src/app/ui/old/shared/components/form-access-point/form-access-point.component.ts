@@ -80,8 +80,12 @@ export class FormAccessPointComponent implements OnInit {
       _ucn: null,
       // _updatedAt: null,
       _visible: true,
-      _type: null
+      _type: null,
+      _amount: null,
+      _number: null
     });
+
+    this.formGroupAccessPoints.valueChanges.subscribe(v => console.log(v));
 
     if (point) {
       this.formGroupAccessPoints.patchValue(point);

@@ -88,6 +88,18 @@
       </nz-select>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item *ngIf="formGroupAccessPoints.get('_type')?.value === 'CONTRACT'">
+    <nz-form-label>Номер контракта</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_number"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="formGroupAccessPoints.get('_type')?.value === 'CONTRACT'">
+    <nz-form-label>Сумма (в копейках)</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="number" formControlName="_amount"/>
+    </nz-form-control>
+  </nz-form-item>
   <nz-form-item>
     <nz-form-control>
       <div class="btn-group">
