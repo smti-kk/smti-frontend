@@ -182,7 +182,7 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
   }
 
   private setParent(field: string, value: number[]) {
-    if (value) {
+    if (value && value.length > 0) {
       this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);
@@ -338,7 +338,7 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
   }
 
   private setParent(field: string, value: number[]) {
-    if (value) {
+    if (value && value.length > 0) {
       this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);

@@ -240,7 +240,7 @@ export class OrganizationServiceWithFilterParams extends OrganizationsService {
   }
 
   private setParent(field: string, value: number[]) {
-    if (value) {
+    if (value && value.length > 0) {
       this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);
