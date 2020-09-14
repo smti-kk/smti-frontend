@@ -3,7 +3,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
-import {GovernmentProgramService, OrganizationsService} from '@core/services';
+import {GovernmentProgramService, OrganizationServiceWithFilterParams, OrganizationsService} from '@core/services';
 import {LocationFeaturesService} from '@core/services/location-features.service';
 import {
   LocationService,
@@ -26,6 +26,7 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
     StoreService,
     GovernmentProgramService,
     OrganizationsService,
+    OrganizationServiceWithFilterParams,
     LocationFeaturesService,
     InternetAccessTypeService,
     TcPivotsService,

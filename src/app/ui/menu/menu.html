@@ -75,6 +75,10 @@
            [class.active]="currentRouteIs('/import-trunk-channel')"><span>Магистральные каналы</span></div>
   </mat-menu>
   <div class="link root-link"
+       *permissions="['ADMIN', 'ORGANIZATION']"
+       routerLink="/organizations-only"
+       [class.active]="currentRouteIs('/organizations-only')"><span>Организации</span></div>
+  <div class="link root-link"
        *permissions="['MUNICIPALITY']"
        routerLink="/mun-requests"
        [class.active]="currentRouteIs('/mun-requests')"><span>Заявки</span></div>

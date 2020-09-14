@@ -1,7 +1,7 @@
 <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <main class="main">
   <div class="wrapper">
-    <h1>Сводные данные по организациям</h1>
+    <h1>Справочник организаций</h1>
 
     <form [formGroup]="form">
       <div class="filter">
@@ -13,6 +13,7 @@
               <i nz-icon nzType="caret-down" nzTheme="outline"></i>
             </span>
           </div>
+<!--
           <div class="filter-export">
             <button
               (click)="serviceLocation.exportExcel()"
@@ -21,6 +22,7 @@
             >Выгрузить в Excel
             </button>
           </div>
+-->
         </div>
         <div class="filter-body" [class.filter-body-active]="isVisibleFilter">
           <div class="filter-container">
@@ -49,16 +51,16 @@
                 <input nz-input formControlName="organization" type="text"/>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Тип подключения</nz-form-label>
-              <nz-form-control>
-                <app-simple-select
-                  [items]="fInternetAccessTypes$ | async"
-                  [form]="form"
-                  [iFormControl]="'connectionType'"
-                ></app-simple-select>
-              </nz-form-control>
-            </nz-form-item>
+<!--            <nz-form-item>-->
+<!--              <nz-form-label>Тип подключения</nz-form-label>-->
+<!--              <nz-form-control>-->
+<!--                <app-simple-select-->
+<!--                  [items]="fInternetAccessTypes$ | async"-->
+<!--                  [form]="form"-->
+<!--                  [iFormControl]="'connectionType'"-->
+<!--                ></app-simple-select>-->
+<!--              </nz-form-control>-->
+<!--            </nz-form-item>-->
             <nz-form-item class="rowspan2">
               <nz-form-label>Район</nz-form-label>
               <nz-form-control>
@@ -96,12 +98,12 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Оператор связи</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="contractor" type="text"/>
-              </nz-form-control>
-            </nz-form-item>
+<!--            <nz-form-item>-->
+<!--              <nz-form-label>Оператор связи</nz-form-label>-->
+<!--              <nz-form-control>-->
+<!--                <input nz-input formControlName="contractor" type="text"/>-->
+<!--              </nz-form-control>-->
+<!--            </nz-form-item>-->
             <nz-form-item>
               <nz-form-label>Тип СЗО</nz-form-label>
               <nz-form-control>
@@ -112,20 +114,20 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Тип точки</nz-form-label>
-              <nz-form-control>
-                <nz-select
-                  nzMode="multiple"
-                  [nzSuffixIcon]="suffixIconSelect"
-                  formControlName="point"
-                >
-                  <ng-container *ngFor="let item of fPoints$ | async">
-                    <nz-option [nzLabel]="item.desc" [nzValue]="item.name"></nz-option>
-                  </ng-container>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
+<!--            <nz-form-item>-->
+<!--              <nz-form-label>Тип точки</nz-form-label>-->
+<!--              <nz-form-control>-->
+<!--                <nz-select-->
+<!--                  nzMode="multiple"-->
+<!--                  [nzSuffixIcon]="suffixIconSelect"-->
+<!--                  formControlName="point"-->
+<!--                >-->
+<!--                  <ng-container *ngFor="let item of fPoints$ | async">-->
+<!--                    <nz-option [nzLabel]="item.desc" [nzValue]="item.name"></nz-option>-->
+<!--                  </ng-container>-->
+<!--                </nz-select>-->
+<!--              </nz-form-control>-->
+<!--            </nz-form-item>-->
           </div>
         </div>
         <div class="filter-footer" [class.filter-footer-active]="isVisibleFilter">
@@ -148,7 +150,7 @@
             </div>
           </div>
           <div class="filter-result">
-            Результатов поиска: <span>{{ (points$ | async)?.count }}</span>
+            Результатов поиска: <span>{{ (organizations$ | async)?.count }}</span>
           </div>
           <!--          <div class="filter-search">-->
           <!--            <nz-input-group [nzSuffix]="suffixIconSearch">-->
@@ -165,31 +167,32 @@
       </ng-template>
     </form>
 
-<!--    <button class="btn" (click)="openModal()">Добавить организацию</button>-->
+    <button class="btn" (click)="openModal()">Добавить организацию</button>
 
     <div class="container-header">
       <div>Населенный пункт</div>
       <div>Организация</div>
-      <div>Адрес</div>
+<!--      <div>Адрес</div>-->
     </div>
     <div class="container-list">
       <ng-container
         *ngFor="
-          let point of (points$ | async)?.results
+          let org of (organizations$ | async)?.results
             | paginate
               : {
                   itemsPerPage: itemsPerPage,
                   currentPage: pageNumber,
-                  totalItems: (points$ | async)?.count
+                  totalItems: (organizations$ | async)?.count
                 }
         "
       >
+<!--        {{org | json}}-->
         <div class="container-wrap">
           <div class="container-wrap1">
             <div>
-              <div>{{ point?.organization?.location.name }}</div>
-              <div>{{ point?.organization?.location.parent }}</div>
-              <div>{{ point?.organization?.location.population }} чел.</div>
+              <div>{{ org?.location.name }}</div>
+              <div>{{ org?.location.parent }}</div>
+              <div>{{ org?.location.population }} чел.</div>
             </div>
             <div>
               <!--                <a [routerLink]="[point.organization.id]" class="link">Подробнее</a>-->
@@ -197,22 +200,23 @@
           </div>
           <div class="container-wrap2">
             <div class="">
-              <a [routerLink]="[point?.organization?.id]" class="link">
-                <span>{{ point?.organization?.name }}</span>
+              <a [routerLink]="[org?.id]" class="link">
+                <span>{{ org?.name }}</span>
               </a>
             </div>
             <hr>
             <div class="container-wrap4">
               <div>
                 <span class="">Тип организации:</span>
-                {{ point?.organization?.type ? point?.organization?.type.name : ' ' }}
+                {{ org?.type ? org?.type.name : ' ' }}
               </div>
               <div>
                 <span class="">Тип СЗО:</span>
-                {{ point?.organization?.smoType ? point?.organization?.smoType.name : ' ' }}
+                {{ org?.smoType ? org?.smoType.name : ' ' }}
               </div>
             </div>
           </div>
+<!--
           <div class="container-wrap3">
             <div class="container-point">
               <div class="container-info">
@@ -224,28 +228,29 @@
                     <img src="/assets/img/icon/smo.png"/>
                   </ng-template>
                 </div>
-                <span>{{ point.address ? point.address : '----' }}</span>
+                <span>{{ point.address ? point.address : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
                   <img src="/assets/img/icon/contractor.png"/>
                 </div>
-                <span>{{ point.contractor ? point.contractor : '----' }}</span>
+                <span>{{ point.contractor ? point.contractor : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
                   <img src="/assets/img/icon/connection.png"/>
                 </div>
-                <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
+                <span>{{ point.connectionType ? point.connectionType.name : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
                   <img src="/assets/img/icon/declaredSpeed.png"/>
                 </div>
-                <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
+                <span>{{ point.declaredSpeed ? point.declaredSpeed : '&#45;&#45;&#45;&#45;' }}</span>
               </div>
             </div>
           </div>
+-->
         </div>
       </ng-container>
     </div>
@@ -257,21 +262,21 @@
           class="pagination-count-button"
           [class.active]="itemsPerPage === 10"
           type="button"
-          (click)="itemsPerPage = 10; points$ = loadPagedLocationWithOrganizationAccessPoints()"
+          (click)="itemsPerPage = 10; organizations$ = loadPagedLocationWithOrganization()"
           value="10"
         />
         <input
           class="pagination-count-button"
           [class.active]="itemsPerPage === 20"
           type="button"
-          (click)="itemsPerPage = 20; points$ = loadPagedLocationWithOrganizationAccessPoints()"
+          (click)="itemsPerPage = 20; organizations$ = loadPagedLocationWithOrganization()"
           value="20"
         />
         <input
           class="pagination-count-button"
           [class.active]="itemsPerPage === 100"
           type="button"
-          (click)="itemsPerPage = 100; points$ = loadPagedLocationWithOrganizationAccessPoints()"
+          (click)="itemsPerPage = 100; organizations$ = loadPagedLocationWithOrganization()"
           value="100"
         />
       </div>

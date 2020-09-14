@@ -7,6 +7,13 @@ import {Contract} from '@core/models/contract';
 import {ID_SERIALIZER} from '@core/utils/serializers';
 import {Location} from '@core/models/location';
 
+
+const LOCATION_DESERIALIZER = {
+  Deserialize(json): number {
+    return json.location;
+  },
+};
+
 export class Organization {
   @autoserializeAs('address')
   private readonly _address: string;
@@ -49,6 +56,10 @@ export class Organization {
   @deserializeAs(Location, 'location')
   @autoserializeAs(ID_SERIALIZER, 'location')
   private readonly _location: Location;
+
+
+  @deserializeAs(LOCATION_DESERIALIZER, 'organization')
+  private readonly _locationId: number;
 
   // @autoserializeAs('ogrn')
   // private readonly ogrn: string;
