@@ -23,6 +23,8 @@ export class FormOrganizationComponent implements OnInit {
 
   @Input() organizationForEdit: Organization;
 
+  @Input() canEdit: boolean = false;
+
   formGroupOrganization: FormGroup;
 
   locations$: Observable<Location[]>;
@@ -134,17 +136,16 @@ export class FormOrganizationComponent implements OnInit {
   }
 
   delete(): void {
-    // const dialogRef = this.dialog.open(AreYouSureComponent, {
-    //   width: '450px',
-    //   data: 'Вы уверены, что хотите удалить организацию?'
-    // });
-    // dialogRef.afterClosed().subscribe(isAccepted => {
-    //   if (isAccepted) {
-    //     this.api.remove(this.organizationForEdit.id).subscribe(() => {
-    //       this.dataSource.data = this.dataSource.data.filter(bs => bs.id !== row.id);
-    //     });
-    //   }
-    // });
+    const dialogRef = this.dialog.open(AreYouSureComponent, {
+      width: '450px',
+      data: 'Вы уверены, что хотите удалить организацию?'
+    });
+    dialogRef.afterClosed().subscribe(isAccepted => {
+      if (isAccepted) {
+        this.api.remove(this.organizationForEdit.id).subscribe(() => {
+          this.router.navigate(['/organizations-only']);
+        });
+      }
+    });
   }
-
 }
