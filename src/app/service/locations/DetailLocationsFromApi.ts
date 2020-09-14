@@ -12,8 +12,8 @@ export class DetailLocationsFromApi implements DetailLocations {
               private readonly locationFeatures: LocationFeatures) {
   }
 
-  location(id: string): Observable<TechnicalCapabilityEdition> {
-    return this.locationDetailApi.one(parseInt(id, 10)).pipe(
+  location(id: number): Observable<TechnicalCapabilityEdition> {
+    return this.locationDetailApi.one(id).pipe(
       map(l => new TcEditionFromApi(l))
     );
   }

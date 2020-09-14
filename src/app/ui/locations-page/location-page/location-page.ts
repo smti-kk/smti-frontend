@@ -33,10 +33,14 @@ export class LocationPage implements OnInit, OnDestroy {
   tcs: TechnicalCapabilityEdition;
   tvTypes: Signal[];
   postTypes: PostType[];
-  locationId: string;
+  locationId: number;
   account$: Observable<Account>;
   archiveRequests: LocationFeatureEditingRequest[];
   planRequests: LocationFeatureEditingRequest[];
+  pageArchive = 0;
+  pagePlan = 0;
+  size = 10;
+
   private subscription: Subscription;
 
   constructor(private mobileTypeApi: MobileTypeApi,
@@ -49,7 +53,7 @@ export class LocationPage implements OnInit, OnDestroy {
               private readonly requestsService: ApiFeaturesRequests,
               private snackBar: MatSnackBar,
               private detailLocations: DetailLocations) {
-    this.locationId = activatedRoute.snapshot.params.id;
+    this.locationId = parseInt(activatedRoute.snapshot.params.id, 10);
     this.isEdition = true;
     this.subscription = forkJoin([
       mobileTypeApi.list(),
@@ -73,13 +77,11 @@ export class LocationPage implements OnInit, OnDestroy {
       this.postTypes = postTypes;
       this.tcs = location;
     });
-    this.requestsService.archive(parseInt(this.locationId, 10)).subscribe(requests => {
-      console.log(requests);
-      this.archiveRequests = requests;
+    this.requestsService.archive(this.locationId, this.pageArchive, this.size).subscribe(requests => {
+      this.archiveRequests = requests.content;
     });
-    this.requestsService.plan(parseInt(this.locationId, 10)).subscribe(requests => {
-      console.log(requests);
-      this.planRequests = requests;
+    this.requestsService.plan(this.locationId, this.pagePlan, this.size).subscribe(requests => {
+      this.planRequests = requests.content;
     });
   }
 
@@ -88,12 +90,11 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   onChange(tcs: TechnicalCapabilityEdition): void {
-    console.log(tcs);
   }
 
   onAddOrRemoveOperator(event: MatCheckboxChange, tcEdition: TcEdition, operatorId: number): void {
     if (event.checked) {
-      tcEdition.add(operatorId, parseInt(this.locationId, 10));
+      tcEdition.add(operatorId, this.locationId);
     } else {
       tcEdition.remove(operatorId);
     }
@@ -104,7 +105,7 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   save(): void {
-    this.detailLocations.save(this.tcs, parseInt(this.locationId, 10)).subscribe(() => {
+    this.detailLocations.save(this.tcs, this.locationId).subscribe(() => {
       window.location.reload();
     }, error => this.snackBar.open('Произошла ошибка, данные не сохранены'));
   }
@@ -115,5 +116,19 @@ export class LocationPage implements OnInit, OnDestroy {
 
   signalsToString(tvOrRadioTypes: Signal[]): string {
     return tvOrRadioTypes.map(tvOrRadioType => tvOrRadioType.name).join(', ');
+  }
+
+  onScrollDownArchive(): void {
+    this.pageArchive = this.pageArchive + 1;
+    this.requestsService.archive(this.locationId, this.pageArchive, this.size).subscribe(requests => {
+      this.archiveRequests = [...this.archiveRequests, ...requests.content];
+    });
+  }
+
+  onScrollDownPlan(): void {
+    this.pagePlan = this.pagePlan + 1;
+    this.requestsService.plan(this.locationId, this.pagePlan, this.size).subscribe(requests => {
+      this.planRequests = [...this.planRequests, ...requests.content];
+    });
   }
 }

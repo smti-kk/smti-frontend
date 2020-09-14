@@ -14,6 +14,6 @@ export class PlanPage {
   constructor(private readonly requestsService: ApiFeaturesRequests,
               private readonly activatedRoute: ActivatedRoute) {
     const locationId = activatedRoute.snapshot.params.id;
-    requestsService.requestsByLocation(locationId).subscribe(requests => this.requests = requests);
+    // requestsService.requestsByLocation(locationId).subscribe(requests => this.requests = requests);
   }
 }

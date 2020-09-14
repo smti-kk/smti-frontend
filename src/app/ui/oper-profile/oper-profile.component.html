@@ -1,4 +1,10 @@
-<div class="mun-wrapper">
+<div class="mun-wrapper"
+     infinite-scroll
+     [infiniteScrollDistance]="1"
+     [infiniteScrollUpDistance]="2"
+     [infiniteScrollThrottle]="300"
+     (scrolled)="onScrollDown()"
+>
   <h1>Мои заявки (архив)</h1>
   <ng-container *ngFor="let request of archiveRequests">
     <div class="card-container">

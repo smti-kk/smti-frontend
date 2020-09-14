@@ -1,5 +1,14 @@
-<div class="mun-wrapper" *ngIf="locations">
-  <div class="top-bar" *ngFor="let location of locations">
+<div class="mun-wrapper"
+     infinite-scroll
+     [infiniteScrollDistance]="1"
+     [infiniteScrollUpDistance]="2"
+     [infiniteScrollThrottle]="300"
+     (scrolled)="onScrollDown()"
+     *ngIf="locations">
+  <div
+    class="top-bar"
+    *ngFor="let location of locations"
+  >
     <div class="top-bar-item">
       <div class="location-wrap">
         <div class="location-info">
@@ -19,8 +28,10 @@
       <div class="block">
         <div class="block-name">Инфомат:</div>
         <div class="block-list">
-          <img *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive" src="/assets/table-ok.svg" alt="">
-          <span *ngIf="!(location.infomat && location.infomat.length > 0 && location.infomat[0].isActive)">Отсутствует</span>
+          <img *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive"
+               src="/assets/table-ok.svg" alt="">
+          <span
+            *ngIf="!(location.infomat && location.infomat.length > 0 && location.infomat[0].isActive)">Отсутствует</span>
         </div>
       </div>
       <div class="block">
@@ -119,11 +130,14 @@
     </div>
     <div class="top-bar-item">
       <div>Информация не актуальна?</div>
-      <button mat-flat-button color="primary" (click)="sendRequest(location.id)" class="custom-btn">Подать уточняющую заявку</button>
+      <button mat-flat-button color="primary" (click)="sendRequest(location.id)" class="custom-btn">Подать уточняющую
+        заявку
+      </button>
     </div>
   </div>
   <h1>Мои заявки (архив)</h1>
-  <ng-container *ngFor="let request of archiveRequests">
+  <ng-container
+    *ngFor="let request of archiveRequests">
     <div class="card-container">
       <div class="card">
         <div class="card-body">
@@ -220,7 +234,8 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="'UPDATE'">
                     <span class="underline">Почта ({{edit.tc.operator.name}}):</span>
-                    <ng-container *ngIf="edit.tc.typePost && edit.newValue.typePost && edit.tc.typePost.id !== edit.newValue.typePost.id">
+                    <ng-container
+                      *ngIf="edit.tc.typePost && edit.newValue.typePost && edit.tc.typePost.id !== edit.newValue.typePost.id">
                       Изменен тип почты с {{edit.tc.typePost.name}} на {{edit.newValue.typePost.name}}
                     </ng-container>
                   </ng-container>

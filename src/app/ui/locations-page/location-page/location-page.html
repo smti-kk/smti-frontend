@@ -321,8 +321,11 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Архив">
-      <div class="tab-wrap" *ngIf="archiveRequests && archiveRequests.length > 0">
+    <mat-tab label="Архив"
+             *ngIf="archiveRequests && archiveRequests.length > 0"
+    >
+      <div class="tab-wrap"
+      >
         <div class="tab-header">
           <div>
             Последние изменения: <span class="color">{{archiveRequests[0].created | date: 'dd.MM.yyyy'}}</span>
@@ -352,7 +355,8 @@
                   <li class="card-list-item" *ngSwitchCase="'PAYPHONE'">
                     <ng-container [ngSwitch]="edit.action">
                       <ng-container *ngSwitchCase="'CREATE'">
-                        <span class="underline">Таксофоны:</span> Подключен {{edit.tc.operator.name}}  Количество таксофонов: {{edit.tc.payphones}}
+                        <span class="underline">Таксофоны:</span> Подключен {{edit.tc.operator.name}}  Количество
+                        таксофонов: {{edit.tc.payphones}}
                       </ng-container>
                       <ng-container *ngSwitchCase="'DELETE'">
                         <span class="underline">Таксофоны:</span> Отключен {{edit.tc.operator.name}}.
@@ -403,7 +407,8 @@
                             <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
                             <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
                             <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
-                          </ng-container> на {{edit.newValue.trunkChannel.name}}
+                          </ng-container>
+                          на {{edit.newValue.trunkChannel.name}}
                           <ng-container [ngSwitch]="edit.newValue.quality">
                             <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
                             <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
@@ -441,7 +446,8 @@
                             <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
                             <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
                             <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
-                          </ng-container> на {{edit.newValue.typeMobile.name}}
+                          </ng-container>
+                          на {{edit.newValue.typeMobile.name}}
                           <ng-container [ngSwitch]="edit.newValue.quality">
                             <ng-container *ngSwitchCase="'GOOD'">(Хорошее качество)</ng-container>
                             <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
@@ -463,7 +469,8 @@
                       </ng-container>
                       <ng-container *ngSwitchCase="'UPDATE'">
                         <span class="underline">Почта ({{edit.tc.operator.name}}):</span>
-                        <ng-container *ngIf="edit.tc.typePost && edit.newValue.typePost && edit.tc.typePost.id !== edit.newValue.typePost.id">
+                        <ng-container
+                          *ngIf="edit.tc.typePost && edit.newValue.typePost && edit.tc.typePost.id !== edit.newValue.typePost.id">
                           Изменен тип почты с {{edit.tc.typePost.name}} на {{edit.newValue.typePost.name}}
                         </ng-container>
                       </ng-container>
@@ -515,12 +522,13 @@
       </div>
     </mat-tab>
     <mat-tab label="План" *ngIf="planRequests && planRequests.length > 0">
-      <div class="tab-wrap">
+      <div class="tab-wrap"
+      >
         <div class="tab-header">
           <div>
             Последние изменения: <span class="color">{{planRequests[0].created | date: 'dd.MM.yyyy'}}</span>
           </div>
-<!--          <button mat-flat-button color="primary" class="custom-btn">Внести изменения</button>-->
+          <!--          <button mat-flat-button color="primary" class="custom-btn">Внести изменения</button>-->
         </div>
         <ng-container *ngFor="let request of planRequests">
           <div class="card-container">
@@ -557,7 +565,9 @@
                             <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
                             <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
                           </ng-container>
-                          (по программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}})
+                          (по
+                          программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}}
+                          )
                         </ng-container>
                       </ng-container>
                     </ng-container>
@@ -599,7 +609,9 @@
                             <ng-container *ngSwitchCase="'NORMAL'">(Удовлентворительное качество)</ng-container>
                             <ng-container *ngSwitchCase="'ABSENT'">(Отсутствует)</ng-container>
                           </ng-container>
-                          (по программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}})
+                          (по
+                          программе {{edit.newValue.governmentDevelopmentProgram.acronym}} {{edit.newValue.govYearComplete}}
+                          )
                         </ng-container>
                       </ng-container>
                     </ng-container>

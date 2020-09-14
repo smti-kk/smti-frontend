@@ -15,14 +15,18 @@ import {LocationFeatureEditingRequest} from '@api/dto/LocationFeatureEditingRequ
 export class MunRequestsComponent implements OnInit {
   locations: LocationTableItem[];
   archiveRequests: LocationFeatureEditingRequest[];
+  totalElements: number;
+  page = 0;
+  size = 6;
 
   constructor(
     private readonly matDialog: MatDialog,
-    private locationService: LocationsFullInformationService,
+    private readonly locationService: LocationsFullInformationService,
     private readonly requestsService: ApiFeaturesRequests,
   ) {
-    this.requestsService.requestsByUser().subscribe(requests => {
-      this.archiveRequests = requests;
+    this.requestsService.requestsByUser(this.page, this.size).subscribe(requests => {
+      this.archiveRequests = requests.content;
+      this.totalElements = requests.totalElements;
     });
   }
 
@@ -36,5 +40,13 @@ export class MunRequestsComponent implements OnInit {
 
   signalsToString(tvOrRadioTypes: Signal[]): string {
     return tvOrRadioTypes.map(tvOrRadioType => tvOrRadioType.name).join(', ');
+  }
+
+  onScrollDown(): void {
+    this.page = this.page + 1;
+    this.requestsService.requestsByUser(this.page, this.size).subscribe(requests => {
+      this.archiveRequests = [...this.archiveRequests, ...requests.content];
+      this.totalElements = requests.totalElements;
+    });
   }
 }

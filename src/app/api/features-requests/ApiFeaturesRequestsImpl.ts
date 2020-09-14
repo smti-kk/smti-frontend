@@ -1,23 +1,42 @@
 import {Observable} from 'rxjs';
 import {LocationFeatureEditingRequest, LocationFeatureEditingRequestFull} from '../dto/LocationFeatureEditingRequest';
 import {ApiFeaturesRequests} from './ApiFeaturesRequests';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {API_FEATURES_REQUESTS} from '../../../environments/api.routes';
 import {map} from 'rxjs/operators';
+import {Pageable} from '@api/dto/Pageable';
 
 export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
 
   constructor(private readonly http: HttpClient) {
   }
 
-  requestsByLocation(locationId: number): Observable<LocationFeatureEditingRequest[]> {
-    return this.http.get<LocationFeatureEditingRequest[]>(`${API_FEATURES_REQUESTS}/${locationId}`);
+  requestsByLocation(locationId: number, page: number, size: number): Observable<Pageable<LocationFeatureEditingRequest[]>> {
+    const params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        size: size.toString()
+      }
+    });
+    return this.http.get<Pageable<LocationFeatureEditingRequest[]>>(
+      `${API_FEATURES_REQUESTS}/${locationId}`,
+      {params}
+    );
   }
 
-  archive(locationId: number): Observable<LocationFeatureEditingRequest[]> {
-    return this.http.get<LocationFeatureEditingRequest[]>(`${API_FEATURES_REQUESTS}/${locationId}`).pipe(
+  archive(locationId: number, page: number, size: number): Observable<Pageable<LocationFeatureEditingRequest[]>> {
+    const params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        size: size.toString()
+      }
+    });
+    return this.http.get<LocationFeatureEditingRequest[]>(
+      `${API_FEATURES_REQUESTS}/${locationId}`,
+      {params}
+    ).pipe(
       map(requests => {
-        return requests
+        const content = requests
           .map(r => {
             return {
               ...r,
@@ -26,14 +45,20 @@ export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
             };
           })
           .filter(r => r.featureEdits.length > 0);
+        return {
+          content,
+          totalElements: requests.length
+        };
       })
     );
   }
 
-  plan(locationId: number): Observable<LocationFeatureEditingRequest[]> {
-    return this.http.get<LocationFeatureEditingRequest[]>(`${API_FEATURES_REQUESTS}/${locationId}`).pipe(
+  plan(locationId: number, page: number, size: number): Observable<Pageable<LocationFeatureEditingRequest[]>> {
+    return this.http.get<LocationFeatureEditingRequest[]>(
+      `${API_FEATURES_REQUESTS}/${locationId}`,
+    ).pipe(
       map(requests => {
-        return requests
+        const content = requests
           .map(r => {
             return {
               ...r,
@@ -42,12 +67,22 @@ export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
             };
           })
           .filter(r => r.featureEdits.length > 0);
+        return {
+          content,
+          totalElements: requests.length
+        };
       })
     );
   }
 
-  requestsByUser(): Observable<LocationFeatureEditingRequest[]> {
-    return this.http.get<LocationFeatureEditingRequest[]>(`${API_FEATURES_REQUESTS}/by-user`);
+  requestsByUser(page: number, size: number): Observable<Pageable<LocationFeatureEditingRequest[]>> {
+    const params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        size: size.toString()
+      }
+    });
+    return this.http.get<Pageable<LocationFeatureEditingRequest[]>>(`${API_FEATURES_REQUESTS}/by-user`, {params});
   }
 
   accept(reqId: number): Observable<void> {
@@ -58,7 +93,16 @@ export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
     return this.http.get<void>(`${API_FEATURES_REQUESTS}/${reqId}/decline`, {params: {comment}});
   }
 
-  requests(): Observable<LocationFeatureEditingRequestFull[]> {
-    return this.http.get<LocationFeatureEditingRequestFull[]>(`${API_FEATURES_REQUESTS}`);
+  requests(page: number, size: number): Observable<Pageable<LocationFeatureEditingRequestFull[]>> {
+    const params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        size: size.toString()
+      }
+    });
+    return this.http.get<Pageable<LocationFeatureEditingRequestFull[]>>(
+      `${API_FEATURES_REQUESTS}`,
+      {params}
+    );
   }
 }
