@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {ORGANIZATION_API} from '../../../environments/api.routes';
+import {ORGANIZATION_API, TRUNK_CHANNEL_API} from '../../../environments/api.routes';
 import {Observable} from 'rxjs';
 import {ApiOrganizationResponse} from '@api/dto/ApiOrganizationResponse';
 import {delay} from 'rxjs/operators';
@@ -15,5 +15,9 @@ export class ApiOrganization {
   organizationsByLocation(locationId: number): Observable<ApiOrganizationResponse[]> {
     return this.httpClient.get<ApiOrganizationResponse[]>(`${ORGANIZATION_API}`, {params: {location: `${locationId}`}})
       .pipe(delay(1000));
+  }
+
+  remove(locationId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${ORGANIZATION_API}/${locationId}`);
   }
 }

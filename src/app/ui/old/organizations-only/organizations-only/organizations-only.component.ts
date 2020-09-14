@@ -4,17 +4,18 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
 import {share, tap} from 'rxjs/operators';
 
-import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Location, Organization, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
-import {GovernmentProgramService, OrganizationsService} from '@core/services';
+import {GovernmentProgramService, OrganizationServiceWithFilterParams, OrganizationsService} from '@core/services';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {NzModalService} from 'ng-zorro-antd';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
 import {AccessPointTypeService} from '../../core/services/accesspoint-type.service';
 import {AccessPointType} from '../../core/models/accesspoint-type';
+import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
   selector: 'app-organizations-only',
@@ -29,6 +30,8 @@ export class OrganizationsOnlyComponent implements OnInit {
   fParents$: Observable<Location[]>;
 
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
+
+  organizations$: Observable<PaginatedList<Organization>>;
 
   fOrganizationTypes$: Observable<OrganizationType[]>;
 
@@ -54,7 +57,7 @@ export class OrganizationsOnlyComponent implements OnInit {
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
-    private serviceOrganizations: OrganizationsService,
+    private serviceOrganizations: OrganizationServiceWithFilterParams,
     private serviceAccessPointTypeService: AccessPointTypeService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
@@ -63,7 +66,7 @@ export class OrganizationsOnlyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.points$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+    this.organizations$ = this.serviceOrganizations.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
       tap(() => {
         this.spinner.hide();
       }),
@@ -72,11 +75,11 @@ export class OrganizationsOnlyComponent implements OnInit {
 
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fParents$ = this.serviceLocation.listParentLocations();
-    this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
-    this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
+    // this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
+    // this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
-    this.fPoints$ = this.serviceAccessPointTypeService.getAccessPointType();
+    // this.fPoints$ = this.serviceAccessPointTypeService.getAccessPointType();
 
     this.buildForm();
   }
@@ -89,28 +92,30 @@ export class OrganizationsOnlyComponent implements OnInit {
       smo: null,
       organization: null,
       parent: null,
-      contract: null,
-      contractor: null,
-      connectionType: null,
-      contractType: null,
       populationStart: null,
       populationEnd: null,
-      point: null,
     });
+    // contract: null,
+    //   contractor: null,
+    //   connectionType: null,
+    //   contractType: null,
+    //   point: null,
 
     this.form.valueChanges.subscribe(v => {
-      this.serviceLocation.filter(v);
-      this.points$ = this.loadPagedLocationWithOrganizationAccessPoints();
+      this.serviceOrganizations.filter(v);
+      this.organizations$ = this.loadPagedLocationWithOrganization();
     });
   }
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    this.points$ = this.loadPagedLocationWithOrganizationAccessPoints();
+    this.organizations$ = this.loadPagedLocationWithOrganization();
   }
 
-  loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Reaccesspoint>> {
-    return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
+  loadPagedLocationWithOrganization(): Observable<PaginatedList<Organization>> {
+    return this.serviceOrganizations.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
+      share()
+    );
   }
 
   showFilterBody() {
