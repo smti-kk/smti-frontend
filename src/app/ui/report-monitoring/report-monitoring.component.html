@@ -1,0 +1,23 @@
+<br>
+<div class="header">
+  Отчет мониторинга
+</div>
+<br>
+<br>
+<br>
+<div class="content">
+  <form [formGroup]="reportMapsFG">
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите период</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Начало" formControlName="start">
+        <input matEndDate placeholder="Конец" formControlName="end">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <button [disabled]="!reportMapsFG.valid" mat-button (click)="goForMonitoring()">Сформировать отчёт</button>
+<!--    <button [disabled]="!reportMapsFG.valid" mat-button (click)="exportExcel()">Сформировать отчёт</button>-->
+  </form>
+</div>
+

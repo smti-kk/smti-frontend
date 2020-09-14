@@ -96,6 +96,7 @@ import {ApiOrganization} from '@api/organizations/ApiOrganization';
 import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
 import {MTAWithout5G} from '@api/mobile-type/MTAWithout5G';
 import {MACacheable} from '@api/municipalities-api/MACacheable';
+import {OrganizationsService} from '@core/services';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -342,6 +343,10 @@ export const factory = (): Provider[] => {
     {
       provide: AccessPointsApi,
       useValue: accessPointsApi
+    },
+    {
+      provide: OrganizationsService,
+      useClass: OrganizationsService
     }
   ];
 };

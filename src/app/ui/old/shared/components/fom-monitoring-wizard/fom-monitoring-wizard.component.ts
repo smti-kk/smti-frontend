@@ -1,12 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-// @ts-ignore
-import {Reaccesspoint} from '@core/models/reaccesspoint';
-// @ts-ignore
-import {Organization} from '@core/models';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// @ts-ignore
-import {OrganizationsService} from '@core/services';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Organization} from '../../../core/models';
+// @ts-ignore
+import {OrganizationsService} from '../../../core/services';
+import {FormBuilder, Validators} from '@angular/forms';
+import {Reaccesspoint} from '../../../core/models/reaccesspoint';
 
 @Component({
   selector: 'app-fom-monitoring-wizard',
@@ -61,7 +59,7 @@ export class FomMonitoringWizardComponent implements OnInit {
       .subscribe(
         () => {
           this._snackBar.open('Добавленно в системы мониторинга', '', {
-            duration: 5 * 1000,
+            duration: 15 * 1000,
           });
           window.location.reload();
           // todo: implement me
@@ -70,7 +68,7 @@ export class FomMonitoringWizardComponent implements OnInit {
         error => {
           // todo: implement me
           this._snackBar.open(error.error.error, '', {
-            duration: 5 * 1000,
+            duration: 15 * 1000,
           });
           // throw Error(`${error}`);
         },
