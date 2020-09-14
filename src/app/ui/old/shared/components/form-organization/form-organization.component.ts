@@ -7,6 +7,12 @@ import {compareById} from '@core/utils/compare';
 import {LocationService} from '@core/services/location.service';
 import {Router} from '@angular/router';
 import {NzModalRef} from 'ng-zorro-antd';
+import {TrunkChannel} from '../../../../../api/dto/TrunkChannel';
+import {AreYouSureComponent} from '../../../../dialogs/are-you-sure/are-you-sure.component';
+import {MatDialog} from '@angular/material/dialog';
+import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
+import {TrunkChannelsApi} from '../../../../../api/trunk-channels/TrunkChannelsApi';
+import {ApiOrganization} from '../../../../../api/organizations/ApiOrganization';
 
 @Component({
   selector: 'app-form-organization',
@@ -16,6 +22,8 @@ import {NzModalRef} from 'ng-zorro-antd';
 export class FormOrganizationComponent implements OnInit {
 
   @Input() organizationForEdit: Organization;
+
+  @Input() canEdit: boolean = false;
 
   formGroupOrganization: FormGroup;
 
@@ -28,11 +36,13 @@ export class FormOrganizationComponent implements OnInit {
   compareFn = compareById;
 
   constructor(
+    private readonly api: ApiOrganization,
     private locationsService: LocationService,
     private serviceOrganizations: OrganizationsService,
     private formBuilder: FormBuilder,
     private router: Router,
     @Optional() private modalRef: NzModalRef,
+    private readonly dialog: MatDialog
   ) {
   }
 
@@ -123,5 +133,19 @@ export class FormOrganizationComponent implements OnInit {
 
   onChange(location: string): void {
     this.locations$ = this.locationsService.getLocationByName(location);
+  }
+
+  delete(): void {
+    const dialogRef = this.dialog.open(AreYouSureComponent, {
+      width: '450px',
+      data: 'Вы уверены, что хотите удалить организацию?'
+    });
+    dialogRef.afterClosed().subscribe(isAccepted => {
+      if (isAccepted) {
+        this.api.remove(this.organizationForEdit.id).subscribe(() => {
+          this.router.navigate(['/organizations-only']);
+        });
+      }
+    });
   }
 }

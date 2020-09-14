@@ -117,6 +117,15 @@ const routes: Routes = [
       .then(module => module.ConnectionPointsModule),
   },
   {
+    path: 'organizations-only',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION']
+    },
+    loadChildren: () => import('./old/organizations-only/organizations-only.module')
+      .then(module => module.OrganizationsOnlyModule),
+  },
+  {
     path: 'mun-requests',
     canActivate: [RouteProxyService],
     data: {
