@@ -1,9 +1,8 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LocationsFullInformationService} from '@service/locations/LocationsFullInformationService';
 import {LocationTableItem} from '@service/dto/LocationTableItem';
 import {LocationFilters} from './location-filters/LocationFilters';
 import {LoaderService} from '../loader/LoaderService';
-import {LazyArray} from '@service/util/LazyArray';
 import {AccountService} from '@service/account/AccountService';
 import {Account} from '@service/account/Account';
 
@@ -13,7 +12,7 @@ import {Account} from '@service/account/Account';
   styleUrls: ['./locations-page.scss'],
 })
 export class LocationsPage implements OnInit {
-  TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS = 'calc(100vh - 144px)';
+  TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS = 'calc(100vh - 194px)';
   TABLE_HEIGHT_WHEN_OPENED_FILTERS = 'calc(100vh - 346px)';
 
   displayedColumns = [
@@ -35,13 +34,13 @@ export class LocationsPage implements OnInit {
     'contract',
   ];
 
-  locations: LazyArray<LocationTableItem>;
+  locations: LocationTableItem[];
   totalElements: number;
   page: number;
   countPerPage: number;
   isLoading: boolean;
-  private filters: LocationFilters;
   user: Account;
+  private filters: LocationFilters;
 
   constructor(private readonly locationsFullInformationService: LocationsFullInformationService,
               private readonly accountService: AccountService,
@@ -53,14 +52,13 @@ export class LocationsPage implements OnInit {
     this.page = 0;
     this.countPerPage = 60;
     this.isLoading = false;
-    this.locations = new LazyArray();
   }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.locationsFullInformationService.get(this.page, this.countPerPage)
       .subscribe(response => {
-        this.locations.setItems(response.content);
+        this.locations = response.content;
         this.totalElements = response.totalElements;
         this.isLoading = false;
         this.loaderService.stopLoader();
@@ -74,7 +72,7 @@ export class LocationsPage implements OnInit {
     this.isLoading = true;
     this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, this.filters)
       .subscribe(response => {
-        this.locations.appendItems(response.content);
+        this.locations = [...this.locations, ...response.content];
         this.totalElements = response.totalElements;
         this.isLoading = false;
       }, () => {
@@ -87,7 +85,7 @@ export class LocationsPage implements OnInit {
     this.filters = filters;
     this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, filters)
       .subscribe(locations => {
-        this.locations.setItems(locations.content);
+        this.locations = locations.content;
         this.totalElements = locations.totalElements;
       });
   }

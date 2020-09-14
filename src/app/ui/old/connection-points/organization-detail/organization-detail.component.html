@@ -224,10 +224,10 @@
                   <label nz-checkbox disabled [(ngModel)]="ap.visible"></label>
                 </td>
               </tr>
-              <tr>
-                <td>Узел доступа</td>
-                <td>{{ ap.node }}</td>
-              </tr>
+<!--              <tr>-->
+<!--                <td>Узел доступа</td>-->
+<!--                <td>{{ ap.node }}</td>-->
+<!--              </tr>-->
               <tr>
                 <td>Тип подключения</td>
                 <td>{{ ap.connectionTypeString }}</td>
@@ -250,7 +250,7 @@
               </tr>
             </table>
             <div class="btn-group">
-              <input class="btn" type="button" value="Подлючить к мониторингу"  (click)="initMonitoringAccessPoint(ap)"/>
+              <input class="btn" type="button" value="Подключить к мониторингу"  (click)="initMonitoringAccessPoint(ap)"/>
               <input class="btn" type="button" value="Редактировать точку" (click)="editAccessPoint(ap)"/>
             </div>
           </div>
@@ -269,10 +269,10 @@
                 <td>Отображается</td>
                 <td><label nz-checkbox checked="true" formControlName="_visible"></label></td>
               </tr>
-              <tr>
-                <td>Узел доступа</td>
-                <td><input nz-input type="text" formControlName="_node"/></td>
-              </tr>
+<!--              <tr>-->
+<!--                <td>Узел доступа</td>-->
+<!--                <td><input nz-input type="text" formControlName="_node"/></td>-->
+<!--              </tr>-->
               <tr>
                 <td>Тип</td>
                 <td>

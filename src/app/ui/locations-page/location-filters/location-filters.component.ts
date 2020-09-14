@@ -8,6 +8,7 @@ import {GovProgramService} from '@service/gov-program/GovProgramService';
 import {GovProgram} from '@api/dto/GovProgram';
 import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'location-filters',
@@ -38,9 +39,11 @@ export class LocationFiltersComponent implements OnInit {
       this.filterForm = form;
       this.programs = programs;
       this.govYears = govYears;
-      this.filterForm.valueChanges.subscribe(value => {
-        this.filters.emit(value);
-      });
+      this.filterForm.valueChanges
+        // .pipe(debounceTime(1000))
+        .subscribe(value => {
+          this.filters.emit(value);
+        });
     });
     this.filters = new EventEmitter<LocationFilters>();
   }

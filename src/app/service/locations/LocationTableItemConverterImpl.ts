@@ -15,10 +15,10 @@ export class LocationTableItemConverterImpl implements LocationTableItemConverte
   convert(location: LocationDetail, operators: Operators): LocationTableItem {
     return {
       id: location.id,
-      name: location.type + ' ' + location.name,
+      name: location.name + ' ' + location.type + '.',
       area: location.locationParent ? {
         id: location.locationParent.id,
-        name: location.locationParent.type + ' ' + location.locationParent.name
+        name: location.locationParent.name + ' ' + location.locationParent.type
       } : null,
       population: location.population.toString(),
       ats: this.operatorIconsFactory.operatorIcons(operators.ats, location.technicalCapabilities, 'ATS'),

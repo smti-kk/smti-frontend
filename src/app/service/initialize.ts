@@ -62,7 +62,6 @@ import {
   LocationsService,
   LocationsServiceImpl,
   LocationTableItemConverterImpl,
-  LSWithDelay,
   OperatorIconsFactoryImpl,
   StrictFilterImpl
 } from '@service/locations';
@@ -97,6 +96,7 @@ import {ApiOrganization} from '@api/organizations/ApiOrganization';
 import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
 import {MTAWithout5G} from '@api/mobile-type/MTAWithout5G';
 import {MACacheable} from '@api/municipalities-api/MACacheable';
+import {OrganizationsService} from '@core/services';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -168,13 +168,11 @@ export const factory = (): Provider[] => {
     ),
     new ThrottleImpl(1)
   );
-  const locationsService: LocationsService = new LSWithDelay(
-    new LocationsServiceImpl(
-      new LocationsApiImpl(httpClient),
-      operatorsApi,
-      new LocationInfoBarConverterImpl(
-        new OperatorIconsFactoryImpl()
-      )
+  const locationsService: LocationsService = new LocationsServiceImpl(
+    new LocationsApiImpl(httpClient),
+    operatorsApi,
+    new LocationInfoBarConverterImpl(
+      new OperatorIconsFactoryImpl()
     )
   );
   const accountService: AccountService = new AccountServiceImpl(
@@ -345,6 +343,10 @@ export const factory = (): Provider[] => {
     {
       provide: AccessPointsApi,
       useValue: accessPointsApi
+    },
+    {
+      provide: OrganizationsService,
+      useClass: OrganizationsService
     }
   ];
 };

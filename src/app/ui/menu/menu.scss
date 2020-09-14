@@ -10,6 +10,10 @@
   z-index: 1000;
 }
 
+.logout-image {
+  cursor: pointer;
+}
+
 .logo {
   background-color: #616161;
   padding: 8px;
@@ -49,4 +53,8 @@
 
 .mat-menu-select {
   padding: 13px 14px 18px 14px;
+}
+
+.link.root-link.logout {
+  cursor: unset;
 }

@@ -26,64 +26,67 @@ export class StrictFilterImpl extends StrictFilter {
       channels,
       postTypes,
       tvTypes)) {
-      return this.sort(locations, locationFilters.ordering);
+      return this.sort(locations, locationFilters.ordering, locationFilters.parent);
     }
     switch (locationFilters.logicalCondition) {
       case 'OR':
         this.defaultFilterResponse = false;
-        return this.sort(
-          locations.filter(l => {
-            return this.includesLocationName(l, locationFilters.location) ||
-              this.hasESPD(l, locationFilters) ||
-              this.hasSMO(l, locationFilters) ||
-              this.hasRSZO(l, locationFilters) ||
-              this.hasZSPD(l, locationFilters) ||
-              this.hasGovProgram(l, locationFilters.govProgram) ||
-              this.hasGovYearComplete(l, locationFilters.govYear) ||
-              this.hasParents(l, locationFilters.parent) ||
-              this.hasSignalsAndOperators(l, cellularOperators, signals) ||
-              this.hasTrunkChannelAndOperators(l, internetOperators, channels) ||
-              this.hasPostTypes(l, postTypes) ||
-              this.hasTvSignals(l, tvTypes) ||
-              this.acceptCondition(l, locationFilters.hasATS, this.hasAts) ||
-              this.acceptCondition(l, locationFilters.hasInfomat, this.hasInfomat) ||
-              this.acceptCondition(l, locationFilters.hasPayphone, this.hasPayphones) ||
-              this.acceptCondition(l, locationFilters.hasRadio, this.hasRadio) ||
-              this.acceptCondition(l, locationFilters.hasCellular, this.hasCellular) ||
-              this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet);
-          }),
-          locationFilters.ordering
-        );
+        return this.sort(locations.filter(l => {
+          return this.includesLocationName(l, locationFilters.location) ||
+            this.hasESPD(l, locationFilters) ||
+            this.hasSMO(l, locationFilters) ||
+            this.hasRSZO(l, locationFilters) ||
+            this.hasZSPD(l, locationFilters) ||
+            this.hasGovProgram(l, locationFilters.govProgram) ||
+            this.hasGovYearComplete(l, locationFilters.govYear) ||
+            this.hasParents(l, locationFilters.parent) ||
+            this.hasSignalsAndOperators(l, cellularOperators, signals) ||
+            this.hasTrunkChannelAndOperators(l, internetOperators, channels) ||
+            this.hasPostTypes(l, postTypes) ||
+            this.hasTvSignals(l, tvTypes) ||
+            this.acceptCondition(l, locationFilters.hasATS, this.hasAts) ||
+            this.acceptCondition(l, locationFilters.hasInfomat, this.hasInfomat) ||
+            this.acceptCondition(l, locationFilters.hasPayphone, this.hasPayphones) ||
+            this.acceptCondition(l, locationFilters.hasRadio, this.hasRadio) ||
+            this.acceptCondition(l, locationFilters.hasCellular, this.hasCellular) ||
+            this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet);
+        }), locationFilters.ordering, locationFilters.parent);
       case 'AND':
         this.defaultFilterResponse = true;
-        return this.sort(
-          locations.filter(l => {
-            return this.includesLocationName(l, locationFilters.location) &&
-              this.hasESPD(l, locationFilters) &&
-              this.hasSMO(l, locationFilters) &&
-              this.hasRSZO(l, locationFilters) &&
-              this.hasZSPD(l, locationFilters) &&
-              this.hasGovProgram(l, locationFilters.govProgram) &&
-              this.hasGovYearComplete(l, locationFilters.govYear) &&
-              this.hasParents(l, locationFilters.parent) &&
-              this.hasSignalsAndOperators(l, cellularOperators, signals) &&
-              this.hasTrunkChannelAndOperators(l, internetOperators, channels) &&
-              this.hasPostTypes(l, postTypes) &&
-              this.hasTvSignals(l, tvTypes) &&
-              this.acceptCondition(l, locationFilters.hasATS, this.hasAts) &&
-              this.acceptCondition(l, locationFilters.hasInfomat, this.hasInfomat) &&
-              this.acceptCondition(l, locationFilters.hasPayphone, this.hasPayphones) &&
-              this.acceptCondition(l, locationFilters.hasRadio, this.hasRadio) &&
-              this.acceptCondition(l, locationFilters.hasCellular, this.hasCellular) &&
-              this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet);
-          }),
-          locationFilters.ordering
-        );
+        return this.sort(locations.filter(l => {
+          return this.includesLocationName(l, locationFilters.location) &&
+            this.hasESPD(l, locationFilters) &&
+            this.hasSMO(l, locationFilters) &&
+            this.hasRSZO(l, locationFilters) &&
+            this.hasZSPD(l, locationFilters) &&
+            this.hasGovProgram(l, locationFilters.govProgram) &&
+            this.hasGovYearComplete(l, locationFilters.govYear) &&
+            this.hasParents(l, locationFilters.parent) &&
+            this.hasSignalsAndOperators(l, cellularOperators, signals) &&
+            this.hasTrunkChannelAndOperators(l, internetOperators, channels) &&
+            this.hasPostTypes(l, postTypes) &&
+            this.hasTvSignals(l, tvTypes) &&
+            this.acceptCondition(l, locationFilters.hasATS, this.hasAts) &&
+            this.acceptCondition(l, locationFilters.hasInfomat, this.hasInfomat) &&
+            this.acceptCondition(l, locationFilters.hasPayphone, this.hasPayphones) &&
+            this.acceptCondition(l, locationFilters.hasRadio, this.hasRadio) &&
+            this.acceptCondition(l, locationFilters.hasCellular, this.hasCellular) &&
+            this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet);
+        }), locationFilters.ordering, locationFilters.parent);
     }
   }
 
-  sort(locations: LocationTableItem[], order: OrderingFilter): LocationTableItem[] {
+  sort(locations: LocationTableItem[], order: OrderingFilter, parent: number[]): LocationTableItem[] {
     if (!order) {
+      if (parent && parent.length > 0) {
+        return locations.sort((l1, l2) => {
+          if (l1.name > l2.name) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
+      }
       return locations;
     }
     switch (order.name) {

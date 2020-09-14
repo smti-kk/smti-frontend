@@ -87,11 +87,15 @@
        routerLink="/oper-profile"
        [class.active]="currentRouteIs('/oper-profile')"><span>Заявки</span></div>
   <div class="link root-link"
+       *permissions="['ADMIN', 'OPERATOR']"
+       routerLink="/report-monitoring"
+       [class.active]="currentRouteIs('/report-monitoring')"><span>Отчёт</span></div>
+  <div class="link root-link"
        *permissions="['ADMIN']"
        routerLink="/users"
        [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>
 </div>
 <div class="link td-underline root-link" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
-<div class="link root-link" *ngIf="account">
-  <span>{{account.getName()}} <img src="../../../assets/exit.png" alt="Выход" (click)="logout()"></span>
+<div class="link root-link logout" *ngIf="account">
+  <span>{{account.getName()}} <img class="logout-image" src="../../../assets/exit.png" alt="Выход" (click)="logout()"></span>
 </div>

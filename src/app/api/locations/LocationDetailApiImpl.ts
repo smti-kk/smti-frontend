@@ -49,7 +49,7 @@ export class LocationDetailApiImpl implements LocationDetailApi {
   }
 
   exportExcel(locations: number[]): Observable<any> {
-    return this.httpClient.post(LOCATION_DETAIL_API + `/export-excel`, locations, {responseType: 'blob'})
+    return this.httpClient.post(LOCATION_DETAIL_API + `/export-excel`, locations, {responseType: 'blob', observe: 'response'})
       .pipe(
         tap(response => {
           saveAs(response, 'report.xlsx');

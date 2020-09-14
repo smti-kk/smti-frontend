@@ -69,16 +69,11 @@ export class AreaSelectComponent implements OnInit, OnDestroy, AfterViewInit, Co
    * Sets the initial value after the filteredBanks are loaded initially
    */
   protected setInitialValue(): void {
-    this.filteredAreas
-      .pipe(take(1), takeUntil(this.onDestroy))
-      .subscribe(() => {
-        // setting the compareWith property to a comparison function
-        // triggers initializing the selection according to the initial value of
-        // the form control (i.e. _initializeSelection())
-        // this needs to be done after the filteredBanks are loaded initially
-        // and after the mat-option elements are available
-        this.multiSelect.compareWith = (a: SelectAreaItem, b: SelectAreaItem) => a && b && a.id === b.id;
-      });
+    // this.filteredAreas
+    //   .pipe(take(1), takeUntil(this.onDestroy))
+    //   .subscribe(() => {
+    //     this.multiSelect.compareWith = (a: SelectAreaItem, b: SelectAreaItem) => a && b && a.id === b.id;
+    //   });
   }
 
   protected filterBanksMulti(): void {

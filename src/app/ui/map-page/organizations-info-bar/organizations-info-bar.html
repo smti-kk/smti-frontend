@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel [expanded]="openOrganizationBar.value" (opened)="onOpen($event)" (closed)="onClose()">
+  <mat-expansion-panel [disabled]="organizationsCount === 0" [expanded]="openOrganizationBar.value" (opened)="onOpen($event)" (closed)="onClose()">
     <mat-expansion-panel-header>
       <mat-panel-title>
         ОРГАНИЗАЦИЙ ({{organizationsCount}})
@@ -7,7 +7,10 @@
     </mat-expansion-panel-header>
     <ng-container *ngIf="organizations">
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let organization of organizations" [expanded]="false">
+        <mat-expansion-panel *ngFor="let organization of organizations"
+                             (opened)="organization.opened = true"
+                             (closed)="organization.opened = false"
+                             [expanded]="organization.opened">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{organization.name}}
@@ -15,14 +18,15 @@
           </mat-expansion-panel-header>
 
           <mat-accordion *ngFor="let accessPoint of organization.accesspoints">
-            <mat-expansion-panel [id]="'access-point-bar-' + accessPoint.id"
-
-                                 (opened)="onOpenAccesspointBar(accessPoint)">
+            <mat-expansion-panel [expanded]="accessPoint.opened"
+                                 (closed)="accessPoint.opened = false"
+                                 (opened)="accessPoint.opened = true; onOpenAccesspointBar(accessPoint)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <div class="panel-title">
                     <div class="panel-img">
-                      <!--<img src="" alt="">-->
+                      <img *ngIf="accessPoint.type === 'ESPD'" src="/assets/espd.png" alt="">
+                      <img *ngIf="accessPoint.type === 'SMO'" src="/assets/smo.png" alt="">
                     </div>
                     <div>{{accessPoint.address}}</div>
                   </div>
@@ -43,7 +47,7 @@
                   <div class="feature__value">{{accessPoint.contractor}}</div>
                 </div>
                 <div class="feature">
-                  <div class="feature__label">Технология подключения</div>
+                  <div class="feature__label" [id]="'access-point-bar-' + accessPoint.id">Технология подключения</div>
                   <div class="feature__value">{{accessPoint.type | pointType}}</div>
                 </div>
                 <div class="feature">
@@ -70,8 +74,5 @@
         </mat-expansion-panel>
       </mat-accordion>
     </ng-container>
-    <div class="spinner-container" *ngIf="!organizations">
-      <mat-spinner diameter="50"></mat-spinner>
-    </div>
   </mat-expansion-panel>
 </mat-accordion>

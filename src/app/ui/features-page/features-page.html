@@ -28,10 +28,10 @@
           <div class="features-table__location-info">
             {{feature.type}} {{feature.name}}<br>
             {{feature.locationParent?.type}} {{feature.locationParent?.name}}<br>
-            {{feature.population}}
+            {{feature.population}} чел.
           </div>
-          <div class="features-table__location-detail">
-            подробнее
+          <div class="features-table__location-detail" routerLink="/locations/{{feature.id}}">
+            Подробнее
           </div>
         </div>
         <div class="features-table__column features-table__archive-column">

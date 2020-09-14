@@ -4,6 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/ui/app.module';
 import { environment } from './environments/environment';
 import 'leaflet-spin';
+// import 'leaflet.marker.highlight/dist/leaflet.marker.highlight';
 import {enableDebugTools} from '@angular/platform-browser';
 
 if (environment.production) {

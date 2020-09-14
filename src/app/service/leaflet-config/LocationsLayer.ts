@@ -14,6 +14,7 @@ export class LocationsLayer extends PointsLayerImpl {
       html: `<div><span>${childCount}</span></div>`,
       className: `marker-cluster ${c}`,
       iconSize: new Point(40, 40),
+      iconAnchor: [40, 40]
     });
   }
 }

@@ -14,7 +14,11 @@
   }
 }
 
-
+.selected-marker {
+  border: 2px solid red;
+  border-radius: 27%;
+  z-index: 100000 !important;
+}
 
 .marker-cluster.smo {
   background-color: #FF5353;

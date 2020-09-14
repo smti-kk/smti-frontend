@@ -1,10 +1,13 @@
-import {LatLngBounds, Map, MarkerClusterGroup, MarkerClusterGroupOptions} from 'leaflet';
+import {LatLngBounds, layerGroup, Map, MarkerClusterGroup, MarkerClusterGroupOptions, Tooltip} from 'leaflet';
 import {PointsService} from '../points/PointsService';
 import 'leaflet.markercluster';
 import {PointsLayer} from './PointsLayer';
 import {Observable} from 'rxjs';
 import {MonitoringPoint} from '../points/MonitoringPoint';
 import {tap} from 'rxjs/operators';
+
+let selectedElement: MonitoringPoint;
+let selectedElementLayer: MarkerClusterGroup;
 
 export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
   private readonly pointsService: PointsService;
@@ -51,6 +54,19 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
   }
 
   moveToPoint(id: number): void {
-    this.map.flyTo(this.existedPoints[id].getLatLng(), 15, {animate: false});
+    if (!this.existedPoints[id]) {
+      console.error('unknown point with id' + id);
+      return;
+    }
+    this.map.flyTo(this.existedPoints[id].getLatLng(), this.map.getZoom(), {animate: true});
+    if (selectedElement) {
+      this.map.removeLayer(selectedElement);
+      selectedElementLayer.addLayer(selectedElement);
+    }
+    selectedElement = this.existedPoints[id];
+    selectedElementLayer = this;
+    this.removeLayer(selectedElement);
+    this.map.addLayer(selectedElement);
+    this.existedPoints[id].getElement().classList.add('selected-marker');
   }
 }

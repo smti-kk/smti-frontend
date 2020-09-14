@@ -19,6 +19,7 @@ export class FormAccessPointComponent implements OnInit {
 
   @Input() accessPointForEdit: Reaccesspoint;
   @Input() organization: Organization;
+  @Input() mode: 'CREATE' | 'UPDATE';
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
   accessPointType$: Observable<AccessPointType[]>;
@@ -53,6 +54,7 @@ export class FormAccessPointComponent implements OnInit {
     const coords = {lat: 94, lng: 56};
     this.ap = new Reaccesspoint(coords, null);
     this.formGroupAccessPoints = this.formBuilder.group({
+      _id: point ? point.id : null,
       _address: null,
       // _avstatus: null,
       _billingId: null,
@@ -78,8 +80,12 @@ export class FormAccessPointComponent implements OnInit {
       _ucn: null,
       // _updatedAt: null,
       _visible: true,
-      _type: null
+      _type: null,
+      _amount: null,
+      _number: null
     });
+
+    this.formGroupAccessPoints.valueChanges.subscribe(v => console.log(v));
 
     if (point) {
       this.formGroupAccessPoints.patchValue(point);
@@ -87,18 +93,24 @@ export class FormAccessPointComponent implements OnInit {
   }
 
   saveAccessPoint(): void {
-    this.serviceOrganizations
-      .createAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value))
-      .subscribe(
-        () => {
-          window.location.reload();
-          // todo: implement me
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        error => {
-          // todo: implement me
-          throw Error(`${error}`);
-        },
-      );
+    let subscription;
+    if (this.mode === 'CREATE') {
+      subscription = this.serviceOrganizations
+        .createAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value));
+    } else if (this.mode === 'UPDATE') {
+      subscription = this.serviceOrganizations
+        .updateAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value));
+    }
+    subscription.subscribe(
+      (response) => {
+        window.location.reload();
+        // todo: implement me
+      },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      error => {
+        // todo: implement me
+        throw Error(`${error}`);
+      },
+    );
   }
 }

@@ -33,7 +33,15 @@ export class LocationsFullInformationServiceImpl implements LocationsFullInforma
     ]).pipe(
       map(([operators, locations]) => {
         return {
-          content: locations.content.map(l => this.locationTableItemConverter.convert(l, operators)),
+          content: locations.content
+            .map(l => this.locationTableItemConverter.convert(l, operators))
+            .sort((l1, l2) => {
+              if (l1.area.name > l2.area.name) {
+                return 1;
+              } else {
+                return -1;
+              }
+            }),
           totalElements: locations.totalElements
         };
       })
@@ -47,7 +55,11 @@ export class LocationsFullInformationServiceImpl implements LocationsFullInforma
     ]).pipe(
       map(([operators, locations]) => {
         return {
-          content: locations.content.map(l => this.locationTableItemConverter.convert(l, operators)),
+          content: locations.content
+            .map(l => this.locationTableItemConverter.convert(l, operators))
+            .sort((l1, l2) => {
+              return l1.area.name > l2.area.name ? -1 : 1;
+            }),
           totalElements: locations.totalElements
         };
       })

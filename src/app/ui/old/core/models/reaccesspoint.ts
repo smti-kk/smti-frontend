@@ -107,6 +107,12 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('type')
   private readonly _type: string;
 
+  @autoserializeAs('number')
+  private readonly _number: string;
+
+  @autoserializeAs('amount')
+  private readonly _amount: number;
+
   @deserializeAs(Organization, 'organization')
   @serializeAs('organization')
   private readonly _organization: Organization;
