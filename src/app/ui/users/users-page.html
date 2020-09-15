@@ -6,11 +6,12 @@
     <th>Имя</th>
     <th>Отчество</th>
     <th>Привязка к нас.пункту</th>
+    <th>Привязка к организации</th>
     <th>Эл. почта</th>
     <th>Доступ разрешен</th>
     <th>Роль</th>
     <td>
-<!--      <button (click)="newRow()">Создать</button>-->
+      <!--      <button (click)="newRow()">Создать</button>-->
     </td>
   </tr>
   </thead>
@@ -25,11 +26,14 @@
         <td>
           {{item.locations | join:', '}}
         </td>
+        <td>
+          {{item.organizations | joinorg: ', '}}
+        </td>
         <td>{{item.email}}</td>
         <td>{{item.isActive ? 'да' : 'нет'}}</td>
         <td><span *ngFor="let key of item.roles; let l = last">{{roles[key]}}<span *ngIf="!l">, </span></span></td>
         <td>
-          <button (click)="startEdit(item.id)">Редактировать</button>
+          <button (click)="startEdit(item.id)">редактировать</button>
         </td>
       </ng-container>
       <ng-template #editTemplate>
@@ -44,6 +48,13 @@
             </ng-option>
           </ng-select>
         </td>
+        <td>
+          <ng-select [(ngModel)]="editCache.get(item.id).data.organizations"  [multiple]="true" [compareWith]="organizationsCompareFn">
+            <ng-option *ngFor="let organization of organizations" [value]="organization">
+              {{organization.name}}
+            </ng-option>
+          </ng-select>
+        </td>
         <td>{{item.email}}</td>
         <td><input type="checkbox" [(ngModel)]="editCache.get(item.id).data.isActive" /></td>
         <td>
@@ -54,7 +65,7 @@
           </ng-select>
           <!--<input type="text" [(ngModel)]="editCache.get(item.id).data.roles" />--></td>
         <td>
-          <button (click)="saveEdit(item.id)">СОХРАНИТЬ</button>
+          <button (click)="saveEdit(item.id)">сохранить</button>
           <button (click)="cancelEdit(item.id)">отменить</button>
         </td>
       </ng-template>

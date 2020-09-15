@@ -97,6 +97,9 @@ import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
 import {MTAWithout5G} from '@api/mobile-type/MTAWithout5G';
 import {MACacheable} from '@api/municipalities-api/MACacheable';
 import {OrganizationsService} from '@core/services';
+import {DOrganizationsService} from '@service/organizations/DOrganizationsService';
+import {DOrganizationsServiceImpl} from '@service/organizations/DOrganizationsServiceImpl';
+import {DOrganizationBaseApiImpl} from '@api/organizations/DOrganizationBaseApiImpl';
 
 export const factory = (): Provider[] => {
   // noinspection JSNonASCIINames
@@ -211,6 +214,9 @@ export const factory = (): Provider[] => {
   const dLocationsService = new DLocationsServiceImpl(
     new DLocationBaseApiImpl(httpClient)
   );
+  const dOrganizationsService = new DOrganizationsServiceImpl(
+    new DOrganizationBaseApiImpl(httpClient)
+  );
   const currentYearService = new CurrentYearServiceImpl();
   const featuresComparingService = new FeaturesComparingServiceImpl(
     new LocationFCApiImpl(httpClient),
@@ -297,6 +303,10 @@ export const factory = (): Provider[] => {
     {
       provide: DLocationsService,
       useValue: dLocationsService
+    },
+    {
+      provide: DOrganizationsService,
+      useValue: dOrganizationsService
     },
     {
       provide: LocationDetailApi,
