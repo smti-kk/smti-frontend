@@ -89,4 +89,23 @@ export class UsersPage implements OnInit {
   organizationsCompareFn = (a: DOrganizationBase, b: DOrganizationBase) => {
     return a.id === b.id;
   }
+
+  canEditLocations(roles: string[]): boolean {
+    return roles.includes('OPERATOR');
+  }
+
+  canEditOrganizations(roles: string[]): boolean {
+    return roles.includes('ORGANIZATION');
+  }
+
+  changeRoles(item: UserFromApi) {
+    if (!this.editCache.get(item.id).data.roles.includes('OPERATOR')) {
+      item.locations = [];
+      this.editCache.get(item.id).data.locations = [];
+    }
+    if (!this.editCache.get(item.id).data.roles.includes('ORGANIZATION')) {
+      item.organizations = [];
+      this.editCache.get(item.id).data.organizations = [];
+    }
+  }
 }
