@@ -1,4 +1,5 @@
 import {DLocationBase} from '@api/dto/DLocationBase';
+import {DOrganizationBase} from '@api/dto/DOrganizationBase';
 
 export interface UserFromApi {
   id: number;
@@ -10,4 +11,5 @@ export interface UserFromApi {
   patronymicName: string;
   email: string;
   locations: DLocationBase[];
+  organizations: DOrganizationBase[];
 }

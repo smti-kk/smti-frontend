@@ -3,6 +3,8 @@ import {UsersService} from '@service/account/UsersService';
 import {UserFromApi} from '@api/dto/UserFromApi';
 import {DLocationBase} from '@api/dto/DLocationBase';
 import {DLocationsService} from '@service/locations/DLocationsService';
+import {DOrganizationBase} from '@api/dto/DOrganizationBase';
+import {DOrganizationsService} from '@service/organizations/DOrganizationsService';
 
 @Component({
   selector: 'app-users',
@@ -13,11 +15,16 @@ export class UsersPage implements OnInit {
   editCache: Map<number, { edit: boolean; data: UserFromApi }>;
   items: UserFromApi[] = [];
   locations: DLocationBase[] = [];
+  organizations: DOrganizationBase[] = [];
   roles: {[key: string]: string};
   private readonly usersService: UsersService;
   private readonly dLocationService: DLocationsService;
+  private readonly dOrganizationService: DOrganizationsService;
 
-  constructor(usersService: UsersService, dLocationService: DLocationsService) {
+  constructor(
+    usersService: UsersService,
+    dLocationService: DLocationsService,
+    dOrganizationService: DOrganizationsService) {
     this.roles = {};
     this.roles.ADMIN = 'Администратор';
     this.roles.GUEST = 'Посетитель';
@@ -26,6 +33,7 @@ export class UsersPage implements OnInit {
     this.roles.OPERATOR = 'Оператор - Локации';
     this.usersService = usersService;
     this.dLocationService = dLocationService;
+    this.dOrganizationService = dOrganizationService;
   }
 
   startEdit(id: number): void {
@@ -60,6 +68,9 @@ export class UsersPage implements OnInit {
     this.dLocationService.all().subscribe(value => {
       this.locations = value;
     });
+    this.dOrganizationService.all().subscribe(value => {
+      this.organizations = value;
+    });
   }
 
   updateEditCache(): void {
@@ -72,6 +83,10 @@ export class UsersPage implements OnInit {
   }
 
   locationsCompareFn = (a: DLocationBase, b: DLocationBase) => {
+    return a.id === b.id;
+  }
+
+  organizationsCompareFn = (a: DOrganizationBase, b: DOrganizationBase) => {
     return a.id === b.id;
   }
 }

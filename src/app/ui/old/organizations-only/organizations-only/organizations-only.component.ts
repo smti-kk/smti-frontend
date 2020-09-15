@@ -9,13 +9,14 @@ import {PaginatedList} from '@core/models/paginated-list';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
-import {GovernmentProgramService, OrganizationServiceWithFilterParams, OrganizationsService} from '@core/services';
+// import {GovernmentProgramService, OrganizationServiceWithFilterParams, OrganizationsService} from '@core/services';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {NzModalService} from 'ng-zorro-antd';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
 import {AccessPointTypeService} from '../../core/services/accesspoint-type.service';
 import {AccessPointType} from '../../core/models/accesspoint-type';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
+import {GovernmentProgramService, OrganizationServiceWithFilterParams} from '../../core/services';
 
 @Component({
   selector: 'app-organizations-only',
