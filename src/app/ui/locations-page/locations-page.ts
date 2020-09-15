@@ -50,7 +50,7 @@ export class LocationsPage implements OnInit {
     });
     this.loaderService = loaderService;
     this.page = 0;
-    this.countPerPage = 60;
+    this.countPerPage = 30;
     this.isLoading = false;
   }
 
