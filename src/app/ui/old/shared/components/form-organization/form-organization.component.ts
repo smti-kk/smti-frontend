@@ -102,17 +102,24 @@ export class FormOrganizationComponent implements OnInit {
   }
 
   saveEditOrganization(): void {
-    this.serviceOrganizations.put(this.formGroupOrganization.value).subscribe(
-      organization => {
-        this.organizationForEdit = organization;
-      },
-      error => {
-        // todo: обработка ошибки
-        this.formGroupOrganization.enable();
-        throw Error(`${error}`);
-      },
-    );
-    this.formGroupOrganization.disable();
+    if (this.formGroupOrganization.invalid) {
+      this.formGroupOrganization.updateValueAndValidity();
+      Object.keys(this.formGroupOrganization.controls).forEach(key => {
+        this.formGroupOrganization.get(key).markAsDirty();
+      });
+    } else {
+      this.serviceOrganizations.put(this.formGroupOrganization.value).subscribe(
+        organization => {
+          this.organizationForEdit = organization;
+        },
+        error => {
+          // todo: обработка ошибки
+          this.formGroupOrganization.enable();
+          throw Error(`${error}`);
+        },
+      );
+      this.formGroupOrganization.disable();
+    }
   }
 
   isCreate(): boolean {
@@ -120,15 +127,22 @@ export class FormOrganizationComponent implements OnInit {
   }
 
   saveNewOrganization(): void {
-    this.serviceOrganizations.save(this.formGroupOrganization.value).subscribe(
-      () => {
-        this.modalRef.destroy();
-      },
-      error => {
-        throw Error(`${error}`);
-        // todo: implement me
-      },
-    );
+    if (this.formGroupOrganization.invalid) {
+      this.formGroupOrganization.updateValueAndValidity();
+      Object.keys(this.formGroupOrganization.controls).forEach(key => {
+        this.formGroupOrganization.get(key).markAsDirty();
+      });
+    } else {
+      this.serviceOrganizations.save(this.formGroupOrganization.value).subscribe(
+        () => {
+          this.modalRef.destroy();
+        },
+        error => {
+          throw Error(`${error}`);
+          // todo: implement me
+        },
+      );
+    }
   }
 
   onChange(location: string): void {
