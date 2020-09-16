@@ -12,6 +12,9 @@
                 [nzAutosize]="{ minRows: 3, maxRows: 6 }"
               >
               </textarea>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_acronym').invalid && (formGroupOrganization.get('_acronym').touched || formGroupOrganization.get('_acronym').dirty)">
+        <span *ngIf="formGroupOrganization.get('_acronym').errors?.required">Обязательное поле</span>
+      </div>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -23,6 +26,9 @@
                 [nzAutosize]="{ minRows: 3, maxRows: 6 }"
               >
               </textarea>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_name').invalid && (formGroupOrganization.get('_name').touched || formGroupOrganization.get('_name').dirty)">
+        <span *ngIf="formGroupOrganization.get('_name').errors?.required">Обязательное поле</span>
+      </div>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -34,27 +40,42 @@
                 [nzAutosize]="{ minRows: 3, maxRows: 6 }"
               >
               </textarea>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_address').invalid && (formGroupOrganization.get('_address').touched || formGroupOrganization.get('_address').dirty)">
+        <span *ngIf="formGroupOrganization.get('_address').errors?.required">Обязательное поле</span>
+      </div>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label>ИНН</nz-form-label>
     <nz-form-control>
       <input nz-input type="text" formControlName="_inn"/>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_inn').invalid && (formGroupOrganization.get('_inn').touched || formGroupOrganization.get('_inn').dirty)">
+        <span *ngIf="formGroupOrganization.get('_inn').errors?.required">Обязательное поле</span>
+      </div>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label>КПП</nz-form-label>
     <nz-form-control>
       <input nz-input type="text" formControlName="_kpp"/>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_kpp').invalid && (formGroupOrganization.get('_kpp').touched || formGroupOrganization.get('_kpp').dirty)">
+        <span *ngIf="formGroupOrganization.get('_kpp').errors?.required">Обязательное поле</span>
+      </div>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label>ФИАС</nz-form-label>
     <nz-form-control>
       <input nz-input type="text" formControlName="_fias"/>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_fias').invalid && (formGroupOrganization.get('_fias').touched || formGroupOrganization.get('_fias').dirty)">
+        <span *ngIf="formGroupOrganization.get('_fias').errors?.required">Обязательное поле</span>
+        <span *ngIf="formGroupOrganization.get('_fias').errors?.pattern">Должно соответствовать формату "00000000-0000-0000-0000-000000000000"</span>
+      </div>
+<!--
       <div class="error" *ngIf="formGroupOrganization.get('_fias').invalid">
         Должно соответствовать формату "00000000-0000-0000-0000-000000000000"
       </div>
+-->
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -108,6 +129,9 @@
           [nzLabel]="location?.type + ' ' + location?.name + ' ' + '(' +location?.parent + ')'"
         ></nz-option>
       </nz-select>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_location').invalid && (formGroupOrganization.get('_location').touched || formGroupOrganization.get('_location').dirty)">
+        <span *ngIf="formGroupOrganization.get('_location').errors?.required">Обязательное поле</span>
+      </div>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -139,10 +163,10 @@
           class="btn"
           value="Сохранить"
           *ngIf="formGroupOrganization.enabled && !isCreate()"
-          [disabled]="!formGroupOrganization.valid"
           (click)="saveEditOrganization()"
         />
       </div>
+      <!--          [disabled]="!formGroupOrganization.valid"-->
       <ng-template #createOrganization>
         <div class="btn-group">
           <input
@@ -157,10 +181,10 @@
             class="btn"
             value="Сохранить"
             *ngIf="formGroupOrganization.enabled && !isCreate()"
-            [disabled]="!formGroupOrganization.valid"
             (click)="saveNewOrganization()"
           />
         </div>
+<!--        [disabled]="!formGroupOrganization.valid"-->
       </ng-template>
     </nz-form-control>
   </nz-form-item>
