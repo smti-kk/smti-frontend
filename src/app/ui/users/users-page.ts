@@ -91,7 +91,7 @@ export class UsersPage implements OnInit {
   }
 
   canEditLocations(roles: string[]): boolean {
-    return roles.includes('OPERATOR');
+    return roles.includes('MUNICIPALITY');
   }
 
   canEditOrganizations(roles: string[]): boolean {
@@ -99,7 +99,7 @@ export class UsersPage implements OnInit {
   }
 
   changeRoles(item: UserFromApi) {
-    if (!this.editCache.get(item.id).data.roles.includes('OPERATOR')) {
+    if (!this.editCache.get(item.id).data.roles.includes('MUNICIPALITY')) {
       item.locations = [];
       this.editCache.get(item.id).data.locations = [];
     }

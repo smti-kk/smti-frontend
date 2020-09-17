@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {compareById} from '@core/utils/compare';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {Observable} from 'rxjs';
@@ -51,18 +51,16 @@ export class FormAccessPointComponent implements OnInit {
   }
 
   private buildForm(point?: Reaccesspoint): void {
-    const coords = {lat: 94, lng: 56};
-    this.ap = new Reaccesspoint(coords, null);
     this.formGroupAccessPoints = this.formBuilder.group({
       _id: point ? point.id : null,
-      _address: null,
+      _address: [null, Validators.required],
       // _avstatus: null,
       _billingId: null,
       // _completed: null,
-      _connectionType: null,
+      _connectionType: [null, Validators.required],
       _organizationId: this.organization.id || null,
       _locationId: this.organization.location.valueOf() || null,
-      _contractor: null,
+      _contractor: [null, Validators.required],
       // _createdAt: null,
       _customer: null,
       _declaredSpeed: null,
@@ -71,6 +69,8 @@ export class FormAccessPointComponent implements OnInit {
       _ipConfig: null,
       _maxAmount: null,
       _name: this.organization.name || null,
+      _lat: [point ? point.point.lat : null, Validators.required],
+      _lng: [point ? point.point.lng : null, Validators.required],
       // _netTrafficLastMonth: null,
       // _netTrafficLastWeek: null,
       _node: null,
@@ -80,7 +80,7 @@ export class FormAccessPointComponent implements OnInit {
       _ucn: null,
       // _updatedAt: null,
       _visible: true,
-      _type: null,
+      _type: [null, Validators.required],
       _amount: null,
       _number: null
     });
@@ -93,24 +93,35 @@ export class FormAccessPointComponent implements OnInit {
   }
 
   saveAccessPoint(): void {
-    let subscription;
-    if (this.mode === 'CREATE') {
-      subscription = this.serviceOrganizations
-        .createAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value));
-    } else if (this.mode === 'UPDATE') {
-      subscription = this.serviceOrganizations
-        .updateAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value));
+    if (this.formGroupAccessPoints.invalid) {
+      this.formGroupAccessPoints.updateValueAndValidity();
+      Object.keys(this.formGroupAccessPoints.controls).forEach(key => {
+        this.formGroupAccessPoints.get(key).markAsDirty();
+      });
+    } else {
+      const coords = {
+        lng: this.formGroupAccessPoints.get('_lng').value,
+        lat: this.formGroupAccessPoints.get('_lat').value};
+      this.ap = new Reaccesspoint(coords, null);
+      let subscription;
+      if (this.mode === 'CREATE') {
+        subscription = this.serviceOrganizations
+          .createAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value));
+      } else if (this.mode === 'UPDATE') {
+        subscription = this.serviceOrganizations
+          .updateAccessPoint(Object.assign(this.ap, this.formGroupAccessPoints.value));
+      }
+      subscription.subscribe(
+        (response) => {
+          window.location.reload();
+          // todo: implement me
+        },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        error => {
+          // todo: implement me
+          throw Error(`${error}`);
+        },
+      );
     }
-    subscription.subscribe(
-      (response) => {
-        window.location.reload();
-        // todo: implement me
-      },
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      error => {
-        // todo: implement me
-        throw Error(`${error}`);
-      },
-    );
   }
 }
