@@ -4,7 +4,10 @@ import {LocationFCApi} from './LocationFCApi';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {LOCATION_FC_API} from '../../../environments/api.routes';
 import {Pageable} from '@api/dto/Pageable';
-import {TechnicalCapabilityType} from "@api/dto/TechnicalCapabilityType";
+import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
+import {map, tap} from 'rxjs/operators';
+import {saveAs} from 'file-saver';
+
 
 export type LocationOrdering =
   'name,asc'
@@ -43,12 +46,61 @@ export class LocationFCApiImpl implements LocationFCApi {
                     govProgram?: number,
                     govProgramYear?: number,
                     hasAnyInternet?: boolean): Observable<Pageable<LocationFC[]>> {
-    let params = new HttpParams({
-      fromObject: {
-        page: page.toString(),
-        size: size.toString()
-      }
-    });
+    let params = this.filterParams(
+      ordering,
+      parentIds,
+      locationName,
+      operators,
+      connectionTypes,
+      govProgram,
+      govProgramYear,
+      hasAnyInternet
+    );
+    params = params
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<Pageable<LocationFC[]>>(LOCATION_FC_API + '/' + type, {params});
+  }
+
+  locationsExportExcel(type: TechnicalCapabilityType,
+                       ordering?: LocationOrdering,
+                       parentIds?: number[],
+                       locationName?: string,
+                       operators?: number[],
+                       connectionTypes?: number[],
+                       govProgram?: number,
+                       govProgramYear?: number,
+                       hasAnyInternet?: boolean): Observable<void> {
+    const params = this.filterParams(
+      ordering,
+      parentIds,
+      locationName,
+      operators,
+      connectionTypes,
+      govProgram,
+      govProgramYear,
+      hasAnyInternet
+    );
+    return this.http.get(LOCATION_FC_API + '/' + type + '/export-excel', {params, observe: 'response', responseType: 'blob'})
+      .pipe(
+        map(response => {
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
+        })
+      );
+  }
+
+  private filterParams(
+    ordering?: LocationOrdering,
+    parentIds?: number[],
+    locationName?: string,
+    operators?: number[],
+    connectionTypes?: number[],
+    govProgram?: number,
+    govProgramYear?: number,
+    hasAnyInternet?: boolean
+  ): HttpParams {
+    let params = new HttpParams();
     if (ordering) {
       params = params.append('sort', ordering);
     }
@@ -73,6 +125,6 @@ export class LocationFCApiImpl implements LocationFCApi {
     if (hasAnyInternet !== null && hasAnyInternet !== undefined) {
       params = params.append('hasAnyInternet', hasAnyInternet === true ? 'true' : 'false');
     }
-    return this.http.get<Pageable<LocationFC[]>>(LOCATION_FC_API + '/' + type, {params});
+    return params;
   }
 }

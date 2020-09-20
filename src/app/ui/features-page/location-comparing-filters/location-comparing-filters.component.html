@@ -9,7 +9,7 @@
       <img [class.arrow-reversed]="filtersIsOpened" class="arrow-icon" src="/assets/arrow-bottom.svg" alt="">
     </div>
   </div>
-<!--  <button class="export-button" (click)="exportExcelClick()" mat-raised-button>Выгрузить в Excel</button>-->
+  <button class="export-button" (click)="exportExcelClick()" mat-raised-button>Выгрузить в Excel</button>
 </div>
 <form *ngIf="filterForm && filtersIsOpened" [formGroup]="filterForm" class="filters">
   <div class="d-flex">

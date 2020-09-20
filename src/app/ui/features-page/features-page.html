@@ -1,5 +1,5 @@
 <div class="location-features-container">
-  <app-location-comparing-filters [type]="type" (filters)="filter($event)"></app-location-comparing-filters>
+  <app-location-comparing-filters (exportExcel)="exportExcel()" [type]="type" (filters)="filter($event)"></app-location-comparing-filters>
   <div class="filter-result-count">
     Результатов поиска: {{totalElements}}
   </div>

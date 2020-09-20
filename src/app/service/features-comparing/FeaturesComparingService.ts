@@ -12,6 +12,9 @@ export abstract class FeaturesComparingService {
                                      type: TechnicalCapabilityType,
                                      filters: LocationFilters): Observable<Pageable<FeaturesComparing[]>>;
 
+  abstract featuresComparingExportExcel(type: TechnicalCapabilityType,
+                                        filters: LocationFilters): Observable<void>;
+
   abstract makeItActive(locationId: number, featureId: number): Observable<void>;
 }
 

@@ -79,4 +79,9 @@ export class FeaturesPage implements OnInit {
       this.totalElements = features.totalElements;
     });
   }
+
+  exportExcel(): void {
+    this.featuresService.featuresComparingExportExcel(this.type, this.filters).subscribe(() => {
+    });
+  }
 }

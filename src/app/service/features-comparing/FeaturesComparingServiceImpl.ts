@@ -66,6 +66,35 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
     );
   }
 
+  featuresComparingExportExcel(type: TechnicalCapabilityType,
+                               filters: LocationFilters): Observable<void> {
+    if (!filters) {
+      return this.api.locationsExportExcel(type);
+    }
+    const orderingFilter = new OrderingToApi(filters.ordering).toString();
+    let operators;
+    let connectionTypes;
+    if (type === 'INET') {
+      operators = filters.internetOperators.filter(io => io.isSelected).map(io => io.id);
+      connectionTypes = filters.connectionType.filter(ip => ip.isSelected).map(ip => ip.id);
+    }
+    if (type === 'MOBILE') {
+      operators = filters.cellularOperators.filter(io => io.isSelected).map(io => io.id);
+      connectionTypes = filters.signalLevel.filter(ip => ip.isSelected).map(ip => ip.id);
+    }
+    return this.api.locationsExportExcel(
+      type,
+      orderingFilter,
+      filters.parent,
+      filters.location,
+      operators,
+      connectionTypes,
+      filters.govProgram,
+      filters.govYear,
+      filters.hasInternet
+    );
+  }
+
   makeItActive(locationId: number, featureId: number): Observable<void> {
     return this.api.makeItActive(locationId, featureId);
   }
