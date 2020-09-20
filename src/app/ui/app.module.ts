@@ -92,6 +92,7 @@ import {AuthInterceptor} from '@api/auth.interceptor';
 import {LocationComparingFiltersComponent} from './features-page/location-comparing-filters/location-comparing-filters.component';
 import { BaseStationInfoBarComponent } from './map-page/base-station-info-bar/base-station-info-bar.component';
 import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
+import {JoinorgPipe} from './users/pipe-organizations/joinorg.pipe';
 
 registerLocaleData(ru);
 
@@ -116,6 +117,7 @@ registerLocaleData(ru);
     OrganizationFilters,
     Loader,
     JoinPipe,
+    JoinorgPipe,
     Loader,
     LocationPage,
     ThreeStateButton,

@@ -8,12 +8,14 @@ export const COORDINATE_DESERIALIZER = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Serialize(point: Coordinate): any {
-    // todo убрать заглушку
+    // Заглушка убрана:
+    //   96.0456,
+    //   56.6763888
     return {
       type: 'Point',
       coordinates: [
-        96.0456,
-        56.6763888
+        point.lng,
+        point.lat
       ]
     };
   },

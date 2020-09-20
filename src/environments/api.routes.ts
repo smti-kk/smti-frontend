@@ -9,6 +9,7 @@ export const MAP_ACCESS_POINTS_API = API_VERSION + '/map-access-points';
 export const OPERATORS_API = API_VERSION + '/operator';
 export const LOCATION_DETAIL_API = API_VERSION + '/detail-locations';
 export const DLOCATION_BASE_API = API_VERSION + '/location/base/';
+export const DORGANIZATION_BASE_API = API_VERSION + '/organization/base/';
 export const TRUNK_CHANNEL_TYPES_API = API_VERSION + '/type/trunk-channel/';
 export const MOBILE_TYPES_API = API_VERSION + '/type/mobile/';
 export const POST_TYPES_API = API_VERSION + '/type/post/';
