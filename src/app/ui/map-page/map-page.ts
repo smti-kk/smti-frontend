@@ -6,12 +6,13 @@ import {BestMap} from './map/BestMap';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
 import {ApiOrganization} from '@api/organizations/ApiOrganization';
-import {AORAccessPoint} from '@api/dto/ApiOrganizationResponse';
+import {AORAccessPoint, ApiOrganizationResponse} from '@api/dto/ApiOrganizationResponse';
 import {AccessPointsApi} from '@api/access-points/AccessPointsApi';
 import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
 import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {BaseStation} from '@api/dto/BaseStation';
-import {tap} from "rxjs/operators";
+import {tap} from 'rxjs/operators';
+import {Pageable} from '@api/dto/Pageable';
 
 @Component({
   selector: 'map-page',
@@ -25,7 +26,7 @@ export class MapPage {
   barIsOpened: boolean;
   locationProvidingInfo: LocationProvidingInfo;
   organizationsCount$: Observable<number>;
-  organizations$: Observable<any>;
+  organizations$: Observable<Pageable<ApiOrganizationResponse[]>>;
   isOpenAccessPoint: { value: boolean, type: string; id: number; };
   station: BaseStation;
   @ViewChild(BestMap) bestMap: BestMap;
@@ -121,21 +122,17 @@ export class MapPage {
     }
     setTimeout(() => {
       this.bestMap.moveToPoint(accessPoint.id, accessPoint.type);
-    }, 1);
+    }, 100);
   }
 
   async onAccessPointClick(point: { type: string; id: number }): Promise<void> {
     const locationId = await this.accessPointsApi.getLocationId(point.id).toPromise();
-    if (!this.location || this.location.id !== locationId) {
-      this.onSelectLocation(locationId, false, false);
-      this.organizations$ = this.apiOrganization.organizationsByLocation(locationId).pipe(
-        tap(() => {
-          this.isOpenAccessPoint = {value: true, ...point};
-        })
-      );
-      return;
-    }
-    this.isOpenAccessPoint = {value: true, ...point};
+    this.onSelectLocation(locationId, false, false);
+    this.organizations$ = this.apiOrganization.organizationsByLocationWithAp(locationId, point.id).pipe(
+      tap(() => {
+        this.isOpenAccessPoint = {value: true, ...point};
+      })
+    );
   }
 
   onSelectGroup($event: number): void {

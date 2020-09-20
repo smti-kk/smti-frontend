@@ -1,5 +1,7 @@
 import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AORAccessPoint, ApiOrganizationResponse} from '@api/dto/ApiOrganizationResponse';
+import {Pageable} from '@api/dto/Pageable';
+import {ApiOrganization} from '@api/organizations/ApiOrganization';
 
 @Component({
   selector: 'organizations-info-bar',
@@ -7,17 +9,18 @@ import {AORAccessPoint, ApiOrganizationResponse} from '@api/dto/ApiOrganizationR
   styleUrls: ['./organizations-info-bar.scss']
 })
 export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
-  iOrganizations: ApiOrganizationResponse[];
+  iOrganizations: Pageable<ApiOrganizationResponse[]>;
   @Input() organizationsCount: number;
   @Input() openOrganizationBar: { value: boolean } = {value: false};
   @Output() openOrganizationBarChange: EventEmitter<{ value: boolean }>;
   @Output() openBar: EventEmitter<void>;
   @Output() openAccessPointBar: EventEmitter<AORAccessPoint>;
-  openingAPState = false;
-  openingAPStateEmitter: EventEmitter<void> = new EventEmitter<void>();
-  private openingAccessPointId: number;
+  openingAccessPointId: number;
+  page = 0;
+  locationId: number;
+  currentAp: number;
 
-  constructor() {
+  constructor(private organizationsApi: ApiOrganization) {
     this.openBar = new EventEmitter<void>();
     this.openOrganizationBarChange = new EventEmitter<{ value: boolean }>();
     this.openAccessPointBar = new EventEmitter<AORAccessPoint>();
@@ -28,10 +31,12 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
 
   onOpen($event: void): void {
     this.openOrganizationBarChange.emit({value: true});
+    this.openOrganizationBar = {value: true};
     this.openBar.emit();
   }
 
   onClose(): void {
+    this.openOrganizationBar = {value: false};
     // this.openOrganizationBarChange.emit({value: false});
     // setTimeout(() => this.organizations = null, 100);
   }
@@ -40,18 +45,20 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
     this.openAccessPointBar.emit(accessPoint);
   }
 
-  get organizations(): ApiOrganizationResponse[] {
+  get organizations(): Pageable<ApiOrganizationResponse[]> {
     return this.iOrganizations;
   }
 
   @Input()
-  set organizations(value: ApiOrganizationResponse[]) {
+  set organizations(value: Pageable<ApiOrganizationResponse[]>) {
+    this.page = 0;
     this.iOrganizations = value;
-    if (this.openingAPState) {
-      setTimeout(() => {
-        this.openingAPStateEmitter.emit();
-        this.openingAPState = false;
-      }, 100);
+    this.currentAp = null;
+    if (!value) {
+      return;
+    }
+    if (value.content[0]) {
+      this.locationId = value.content[0].location.id;
     }
   }
 
@@ -65,7 +72,8 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
       setTimeout(() => this.openAccessPoint = point, 10);
       return;
     }
-    this.organizations.forEach(organization => {
+    this.currentAp = point.id;
+    this.organizations.content.forEach(organization => {
       const accessPoint = organization.accesspoints.find(ap => {
         if (ap.id === point.id) {
           ap.opened = true;
@@ -82,11 +90,34 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     if (this.openingAccessPointId) {
-      const elementById = document.getElementById('access-point-bar-' + this.openingAccessPointId);
-      if (elementById) {
-        elementById.scrollIntoView({block: 'center', behavior: 'smooth'});
-      }
-      this.openingAccessPointId = null;
+      setTimeout(() => {
+        const elementById = document.getElementById('access-point-bar-' + this.openingAccessPointId);
+        if (elementById) {
+          elementById.scrollIntoView({block: 'center', behavior: 'smooth'});
+        }
+        this.openingAccessPointId = null;
+      }, 150);
     }
+  }
+
+  onScroll(): void {
+    this.page++;
+    let observer;
+    if (this.currentAp) {
+      observer = this.organizationsApi.organizationsByLocationWithoutAp(this.locationId, this.page, 8, this.currentAp);
+    } else {
+      observer = this.organizationsApi.organizationsByLocation(this.locationId, this.page);
+    }
+    observer.subscribe((response => {
+      response.content = [...this.organizations.content, ...response.content];
+      this.organizations = response;
+    }));
+  }
+
+  hasNextItems(): boolean {
+    if (!this.organizations) {
+      return false;
+    }
+    return this.organizations.content.length !== this.organizations.totalElements;
   }
 }
