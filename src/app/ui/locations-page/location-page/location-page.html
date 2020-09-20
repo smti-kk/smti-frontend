@@ -14,7 +14,7 @@
       <span>{{tcs.population}} человек</span>
     </div>
   </div>
-  <mat-tab-group dynamicHeight>
+  <mat-tab-group dynamicHeight animationDuration="0ms">
     <mat-tab label="Текущая ситуация">
       <div class="tab-wrap">
         <div class="tc-item">
@@ -528,7 +528,10 @@
           <div>
             Последние изменения: <span class="color">{{planRequests[0].created | date: 'dd.MM.yyyy'}}</span>
           </div>
-          <!--          <button mat-flat-button color="primary" class="custom-btn">Внести изменения</button>-->
+          <button mat-flat-button color="primary" class="custom-btn" (click)="isPlanEdition = !isPlanEdition">
+            <ng-container *ngIf="!isPlanEdition">Внести изменения</ng-container>
+            <ng-container *ngIf="isPlanEdition">Прекратить вносить изменения</ng-container>
+          </button>
         </div>
         <ng-container *ngFor="let request of planRequests">
           <div class="card-container">
@@ -536,7 +539,7 @@
               <span class="card-number">№{{request.id}}</span> от
               <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
               <p>Планируемые изменения:</p>
-              <ng-container *ngFor="let edit of request.featureEdits">
+              <div class="some-plan-row" *ngFor="let edit of request.featureEdits">
                 <ul class="card-list" [ngSwitch]="edit.tc.type">
                   <li class="card-list-item" *ngSwitchCase="'INET'">
                     <ng-container [ngSwitch]="edit.action">
@@ -617,7 +620,8 @@
                     </ng-container>
                   </li>
                 </ul>
-              </ng-container>
+                <button mat-button *ngIf="isPlanEdition" (click)="approveEdit(edit)">Принять</button>
+              </div>
             </div>
           </div>
         </ng-container>

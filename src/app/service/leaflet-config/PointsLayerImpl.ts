@@ -1,4 +1,4 @@
-import {LatLngBounds, layerGroup, Map, MarkerClusterGroup, MarkerClusterGroupOptions, Tooltip} from 'leaflet';
+import {LatLngBounds, Map, MarkerClusterGroup, MarkerClusterGroupOptions} from 'leaflet';
 import {PointsService} from '../points/PointsService';
 import 'leaflet.markercluster';
 import {PointsLayer} from './PointsLayer';
@@ -8,6 +8,7 @@ import {tap} from 'rxjs/operators';
 
 let selectedElement: MonitoringPoint;
 let selectedElementLayer: MarkerClusterGroup;
+let selectedElementMap: Map;
 
 export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
   private readonly pointsService: PointsService;
@@ -19,6 +20,16 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
     super(options);
     this.pointsService = pointsService;
     this.existedPoints = {};
+  }
+
+  static resetFocus(): void {
+    if (selectedElement) {
+      selectedElementMap.removeLayer(selectedElement);
+      selectedElementLayer.addLayer(selectedElement);
+    }
+    selectedElementMap = null;
+    selectedElementLayer = null;
+    selectedElement = null;
   }
 
   addToMap(map: Map): boolean {
@@ -60,11 +71,12 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
     }
     this.map.flyTo(this.existedPoints[id].getLatLng(), this.map.getZoom(), {animate: true});
     if (selectedElement) {
-      this.map.removeLayer(selectedElement);
+      selectedElementMap.removeLayer(selectedElement);
       selectedElementLayer.addLayer(selectedElement);
     }
     selectedElement = this.existedPoints[id];
     selectedElementLayer = this;
+    selectedElementMap = this.map;
     this.removeLayer(selectedElement);
     this.map.addLayer(selectedElement);
     this.existedPoints[id].getElement().classList.add('selected-marker');

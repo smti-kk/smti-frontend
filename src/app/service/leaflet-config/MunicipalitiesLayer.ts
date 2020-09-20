@@ -4,6 +4,7 @@ import { FeatureCollection, MultiPoint } from 'geojson';
 import { EventEmitter, Injectable } from '@angular/core';
 import {MunicipalitiesApi} from "@api/municipalities-api/MunicipalitiesApi";
 import {HIGHLIGHT_FEATURE, MAP_TERRITORIES_STYLE} from "../../../environments/styles";
+import {PointsLayerImpl} from "@service/leaflet-config/PointsLayerImpl";
 
 export interface MunicipalitiesLayerGeoJson extends GeoJSON<any> {
   feature: any;
@@ -32,6 +33,7 @@ export class MunicipalitiesLayer extends GeoJSON {
   }
 
   public selectLayer(layer: MunicipalitiesLayerGeoJson): void {
+    PointsLayerImpl.resetFocus();
     if (this.selectedLocation) {
       this.selectedLocation.setStyle(MAP_TERRITORIES_STYLE);
       MunicipalitiesLayer.addEventListeners(this.selectedLocation);

@@ -19,6 +19,10 @@ import {Account} from '@service/account/Account';
 import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {LocationFeatureEditingRequest} from '@api/dto/LocationFeatureEditingRequest';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FeatureEdit} from '@api/dto/FeatureEdit';
+import {MoveToArchiveDialog} from '../../features-page/move-to-archive-dialog/MoveToArchiveDialog';
+import {FeaturesComparingService} from '@service/features-comparing/FeaturesComparingService';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'location-page',
@@ -42,11 +46,14 @@ export class LocationPage implements OnInit, OnDestroy {
   size = 10;
 
   private subscription: Subscription;
+  isPlanEdition = false;
 
   constructor(private mobileTypeApi: MobileTypeApi,
               private activatedRoute: ActivatedRoute,
               private trunkChannelTypeApi: TrunkChannelTypeApi,
               private accountService: AccountService,
+              private readonly featuresService: FeaturesComparingService,
+              public dialog: MatDialog,
               private tvTypeApi: TvTypeApi,
               private postTypeApi: PostTypeApi,
               private operatorsApi: OperatorsApi,
@@ -129,6 +136,20 @@ export class LocationPage implements OnInit, OnDestroy {
     this.pagePlan = this.pagePlan + 1;
     this.requestsService.plan(this.locationId, this.pagePlan, this.size).subscribe(requests => {
       this.planRequests = [...this.planRequests, ...requests.content];
+    });
+  }
+
+  approveEdit(edit: FeatureEdit): void {
+    const dialogRef = this.dialog.open(MoveToArchiveDialog, {
+      width: '250px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const tcId = edit.newValue ? edit.newValue.id : edit.tc.id;
+        this.featuresService.makeItActive(this.locationId, tcId).subscribe(() => {
+          window.location.reload();
+        });
+      }
     });
   }
 }

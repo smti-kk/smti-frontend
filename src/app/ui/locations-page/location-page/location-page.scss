@@ -221,3 +221,8 @@ p {
   font-weight: 600;
 }
 
+.some-plan-row {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
