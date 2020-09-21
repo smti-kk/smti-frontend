@@ -52,7 +52,8 @@ export class LocationDetailApiImpl implements LocationDetailApi {
     return this.httpClient.post(LOCATION_DETAIL_API + `/export-excel`, locations, {responseType: 'blob', observe: 'response'})
       .pipe(
         tap(response => {
-          saveAs(response, 'report.xlsx');
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
         })
       );
   }
