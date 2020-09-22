@@ -1,0 +1,47 @@
+.marker-cluster-administrative-centers {
+  background-color: rgba(0, 157, 211, 0.6);
+
+  & div {
+    background-color: rgb(0, 157, 211, 1);
+  }
+}
+
+.marker-cluster-base-stations {
+  background-color: rgba(152, 85, 7, 0.6);
+
+  & div {
+    background-color: rgba(152, 85, 7, 0.6);
+  }
+}
+
+.selected-marker {
+  border: 2px solid red;
+  border-radius: 27%;
+  z-index: 100000 !important;
+}
+
+.marker-cluster.smo {
+  background-color: #FF5353;
+}
+
+.marker-cluster.espd {
+  background-color: #147774;
+}
+
+.marker-cluster-active {
+  & div {
+    background-color: rgba(0, 255, 55, 1);
+  }
+}
+
+.marker-cluster-disabled {
+  & div {
+    background-color: rgba(252, 3, 15, 1);
+  }
+}
+
+.marker-cluster-undefined {
+  & div {
+    background-color: rgba(133, 133, 133, 1);
+  }
+}

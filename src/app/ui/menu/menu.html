@@ -1,0 +1,101 @@
+<div class="links">
+  <div class="logo">
+    <img src="../../../assets/logo.png" alt="Логотип">
+  </div>
+  <div class="link root-link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
+  <div class="link root-link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
+  <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
+  <button class="link mat-menu-select" mat-button *permissions="['ADMIN']" [matMenuTriggerFor]="menuImport">Импорт</button>
+  <mat-menu #menu="matMenu">
+    <div class="link"
+         routerLink="/features"
+         *permissions="['ADMIN', 'ORGANIZATION', 'OPERATOR']"
+         [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
+    <div class="link"
+         routerLink="/connection-points"
+         *permissions="['ADMIN', 'ORGANIZATION']"
+         [class.active]="currentRouteIs('/connection-points')"><span>Точки подключения</span></div>
+    <div class="link"
+         routerLink="/communication-contracts"
+         *permissions="['ADMIN', 'ORGANIZATION']"
+         [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
+    <div class="link"
+         *permissions="['ADMIN', 'OPERATOR']"
+         routerLink="/base-stations"
+         [class.active]="currentRouteIs('/base-stations')"><span>Базовые станции</span></div>
+    <div class="link"
+         *permissions="['ADMIN', 'OPERATOR']"
+         routerLink="/trunk-channels"
+         [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
+  </mat-menu>
+  <mat-menu #menuImport="matMenu">
+      <div class="link"
+           routerLink="/import-location"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-location')"><span>Населённые пункты</span></div>
+      <div class="link"
+           routerLink="/import-tc-internet"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-internet')"><span>Т/В интернет</span></div>
+      <div class="link"
+           routerLink="/import-tc-mobile"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-mobile')"><span>Т/В мобильная связь</span></div>
+      <div class="link"
+           routerLink="/import-tc-payphone"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-payphone')"><span>Т/В таксофоны</span></div>
+      <div class="link"
+           routerLink="/import-tc-post"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-post')"><span>Т/В почтовая связь</span></div>
+      <div class="link"
+           routerLink="/import-tc-radio"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-radio')"><span>Т/В радио</span></div>
+      <div class="link"
+           routerLink="/import-tc-tv"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-tv')"><span>Т/В телевидение</span></div>
+      <div class="link"
+           routerLink="/import-tc-infomat"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-infomat')"><span>Т/В инфоматы</span></div>
+      <div class="link"
+           routerLink="/import-tc-ats"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-tc-ats')"><span>Т/В АТС</span></div>
+      <div class="link"
+           routerLink="/import-access-point"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-access-point')"><span>Организации и точки доступа</span></div>
+      <div class="link"
+           routerLink="/import-trunk-channel"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-trunk-channel')"><span>Магистральные каналы</span></div>
+  </mat-menu>
+  <div class="link root-link"
+       *permissions="['ADMIN', 'ORGANIZATION']"
+       routerLink="/organizations-only"
+       [class.active]="currentRouteIs('/organizations-only')"><span>Организации</span></div>
+  <div class="link root-link"
+       *permissions="['MUNICIPALITY']"
+       routerLink="/mun-requests"
+       [class.active]="currentRouteIs('/mun-requests')"><span>Заявки</span></div>
+  <div class="link root-link"
+       *permissions="['OPERATOR']"
+       routerLink="/oper-profile"
+       [class.active]="currentRouteIs('/oper-profile')"><span>Заявки</span></div>
+  <div class="link root-link"
+       *permissions="['ADMIN', 'OPERATOR']"
+       routerLink="/report-monitoring"
+       [class.active]="currentRouteIs('/report-monitoring')"><span>Отчёт</span></div>
+  <div class="link root-link"
+       *permissions="['ADMIN']"
+       routerLink="/users"
+       [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>
+</div>
+<div class="link td-underline root-link" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
+<div class="link root-link logout" *ngIf="account">
+  <span>{{account.getName()}} <img class="logout-image" src="../../../assets/exit.png" alt="Выход" (click)="logout()"></span>
+</div>

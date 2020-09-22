@@ -1,0 +1,237 @@
+:host * {
+  color: #747578;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+
+  &__header-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  &__header {
+    padding: 16px 0;
+    margin-right: 16px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-bottom: 1px solid #e2e2e2;
+    user-select: none;
+  }
+
+  &__title {
+    color: #747578;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    & img {
+      margin-left: 1px;
+      width: 15px;
+      height: 16px;
+    }
+
+    & span {
+      margin-left: 17px;
+      margin-bottom: 1px;
+      display: block;
+      margin-top: -5px;
+    }
+  }
+
+  &__header-icons {
+    display: flex;
+
+    & img {
+      display: block;
+    }
+  }
+
+  &__ap-type-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 26px;
+  }
+
+  &__ap-type {
+    width: 19px;
+    padding: 3px;
+  }
+}
+
+.export-button {
+  color: #686868;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 14px;
+  padding: 14px 44px;
+  background-color: #d9d9d9;
+  height: 48px;
+  box-shadow: unset;
+  border-radius: unset;
+}
+
+.search-icon {
+  margin-right: 7px;
+}
+
+.filters {
+  margin-top: 8px;
+
+  & mat-form-field {
+    width: 100%;
+  }
+
+  &__column {
+    &.px400 {
+      width: 400px;
+    }
+  }
+
+  &__column-1 {
+    display: grid;
+    grid-template-columns: 300px;
+    margin-right: 20px;
+    grid-template-rows: 72px 72px;
+    grid-column-gap: 16px;
+  }
+
+  &__column-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 140px 120px;
+    grid-template-rows: 72px 72px;
+    grid-column-gap: 16px;
+
+    mat-checkbox {
+      display: block;
+
+      &:not(:first-of-type) {
+        margin-left: 22px;
+      }
+    }
+  }
+
+  &__column-label-text {
+    color: #95989a;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+  }
+
+  &__column-label.with-icon {
+    display: flex;
+
+    & img {
+      width: 16px;
+      height: 20px;
+    }
+
+    & .filters__column-label-text {
+      margin-left: 6px;
+    }
+  }
+
+  &__filter-block {
+    display: flex;
+    justify-content: space-around;
+    min-width: 191px;
+    margin-bottom: 10px;
+  }
+}
+
+.imageable-checkbox {
+  & input {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    width: 16px;
+    height: 16px;
+
+    &:checked + img {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+  }
+
+  &.connection-points img {
+    width: 18px;
+    height: 18px;
+  }
+
+  & img {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    margin-left: -19px;
+    margin-top: -11px;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.i-dont-know-what-is-it-but-ok {
+  background-color: #efefef;
+  padding: 7px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+input[type="checkbox" i] {
+  display: inline-block !important;
+}
+
+.location-filter {
+  margin-bottom: -33px;
+}
+
+.area-filter {
+  margin-bottom: -42px;
+}
+
+.arrow-reversed {
+  transform: rotateX(180deg);
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-inner-container {
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-label {
+  color: #000000;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  vertical-align: middle;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-layout {
+  vertical-align: unset;
+}
+
+.with-bottom-margin-5px {
+  margin-bottom: 5px;
+}

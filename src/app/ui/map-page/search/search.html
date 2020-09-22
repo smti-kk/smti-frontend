@@ -1,0 +1,10 @@
+<div class="input-container">
+  <input [formControl]="searchControl" placeholder="Поиск населенного пункта" class="search-input" [matAutocomplete]="auto"/>
+</div>
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="getOptionText" (optionSelected)="onSelect($event)">
+  <mat-optgroup *ngFor="let group of filteredOptions" [label]="group.label" (click)="onSelectArea(group)">
+    <mat-option *ngFor="let option of group.locations" [value]="option" (click)="$event.stopPropagation()">
+      {{option.label}}
+    </mat-option>
+  </mat-optgroup>
+</mat-autocomplete>

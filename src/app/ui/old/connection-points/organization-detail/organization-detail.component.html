@@ -1,0 +1,356 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<main class="main" *ngIf="organization">
+  <div class="wrapper">
+    <div class="breadcrumbs">
+      <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="#">Главная</a></li>
+        <li class="breadcrumbs-item">
+          <a class="breadcrumbs-link" routerLink="/connection-points"
+          >Сводная таблица по организациям</a
+          >
+        </li>
+        <!-- <li class="breadcrumbs-item">
+          <span class="breadcrumbs-link">
+            {{ locationFeatures.location.typeLocation }} {{ locationFeatures.location.name }} ,
+            {{ locationFeatures.location.municipalityArea }}
+          </span>
+        </li> -->
+      </ul>
+    </div>
+
+    <h2>{{organization.location.type}} {{organization.location.name}}</h2>
+    <h2>{{organization.location.parent}}</h2>
+    <div class="container">
+      <div>
+        <app-form-organization [organizationForEdit]="organization"></app-form-organization>
+        <!--<h2>Организация</h2>
+        <form [formGroup]="formGroupOrganization" nz-form>
+          <nz-form-item>
+            <nz-form-label>Краткое наименование</nz-form-label>
+            <nz-form-control>
+              <textarea
+                formControlName="_acronym"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Полное наименование</nz-form-label>
+            <nz-form-control>
+              <textarea
+                formControlName="_name"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Адрес</nz-form-label>
+            <nz-form-control>
+              <textarea
+                formControlName="_address"
+                nz-input
+                [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+              >
+              </textarea>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>ИНН</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="_inn"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>КПП</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="_kpp"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>ФИАС</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" formControlName="_fias"/>
+              <div class="error" *ngIf="formGroupOrganization.get('_fias').invalid">
+                Должно соответствовать формату "00000000-0000-0000-0000-000000000000"
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Тип</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                formControlName="_type"
+                [compareWith]="compareFn"
+                [nzSuffixIcon]="suffixIconSelect"
+              >
+                <nz-option
+                  *ngFor="let item of fOrganizationTypes$ | async"
+                  [nzValue]="item"
+                  [nzLabel]="item.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>СЗО</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                formControlName="_smoType"
+                [nzSuffixIcon]="suffixIconSelect"
+                [compareWith]="compareFn"
+              >
+                <nz-option
+                  *ngFor="let item of fOrganizationSMOTypes$ | async"
+                  [nzValue]="item"
+                  [nzLabel]="item.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>Локация</nz-form-label>
+            <nz-form-control>
+              &lt;!&ndash;              <nz-select formControlName="_location" [compareWith]="compareFn">&ndash;&gt;
+              &lt;!&ndash;                <nz-option&ndash;&gt;
+              &lt;!&ndash;                  *ngFor="let item of fLocations$ | async"&ndash;&gt;
+              &lt;!&ndash;                  [nzValue]="item"&ndash;&gt;
+              &lt;!&ndash;                  [nzLabel]="item.name + ' (' + item.parent +')'"&ndash;&gt;
+              &lt;!&ndash;                ></nz-option>&ndash;&gt;
+              &lt;!&ndash;              </nz-select>&ndash;&gt;
+
+              <nz-select
+                nzShowSearch
+                (nzOnSearch)="onChange($event)"
+                formControlName="_location"
+                [compareWith]="compareFn"
+                [nzSuffixIcon]="suffixIconSelect"
+              >
+                <nz-option
+                  *ngFor="let location of locations$ | async"
+                  [nzValue]="location"
+                  [nzLabel]="location?.type + ' ' + location?.name + ' ' + '(' +location?.parent + ')'"
+                ></nz-option>
+              </nz-select>
+
+              &lt;!&ndash;<nz-input-group>
+                <input
+                  nz-input
+                  [nzAutocomplete]="autoComplete"
+                  (input)="onChange($event)"
+                  formControlName="_location"
+                >
+              </nz-input-group>
+              <nz-autocomplete #autoComplete>
+                <nz-auto-option
+                  *ngFor="let location of locations$ | async"
+                  [nzValue]="location"
+                  [nzLabel]="location?.type + ' ' + location?.name + ' ' + '(' +location?.parent + ')'"
+                >
+                  {{location?.type}} {{location?.name}} ({{location?.parent}})
+                </nz-auto-option>
+              </nz-autocomplete>&ndash;&gt;
+
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <div class="btn-group" *ngIf="organization" [formGroup]="formGroupOrganization">
+                <input
+                  *ngIf="formGroupOrganization.enabled"
+                  type="button"
+                  class="btn"
+                  value="Отмена"
+                  (click)="cancelEdit()"
+                />
+                <input
+                  *ngIf="formGroupOrganization.disabled"
+                  type="button"
+                  class="btn"
+                  value="Редактировать организацию"
+                  (click)="enableForm()"
+                />
+                <input
+                  type="button"
+                  class="btn"
+                  value="Сохранить"
+                  *ngIf="formGroupOrganization.enabled && !isCreate()"
+                  [disabled]="!formGroupOrganization.valid"
+                  (click)="saveRequest()"
+                />
+
+                <input
+                  type="button"
+                  class="btn"
+                  value="Создать"
+                  *ngIf="formGroupOrganization.enabled && isCreate()"
+                  [disabled]="!formGroupOrganization.valid"
+                  (click)="saveOrganization()"
+                />
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </form>-->
+      </div>
+      <div class="wrapper-points">
+        <h2>Точки подключения</h2>
+        <div class="points">
+          <div *ngFor="let ap of points$ | async" class="point">
+            <div class="point-type" [ngSwitch]="ap.type">
+              <ng-container *ngSwitchCase="'SMO'">
+                <img src="assets/smo.png" alt="{{ap?.type}}"
+                     class="point-img"/><span>СЗО</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'ESPD'">
+                <img src="assets/espd.png" alt="{{ap?.type}}"
+                     class="point-img"/><span>ЕСПД</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'CONTRACT'">
+                <img src="assets/contract.png" alt="{{ap?.type}}"
+                     class="point-img"/><span>Контракт</span>
+              </ng-container>
+            </div>
+            <table>
+              <tr>
+                <td>Адрес</td>
+                <td>{{ ap.address }}</td>
+              </tr>
+              <tr>
+                <td>Отображается</td>
+                <td>
+                  <label nz-checkbox disabled [(ngModel)]="ap.visible"></label>
+                </td>
+              </tr>
+<!--              <tr>-->
+<!--                <td>Узел доступа</td>-->
+<!--                <td>{{ ap.node }}</td>-->
+<!--              </tr>-->
+              <tr>
+                <td>Тип подключения</td>
+                <td>{{ ap.connectionTypeString }}</td>
+              </tr>
+              <tr>
+                <td>Оператор связи</td>
+                <td>{{ ap.contractor }}</td>
+              </tr>
+              <tr>
+                <td>Скорость по контракту</td>
+                <td>{{ ap.declaredSpeed }}</td>
+              </tr>
+              <tr>
+                <td>Качество связи</td>
+                <td>{{ qualityToString(ap.quality) }}</td>
+              </tr>
+              <tr>
+                <td>Государственная программа</td>
+                <td>{{ ap.governmentProgram?.acronym }}</td>
+              </tr>
+            </table>
+            <div class="btn-group">
+              <input class="btn" type="button" value="Подключить к мониторингу"  (click)="initMonitoringAccessPoint(ap)"/>
+              <input class="btn" type="button" value="Редактировать точку" (click)="editAccessPoint(ap)"/>
+            </div>
+          </div>
+          <div
+            *ngIf="ap"
+            [formGroup]="formGroupAccessPoints"
+            class="wip-organization-access-points"
+            style="grid-column: span 2"
+          >
+            <table style="margin-top: 58px">
+              <tr>
+                <td>Адрес</td>
+                <td><input nz-input type="text" formControlName="_address"/></td>
+              </tr>
+              <tr>
+                <td>Отображается</td>
+                <td><label nz-checkbox checked="true" formControlName="_visible"></label></td>
+              </tr>
+<!--              <tr>-->
+<!--                <td>Узел доступа</td>-->
+<!--                <td><input nz-input type="text" formControlName="_node"/></td>-->
+<!--              </tr>-->
+              <tr>
+                <td>Тип</td>
+                <td>
+                  <nz-select
+                    formControlName="_connectionType"
+                    [compareWith]="compareFn"
+                    [nzSuffixIcon]="suffixIconSelect"
+                  >
+                    <nz-option
+                      *ngFor="let item of fInternetAccessTypes$ | async"
+                      [nzValue]="item"
+                      [nzLabel]="item.name"
+                    ></nz-option>
+                  </nz-select>
+                </td>
+              </tr>
+              <tr>
+                <td>Оператор связи</td>
+                <td><input nz-input type="text" formControlName="_contractor"/></td>
+              </tr>
+              <tr>
+                <td>Качество связи</td>
+                <td>
+                  <nz-select
+                    formControlName="_quality"
+                    [nzSuffixIcon]="suffixIconSelect"
+                  >
+                    <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошо"></nz-option>
+                    <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
+                    <nz-option [nzValue]="Quality.ABSENT" nzLabel="Отсутствует"></nz-option>
+                  </nz-select>
+                </td>
+              </tr>
+              <tr>
+                <td>Скорость по контракту</td>
+                <td><input nz-input type="text" formControlName="_definedSpeed"/></td>
+              </tr>
+              <tr>
+                <td>Государственная программа</td>
+                <td>
+                  <nz-select
+                    formControlName="_governmentProgram"
+                    [nzSuffixIcon]="suffixIconSelect"
+                  >
+                    <nz-option
+                      *ngFor="let item of fGovernmentPrograms$ | async"
+                      [nzValue]="item"
+                      [nzLabel]="item.name"
+                    ></nz-option>
+                  </nz-select>
+                </td>
+              </tr>
+            </table>
+            <ng-template #suffixIconSelect>
+              <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+            </ng-template>
+            <div class="btn-group">
+              <button type="button" class="btn" (click)="saveAccessPoint()">
+                Создать точку подключения
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn"
+            (click)="addNewAccessPoint()"
+            *ngIf="!ap && organization.id"
+          >
+            Добавить точку подключения
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<ng-template #suffixIconSelect>
+  <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+</ng-template>

@@ -1,0 +1,197 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+}
+
+.layers-selection {
+  position: absolute;
+  z-index: 1000;
+
+  display: flex;
+
+  padding: 13px 32px;
+
+  background-color: rgba(251, 251, 251, 0.5);
+
+  &__item {
+    &:not(:nth-of-type(1)) {
+      margin-left: 12px;
+    }
+  }
+}
+
+.layers-selection-top {
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.layers-selection-right {
+  top: 80px;
+  right: 0;
+
+  flex-direction: column;
+
+  padding: 13px;
+
+  & .layers-selection__item {
+    margin-left: 0;
+  }
+
+  & .layers-selection__item:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
+
+.layers-selection-bottom {
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.checkbox-text {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  padding-left: 25px;
+
+  font-weight: 900;
+  font-size: 15px;
+
+  line-height: 20px;
+
+  cursor: pointer;
+}
+
+.checkbox-text::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+  border: 1px solid #BCBCBC;
+
+  transition: border 0.3s ease-in-out;
+}
+
+.checkbox-text::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 5px;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+  background: none;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.checkbox-text.column {
+  padding-left: 0;
+  padding-top: 25px;
+}
+
+.checkbox-text::before {
+}
+
+.checkbox-text::after {
+}
+
+input[type="checkbox"]:checked + .checkbox-text::before {
+  border: 1px solid #e7e7e7;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.locations::after {
+  background: #39a6f8;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.espd::after {
+  background: #147774;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.smo::after {
+  background: #ff5353;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.base-stations::after {
+  background: #ffb013;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.g4::after {
+  background: #399b10;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.g3::after {
+  background: #f20c0c;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.g2::after {
+  background: #d5770b;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.vols::after {
+  background: #f20c0c;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.med::after {
+  background: #f8992f;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.sputnik::after {
+  background: #2174e9;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.radio::after {
+  background: #158d1d;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.provider::after {
+  background: #1b62ef;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Теле2::after {
+  background: black;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Мегафон::after {
+  background: green;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.МТС::after {
+  background: red;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Билайн::after {
+  background: yellow;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.РТРС::after {
+  background: purple;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.СибТТК::after {
+  background: lightblue;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Искра::after {
+  background: brown;
+}
+
+input[type="checkbox"]:checked + .checkbox-text.Ростелеком::after {
+  background: orange;
+}

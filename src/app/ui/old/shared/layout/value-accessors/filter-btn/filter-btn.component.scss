@@ -1,0 +1,34 @@
+.filter-button-group {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  grid-gap: 0.5rem;
+}
+
+.filter-button {
+  position: relative;
+  padding: 10px 12px 10px 30px;
+  width: 100%;
+  color: #575756;
+  background-color: #f2f2f6;
+  border: none;
+  font-size: 11px;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.filter-button::before {
+  content: '\f884';
+  position: absolute;
+  left: 10px;
+}
+
+.is-asc,
+.is-dsc {
+  color: #fff;
+  background: #ff5700;
+}
+
+.is-dsc::before {
+  content: '\f160';
+}

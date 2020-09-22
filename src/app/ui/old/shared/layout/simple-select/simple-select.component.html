@@ -1,0 +1,20 @@
+<div [formGroup]="form">
+  <nz-select
+    [formControlName]="iFormControl"
+    nzShowSearch
+    nzAllowClear
+    nzPlaceHolder=""
+    [nzSuffixIcon]="suffixIconSelect"
+  >
+    <nz-option
+      *ngFor="let item of items"
+      [nzLabel]="item.name?item.name:item.shortName"
+      [nzValue]="item"
+    >
+    </nz-option>
+  </nz-select>
+</div>
+
+<ng-template #suffixIconSelect>
+  <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+</ng-template>

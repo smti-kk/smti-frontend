@@ -1,0 +1,76 @@
+input[type='text'],
+input[type='password'],
+input[type='number'],
+textarea {
+  -webkit-appearance: button;
+}
+
+.ant-timeline-item-head-custom {
+  top: 28.5px;
+}
+
+.ant-tabs-nav-scroll {
+  display: flex;
+  justify-content: center;
+}
+
+.ant-form-item {
+  margin: 0;
+}
+
+.ant-row {
+  display: block;
+}
+
+.ant-form-item-label {
+  font-weight: 600;
+  line-height: normal;
+}
+
+.ant-form-item-label>label {
+  color: #9da0a1;
+}
+
+.ant-form-item-control {
+  /*border-bottom: 1px solid #e0e0e0;*/
+}
+
+.ant-input {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: unset;
+}
+
+.ant-input:focus,
+.ant-calendar-picker:focus .ant-calendar-picker-input:not(.ant-input-disabled),
+.ant-select-selection:active,
+.ant-select-open .ant-select-selection {
+  box-shadow: unset;
+}
+
+.ant-select-selector {
+  border: none !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  border-radius: unset !important;
+}
+
+.ant-select-item-option-content {
+  font-weight: 600 !important;
+}
+
+/* анимация стрелки select - начало */
+.ant-cascader-picker-arrow.ant-cascader-picker-arrow-expand,
+.ant-select-open .anticon-caret-down svg {
+  transform: rotate(180deg);
+}
+
+.ant-select-arrow .anticon-caret-down svg {
+  transition: transform .3s;
+}
+/* анимация стрелки select - конец */
+
+
+.ant-dropdown-link {
+  font-size: 1.3rem;
+}
+

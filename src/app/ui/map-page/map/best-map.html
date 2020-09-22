@@ -1,0 +1,107 @@
+<div class="layers-selection layers-selection-top" *ngIf="map">
+  <div class="layers-selection__item">
+    <label class="checkbox-label">
+      <input
+        type="checkbox"
+        [checked]="layersChecked['locations']"
+        (change)="removeOrAddLayer('locations', $event)"
+      >
+      <span class="checkbox-text locations"><span>Населённые пункты</span></span>
+    </label>
+  </div>
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+    <label class="checkbox-label">
+      <input
+        type="checkbox"
+        [checked]="layersChecked['ESPD']"
+        (change)="removeOrAddLayer('ESPD', $event)"
+      >
+      <span class="checkbox-text espd">ЕСПД</span>
+    </label>
+  </div>
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+
+    <label class="checkbox-label">
+      <input
+        type="checkbox"
+        [checked]="layersChecked['SMO']"
+        (change)="removeOrAddLayer('SMO', $event)"
+      >
+      <span class="checkbox-text smo">СЗО</span>
+    </label>
+  </div>
+</div>
+
+<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+  <div class="layers-selection layers-selection-right" *ngIf="map">
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          (change)="updateBaseStations()"
+          [(ngModel)]="selectedMobileTypes['4G']"
+        >
+        <span class="checkbox-text column g4">4G</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          (change)="updateBaseStations()"
+          [(ngModel)]="selectedMobileTypes['3G']"
+        >
+        <span class="checkbox-text column g3">3G</span>
+      </label>
+    </div>
+    <div class="layers-selection__item">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          (change)="updateBaseStations()"
+          [(ngModel)]="selectedMobileTypes['2G']"
+        >
+        <span class="checkbox-text column g2">2G</span>
+      </label>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+  <div class="layers-selection layers-selection-bottom" *ngIf="map">
+    <div class="layers-selection__item">
+      Магистральные каналы:
+    </div>
+    <div class="layers-selection__item" *ngFor="let channel of existedTrunkChannelType | keyvalue">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [(ngModel)]="existedTrunkChannelType[channel.key]"
+          (change)="updateTrunkChannelsLayer()"
+        >
+        <span class="checkbox-text vols">{{channel.key}}</span>
+      </label>
+    </div>
+    <div class="layers-selection__item" style="margin-left: 5rem;">
+      <img src="assets/ethernet.png" alt="">
+    </div>
+    <div class="layers-selection__item" *ngFor="let operator of existedTrunkChannelOperators | keyvalue">
+      <label class="checkbox-label">
+        <input
+          type="checkbox"
+          [(ngModel)]="existedTrunkChannelOperators[operator.key]"
+          (change)="updateTrunkChannelsLayer()"
+        >
+        <span [class]="'checkbox-text ' + operator.key">{{operator.key}}</span>
+      </label>
+    </div>
+  </div>
+</ng-container>
+
+<div class="leaflet-map"
+     *ngIf="leafletOptions$ | async as leafletOptions"
+     leaflet
+     [leafletOptions]="leafletOptions"
+     (leafletMapReady)="initializeMap($event)">
+</div>
+

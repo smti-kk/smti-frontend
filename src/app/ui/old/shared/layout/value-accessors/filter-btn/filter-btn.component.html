@@ -1,0 +1,15 @@
+<div class="filter-button-group">
+  <button
+    type="button"
+    class="filter-button"
+    [ngClass]="{
+      'is-asc': ordering.orderingDirection === OrderingDirection.ASC,
+      'is-dsc': ordering.orderingDirection === OrderingDirection.DSC
+    }"
+    (click)="onOrderingBtnClick(ordering)"
+    *ngFor="let ordering of orderings"
+  >
+    {{ ordering.name }}
+  </button>
+</div>
+

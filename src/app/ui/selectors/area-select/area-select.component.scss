@@ -1,0 +1,12 @@
+mat-select {
+  color: #747578;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+  margin-top: 22px;
+
+  & ::ng-deep .mat-select-placeholder {
+    color: #747578;
+  }
+}

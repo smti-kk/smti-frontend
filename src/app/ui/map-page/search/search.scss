@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.input-container {
+  position: relative;
+  &::before {
+    content: url('../../../../assets/search.png');
+    position: absolute;
+    top: 3px;
+    right: 1px;
+  }
+}
+
+.search-input {
+  color: #000000;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+  border: none;
+  border-bottom: 1px solid #32394a;
+  padding-bottom: 15px;
+  padding-top: 2px;
+  width: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+mat-optgroup ::ng-deep .mat-optgroup-label {
+  cursor: pointer !important;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+}

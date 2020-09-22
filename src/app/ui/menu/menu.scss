@@ -1,0 +1,60 @@
+:host {
+  margin: 0;
+  padding: 0;
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  //position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logout-image {
+  cursor: pointer;
+}
+
+.logo {
+  background-color: #616161;
+  padding: 8px;
+}
+
+.link {
+  color: #686868;
+  font-family: 'Heavitas [RUS by Daymarius]', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 22px 14px 18px 14px;
+  cursor: pointer;
+  & img {
+    margin-left: 11px;
+    margin-top: -3px;
+  }
+}
+
+.link.active {
+  color: #ffffff;
+  font-family: 'Heavitas [RUS by Daymarius]', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  background-color: #8b8b8b;
+  & span {
+    border-bottom: 2px solid #fff;
+  }
+}
+
+.links {
+  display: flex;
+}
+
+.td-underline {
+  text-decoration: underline;
+}
+
+.mat-menu-select {
+  padding: 13px 14px 18px 14px;
+}
+
+.link.root-link.logout {
+  cursor: unset;
+}

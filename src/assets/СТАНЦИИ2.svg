@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28.264" height="42.611" viewBox="0 0 28.264 42.611">
+  <defs>
+    <style>
+      .cls-1, .cls-5 {
+        fill: #985507;
+      }
+
+      .cls-2 {
+        fill: #c2c2c2;
+      }
+
+      .cls-3, .cls-4, .cls-7 {
+        fill: none;
+      }
+
+      .cls-3, .cls-4, .cls-5 {
+        stroke: #985507;
+      }
+
+      .cls-3, .cls-4 {
+        stroke-linecap: round;
+      }
+
+      .cls-3 {
+        stroke-linejoin: round;
+      }
+
+      .cls-5 {
+        stroke-width: 2px;
+      }
+
+      .cls-6 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="СТАНЦИИ2" transform="translate(-553.787 -153.695)">
+    <path id="Path_1356" data-name="Path 1356" class="cls-1" d="M416.423-183.476c2.682-4.386,11.08-20.137,11.457-22.429a14.211,14.211,0,0,0,.4-3.342,14.148,14.148,0,0,0-14.132-14.131,14.147,14.147,0,0,0-14.131,14.131,14.19,14.19,0,0,0,.4,3.342c.377,2.292,8.775,18.043,11.458,22.429l1.344,2.19a1.094,1.094,0,0,0,.929.518,1.094,1.094,0,0,0,.929-.518Z" transform="translate(153.77 377.073)"/>
+    <g id="Component_88_39" data-name="Component 88 – 39" transform="translate(556 156)">
+      <path id="Path_1560" data-name="Path 1560" class="cls-2" d="M12,0A12,12,0,1,1,0,12,12,12,0,0,1,12,0Z"/>
+    </g>
+    <g id="Component_59_" data-name="Component 59_" transform="translate(563.051 158.695)">
+      <path id="Path_1395" data-name="Path 1395" class="cls-3" d="M-8240.018-4625.559l4.907-14.69,5.173,14.69" transform="translate(8240.018 4642.408)"/>
+      <path id="Path_1396" data-name="Path 1396" class="cls-4" d="M-8234.3-4624.972h3.724" transform="translate(8237.468 4633.731)"/>
+      <path id="Path_1397" data-name="Path 1397" class="cls-4" d="M0,0,9.525.715" transform="translate(0.191 16.619) rotate(-40)"/>
+      <path id="Path_1398" data-name="Path 1398" class="cls-4" d="M0,0,9.169.987" transform="translate(9.82 16.585) rotate(-150)"/>
+      <g id="Ellipse_283" data-name="Ellipse 283" class="cls-5" transform="translate(3.062)">
+        <ellipse class="cls-6" cx="1.733" cy="1.841" rx="1.733" ry="1.841"/>
+        <ellipse class="cls-7" cx="1.733" cy="1.841" rx="0.733" ry="0.841"/>
+      </g>
+    </g>
+  </g>
+</svg>

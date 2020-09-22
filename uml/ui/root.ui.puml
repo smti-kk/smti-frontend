@@ -1,0 +1,30 @@
+@startuml
+
+note "Из меню доступны следущие компоненты" as qwe
+
+class Authorization {
+}
+class ContractsPage {
+}
+class FeaturesPage {
+}
+class LocationsPage {
+}
+class MapPage {
+}
+class Menu {
+}
+class OrganizationsPage {
+}
+class AppComponent {
+}
+
+AppComponent *-- Menu
+Menu *-- Authorization
+Menu *-- ContractsPage
+Menu *-- FeaturesPage
+Menu *-- MapPage
+Menu *-- LocationsPage
+Menu *-- OrganizationsPage
+
+@enduml

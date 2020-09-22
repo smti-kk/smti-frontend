@@ -1,0 +1,223 @@
+:host {
+  display: block;
+  padding: 15px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: flex-start;
+
+  margin: 20px 0 30px 10px;
+
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.page-header-item {
+  display: flex;
+  align-items: center;
+
+  padding-right: 2rem;
+}
+
+.font-size {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.page-header-item .material-icons {
+  margin-right: 1rem;
+}
+
+.material-icons.custom {
+  margin-bottom: 4px;
+}
+
+.page-header-item:last-child {
+  padding-left: 2rem;
+
+  border-left: 1px solid #BCBCBC;
+}
+
+.tab-wrap {
+  padding: 2rem 1rem;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tc-item {
+  padding: 12px 10px 0 10px;
+}
+
+.tc-item + .tc-item {
+  border-top: 2px solid #BCBCBC;
+}
+
+.tc-label {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.operator-block {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-column-gap: 2rem;
+  grid-row-gap: 0.5rem;
+
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.operator-block-name {
+  margin-top: 7px;
+}
+
+.operator-block-wrap {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-column-gap: 2rem;
+  grid-row-gap: 0.5rem;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #ccc;
+}
+
+.operator-block:last-child .operator-block-wrap{
+  padding-bottom: 0;
+
+  border-bottom: none;
+}
+
+.tc-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+  grid-gap: 10px;
+
+  margin-top: 11px;
+  padding: 0 2rem;
+
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.some-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1px;
+
+  width: 400px;
+}
+
+.tc-button {
+  grid-column: -1/-2;
+
+  width: 24px;
+  height: 24px;
+  padding: 0;
+
+  color: #BCBCBC;
+
+  border: 1px solid #BCBCBC;
+  background-color: #fff;
+}
+
+.tc-button:hover {
+  cursor: pointer;
+
+  color: #FF5700;
+
+  border: 1px solid #FF5700;
+}
+
+.tc-button.active {
+  color: #fff;
+
+  border: 1px solid #FF5700;
+  background-color: #FF5700;
+}
+
+.tc-button .material-icons {
+  vertical-align: middle;
+
+  font-size: 18px;
+}
+
+.tc-comment {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr 26px;
+  grid-gap: 2rem;
+}
+
+.tc-comment textarea {
+  padding: 10px 16px 8px;
+
+  background: #F6F6F6;
+}
+
+.tc-btn-group {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 10px 10px 20px;
+}
+
+button.custom-btn {
+  border-radius: 0;
+  background-color: #707070;
+}
+
+.color {
+  color: #35A5F9;
+}
+
+.card-container {
+  margin-top: 32px;
+}
+
+.card {
+  margin-bottom: 10px;
+  padding: 12px 16px;
+
+  border: 1px solid #BCBCBC;
+}
+
+.card-date {
+  color: #35A5F9;
+
+  font-size: 15px;
+}
+
+.card-number {
+  color: #35A5F9;
+
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.card-list {
+  margin: 0;
+  padding-left: 32px;
+
+  font-size: 14px;
+}
+
+.card-list-item {
+  padding: 5px 0;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+p {
+  margin: 6px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
