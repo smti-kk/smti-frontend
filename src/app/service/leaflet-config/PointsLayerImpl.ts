@@ -5,6 +5,7 @@ import {PointsLayer} from './PointsLayer';
 import {Observable} from 'rxjs';
 import {MonitoringPoint} from '../points/MonitoringPoint';
 import {tap} from 'rxjs/operators';
+import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
 
 let selectedElement: MonitoringPoint;
 let selectedElementLayer: MarkerClusterGroup;
@@ -65,6 +66,7 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
   }
 
   moveToPoint(id: number): void {
+    MunicipalitiesLayer.resetFocus();
     if (!this.existedPoints[id]) {
       console.error('unknown point with id' + id);
       return;

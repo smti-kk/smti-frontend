@@ -102,12 +102,12 @@ export class BestMap implements OnInit, OnDestroy {
   }
 
   @Input()
-  set centredOnLocation(locationId: number) {
-    if (!locationId) {
+  set centredOnLocation(locationId: {value: number}) {
+    if (!locationId || !locationId.value) {
       return;
     }
     if (this.pointsLayers.locations) {
-      this.pointsLayers.locations.moveTo(locationId);
+      this.pointsLayers.locations.moveTo(locationId.value);
     }
   }
 

@@ -13,7 +13,7 @@ export interface MunicipalitiesLayerGeoJson extends GeoJSON<any> {
 @Injectable()
 export class MunicipalitiesLayer extends GeoJSON {
   public onMunicipalityClick: EventEmitter<MunicipalitiesLayerGeoJson> = new EventEmitter<MunicipalitiesLayerGeoJson>();
-  public selectedLocation: MunicipalitiesLayerGeoJson;
+  public static selectedLocation: MunicipalitiesLayerGeoJson;
 
   constructor(municipalityService: MunicipalitiesApi) {
     super();
@@ -34,20 +34,20 @@ export class MunicipalitiesLayer extends GeoJSON {
 
   public selectLayer(layer: MunicipalitiesLayerGeoJson): void {
     PointsLayerImpl.resetFocus();
-    if (this.selectedLocation) {
-      this.selectedLocation.setStyle(MAP_TERRITORIES_STYLE);
-      MunicipalitiesLayer.addEventListeners(this.selectedLocation);
+    if (MunicipalitiesLayer.selectedLocation) {
+      MunicipalitiesLayer.selectedLocation.setStyle(MAP_TERRITORIES_STYLE);
+      MunicipalitiesLayer.addEventListeners(MunicipalitiesLayer.selectedLocation);
     }
     if (layer) {
       layer.setStyle(HIGHLIGHT_FEATURE);
       layer.bringToFront();
       MunicipalitiesLayer.removeEventListeners(layer);
 
-      if (this.selectedLocation !== layer) {
+      if (MunicipalitiesLayer.selectedLocation !== layer) {
         this._map.fitBounds(layer.getBounds());
       }
     }
-    this.selectedLocation = layer;
+    MunicipalitiesLayer.selectedLocation = layer;
   }
 
   public getLayerByAreaName(areaName: string): MunicipalitiesLayerGeoJson {
@@ -91,6 +91,13 @@ export class MunicipalitiesLayer extends GeoJSON {
       return 1;
     }
     return 0;
+  }
+
+  static resetFocus() {
+    if (MunicipalitiesLayer.selectedLocation) {
+      MunicipalitiesLayer.selectedLocation.setStyle(MAP_TERRITORIES_STYLE);
+      MunicipalitiesLayer.addEventListeners(MunicipalitiesLayer.selectedLocation);
+    }
   }
 
   selectMunicipality(munId: number): void {

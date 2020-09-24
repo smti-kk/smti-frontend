@@ -22,7 +22,7 @@ import {Pageable} from '@api/dto/Pageable';
 export class MapPage {
   location: LocationInfoBarValue;
   isLoading: boolean;
-  centeredLocation: number;
+  centeredLocation: {value: number};
   barIsOpened: boolean;
   locationProvidingInfo: LocationProvidingInfo;
   organizationsCount$: Observable<number>;
@@ -96,7 +96,7 @@ export class MapPage {
    * @param locationId - id локации
    */
   centerOnLocation(locationId: number): void {
-    this.centeredLocation = locationId;
+    this.centeredLocation = {value: locationId};
   }
 
   onAreaClick(area: { feature: { id: number } }): void {
