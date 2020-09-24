@@ -223,6 +223,10 @@ input[type="checkbox" i] {
   border-bottom: 2px solid #131212;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 @import "material";
 @import "leaflet";
 @import "~@ng-select/ng-select/themes/default.theme.css";

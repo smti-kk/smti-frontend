@@ -21,9 +21,9 @@
   background-color: rgba(251, 251, 251, 0.5);
 
   &__item {
-    &:not(:nth-of-type(1)) {
-      margin-left: 12px;
-    }
+    white-space: nowrap;
+    margin-right: 12px;
+    margin-bottom: 5px;
   }
 }
 
@@ -54,6 +54,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  justify-content: space-between;
 }
 
 .checkbox-text {
