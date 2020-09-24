@@ -96,7 +96,7 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
           elementById.scrollIntoView({block: 'center', behavior: 'smooth'});
         }
         this.openingAccessPointId = null;
-      }, 150);
+      }, 450);
     }
   }
 
