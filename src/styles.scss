@@ -94,6 +94,18 @@ $telecomit-theme: mat-light-theme((
   outline: none;
 }
 
+@font-face {
+  font-family: 'GolosTextWebVF';
+  src: url('assets/fonts/Golos Text_VF.EOT');
+  src:
+    url('assets/fonts/Golos Text_VF.EOT?#iefix') format('embedded-opentype'),
+    url('assets/fonts/Golos Text_VF.WOFF2') format('woff2'),
+    url('assets/fonts/Golos Text_VF.WOFF') format('woff'),
+    url('assets/fonts/Golos Text_VF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font: unset !important;
 }
@@ -205,6 +217,10 @@ input[type="checkbox" i] {
 
 .whitespace-nowrap {
   white-space: nowrap;
+}
+
+.mat-menu-panel .link.active span {
+  border-bottom: 2px solid #131212;
 }
 
 @import "material";
