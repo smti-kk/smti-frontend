@@ -113,6 +113,10 @@
 .checkbox-text::after {
 }
 
+input[type="checkbox"]:checked + .checkbox-text::after {
+  background: #f20c0c;
+}
+
 input[type="checkbox"]:checked + .checkbox-text::before {
   border: 1px solid #e7e7e7;
 }
@@ -143,10 +147,6 @@ input[type="checkbox"]:checked + .checkbox-text.g3::after {
 
 input[type="checkbox"]:checked + .checkbox-text.g2::after {
   background: #d5770b;
-}
-
-input[type="checkbox"]:checked + .checkbox-text.vols::after {
-  background: #f20c0c;
 }
 
 input[type="checkbox"]:checked + .checkbox-text.med::after {
