@@ -89,6 +89,9 @@ export class StrictFilterImpl extends StrictFilter {
       }
       return locations;
     }
+    if (order.orderingDirection === OrderingDirection.UNDEFINED) {
+      return locations;
+    }
     switch (order.name) {
       case 'name':
         return locations.sort(

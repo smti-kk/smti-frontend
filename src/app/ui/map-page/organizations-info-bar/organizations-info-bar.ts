@@ -2,6 +2,7 @@ import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '
 import {AORAccessPoint, ApiOrganizationResponse} from '@api/dto/ApiOrganizationResponse';
 import {Pageable} from '@api/dto/Pageable';
 import {ApiOrganization} from '@api/organizations/ApiOrganization';
+import {PointsLayerImpl} from "@service/leaflet-config/PointsLayerImpl";
 
 @Component({
   selector: 'organizations-info-bar',
@@ -69,7 +70,7 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
     }
     this.openOrganizationBar = {value: true};
     if (!this.organizations) {
-      setTimeout(() => this.openAccessPoint = point, 10);
+      setTimeout(() => this.openAccessPoint = point, 100);
       return;
     }
     this.currentAp = point.id;
@@ -119,5 +120,14 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
       return false;
     }
     return this.organizations.content.length !== this.organizations.totalElements;
+  }
+
+  onCloseAccessPointBar(): void {
+    PointsLayerImpl.resetFocusIfConnectionPoint();
+  }
+
+  onCloseOrganizationBar(organization: ApiOrganizationResponse): void {
+    PointsLayerImpl.resetFocusIfConnectionPoint();
+    organization.accesspoints.forEach(accessPoint => accessPoint.opened = false);
   }
 }

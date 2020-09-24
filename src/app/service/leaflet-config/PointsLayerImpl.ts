@@ -33,6 +33,16 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
     selectedElement = null;
   }
 
+  static resetFocusIfConnectionPoint(): void {
+    if (selectedElement) {
+      selectedElementMap.removeLayer(selectedElement);
+      selectedElementLayer.addLayer(selectedElement);
+    }
+    selectedElementMap = null;
+    selectedElementLayer = null;
+    selectedElement = null;
+  }
+
   addToMap(map: Map): boolean {
     this.map = map;
     if (map.hasLayer(this)) {

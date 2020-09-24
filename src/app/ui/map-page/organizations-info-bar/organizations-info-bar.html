@@ -9,7 +9,7 @@
       <mat-accordion>
         <mat-expansion-panel *ngFor="let organization of organizations.content"
                              (opened)="organization.opened = true"
-                             (closed)="organization.opened = false"
+                             (closed)="organization.opened = false; onCloseOrganizationBar(organization)"
                              [expanded]="organization.opened">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -19,7 +19,7 @@
 
           <mat-accordion *ngFor="let accessPoint of organization.accesspoints">
             <mat-expansion-panel [expanded]="accessPoint.opened"
-                                 (closed)="accessPoint.opened = false"
+                                 (closed)="accessPoint.opened = false; onCloseAccessPointBar()"
                                  (opened)="accessPoint.opened = true; onOpenAccesspointBar(accessPoint)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
