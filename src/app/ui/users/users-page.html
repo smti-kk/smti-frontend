@@ -55,11 +55,15 @@
         </td>
         <td>
           <ng-container *ngIf="canEditOrganizations(editCache.get(item.id).data.roles); else editTemplateOrganizations">
-          <ng-select [(ngModel)]="editCache.get(item.id).data.organizations"  [multiple]="false" [compareWith]="organizationsCompareFn">
-            <ng-option *ngFor="let organization of organizations" [value]="organization">
-              {{organization.name}}
-            </ng-option>
-          </ng-select>
+            <ng-select
+              [(ngModel)]="editCache.get(item.id).data.organizations"
+              [multiple]="true"
+              [maxSelectedItems]="1"
+              [compareWith]="organizationsCompareFn">
+              <ng-option *ngFor="let organization of organizations" [value]="organization">
+                {{organization.name}}
+              </ng-option>
+            </ng-select>
           </ng-container>
           <ng-template #editTemplateOrganizations>
             {{item.organizations | joinorg:', '}}
