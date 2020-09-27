@@ -73,6 +73,10 @@
            routerLink="/import-trunk-channel"
            *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
            [class.active]="currentRouteIs('/import-trunk-channel')"><span>Магистральные каналы</span></div>
+      <div class="link"
+           routerLink="/import-base-station"
+           *permissions="['ADMIN', 'OPERATOR', 'MUNICIPALITY', 'ORGANIZATION']"
+           [class.active]="currentRouteIs('/import-base-station')"><span>Базовые станции</span></div>
   </mat-menu>
   <div class="link root-link"
        *permissions="['ADMIN', 'ORGANIZATION']"

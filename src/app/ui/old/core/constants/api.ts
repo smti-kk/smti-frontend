@@ -35,3 +35,4 @@ export const IMPORT_ACCESS_POINT = '/api/import/access-point';
 export const IMPORT_TRUNK_CHANNEL = '/api/import/trunk-channel';
 export const IMPORT_TC_ATS = '/api/import/tc-ats';
 export const IMPORT_TC_INFOMAT = '/api/import/tc-infomat';
+export const IMPORT_BASE_STATION = '/api/import/base-station';
