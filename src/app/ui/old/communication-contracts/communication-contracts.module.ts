@@ -11,6 +11,7 @@ import {SharedModule} from '@shared/shared.module';
 
 import {CommunicationContractsComponent} from './communication-contracts/communication-contracts.component';
 import {NzDatePickerModule, NzFormModule, NzIconModule, NzInputModule, NzModalModule, NzSelectModule} from 'ng-zorro-antd';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 const routes: Routes = [
   {
@@ -21,22 +22,23 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [CommunicationContractsComponent],
-  imports: [
-    HttpClientModule,
-    CommonModule,
-    RouterModule.forChild(routes),
-    SharedModule,
-    CoreModule,
-    NgxPaginationModule,
-    NgxSpinnerModule,
-    ReactiveFormsModule,
-    NzSelectModule,
-    NzInputModule,
-    NzFormModule,
-    NzDatePickerModule,
-    NzIconModule,
-    FormsModule,
-    NzModalModule
-  ],
+    imports: [
+        HttpClientModule,
+        CommonModule,
+        RouterModule.forChild(routes),
+        SharedModule,
+        CoreModule,
+        NgxPaginationModule,
+        NgxSpinnerModule,
+        ReactiveFormsModule,
+        NzSelectModule,
+        NzInputModule,
+        NzFormModule,
+        NzDatePickerModule,
+        NzIconModule,
+        FormsModule,
+        NzModalModule,
+        InfiniteScrollModule
+    ],
 })
 export class CommunicationContractsModule {}

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {share, tap} from 'rxjs/operators';
+import {share} from 'rxjs/operators';
 
 import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
@@ -22,32 +22,19 @@ import {AccessPointType} from '../../core/models/accesspoint-type';
   styleUrls: ['./connection-points.component.scss'],
 })
 export class ConnectionPointsComponent implements OnInit {
-  points$: Observable<PaginatedList<Reaccesspoint>>;
-
+  points: PaginatedList<Reaccesspoint>;
   fLocations$: Observable<Location[]>;
-
   fParents$: Observable<Location[]>;
-
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
-
   fOrganizationTypes$: Observable<OrganizationType[]>;
-
   fOrganizationSMOTypes$: Observable<SmoType[]>;
-
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
-
   fPoints$: Observable<AccessPointType[]>;
-
   pageNumber = 1;
-
   itemsPerPage = 10;
-
   form: FormGroup;
-
   OrderingDirection = OrderingDirection;
-
   isVisibleFilter = false;
-
   setLocation: any;
 
   constructor(
@@ -63,13 +50,11 @@ export class ConnectionPointsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.points$ = this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(
-      tap(() => {
-        this.spinner.hide();
-      }),
-      share()
-    );
-
+    this.spinner.show();
+    this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).subscribe(response => {
+      this.points = response;
+      this.spinner.hide();
+    });
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
@@ -77,7 +62,6 @@ export class ConnectionPointsComponent implements OnInit {
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
     this.fPoints$ = this.serviceAccessPointTypeService.getAccessPointType();
-
     this.buildForm();
   }
 
@@ -97,27 +81,31 @@ export class ConnectionPointsComponent implements OnInit {
       populationEnd: null,
       point: null,
     });
-
     this.form.valueChanges.subscribe(v => {
       this.serviceLocation.filter(v);
-      this.points$ = this.loadPagedLocationWithOrganizationAccessPoints();
+      this.pageNumber = 1;
+      this.loadPagedLocationWithOrganizationAccessPoints().subscribe(response => {
+        this.points = response;
+      });
     });
   }
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    this.points$ = this.loadPagedLocationWithOrganizationAccessPoints();
+    this.loadPagedLocationWithOrganizationAccessPoints().subscribe(response => {
+      this.points.results = [...this.points.results, ...response.results];
+    });
   }
 
   loadPagedLocationWithOrganizationAccessPoints(): Observable<PaginatedList<Reaccesspoint>> {
     return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
   }
 
-  showFilterBody() {
+  showFilterBody(): void {
     this.isVisibleFilter = !this.isVisibleFilter;
   }
 
-  openModal() {
+  openModal(): void {
     this.modal.create({
       nzTitle: 'Добавить новую организацию',
       nzContent: FormOrganizationComponent,

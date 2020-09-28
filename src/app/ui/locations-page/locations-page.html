@@ -11,8 +11,8 @@
      [infiniteScrollUpDistance]="2"
      [infiniteScrollThrottle]="300"
      [scrollWindow]="false"
-     [ngStyle]="{height: filtersComponent.filtersIsOpened ? TABLE_HEIGHT_WHEN_OPENED_FILTERS : TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS}"
      (scrolled)="onScrollDown()"
+     [ngStyle]="{height: filtersComponent.filtersIsOpened ? TABLE_HEIGHT_WHEN_OPENED_FILTERS : TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS}"
 >
   <div class="sticky-table-container">
     <table mat-table [dataSource]="locations">
