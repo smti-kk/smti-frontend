@@ -93,6 +93,7 @@ import {LocationComparingFiltersComponent} from './features-page/location-compar
 import { BaseStationInfoBarComponent } from './map-page/base-station-info-bar/base-station-info-bar.component';
 import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
 import {JoinorgPipe} from './users/pipe-organizations/joinorg.pipe';
+import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
 
 registerLocaleData(ru);
 
@@ -146,6 +147,7 @@ registerLocaleData(ru);
     ImportTcAtsComponent,
     ImportTcInfomatComponent,
     ImportTrunkChannelComponent,
+    ImportBaseStationComponent,
     AreaSelectComponent,
     LocationComparingFiltersComponent,
     BaseStationInfoBarComponent,
