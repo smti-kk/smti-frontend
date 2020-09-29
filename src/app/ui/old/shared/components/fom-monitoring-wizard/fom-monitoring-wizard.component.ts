@@ -67,7 +67,7 @@ export class FomMonitoringWizardComponent implements OnInit {
         this.joinForms(this.monitoringFormGroupUTM.value, this.monitoringFormGroupZabbix.value)
       )
       .subscribe(
-        (data) => {
+        (data: any) => {
           const bar = this._snackBar.open(data.message + ': ' + data.errors, 'Ок');
           bar.afterDismissed().subscribe(
             () => {

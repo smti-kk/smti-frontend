@@ -18,6 +18,7 @@ import {SharedModule} from '@shared/shared.module';
 import {ConnectionPointsComponent} from './connection-points/connection-points.component';
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
 import {CoreModule} from '@core/core.module';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   {
@@ -55,7 +56,8 @@ const routes: Routes = [
     CoreModule,
     NzCheckboxModule,
     NzButtonModule,
-    NzModalModule
+    NzModalModule,
+    MatButtonModule
   ],
   providers: [],
 })

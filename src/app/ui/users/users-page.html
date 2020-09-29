@@ -66,7 +66,9 @@
           </ng-template>
         </td>
         <td>{{item.email}}</td>
-        <td><input type="checkbox" [(ngModel)]="editCache.get(item.id).data.isActive" /></td>
+        <td>
+          <mat-checkbox [(ngModel)]="editCache.get(item.id).data.isActive"></mat-checkbox>
+        </td>
         <td>
           <ng-select [(ngModel)]="editCache.get(item.id).data.roles" [multiple]="true" (click)="changeRoles(item)">
             <ng-option *ngFor="let role of roles | keyvalue" [value]="role.key">
