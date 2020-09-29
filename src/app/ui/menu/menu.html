@@ -96,6 +96,10 @@
        [class.active]="currentRouteIs('/report-monitoring')"><span>Отчёт</span></div>
   <div class="link root-link"
        *permissions="['ADMIN']"
+       routerLink="/appeals"
+       [class.active]="currentRouteIs('/appeals')"><span>Обращения</span></div>
+  <div class="link root-link"
+       *permissions="['ADMIN']"
        routerLink="/users"
        [class.active]="currentRouteIs('/users')"><span>Пользователи</span></div>
 </div>
