@@ -90,9 +90,13 @@ import {StorageService} from '../storage/storage.service';
 import {LocalStorageService} from '../storage/local-storage.service';
 import {AuthInterceptor} from '@api/auth.interceptor';
 import {LocationComparingFiltersComponent} from './features-page/location-comparing-filters/location-comparing-filters.component';
-import { BaseStationInfoBarComponent } from './map-page/base-station-info-bar/base-station-info-bar.component';
-import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
+import {BaseStationInfoBarComponent} from './map-page/base-station-info-bar/base-station-info-bar.component';
+import {ReportMonitoringComponent} from './report-monitoring/report-monitoring.component';
 import {JoinorgPipe} from './users/pipe-organizations/joinorg.pipe';
+import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
+import { AppealComponent } from './appeal/appeal.component';
+import { CreateAppealComponent } from './appeal/create-appeal/create-appeal.component';
+import {MatFileUploadModule} from "mat-file-upload";
 
 registerLocaleData(ru);
 
@@ -146,48 +150,52 @@ registerLocaleData(ru);
     ImportTcAtsComponent,
     ImportTcInfomatComponent,
     ImportTrunkChannelComponent,
+    ImportBaseStationComponent,
     AreaSelectComponent,
     LocationComparingFiltersComponent,
     BaseStationInfoBarComponent,
-    ReportMonitoringComponent
+    ReportMonitoringComponent,
+    AppealComponent,
+    CreateAppealComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatExpansionModule,
-        LeafletModule,
-        ServiceModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatCheckboxModule,
-        MatProgressSpinnerModule,
-        MatTooltipModule,
-        InfiniteScrollModule,
-        MatSelectModule,
-        NgSelectModule,
-        FormsModule,
-        HttpClientModule,
-        MatCardModule,
-        MatRadioModule,
-        SelectorsModule,
-        MatIconModule,
-        MatTabsModule,
-        MatIconModule,
-        MatTableModule,
-        MatPaginatorModule,
-        DialogsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatButtonToggleModule,
-        MatSnackBarModule,
-        MatMenuModule,
-        NgxMatSelectSearchModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatExpansionModule,
+    LeafletModule,
+    ServiceModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    InfiniteScrollModule,
+    MatSelectModule,
+    NgSelectModule,
+    FormsModule,
+    HttpClientModule,
+    MatCardModule,
+    MatRadioModule,
+    SelectorsModule,
+    MatIconModule,
+    MatTabsModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    DialogsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonToggleModule,
+    MatSnackBarModule,
+    MatMenuModule,
+    NgxMatSelectSearchModule,
+    MatFileUploadModule
+  ],
   providers: [
     {
       provide: LoaderService,
@@ -197,7 +205,7 @@ registerLocaleData(ru);
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
     {provide: StorageService, useClass: LocalStorageService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: MAT_DATE_LOCALE,  useValue: 'ru-RU'},
+    {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
   ],
   bootstrap: [AppComponent]
 })

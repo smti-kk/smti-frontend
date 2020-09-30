@@ -4,7 +4,6 @@ import {MapPage} from './map-page/map-page';
 import {LocationsPage} from './locations-page/locations-page';
 import {FeaturesPage} from './features-page/features-page';
 import {OrganizationsPage} from './organizations-page/organizations-page';
-import {ContractsPage} from './contracts-page/contracts-page';
 import {LocationPage} from './locations-page/location-page/location-page';
 import {UsersPage} from './users/users-page';
 import {PlanPage} from './locations-page/plan-page/PlanPage';
@@ -12,7 +11,7 @@ import {BaseStationsComponent} from './base-stations/base-stations.component';
 import {TrunkChannelsComponent} from './trunk-channels/trunk-channels.component';
 import {RouteProxyService} from './route.proxy.service';
 import {MunRequestsComponent} from './mun-requests/mun-requests.component';
-import {OperProfileComponent} from "./oper-profile/oper-profile.component";
+import {OperProfileComponent} from './oper-profile/oper-profile.component';
 import {ImportLocationComponent} from './import-location/import-location.component';
 import {ImportTcInternetComponent} from './import-tc-internet/import-tc-internet.component';
 import {ImportTcPayphoneComponent} from './import-tc-payphone/import-tc-payphone.component';
@@ -25,6 +24,8 @@ import {ImportTrunkChannelComponent} from './import-trunk-channel/import-trunk-c
 import {ImportTcAtsComponent} from './import-tc-ats/import-tc-ats.component';
 import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.component';
 import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
+import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
+import {AppealComponent} from "./appeal/appeal.component";
 
 
 const routes: Routes = [
@@ -230,11 +231,27 @@ const routes: Routes = [
     },
   },
   {
+    path: 'import-base-station',
+    component: ImportBaseStationComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'MUNICIPALITY']
+    },
+  },
+  {
     path: 'report-monitoring',
     component: ReportMonitoringComponent,
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN', 'OPERATOR']
+    },
+  },
+  {
+    path: 'appeals',
+    component: AppealComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
     },
   },
 ];
