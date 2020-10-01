@@ -11,7 +11,7 @@ export class LocationPointsConverter implements PointsConverter<MapLocation> {
       location.id,
       location.geoData.administrativeCenter,
       {
-        icon: new Icon({iconUrl: this.ICON_URL, iconSize: [30, 41]})
+        icon: new Icon({iconUrl: this.ICON_URL, iconSize: [30, 41], iconAnchor: [15, 41]})
       }
     );
   }

@@ -17,7 +17,7 @@ export class BaseStationsPointsService implements PointsService {
           station.id,
           station.point,
           {
-            icon: new Icon({iconUrl: '/assets/base-station.svg', iconSize: [30, 41]})
+            icon: new Icon({iconUrl: '/assets/base-station.svg', iconSize: [30, 41], iconAnchor: [15, 41]})
           },
           station
         ));

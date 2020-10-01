@@ -16,6 +16,6 @@ export class SMOIconFromState implements IconFromState {
     } else {
       iconUrl = this.ICON_SPASI_NAS_GOSPOD_URL;
     }
-    return new Icon({iconUrl, iconSize: [30, 41]});
+    return new Icon({iconUrl, iconSize: [30, 41] , iconAnchor: [15, 41]});
   }
 }
