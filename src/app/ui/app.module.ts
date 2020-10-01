@@ -96,7 +96,7 @@ import {JoinorgPipe} from './users/pipe-organizations/joinorg.pipe';
 import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
 import { AppealComponent } from './appeal/appeal.component';
 import { CreateAppealComponent } from './appeal/create-appeal/create-appeal.component';
-import {MatFileUploadModule} from "mat-file-upload";
+import {MatFileUploadModule} from 'mat-file-upload';
 
 registerLocaleData(ru);
 
