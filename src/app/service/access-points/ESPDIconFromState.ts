@@ -6,6 +6,7 @@ export class ESPDIconFromState implements IconFromState {
   private readonly ICON_ACTIVE_URL = '/assets/ЕСПД_1.svg';
   private readonly ICON_ICON_DISABLED_URL = '/assets/ЕСПД_2.svg';
   private readonly ICON_SPASI_NAS_GOSPOD_URL = '/assets/ЕСПД_3.svg';
+  private readonly ICON_SHADOW_URL = '../../assets/p-shadow.png';
 
   icon(state: PointState): Icon {
     let iconUrl;
@@ -16,6 +17,13 @@ export class ESPDIconFromState implements IconFromState {
     } else {
       iconUrl = this.ICON_SPASI_NAS_GOSPOD_URL;
     }
-    return new Icon({iconUrl, iconSize: [30, 41], iconAnchor: [15, 41]});
+    return new Icon({
+      iconUrl,
+      iconSize: [30, 41],
+      iconAnchor: [15, 41],
+      shadowUrl:this.ICON_SHADOW_URL,
+      shadowSize: [30, 41],
+      shadowAnchor:[15, 9]
+    });
   }
 }
