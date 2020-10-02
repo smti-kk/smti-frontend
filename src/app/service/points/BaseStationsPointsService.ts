@@ -23,7 +23,7 @@ export class BaseStationsPointsService implements PointsService {
               iconAnchor: [15, 41],
               shadowUrl: '/assets/p-shadow.png',
               shadowSize: [30, 41],
-              shadowAnchor:[15, 9]
+              shadowAnchor:[15, 10]
             })
           },
           station

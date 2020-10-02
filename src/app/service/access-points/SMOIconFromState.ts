@@ -23,7 +23,7 @@ export class SMOIconFromState implements IconFromState {
       iconAnchor: [15, 41],
       shadowUrl:this.ICON_SHADOW_URL,
       shadowSize: [30, 41],
-      shadowAnchor:[15, 9]
+      shadowAnchor:[15, 10]
     });
   }
 }
