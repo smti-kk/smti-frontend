@@ -224,10 +224,10 @@
                   <label nz-checkbox disabled [(ngModel)]="ap.visible"></label>
                 </td>
               </tr>
-<!--              <tr>-->
-<!--                <td>Узел доступа</td>-->
-<!--                <td>{{ ap.node }}</td>-->
-<!--              </tr>-->
+              <!--              <tr>-->
+              <!--                <td>Узел доступа</td>-->
+              <!--                <td>{{ ap.node }}</td>-->
+              <!--              </tr>-->
               <tr>
                 <td>Тип подключения</td>
                 <td>{{ ap.connectionTypeString }}</td>
@@ -248,17 +248,45 @@
                 <td>Государственная программа</td>
                 <td>{{ ap.governmentProgram?.acronym }}</td>
               </tr>
+              <tr>
+                <td colspan="2">Системы мониторинга</td>
+              </tr>
+              <tr>
+                <td>Связь с Билингом</td>
+                <td>
+                  <label nz-checkbox disabled [(ngModel)]="ap.utm5"></label>
+                </td>
+              </tr>
+              <tr>
+                <td>Связь с Мониторингом</td>
+                <td>
+                  <label nz-checkbox disabled [(ngModel)]="ap.zabbix"></label>
+                </td>
+              </tr>
             </table>
             <div class="btn-group">
-              <input class="btn" type="button" value="Подключить к мониторингу"  (click)="initMonitoringAccessPoint(ap)"/>
-              <input class="btn" type="button" value="Редактировать точку" (click)="editAccessPoint(ap)"/>
+              <button
+                      mat-raised-button
+                      [disabled]="ap.utm5 && ap.zabbix"
+                      type="button"
+                      (click)="initMonitoringAccessPoint(ap)"
+              >
+                Подключить к мониторингу
+              </button>
+              <button
+                      mat-raised-button
+                      type="button"
+                      (click)="editAccessPoint(ap)"
+              >
+                Редактировать точку
+              </button>
             </div>
           </div>
           <div
-            *ngIf="ap"
-            [formGroup]="formGroupAccessPoints"
-            class="wip-organization-access-points"
-            style="grid-column: span 2"
+                  *ngIf="ap"
+                  [formGroup]="formGroupAccessPoints"
+                  class="wip-organization-access-points"
+                  style="grid-column: span 2"
           >
             <table style="margin-top: 58px">
               <tr>
@@ -269,22 +297,22 @@
                 <td>Отображается</td>
                 <td><label nz-checkbox checked="true" formControlName="_visible"></label></td>
               </tr>
-<!--              <tr>-->
-<!--                <td>Узел доступа</td>-->
-<!--                <td><input nz-input type="text" formControlName="_node"/></td>-->
-<!--              </tr>-->
+              <!--              <tr>-->
+              <!--                <td>Узел доступа</td>-->
+              <!--                <td><input nz-input type="text" formControlName="_node"/></td>-->
+              <!--              </tr>-->
               <tr>
                 <td>Тип</td>
                 <td>
                   <nz-select
-                    formControlName="_connectionType"
-                    [compareWith]="compareFn"
-                    [nzSuffixIcon]="suffixIconSelect"
+                          formControlName="_connectionType"
+                          [compareWith]="compareFn"
+                          [nzSuffixIcon]="suffixIconSelect"
                   >
                     <nz-option
-                      *ngFor="let item of fInternetAccessTypes$ | async"
-                      [nzValue]="item"
-                      [nzLabel]="item.name"
+                            *ngFor="let item of fInternetAccessTypes$ | async"
+                            [nzValue]="item"
+                            [nzLabel]="item.name"
                     ></nz-option>
                   </nz-select>
                 </td>
@@ -297,8 +325,8 @@
                 <td>Качество связи</td>
                 <td>
                   <nz-select
-                    formControlName="_quality"
-                    [nzSuffixIcon]="suffixIconSelect"
+                          formControlName="_quality"
+                          [nzSuffixIcon]="suffixIconSelect"
                   >
                     <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошо"></nz-option>
                     <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
@@ -314,13 +342,13 @@
                 <td>Государственная программа</td>
                 <td>
                   <nz-select
-                    formControlName="_governmentProgram"
-                    [nzSuffixIcon]="suffixIconSelect"
+                          formControlName="_governmentProgram"
+                          [nzSuffixIcon]="suffixIconSelect"
                   >
                     <nz-option
-                      *ngFor="let item of fGovernmentPrograms$ | async"
-                      [nzValue]="item"
-                      [nzLabel]="item.name"
+                            *ngFor="let item of fGovernmentPrograms$ | async"
+                            [nzValue]="item"
+                            [nzLabel]="item.name"
                     ></nz-option>
                   </nz-select>
                 </td>
@@ -338,10 +366,10 @@
         </div>
         <div class="btn-group">
           <button
-            type="button"
-            class="btn"
-            (click)="addNewAccessPoint()"
-            *ngIf="!ap && organization.id"
+                  type="button"
+                  class="btn"
+                  (click)="addNewAccessPoint()"
+                  *ngIf="!ap && organization.id"
           >
             Добавить точку подключения
           </button>

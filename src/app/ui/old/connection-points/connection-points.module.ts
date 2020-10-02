@@ -19,6 +19,7 @@ import {ConnectionPointsComponent} from './connection-points/connection-points.c
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
 import {CoreModule} from '@core/core.module';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   {
@@ -57,7 +58,8 @@ const routes: Routes = [
         NzCheckboxModule,
         NzButtonModule,
         NzModalModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        MatButtonModule
     ],
   providers: [],
 })

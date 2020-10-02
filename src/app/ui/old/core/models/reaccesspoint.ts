@@ -25,6 +25,7 @@ const LOCATION_DESERIALIZER = {
   },
 };
 
+// tslint:disable:variable-name
 @inheritSerialization(MonitoringPoint)
 export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('address')
@@ -112,6 +113,12 @@ export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs('amount')
   private readonly _amount: number;
+
+  @autoserializeAs('utm5')
+  private readonly _utm5: boolean;
+
+  @autoserializeAs('zabbix')
+  private readonly _zabbix: boolean;
 
   @deserializeAs(Organization, 'organization')
   @serializeAs('organization')
@@ -236,5 +243,13 @@ export class Reaccesspoint extends MonitoringPoint {
       return this.avstatus.toString();
     }
     return '';
+  }
+
+  get utm5(): boolean {
+    return this._utm5;
+  }
+
+  get zabbix(): boolean {
+    return this._zabbix;
   }
 }
