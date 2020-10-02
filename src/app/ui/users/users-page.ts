@@ -5,6 +5,8 @@ import {DLocationBase} from '@api/dto/DLocationBase';
 import {DLocationsService} from '@service/locations/DLocationsService';
 import {DOrganizationBase} from '@api/dto/DOrganizationBase';
 import {DOrganizationsService} from '@service/organizations/DOrganizationsService';
+import {MatDialog} from '@angular/material/dialog';
+import {FormCreateUserComponent} from './form-create-user/form-create-user.component';
 
 @Component({
   selector: 'app-users',
@@ -24,7 +26,8 @@ export class UsersPage implements OnInit {
   constructor(
     usersService: UsersService,
     dLocationService: DLocationsService,
-    dOrganizationService: DOrganizationsService) {
+    dOrganizationService: DOrganizationsService,
+    private modalService: MatDialog) {
     this.roles = {};
     this.roles.ADMIN = 'Администратор';
     this.roles.GUEST = 'Посетитель';
@@ -98,7 +101,7 @@ export class UsersPage implements OnInit {
     return roles.includes('ORGANIZATION');
   }
 
-  changeRoles(item: UserFromApi) {
+  changeRoles(item: UserFromApi): void {
     if (!this.editCache.get(item.id).data.roles.includes('MUNICIPALITY')) {
       item.locations = [];
       this.editCache.get(item.id).data.locations = [];
@@ -107,5 +110,25 @@ export class UsersPage implements OnInit {
       item.organizations = [];
       this.editCache.get(item.id).data.organizations = [];
     }
+  }
+
+  createUser(): void {
+    const modal = this.modalService.open(FormCreateUserComponent, {
+      width: '520px',
+    });
+
+    modal.afterClosed().subscribe(result => {
+      if (result) {
+        this.usersService.create(result).subscribe(
+          res => {
+            this.items.unshift(res);
+            this.updateEditCache();
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      }
+    });
   }
 }
