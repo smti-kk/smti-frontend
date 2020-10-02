@@ -18,6 +18,8 @@ export class BaseStationsComponent implements OnInit {
   baseStations: BaseStation[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  page = 0;
+  size = 30;
 
   constructor(private readonly api: BaseStationsApi,
               private readonly cdr: ChangeDetectorRef,
@@ -27,8 +29,8 @@ export class BaseStationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.api.list().subscribe(bs => {
-      this.dataSource.data = bs;
+    this.api.list(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = bs.content;
     });
   }
 
@@ -73,6 +75,13 @@ export class BaseStationsComponent implements OnInit {
           this.dataSource.data = [...this.dataSource.data];
         });
       }
+    });
+  }
+
+  onScrollDown(): void {
+    this.page++;
+    this.api.list(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = [...this.dataSource.data, ...bs.content];
     });
   }
 }

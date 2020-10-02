@@ -22,6 +22,7 @@ import {AppealRes} from '../model/appealRes';
 import {BASE_PATH} from '../variables';
 import {Configuration} from '../configuration';
 import {environment} from '../../../environments/environment';
+import {Pageable} from "@api/dto/Pageable";
 
 
 @Injectable({
@@ -98,17 +99,10 @@ export class ApiAppealImplService {
     );
   }
 
-  /**
-   * findAll
-   *
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public findAllUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<AppealRes>>;
-  public findAllUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AppealRes>>>;
-  public findAllUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AppealRes>>>;
-  public findAllUsingGET(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
+  public findAllUsingGET(page: number, size: number, observe?: 'body', reportProgress?: boolean): Observable<Pageable<AppealRes[]>>;
+  public findAllUsingGET(page: number, size: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Pageable<AppealRes[]>>>;
+  public findAllUsingGET(page: number, size: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Pageable<AppealRes[]>>>;
+  public findAllUsingGET(page: number, size: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
     let headers = this.defaultHeaders;
 
     // to determine the Accept header
@@ -123,7 +117,7 @@ export class ApiAppealImplService {
     // to determine the Content-Type header
     const consumes: string[] = [];
 
-    return this.httpClient.get<Array<AppealRes>>(`${this.basePath}/api/appeals`,
+    return this.httpClient.get<Array<AppealRes>>(`${this.basePath}/api/appeals?page=${page}&size=${size}`,
       {
         withCredentials: this.configuration.withCredentials,
         headers,

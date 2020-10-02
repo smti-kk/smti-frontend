@@ -18,6 +18,8 @@ export class AppealComponent implements OnInit {
   displayedColumns: string[] = ['title', 'date', 'status', 'priority', 'level', 'location', 'file', 'responseFile', 'creator', 'select'];
   dataSource: MatTableDataSource<AppealRes>;
   appeals: AppealRes[];
+  page = 0;
+  size = 30;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -29,8 +31,8 @@ export class AppealComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.api.findAllUsingGET().subscribe(bs => {
-      this.dataSource.data = bs;
+    this.api.findAllUsingGET(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = bs.content;
     });
   }
 
@@ -114,5 +116,12 @@ export class AppealComponent implements OnInit {
       case 'MEDIUM':
         return 'Средний';
     }
+  }
+
+  onScrollDown(): void {
+    this.page++;
+    this.api.findAllUsingGET(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = [...this.dataSource.data, ...bs.content];
+    });
   }
 }
