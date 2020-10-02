@@ -14,12 +14,19 @@ class DialogData {
 export class FormCreateUserComponent implements OnInit {
 
   form: FormGroup;
+  roles: {[key: string]: string};
 
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<UsersPage>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
+    this.roles = {};
+    this.roles.ADMIN = 'Администратор';
+    this.roles.GUEST = 'Посетитель';
+    this.roles.MUNICIPALITY = 'Муниципалитет';
+    this.roles.ORGANIZATION = 'Оператор - Организации';
+    this.roles.OPERATOR = 'Оператор - Локации';
   }
 
   ngOnInit(): void {
@@ -29,6 +36,7 @@ export class FormCreateUserComponent implements OnInit {
       lastName: ['', Validators.required],
       patronymicName: ['', Validators.required],
       email: ['', Validators.required],
+      roles: ['', Validators.required],
     });
   }
 

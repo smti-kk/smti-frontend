@@ -1,5 +1,13 @@
 <form [formGroup]="form">
   <div>
+    <mat-label>Роль</mat-label>
+    <ng-select [multiple]="true" formControlName="roles">
+      <ng-option *ngFor="let role of roles | keyvalue" [value]="role.key">
+        {{role.value}}
+      </ng-option>
+    </ng-select>
+  </div>
+  <div>
     <mat-form-field>
       <mat-label>Логин</mat-label>
       <input matInput formControlName="username">
@@ -29,6 +37,7 @@
       <input matInput formControlName="email">
     </mat-form-field>
   </div>
+
 </form>
 <div mat-dialog-actions>
   <button mat-button (click)="cancel()">Отмена</button>
