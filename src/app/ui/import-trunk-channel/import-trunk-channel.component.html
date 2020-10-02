@@ -14,3 +14,9 @@
 <br>
 <div [ngClass]="successImport ? 'successImport' : 'errorImport'"
   >{{answer}}</div>
+<br>
+<br>
+<div *ngIf="fileError !== null" class="select-file">
+  <input type="button" name="fileError" id="fileImportError" class="input-file" (click)="saveFileError()">
+  <label for="fileImportError">Скачать файл с ошибками</label>
+</div>

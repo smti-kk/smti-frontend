@@ -1,7 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {IMPORT_LOCATION, IMPORT_TC_INTERNET, IMPORT_TC_PAYPHONE} from '@core/constants/api';
 import {IMPORT_TRUNK_CHANNEL} from '../old/core/constants/api';
+import {saveAs} from 'file-saver';
+import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'import-tc-trunk-channel-page',
@@ -11,6 +14,8 @@ import {IMPORT_TRUNK_CHANNEL} from '../old/core/constants/api';
 export class ImportTrunkChannelComponent implements OnInit {
 
   public file: File;
+
+  public fileError: File = null;
 
   public answer: string;
 
@@ -26,18 +31,32 @@ export class ImportTrunkChannelComponent implements OnInit {
     this.sendFile(this.file);
   }
 
-  private sendFile(file: File) {
+  public saveFileError() {
+    let name: string;
+    if (this.file === null) {
+      name = 'Ошибки импорта.xlsx';
+    } else {
+      name = this.file.name;
+    }
+    saveAs(this.fileError, decodeURI(name));
+  }
 
-    this.http.post(IMPORT_TRUNK_CHANNEL, this.createForm(file), {
-      responseType: 'text'
-    })
+  private sendFile(file: File) {
+    this.http.post(IMPORT_TRUNK_CHANNEL, this.createForm(file), {responseType: 'blob'})
       .subscribe(response => {
-          this.successImport = true;
-          this.answer = 'Импорт завершён успешно.';
+            this.answer = 'Импорт завершён успешно.';
+            this.successImport = true;
+            this.fileError = null;
         },
         error => {
+          if (error.headers.get('import-message') === 'error') {
+            this.answer = 'Найдены ошибки в файле.';
+            this.fileError = error.error;
+          } else if (error.headers.get('import-message') === 'unexpected') {
+            this.answer = 'Непредвиденная ошибка.';
+            this.fileError = null;
+          }
           this.successImport = false;
-          this.answer = error.error;
         }
       );
   }
