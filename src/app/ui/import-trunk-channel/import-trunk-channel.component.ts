@@ -21,6 +21,10 @@ export class ImportTrunkChannelComponent implements OnInit {
 
   public successImport = false;
 
+  public importSuccess = 0;
+
+  public importFailure = 0;
+
   constructor(private readonly http: HttpClient) { }
 
   ngOnInit(): void {
@@ -36,7 +40,7 @@ export class ImportTrunkChannelComponent implements OnInit {
     if (this.file === null) {
       name = 'Ошибки импорта.xlsx';
     } else {
-      name = this.file.name;
+      name = this.file.name.replace('.xls', ' (ошибки).xls');
     }
     saveAs(this.fileError, decodeURI(name));
   }
@@ -51,7 +55,12 @@ export class ImportTrunkChannelComponent implements OnInit {
         error => {
           if (error.headers.get('import-message') === 'error') {
             this.answer = 'Найдены ошибки в файле.';
+            this.importSuccess = error.headers.get('import-success');
+            this.importFailure = error.headers.get('import-failure');
             this.fileError = error.error;
+          } else if (error.headers.get('import-message') === 'format-error') {
+            this.answer = 'Неправильный тип файла.';
+            this.fileError = null;
           } else if (error.headers.get('import-message') === 'unexpected') {
             this.answer = 'Непредвиденная ошибка.';
             this.fileError = null;
