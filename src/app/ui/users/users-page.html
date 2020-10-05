@@ -39,7 +39,9 @@
           </td>
         </ng-container>
         <ng-template #editTemplate>
-          <td>{{item.username}}</td>
+          <td>
+            <input type="text" [(ngModel)]="item.username">
+          </td>
           <td>{{item.lastName}}</td>
           <td>{{item.firstName}}</td>
           <td>{{item.patronymicName}}</td>
