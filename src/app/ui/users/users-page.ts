@@ -5,18 +5,22 @@ import {DLocationBase} from '@api/dto/DLocationBase';
 import {DLocationsService} from '@service/locations/DLocationsService';
 import {DOrganizationBase} from '@api/dto/DOrganizationBase';
 import {DOrganizationsService} from '@service/organizations/DOrganizationsService';
+import {MatDialog} from '@angular/material/dialog';
+import {FormCreateUserComponent} from './form-create-user/form-create-user.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users-page.html',
   styleUrls: ['./users-page.scss']
 })
+// tslint:disable:variable-name
 export class UsersPage implements OnInit {
   editCache: Map<number, { edit: boolean; data: UserFromApi }>;
   items: UserFromApi[] = [];
   locations: DLocationBase[] = [];
   organizations: DOrganizationBase[] = [];
-  roles: {[key: string]: string};
+  roles: { [key: string]: string };
   private readonly usersService: UsersService;
   private readonly dLocationService: DLocationsService;
   private readonly dOrganizationService: DOrganizationsService;
@@ -24,7 +28,9 @@ export class UsersPage implements OnInit {
   constructor(
     usersService: UsersService,
     dLocationService: DLocationsService,
-    dOrganizationService: DOrganizationsService) {
+    dOrganizationService: DOrganizationsService,
+    private _snackBar: MatSnackBar,
+    private modalService: MatDialog) {
     this.roles = {};
     this.roles.ADMIN = 'Администратор';
     this.roles.GUEST = 'Посетитель';
@@ -50,13 +56,16 @@ export class UsersPage implements OnInit {
 
   saveEdit(id: number): void {
     this.usersService.update(this.editCache.get(id).data).subscribe(value => {
-      this.editCache.set(id, {
-        edit: false,
-        data: value
+        this.editCache.set(id, {
+          edit: false,
+          data: value
+        });
+        const index = this.items.findIndex(item => item.id === id);
+        Object.assign(this.items[index], this.editCache.get(id).data);
+      },
+      error => {
+        this._snackBar.open(error.error.message, 'Ок');
       });
-      const index = this.items.findIndex(item => item.id === id);
-      Object.assign(this.items[index], this.editCache.get(id).data);
-    });
   }
 
   ngOnInit(): void {
@@ -98,7 +107,7 @@ export class UsersPage implements OnInit {
     return roles.includes('ORGANIZATION');
   }
 
-  changeRoles(item: UserFromApi) {
+  changeRoles(item: UserFromApi): void {
     if (!this.editCache.get(item.id).data.roles.includes('MUNICIPALITY')) {
       item.locations = [];
       this.editCache.get(item.id).data.locations = [];
@@ -107,5 +116,29 @@ export class UsersPage implements OnInit {
       item.organizations = [];
       this.editCache.get(item.id).data.organizations = [];
     }
+  }
+
+  createUser(): void {
+    const modal = this.modalService.open(FormCreateUserComponent, {
+      width: '520px',
+    });
+
+    modal.afterClosed().subscribe(result => {
+        // const bar = this._snackBar.open(result.message + ': ' + result.errors, 'Ок');
+        if (result) {
+          this.usersService.create(result).subscribe(
+            res => {
+              this.items.unshift(res);
+              this.updateEditCache();
+            },
+            err => {
+              this._snackBar.open(err.error.message, 'Ок');
+            }
+          );
+        }
+      },
+      error => {
+        this._snackBar.open(error.error.message, 'Ок');
+      });
   }
 }

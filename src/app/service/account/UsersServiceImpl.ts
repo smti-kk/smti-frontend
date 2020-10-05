@@ -17,4 +17,8 @@ export class UsersServiceImpl implements UsersService {
   update(item: UserFromApi): Observable<UserFromApi> {
     return this.usersApi.update(item);
   }
+
+  create(item: UserFromApi): Observable<UserFromApi> {
+    return this.usersApi.create(item);
+  }
 }

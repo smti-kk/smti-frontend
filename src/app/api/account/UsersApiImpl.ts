@@ -15,4 +15,8 @@ export class UsersApiImpl implements UsersApi {
   update(item: UserFromApi): Observable<UserFromApi> {
     return this.httpClient.put<UserFromApi>(USERS_API, item);
   }
+
+  create(item: UserFromApi): Observable<UserFromApi> {
+    return this.httpClient.post<UserFromApi>(USERS_API, item);
+  }
 }

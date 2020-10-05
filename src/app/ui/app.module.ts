@@ -97,9 +97,9 @@ import {ImportBaseStationComponent} from './import-base-station/import-base-stat
 import { AppealComponent } from './appeal/appeal.component';
 import { CreateAppealComponent } from './appeal/create-appeal/create-appeal.component';
 import {MatFileUploadModule} from 'mat-file-upload';
-import {MatFileUploadModule} from 'mat-file-upload';
 import { OperatorsComponent } from './operators/operators.component';
 import { CreateOperatorsComponent } from './operators/create-operators/create-operators.component';
+import { FormCreateUserComponent } from './users/form-create-user/form-create-user.component';
 
 registerLocaleData(ru);
 
@@ -162,6 +162,8 @@ registerLocaleData(ru);
     CreateAppealComponent,
     OperatorsComponent,
     CreateOperatorsComponent,
+    CreateAppealComponent,
+    FormCreateUserComponent
   ],
   imports: [
     BrowserModule,
