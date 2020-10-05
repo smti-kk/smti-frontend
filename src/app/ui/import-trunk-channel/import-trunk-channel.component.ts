@@ -61,6 +61,9 @@ export class ImportTrunkChannelComponent implements OnInit {
           } else if (error.headers.get('import-message') === 'format-error') {
             this.answer = 'Неправильный тип файла.';
             this.fileError = null;
+         } else if (error.headers.get('import-message') === 'npp-error') {
+            this.answer = 'Не все "№ п/п" заполнены.';
+            this.fileError = null;
           } else if (error.headers.get('import-message') === 'unexpected') {
             this.answer = 'Непредвиденная ошибка.';
             this.fileError = null;
