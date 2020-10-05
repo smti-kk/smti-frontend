@@ -40,11 +40,16 @@
         </ng-container>
         <ng-template #editTemplate>
           <td>
-            <input type="text" [(ngModel)]="item.username">
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.username">
           </td>
-          <td>{{item.lastName}}</td>
-          <td>{{item.firstName}}</td>
-          <td>{{item.patronymicName}}</td>
+          <td>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.lastName">
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.firstName">
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.patronymicName"></td>
           <td>
             <ng-container *ngIf="canEditLocations(editCache.get(item.id).data.roles); else editTemplateLocations">
               <ng-select [(ngModel)]="editCache.get(item.id).data.locations" [multiple]="true"
@@ -76,7 +81,8 @@
               {{item.organizations | joinorg:', '}}
             </ng-template>
           </td>
-          <td>{{item.email}}</td>
+          <td>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.email"></td>
           <td>
             <mat-checkbox [(ngModel)]="editCache.get(item.id).data.isActive"></mat-checkbox>
           </td>
