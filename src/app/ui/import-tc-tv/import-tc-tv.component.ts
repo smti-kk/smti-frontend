@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {IMPORT_LOCATION, IMPORT_TC_INTERNET, IMPORT_TC_TV} from '@core/constants/api';
+import {IMPORT_LOCATION, IMPORT_TC_INTERNET, IMPORT_TC_TV, IMPORT_TRUNK_CHANNEL} from '@core/constants/api';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'import-tc-tv-page',
@@ -11,9 +12,15 @@ export class ImportTcTvComponent implements OnInit {
 
   public file: File;
 
+  public fileError: File = null;
+
   public answer: string;
 
   public successImport = false;
+
+  public importSuccess = 0;
+
+  public importFailure = 0;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -25,18 +32,40 @@ export class ImportTcTvComponent implements OnInit {
     this.sendFile(this.file);
   }
 
-  private sendFile(file: File) {
+  public saveFileError() {
+    let name: string;
+    if (this.file === null) {
+      name = 'Ошибки импорта.xlsx';
+    } else {
+      name = this.file.name.replace('.xls', ' (ошибки).xls');
+    }
+    saveAs(this.fileError, decodeURI(name));
+  }
 
-    this.http.post(IMPORT_TC_TV, this.createForm(file), {
-      responseType: 'text'
-    })
+  private sendFile(file: File) {
+    this.http.post(IMPORT_TC_TV, this.createForm(file), {responseType: 'blob'})
       .subscribe(response => {
-          this.successImport = true;
           this.answer = 'Импорт завершён успешно.';
+          this.successImport = true;
+          this.fileError = null;
         },
         error => {
+          if (error.headers.get('import-message') === 'error') {
+            this.answer = 'Найдены ошибки в файле.';
+            this.importSuccess = error.headers.get('import-success');
+            this.importFailure = error.headers.get('import-failure');
+            this.fileError = error.error;
+          } else if (error.headers.get('import-message') === 'format-error') {
+            this.answer = 'Неправильный тип файла.';
+            this.fileError = null;
+          } else if (error.headers.get('import-message') === 'npp-error') {
+            this.answer = 'Не все "№ п/п" заполнены.';
+            this.fileError = null;
+          } else if (error.headers.get('import-message') === 'unexpected') {
+            this.answer = 'Непредвиденная ошибка.';
+            this.fileError = null;
+          }
           this.successImport = false;
-          this.answer = error.error;
         }
       );
   }
