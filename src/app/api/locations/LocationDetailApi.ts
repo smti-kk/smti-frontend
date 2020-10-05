@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Pageable} from '@api/dto/Pageable';
 import {HttpParams} from '@angular/common/http';
 import {LocationProvidingInfo} from '@api/dto/LocationProvidingInfo';
+import {LOCATION_DETAIL_API} from '../../../environments/api.routes';
 
 export abstract class LocationDetailApi {
   abstract list(page: number, size: number): Observable<Pageable<LocationDetail[]>>;
@@ -13,4 +14,5 @@ export abstract class LocationDetailApi {
   abstract locationProvidingInfo(locationId: number): Observable<LocationProvidingInfo>;
   abstract exportExcel(locations: number[]): Observable<void>;
   abstract listByUser(): Observable<LocationDetail[]>;
+  abstract delete(locationId: number): Observable<void>;
 }

@@ -29,4 +29,8 @@ export class DetailLocationsFromApi implements DetailLocations {
       map((location) => null)
     );
   }
+
+  delete(locationId: number): Observable<void> {
+    return this.locationDetailApi.delete(locationId);
+  }
 }

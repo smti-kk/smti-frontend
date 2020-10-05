@@ -23,6 +23,7 @@ import {FeatureEdit} from '@api/dto/FeatureEdit';
 import {MoveToArchiveDialog} from '../../features-page/move-to-archive-dialog/MoveToArchiveDialog';
 import {FeaturesComparingService} from '@service/features-comparing/FeaturesComparingService';
 import {MatDialog} from '@angular/material/dialog';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'location-page',
@@ -47,6 +48,7 @@ export class LocationPage implements OnInit, OnDestroy {
 
   private subscription: Subscription;
   isPlanEdition = false;
+  isLocationEdition = false;
 
   constructor(private mobileTypeApi: MobileTypeApi,
               private activatedRoute: ActivatedRoute,
@@ -54,6 +56,7 @@ export class LocationPage implements OnInit, OnDestroy {
               private accountService: AccountService,
               private readonly featuresService: FeaturesComparingService,
               public dialog: MatDialog,
+              public httpClient: HttpClient,
               private tvTypeApi: TvTypeApi,
               private postTypeApi: PostTypeApi,
               private operatorsApi: OperatorsApi,
@@ -151,5 +154,19 @@ export class LocationPage implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  deleteLocation(): void {
+    this.detailLocations.delete(this.locationId).subscribe(() => {
+      window.location.pathname = '/locations';
+    });
+  }
+
+  reload(): void {
+    // window.location.reload();
+  }
+
+  getUrl(locationId: number, population: number): string {
+    return '/api/detail-locations?id=' + locationId + '&population=' + population;
   }
 }
