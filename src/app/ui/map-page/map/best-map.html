@@ -92,7 +92,7 @@
         <img src="assets/ethernet.png" alt="">
       </div>
       <div class="d-flex flex-wrap">
-        <div *ngIf="(existedTrunkChannelOperators | keyvalue).length === 0">Базовые станции отсутствуют</div>
+        <div *ngIf="(existedTrunkChannelOperators | keyvalue).length === 0"></div>
         <div class="layers-selection__item" *ngFor="let operator of existedTrunkChannelOperators | keyvalue">
           <label class="checkbox-label">
             <input

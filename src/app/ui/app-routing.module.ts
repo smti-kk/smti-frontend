@@ -26,6 +26,7 @@ import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.co
 import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
 import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
 import {AppealComponent} from "./appeal/appeal.component";
+import {OperatorsComponent} from "./operators/operators.component";
 
 
 const routes: Routes = [
@@ -249,6 +250,14 @@ const routes: Routes = [
   {
     path: 'appeals',
     component: AppealComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'operators',
+    component: OperatorsComponent,
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN']

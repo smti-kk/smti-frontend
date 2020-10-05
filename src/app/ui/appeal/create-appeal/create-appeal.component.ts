@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {BaseStation} from '@api/dto/BaseStation';
 import {Operator} from '@api/dto/Operator';
 import {MobileType} from '@api/dto/MobileType';
 import {OperatorsApi} from '@api/operators/OperatorsApi';

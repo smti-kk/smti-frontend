@@ -7,7 +7,6 @@ import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.componen
 import {AppealRes} from '../../swagger-api-generated/model/appealRes';
 import {ApiAppealImplService} from '../../swagger-api-generated/api/apiAppealImpl.service';
 import {CreateAppealComponent} from './create-appeal/create-appeal.component';
-import {MapLocationsApi} from "@api/locations/MapLocationsApi";
 
 @Component({
   selector: 'app-appeal',
@@ -19,6 +18,8 @@ export class AppealComponent implements OnInit {
   displayedColumns: string[] = ['title', 'date', 'status', 'priority', 'level', 'location', 'file', 'responseFile', 'creator', 'select'];
   dataSource: MatTableDataSource<AppealRes>;
   appeals: AppealRes[];
+  page = 0;
+  size = 30;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -30,8 +31,8 @@ export class AppealComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.api.findAllUsingGET().subscribe(bs => {
-      this.dataSource.data = bs;
+    this.api.findAllUsingGET(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = bs.content;
     });
   }
 
@@ -41,8 +42,10 @@ export class AppealComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.api.updateOrCreateUsingPOST(result).subscribe(baseStation => {
-          this.dataSource.data = [...this.dataSource.data, baseStation];
+        this.api.updateOrCreateUsingPOST(result).subscribe((baseStation: any) => {
+          if (baseStation.body) {
+            this.dataSource.data = [...this.dataSource.data, baseStation.body];
+          }
         });
       }
     });
@@ -69,9 +72,7 @@ export class AppealComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(bs => {
       if (bs) {
-        console.log(bs);
         this.api.updateOrCreateUsingPOST(bs).subscribe(() => {
-          window.location.reload();
           const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
           this.dataSource.data[index] = bs;
           this.dataSource.data = [...this.dataSource.data];
@@ -115,5 +116,12 @@ export class AppealComponent implements OnInit {
       case 'MEDIUM':
         return 'Средний';
     }
+  }
+
+  onScrollDown(): void {
+    this.page++;
+    this.api.findAllUsingGET(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = [...this.dataSource.data, ...bs.content];
+    });
   }
 }

@@ -1,41 +1,41 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {MatDialog} from '@angular/material/dialog';
-import {CreateBaseStationComponent} from './create-base-station/create-base-station.component';
-import {BaseStation} from '@api/dto/BaseStation';
 import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.component';
+import {CreateOperatorsComponent} from './create-operators/create-operators.component';
+import {Operator} from '@api/dto/Operator';
+import {OperatorsApi} from '@api/operators/OperatorsApi';
 
 @Component({
-  selector: 'app-base-stations',
-  templateUrl: './base-stations.component.html',
-  styleUrls: ['./base-stations.component.scss']
+  selector: 'app-operators',
+  templateUrl: './operators.component.html',
+  styleUrls: ['./operators.component.scss']
 })
-export class BaseStationsComponent implements OnInit {
+export class OperatorsComponent implements OnInit {
   displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'select'];
-  dataSource: MatTableDataSource<BaseStation>;
-  baseStations: BaseStation[];
+  dataSource: MatTableDataSource<Operator>;
+  operators: Operator[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   page = 0;
   size = 30;
 
-  constructor(private readonly api: BaseStationsApi,
+  constructor(private readonly api: OperatorsApi,
               private readonly cdr: ChangeDetectorRef,
               private readonly dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource<BaseStation>(this.baseStations);
+    this.dataSource = new MatTableDataSource<Operator>(this.operators);
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.api.list(this.page, this.size).subscribe(bs => {
+    this.api.findAll(this.page, this.size).subscribe(bs => {
       this.dataSource.data = bs.content;
     });
   }
 
-  createStation(): void {
-    const dialogRef = this.dialog.open(CreateBaseStationComponent, {
+  createOperator(): void {
+    const dialogRef = this.dialog.open(CreateOperatorsComponent, {
       width: '450px',
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -47,7 +47,7 @@ export class BaseStationsComponent implements OnInit {
     });
   }
 
-  deleteStation(row: BaseStation): void {
+  deleteOperator(row: Operator): void {
     const dialogRef = this.dialog.open(AreYouSureComponent, {
       width: '450px',
       data: 'Вы уверены, что хотите удалить станцию?'
@@ -61,8 +61,8 @@ export class BaseStationsComponent implements OnInit {
     });
   }
 
-  editStation(row: BaseStation): void {
-    const dialogRef = this.dialog.open(CreateBaseStationComponent, {
+  editOperator(row: Operator): void {
+    const dialogRef = this.dialog.open(CreateOperatorsComponent, {
       width: '450px',
       data: row
     });
@@ -80,7 +80,7 @@ export class BaseStationsComponent implements OnInit {
 
   onScrollDown(): void {
     this.page++;
-    this.api.list(this.page, this.size).subscribe(bs => {
+    this.api.findAll(this.page, this.size).subscribe(bs => {
       this.dataSource.data = [...this.dataSource.data, ...bs.content];
     });
   }
