@@ -3,6 +3,7 @@ import {DOrganizationBase} from '@api/dto/DOrganizationBase';
 
 export interface UserFromApi {
   id: number;
+  oid: number;
   username: string;
   isActive: true;
   roles: string[];
