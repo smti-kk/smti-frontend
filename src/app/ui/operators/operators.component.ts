@@ -6,6 +6,7 @@ import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.componen
 import {CreateOperatorsComponent} from './create-operators/create-operators.component';
 import {Operator} from '@api/dto/Operator';
 import {OperatorsApi} from '@api/operators/OperatorsApi';
+import {OperatorServiceItem} from '@api/dto/OperatorServiceItem';
 
 @Component({
   selector: 'app-operators',
@@ -83,5 +84,11 @@ export class OperatorsComponent implements OnInit {
     this.api.findAll(this.page, this.size).subscribe(bs => {
       this.dataSource.data = [...this.dataSource.data, ...bs.content];
     });
+  }
+
+  servicesAsString(services: OperatorServiceItem[]): string {
+    return services
+      .map(service => service.label)
+      .join(', ');
   }
 }

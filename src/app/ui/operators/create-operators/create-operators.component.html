@@ -1,42 +1,28 @@
 <h1 mat-dialog-title *ngIf="action === 'CREATE'">Создание базовой станции</h1>
 <h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование базовой станции</h1>
-<form #form="ngForm" mat-dialog-content>
+<form #form="ngForm" mat-dialog-content action="/api/operator" method="POST">
   <mat-form-field>
-    <mat-label>Радиус покрытия</mat-label>
-    <input cdkFocusInitial matInput type="number" [(ngModel)]="baseStation.coverageRadius" name="coverageRadius" required>
+    <mat-label>Наименование</mat-label>
+    <input cdkFocusInitial matInput type="text" [(ngModel)]="operator.name" name="name" required>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Высота опоры</mat-label>
-    <input matInput type="number" [(ngModel)]="baseStation.propHeight" name="propHeight" required>
+    <mat-label>Контактная информация</mat-label>
+    <textarea matInput type="number" [(ngModel)]="operator.contacts" name="contacts"></textarea>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Оператор</mat-label>
-    <mat-select [(ngModel)]="baseStation.operator" name="operator" [compareWith]="compareById" required>
-      <mat-option disabled value="null">Оператор</mat-option>
-      <mat-option [value]="operator" *ngFor="let operator of operators">{{operator.name}}</mat-option>
-    </mat-select>
+    <mat-label>Юридическое наименование</mat-label>
+    <input matInput type="text" [(ngModel)]="operator.juristicName" name="juristicName" required>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Тип мобильной связи</mat-label>
-    <mat-select [(ngModel)]="baseStation.mobileType" name="mobileType" [compareWith]="compareById" required>
+    <mat-label>Услуги оператора</mat-label>
+    <mat-select multiple [(ngModel)]="operator.services" name="services" [compareWith]="compareById">
       <mat-option disabled value="null">Тип мобильной связи</mat-option>
-      <mat-option [value]="mobileType" *ngFor="let mobileType of mobileTypes$ | async">{{mobileType.name}}</mat-option>
+      <mat-option [value]="service" *ngFor="let service of operatorServices$ | async">{{service.label}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Местонахождение</mat-label>
-    <input matInput [(ngModel)]="baseStation.address" name="address" required>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Широта</mat-label>
-    <input matInput type="number" [(ngModel)]="baseStation.point.lat" name="lat" required>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Долгота</mat-label>
-    <input matInput type="number" [(ngModel)]="baseStation.point.lng" name="lng" required>
-  </mat-form-field>
+  <input type="file" name="icon" [disabled]="" (change)="operator.iconFile = $event.target.files[0]">
 </form>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Отмена</button>
-  <button mat-button [disabled]="!form.valid" [mat-dialog-close]="baseStation">Сохранить</button>
+  <button mat-button [disabled]="!form.valid" [mat-dialog-close]="operator">Сохранить</button>
 </div>

@@ -1,10 +1,11 @@
 import {Observable} from 'rxjs';
 import {Operators} from '../dto/Operators';
 import {OperatorsApi} from './OperatorsApi';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpRequest, HttpResponse} from '@angular/common/http';
 import {OPERATORS_API} from '../../../environments/api.routes';
 import {Operator} from '@api/dto/Operator';
 import {Pageable} from '@api/dto/Pageable';
+import {filter, flatMap, tap} from 'rxjs/operators';
 
 export class OperatorsApiImpl implements OperatorsApi {
   private readonly httpClient: HttpClient;
@@ -21,7 +22,7 @@ export class OperatorsApiImpl implements OperatorsApi {
   findAll(page: number, size: number): Observable<Pageable<Operator[]>>;
   findAll(page?: number, size?: number): Observable<any> {
     let params = new HttpParams();
-    if (page && size) {
+    if (page !== undefined && page !== null && size) {
       params = params
         .set('page', page.toString())
         .set('size', size.toString());
@@ -30,7 +31,29 @@ export class OperatorsApiImpl implements OperatorsApi {
   }
 
   create(operator: Operator): Observable<Operator> {
-    return this.httpClient.post<Operator>(OPERATORS_API, operator);
+    console.log(operator);
+    if (operator.iconFile) {
+      return this.createIcon(operator.iconFile).pipe(
+        flatMap(response => {
+          operator.icon = response.body.iconPath;
+          return this.httpClient.post<Operator>(OPERATORS_API, operator);
+        })
+      );
+    } else {
+      return this.httpClient.post<Operator>(OPERATORS_API, operator);
+    }
+  }
+
+  createIcon(icon: File): Observable<any> {
+    const data = new FormData();
+    data.append('icon', icon);
+    const req = new HttpRequest('POST', OPERATORS_API + '/add-icon', data);
+    return this.httpClient.request(req).pipe(
+      filter(response => response instanceof HttpResponse),
+      tap(response => {
+        console.log(response);
+      })
+    );
   }
 
   remove(id: number): Observable<void> {
@@ -38,6 +61,6 @@ export class OperatorsApiImpl implements OperatorsApi {
   }
 
   update(operator: Operator): Observable<Operator> {
-    return this.httpClient.post<Operator>(OPERATORS_API, operator);
+    return this.create(operator);
   }
 }

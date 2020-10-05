@@ -26,7 +26,7 @@ export class OACacheable implements OperatorsApi {
   findAll(page: number, size: number): Observable<Pageable<Operator[]>>;
   findAll(): Observable<Operator[]>;
   findAll(page?: number, size?: number): Observable<any> {
-    if (page && size) {
+    if (page !== null && page !== undefined && size) {
       return this.origin.findAll(page, size);
     }
     if (this.cachedOperatorsFull) {
