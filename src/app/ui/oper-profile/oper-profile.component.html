@@ -12,7 +12,7 @@
         <div class="card-body">
           <span class="card-number">№{{request.id}}</span> от
           <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
-          <p>{{request.location.type}} {{request.location.name}}</p>
+          <p>{{request.location.type}} {{request.location.name}} ({{request.location.locationParent.type}} {{request.location.locationParent.name}})</p>
           <p>Внесенные изменения:</p>
           <ng-container *ngFor="let edit of request.featureEdits">
             <ul class="card-list" [ngSwitch]="edit.tc.type">
@@ -155,7 +155,12 @@
           <button mat-raised-button (click)="declineReq(request)">Отклонить</button>
         </div>
         <div class="card-status green" *ngIf="request.status === 'ACCEPTED'">Принята</div>
-        <div class="card-status red" *ngIf="request.status === 'DECLINED'">Отклонена</div>
+        <div class="card-status red" *ngIf="request.status === 'DECLINED'">
+          <div>
+            Отклонена
+            <div class="decline-comment" (click)="showDeclineComment(request.declineComment)">Причина</div>
+          </div>
+        </div>
       </div>
     </div>
   </ng-container>

@@ -5,6 +5,7 @@ import {LocationDetail} from '@api/dto/LocationDetail';
 export type EditingRequestStatus = 'ACCEPTED' | 'DECLINED' | 'WAIT_FOR_STATE_TO_BE_SET';
 
 export interface LocationFeatureEditingRequest {
+  location: any;
   id: number;
   locationId: number;
   comment: string;
