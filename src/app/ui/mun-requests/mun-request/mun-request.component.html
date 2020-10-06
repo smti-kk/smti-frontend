@@ -237,9 +237,12 @@
       </div>
       <div class="operator-block">
         <div class="tc-comment">
-          <textarea matInput placeholder="" rows="5"></textarea>
+          <textarea matInput placeholder="" rows="5"
+                    [formControl]="comm"
+          ></textarea>
         </div>
       </div>
+      <div class="error-required" *ngIf="comm.value.length > 255">Комментарий не должен быть длиннее 255 символов, иначе обрежется</div>
     </form>
   </div>
   <div class="tc-btn-group">
