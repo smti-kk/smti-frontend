@@ -12,7 +12,8 @@
         <div class="card-body">
           <span class="card-number">№{{request.id}}</span> от
           <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
-          <p>{{request.location.type}} {{request.location.name}}</p>
+          <div class="whitespace-nowrap">{{request.location.name + ' ' + request.location.type}}</div>
+          <div class="whitespace-nowrap">{{request.location.locationParent?.name + ' ' + request.location.locationParent?.type}}</div>
           <p>Внесенные изменения:</p>
           <ng-container *ngFor="let edit of request.featureEdits">
             <ul class="card-list" [ngSwitch]="edit.tc.type">
@@ -149,6 +150,12 @@
               </li>
             </ul>
           </ng-container>
+          <div *ngIf="request.comment.length > 0">
+            <p>Комментарий:</p>
+            <div class="comment-wrap">
+              {{request.comment}}
+            </div>
+          </div>
         </div>
         <div class="card-status orange" *ngIf="request.status === 'WAIT_FOR_STATE_TO_BE_SET'">
           <button mat-raised-button (click)="acceptReq(request)">Принять</button>
