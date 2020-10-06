@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {LocationPointsConverter} from '@service/locations';
 import {MapLocationsApiImpl} from '@api/locations/MapLocationsApiImpl';
 import {BoundsToStringConverter} from '@api/util/bounds.to.string.converter';
-import {Injectable} from '@angular/core';
 import {PSWithUniqueResponseParts} from '../points/PSWithUniqueResponseParts';
 import {PSFullPreloaded} from '../points/PSFullPreloaded';
 import {ESPDPointsService} from '../access-points/ESPDPointsService';
@@ -30,6 +29,8 @@ import {BaseStationsLayer} from '@service/leaflet-config/BaseStationsLayer';
 import {CellularType} from '@api/dto/CellularType';
 import {TrunkChannel} from '@api/dto/TrunkChannel';
 import {MapAccessPointsApi} from '@api/access-points/MapAccessPointsApi';
+import {MapLocationsApiWithCellular} from '@api/locations/MapLocationsApiWithCellular';
+import {MapLocationsApiWithoutCellular} from '@api/locations/MapLocationsApiWithoutCellular';
 
 export class LayerControllersFactory {
   private readonly mapAccessPointApi: MapAccessPointsApi;
@@ -146,5 +147,57 @@ export class LayerControllersFactory {
 
   trunkChannelsLayer(channels: TrunkChannel[], filters: TrunkChannelFilters): TrunkChannelsLayer {
     return new TrunkChannelsLayer(channels, filters);
+  }
+
+  locationsLayerControllerWithoutCellular(): PointLayerController {
+    return new PLCWithReloadInterval(
+      new PointLayerControllerImpl(
+        new PLClickable(
+          new PLWithLoader(
+            new LocationsLayer(
+              new PSWithUniqueResponseParts(
+                new PSFullPreloaded(
+                  new LocationsPointsService(
+                    new MapLocationsApiWithoutCellular(
+                      this.httpClient,
+                      new BoundsToStringConverter()
+                    ),
+                    new LocationPointsConverter()
+                  )
+                ),
+                new PointUniquenessFilterImpl()
+              )
+            )
+          )
+        )
+      ),
+      500 // dont touch me
+    );
+  }
+
+  locationsLayerControllerWithCellular(): PointLayerController {
+    return new PLCWithReloadInterval(
+      new PointLayerControllerImpl(
+        new PLClickable(
+          new PLWithLoader(
+            new LocationsLayer(
+              new PSWithUniqueResponseParts(
+                new PSFullPreloaded(
+                  new LocationsPointsService(
+                    new MapLocationsApiWithCellular(
+                      this.httpClient,
+                      new BoundsToStringConverter()
+                    ),
+                    new LocationPointsConverter()
+                  )
+                ),
+                new PointUniquenessFilterImpl()
+              )
+            )
+          )
+        )
+      ),
+      500 // dont touch me
+    );
   }
 }

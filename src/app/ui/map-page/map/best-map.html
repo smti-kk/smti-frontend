@@ -30,6 +30,11 @@
       <span class="checkbox-text smo">СЗО</span>
     </label>
   </div>
+  <div class="layers-selection__item" *ngIf="layersChecked['locations']">
+    <three-state-button [formControl]="hasCellularControl">
+      <img src="/assets/table-phone-4.svg" alt="">
+    </three-state-button>
+  </div>
 </div>
 
 <ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
