@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {Map, MapOptions} from 'leaflet';
 import {LayerControllersFactory} from '@service/leaflet-config/layer-controllers-factory.service';
 import {LeafletOptionsConfigurator} from '@service/leaflet-config/LeafletOptionsConfigurator';
-import {Observable} from 'rxjs';
+import {merge, Observable} from 'rxjs';
 import {MapLayers} from '@service/leaflet-config/MapLayers';
 import {LocationsService} from '@service/locations/LocationsService';
 import {tap} from 'rxjs/operators';
@@ -13,6 +13,8 @@ import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 import {TrunkChannel} from '@api/dto/TrunkChannel';
 import {TrunkChannelFilters} from '@service/leaflet-config/TrunkChannelsLayer';
 import {InternetType} from '@api/dto/InternetType';
+import {FormControl} from '@angular/forms';
+import {PointLayerController} from '@service/leaflet-config/PointLayerController';
 
 @Component({
   selector: 'best-map',
@@ -42,6 +44,8 @@ export class BestMap implements OnInit, OnDestroy {
     '3G': false,
     '4G': false
   };
+  hasCellularControl: FormControl;
+  currentCellularState: boolean | null = null;
 
   constructor(private layersFactory: LayerControllersFactory,
               private locationsService: LocationsService,
@@ -49,25 +53,44 @@ export class BestMap implements OnInit, OnDestroy {
               private municipalitiesLayer: MunicipalitiesLayer,
               private trunkChannelsApi: TrunkChannelsApi,
               private readonly loaderService: LoaderService) {
+    this.hasCellularControl = new FormControl();
     this.leafletOptions$ = this.leafletOptionsConfigurator.configure().pipe(
       tap(() => this.loaderService.stopLoader())
     );
     this.pointsLayers = {
       locations: this.layersFactory.locationLayerController(),
+      locationsWithCellular: this.layersFactory.locationsLayerControllerWithCellular(),
+      locationsWithoutCellular: this.layersFactory.locationsLayerControllerWithoutCellular(),
       ESPD: this.layersFactory.espdLayerController(),
       SMO: this.layersFactory.smoLayerLayerController(),
     };
-    this.locationClick = this.pointsLayers.locations.onPointClick();
+    this.locationClick = new EventEmitter<number>();
+    this.pointsLayers.locations.onPointClick().subscribe(id => {
+      this.locationClick.emit(id);
+    });
+    this.pointsLayers.locationsWithCellular.onPointClick().subscribe(id => {
+      this.locationClick.emit(id);
+    });
+    this.pointsLayers.locationsWithoutCellular.onPointClick().subscribe(id => {
+      this.locationClick.emit(id);
+    });
     this.areaClick = this.municipalitiesLayer.onMunicipalityClick;
     this.baseStationClick = new EventEmitter<number>();
     this.accessPointClick = new EventEmitter<{ type: string, id: number }>();
     Object.keys(this.pointsLayers)
-      .filter((key) => key !== 'trunkChannelsLayer' && key !== 'locations')
+      .filter((key) => key !== 'trunkChannelsLayer' && key !== 'locations' && key !== 'locationsWithCellular' && key !== 'locationsWithoutCellular')
       .forEach((key) => {
         this.pointsLayers[key]
           .onPointClick()
           .subscribe((id) => this.accessPointClick.emit({id, type: key}));
       });
+    this.hasCellularControl.valueChanges.subscribe(v => {
+      const pointLayerController = this.currentLocationsLayer();
+      pointLayerController.removeFrom(this.map);
+      this.currentCellularState = v;
+      const pointLayerController1 = this.currentLocationsLayer();
+      pointLayerController1.addTo(this.map);
+    });
   }
 
   ngOnInit(): void {
@@ -84,6 +107,9 @@ export class BestMap implements OnInit, OnDestroy {
   }
 
   removeOrAddLayer(id: string, checked: any): void {
+    if (id === 'locations') {
+      this.hasCellularControl.setValue(null);
+    }
     if (!checked.target.checked) {
       this.removeLayer(id);
     } else {
@@ -169,5 +195,15 @@ export class BestMap implements OnInit, OnDestroy {
           this.existedTrunkChannelType[channel.name] = false;
         }
       });
+  }
+
+  currentLocationsLayer(): PointLayerController {
+    if (this.currentCellularState === null) {
+      return this.pointsLayers.locations;
+    } else if (this.currentCellularState === true) {
+      return this.pointsLayers.locationsWithCellular;
+    } else {
+      return this.pointsLayers.locationsWithoutCellular;
+    }
   }
 }

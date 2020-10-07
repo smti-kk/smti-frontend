@@ -5,6 +5,7 @@ import {LocationsFullInformationService} from '@service/locations';
 import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {Signal} from '@api/dto/Signal';
 import {ReqDeclineFormComponent} from './req-decline-form/req-decline-form.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-oper-profile',
@@ -21,6 +22,7 @@ export class OperProfileComponent implements OnInit {
     private readonly matDialog: MatDialog,
     private locationService: LocationsFullInformationService,
     private readonly requestsService: ApiFeaturesRequests,
+    private readonly snackBar: MatSnackBar
   ) {
     this.requestsService.requests(this.page, this.size).subscribe(requests => {
       this.archiveRequests = requests.content;
@@ -55,5 +57,9 @@ export class OperProfileComponent implements OnInit {
       this.archiveRequests = [...this.archiveRequests, ...requests.content];
       this.totalElements = requests.totalElements;
     });
+  }
+
+  showDeclineComment(declineComment: string): void {
+    this.snackBar.open(declineComment, 'Закрыть');
   }
 }

@@ -20,6 +20,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {DetailLocations} from '@service/locations/DetailLocations';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-mun-request',
@@ -33,6 +34,7 @@ export class MunRequestComponent implements OnInit, OnDestroy {
   internetTypes: TrunkChannelType[];
   operators: Operators;
   tcs: TechnicalCapabilityEdition;
+  comm = new FormControl();
   tvTypes: Signal[];
   postTypes: PostType[];
   locationId: number;
@@ -75,6 +77,7 @@ export class MunRequestComponent implements OnInit, OnDestroy {
       this.postTypes = postTypes;
       this.tcs = location;
     });
+    this.comm.setValue('');
   }
 
   ngOnInit(): void {
@@ -94,7 +97,7 @@ export class MunRequestComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    this.detailLocations.save(this.tcs, this.locationId).subscribe(() => {
+    this.detailLocations.saveWithComment(this.tcs, this.locationId, this.comm.value.substr(0, 255)).subscribe(() => {
       window.location.reload();
     }, error => this.snackBar.open('Произошла ошибка, данные не сохранены'));
   }

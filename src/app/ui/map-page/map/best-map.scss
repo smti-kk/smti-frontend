@@ -196,3 +196,11 @@ input[type="checkbox"]:checked + .checkbox-text.Искра::after {
 input[type="checkbox"]:checked + .checkbox-text.Ростелеком::after {
   background: orange;
 }
+
+three-state-button ::ng-deep .state {
+  padding: 7px;
+}
+
+three-state-button {
+  user-select: none;
+}

@@ -143,7 +143,7 @@
         <div class="card-body">
           <span class="card-number">№{{request.id}}</span> от
           <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
-          <p>{{request.locationId}}</p>
+          <p>{{request.location.type}} {{request.location.name}} ({{request.location.locationParent.type}} {{request.location.locationParent.name}})</p>
           <p>Внесенные изменения:</p>
           <ng-container *ngFor="let edit of request.featureEdits">
             <ul class="card-list" [ngSwitch]="edit.tc.type">
@@ -169,6 +169,7 @@
                     <span class="underline">Таксофоны:</span> Отключен {{edit.tc.operator.name}}
                   </ng-container>
                   <ng-container *ngSwitchCase="'UPDATE'">
+                    <span class="underline">Таксофоны:</span> Количество {{edit.tc.payphones}} -> {{edit.newValue.payphones}}
                     <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
                   </ng-container>
                 </ng-container>
@@ -284,7 +285,12 @@
         </div>
         <div class="card-status orange" *ngIf="request.status === 'WAIT_FOR_STATE_TO_BE_SET'">на рассмотрении</div>
         <div class="card-status green" *ngIf="request.status === 'ACCEPTED'">Принята</div>
-        <div class="card-status red" *ngIf="request.status === 'DECLINED'">Отклонена</div>
+        <div class="card-status red" *ngIf="request.status === 'DECLINED'">
+          <div>
+            Отклонена
+            <div class="decline-comment" (click)="showDeclineComment(request.declineComment)">Причина</div>
+          </div>
+        </div>
       </div>
     </div>
   </ng-container>

@@ -1,8 +1,15 @@
 import {FeatureEdit} from './FeatureEdit';
 import {AccountFromApi} from './AccountFromApi';
-import {LocationDetail} from '@api/dto/LocationDetail';
+import {LocationDetail, LocationParent} from '@api/dto/LocationDetail';
 
 export type EditingRequestStatus = 'ACCEPTED' | 'DECLINED' | 'WAIT_FOR_STATE_TO_BE_SET';
+
+interface FeatureLocation {
+  id: number;
+  type: string;
+  name: string;
+  locationParent: LocationParent;
+}
 
 export interface LocationFeatureEditingRequest {
   id: number;
@@ -13,6 +20,7 @@ export interface LocationFeatureEditingRequest {
   user: AccountFromApi;
   featureEdits: FeatureEdit[];
   status: EditingRequestStatus;
+  location: FeatureLocation;
 }
 
 export interface LocationFeatureEditingRequestFull {

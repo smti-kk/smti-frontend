@@ -6,4 +6,3 @@ export abstract class MapLocationsApi {
   abstract getLocationsByBounds(bounds: LatLngBounds): Observable<MapLocation[]>;
   abstract getLocations(): Observable<MapLocation[]>;
 }
-
