@@ -6,6 +6,7 @@ import {LocationTableItem} from '@service/dto/LocationTableItem';
 import {Signal} from '@api/dto/Signal';
 import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {LocationFeatureEditingRequest} from '@api/dto/LocationFeatureEditingRequest';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-mun-requests',
@@ -23,6 +24,7 @@ export class MunRequestsComponent implements OnInit {
     private readonly matDialog: MatDialog,
     private readonly locationService: LocationsFullInformationService,
     private readonly requestsService: ApiFeaturesRequests,
+    private readonly snackBar: MatSnackBar
   ) {
     this.requestsService.requestsByUser(this.page, this.size).subscribe(requests => {
       this.archiveRequests = requests.content;
@@ -48,5 +50,9 @@ export class MunRequestsComponent implements OnInit {
       this.archiveRequests = [...this.archiveRequests, ...requests.content];
       this.totalElements = requests.totalElements;
     });
+  }
+
+  showDeclineComment(declineComment: string): void {
+    this.snackBar.open(declineComment, 'Закрыть');
   }
 }

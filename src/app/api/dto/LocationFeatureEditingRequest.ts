@@ -1,7 +1,6 @@
 import {FeatureEdit} from './FeatureEdit';
 import {AccountFromApi} from './AccountFromApi';
 import {LocationDetail, LocationParent} from '@api/dto/LocationDetail';
-import {LocationFeature} from '@core/models';
 
 export type EditingRequestStatus = 'ACCEPTED' | 'DECLINED' | 'WAIT_FOR_STATE_TO_BE_SET';
 
