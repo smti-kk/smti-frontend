@@ -8,7 +8,6 @@ import {GovProgramService} from '@service/gov-program/GovProgramService';
 import {GovProgram} from '@api/dto/GovProgram';
 import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
-import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'location-filters',

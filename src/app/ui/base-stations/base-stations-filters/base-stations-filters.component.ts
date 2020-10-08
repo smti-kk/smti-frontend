@@ -37,7 +37,6 @@ export class BaseStationsFiltersComponent implements OnInit {
       this.filterForm = form;
       this.filterForm.valueChanges.subscribe(value => {
         this.filters.emit(value);
-        console.log(value);
       });
     });
     this.filters = new EventEmitter<LocationFilters>();

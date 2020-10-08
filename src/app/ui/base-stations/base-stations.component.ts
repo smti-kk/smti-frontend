@@ -57,6 +57,7 @@ export class BaseStationsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {
         this.api.remove(row.id).subscribe(() => {
+          console.log(this.dataSource.data, row);
           this.dataSource.data = this.dataSource.data.filter(bs => bs.id !== row.id);
         });
       }
