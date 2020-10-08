@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, pipe} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 import {Deserialize, Serialize} from 'cerialize';
 import {saveAs} from 'file-saver';
 
-import {GovernmentProgram, InternetAccessType, Location, Organization, OrganizationType, PaginatedList, SmoType} from '@core/models';
+import {Organization, OrganizationType, PaginatedList, SmoType} from '@core/models';
 import {
   ORGANIZATION_AP,
   ORGANIZATION_CREATE_AP,
@@ -123,57 +123,60 @@ export class OrganizationsService {
     return this.httpClient.post(url, foo);
   }
 
-  reportMonitoringTech(start: number, end: number): void {
+  reportMonitoringTech(start: number, end: number): Observable<any> {
     const url = ORGANIZATION_REPORT_MONITORING_TECH;
 
     const params = new HttpParams().set('start', start.toString()).set('end', end.toString());
 
     // TODO: HINT:: https://stackoverflow.com/a/50887300
-    this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
-      .subscribe(
-        (response) => {
-          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
-          saveAs(response.body, decodeURI(result));
-        },
-        error => {
-          console.log(error);
-        }
+    return this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
+      .pipe(
+        tap((response) => {
+            const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+            saveAs(response.body, decodeURI(result));
+          },
+          error => {
+            console.log(error);
+          }
+        )
       );
   }
 
-  reportMonitoringAvailability(start: number, end: number): void {
+  reportMonitoringAvailability(start: number, end: number): Observable<any> {
     const url = ORGANIZATION_REPORT_MONITORING_AVAILABILITY;
 
     const params = new HttpParams().set('start', start.toString()).set('end', end.toString());
 
     // TODO: HINT:: https://stackoverflow.com/a/50887300
-    this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
-      .subscribe(
-        (response) => {
-          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
-          saveAs(response.body, decodeURI(result));
-        },
-        error => {
-          console.log(error);
-        }
+    return this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
+      .pipe(
+        tap((response) => {
+            const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+            saveAs(response.body, decodeURI(result));
+          },
+          error => {
+            console.log(error);
+          }
+        )
       );
   }
 
-  reportMonitoringUnavailability(start: number, end: number): void {
+  reportMonitoringUnavailability(start: number, end: number): Observable<any> {
     const url = ORGANIZATION_REPORT_MONITORING_UNAVAILABILITY;
 
     const params = new HttpParams().set('start', start.toString()).set('end', end.toString());
 
     // TODO: HINT:: https://stackoverflow.com/a/50887300
-    this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
-      .subscribe(
-        (response) => {
-          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
-          saveAs(response.body, decodeURI(result));
-        },
-        error => {
-          console.log(error);
-        }
+    return this.httpClient.get<Blob>(url, {params, responseType: 'blob' as 'json', observe: 'response'})
+      .pipe(
+        tap((response) => {
+            const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+            saveAs(response.body, decodeURI(result));
+          },
+          error => {
+            console.log(error);
+          }
+        )
       );
   }
 

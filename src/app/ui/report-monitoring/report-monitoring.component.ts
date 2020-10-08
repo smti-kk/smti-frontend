@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrganizationsService} from '@core/services';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ORGANIZATION_REPORT_MONITORING_AVAILABILITY, ORGANIZATION_REPORT_MONITORING_TECH} from '@core/constants/api';
 import {HttpParams} from '@angular/common/http';
 
 @Component({
@@ -14,6 +13,7 @@ export class ReportMonitoringComponent implements OnInit {
   reportMapsTechFG: FormGroup;
   reportMapsAvailabilityFG: FormGroup;
   reportMapsUnavailabilityFG: FormGroup;
+  isLoading = false;
 
   constructor(
     // tslint:disable-next-line:variable-name
@@ -38,23 +38,32 @@ export class ReportMonitoringComponent implements OnInit {
   }
 
   getMAPTech(): void {
-    this.serviceOrganizations.reportMonitoringTech(
-      new Date(this.reportMapsTechFG.get('start').value).getTime() / 1000,
-      new Date(this.reportMapsTechFG.get('end').value).getTime() / 1000
-    );
+    this.isLoading = true;
+    const st = new Date(this.reportMapsTechFG.get('start').value);
+    const en = new Date(this.reportMapsTechFG.get('end').value);
+    en.setDate(en.getDate() + 1);
+    this.serviceOrganizations.reportMonitoringTech(st.getTime() / 1000, en.getTime() / 1000).subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
   getMAPAvailability(): void {
-    this.serviceOrganizations.reportMonitoringAvailability(
-      new Date(this.reportMapsAvailabilityFG.get('start').value).getTime() / 1000,
-      new Date(this.reportMapsAvailabilityFG.get('end').value).getTime() / 1000
-    );
+    this.isLoading = true;
+    const st = new Date(this.reportMapsAvailabilityFG.get('start').value);
+    const en = new Date(this.reportMapsAvailabilityFG.get('end').value);
+    en.setDate(en.getDate() + 1);
+    this.serviceOrganizations.reportMonitoringAvailability(st.getTime() / 1000, en.getTime() / 1000).subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
   getMAPUnavailability(): void {
-    this.serviceOrganizations.reportMonitoringUnavailability(
-      new Date(this.reportMapsUnavailabilityFG.get('start').value).getTime() / 1000,
-      new Date(this.reportMapsUnavailabilityFG.get('end').value).getTime() / 1000
-    );
+    this.isLoading = true;
+    const st = new Date(this.reportMapsUnavailabilityFG.get('start').value);
+    const en = new Date(this.reportMapsUnavailabilityFG.get('end').value);
+    en.setDate(en.getDate() + 1);
+    this.serviceOrganizations.reportMonitoringUnavailability(st.getTime() / 1000, en.getTime() / 1000).subscribe(() => {
+      this.isLoading = false;
+    });
   }
 }
