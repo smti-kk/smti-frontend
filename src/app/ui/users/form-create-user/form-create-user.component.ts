@@ -37,7 +37,18 @@ export class FormCreateUserComponent implements OnInit {
       patronymicName: ['', Validators.required],
       email: ['', Validators.required],
       roles: ['', Validators.required],
+      password: ['', Validators.required],
+      repeat: ['', [Validators.required, this.confirmationValidator]],
     });
+  }
+
+  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (control.value !== this.form.controls.password.value) {
+      return { confirm: true, error: true };
+    }
+    return {};
   }
 
   cancel(): void {
