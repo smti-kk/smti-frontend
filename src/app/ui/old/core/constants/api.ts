@@ -8,7 +8,9 @@ export const ORGANIZATION_EDIT = '/api/organization/:id/';
 export const ORGANIZATION_AP = '/api/organization/:id/ap/';
 export const ORGANIZATION_CREATE_AP = '/api/organization/:id/ap/';
 export const ORGANIZATION_INIT_MONITORING_AP = '/api/organization/:id/ap/:apid/init-monitoring';
-export const ORGANIZATION_REPORT_MONITORING = '/api/report/organization/export/map/';
+export const ORGANIZATION_REPORT_MONITORING_TECH = '/api/report/organization/export/map/tech';
+export const ORGANIZATION_REPORT_MONITORING_AVAILABILITY = '/api/report/organization/export/map/availability';
+export const ORGANIZATION_REPORT_MONITORING_UNAVAILABILITY = '/api/report/organization/export/map/unavailability';
 
 export const INTERNET_ACCESS_TYPES = '/api/type/internet-access/';
 

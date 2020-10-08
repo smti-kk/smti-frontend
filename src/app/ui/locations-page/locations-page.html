@@ -22,15 +22,27 @@
           <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
         </ng-container>
 
+      <div *ngIf="user && user.isOperatorOrAdmin();else not_click_location">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef></th>
           <td
             mat-cell
             class="align-left location-link"
             *matCellDef="let location"
-            [routerLink]="[user ? (user.isOperatorOrAdmin() ? location.id : null) : null]"
+            [routerLink]="[location.id]"
           > {{location.name}} </td>
         </ng-container>
+      </div>
+      <ng-template #not_click_location>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            class="align-left"
+            *matCellDef="let location"
+          > {{location.name}} </td>
+        </ng-container>
+      </ng-template>
 
         <ng-container matColumnDef="population">
           <th mat-header-cell *matHeaderCellDef>

@@ -38,6 +38,7 @@
                     <span class="underline">Таксофоны:</span> Отключен {{edit.tc.operator.name}}
                   </ng-container>
                   <ng-container *ngSwitchCase="'UPDATE'">
+                    <span class="underline">Таксофоны:</span> Количество {{edit.tc.payphones}} -> {{edit.newValue.payphones}}
                     <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
                   </ng-container>
                 </ng-container>
@@ -149,6 +150,12 @@
               </li>
             </ul>
           </ng-container>
+          <div *ngIf="request.comment.length > 0">
+            <p>Комментарий:</p>
+            <div class="comment-wrap">
+              {{request.comment}}
+            </div>
+          </div>
         </div>
         <div class="card-status orange" *ngIf="request.status === 'WAIT_FOR_STATE_TO_BE_SET'">
           <button mat-raised-button (click)="acceptReq(request)">Принять</button>
