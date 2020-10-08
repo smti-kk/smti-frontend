@@ -7,5 +7,7 @@ export interface UsersApi {
   update(item: UserFromApi): Observable<UserFromApi>;
 
   create(item: UserFromApi): Observable<UserFromApi>;
+
+  updatePassword(id: number, pwd: string): Observable<UserFromApi>;
 }
 

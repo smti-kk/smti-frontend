@@ -8,6 +8,7 @@ import {DOrganizationsService} from '@service/organizations/DOrganizationsServic
 import {MatDialog} from '@angular/material/dialog';
 import {FormCreateUserComponent} from './form-create-user/form-create-user.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormResetPasswordComponent} from './form-reset-password/form-reset-password.component';
 
 @Component({
   selector: 'app-users',
@@ -93,11 +94,11 @@ export class UsersPage implements OnInit {
 
   locationsCompareFn = (a: DLocationBase, b: DLocationBase) => {
     return a.id === b.id;
-  }
+  };
 
   organizationsCompareFn = (a: DOrganizationBase, b: DOrganizationBase) => {
     return a.id === b.id;
-  }
+  };
 
   canEditLocations(roles: string[]): boolean {
     return roles.includes('MUNICIPALITY');
@@ -124,7 +125,6 @@ export class UsersPage implements OnInit {
     });
 
     modal.afterClosed().subscribe(result => {
-        // const bar = this._snackBar.open(result.message + ': ' + result.errors, 'Ок');
         if (result) {
           this.usersService.create(result).subscribe(
             res => {
@@ -133,6 +133,30 @@ export class UsersPage implements OnInit {
             },
             err => {
               this._snackBar.open(err.error.message, 'Ок');
+            }
+          );
+        }
+      },
+      error => {
+        this._snackBar.open(error.error.message, 'Ок');
+      });
+  }
+
+  changePassword(id: number): void {
+    const user = this.items.find(item => item.id === id);
+    const modal = this.modalService.open(FormResetPasswordComponent, {
+      width: '520px',
+      data: user,
+    });
+
+    modal.afterClosed().subscribe(result => {
+        if (result) {
+          this.usersService.updatePassword(user.id, result.password).subscribe(
+            () => {
+              this._snackBar.open('Пароль задан', 'Ок');
+            },
+            err => {
+              this._snackBar.open('Пароль НЕ задан', 'Ок');
             }
           );
         }

@@ -5,5 +5,6 @@ export abstract class UsersService {
   abstract list(): Observable<UserFromApi[]>;
   abstract update(item: UserFromApi): Observable<UserFromApi>;
   abstract create(item: UserFromApi): Observable<UserFromApi>;
+  abstract updatePassword(id: number, pwd: string): Observable<UserFromApi>;
 }
 

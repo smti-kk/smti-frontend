@@ -36,20 +36,27 @@
           <td><span *ngFor="let key of item.roles; let l = last">{{roles[key]}}<span *ngIf="!l">, </span></span></td>
           <td>
             <button (click)="startEdit(item.id)">редактировать</button>
+            <ng-container *ngIf="!item.oid">
+              &nbsp;&nbsp;<button (click)="changePassword(item.id)">задать пароль</button>
+            </ng-container>
           </td>
         </ng-container>
         <ng-template #editTemplate>
           <td>
-            <input type="text" [(ngModel)]="editCache.get(item.id).data.username" [disabled]="editCache.get(item.id).data.oid"/>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.username"
+                   [disabled]="editCache.get(item.id).data.oid"/>
           </td>
           <td>
-            <input type="text" [(ngModel)]="editCache.get(item.id).data.lastName" [disabled]="editCache.get(item.id).data.oid"/>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.lastName"
+                   [disabled]="editCache.get(item.id).data.oid"/>
           </td>
           <td>
-            <input type="text" [(ngModel)]="editCache.get(item.id).data.firstName" [disabled]="editCache.get(item.id).data.oid"/>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.firstName"
+                   [disabled]="editCache.get(item.id).data.oid"/>
           </td>
           <td>
-            <input type="text" [(ngModel)]="editCache.get(item.id).data.patronymicName" [disabled]="editCache.get(item.id).data.oid"/>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.patronymicName"
+                   [disabled]="editCache.get(item.id).data.oid"/>
           </td>
           <td>
             <ng-container *ngIf="canEditLocations(editCache.get(item.id).data.roles); else editTemplateLocations">
@@ -83,7 +90,8 @@
             </ng-template>
           </td>
           <td>
-            <input type="text" [(ngModel)]="editCache.get(item.id).data.email" [disabled]="editCache.get(item.id).data.oid"/>
+            <input type="text" [(ngModel)]="editCache.get(item.id).data.email"
+                   [disabled]="editCache.get(item.id).data.oid"/>
           </td>
           <td>
             <mat-checkbox [(ngModel)]="editCache.get(item.id).data.isActive"></mat-checkbox>
