@@ -25,7 +25,7 @@
     "@asymmetrik/ngx-leaflet": "^7.0.1",
     "@ng-select/ng-select": "^4.0.4",
     "@types/leaflet.markercluster": "^1.4.0",
-    "@types/node": "^14.0.20",
+    "@types/node": "^14.11.5",
     "@types/webpack-env": "^1.15.2",
     "cerialize": "^0.1.18",
     "file-saver": "^2.0.2",

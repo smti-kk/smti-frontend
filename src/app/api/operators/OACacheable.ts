@@ -52,10 +52,12 @@ export class OACacheable implements OperatorsApi {
     return this.origin.remove(id)
       .pipe(
         tap(() => {
-          const deletedOperator = this.cachedOperatorsFull.find(operator => operator.id === id);
-          this.cachedOperatorsFull = this.cachedOperatorsFull.splice(
-            this.cachedOperatorsFull.indexOf(deletedOperator), 1
-          );
+          if (this.cachedOperatorsFull) {
+            const deletedOperator = this.cachedOperatorsFull.find(operator => operator.id === id);
+            this.cachedOperatorsFull = this.cachedOperatorsFull.splice(
+              this.cachedOperatorsFull.indexOf(deletedOperator), 1
+            );
+          }
         })
       );
   }

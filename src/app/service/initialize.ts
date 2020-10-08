@@ -53,7 +53,7 @@ import {
   LFISFullPreloaded,
   LFISThrottled,
   LocationFilterFormBuilder,
-  LocationFilterFormBuilderImpl,
+  LocationFilterFormBuilderImpl, LocationFiltersInitialization,
   LocationFiltersInitializationImpl,
   LocationInfoBarConverterImpl,
   LocationsFiltrationImpl,
@@ -143,14 +143,15 @@ export const factory = (): Provider[] => {
   const tvTypeApi: TvTypeApi = new TTCacheable(
     new TvTypeApiImpl(httpClient)
   );
+  const locationFilterInitialization = new LocationFiltersInitializationImpl(
+    operatorsApi,
+    trunkChannelTypeApi,
+    mobileTypeApi,
+    postTypeApi,
+    tvTypeApi
+  );
   const locationFilterFormBuilder: LocationFilterFormBuilder = new LocationFilterFormBuilderImpl(
-    new LocationFiltersInitializationImpl(
-      operatorsApi,
-      trunkChannelTypeApi,
-      mobileTypeApi,
-      postTypeApi,
-      tvTypeApi
-    )
+    locationFilterInitialization
   );
   const locationsFullInformationService: LocationsFullInformationService = new LFISThrottled(
     // new LFISFilterNullSafely(
@@ -357,6 +358,10 @@ export const factory = (): Provider[] => {
     {
       provide: OrganizationsService,
       useClass: OrganizationsService
+    },
+    {
+      provide: LocationFiltersInitialization,
+      useValue: locationFilterInitialization
     }
   ];
 };
