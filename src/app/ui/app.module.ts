@@ -100,6 +100,7 @@ import {MatFileUploadModule} from 'mat-file-upload';
 import { OperatorsComponent } from './operators/operators.component';
 import { CreateOperatorsComponent } from './operators/create-operators/create-operators.component';
 import { FormCreateUserComponent } from './users/form-create-user/form-create-user.component';
+import {BaseStationsFiltersComponent} from './base-stations/base-stations-filters/base-stations-filters.component';
 
 registerLocaleData(ru);
 
@@ -163,7 +164,8 @@ registerLocaleData(ru);
     OperatorsComponent,
     CreateOperatorsComponent,
     CreateAppealComponent,
-    FormCreateUserComponent
+    FormCreateUserComponent,
+    BaseStationsFiltersComponent
   ],
   imports: [
     BrowserModule,

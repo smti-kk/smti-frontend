@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CreateBaseStationComponent} from './create-base-station/create-base-station.component';
 import {BaseStation} from '@api/dto/BaseStation';
 import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.component';
+import {LocationFilters} from '../locations-page/location-filters/LocationFilters';
 
 @Component({
   selector: 'app-base-stations',
@@ -13,13 +14,14 @@ import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.componen
   styleUrls: ['./base-stations.component.scss']
 })
 export class BaseStationsComponent implements OnInit {
-  displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'select'];
+  displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'actionDate', 'select'];
   dataSource: MatTableDataSource<BaseStation>;
   baseStations: BaseStation[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   page = 0;
   size = 30;
+  filters: LocationFilters | any = {};
 
   constructor(private readonly api: BaseStationsApi,
               private readonly cdr: ChangeDetectorRef,
@@ -29,7 +31,7 @@ export class BaseStationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.api.list(this.page, this.size).subscribe(bs => {
+    this.api.list(this.page, this.size, this.filters).subscribe(bs => {
       this.dataSource.data = bs.content;
     });
   }
@@ -82,6 +84,14 @@ export class BaseStationsComponent implements OnInit {
     this.page++;
     this.api.list(this.page, this.size).subscribe(bs => {
       this.dataSource.data = [...this.dataSource.data, ...bs.content];
+    });
+  }
+
+  filter(filters: LocationFilters): void {
+    this.page = 0;
+    this.filters = filters;
+    this.api.list(this.page, this.size, filters).subscribe(bs => {
+      this.dataSource.data = bs.content;
     });
   }
 }
