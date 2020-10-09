@@ -115,9 +115,37 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   save(): void {
-    this.detailLocations.save(this.tcs, this.locationId).subscribe(() => {
-      window.location.reload();
-    }, error => this.snackBar.open('Произошла ошибка, данные не сохранены'));
+    if (!this.correctChangeGovProg()) {
+      this.snackBar.open('При изменении гос/программы должны быть указаны год и наименование программы');
+    } else {
+      this.detailLocations.save(this.tcs, this.locationId).subscribe(() => {
+        window.location.reload();
+      }, error => this.snackBar.open('Произошла ошибка, данные не сохранены'));
+    }
+  }
+
+  correctChangeGovProg(): boolean {
+    return this.tcChangeGovProg(this.tcs.cellular) &&
+      this.tcChangeGovProg(this.tcs.internet) &&
+      this.tcChangeGovProg(this.tcs.tv) &&
+      this.tcChangeGovProg(this.tcs.telephone) &&
+      this.tcChangeGovProg(this.tcs.post) &&
+      this.tcChangeGovProg(this.tcs.payphone) &&
+      this.tcChangeGovProg(this.tcs.radio) &&
+      this.tcChangeGovProg(this.tcs.infomat);
+  }
+
+  tcChangeGovProg(tcs: TcEdition): boolean {
+    let result = true;
+    Object.values(tcs.tcs).forEach(value => {
+      if (!((value.governmentDevelopmentProgram === null || value.governmentDevelopmentProgram === undefined)
+        && (value.govYearComplete === null || value.govYearComplete === undefined)
+        || value.governmentDevelopmentProgram !== null && value.governmentDevelopmentProgram !== undefined
+        && value.govYearComplete !== null && value.govYearComplete !== undefined)) {
+        result = false;
+      }
+    });
+    return result;
   }
 
   hasArchive(request: LocationFeatureEditingRequest): boolean {
