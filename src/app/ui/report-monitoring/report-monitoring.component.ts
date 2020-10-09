@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrganizationsService} from '@core/services';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HttpParams} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-report-monitoring',
@@ -14,6 +15,7 @@ export class ReportMonitoringComponent implements OnInit {
   reportMapsAvailabilityFG: FormGroup;
   reportMapsUnavailabilityFG: FormGroup;
   isLoading = false;
+  ZABBIX_URL = environment.ZABBIX_URL;
 
   constructor(
     // tslint:disable-next-line:variable-name
