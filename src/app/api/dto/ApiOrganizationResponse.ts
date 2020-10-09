@@ -11,6 +11,10 @@ export interface AORAccessPoint {
   declaredSpeed: string;
   internetAccess: AORInternetAccess;
   type: string;
+  zabbixDeviceName: string;
+  zabbixDeviceIp: string;
+  utmLastDayTraffic: string;
+  governmentDevelopmentProgram: string;
   opened: boolean;
 }
 
