@@ -1,5 +1,5 @@
 import {OperatorIcon} from '@service/dto/OperatorIcon';
-import {InternetType} from '@api/dto/InternetType';
+import {ShortTechnicalCapability} from '@api/dto/ShortTechnicalCapability';
 
 export class PayphoneIcon extends OperatorIcon {
   payphones: number;
@@ -9,8 +9,9 @@ export class PayphoneIcon extends OperatorIcon {
               iconUrl: string,
               name: string,
               govYearComplete: number,
-              payphones: number) {
-    super(id, state, iconUrl, name, govYearComplete);
+              payphones: number,
+              tc: ShortTechnicalCapability) {
+    super(id, state, iconUrl, name, govYearComplete, tc);
     this.payphones = payphones;
   }
 }
