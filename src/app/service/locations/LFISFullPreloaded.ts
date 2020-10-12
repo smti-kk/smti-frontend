@@ -6,6 +6,7 @@ import {LocationFilters} from '../../ui/locations-page/location-filters/Location
 import {Paginator} from '@service/dto/Paginator';
 import {LocationsFiltration} from '@service/locations/LocationsFiltration';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
+import {flatMap} from 'rxjs/operators';
 
 export class LFISFullPreloaded implements LocationsFullInformationService {
   private readonly origin: LocationsFullInformationService;
@@ -22,11 +23,25 @@ export class LFISFullPreloaded implements LocationsFullInformationService {
 
   filteredLocations(page: number, size: number, filters: LocationFilters): Observable<Pageable<LocationTableItem[]>> {
     this.lastFilters = filters;
-    const locations = new Paginator(this.filtration.filter(this.cache.allElements(), filters));
-    return of({
-      totalElements: locations.totalElements(),
-      content: locations.page(page, size)
-    });
+    if (this.cache) {
+      const locations = new Paginator(this.filtration.filter(this.cache.allElements(), filters));
+      return of({
+        totalElements: locations.totalElements(),
+        content: locations.page(page, size)
+      });
+    } else {
+      return this.origin.get(0, 4000).pipe(
+        flatMap(response => {
+          this.cache = new Paginator<LocationTableItem>(response.content);
+          const locations = new Paginator(this.filtration.filter(this.cache.allElements(), filters));
+          return of({
+            totalElements: locations.totalElements(),
+            content: locations.page(page, size)
+          });
+        })
+      );
+    }
+
   }
 
   get(page: number, size: number): Observable<Pageable<LocationTableItem[]>> {

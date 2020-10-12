@@ -51,7 +51,7 @@ export class OperatorsComponent implements OnInit {
   deleteOperator(row: Operator): void {
     const dialogRef = this.dialog.open(AreYouSureComponent, {
       width: '450px',
-      data: 'Вы уверены, что хотите удалить станцию?'
+      data: 'Вы уверены, что хотите удалить?'
     });
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {

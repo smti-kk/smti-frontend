@@ -1,0 +1,24 @@
+.location-features-container {
+  padding: 17px 32px;
+}
+
+:host {
+  display: block;
+}
+
+table {
+  width: 100%;
+}
+
+.add-base-station-button {
+  margin: 15px;
+}
+
+.delete-button {
+  color: lightcoral;
+  cursor: pointer;
+}
+
+.edit-button {
+  cursor: pointer;
+}
