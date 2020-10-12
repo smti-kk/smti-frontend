@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {UsersService} from '@service/account/UsersService';
 import {UserFromApi} from '@api/dto/UserFromApi';
 import {DLocationBase} from '@api/dto/DLocationBase';
@@ -9,6 +9,11 @@ import {MatDialog} from '@angular/material/dialog';
 import {FormCreateUserComponent} from './form-create-user/form-create-user.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormResetPasswordComponent} from './form-reset-password/form-reset-password.component';
+import {MatTableDataSource} from '@angular/material/table';
+import {BaseStation} from '@api/dto/BaseStation';
+import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
+import {MatPaginator} from '@angular/material/paginator';
+import {LocationFilters} from '../locations-page/location-filters/LocationFilters';
 
 @Component({
   selector: 'app-users',
@@ -17,7 +22,39 @@ import {FormResetPasswordComponent} from './form-reset-password/form-reset-passw
 })
 // tslint:disable:variable-name
 export class UsersPage implements OnInit {
-  editCache: Map<number, { edit: boolean; data: UserFromApi }>;
+  displayedColumns: string[] = ['username', 'isActive', 'roles', 'firstName', 'lastName', 'patronymicName', 'email', 'locations', 'organizations', 'select'];
+  dataSource: MatTableDataSource<UserFromApi>;
+  items: UserFromApi[];
+  roles: { [key: string]: string };
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  page = 0;
+  size = 30;
+  filters: LocationFilters | any = {};
+
+  constructor(private readonly api: UsersService,
+              private readonly cdr: ChangeDetectorRef,
+              private readonly dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource<UserFromApi>(this.items);
+    this.roles = {};
+    this.roles.ADMIN = 'Администратор';
+    this.roles.GUEST = 'Посетитель';
+    this.roles.MUNICIPALITY = 'Муниципалитет';
+    this.roles.ORGANIZATION = 'Оператор - Организации';
+    this.roles.OPERATOR = 'Оператор - Локации';
+  }
+
+  ngOnInit(): void {
+    // this.dataSource.paginator = this.paginator;
+    this.api.pageList(this.page, this.size, this.filters).subscribe(value => {
+      this.dataSource.data = value.content;
+    });
+    // this.api.list(this.page, this.size, this.filters).subscribe(bs => {
+    //   this.dataSource.data = bs.content;
+    // });
+  }
+
+ /* editCache: Map<number, { edit: boolean; data: UserFromApi }>;
   items: UserFromApi[] = [];
   locations: DLocationBase[] = [];
   organizations: DOrganizationBase[] = [];
@@ -100,6 +137,7 @@ export class UsersPage implements OnInit {
     return a.id === b.id;
   };
 
+
   canEditLocations(roles: string[]): boolean {
     return roles.includes('MUNICIPALITY');
   }
@@ -164,5 +202,23 @@ export class UsersPage implements OnInit {
       error => {
         this._snackBar.open(error.error.message, 'Ок');
       });
+  }*/
+  delete(row: any): void {
+    return null;
+  }
+
+  edit(row: any): void {
+    return null;
+  }
+
+  create(): void {
+    return null;
+  }
+
+  onScrollDown(): void {
+    this.page++;
+    this.api.pageList(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = [...this.dataSource.data, ...bs.content];
+    });
   }
 }
