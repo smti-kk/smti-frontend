@@ -9,7 +9,7 @@
       </ng-option>
     </ng-select>
   </div>
-  <div>
+  <div *ngIf="this.form.get('roles').value.includes('ORGANIZATION')">
     <mat-label>Привязка к организациям</mat-label>
         <ng-select
                 formControlName="organizations"
@@ -22,7 +22,7 @@
           </ng-option>
         </ng-select>
   </div>
-  <div>
+  <div *ngIf="this.form.get('roles').value.includes('MUNICIPALITY')">
     <mat-label>Привязка к нас.пункту</mat-label>
     <ng-select formControlName="locations" [multiple]="true"
                [bindLabel]="''"
