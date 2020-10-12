@@ -6,7 +6,10 @@ import {DLocationBase} from '@api/dto/DLocationBase';
 })
 export class JoinPipe implements PipeTransform {
 
-  transform(value: DLocationBase[], args: string): unknown {
+  transform(value: DLocationBase[], args: string): string {
+    if (!value) {
+      return '';
+    }
     const rez: string[] = [];
     value.forEach(item => {
       let s = `${item.type}. ${item.name}`;

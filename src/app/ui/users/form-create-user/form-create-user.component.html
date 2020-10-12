@@ -1,3 +1,5 @@
+<h1 mat-dialog-title *ngIf="action === 'CREATE'">Создание нового пользователя</h1>
+<h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование пользователя</h1>
 <form [formGroup]="form">
   <div>
     <mat-label>Роль</mat-label>
@@ -37,7 +39,8 @@
       <input matInput formControlName="email">
     </mat-form-field>
   </div>
-  <div>
+  <mat-checkbox (change)="editPass($event)" [disabled]="this.data.oid">Сменить пароль</mat-checkbox>
+  <div *ngIf="form.contains('password')">
     <mat-form-field>
       <mat-label>Пароль</mat-label>
       <input matInput type="password" formControlName="password">
@@ -52,5 +55,5 @@
 </form>
 <div mat-dialog-actions>
   <button mat-button (click)="cancel()" cdkFocusInitial>Отмена</button>
-  <button mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">Создать</button>
+  <button mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">Сохранить</button>
 </div>
