@@ -18,6 +18,8 @@ import {SharedModule} from '@shared/shared.module';
 import {ConnectionPointsComponent} from './connection-points/connection-points.component';
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
 import {CoreModule} from '@core/core.module';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   {
@@ -36,27 +38,29 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ConnectionPointsComponent, OrganizationDetailComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    SharedModule,
-    NgxSpinnerModule,
-    ReactiveFormsModule,
-    NgxPaginationModule,
-    NzTimelineModule,
-    NzIconModule,
-    NzFormModule,
-    NzDrawerModule,
-    NzInputModule,
-    NzAutocompleteModule,
-    FormsModule,
-    NzSelectModule,
-    NzDatePickerModule,
-    CoreModule,
-    NzCheckboxModule,
-    NzButtonModule,
-    NzModalModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        SharedModule,
+        NgxSpinnerModule,
+        ReactiveFormsModule,
+        NgxPaginationModule,
+        NzTimelineModule,
+        NzIconModule,
+        NzFormModule,
+        NzDrawerModule,
+        NzInputModule,
+        NzAutocompleteModule,
+        FormsModule,
+        NzSelectModule,
+        NzDatePickerModule,
+        CoreModule,
+        NzCheckboxModule,
+        NzButtonModule,
+        NzModalModule,
+        InfiniteScrollModule,
+        MatButtonModule
+    ],
   providers: [],
 })
 export class ConnectionPointsModule {}

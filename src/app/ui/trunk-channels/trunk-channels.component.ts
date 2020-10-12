@@ -49,7 +49,7 @@ export class TrunkChannelsComponent implements OnInit {
   delete(row: TrunkChannel): void {
     const dialogRef = this.dialog.open(AreYouSureComponent, {
       width: '450px',
-      data: 'Вы уверены, что хотите удалить магистральный канал?'
+      data: 'Вы уверены, что хотите удалить?'
     });
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {

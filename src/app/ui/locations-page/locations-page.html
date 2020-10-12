@@ -11,8 +11,8 @@
      [infiniteScrollUpDistance]="2"
      [infiniteScrollThrottle]="300"
      [scrollWindow]="false"
-     [ngStyle]="{height: filtersComponent.filtersIsOpened ? TABLE_HEIGHT_WHEN_OPENED_FILTERS : TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS}"
      (scrolled)="onScrollDown()"
+     [ngStyle]="{height: filtersComponent.filtersIsOpened ? TABLE_HEIGHT_WHEN_OPENED_FILTERS : TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS}"
 >
   <div class="sticky-table-container">
     <table mat-table [dataSource]="locations">
@@ -22,15 +22,27 @@
           <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
         </ng-container>
 
+      <div *ngIf="user && user.isOperatorOrAdmin();else not_click_location">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef></th>
           <td
             mat-cell
             class="align-left location-link"
             *matCellDef="let location"
-            [routerLink]="[user ? (user.isOperatorOrAdmin() ? location.id : null) : null]"
+            [routerLink]="[location.id]"
           > {{location.name}} </td>
         </ng-container>
+      </div>
+      <ng-template #not_click_location>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td
+            mat-cell
+            class="align-left"
+            *matCellDef="let location"
+          > {{location.name}} </td>
+        </ng-container>
+      </ng-template>
 
         <ng-container matColumnDef="population">
           <th mat-header-cell *matHeaderCellDef>
@@ -82,7 +94,8 @@
           <td mat-cell *matCellDef="let location">
             <div class="td-container">
               <div class="feature__icon"
-                   [class.disabled]="!operator.isActive"
+                   [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+                   [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                    *ngFor="let operator of location.ats">
                 <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
               </div>
@@ -97,7 +110,8 @@
           <td mat-cell *matCellDef="let location">
             <div class="td-container">
               <div class="feature__icon"
-                   [class.disabled]="!operator.isActive"
+                   [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+                   [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                    *ngFor="let operator of location.payphone">
                 <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
               </div>
@@ -122,7 +136,8 @@
           <td mat-cell *matCellDef="let location">
             <div class="td-container">
               <div class="feature__icon"
-                   [class.disabled]="!operator.isActive"
+                   [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+                   [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                    *ngFor="let operator of location.post">
                 <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
                 <div class="feature__icon-type with-signal" *ngIf="operator.postType">
@@ -141,7 +156,8 @@
           <td mat-cell *matCellDef="let location">
             <div class="td-container">
               <div class="feature__icon signal-type"
-                   [class.disabled]="!operator.isActive"
+                   [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+                   [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                    *ngFor="let operator of location.television">
                 <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
                 <div class="feature__icon-type with-signal" *ngIf="operator.type">
@@ -159,7 +175,8 @@
           <td mat-cell *matCellDef="let location">
             <div class="td-container">
               <div class="feature__icon"
-                   [class.disabled]="!operator.isActive"
+                   [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+                   [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                    *ngFor="let operator of location.radio">
                 <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
                 <div class="feature__icon-type with-signal" *ngIf="operator.type">
@@ -177,7 +194,8 @@
           <td mat-cell *matCellDef="let location">
             <div class="td-container">
               <div class="feature__icon"
-                   [class.disabled]="!operator.isActive"
+                   [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+                   [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                    *ngFor="let operator of location.cellular">
                 <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
                 <div class="feature__icon-type" *ngIf="operator.type != 'UNDEFINED'">
@@ -195,7 +213,8 @@
           <td mat-cell *matCellDef="let location">
             <div class="td-container">
               <div class="feature__icon"
-                   [class.disabled]="!operator.isActive"
+                   [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+                   [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                    *ngFor="let operator of location.internet">
                 <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
                 <img *ngIf="operator.type != 'Неопределено'"

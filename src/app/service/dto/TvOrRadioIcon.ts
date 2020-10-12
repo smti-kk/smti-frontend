@@ -1,5 +1,6 @@
 import {OperatorIcon} from './OperatorIcon';
 import {Signal} from '@api/dto/Signal';
+import {ShortTechnicalCapability} from '@api/dto/ShortTechnicalCapability';
 
 export class TvOrRadioIcon extends OperatorIcon {
   readonly type: Signal[];
@@ -9,8 +10,9 @@ export class TvOrRadioIcon extends OperatorIcon {
               iconUrl: string,
               name: string,
               govYearComplete: number,
-              type: Signal[]) {
-    super(id, state, iconUrl, name, govYearComplete);
+              type: Signal[],
+              tc: ShortTechnicalCapability) {
+    super(id, state, iconUrl, name, govYearComplete, tc);
     this.type = type;
   }
 

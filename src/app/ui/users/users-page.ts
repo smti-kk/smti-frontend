@@ -1,111 +1,94 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {UsersService} from '@service/account/UsersService';
 import {UserFromApi} from '@api/dto/UserFromApi';
-import {DLocationBase} from '@api/dto/DLocationBase';
-import {DLocationsService} from '@service/locations/DLocationsService';
-import {DOrganizationBase} from '@api/dto/DOrganizationBase';
-import {DOrganizationsService} from '@service/organizations/DOrganizationsService';
+import {MatDialog} from '@angular/material/dialog';
+import {FormCreateUserComponent} from './form-create-user/form-create-user.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {LocationFilters} from '../locations-page/location-filters/LocationFilters';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users-page.html',
   styleUrls: ['./users-page.scss']
 })
+// tslint:disable:variable-name
 export class UsersPage implements OnInit {
-  editCache: Map<number, { edit: boolean; data: UserFromApi }>;
-  items: UserFromApi[] = [];
-  locations: DLocationBase[] = [];
-  organizations: DOrganizationBase[] = [];
-  roles: {[key: string]: string};
-  private readonly usersService: UsersService;
-  private readonly dLocationService: DLocationsService;
-  private readonly dOrganizationService: DOrganizationsService;
+  displayedColumns: string[] = ['username', 'isActive', 'roles', 'firstName', 'lastName', 'patronymicName', 'email', 'locations', 'organizations', 'select'];
+  dataSource: MatTableDataSource<UserFromApi>;
+  items: UserFromApi[];
+  roles: { [key: string]: string };
 
-  constructor(
-    usersService: UsersService,
-    dLocationService: DLocationsService,
-    dOrganizationService: DOrganizationsService) {
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  page = 0;
+  size = 30;
+  filters: LocationFilters | any = {};
+
+  constructor(private readonly api: UsersService,
+              private readonly cdr: ChangeDetectorRef,
+              private readonly _snackBar: MatSnackBar,
+              private readonly modalService: MatDialog) {
+    this.dataSource = new MatTableDataSource<UserFromApi>(this.items);
     this.roles = {};
     this.roles.ADMIN = 'Администратор';
     this.roles.GUEST = 'Посетитель';
     this.roles.MUNICIPALITY = 'Муниципалитет';
     this.roles.ORGANIZATION = 'Оператор - Организации';
     this.roles.OPERATOR = 'Оператор - Локации';
-    this.usersService = usersService;
-    this.dLocationService = dLocationService;
-    this.dOrganizationService = dOrganizationService;
-  }
-
-  startEdit(id: number): void {
-    this.editCache.get(id).edit = true;
-  }
-
-  cancelEdit(id: number): void {
-    const index = this.items.findIndex(item => item.id === id);
-    this.editCache.set(id, {
-      edit: false,
-      data: {...this.items[index]}
-    });
-  }
-
-  saveEdit(id: number): void {
-    this.usersService.update(this.editCache.get(id).data).subscribe(value => {
-      this.editCache.set(id, {
-        edit: false,
-        data: value
-      });
-      const index = this.items.findIndex(item => item.id === id);
-      Object.assign(this.items[index], this.editCache.get(id).data);
-    });
   }
 
   ngOnInit(): void {
-    this.editCache = new Map<number, { edit: boolean, data: UserFromApi }>();
-    this.usersService.list().subscribe(value => {
-      this.items = value;
-      this.updateEditCache();
-    });
-    this.dLocationService.all().subscribe(value => {
-      this.locations = value;
-    });
-    this.dOrganizationService.all().subscribe(value => {
-      this.organizations = value;
+    this.api.pageList(this.page, this.size, this.filters).subscribe(value => {
+      this.dataSource.data = value.content;
     });
   }
 
-  updateEditCache(): void {
-    this.items.forEach(item => {
-      this.editCache.set(item.id, {
-        edit: false,
-        data: {...item}
+  edit(row: any): void {
+    const dialogRef = this.modalService.open(FormCreateUserComponent, {
+      width: '520px',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(bs => {
+      if (bs) {
+        this.api.update(bs).subscribe((response) => {
+          const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
+          this.dataSource.data[index] = response;
+          this.dataSource.data = [...this.dataSource.data];
+        });
+      }
+    });
+  }
+
+  create(): void {
+    const modal = this.modalService.open(FormCreateUserComponent, {
+      width: '520px',
+    });
+
+    modal.afterClosed().subscribe(result => {
+        if (result) {
+          this.api.create(result).subscribe(
+            res => {
+              this.dataSource.data = [...this.dataSource.data, res];
+              this._snackBar.open('Пользователь добавлен', 'Ок');
+            },
+            err => {
+              this._snackBar.open(err.error.message, 'Ок');
+            }
+          );
+        }
+      },
+      error => {
+        this._snackBar.open(error.error.message, 'Ок');
       });
+  }
+
+  onScrollDown(): void {
+    this.page++;
+    this.api.pageList(this.page, this.size).subscribe(bs => {
+      this.dataSource.data = [...this.dataSource.data, ...bs.content];
     });
   }
 
-  locationsCompareFn = (a: DLocationBase, b: DLocationBase) => {
-    return a.id === b.id;
-  }
 
-  organizationsCompareFn = (a: DOrganizationBase, b: DOrganizationBase) => {
-    return a.id === b.id;
-  }
-
-  canEditLocations(roles: string[]): boolean {
-    return roles.includes('MUNICIPALITY');
-  }
-
-  canEditOrganizations(roles: string[]): boolean {
-    return roles.includes('ORGANIZATION');
-  }
-
-  changeRoles(item: UserFromApi) {
-    if (!this.editCache.get(item.id).data.roles.includes('MUNICIPALITY')) {
-      item.locations = [];
-      this.editCache.get(item.id).data.locations = [];
-    }
-    if (!this.editCache.get(item.id).data.roles.includes('ORGANIZATION')) {
-      item.organizations = [];
-      this.editCache.get(item.id).data.organizations = [];
-    }
-  }
 }

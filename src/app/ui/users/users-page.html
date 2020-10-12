@@ -1,86 +1,73 @@
-<table width="100%" *ngIf="editCache">
-  <thead>
-  <tr>
-    <th>Логин</th>
-    <th>Фамилия</th>
-    <th>Имя</th>
-    <th>Отчество</th>
-    <th>Привязка к нас.пункту</th>
-    <th>Привязка к организации</th>
-    <th>Эл. почта</th>
-    <th>Доступ разрешен</th>
-    <th>Роль</th>
-    <td>
-      <!--      <button (click)="newRow()">Создать</button>-->
-    </td>
-  </tr>
-  </thead>
-  <tbody>
-  <ng-container>
-    <tr *ngFor="let item of items">
-      <ng-container *ngIf="!editCache.get(item.id).edit; else editTemplate">
-        <td>{{item.username}}</td>
-        <td>{{item.lastName}}</td>
-        <td>{{item.firstName}}</td>
-        <td>{{item.patronymicName}}</td>
-        <td>
-          {{item.locations | join:', '}}
-        </td>
-        <td>
-          {{item.organizations | joinorg: ', '}}
-        </td>
-        <td>{{item.email}}</td>
-        <td>{{item.isActive ? 'да' : 'нет'}}</td>
-        <td><span *ngFor="let key of item.roles; let l = last">{{roles[key]}}<span *ngIf="!l">, </span></span></td>
-        <td>
-          <button (click)="startEdit(item.id)">редактировать</button>
+<div class="user-container">
+  <div class="mat-elevation-z8"
+       infinite-scroll
+       [infiniteScrollDistance]="1"
+       [infiniteScrollUpDistance]="2"
+       [infiniteScrollThrottle]="300"
+       (scrolled)="onScrollDown()"
+  >
+    <table mat-table [dataSource]="dataSource">
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef> Логин</th>
+        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef> Имя</th>
+        <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef> Фамилия</th>
+        <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="patronymicName">
+        <th mat-header-cell *matHeaderCellDef> Отчество</th>
+        <td mat-cell *matCellDef="let element"> {{element.patronymicName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Эл. почта</th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="locations">
+        <th mat-header-cell *matHeaderCellDef> Привязка к нас.пункту</th>
+        <td mat-cell *matCellDef="let element"> {{element.locations | join:', '}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="organizations">
+        <th mat-header-cell *matHeaderCellDef> Привязка к организации</th>
+        <td mat-cell *matCellDef="let element">  {{element.organizations | joinorg: ', '}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="roles">
+        <th mat-header-cell *matHeaderCellDef> Роль</th>
+        <td mat-cell *matCellDef="let element"><span *ngFor="let key of element.roles; let l = last">{{roles[key]}}<span
+                *ngIf="!l">, </span></span></td>
+      </ng-container>
+
+      <ng-container matColumnDef="isActive">
+        <th mat-header-cell *matHeaderCellDef> Доступ разрешен</th>
+        <td mat-cell *matCellDef="let element"> {{element.isActive ? 'да' : 'нет'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <button class="add-base-station-button" mat-raised-button (click)="create()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <!--<mat-icon (click)="delete(row)" class="delete-button">delete</mat-icon>-->
+          <mat-icon (click)="edit(row)" class="edit-button">edit</mat-icon>
         </td>
       </ng-container>
-      <ng-template #editTemplate>
-        <td>{{item.username}}</td>
-        <td>{{item.lastName}}</td>
-        <td>{{item.firstName}}</td>
-        <td>{{item.patronymicName}}</td>
-        <td>
-          <ng-container *ngIf="canEditLocations(editCache.get(item.id).data.roles); else editTemplateLocations">
-            <ng-select [(ngModel)]="editCache.get(item.id).data.locations"  [multiple]="true" [compareWith]="locationsCompareFn">
-              <ng-option *ngFor="let location of locations" [value]="location">
-                {{location.type}}. {{location.name}} <span *ngIf="location.parent"> ({{location.parent.type}}. {{location.parent.name}})</span>
-              </ng-option>
-            </ng-select>
-          </ng-container>
-          <ng-template #editTemplateLocations>
-            {{item.locations | join:', '}}
-          </ng-template>
-        </td>
-        <td>
-          <ng-container *ngIf="canEditOrganizations(editCache.get(item.id).data.roles); else editTemplateOrganizations">
-          <ng-select [(ngModel)]="editCache.get(item.id).data.organizations"  [multiple]="true" [compareWith]="organizationsCompareFn">
-            <ng-option *ngFor="let organization of organizations" [value]="organization">
-              {{organization.name}}
-            </ng-option>
-          </ng-select>
-          </ng-container>
-          <ng-template #editTemplateOrganizations>
-            {{item.organizations | joinorg:', '}}
-          </ng-template>
-        </td>
-        <td>{{item.email}}</td>
-        <td><input type="checkbox" [(ngModel)]="editCache.get(item.id).data.isActive" /></td>
-        <td>
-          <ng-select [(ngModel)]="editCache.get(item.id).data.roles" [multiple]="true" (click)="changeRoles(item)">
-            <ng-option *ngFor="let role of roles | keyvalue" [value]="role.key">
-              {{role.value}}
-            </ng-option>
-          </ng-select>
-          <!--<input type="text" [(ngModel)]="editCache.get(item.id).data.roles" />--></td>
-        <td>
-          <button (click)="saveEdit(item.id)">сохранить</button>
-          <button (click)="cancelEdit(item.id)">отменить</button>
-        </td>
-      </ng-template>
-    </tr>
 
-  </ng-container>
-  </tbody>
-</table>
+    </table>
+  </div>
+</div>

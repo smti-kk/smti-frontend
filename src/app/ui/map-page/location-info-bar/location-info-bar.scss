@@ -91,3 +91,8 @@ mat-panel-title {
 .mat-expansion-indicator::after {
   color: #ff5700;
 }
+
+.normal-q {
+  opacity: 0.6 !important;
+  filter: grayscale(0) !important;
+}

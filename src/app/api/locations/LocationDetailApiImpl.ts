@@ -61,4 +61,8 @@ export class LocationDetailApiImpl implements LocationDetailApi {
   listByUser(): Observable<LocationDetail[]> {
     return this.httpClient.get<LocationDetail[]>(LOCATION_DETAIL_API + '/by-user');
   }
+
+  delete(locationId: number): Observable<void> {
+    return this.httpClient.delete<void>(LOCATION_DETAIL_API + `/${locationId}`);
+  }
 }

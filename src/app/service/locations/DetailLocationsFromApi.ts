@@ -24,9 +24,19 @@ export class DetailLocationsFromApi implements DetailLocations {
     );
   }
 
+  saveWithComment(tc: TcEditionFromApi, locationId: number, comm: string): Observable<TechnicalCapabilityEdition> {
+    return this.locationFeatures.saveAll(tc.toLocationFeaturesSaveRequestWithComment(comm), locationId).pipe(
+      map((location) => null)
+    );
+  }
+
   sendRequest(tc: TcEditionFromApi, locationId: number): Observable<TechnicalCapabilityEdition> {
     return this.locationFeatures.sendRequest(tc.toLocationFeaturesSaveRequest(), locationId).pipe(
       map((location) => null)
     );
+  }
+
+  delete(locationId: number): Observable<void> {
+    return this.locationDetailApi.delete(locationId);
   }
 }

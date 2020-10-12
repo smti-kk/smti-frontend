@@ -11,7 +11,22 @@
     </div>
     <div class="page-header-item">
       <span class="material-icons custom">people</span>
-      <span>{{tcs.population}} человек</span>
+      <span *ngIf="!isLocationEdition">{{tcs.population}} человек </span>
+      <span *ngIf="isLocationEdition"><input type="number" [(ngModel)]="tcs.population" name="population"></span>
+    </div>
+    <div style="cursor: pointer; text-decoration: underline" class="page-header-item" *permissions="['ADMIN']">
+      <span (click)="deleteLocation()">удалить</span>
+    </div>
+    <div style="cursor: pointer; text-decoration: underline" class="page-header-item" *permissions="['ADMIN']">
+      <span *ngIf="!isLocationEdition" (click)="isLocationEdition = true">Изменить численность</span>
+      <span *ngIf="isLocationEdition" (click)="
+      isLocationEdition = false;
+      httpClient.delete(getUrl(locationId, tcs.population)).subscribe();
+      reload()
+">Сохранить</span>
+    </div>
+    <div *ngIf="isLocationEdition" style="cursor: pointer; text-decoration: underline" class="page-header-item">
+      <span (click)="isLocationEdition = false">Отмена</span>
     </div>
   </div>
   <mat-tab-group dynamicHeight animationDuration="0ms">

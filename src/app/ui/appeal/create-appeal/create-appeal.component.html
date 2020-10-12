@@ -1,0 +1,72 @@
+<h1 mat-dialog-title *ngIf="action === 'CREATE'">Создание обращения</h1>
+<h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование обращения</h1>
+<form #form="ngForm" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Заголовок</mat-label>
+    <input cdkFocusInitial matInput type="text" [(ngModel)]="appeal.title" name="title" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Статус</mat-label>
+    <mat-select [(ngModel)]="appeal.status" name="status" required>
+      <mat-option disabled value="null">Статус</mat-option>
+      <mat-option value="OPENED">Открыта</mat-option>
+      <mat-option value="CLOSED">Закрыта</mat-option>
+      <mat-option value="WAIT">В ожидании</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Приоритет</mat-label>
+    <mat-select [(ngModel)]="appeal.priority" name="priority" required>
+      <mat-option disabled [value]="null">Приоритет</mat-option>
+      <mat-option value="HIGH">Высокий</mat-option>
+      <mat-option value="LOW">Средний</mat-option>
+      <mat-option value="MEDIUM">Низкий</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Уровень обращения</mat-label>
+    <mat-select [(ngModel)]="appeal.level" name="level" required>
+      <mat-option disabled [value]="null">Уровень обращения</mat-option>
+      <mat-option value="FEDERAL">Федеральный</mat-option>
+      <mat-option value="LOCAL">Местный</mat-option>
+      <mat-option value="REGIONAL">Региональный</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field color="accent" appearance="fill">
+    <mat-label>Дата обращения</mat-label>
+    <input matInput [matDatepicker]="picker1" [(ngModel)]="appeal.date" name="date">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Населенный пункт</mat-label>
+    <mat-select [(ngModel)]="appeal.locationId" name="location">
+<!--      <mat-option>-->
+<!--        <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>-->
+<!--      </mat-option>-->
+      <mat-option disabled [value]="null">Населенный пункт</mat-option>
+      <mat-option [value]="location.id" *ngFor="let location of locations">{{location.type}} {{location.name}} ({{location.parent?.type}} {{location.parent?.name}})</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <mat-file-upload
+      [labelText]="appeal.file ? appeal.file.fileName : 'Файл обращения'"
+      [uploadButtonType]="appeal.file ? 'reset' : 'button'"
+      [selectButtonText]="'Выберите файл'"
+      [showUploadButton]="false"
+      (selectedFilesChanged)="appeal.file = $event ? $event.item(0) : null"
+    ></mat-file-upload>
+  </div>
+  <div>
+    <mat-file-upload
+      [showUploadButton]="false"
+      [labelText]="appeal.responseFile ? appeal.responseFile.fileName : 'Файл ответа'"
+      [selectButtonText]="'Выберите файл'"
+      (selectedFilesChanged)="appeal.responseFile = $event ? $event.item(0) : null"
+    ></mat-file-upload>
+  </div>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Отмена</button>
+  <button mat-button [disabled]="!form.valid" [mat-dialog-close]="appeal">Сохранить</button>
+</div>

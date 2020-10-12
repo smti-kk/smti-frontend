@@ -16,31 +16,30 @@
 
 .logo {
   background-color: #616161;
-  padding: 8px;
+  padding: 12px;
+  cursor: pointer;
 }
 
 .link {
-  color: #686868;
-  font-family: 'Heavitas [RUS by Daymarius]', sans-serif;
+  font-family: 'GolosTextWebVF', sans-serif;
   font-size: 15px;
-  font-weight: 400;
-  padding: 22px 14px 18px 14px;
+  font-weight: 600;
+  color: #131212;
+  padding: 19px 14px;
   cursor: pointer;
+  white-space: nowrap;
   & img {
     margin-left: 11px;
-    margin-top: -3px;
+    margin-top: -1px;
   }
 }
 
 .link.active {
-  color: #ffffff;
-  font-family: 'Heavitas [RUS by Daymarius]', sans-serif;
-  font-size: 14px;
-  font-weight: normal;
-  background-color: #8b8b8b;
-  & span {
-    border-bottom: 2px solid #fff;
-  }
+  font-family: 'GolosTextWebVF', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #131212;
+  background-color: #fff;
 }
 
 .links {
@@ -52,9 +51,13 @@
 }
 
 .mat-menu-select {
-  padding: 13px 14px 18px 14px;
+  padding: 10px 14px 18px 14px;
 }
 
 .link.root-link.logout {
   cursor: unset;
+
+  & span {
+    white-space: nowrap;
+  }
 }

@@ -1,8 +1,6 @@
 <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <main class="main">
   <div class="wrapper">
-    <h1>Сводные данные по организациям</h1>
-
     <form [formGroup]="form">
       <div class="filter">
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
@@ -148,7 +146,7 @@
             </div>
           </div>
           <div class="filter-result">
-            Результатов поиска: <span>{{ (points$ | async)?.count }}</span>
+            Результатов поиска: <span>{{points.count}}</span>
           </div>
           <!--          <div class="filter-search">-->
           <!--            <nz-input-group [nzSuffix]="suffixIconSearch">-->
@@ -172,18 +170,14 @@
       <div>Организация</div>
       <div>Адрес</div>
     </div>
-    <div class="container-list">
-      <ng-container
-        *ngFor="
-          let point of (points$ | async)?.results
-            | paginate
-              : {
-                  itemsPerPage: itemsPerPage,
-                  currentPage: pageNumber,
-                  totalItems: (points$ | async)?.count
-                }
-        "
-      >
+    <div class="container-list"
+         infinite-scroll
+         [infiniteScrollDistance]="1"
+         [infiniteScrollUpDistance]="2"
+         [infiniteScrollThrottle]="300"
+         (scrolled)="onPageChange(this.pageNumber + 1)"
+    >
+      <ng-container *ngFor="let point of points.results">
         <div class="container-wrap">
           <div class="container-wrap1">
             <div>
@@ -249,40 +243,6 @@
         </div>
       </ng-container>
     </div>
-
-    <div style="display: flex; justify-content: flex-end">
-      <div class="pagination-count">
-        <div style="margin-right: 13px">Количество строк на странице:</div>
-        <input
-          class="pagination-count-button"
-          [class.active]="itemsPerPage === 10"
-          type="button"
-          (click)="itemsPerPage = 10; points$ = loadPagedLocationWithOrganizationAccessPoints()"
-          value="10"
-        />
-        <input
-          class="pagination-count-button"
-          [class.active]="itemsPerPage === 20"
-          type="button"
-          (click)="itemsPerPage = 20; points$ = loadPagedLocationWithOrganizationAccessPoints()"
-          value="20"
-        />
-        <input
-          class="pagination-count-button"
-          [class.active]="itemsPerPage === 100"
-          type="button"
-          (click)="itemsPerPage = 100; points$ = loadPagedLocationWithOrganizationAccessPoints()"
-          value="100"
-        />
-      </div>
-    </div>
-    <pagination-controls
-      class="pagination-controls"
-      nextLabel="Следующая страница"
-      previousLabel="Предыдущая страница"
-      (pageChange)="onPageChange($event)"
-    >
-    </pagination-controls>
   </div>
 </main>
 

@@ -36,7 +36,6 @@ export class TrunkChannelsLayer extends LayerGroup {
       .forEach(channel => {
         let lineColor: string;
         let dashArray: number[];
-        let dashOffset: string;
         switch (channel.operator.name) {
           case 'Билайн':
             lineColor = BEELINE_COLOR;
@@ -65,6 +64,8 @@ export class TrunkChannelsLayer extends LayerGroup {
           case 'Неизвестный оператор':
             lineColor = UNKNOWN_COLOR;
             break;
+          default:
+            lineColor = MTS_COLOR;
         }
         switch (channel.typeTrunkChannel.name) {
           case 'Неопределено':

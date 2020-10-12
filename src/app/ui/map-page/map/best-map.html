@@ -30,6 +30,11 @@
       <span class="checkbox-text smo">СЗО</span>
     </label>
   </div>
+  <div class="layers-selection__item" *ngIf="layersChecked['locations']">
+    <three-state-button [formControl]="hasCellularControl">
+      <img src="/assets/table-phone-4.svg" alt="">
+    </three-state-button>
+  </div>
 </div>
 
 <ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
@@ -69,31 +74,41 @@
 
 <ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
   <div class="layers-selection layers-selection-bottom" *ngIf="map">
-    <div class="layers-selection__item">
-      Магистральные каналы:
+    <div class="d-flex">
+      <div class="layers-selection__item">
+        Магистральные каналы:
+      </div>
+      <div class="d-flex flex-wrap">
+        <div *ngIf="(existedTrunkChannelType | keyvalue).length === 0">отсутствуют</div>
+        <div class="layers-selection__item" *ngFor="let channel of existedTrunkChannelType | keyvalue">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              [(ngModel)]="existedTrunkChannelType[channel.key]"
+              (change)="updateTrunkChannelsLayer()"
+            >
+            <span class="checkbox-text vols">{{channel.key}}</span>
+          </label>
+        </div>
+      </div>
     </div>
-    <div class="layers-selection__item" *ngFor="let channel of existedTrunkChannelType | keyvalue">
-      <label class="checkbox-label">
-        <input
-          type="checkbox"
-          [(ngModel)]="existedTrunkChannelType[channel.key]"
-          (change)="updateTrunkChannelsLayer()"
-        >
-        <span class="checkbox-text vols">{{channel.key}}</span>
-      </label>
-    </div>
-    <div class="layers-selection__item" style="margin-left: 5rem;">
-      <img src="assets/ethernet.png" alt="">
-    </div>
-    <div class="layers-selection__item" *ngFor="let operator of existedTrunkChannelOperators | keyvalue">
-      <label class="checkbox-label">
-        <input
-          type="checkbox"
-          [(ngModel)]="existedTrunkChannelOperators[operator.key]"
-          (change)="updateTrunkChannelsLayer()"
-        >
-        <span [class]="'checkbox-text ' + operator.key">{{operator.key}}</span>
-      </label>
+    <div class="d-flex">
+      <div class="layers-selection__item">
+        <img src="assets/ethernet.png" alt="">
+      </div>
+      <div class="d-flex flex-wrap">
+        <div *ngIf="(existedTrunkChannelOperators | keyvalue).length === 0"></div>
+        <div class="layers-selection__item" *ngFor="let operator of existedTrunkChannelOperators | keyvalue">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              [(ngModel)]="existedTrunkChannelOperators[operator.key]"
+              (change)="updateTrunkChannelsLayer()"
+            >
+            <span [class]="'checkbox-text ' + operator.key">{{operator.key}}</span>
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 </ng-container>

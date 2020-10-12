@@ -1,44 +1,57 @@
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+<div class="location-features-container">
+  <app-station-filters (filters)="filter($event)"></app-station-filters>
+  <div class="mat-elevation-z8"
+       infinite-scroll
+       [infiniteScrollDistance]="1"
+       [infiniteScrollUpDistance]="2"
+       [infiniteScrollThrottle]="300"
+       (scrolled)="onScrollDown()"
+  >
+    <table mat-table [dataSource]="dataSource">
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="address">
-      <th mat-header-cell *matHeaderCellDef> Адрес </th>
-      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-    </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Адрес </th>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="operator">
-      <th mat-header-cell *matHeaderCellDef> Оператор </th>
-      <td mat-cell *matCellDef="let element"> {{element.operator.name}} </td>
-    </ng-container>
+      <ng-container matColumnDef="operator">
+        <th mat-header-cell *matHeaderCellDef> Оператор </th>
+        <td mat-cell *matCellDef="let element"> {{element.operator.name}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="propHeight">
-      <th mat-header-cell *matHeaderCellDef> Высота опоры </th>
-      <td mat-cell *matCellDef="let element"> {{element.propHeight}} </td>
-    </ng-container>
+      <ng-container matColumnDef="propHeight">
+        <th mat-header-cell *matHeaderCellDef> Высота опоры (м) </th>
+        <td mat-cell *matCellDef="let element"> {{element.propHeight}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="mobileType">
-      <th mat-header-cell *matHeaderCellDef> Тип мобильной связи </th>
-      <td mat-cell *matCellDef="let element"> {{element.mobileType.name}} </td>
-    </ng-container>
+      <ng-container matColumnDef="mobileType">
+        <th mat-header-cell *matHeaderCellDef> Тип мобильной связи </th>
+        <td mat-cell *matCellDef="let element"> {{element.mobileType.name}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="coverageRadius">
-      <th mat-header-cell *matHeaderCellDef> Широта покрытия </th>
-      <td mat-cell *matCellDef="let element"> {{element.coverageRadius}} </td>
-    </ng-container>
+      <ng-container matColumnDef="coverageRadius">
+        <th mat-header-cell *matHeaderCellDef> Радиус покрытия (км) </th>
+        <td mat-cell *matCellDef="let element"> {{element.coverageRadius}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-icon (click)="deleteStation(row)" class="delete-button">delete</mat-icon>
-        <mat-icon (click)="editStation(row)" class="edit-button">edit</mat-icon>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="actionDate">
+        <th mat-header-cell *matHeaderCellDef> Дата создания </th>
+        <td mat-cell *matCellDef="let element"> {{element.actionDate | date: 'dd.MM.yyyy'}} </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <button class="add-base-station-button" mat-raised-button (click)="createStation()">Создать станцию</button>
-  <mat-paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <button class="add-base-station-button" mat-raised-button (click)="createStation()"><mat-icon>add</mat-icon></button>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon (click)="deleteStation(row)" class="delete-button">delete</mat-icon>
+          <mat-icon (click)="editStation(row)" class="edit-button">edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
 </div>

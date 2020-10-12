@@ -90,9 +90,22 @@ import {StorageService} from '../storage/storage.service';
 import {LocalStorageService} from '../storage/local-storage.service';
 import {AuthInterceptor} from '@api/auth.interceptor';
 import {LocationComparingFiltersComponent} from './features-page/location-comparing-filters/location-comparing-filters.component';
-import { BaseStationInfoBarComponent } from './map-page/base-station-info-bar/base-station-info-bar.component';
-import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
+import {BaseStationInfoBarComponent} from './map-page/base-station-info-bar/base-station-info-bar.component';
+import {ReportMonitoringComponent} from './report-monitoring/report-monitoring.component';
 import {JoinorgPipe} from './users/pipe-organizations/joinorg.pipe';
+import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
+import { AppealComponent } from './appeal/appeal.component';
+import { CreateAppealComponent } from './appeal/create-appeal/create-appeal.component';
+import {MatFileUploadModule} from 'mat-file-upload';
+import { OperatorsComponent } from './operators/operators.component';
+import { CreateOperatorsComponent } from './operators/create-operators/create-operators.component';
+import { FormCreateUserComponent } from './users/form-create-user/form-create-user.component';
+import {BaseStationsFiltersComponent} from './base-stations/base-stations-filters/base-stations-filters.component';
+import { FormResetPasswordComponent } from './users/form-reset-password/form-reset-password.component';
+import {TypeOrganizationComponent} from './type-organization/type-organization.component';
+import {CreateTypeOrganizationComponent} from './type-organization/create/create-type-organization.component';
+import {TypeSmoComponent} from './type-smo/type-smo.component';
+import {CreateTypeSmoComponent} from './type-smo/create/create-type-smo.component';
 
 registerLocaleData(ru);
 
@@ -146,48 +159,62 @@ registerLocaleData(ru);
     ImportTcAtsComponent,
     ImportTcInfomatComponent,
     ImportTrunkChannelComponent,
+    ImportBaseStationComponent,
     AreaSelectComponent,
     LocationComparingFiltersComponent,
     BaseStationInfoBarComponent,
-    ReportMonitoringComponent
+    ReportMonitoringComponent,
+    AppealComponent,
+    CreateAppealComponent,
+    OperatorsComponent,
+    CreateOperatorsComponent,
+    CreateAppealComponent,
+    FormCreateUserComponent,
+    BaseStationsFiltersComponent,
+    TypeOrganizationComponent,
+    FormResetPasswordComponent,
+    CreateTypeOrganizationComponent,
+    TypeSmoComponent,
+    CreateTypeSmoComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatExpansionModule,
-        LeafletModule,
-        ServiceModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatCheckboxModule,
-        MatProgressSpinnerModule,
-        MatTooltipModule,
-        InfiniteScrollModule,
-        MatSelectModule,
-        NgSelectModule,
-        FormsModule,
-        HttpClientModule,
-        MatCardModule,
-        MatRadioModule,
-        SelectorsModule,
-        MatIconModule,
-        MatTabsModule,
-        MatIconModule,
-        MatTableModule,
-        MatPaginatorModule,
-        DialogsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatButtonToggleModule,
-        MatSnackBarModule,
-        MatMenuModule,
-        NgxMatSelectSearchModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatExpansionModule,
+    LeafletModule,
+    ServiceModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    InfiniteScrollModule,
+    MatSelectModule,
+    NgSelectModule,
+    FormsModule,
+    HttpClientModule,
+    MatCardModule,
+    MatRadioModule,
+    SelectorsModule,
+    MatIconModule,
+    MatTabsModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    DialogsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonToggleModule,
+    MatSnackBarModule,
+    MatMenuModule,
+    NgxMatSelectSearchModule,
+    MatFileUploadModule
+  ],
   providers: [
     {
       provide: LoaderService,
@@ -197,7 +224,7 @@ registerLocaleData(ru);
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
     {provide: StorageService, useClass: LocalStorageService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: MAT_DATE_LOCALE,  useValue: 'ru-RU'},
+    {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
   ],
   bootstrap: [AppComponent]
 })

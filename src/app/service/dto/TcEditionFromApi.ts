@@ -87,6 +87,23 @@ export class TcEditionFromApi extends TechnicalCapabilityEdition {
     };
   }
 
+  toLocationFeaturesSaveRequestWithComment(comm: string): LocationFeaturesSaveRequest {
+    const tcsApi: WriteableTechnicalCapability[] = [
+      ...this.mapEditionToWriteableTechnicalCapability(this.cellular, 'MOBILE'),
+      ...this.mapEditionToWriteableTechnicalCapability(this.telephone, 'ATS'),
+      ...this.mapEditionToWriteableTechnicalCapability(this.radio, 'RADIO'),
+      ...this.mapEditionToWriteableTechnicalCapability(this.tv, 'TV'),
+      ...this.mapEditionToWriteableTechnicalCapability(this.payphone, 'PAYPHONE'),
+      ...this.mapEditionToWriteableTechnicalCapability(this.infomat, 'INFOMAT'),
+      ...this.mapEditionToWriteableTechnicalCapability(this.internet, 'INET'),
+      ...this.mapEditionToWriteableTechnicalCapability(this.post, 'POST'),
+    ];
+    return {
+      features: tcsApi,
+      comment: comm
+    };
+  }
+
   mapEditionToWriteableTechnicalCapability(edition: TcEdition, type: TechnicalCapabilityType): WriteableTechnicalCapability[] {
     return Object.keys(edition.tcs).map((operatorId: any) => {
       return {

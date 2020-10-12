@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, forwardRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, forwardRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SelectAreaItem} from '@service/dto/SelectAreaItem';
 import {interval, ReplaySubject, Subject} from 'rxjs';
 import {MatSelect} from '@angular/material/select';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {debounce, take, takeUntil} from 'rxjs/operators';
+import {debounce, map, take, takeUntil} from 'rxjs/operators';
 import {SelectAreasService} from "@service/area/SelectAreasService";
+import {MapLocationsApi} from "@api/locations/MapLocationsApi";
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -24,22 +25,44 @@ export class AreaSelectComponent implements OnInit, OnDestroy, AfterViewInit, Co
   bankMultiCtrl: FormControl = new FormControl();
   bankMultiFilterCtrl: FormControl = new FormControl();
   @ViewChild('multiSelect', {static: true}) multiSelect: MatSelect;
+  @Input() type: 'AREA' | 'LOCATION' = 'AREA';
   protected onDestroy = new Subject<void>();
   private onChange: (areaId: number) => void;
 
-  constructor(private areasService: SelectAreasService) {
+  constructor(private areasService: SelectAreasService,
+              private readonly mapLocationsApi: MapLocationsApi) {
   }
 
   ngOnInit(): void {
-    this.areasService.areas().subscribe(areas => {
-      this.areas = areas;
-      this.filteredAreas.next(this.areas.slice());
-      this.bankMultiFilterCtrl.valueChanges
-        .pipe(takeUntil(this.onDestroy))
-        .subscribe(() => {
-          this.filterBanksMulti();
-        });
-    });
+    if (this.type === 'AREA') {
+      this.areasService.areas().subscribe(areas => {
+        this.areas = areas;
+        this.filteredAreas.next(this.areas.slice());
+        this.bankMultiFilterCtrl.valueChanges
+          .pipe(takeUntil(this.onDestroy))
+          .subscribe(() => {
+            this.filterBanksMulti();
+          });
+      });
+    } else {
+      this.mapLocationsApi.getLocations().pipe(
+        map(l => l
+          .sort((l1, l2) => {
+            if (l1.name > l2.name) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
+          .map(location => {
+            return {
+              id: location.id,
+              label: location.type + ' ' + location.name + '(' + location.parent.type + ' ' + location.parent.name + ')'
+            };
+          })
+        )
+      ).subscribe(locations => this.areas = locations);
+    }
   }
 
   ngAfterViewInit(): void {

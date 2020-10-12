@@ -9,7 +9,7 @@
       <mat-accordion>
         <mat-expansion-panel *ngFor="let organization of organizations.content"
                              (opened)="organization.opened = true"
-                             (closed)="organization.opened = false"
+                             (closed)="organization.opened = false; onCloseOrganizationBar(organization)"
                              [expanded]="organization.opened">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -19,7 +19,7 @@
 
           <mat-accordion *ngFor="let accessPoint of organization.accesspoints">
             <mat-expansion-panel [expanded]="accessPoint.opened"
-                                 (closed)="accessPoint.opened = false"
+                                 (closed)="accessPoint.opened = false; onCloseAccessPointBar()"
                                  (opened)="accessPoint.opened = true; onOpenAccesspointBar(accessPoint)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -36,7 +36,7 @@
               <div class="features-list">
                 <div class="feature">
                   <div class="feature__label">Программа</div>
-                  <div class="feature__value">{{accessPoint.type | pointType}}</div>
+                  <div class="feature__value">{{accessPoint.governmentDevelopmentProgram}}</div>
                 </div>
                 <div class="feature">
                   <div class="feature__label">Заказчик</div>
@@ -48,11 +48,15 @@
                 </div>
                 <div class="feature">
                   <div class="feature__label" [id]="'access-point-bar-' + accessPoint.id">Технология подключения</div>
-                  <div class="feature__value">{{accessPoint.type | pointType}}</div>
+                  <div class="feature__value">{{accessPoint.internetAccess.name}}</div>
                 </div>
                 <div class="feature">
                   <div class="feature__label">Точка подключения</div>
-                  <div class="feature__value">{{accessPoint.internetAccess.name}}</div>
+                  <div class="feature__value">{{accessPoint.zabbixDeviceName}}</div>
+                </div>
+                <div class="feature">
+                  <div class="feature__label">IP</div>
+                  <div class="feature__value">{{accessPoint.zabbixDeviceIp}}</div>
                 </div>
                 <div class="feature">
                   <div class="feature__label">Скорость по контракту</div>
@@ -64,7 +68,7 @@
                 </div>
                 <div class="feature">
                   <div class="feature__label">Входящий трафик</div>
-                  <div class="feature__value"></div>
+                  <div class="feature__value">{{accessPoint.utmLastDayTraffic}}</div>
                 </div>
               </div>
 

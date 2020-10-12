@@ -1,0 +1,83 @@
+<div class="filter__header-container">
+  <div class="filter__header" (click)="filtersIsOpened = !filtersIsOpened">
+    <div class="filter__title">
+      <img src="/assets/filter-icon.svg" alt="">
+      <span>Фильтр</span>
+    </div>
+    <div class="filter__header-icons">
+      <img class="search-icon" src="/assets/search-icon.svg" alt="">
+      <img [class.arrow-reversed]="filtersIsOpened" class="arrow-icon" src="/assets/arrow-bottom.svg" alt="">
+    </div>
+  </div>
+</div>
+<form *ngIf="filterForm && filtersIsOpened" [formGroup]="filterForm" class="filters">
+  <div class="d-flex">
+    <div class="filters__column filters__column-1">
+      <div class="filter">
+        <div class="filters__column-label">
+          <div class="filters__column-label-text">Тип мобильной связи:</div>
+        </div>
+        <div class="filters__filter-block" formArrayName="typeMobiles">
+          <mat-checkbox [formControl]="control.get('isSelected')"
+                        *ngFor="let control of signalTypeControls().controls">
+            {{control.get('label').value}}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="filter">
+        <mat-form-field floatLabel="always" appearance="standard" class="location-filter">
+          <mat-label>Адрес</mat-label>
+          <input matInput formControlName="address">
+        </mat-form-field>
+      </div>
+<!--      <div class="filter">-->
+<!--        <mat-form-field class="date-picker" floatLabel="always" appearance="fill">-->
+<!--          <mat-label>Дата создания</mat-label>-->
+<!--          <mat-date-range-input [rangePicker]="picker">-->
+<!--            <input matStartDate formControlName="actionDateFrom">-->
+<!--            <input matEndDate formControlName="actionDateTo">-->
+<!--          </mat-date-range-input>-->
+<!--          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--          <mat-date-range-picker #picker></mat-date-range-picker>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+    </div>
+    <div class="filters__column filters__column-2">
+      <div class="filter">
+        <div class="filters__column-label">
+          <div class="filters__column-label-text">Оператор:</div>
+        </div>
+        <div class="filters__filter-block">
+          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
+            <input type="checkbox" [formControl]="operator.get('isSelected')">
+            <img [src]="'/media/' + operator.get('label').value" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="filter">
+        <mat-form-field floatLabel="always" appearance="standard" class="location-filter">
+          <mat-label>Высота опоры(от) (м)</mat-label>
+          <input matInput type="number" formControlName="propHeightLeftBorder">
+        </mat-form-field>
+      </div>
+      <div class="filter">
+        <mat-form-field floatLabel="always" appearance="standard" class="location-filter">
+          <mat-label>Высота опоры(до) (м)</mat-label>
+          <input matInput type="number" formControlName="propHeightRightBorder">
+        </mat-form-field>
+      </div>
+      <div class="filter">
+        <mat-form-field floatLabel="always" appearance="standard" class="location-filter">
+          <mat-label>Радиус покрытия(от) (км)</mat-label>
+          <input matInput type="number" formControlName="coverageRadiusLeftBorder">
+        </mat-form-field>
+      </div>
+      <div class="filter">
+        <mat-form-field floatLabel="always" appearance="standard" class="location-filter">
+          <mat-label>Ридиус покрытия(до)</mat-label>
+          <input matInput type="number" formControlName="coverageRadiusRightBorder">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>

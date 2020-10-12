@@ -1,6 +1,6 @@
 {
   "name": "telecomit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,13 +25,14 @@
     "@asymmetrik/ngx-leaflet": "^7.0.1",
     "@ng-select/ng-select": "^4.0.4",
     "@types/leaflet.markercluster": "^1.4.0",
-    "@types/node": "^14.0.20",
+    "@types/node": "^14.11.5",
     "@types/webpack-env": "^1.15.2",
     "cerialize": "^0.1.18",
     "file-saver": "^2.0.2",
     "leaflet": "^1.6.0",
     "leaflet-spin": "^1.1.2",
     "leaflet.markercluster": "^1.4.1",
+    "mat-file-upload": "^10.0.0",
     "ng-zorro-antd": "^9.3.0",
     "ngx-infinite-scroll": "^9.0.0",
     "ngx-mat-select-search": "^3.0.3",

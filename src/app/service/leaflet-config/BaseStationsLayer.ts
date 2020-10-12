@@ -5,20 +5,19 @@ import {Observable} from 'rxjs';
 import {MonitoringPoint} from '../points/MonitoringPoint';
 import {tap} from 'rxjs/operators';
 import {BaseStation} from '@api/dto/BaseStation';
-import {MobileType} from '@api/dto/MobileType';
 import {CellularType} from '@api/dto/CellularType';
 
 export class BaseStationsLayer extends PointsLayerImpl {
   private readonly types: CellularType[];
 
   constructor(pointsService: PointsService, types: CellularType[]) {
-    super(pointsService, {disableClusteringAtZoom: 1});
+    super(pointsService, {iconCreateFunction: BaseStationsLayer.iconCreateFunction});
     this.types = types;
   }
 
   private static iconCreateFunction(cluster: MarkerCluster): DivIcon {
     const childCount = cluster.getChildCount();
-    const c = 'marker-cluster-administrative-centers';
+    const c = 'marker-cluster-base-stations';
     return new DivIcon({
       html: `<div><span>${childCount}</span></div>`,
       className: `marker-cluster ${c}`,
@@ -35,29 +34,9 @@ export class BaseStationsLayer extends PointsLayerImpl {
             return !!this.types.find(type => type === point.getOrigin<BaseStation>().mobileType.name);
           })
           .forEach(point => {
-            const station = point.getOrigin<BaseStation>();
-            let color;
-            switch (station.mobileType.name) {
-              case '2G':
-                color = 'orange';
-                break;
-              case '3G':
-                color = 'red';
-                break;
-              case '4G':
-                color = 'green';
-                break;
-              case '5G':
-                color = 'blue';
-                break;
-              case 'UNDEFINED':
-                color = 'blue';
-                break;
-            }
             this.addLayer(
               new LayerGroup([
                 point,
-                circle(station.point, {radius: station.coverageRadius, fillColor: color, color})
               ])
             );
           });

@@ -40,6 +40,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
+    MatCheckboxModule,
   ],
   providers: [],
   exports: [

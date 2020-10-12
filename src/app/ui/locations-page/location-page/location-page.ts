@@ -23,6 +23,7 @@ import {FeatureEdit} from '@api/dto/FeatureEdit';
 import {MoveToArchiveDialog} from '../../features-page/move-to-archive-dialog/MoveToArchiveDialog';
 import {FeaturesComparingService} from '@service/features-comparing/FeaturesComparingService';
 import {MatDialog} from '@angular/material/dialog';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'location-page',
@@ -47,6 +48,7 @@ export class LocationPage implements OnInit, OnDestroy {
 
   private subscription: Subscription;
   isPlanEdition = false;
+  isLocationEdition = false;
 
   constructor(private mobileTypeApi: MobileTypeApi,
               private activatedRoute: ActivatedRoute,
@@ -54,6 +56,7 @@ export class LocationPage implements OnInit, OnDestroy {
               private accountService: AccountService,
               private readonly featuresService: FeaturesComparingService,
               public dialog: MatDialog,
+              public httpClient: HttpClient,
               private tvTypeApi: TvTypeApi,
               private postTypeApi: PostTypeApi,
               private operatorsApi: OperatorsApi,
@@ -112,9 +115,37 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   save(): void {
-    this.detailLocations.save(this.tcs, this.locationId).subscribe(() => {
-      window.location.reload();
-    }, error => this.snackBar.open('Произошла ошибка, данные не сохранены'));
+    if (!this.correctChangeGovProg()) {
+      this.snackBar.open('При изменении гос/программы должны быть указаны год и наименование программы');
+    } else {
+      this.detailLocations.save(this.tcs, this.locationId).subscribe(() => {
+        window.location.reload();
+      }, error => this.snackBar.open('Произошла ошибка, данные не сохранены'));
+    }
+  }
+
+  correctChangeGovProg(): boolean {
+    return this.tcChangeGovProg(this.tcs.cellular) &&
+      this.tcChangeGovProg(this.tcs.internet) &&
+      this.tcChangeGovProg(this.tcs.tv) &&
+      this.tcChangeGovProg(this.tcs.telephone) &&
+      this.tcChangeGovProg(this.tcs.post) &&
+      this.tcChangeGovProg(this.tcs.payphone) &&
+      this.tcChangeGovProg(this.tcs.radio) &&
+      this.tcChangeGovProg(this.tcs.infomat);
+  }
+
+  tcChangeGovProg(tcs: TcEdition): boolean {
+    let result = true;
+    Object.values(tcs.tcs).forEach(value => {
+      if (!((value.governmentDevelopmentProgram === null || value.governmentDevelopmentProgram === undefined)
+        && (value.govYearComplete === null || value.govYearComplete === undefined)
+        || value.governmentDevelopmentProgram !== null && value.governmentDevelopmentProgram !== undefined
+        && value.govYearComplete !== null && value.govYearComplete !== undefined)) {
+        result = false;
+      }
+    });
+    return result;
   }
 
   hasArchive(request: LocationFeatureEditingRequest): boolean {
@@ -151,5 +182,19 @@ export class LocationPage implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  deleteLocation(): void {
+    this.detailLocations.delete(this.locationId).subscribe(() => {
+      window.location.pathname = '/locations';
+    });
+  }
+
+  reload(): void {
+    // window.location.reload();
+  }
+
+  getUrl(locationId: number, population: number): string {
+    return '/api/detail-locations?id=' + locationId + '&population=' + population;
   }
 }

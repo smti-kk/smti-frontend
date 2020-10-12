@@ -2,11 +2,11 @@
 <h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование базовой станции</h1>
 <form #form="ngForm" mat-dialog-content>
   <mat-form-field>
-    <mat-label>Радиус покрытия</mat-label>
+    <mat-label>Радиус покрытия (км)</mat-label>
     <input cdkFocusInitial matInput type="number" [(ngModel)]="baseStation.coverageRadius" name="coverageRadius" required>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Высота опоры</mat-label>
+    <mat-label>Высота опоры (м)</mat-label>
     <input matInput type="number" [(ngModel)]="baseStation.propHeight" name="propHeight" required>
   </mat-form-field>
   <mat-form-field>

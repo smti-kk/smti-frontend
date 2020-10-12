@@ -38,12 +38,12 @@
 
     <ng-container matColumnDef="program">
       <th mat-header-cell *matHeaderCellDef> Программа </th>
-      <td mat-cell *matCellDef="let element"> {{element.program.acronym}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.program ? element.program.acronym : ""}} </td>
     </ng-container>
 
     <ng-container matColumnDef="completed">
       <th mat-header-cell *matHeaderCellDef> Период </th>
-      <td mat-cell *matCellDef="let element"> {{element.completed}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.program ? element.completed : ""}} </td>
     </ng-container>
 
     <ng-container matColumnDef="select">

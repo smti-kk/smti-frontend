@@ -24,3 +24,6 @@ export const LOCATION_AREA_URL = API_VERSION + '/location-area/';
 export const BASE_STATIONS_API = API_VERSION + '/base-stations';
 export const TRUNK_CHANNEL_API = API_VERSION + '/trunk-channels';
 export const ORGANIZATION_API = API_VERSION + '/organization';
+export const OPERATOR_SERVICES_API = API_VERSION + '/operator-services';
+export const TYPE_SMO = API_VERSION + '/type/smo';
+export const TYPE_ORGANIZATION = API_VERSION + '/type/organization';

@@ -21,9 +21,9 @@
   background-color: rgba(251, 251, 251, 0.5);
 
   &__item {
-    &:not(:nth-of-type(1)) {
-      margin-left: 12px;
-    }
+    white-space: nowrap;
+    margin-right: 12px;
+    margin-bottom: 5px;
   }
 }
 
@@ -54,6 +54,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  justify-content: space-between;
 }
 
 .checkbox-text {
@@ -112,6 +113,10 @@
 .checkbox-text::after {
 }
 
+input[type="checkbox"]:checked + .checkbox-text::after {
+  background: #f20c0c;
+}
+
 input[type="checkbox"]:checked + .checkbox-text::before {
   border: 1px solid #e7e7e7;
 }
@@ -142,10 +147,6 @@ input[type="checkbox"]:checked + .checkbox-text.g3::after {
 
 input[type="checkbox"]:checked + .checkbox-text.g2::after {
   background: #d5770b;
-}
-
-input[type="checkbox"]:checked + .checkbox-text.vols::after {
-  background: #f20c0c;
 }
 
 input[type="checkbox"]:checked + .checkbox-text.med::after {
@@ -194,4 +195,12 @@ input[type="checkbox"]:checked + .checkbox-text.Искра::after {
 
 input[type="checkbox"]:checked + .checkbox-text.Ростелеком::after {
   background: orange;
+}
+
+three-state-button ::ng-deep .state {
+  padding: 7px;
+}
+
+three-state-button {
+  user-select: none;
 }

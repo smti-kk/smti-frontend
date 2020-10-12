@@ -20,6 +20,6 @@ export class Paginator<T> {
   }
 
   allElements(): T[] {
-    return this.array;
+    return [...this.array];
   }
 }

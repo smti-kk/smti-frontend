@@ -29,13 +29,6 @@
       <mat-option [value]="type" *ngFor="let type of trunkChannelTypes$ | async">{{type.name}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Программа</mat-label>
-    <mat-select [(ngModel)]="trunkChannel.program" name="program" [compareWith]="compareById" required>
-      <mat-option disabled value="null">Программа</mat-option>
-      <mat-option [value]="program" *ngFor="let program of govPrograms$ | async">{{program.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
   <mat-form-field color="accent" appearance="fill">
     <mat-label>Дата ввода в эксплуатацию</mat-label>
     <input matInput [matDatepicker]="picker1" [(ngModel)]="trunkChannel.commissioning" name="commissioning">
@@ -49,6 +42,13 @@
     <mat-datepicker #picker2 color="primary"></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
+    <mat-label>Программа</mat-label>
+    <mat-select [(ngModel)]="trunkChannel.program" name="program" [compareWith]="compareById">
+      <mat-option>Программа</mat-option>
+      <mat-option [value]="program" *ngFor="let program of govPrograms$ | async">{{program.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="trunkChannel.program">
     <mat-label>Период</mat-label>
     <input matInput type="number" [(ngModel)]="trunkChannel.completed" name="lng" required>
   </mat-form-field>
