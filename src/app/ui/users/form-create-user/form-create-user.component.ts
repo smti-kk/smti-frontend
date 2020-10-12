@@ -4,6 +4,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UsersPage} from '../users-page';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {UserFromApi} from '@api/dto/UserFromApi';
+import {DLocationBase} from '@api/dto/DLocationBase';
+import {DOrganizationBase} from '@api/dto/DOrganizationBase';
+import {DOrganizationsService} from '@service/organizations/DOrganizationsService';
+import {DLocationsService} from '@service/locations/DLocationsService';
 
 @Component({
   selector: 'app-form-create-user',
@@ -19,24 +23,45 @@ export class FormCreateUserComponent implements OnInit {
   action: 'EDIT' | 'CREATE';
   passwordControl: FormControl;
   repeatControl: FormControl;
+  locations: DLocationBase[] = [];
+  organizations: DOrganizationBase[] = [];
+  private readonly dLocationService: DLocationsService;
+  private readonly dOrganizationService: DOrganizationsService;
 
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<UsersPage>,
+    dLocationService: DLocationsService,
+    dOrganizationService: DOrganizationsService,
     @Inject(MAT_DIALOG_DATA) public data: UserFromApi
   ) {
+    if (data) {
+      this.action = 'EDIT';
+    } else {
+      this.action = 'CREATE';
+    }
     this.roles = {};
     this.roles.ADMIN = 'Администратор';
     this.roles.GUEST = 'Посетитель';
     this.roles.MUNICIPALITY = 'Муниципалитет';
     this.roles.ORGANIZATION = 'Оператор - Организации';
     this.roles.OPERATOR = 'Оператор - Локации';
+    this.dLocationService = dLocationService;
+    this.dOrganizationService = dOrganizationService;
   }
 
   ngOnInit(): void {
+    this.dLocationService.all().subscribe(value => {
+      this.locations = value;
+    });
+    this.dOrganizationService.all().subscribe(value => {
+      this.organizations = value;
+    });
     this.form = this.formBuilder.group({
       id: [''],
       isActive: [true],
+      locations: [],
+      organizations: [],
       username: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -46,19 +71,20 @@ export class FormCreateUserComponent implements OnInit {
     });
     this.passwordControl = new FormControl(null, Validators.required);
     this.repeatControl = new FormControl(null, [Validators.required, this.confirmationValidator]);
-    this.action = 'CREATE';
+    if (this.action === 'CREATE') {
+      this.form.addControl('password', this.passwordControl);
+      this.form.addControl('repeat', this.repeatControl);
+    }
     if (this.data) {
       this.form.patchValue(this.data);
       this.action = 'EDIT';
-    }
-
-    // @ts-ignore
-    if (this.data.oid) {
-      this.form.get('username').disable();
-      this.form.get('firstName').disable();
-      this.form.get('lastName').disable();
-      this.form.get('patronymicName').disable();
-      this.form.get('email').disable();
+      if (this.data.oid) {
+        this.form.get('username').disable();
+        this.form.get('firstName').disable();
+        this.form.get('lastName').disable();
+        this.form.get('patronymicName').disable();
+        this.form.get('email').disable();
+      }
     }
   }
 
@@ -88,4 +114,13 @@ export class FormCreateUserComponent implements OnInit {
       this.form.removeControl('repeat');
     }
   }
+
+  locationsCompareFn = (a: DLocationBase, b: DLocationBase) => {
+    return a.id === b.id;
+  }
+
+  organizationsCompareFn = (a: DOrganizationBase, b: DOrganizationBase) => {
+    return a.id === b.id;
+  }
+
 }
