@@ -102,6 +102,10 @@ import { CreateOperatorsComponent } from './operators/create-operators/create-op
 import { FormCreateUserComponent } from './users/form-create-user/form-create-user.component';
 import {BaseStationsFiltersComponent} from './base-stations/base-stations-filters/base-stations-filters.component';
 import { FormResetPasswordComponent } from './users/form-reset-password/form-reset-password.component';
+import {TypeOrganizationComponent} from './type-organization/type-organization.component';
+import {CreateTypeOrganizationComponent} from './type-organization/create/create-type-organization.component';
+import {TypeSmoComponent} from './type-smo/type-smo.component';
+import {CreateTypeSmoComponent} from './type-smo/create/create-type-smo.component';
 
 registerLocaleData(ru);
 
@@ -167,7 +171,11 @@ registerLocaleData(ru);
     CreateAppealComponent,
     FormCreateUserComponent,
     BaseStationsFiltersComponent,
-    FormResetPasswordComponent
+    TypeOrganizationComponent,
+    FormResetPasswordComponent,
+    CreateTypeOrganizationComponent,
+    TypeSmoComponent,
+    CreateTypeSmoComponent
   ],
   imports: [
     BrowserModule,

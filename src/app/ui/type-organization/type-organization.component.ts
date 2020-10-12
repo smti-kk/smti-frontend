@@ -1,49 +1,50 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {MatDialog} from '@angular/material/dialog';
-import {CreateBaseStationComponent} from './create-base-station/create-base-station.component';
+import {CreateTypeOrganizationComponent} from './create/create-type-organization.component';
 import {BaseStation} from '@api/dto/BaseStation';
 import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.component';
 import {LocationFilters} from '../locations-page/location-filters/LocationFilters';
+import {TypeOrganization} from '@api/dto/TypeOrganization';
+import {ApiOrganizationType} from '@api/ApiOrganizationType';
 
 @Component({
-  selector: 'app-base-stations',
-  templateUrl: './base-stations.component.html',
-  styleUrls: ['./base-stations.component.scss']
+  selector: 'app-type-organization',
+  templateUrl: './type-organization.component.html',
+  styleUrls: ['./type-organization.component.scss']
 })
-export class BaseStationsComponent implements OnInit {
-  displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'actionDate', 'select'];
-  dataSource: MatTableDataSource<BaseStation>;
-  baseStations: BaseStation[];
+export class TypeOrganizationComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'select'];
+  dataSource: MatTableDataSource<TypeOrganization>;
+  typeOrganizations: TypeOrganization[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   page = 0;
   size = 30;
   filters: LocationFilters | any = {};
 
-  constructor(private readonly api: BaseStationsApi,
+  constructor(private readonly api: ApiOrganizationType,
               private readonly cdr: ChangeDetectorRef,
               private readonly dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource<BaseStation>(this.baseStations);
+    this.dataSource = new MatTableDataSource<TypeOrganization>(this.typeOrganizations);
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.api.list(this.page, this.size, this.filters).subscribe(bs => {
-      this.dataSource.data = bs.content;
+    this.api.list().subscribe(response => {
+      this.dataSource.data = response;
     });
   }
 
   createStation(): void {
-    const dialogRef = this.dialog.open(CreateBaseStationComponent, {
+    const dialogRef = this.dialog.open(CreateTypeOrganizationComponent, {
       width: '450px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.api.create(result).subscribe(baseStation => {
-          this.dataSource.data = [...this.dataSource.data, baseStation];
+        this.api.createOrUpdateOrganizationType(result).subscribe(typeOrganization => {
+          this.dataSource.data = [...this.dataSource.data, typeOrganization];
         });
       }
     });
@@ -56,7 +57,7 @@ export class BaseStationsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {
-        this.api.remove(row.id).subscribe(() => {
+        this.api.deleteTypeOrganization(row.id).subscribe(() => {
           console.log(this.dataSource.data, row);
           this.dataSource.data = this.dataSource.data.filter(bs => bs.id !== row.id);
         });
@@ -65,34 +66,19 @@ export class BaseStationsComponent implements OnInit {
   }
 
   editStation(row: BaseStation): void {
-    const dialogRef = this.dialog.open(CreateBaseStationComponent, {
+    const dialogRef = this.dialog.open(CreateTypeOrganizationComponent, {
       width: '450px',
       data: row
     });
     dialogRef.afterClosed().subscribe(bs => {
       if (bs) {
         console.log(bs);
-        this.api.update(bs).subscribe(() => {
+        this.api.createOrUpdateOrganizationType(bs).subscribe(() => {
           const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
           this.dataSource.data[index] = bs;
           this.dataSource.data = [...this.dataSource.data];
         });
       }
-    });
-  }
-
-  onScrollDown(): void {
-    this.page++;
-    this.api.list(this.page, this.size).subscribe(bs => {
-      this.dataSource.data = [...this.dataSource.data, ...bs.content];
-    });
-  }
-
-  filter(filters: LocationFilters): void {
-    this.page = 0;
-    this.filters = filters;
-    this.api.list(this.page, this.size, filters).subscribe(bs => {
-      this.dataSource.data = bs.content;
     });
   }
 }
