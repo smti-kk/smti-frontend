@@ -44,7 +44,7 @@
   <mat-form-field>
     <mat-label>Программа</mat-label>
     <mat-select [(ngModel)]="trunkChannel.program" name="program" [compareWith]="compareById">
-      <mat-option disabled value="null">Программа</mat-option>
+      <mat-option>Программа</mat-option>
       <mat-option [value]="program" *ngFor="let program of govPrograms$ | async">{{program.name}}</mat-option>
     </mat-select>
   </mat-form-field>
