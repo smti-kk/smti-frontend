@@ -14,6 +14,14 @@
     <input matInput type="text" [(ngModel)]="operator.juristicName" name="juristicName" required>
   </mat-form-field>
   <mat-form-field>
+    <mat-label>ИНН</mat-label>
+    <input matInput type="text" [(ngModel)]="operator.inn" name="inn">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>КПП</mat-label>
+    <input matInput type="text" [(ngModel)]="operator.kpp" name="kpp">
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Услуги оператора</mat-label>
     <mat-select multiple [(ngModel)]="operator.services" name="services" [compareWith]="compareById">
       <mat-option disabled value="null">Тип мобильной связи</mat-option>

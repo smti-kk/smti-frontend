@@ -8,4 +8,6 @@ export interface Operator {
   contacts?: string;
   juristicName?: string;
   iconFile?: any;
+  inn?: string;
+  kpp?: string;
 }

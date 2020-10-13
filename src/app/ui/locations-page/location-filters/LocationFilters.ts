@@ -28,6 +28,8 @@ export interface LocationFilters {
   hasRadio: boolean;
   hasCellular: boolean;
   hasInternet: boolean;
+  populationLeftBorder: number;
+  populationRightBorder: number;
   govYear: number;
   ordering: OrderingFilter;
 }

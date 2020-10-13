@@ -18,13 +18,13 @@
     <table mat-table [dataSource]="locations">
 <!--      <cdk-virtual-scroll-viewport itemSize="50">-->
         <ng-container matColumnDef="areaName">
-          <th class="align-left" mat-header-cell *matHeaderCellDef>Населенный пункт</th>
+          <th class="align-left" mat-header-cell *matHeaderCellDef>Район</th>
           <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
         </ng-container>
 
-      <div *ngIf="user && user.isOperatorOrAdmin();else not_click_location">
+      <div *ngIf="user && user.isOperatorOrAdmin(); else not_click_location">
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef>Населенный пункт</th>
           <td
             mat-cell
             class="align-left location-link"
@@ -35,7 +35,7 @@
       </div>
       <ng-template #not_click_location>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef>Населенный пункт</th>
           <td
             mat-cell
             class="align-left"

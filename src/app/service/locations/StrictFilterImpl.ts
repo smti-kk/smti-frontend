@@ -49,7 +49,9 @@ export class StrictFilterImpl extends StrictFilter {
             this.acceptCondition(l, locationFilters.hasPayphone, this.hasPayphones) ||
             this.acceptCondition(l, locationFilters.hasRadio, this.hasRadio) ||
             this.acceptCondition(l, locationFilters.hasCellular, this.hasCellular) ||
-            this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet);
+            this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet) ||
+            this.populationLeftBorder(l, locationFilters.populationRightBorder) ||
+            this.populationRightBorder(l, locationFilters.populationLeftBorder);
         }), locationFilters.ordering, locationFilters.parent);
       case 'AND':
         this.defaultFilterResponse = true;
@@ -71,7 +73,9 @@ export class StrictFilterImpl extends StrictFilter {
             this.acceptCondition(l, locationFilters.hasPayphone, this.hasPayphones) &&
             this.acceptCondition(l, locationFilters.hasRadio, this.hasRadio) &&
             this.acceptCondition(l, locationFilters.hasCellular, this.hasCellular) &&
-            this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet);
+            this.acceptCondition(l, locationFilters.hasInternet, this.hasInternet) &&
+            this.populationLeftBorder(l, locationFilters.populationLeftBorder) &&
+            this.populationRightBorder(l, locationFilters.populationRightBorder);
         }), locationFilters.ordering, locationFilters.parent);
     }
   }
@@ -349,6 +353,20 @@ export class StrictFilterImpl extends StrictFilter {
       .length > 0;
   }
 
+  populationLeftBorder(location: LocationTableItem, border: number): boolean {
+    if (border === null) {
+      return this.defaultFilterResponse;
+    }
+    return parseInt(location.population, 10) > border;
+  }
+
+  populationRightBorder(location: LocationTableItem, border: number): boolean {
+    if (border === null) {
+      return this.defaultFilterResponse;
+    }
+    return parseInt(location.population, 10) < border;
+  }
+
   anyOneFilterSelected(filters: LocationFilters,
                        cellularOperators: any[],
                        internetOperators: any[],
@@ -360,16 +378,18 @@ export class StrictFilterImpl extends StrictFilter {
       filters.hasSMO ||
       filters.hasZSPD ||
       filters.hasRSZO ||
-      (filters.location != null && filters.location.length > 0) ||
+      (filters.location !== null && filters.location.length > 0) ||
       filters.parent.length > 0 ||
       filters.govProgram !== null ||
       filters.govYear !== null ||
-      filters.hasInternet != null ||
-      filters.hasInfomat != null ||
-      filters.hasCellular != null ||
-      filters.hasRadio != null ||
-      filters.hasPayphone != null ||
-      filters.hasATS != null ||
+      filters.hasInternet !== null ||
+      filters.hasInfomat !== null ||
+      filters.populationLeftBorder !== null ||
+      filters.populationRightBorder !== null ||
+      filters.hasCellular !== null ||
+      filters.hasRadio !== null ||
+      filters.hasPayphone !== null ||
+      filters.hasATS !== null ||
       tvTypes.length > 0 ||
       postTypes.length > 0 ||
       cellularOperators.length > 0 ||
