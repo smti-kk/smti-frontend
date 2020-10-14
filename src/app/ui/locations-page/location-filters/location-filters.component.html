@@ -49,6 +49,10 @@
             {{control.get('label').value}}
           </mat-checkbox>
         </div>
+<!--        todo: сказали скрыть пока что сброс фильтров, чтобы потом как-нибудь включить(ха-ха)-->
+<!--        <div class="filter">-->
+<!--          <button mat-button style="height: 36px" (click)="resetFilters()">Сбросить фильтры</button>-->
+<!--        </div>-->
       </div>
       <div class="i-dont-know-what-is-it-but-ok">
         <three-state-button formControlName="hasATS">
@@ -162,6 +166,18 @@
               <mat-option [value]="null">Год</mat-option>
               <mat-option *ngFor="let year of govYears" [value]="year">{{year}}</mat-option>
             </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="filter">
+          <mat-form-field floatLabel="always" appearance="fill" class="location-filter">
+            <mat-label>Численность(от)</mat-label>
+            <input matInput type="number" formControlName="populationLeftBorder">
+          </mat-form-field>
+        </div>
+        <div class="filter">
+          <mat-form-field floatLabel="always" appearance="fill" class="location-filter">
+            <mat-label>Численность(до)</mat-label>
+            <input matInput type="number" formControlName="populationRightBorder">
           </mat-form-field>
         </div>
       </div>

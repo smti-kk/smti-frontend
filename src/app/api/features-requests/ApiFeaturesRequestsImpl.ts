@@ -105,4 +105,17 @@ export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
       {params}
     );
   }
+
+  requestsAndImportsAndEditions(page: number, size: number): Observable<Pageable<LocationFeatureEditingRequestFull[]>> {
+    const params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        size: size.toString()
+      }
+    });
+    return this.http.get<Pageable<LocationFeatureEditingRequestFull[]>>(
+      `${API_FEATURES_REQUESTS}/full`,
+      {params}
+    );
+  }
 }

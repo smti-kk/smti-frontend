@@ -6,6 +6,9 @@ import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
 import {Signal} from '@api/dto/Signal';
 import {ReqDeclineFormComponent} from './req-decline-form/req-decline-form.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Quality} from '@api/dto/Quality';
+import {Observable} from 'rxjs';
+import {Pageable} from '@api/dto/Pageable';
 
 @Component({
   selector: 'app-oper-profile',
@@ -24,7 +27,7 @@ export class OperProfileComponent implements OnInit {
     private readonly requestsService: ApiFeaturesRequests,
     private readonly snackBar: MatSnackBar
   ) {
-    this.requestsService.requests(this.page, this.size).subscribe(requests => {
+    this.requests(this.page, this.size).subscribe(requests => {
       this.archiveRequests = requests.content;
       this.totalElements = requests.totalElements;
     });
@@ -53,7 +56,7 @@ export class OperProfileComponent implements OnInit {
 
   onScrollDown(): void {
     this.page = this.page + 1;
-    this.requestsService.requests(this.page, this.size).subscribe(requests => {
+    this.requests(this.page, this.size).subscribe(requests => {
       this.archiveRequests = [...this.archiveRequests, ...requests.content];
       this.totalElements = requests.totalElements;
     });
@@ -61,5 +64,28 @@ export class OperProfileComponent implements OnInit {
 
   showDeclineComment(declineComment: string): void {
     this.snackBar.open(declineComment, 'Закрыть');
+  }
+
+  qualityToString(quality: Quality): string {
+    switch (quality) {
+      case 'GOOD':
+        return 'Хорошее качество';
+      case 'NORMAL':
+        return 'Нормальное качество';
+      case 'ABSENT':
+        return 'Отсутствует';
+    }
+  }
+
+  requests(page: number, size: number): Observable<Pageable<LocationFeatureEditingRequestFull[]>> {
+    if (this.isJournal()) {
+      return this.requestsService.requestsAndImportsAndEditions(page, size);
+    } else {
+      return this.requestsService.requests(page, size);
+    }
+  }
+
+  isJournal(): boolean {
+    return window.location.pathname.includes('journal');
   }
 }

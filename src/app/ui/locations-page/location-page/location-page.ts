@@ -24,6 +24,7 @@ import {MoveToArchiveDialog} from '../../features-page/move-to-archive-dialog/Mo
 import {FeaturesComparingService} from '@service/features-comparing/FeaturesComparingService';
 import {MatDialog} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
+import {SelectAreaItem} from '@service/dto/SelectAreaItem';
 
 @Component({
   selector: 'location-page',
@@ -49,6 +50,7 @@ export class LocationPage implements OnInit, OnDestroy {
   private subscription: Subscription;
   isPlanEdition = false;
   isLocationEdition = false;
+  selectAreaItem: SelectAreaItem;
 
   constructor(private mobileTypeApi: MobileTypeApi,
               private activatedRoute: ActivatedRoute,
@@ -86,6 +88,7 @@ export class LocationPage implements OnInit, OnDestroy {
       this.tvTypes = tvTypes;
       this.postTypes = postTypes;
       this.tcs = location;
+      this.selectAreaItem = {id: location.locationParent.id, label: location.locationParent.type + ' ' + location.locationParent.name};
     });
     this.requestsService.archive(this.locationId, this.pageArchive, this.size).subscribe(requests => {
       this.archiveRequests = requests.content;
@@ -191,10 +194,10 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   reload(): void {
-    // window.location.reload();
+    window.location.reload();
   }
 
-  getUrl(locationId: number, population: number): string {
-    return '/api/detail-locations?id=' + locationId + '&population=' + population;
+  getUrl(locationId: number, population: number, locationParent: number): string {
+    return '/api/detail-locations?id=' + locationId + '&population=' + population + '&area=' + locationParent;
   }
 }

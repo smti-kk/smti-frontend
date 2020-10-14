@@ -14,7 +14,7 @@ import {OperatorServiceItem} from '@api/dto/OperatorServiceItem';
   styleUrls: ['./operators.component.scss']
 })
 export class OperatorsComponent implements OnInit {
-  displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'select'];
+  displayedColumns: string[] = ['address', 'propHeight', 'inn', 'kpp', 'operator', 'mobileType', 'services', 'select'];
   dataSource: MatTableDataSource<Operator>;
   operators: Operator[];
 

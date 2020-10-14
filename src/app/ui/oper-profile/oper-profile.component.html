@@ -5,7 +5,7 @@
      [infiniteScrollThrottle]="300"
      (scrolled)="onScrollDown()"
 >
-  <h1>Мои заявки (архив)</h1>
+  <h1 *ngIf="!isJournal()">Мои заявки (архив)</h1>
   <ng-container *ngFor="let request of archiveRequests">
     <div class="card-container">
       <div class="card">
@@ -67,9 +67,10 @@
                     Отключен {{edit.tc.operator.name}} {{edit.tc.trunkChannel?.name}}
                   </ng-container>
                   <ng-container *ngSwitchCase="'UPDATE'">
-                    <span class="underline">Интернет ({{edit.tc.operator.name}}):</span>
-                    <ng-container *ngIf="edit.tc.trunkChannel.id !== edit.newValue.trunkChannel.id">
-                      Изменен тип подключения с {{edit.tc.trunkChannel.name}} на {{edit.newValue.trunkChannel.name}}
+                    <span class="underline">Интернет ({{edit.tc?.operator?.name}}):</span>
+                    <ng-container>
+                      Изменен тип подключения с {{edit.tc?.trunkChannel?.name}} ({{qualityToString(edit.tc?.quality)}})
+                      на {{edit.newValue?.trunkChannel?.name}} ({{qualityToString(edit.newValue?.quality)}})
                     </ng-container>
                   </ng-container>
                 </ng-container>
@@ -78,7 +79,7 @@
                 <ng-container [ngSwitch]="edit.action">
                   <ng-container *ngSwitchCase="'CREATE'">
                     <span class="underline">Мобильная связь:</span>
-                    Подключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
+                    Подключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}} ({{qualityToString(edit.tc?.quality)}})
                   </ng-container>
                   <ng-container *ngSwitchCase="'DELETE'">
                     <span class="underline">Мобильная связь:</span>
@@ -86,8 +87,9 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="'UPDATE'">
                     <span class="underline">Мобильная связь ({{edit.tc.operator.name}}):</span>
-                    <ng-container *ngIf="edit.newValue && edit.tc.typeMobile && edit.newValue.typeMobile && edit.tc.typeMobile.id !== edit.newValue.typeMobile.id">
-                      Изменен тип сотовой связи с {{edit.tc.typeMobile.name}} на {{edit.newValue.typeMobile.name}}
+                    <ng-container>
+                      Изменен тип сотовой связи с {{edit.tc?.typeMobile?.name}} ({{qualityToString(edit.tc?.quality)}})
+                      на {{edit.newValue?.typeMobile?.name}} ({{qualityToString(edit.newValue?.quality)}})
                     </ng-container>
                   </ng-container>
                 </ng-container>
@@ -157,17 +159,19 @@
             </div>
           </div>
         </div>
-        <div class="card-status orange" *ngIf="request.status === 'WAIT_FOR_STATE_TO_BE_SET'">
-          <button mat-raised-button (click)="acceptReq(request)">Принять</button>
-          <button mat-raised-button (click)="declineReq(request)">Отклонить</button>
-        </div>
-        <div class="card-status green" *ngIf="request.status === 'ACCEPTED'">Принята</div>
-        <div class="card-status red" *ngIf="request.status === 'DECLINED'">
-          <div>
-            Отклонена
-            <div class="decline-comment" (click)="showDeclineComment(request.declineComment)">Причина</div>
+        <ng-container *ngIf="!isJournal()">
+          <div class="card-status orange" *ngIf="request.status === 'WAIT_FOR_STATE_TO_BE_SET'">
+            <button mat-raised-button (click)="acceptReq(request)">Принять</button>
+            <button mat-raised-button (click)="declineReq(request)">Отклонить</button>
           </div>
-        </div>
+          <div class="card-status green" *ngIf="request.status === 'ACCEPTED'">Принята</div>
+          <div class="card-status red" *ngIf="request.status === 'DECLINED'">
+            <div>
+              Отклонена
+              <div class="decline-comment" (click)="showDeclineComment(request.declineComment)">Причина</div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </ng-container>
