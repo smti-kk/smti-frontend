@@ -3,7 +3,7 @@ import {autoserializeAs, deserializeAs, inheritSerialization, serializeAs} from 
 import {GovernmentProgram} from '@core/models/government-program';
 import {InternetAccessType} from '@core/models/internet-access-type';
 import {Operator} from '@core/models/operator';
-import {Quality} from '@core/models/enums';
+import {ParticipationStatus, Quality} from '@core/models/enums';
 import {Avstatus} from '@core/models/avstatus';
 import {ID_SERIALIZER} from '@core/utils/serializers';
 import {Organization} from '@core/models/organization';
@@ -38,7 +38,7 @@ export class Reaccesspoint extends MonitoringPoint {
   private readonly _billingId: number;
 
   @autoserializeAs('completed')
-  private readonly _completed: boolean;
+  private readonly _completed: number;
 
   @deserializeAs(InternetAccessType, 'internetAccess')
   @serializeAs(ID_SERIALIZER, 'internetAccess')
@@ -94,7 +94,7 @@ export class Reaccesspoint extends MonitoringPoint {
   private readonly _quality: Quality;
 
   @autoserializeAs('state')
-  private readonly _state: string;
+  private readonly _state: ParticipationStatus;
 
   @autoserializeAs('ucn')
   private readonly _ucn: number;
@@ -140,7 +140,7 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._address;
   }
 
-  get completed(): boolean {
+  get completed(): number {
     return this._completed;
   }
 
@@ -192,7 +192,7 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._quality;
   }
 
-  get state(): string {
+  get state(): ParticipationStatus {
     return this._state;
   }
 
