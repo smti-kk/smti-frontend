@@ -2,13 +2,13 @@
   <div class="page-header">
     <div class="page-header-item">
       <span class="material-icons">account_balance</span>
-      <div>
+      <div style="min-width: 160px">
         <div>{{tcs.type}} {{tcs.name}}</div>
         <ng-container *ngIf="tcs.locationParent && !isLocationEdition">
-          <div class="font-size">{{tcs.locationParent.type}} {{tcs.locationParent.name}}</div>
+          <div class="font-size">{{selectAreaItem.label}}</div>
         </ng-container>
         <ng-container *ngIf="isLocationEdition">
-          <app-area-select [(ngModel)]="tcs.locationParent"></app-area-select>
+          <app-area-select [isMulti]="false" [(ngModel)]="selectAreaItem.id"></app-area-select>
         </ng-container>
       </div>
     </div>
@@ -24,7 +24,7 @@
       <span *ngIf="!isLocationEdition" (click)="isLocationEdition = true">Изменить</span>
       <span *ngIf="isLocationEdition" (click)="
       isLocationEdition = false;
-      httpClient.delete(getUrl(locationId, tcs.population)).subscribe();
+      httpClient.delete(getUrl(locationId, tcs.population, selectAreaItem?.id)).subscribe();
       reload()
 ">Сохранить</span>
     </div>

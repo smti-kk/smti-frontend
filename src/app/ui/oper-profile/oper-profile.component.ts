@@ -78,10 +78,14 @@ export class OperProfileComponent implements OnInit {
   }
 
   requests(page: number, size: number): Observable<Pageable<LocationFeatureEditingRequestFull[]>> {
-    if (window.location.pathname.includes('journal')) {
+    if (this.isJournal()) {
       return this.requestsService.requestsAndImportsAndEditions(page, size);
     } else {
       return this.requestsService.requests(page, size);
     }
+  }
+
+  isJournal(): boolean {
+    return window.location.pathname.includes('journal');
   }
 }
