@@ -4,8 +4,11 @@
       <span class="material-icons">account_balance</span>
       <div>
         <div>{{tcs.type}} {{tcs.name}}</div>
-        <ng-container *ngIf="tcs.locationParent">
+        <ng-container *ngIf="tcs.locationParent && !isLocationEdition">
           <div class="font-size">{{tcs.locationParent.type}} {{tcs.locationParent.name}}</div>
+        </ng-container>
+        <ng-container *ngIf="isLocationEdition">
+          <app-area-select [(ngModel)]="tcs.locationParent"></app-area-select>
         </ng-container>
       </div>
     </div>
@@ -18,7 +21,7 @@
       <span (click)="deleteLocation()">удалить</span>
     </div>
     <div style="cursor: pointer; text-decoration: underline" class="page-header-item" *permissions="['ADMIN']">
-      <span *ngIf="!isLocationEdition" (click)="isLocationEdition = true">Изменить численность</span>
+      <span *ngIf="!isLocationEdition" (click)="isLocationEdition = true">Изменить</span>
       <span *ngIf="isLocationEdition" (click)="
       isLocationEdition = false;
       httpClient.delete(getUrl(locationId, tcs.population)).subscribe();

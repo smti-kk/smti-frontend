@@ -146,6 +146,14 @@ const routes: Routes = [
     component: OperProfileComponent
   },
   {
+    path: 'journal',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['OPERATOR']
+    },
+    component: OperProfileComponent
+  },
+  {
     path: 'import-location',
     component: ImportLocationComponent,
     canActivate: [RouteProxyService],
