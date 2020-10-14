@@ -149,7 +149,7 @@ const routes: Routes = [
     path: 'journal',
     canActivate: [RouteProxyService],
     data: {
-      permissions: ['OPERATOR']
+      permissions: ['ADMIN']
     },
     component: OperProfileComponent
   },
