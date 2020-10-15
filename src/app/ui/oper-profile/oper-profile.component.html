@@ -10,8 +10,10 @@
     <div class="card-container">
       <div class="card">
         <div class="card-body">
-          <span class="card-number">№{{request.id}}</span> от
-          <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
+          <ng-container *ngIf="!isJournal()">
+            <span class="card-number">№{{request.id}}</span> от
+            <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
+          </ng-container>
           <p>{{request.location.type}} {{request.location.name}} ({{request.location.locationParent.type}} {{request.location.locationParent.name}})</p>
           <p>Внесенные изменения:</p>
           <ng-container *ngFor="let edit of request.featureEdits">
@@ -152,10 +154,19 @@
               </li>
             </ul>
           </ng-container>
-          <div *ngIf="request.comment.length > 0">
+          <div *ngIf="request.comment.length > 0 && !isJournal()">
             <p>Комментарий:</p>
             <div class="comment-wrap">
               {{request.comment}}
+            </div>
+          </div>
+          <div *ngIf="isJournal()">
+            <p>Комментарий:</p>
+            <div class="comment-wrap">
+              Источник: {{changeSourceLabel(request.changeSource)}}.<br>
+              Действие: {{actions(request.featureEdits)}}.<br>
+              Дата: {{request.created | date: 'dd.MM.yyyy HH:mm'}}.<br>
+              Пользователь: {{request.user?.username}}.
             </div>
           </div>
         </div>
