@@ -36,8 +36,8 @@ export class Organization {
   @autoserializeAs('kpp')
   private readonly _kpp: number;
 
-  // @autoserializeAs(Organization, 'parent')
-  // private readonly _parent: Organization;
+  @autoserializeAs(Organization, 'parent')
+  private readonly _parent: Organization;
 
   // @autoserializeAs(Reaccesspoint, 'aps')
   // private readonly _reaccesspoints: Reaccesspoint[];
@@ -107,9 +107,9 @@ export class Organization {
     return this._kpp;
   }
 
-  // get parent(): Organization {
-  //   return this._parent;
-  // }
+  get parent(): Organization {
+    return this._parent;
+  }
 
   // get reaccesspoints(): Reaccesspoint[] {
   //   return this._reaccesspoints;

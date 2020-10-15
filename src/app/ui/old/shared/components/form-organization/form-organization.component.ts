@@ -23,6 +23,8 @@ export class FormOrganizationComponent implements OnInit {
 
   @Input() organizationForEdit: Organization;
 
+  @Input() organizationForEditParent: string;
+
   @Input() canEdit: boolean = false;
 
   formGroupOrganization: FormGroup;

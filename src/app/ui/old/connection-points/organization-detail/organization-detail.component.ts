@@ -18,6 +18,8 @@ import {FomMonitoringWizardComponent} from '@shared/components/fom-monitoring-wi
 export class OrganizationDetailComponent implements OnInit {
   organization: Organization;
 
+  organizationParent: string;
+
   points$: Observable<Reaccesspoint[]>;
 
   fLocations$: Observable<Location[]>;
@@ -41,6 +43,13 @@ export class OrganizationDetailComponent implements OnInit {
     if (organizationId) {
       this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
         this.organization = organization;
+        if (this.organization.parent !== undefined) {
+          this.serviceOrganizations.getByIdentifier(String(this.organization.parent)).subscribe(organizationParent => {
+            this.organizationParent = organizationParent.name;
+          });
+        } else {
+          this.organizationParent = null;
+        }
       });
     } else {
       const organization = new Organization(locationId);
