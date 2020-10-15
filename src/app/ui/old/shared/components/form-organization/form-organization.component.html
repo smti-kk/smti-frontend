@@ -134,6 +134,12 @@
       </div>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item *ngIf="organizationForEditParent">
+    <nz-form-label>Головная организация</nz-form-label>
+    <div class="main-org">
+      {{organizationForEditParent}}
+    </div>
+  </nz-form-item>
   <nz-form-item>
     <nz-form-control>
       <div class="btn-group" *ngIf="organizationForEdit; else createOrganization">
@@ -184,7 +190,7 @@
             (click)="saveNewOrganization()"
           />
         </div>
-<!--        [disabled]="!formGroupOrganization.valid"-->
+        <!--        [disabled]="!formGroupOrganization.valid"-->
       </ng-template>
     </nz-form-control>
   </nz-form-item>
