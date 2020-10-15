@@ -25,8 +25,10 @@ import {ImportTcAtsComponent} from './import-tc-ats/import-tc-ats.component';
 import {ImportTcInfomatComponent} from './import-tc-infomat/import-tc-infomat.component';
 import { ReportMonitoringComponent } from './report-monitoring/report-monitoring.component';
 import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
-import {AppealComponent} from "./appeal/appeal.component";
-import {OperatorsComponent} from "./operators/operators.component";
+import {AppealComponent} from './appeal/appeal.component';
+import {OperatorsComponent} from './operators/operators.component';
+import {TypeOrganizationComponent} from './type-organization/type-organization.component';
+import {TypeSmoComponent} from './type-smo/type-smo.component';
 
 
 const routes: Routes = [
@@ -140,6 +142,14 @@ const routes: Routes = [
     canActivate: [RouteProxyService],
     data: {
       permissions: ['OPERATOR']
+    },
+    component: OperProfileComponent
+  },
+  {
+    path: 'journal',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
     },
     component: OperProfileComponent
   },
@@ -258,6 +268,22 @@ const routes: Routes = [
   {
     path: 'operators',
     component: OperatorsComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'type-organizations',
+    component: TypeOrganizationComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'type-smo',
+    component: TypeSmoComponent,
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN']

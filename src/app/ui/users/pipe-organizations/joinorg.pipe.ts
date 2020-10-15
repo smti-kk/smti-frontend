@@ -6,7 +6,10 @@ import {DOrganizationBase} from '../../../api/dto/DOrganizationBase';
 })
 export class JoinorgPipe implements PipeTransform {
 
-  transform(value: DOrganizationBase[], args: string): unknown {
+  transform(value: DOrganizationBase[], args: string): string {
+    if (!value) {
+      return '';
+    }
     const rez: string[] = [];
     value.forEach(item => {
       rez.push(`${item.name}`);

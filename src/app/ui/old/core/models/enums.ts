@@ -14,6 +14,8 @@ export enum Quality {
   ABSENT = 'absent',
 }
 
+export type ParticipationStatus = 'DONE' | 'NONE' | 'PLAN';
+
 export const qualityToString = (quality: Quality): string => {
   switch (quality) {
     case Quality.ABSENT:
@@ -26,5 +28,16 @@ export const qualityToString = (quality: Quality): string => {
       return 'Отсутствует';
     default:
       return 'Отсутствует';
+  }
+};
+
+export const participationStatusToString = (status: ParticipationStatus) => {
+  switch (status) {
+    case 'DONE':
+      return 'Исполнено';
+    case 'NONE':
+      return 'Не исполнено';
+    case 'PLAN':
+      return 'План';
   }
 };

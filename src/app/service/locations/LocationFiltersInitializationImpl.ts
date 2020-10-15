@@ -99,7 +99,9 @@ export class LocationFiltersInitializationImpl implements LocationFiltersInitial
           hasCellular: null,
           hasInternet: null,
           ordering: null,
-          govYear: null
+          govYear: null,
+          populationRightBorder: null,
+          populationLeftBorder: null
         };
       })
     );

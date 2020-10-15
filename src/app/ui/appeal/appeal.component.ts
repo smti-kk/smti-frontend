@@ -54,7 +54,7 @@ export class AppealComponent implements OnInit {
   deleteStation(row: BaseStation): void {
     const dialogRef = this.dialog.open(AreYouSureComponent, {
       width: '600px',
-      data: 'Вы уверены, что хотите удалить станцию?'
+      data: 'Вы уверены, что хотите удалить?'
     });
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {

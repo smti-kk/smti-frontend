@@ -13,7 +13,7 @@ import {Account} from '@service/account/Account';
 })
 export class LocationsPage implements OnInit {
   TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS = 'calc(100vh - 194px)';
-  TABLE_HEIGHT_WHEN_OPENED_FILTERS = 'calc(100vh - 346px)';
+  TABLE_HEIGHT_WHEN_OPENED_FILTERS = 'calc(100vh - 396px)';
 
   displayedColumns = [
     'areaName',
@@ -56,7 +56,7 @@ export class LocationsPage implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.locationsFullInformationService.get(this.page, this.countPerPage)
+    this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, this.filters)
       .subscribe(response => {
         this.locations = response.content;
         this.totalElements = response.totalElements;

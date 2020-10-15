@@ -52,7 +52,7 @@ export class BaseStationsComponent implements OnInit {
   deleteStation(row: BaseStation): void {
     const dialogRef = this.dialog.open(AreYouSureComponent, {
       width: '450px',
-      data: 'Вы уверены, что хотите удалить станцию?'
+      data: 'Вы уверены, что хотите удалить?'
     });
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {
@@ -71,7 +71,6 @@ export class BaseStationsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(bs => {
       if (bs) {
-        console.log(bs);
         this.api.update(bs).subscribe(() => {
           const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
           this.dataSource.data[index] = bs;

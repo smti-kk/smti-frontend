@@ -14,7 +14,7 @@ import {OperatorServiceItem} from '@api/dto/OperatorServiceItem';
   styleUrls: ['./operators.component.scss']
 })
 export class OperatorsComponent implements OnInit {
-  displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'select'];
+  displayedColumns: string[] = ['address', 'propHeight', 'inn', 'kpp', 'operator', 'mobileType', 'services', 'select'];
   dataSource: MatTableDataSource<Operator>;
   operators: Operator[];
 
@@ -51,7 +51,7 @@ export class OperatorsComponent implements OnInit {
   deleteOperator(row: Operator): void {
     const dialogRef = this.dialog.open(AreYouSureComponent, {
       width: '450px',
-      data: 'Вы уверены, что хотите удалить станцию?'
+      data: 'Вы уверены, что хотите удалить?'
     });
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {

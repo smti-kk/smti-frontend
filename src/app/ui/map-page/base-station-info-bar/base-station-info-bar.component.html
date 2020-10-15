@@ -19,13 +19,13 @@
         </div>
       </div>
       <div class="feature">
-        <div class="feature__label">Высота опоры:</div>
+        <div class="feature__label">Высота опоры (м):</div>
         <div class="feature__value">
           {{station.propHeight}}
         </div>
       </div>
       <div class="feature">
-        <div class="feature__label">Радиус покрытия:</div>
+        <div class="feature__label">Радиус покрытия (км):</div>
         <div class="feature__value">
           {{station.coverageRadius}}
         </div>
@@ -33,7 +33,7 @@
       <div class="feature">
         <div class="feature__label">Срок действия:</div>
         <div class="feature__value">
-          {{station.actionDate}}
+          {{station.actionDate | date: 'dd.MM.yyyy'}}
         </div>
       </div>
     </div>

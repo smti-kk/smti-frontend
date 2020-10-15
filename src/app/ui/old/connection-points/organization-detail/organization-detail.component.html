@@ -249,6 +249,14 @@
                 <td>{{ ap.governmentProgram?.acronym }}</td>
               </tr>
               <tr>
+                <td>Год завершения гос.программы</td>
+                <td>{{ ap.completed }}</td>
+              </tr>
+              <tr>
+                <td>Статус по гос.программе</td>
+                <td>{{ participationStatusToString(ap.state) }}</td>
+              </tr>
+              <tr>
                 <td colspan="2">Системы мониторинга</td>
               </tr>
               <tr>

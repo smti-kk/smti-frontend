@@ -5,16 +5,18 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GovernmentProgramService, OrganizationsService} from '@core/services';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {Observable} from 'rxjs';
-import {GovernmentProgram, InternetAccessType, Organization, Quality, qualityToString} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Organization, Quality, qualityToString, participationStatusToString} from '@core/models';
 import {AccessPointType} from '@core/models/accesspoint-type';
 import {AccessPointTypeService} from '@core/services/accesspoint-type.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ParticipationStatus} from '../../../core/models';
 
 @Component({
   selector: 'app-form-access-point',
   templateUrl: './form-access-point.component.html',
   styleUrls: ['./form-access-point.component.scss'],
 })
-
+// tslint:disable:variable-name
 export class FormAccessPointComponent implements OnInit {
 
   @Input() accessPointForEdit: Reaccesspoint;
@@ -28,6 +30,7 @@ export class FormAccessPointComponent implements OnInit {
   Quality = Quality;
   qualityToString = qualityToString;
   compareFn = compareById;
+  participationStatusToString: ((status: ParticipationStatus) => string) = participationStatusToString;
 
   constructor(
     private serviceInternetAccessType: InternetAccessTypeService,
@@ -35,6 +38,7 @@ export class FormAccessPointComponent implements OnInit {
     private serviceOrganizations: OrganizationsService,
     private serviceAccessPointType: AccessPointTypeService,
     private formBuilder: FormBuilder,
+    private readonly _snackBar: MatSnackBar
   ) {
   }
 
@@ -56,7 +60,7 @@ export class FormAccessPointComponent implements OnInit {
       _address: [null, Validators.required],
       // _avstatus: null,
       _billingId: null,
-      // _completed: null,
+      _completed: null,
       _connectionType: [null, Validators.required],
       _organizationId: this.organization.id || null,
       _locationId: this.organization.location.valueOf() || null,
@@ -119,6 +123,7 @@ export class FormAccessPointComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         error => {
           // todo: implement me
+          this._snackBar.open(error.message, 'Ок');
           throw Error(`${error}`);
         },
       );

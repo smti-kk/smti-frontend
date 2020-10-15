@@ -1,5 +1,5 @@
-<h1 mat-dialog-title *ngIf="action === 'CREATE'">Создание базовой станции</h1>
-<h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование базовой станции</h1>
+<h1 mat-dialog-title *ngIf="action === 'CREATE'">Создание оператора</h1>
+<h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование оператора</h1>
 <form #form="ngForm" mat-dialog-content action="/api/operator" method="POST">
   <mat-form-field>
     <mat-label>Наименование</mat-label>
@@ -12,6 +12,14 @@
   <mat-form-field>
     <mat-label>Юридическое наименование</mat-label>
     <input matInput type="text" [(ngModel)]="operator.juristicName" name="juristicName" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>ИНН</mat-label>
+    <input matInput type="text" [(ngModel)]="operator.inn" name="inn">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>КПП</mat-label>
+    <input matInput type="text" [(ngModel)]="operator.kpp" name="kpp">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Услуги оператора</mat-label>

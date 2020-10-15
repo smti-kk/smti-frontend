@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 
-import {Location, Organization, qualityToString} from '@core/models';
+import {Location, Organization, participationStatusToString, qualityToString} from '@core/models';
 import {OrganizationsService} from '@core/services';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
@@ -21,10 +21,9 @@ export class OrganizationDetailComponent implements OnInit {
   organizationParent: string;
 
   points$: Observable<Reaccesspoint[]>;
-
   fLocations$: Observable<Location[]>;
-
   qualityToString = qualityToString;
+  participationStatusToString = participationStatusToString;
 
   constructor(
     private serviceOrganizations: OrganizationsService,

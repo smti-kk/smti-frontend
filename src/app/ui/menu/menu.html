@@ -96,6 +96,14 @@
          *permissions="['ADMIN']"
          routerLink="/operators"
          [class.active]="currentRouteIs('/operators')"><span>Операторы</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
+         routerLink="/type-organizations"
+         [class.active]="currentRouteIs('/type-organizations')"><span>Типы организаций</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
+         routerLink="/type-smo"
+         [class.active]="currentRouteIs('/type-smo')"><span>Типы СЗО</span></div>
   </mat-menu>
   <div class="link root-link"
        *permissions="['MUNICIPALITY']"
@@ -105,6 +113,10 @@
        *permissions="['OPERATOR']"
        routerLink="/oper-profile"
        [class.active]="currentRouteIs('/oper-profile')"><span>Заявки</span></div>
+  <div class="link root-link"
+       *permissions="['ADMIN']"
+       routerLink="/journal"
+       [class.active]="currentRouteIs('/journal')"><span>Журнал</span></div>
   <div class="link root-link"
        *permissions="['ADMIN', 'OPERATOR']"
        routerLink="/report-monitoring"
