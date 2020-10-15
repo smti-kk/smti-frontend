@@ -29,6 +29,7 @@ import {AppealComponent} from './appeal/appeal.component';
 import {OperatorsComponent} from './operators/operators.component';
 import {TypeOrganizationComponent} from './type-organization/type-organization.component';
 import {TypeSmoComponent} from './type-smo/type-smo.component';
+import {GovProgramComponent} from './gov-programs/gov-program.component';
 
 
 const routes: Routes = [
@@ -144,6 +145,14 @@ const routes: Routes = [
       permissions: ['OPERATOR']
     },
     component: OperProfileComponent
+  },
+  {
+    path: 'gov-programs',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+    component: GovProgramComponent
   },
   {
     path: 'journal',

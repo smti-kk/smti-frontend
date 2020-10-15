@@ -13,4 +13,12 @@ export class GovProgramServiceImpl implements GovProgramService {
   list(): Observable<GovProgram[]> {
     return this.govProgramApi.list();
   }
+
+  create(govProgram: GovProgram): Observable<GovProgram> {
+    return this.govProgramApi.create(govProgram);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.govProgramApi.delete(id);
+  }
 }

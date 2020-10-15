@@ -1,0 +1,20 @@
+<h1 mat-dialog-title *ngIf="action === 'CREATE'">Создание типа организации</h1>
+<h1 mat-dialog-title *ngIf="action === 'EDIT'">Редактирование типа организации</h1>
+<form #form="ngForm" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Имя</mat-label>
+    <input cdkFocusInitial matInput type="text" [(ngModel)]="govProgram.name" name="name" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Акроним</mat-label>
+    <input cdkFocusInitial matInput type="text" [(ngModel)]="govProgram.acronym" name="acronym" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Описание</mat-label>
+    <textarea cdkFocusInitial matInput type="text" [(ngModel)]="govProgram.description" name="description"></textarea>
+  </mat-form-field>
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Отмена</button>
+  <button mat-button [disabled]="!form.valid" [mat-dialog-close]="govProgram">Сохранить</button>
+</div>

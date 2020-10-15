@@ -98,6 +98,10 @@
          [class.active]="currentRouteIs('/operators')"><span>Операторы</span></div>
     <div class="link root-link"
          *permissions="['ADMIN']"
+         routerLink="/gov-programs"
+         [class.active]="currentRouteIs('/gov-programs')"><span>Гос. программы</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
          routerLink="/type-organizations"
          [class.active]="currentRouteIs('/type-organizations')"><span>Типы организаций</span></div>
     <div class="link root-link"
