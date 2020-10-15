@@ -165,7 +165,7 @@
             <div class="comment-wrap">
               Источник: {{changeSourceLabel(request.changeSource)}}.<br>
               Действие: {{actions(request.featureEdits)}}.<br>
-              Дата: {{request.created | date: 'dd.MM.yyyy HH:mm'}}.<br>
+              Дата: {{datePlus7(request.created) | date: 'dd.MM.yyyy HH:mm'}}.<br>
               Пользователь: {{request.user?.username}}.
             </div>
           </div>

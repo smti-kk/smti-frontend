@@ -116,4 +116,14 @@ export class OperProfileComponent implements OnInit {
     }).filter(((value, index, array) => array.indexOf(value) === index))
       .join(', ');
   }
+
+  datePlus7(created: string): Date {
+    const date = new Date(created);
+    date.setHours(date.getHours() + this.getTimezoneOffset());
+    return date;
+  }
+
+  getTimezoneOffset(): number {
+    return -(new Date().getTimezoneOffset() / 60);
+  }
 }
