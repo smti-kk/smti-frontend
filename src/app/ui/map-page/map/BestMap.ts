@@ -99,7 +99,7 @@ export class BestMap implements OnInit, OnDestroy {
   initializeMap(map: Map): void {
     setTimeout(() => {
       this.map = map;
-      this.updateBaseStations();
+      // this.updateBaseStations();
       this.updateTrunkChannelsLayer();
       this.municipalitiesLayer.addTo(map);
       this.pointsLayers.locations.addTo(map);
