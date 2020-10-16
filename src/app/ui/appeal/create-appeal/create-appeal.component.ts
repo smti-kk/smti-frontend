@@ -29,16 +29,16 @@ export class CreateAppealComponent implements OnInit {
               private mapLocationsApi: MapLocationsApi,
               @Inject(MAT_DIALOG_DATA) public data: AppealRes) {
     if (data) {
-      if(data.location) {
+      if (data.location) {
         this.appeal = {
           ...data,
           locationId: data.location.id
-        }
-      }else {
+        };
+      } else {
         this.appeal = {
           ...data
-        }
-      };
+        };
+      }
       this.action = 'EDIT';
     } else {
       this.appeal = {};
