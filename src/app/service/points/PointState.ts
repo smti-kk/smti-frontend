@@ -1,1 +1,1 @@
-export type PointState = 'ACTIVE' | 'DISABLED' | 'NOT_MONITORED';
+export type PointState = 'Работает' | 'Не_работает' | 'Не_подключено' | 'Проблема';

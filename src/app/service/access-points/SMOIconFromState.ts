@@ -10,9 +10,9 @@ export class SMOIconFromState implements IconFromState {
 
   icon(state: PointState): Icon {
     let iconUrl;
-    if (state === 'ACTIVE') {
+    if (state === 'Работает') {
       iconUrl = this.ICON_ACTIVE_URL;
-    } else if (state === 'DISABLED') {
+    } else if (state === 'Не_работает') {
       iconUrl = this.ICON_ICON_DISABLED_URL;
     } else {
       iconUrl = this.ICON_SPASI_NAS_GOSPOD_URL;
