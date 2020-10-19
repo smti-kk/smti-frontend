@@ -10,9 +10,9 @@ export class ESPDIconFromState implements IconFromState {
 
   icon(state: PointState): Icon {
     let iconUrl;
-    if (state === 'Работает') {
+    if (state === 'ACTIVE') {
       iconUrl = this.ICON_ACTIVE_URL;
-    } else if (state === 'Не_работает') {
+    } else if (state === 'DISABLED') {
       iconUrl = this.ICON_ICON_DISABLED_URL;
     } else {
       iconUrl = this.ICON_SPASI_NAS_GOSPOD_URL;

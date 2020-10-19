@@ -15,9 +15,9 @@ export class LayerWithState extends PointsLayerImpl {
       const childMarkers = cluster.getAllChildMarkers() as PointWithState[];
       const childCount = cluster.getChildCount();
       let c = ' marker-cluster-';
-      if (childMarkers.find(cm => cm.getState() === 'Не_работает')) {
+      if (childMarkers.find(cm => cm.getState() === 'DISABLED')) {
         c += 'disabled';
-      } else if (childMarkers.find(cm => cm.getState() === 'Работает')) {
+      } else if (childMarkers.find(cm => cm.getState() === 'ACTIVE')) {
         c += 'active';
       } else {
         c += 'undefined';
