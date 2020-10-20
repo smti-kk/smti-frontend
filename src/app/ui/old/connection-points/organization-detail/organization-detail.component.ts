@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 
-import {Location, Organization, qualityToString} from '@core/models';
+import {Location, Organization, participationStatusToString, qualityToString} from '@core/models';
 import {OrganizationsService} from '@core/services';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
@@ -18,11 +18,12 @@ import {FomMonitoringWizardComponent} from '@shared/components/fom-monitoring-wi
 export class OrganizationDetailComponent implements OnInit {
   organization: Organization;
 
+  organizationParent: string;
+
   points$: Observable<Reaccesspoint[]>;
-
   fLocations$: Observable<Location[]>;
-
   qualityToString = qualityToString;
+  participationStatusToString = participationStatusToString;
 
   constructor(
     private serviceOrganizations: OrganizationsService,
@@ -41,6 +42,13 @@ export class OrganizationDetailComponent implements OnInit {
     if (organizationId) {
       this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
         this.organization = organization;
+        if (this.organization.parent !== undefined) {
+          this.serviceOrganizations.getByIdentifier(String(this.organization.parent)).subscribe(organizationParent => {
+            this.organizationParent = organizationParent.name;
+          });
+        } else {
+          this.organizationParent = null;
+        }
       });
     } else {
       const organization = new Organization(locationId);

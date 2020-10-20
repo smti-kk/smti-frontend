@@ -14,13 +14,21 @@
     <input matInput type="text" [(ngModel)]="operator.juristicName" name="juristicName" required>
   </mat-form-field>
   <mat-form-field>
+    <mat-label>ИНН</mat-label>
+    <input matInput type="text" [(ngModel)]="operator.inn" name="inn">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>КПП</mat-label>
+    <input matInput type="text" [(ngModel)]="operator.kpp" name="kpp">
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Услуги оператора</mat-label>
     <mat-select multiple [(ngModel)]="operator.services" name="services" [compareWith]="compareById">
-      <mat-option disabled value="null">Тип мобильной связи</mat-option>
+      <mat-option disabled value="null">Услуги оператора</mat-option>
       <mat-option [value]="service" *ngFor="let service of operatorServices$ | async">{{service.label}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <input type="file" name="icon" [disabled]="" (change)="operator.iconFile = $event.target.files[0]">
+  <input class="input-icon" type="file" name="icon" [disabled]="" (change)="operator.iconFile = $event.target.files[0]">
 </form>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Отмена</button>

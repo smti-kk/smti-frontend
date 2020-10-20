@@ -19,4 +19,14 @@ export class GPSCacheable implements GovProgramService {
       return this.request;
     }
   }
+
+  create(govProgram: GovProgram): Observable<GovProgram> {
+    this.request = null;
+    return this.origin.create(govProgram);
+  }
+
+  delete(id: number): Observable<void> {
+    this.request = null;
+    return this.origin.delete(id);
+  }
 }

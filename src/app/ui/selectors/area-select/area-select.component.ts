@@ -25,6 +25,7 @@ export class AreaSelectComponent implements OnInit, OnDestroy, AfterViewInit, Co
   bankMultiCtrl: FormControl = new FormControl();
   bankMultiFilterCtrl: FormControl = new FormControl();
   @ViewChild('multiSelect', {static: true}) multiSelect: MatSelect;
+  @Input() isMulti = true;
   @Input() type: 'AREA' | 'LOCATION' = 'AREA';
   protected onDestroy = new Subject<void>();
   private onChange: (areaId: number) => void;
@@ -142,6 +143,18 @@ export class AreaSelectComponent implements OnInit, OnDestroy, AfterViewInit, Co
 
   writeValue(obj: number): void {
     this.bankMultiCtrl.setValue(obj);
+  }
+
+  compareById(station1: { id: number }, station2: { id: number }): boolean {
+    if (station1 === station2) {
+      return true;
+    }
+    if (!station1 || !station2) {
+      return false;
+    }
+    if (station1.id === station2.id) {
+      return true;
+    }
   }
 
 }

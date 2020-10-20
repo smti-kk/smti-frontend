@@ -23,6 +23,8 @@ export interface LocationFeatureEditingRequest {
   location: FeatureLocation;
 }
 
+export type ChangeSource = 'EDITING' | 'IMPORT' | 'REQUEST';
+
 export interface LocationFeatureEditingRequestFull {
   id: number;
   location: LocationDetail;
@@ -32,4 +34,5 @@ export interface LocationFeatureEditingRequestFull {
   user: AccountFromApi;
   featureEdits: FeatureEdit[];
   status: EditingRequestStatus;
+  changeSource: ChangeSource;
 }

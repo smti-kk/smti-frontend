@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import {OperatorServiceItem} from '@api/dto/OperatorServiceItem';
   styleUrls: ['./operators.component.scss']
 })
 export class OperatorsComponent implements OnInit {
-  displayedColumns: string[] = ['address', 'propHeight', 'operator', 'mobileType', 'coverageRadius', 'select'];
+  displayedColumns: string[] = ['address', 'propHeight', 'inn', 'kpp', 'operator', 'mobileType', 'services', 'select'];
   dataSource: MatTableDataSource<Operator>;
   operators: Operator[];
 
@@ -61,6 +61,9 @@ export class OperatorsComponent implements OnInit {
       }
     });
   }
+  reloadPage() {
+    window.location.reload();
+  }
 
   editOperator(row: Operator): void {
     const dialogRef = this.dialog.open(CreateOperatorsComponent, {
@@ -74,6 +77,7 @@ export class OperatorsComponent implements OnInit {
           const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
           this.dataSource.data[index] = bs;
           this.dataSource.data = [...this.dataSource.data];
+          this.reloadPage();
         });
       }
     });
@@ -87,6 +91,9 @@ export class OperatorsComponent implements OnInit {
   }
 
   servicesAsString(services: OperatorServiceItem[]): string {
+    if (!services) {
+      return '';
+    }
     return services
       .map(service => service.label)
       .join(', ');

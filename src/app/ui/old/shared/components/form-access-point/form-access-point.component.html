@@ -3,16 +3,17 @@
     <nz-form-label>Тип точки</nz-form-label>
     <nz-form-control>
       <nz-select
-        formControlName="_type"
-        [nzSuffixIcon]="suffixIconSelect"
+              formControlName="_type"
+              [nzSuffixIcon]="suffixIconSelect"
       >
         <nz-option
-          *ngFor="let item of accessPointType$ | async"
-          [nzValue]="item.name"
-          [nzLabel]="item.desc"
+                *ngFor="let item of accessPointType$ | async"
+                [nzValue]="item.name"
+                [nzLabel]="item.desc"
         ></nz-option>
       </nz-select>
-      <div class="error-required" *ngIf="formGroupAccessPoints.get('_type').invalid && (formGroupAccessPoints.get('_type').touched || formGroupAccessPoints.get('_type').dirty)">
+      <div class="error-required"
+           *ngIf="formGroupAccessPoints.get('_type').invalid && (formGroupAccessPoints.get('_type').touched || formGroupAccessPoints.get('_type').dirty)">
         <span *ngIf="formGroupAccessPoints.get('_type').errors?.required">Обязательное поле</span>
       </div>
     </nz-form-control>
@@ -22,21 +23,24 @@
     <nz-form-control>
       <input nz-input type="text" formControlName="_address"/>
     </nz-form-control>
-    <div class="error-required" *ngIf="formGroupAccessPoints.get('_address').invalid && (formGroupAccessPoints.get('_address').touched || formGroupAccessPoints.get('_address').dirty)">
+    <div class="error-required"
+         *ngIf="formGroupAccessPoints.get('_address').invalid && (formGroupAccessPoints.get('_address').touched || formGroupAccessPoints.get('_address').dirty)">
       <span *ngIf="formGroupAccessPoints.get('_address').errors?.required">Обязательное поле</span>
     </div>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label>Широта</nz-form-label>
     <input nz-input type="number" formControlName="_lat"/>
-    <div class="error-required" *ngIf="formGroupAccessPoints.get('_lat').invalid && (formGroupAccessPoints.get('_lat').touched || formGroupAccessPoints.get('_lat').dirty)">
+    <div class="error-required"
+         *ngIf="formGroupAccessPoints.get('_lat').invalid && (formGroupAccessPoints.get('_lat').touched || formGroupAccessPoints.get('_lat').dirty)">
       <span *ngIf="formGroupAccessPoints.get('_lat').errors?.required">Обязательное поле</span>
     </div>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label>Долгота</nz-form-label>
     <input nz-input type="number" formControlName="_lng"/>
-    <div class="error-required" *ngIf="formGroupAccessPoints.get('_lng').invalid && (formGroupAccessPoints.get('_lng').touched || formGroupAccessPoints.get('_lng').dirty)">
+    <div class="error-required"
+         *ngIf="formGroupAccessPoints.get('_lng').invalid && (formGroupAccessPoints.get('_lng').touched || formGroupAccessPoints.get('_lng').dirty)">
       <span *ngIf="formGroupAccessPoints.get('_lng').errors?.required">Обязательное поле</span>
     </div>
   </nz-form-item>
@@ -46,27 +50,28 @@
       <label nz-checkbox formControlName="_visible"></label>
     </nz-form-control>
   </nz-form-item>
-<!--  <nz-form-item>-->
-<!--    <nz-form-label>Узел доступа</nz-form-label>-->
-<!--    <nz-form-control>-->
-<!--      <input nz-input type="text" formControlName="_node"/>-->
-<!--    </nz-form-control>-->
-<!--  </nz-form-item>-->
+  <!--  <nz-form-item>-->
+  <!--    <nz-form-label>Узел доступа</nz-form-label>-->
+  <!--    <nz-form-control>-->
+  <!--      <input nz-input type="text" formControlName="_node"/>-->
+  <!--    </nz-form-control>-->
+  <!--  </nz-form-item>-->
   <nz-form-item>
     <nz-form-label>Тип</nz-form-label>
     <nz-form-control>
       <nz-select
-        formControlName="_connectionType"
-        [compareWith]="compareFn"
-        [nzSuffixIcon]="suffixIconSelect"
+              formControlName="_connectionType"
+              [compareWith]="compareFn"
+              [nzSuffixIcon]="suffixIconSelect"
       >
         <nz-option
-          *ngFor="let item of fInternetAccessTypes$ | async"
-          [nzValue]="item"
-          [nzLabel]="item.name"
+                *ngFor="let item of fInternetAccessTypes$ | async"
+                [nzValue]="item"
+                [nzLabel]="item.name"
         ></nz-option>
       </nz-select>
-      <div class="error-required" *ngIf="formGroupAccessPoints.get('_connectionType').invalid && (formGroupAccessPoints.get('_connectionType').touched || formGroupAccessPoints.get('_connectionType').dirty)">
+      <div class="error-required"
+           *ngIf="formGroupAccessPoints.get('_connectionType').invalid && (formGroupAccessPoints.get('_connectionType').touched || formGroupAccessPoints.get('_connectionType').dirty)">
         <span *ngIf="formGroupAccessPoints.get('_connectionType').errors?.required">Обязательное поле</span>
       </div>
     </nz-form-control>
@@ -76,7 +81,8 @@
     <nz-form-control>
       <input nz-input type="text" formControlName="_contractor"/>
     </nz-form-control>
-    <div class="error-required" *ngIf="formGroupAccessPoints.get('_contractor').invalid && (formGroupAccessPoints.get('_contractor').touched || formGroupAccessPoints.get('_contractor').dirty)">
+    <div class="error-required"
+         *ngIf="formGroupAccessPoints.get('_contractor').invalid && (formGroupAccessPoints.get('_contractor').touched || formGroupAccessPoints.get('_contractor').dirty)">
       <span *ngIf="formGroupAccessPoints.get('_contractor').errors?.required">Обязательное поле</span>
     </div>
   </nz-form-item>
@@ -84,8 +90,8 @@
     <nz-form-label>Качество связи</nz-form-label>
     <nz-form-control>
       <nz-select
-        formControlName="_quality"
-        [nzSuffixIcon]="suffixIconSelect"
+              formControlName="_quality"
+              [nzSuffixIcon]="suffixIconSelect"
       >
         <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошо"></nz-option>
         <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
@@ -103,17 +109,45 @@
     <nz-form-label>Государственная программа</nz-form-label>
     <nz-form-control>
       <nz-select
-        formControlName="_governmentProgram"
-        [nzSuffixIcon]="suffixIconSelect"
+              formControlName="_governmentProgram"
+              [nzSuffixIcon]="suffixIconSelect"
       >
         <nz-option
-          *ngFor="let item of fGovernmentPrograms$ | async"
-          [nzValue]="item"
-          [nzLabel]="item.name"
+                *ngFor="let item of fGovernmentPrograms$ | async"
+                [nzValue]="item"
+                [nzLabel]="item.name"
         ></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Год завершения гос.программы</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_completed"/>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Статус по гос.программа</nz-form-label>
+    <nz-form-control>
+      <nz-select formControlName="_state" [nzSuffixIcon]="suffixIconSelect">
+        <nz-option
+                [nzValue]="'DONE'"
+                [nzLabel]="participationStatusToString('DONE')"
+        ></nz-option>
+        <nz-option
+                [nzValue]="'NONE'"
+                [nzLabel]="participationStatusToString('NONE')"
+        ></nz-option>
+        <nz-option
+                [nzValue]="'PLAN'"
+                [nzLabel]="participationStatusToString('PLAN')"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
   <nz-form-item *ngIf="formGroupAccessPoints.get('_type')?.value === 'CONTRACT'">
     <nz-form-label>Номер контракта</nz-form-label>
     <nz-form-control>

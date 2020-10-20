@@ -35,6 +35,8 @@ export class LocationFilterFormBuilderImpl implements LocationFilterFormBuilder 
             hasInternet: new FormControl(filters.hasInternet),
             ordering: new FormControl(filters.hasInternet),
             govYear: new FormControl(filters.govYear),
+            populationLeftBorder: new FormControl(filters.populationLeftBorder),
+            populationRightBorder: new FormControl(filters.populationRightBorder),
           });
         }
       ));

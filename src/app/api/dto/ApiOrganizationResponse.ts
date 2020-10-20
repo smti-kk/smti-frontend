@@ -6,6 +6,7 @@ export interface AORInternetAccess {
 export interface AORAccessPoint {
   id: number;
   address: string;
+  connectionState: string;
   contractor: string;
   customer: string;
   declaredSpeed: string;

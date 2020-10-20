@@ -106,6 +106,8 @@ import {TypeOrganizationComponent} from './type-organization/type-organization.c
 import {CreateTypeOrganizationComponent} from './type-organization/create/create-type-organization.component';
 import {TypeSmoComponent} from './type-smo/type-smo.component';
 import {CreateTypeSmoComponent} from './type-smo/create/create-type-smo.component';
+import {GovProgramComponent} from './gov-programs/gov-program.component';
+import {CreateGovProgramComponent} from './gov-programs/create/create-gov-program.component';
 
 registerLocaleData(ru);
 
@@ -175,7 +177,9 @@ registerLocaleData(ru);
     FormResetPasswordComponent,
     CreateTypeOrganizationComponent,
     TypeSmoComponent,
-    CreateTypeSmoComponent
+    CreateTypeSmoComponent,
+    GovProgramComponent,
+    CreateGovProgramComponent
   ],
   imports: [
     BrowserModule,

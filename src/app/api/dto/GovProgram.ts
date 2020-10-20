@@ -3,4 +3,5 @@ export interface GovProgram {
   name: string;
   acronym: string;
   govYearComplete: number;
+  description: string;
 }
