@@ -88,7 +88,10 @@ export class LocationPage implements OnInit, OnDestroy {
       this.tvTypes = tvTypes;
       this.postTypes = postTypes;
       this.tcs = location;
-      this.selectAreaItem = {id: location.locationParent.id, label: location.locationParent.type + ' ' + location.locationParent.name};
+      this.selectAreaItem = {
+        id: location.locationParent.id,
+        label: location.locationParent.type + ' ' + location.locationParent.name
+      };
     });
     this.requestsService.archive(this.locationId, this.pageArchive, this.size).subscribe(requests => {
       this.archiveRequests = requests.content;
@@ -194,7 +197,13 @@ export class LocationPage implements OnInit, OnDestroy {
   }
 
   reload(): void {
-    window.location.reload();
+    this.httpClient.delete(this.getUrl(
+      this.locationId,
+      this.tcs.population,
+      this.selectAreaItem ? this.selectAreaItem.id : null
+    )).subscribe(response => {
+      window.location.reload();
+    });
   }
 
   getUrl(locationId: number, population: number, locationParent: number): string {

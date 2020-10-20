@@ -24,7 +24,7 @@
       <span *ngIf="!isLocationEdition" (click)="isLocationEdition = true">Изменить</span>
       <span *ngIf="isLocationEdition" (click)="
       isLocationEdition = false;
-      httpClient.delete(getUrl(locationId, tcs.population, selectAreaItem?.id)).subscribe();
+
       reload()
 ">Сохранить</span>
     </div>
