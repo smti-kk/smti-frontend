@@ -6,9 +6,11 @@ import {LocationFilterFormBuilder} from '@service/locations';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {SelectAreasService} from '@service/area/SelectAreasService';
 import {GovProgramService} from '@service/gov-program/GovProgramService';
-import {forkJoin} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
 import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
+import {Location} from "@core/models";
 
 @Component({
   selector: 'app-location-comparing-filters',
@@ -22,14 +24,18 @@ export class LocationComparingFiltersComponent implements OnInit {
   filtersIsOpened: boolean;
   OrderingDirection = OrderingDirection;
   govYears: number[];
+  fLocations$: Observable<Location[]>;
   @Output() filters: EventEmitter<LocationFilters>;
   @Output() exportExcel: EventEmitter<void>;
   @Input() type: TechnicalCapabilityType;
 
-  constructor(private readonly filterFormBuilder: LocationFilterFormBuilder,
-              private readonly apiLocationDetail: LocationDetailApi,
-              private readonly selectAreasService: SelectAreasService,
-              private readonly govProgramService: GovProgramService) {
+  constructor(
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
+    private readonly filterFormBuilder: LocationFilterFormBuilder,
+    private readonly apiLocationDetail: LocationDetailApi,
+    private readonly selectAreasService: SelectAreasService,
+    private readonly govProgramService: GovProgramService
+  ) {
     this.exportExcel = new EventEmitter<void>();
     this.filtersIsOpened = false;
     forkJoin([
@@ -50,6 +56,7 @@ export class LocationComparingFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fLocations$ = this.serviceLocation.listSimpleLocations();
   }
 
   filterValue(): LocationFilters {

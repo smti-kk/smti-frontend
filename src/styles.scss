@@ -231,3 +231,37 @@ input[type="checkbox" i] {
 @import "leaflet";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "old";
+
+
+
+.cdk-overlay-container .mat-select-panel {max-height: 288px;}
+
+input.mat-input-element {
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+nz-form-item .mat-select-filter{}
+.mat-select-filter {
+  height: 63px;
+  margin-top: 0 !important;
+  border-bottom: 1px solid #e0e0e0;
+  .mat-select-trigger {
+    vertical-align: middle;
+    height: 100%;
+    color: #9da0a1;
+  }
+    .mat-select-value {
+      vertical-align: middle;
+    }
+}
+.mat-select-value {
+  color: #9da0a1;
+  font-weight: 600;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+}
+
+.ant-form-item-label > label {
+  font-family: "Segoe UI", sans-serif;
+}

@@ -14,7 +14,7 @@ export interface LocationFilters {
   postType: LocationFilter[];
   internetOperators: LocationFilter[];
   cellularOperators: LocationFilter[];
-  location: string;
+  location: string[] | string;
   parent: number[];
   govProgram: number;
   hasESPD: boolean;
