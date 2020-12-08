@@ -6,11 +6,13 @@ import {Observable} from 'rxjs';
 import {MonitoringPoint} from '../points/MonitoringPoint';
 import {tap} from 'rxjs/operators';
 import {MunicipalitiesLayer} from '@service/leaflet-config/MunicipalitiesLayer';
+import {Injectable} from "@angular/core";
 
 let selectedElement: MonitoringPoint;
 let selectedElementLayer: MarkerClusterGroup;
 let selectedElementMap: Map;
 
+@Injectable()
 export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
   private readonly pointsService: PointsService;
   private readonly existedPoints: { [id: string]: MonitoringPoint };

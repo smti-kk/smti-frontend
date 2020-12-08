@@ -1,4 +1,4 @@
-<location-filters #filtersComponent (filters)="filter($event)" (exportExcel)="exportExcel()"></location-filters>
+<location-filters #filtersComponent (filters)="filter($event)" (init)="onFilterInit($event)" (exportExcel)="exportExcel()"></location-filters>
 <div class="filter-result-count" *ngIf="totalElements">
   Результатов поиска: {{totalElements}}
 </div>
@@ -18,13 +18,34 @@
     <table mat-table [dataSource]="locations">
 <!--      <cdk-virtual-scroll-viewport itemSize="50">-->
         <ng-container matColumnDef="areaName">
-          <th class="align-left" mat-header-cell *matHeaderCellDef>Район</th>
+          <th class="align-left c-filter-button"
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSort('parent')"
+              [ngClass]="{
+                'is-active': sortBy == 'parent',
+                'u-back-sort': sortBy == 'parent' && sortInverse
+              }"
+          >
+            Район
+          </th>
           <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
         </ng-container>
 
       <div *ngIf="user && user.isOperatorOrAdmin(); else not_click_location">
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Населенный пункт</th>
+          <th
+            class="c-filter-button"
+            mat-header-cell
+            *matHeaderCellDef
+            (click)="onSort('name')"
+            [ngClass]="{
+                'is-active': sortBy == 'name',
+                'u-back-sort': sortBy == 'name' && sortInverse
+            }"
+          >
+            Населенный пункт
+          </th>
           <td
             mat-cell
             class="align-left location-link"
@@ -35,7 +56,18 @@
       </div>
       <ng-template #not_click_location>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Населенный пункт</th>
+          <th
+            class="c-filter-button"
+            mat-header-cell
+            *matHeaderCellDef
+            (click)="onSort('name')"
+            [ngClass]="{
+                'is-active': sortBy == 'name',
+                'u-back-sort': sortBy == 'name' && sortInverse
+            }"
+          >
+            Населенный пункт
+          </th>
           <td
             mat-cell
             class="align-left"
@@ -45,7 +77,16 @@
       </ng-template>
 
         <ng-container matColumnDef="population">
-          <th mat-header-cell *matHeaderCellDef>
+          <th
+            class="c-filter-button"
+            mat-header-cell
+            *matHeaderCellDef
+            (click)="onSort('people_count')"
+            [ngClass]="{
+                'is-active': sortBy == 'people_count',
+                'u-back-sort': sortBy == 'people_count' && sortInverse
+            }"
+          >
             <span class="material-icons" matTooltip="Численность">people</span>
           </th>
           <td class="text-align-center" mat-cell *matCellDef="let location"> {{location.population}} </td>

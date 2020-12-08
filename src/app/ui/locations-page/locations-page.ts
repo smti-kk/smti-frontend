@@ -6,6 +6,12 @@ import {LoaderService} from '../loader/LoaderService';
 import {AccountService} from '@service/account/AccountService';
 import {Account} from '@service/account/Account';
 
+export enum OrderingDirection {
+  ASC,
+  DSC,
+  UNDEFINED,
+}
+
 @Component({
   selector: 'locations-page',
   templateUrl: './locations-page.html',
@@ -42,9 +48,15 @@ export class LocationsPage implements OnInit {
   user: Account;
   private filters: LocationFilters;
 
-  constructor(private readonly locationsFullInformationService: LocationsFullInformationService,
-              private readonly accountService: AccountService,
-              private readonly loaderService: LoaderService) {
+  sortBy: string = '';
+  sortInverse: boolean = false;
+  sortDirection = OrderingDirection.UNDEFINED;
+
+  constructor(
+    private readonly locationsFullInformationService: LocationsFullInformationService,
+    private readonly accountService: AccountService,
+    private readonly loaderService: LoaderService
+  ) {
     accountService.get().subscribe(user => {
       this.user = user;
     });
@@ -83,6 +95,7 @@ export class LocationsPage implements OnInit {
   filter(filters: LocationFilters): void {
     this.page = 0;
     this.filters = filters;
+
     this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, filters)
       .subscribe(locations => {
         this.locations = locations.content;
@@ -93,4 +106,42 @@ export class LocationsPage implements OnInit {
   exportExcel(): void {
     this.locationsFullInformationService.exportExcel();
   }
+
+  onSort(name: string) {
+    this.getSortParams(name);
+    this.setSortParams();
+  }
+
+  setSortParams(){
+    const ordering = {
+      name: this.sortBy,
+      orderingDirection: this.sortDirection,
+    }
+    this.filters.ordering = ordering;
+    this.filter(this.filters);
+  }
+
+  getSortParams(name: string){
+    if(name === this.sortBy){
+      if(this.sortInverse){
+        this.sortInverse = false;
+        this.sortDirection = OrderingDirection.UNDEFINED;
+        this.sortBy = '';
+        return;
+      }
+
+      this.sortDirection = OrderingDirection.DSC;
+      this.sortInverse = true;
+      return;
+    }
+
+    this.sortDirection = OrderingDirection.ASC;
+    this.sortInverse = false;
+    this.sortBy = name;
+  }
+
+  onFilterInit(filterValue) {
+    this.filters = filterValue;
+  }
 }
+

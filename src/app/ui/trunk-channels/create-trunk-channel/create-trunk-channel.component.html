@@ -3,16 +3,26 @@
 <form #form="ngForm" mat-dialog-content>
   <mat-form-field>
     <mat-label>Начало канала</mat-label>
-    <mat-select [(ngModel)]="trunkChannel.locationStart" name="locationStart" [compareWith]="compareById" required>
-      <mat-option disabled value="null">Начало канала</mat-option>
-      <mat-option [value]="location" *ngFor="let location of locations">{{location.type}} {{location.name}} ({{location.parent?.type}} {{location.parent?.name}})</mat-option>
+
+    <mat-select [(ngModel)]="trunkChannel.locationStart" name="locationStart" [compareWith]="compareById" required disableOptionCentering="true">
+      <mat-option>
+        <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationStartFilter></ngx-mat-select-search>
+      </mat-option>
+        <mat-option *ngFor="let location of locations | filter:'complexName':locationStartFilter.value" [value]="location">
+          {{ location?.complexName }}
+        </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Конец канала</mat-label>
-    <mat-select [(ngModel)]="trunkChannel.locationEnd" name="locationEnd" [compareWith]="compareById" required>
-      <mat-option disabled value="null">Конец канала</mat-option>
-      <mat-option [value]="location" *ngFor="let location of locations">{{location.type}} {{location.name}} ({{location.parent?.type}} {{location.parent?.name}})</mat-option>
+
+    <mat-select [(ngModel)]="trunkChannel.locationEnd" name="locationEnd" [compareWith]="compareById" required disableOptionCentering="true">
+      <mat-option>
+        <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationEndFilter></ngx-mat-select-search>
+      </mat-option>
+        <mat-option *ngFor="let location of locations | filter:'complexName':locationEndFilter.value" [value]="location">
+          {{ location?.complexName }}
+        </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>

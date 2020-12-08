@@ -80,7 +80,15 @@ export class FiltersToHttpParamsConverterImpl implements FiltersToHttpParamsConv
     // if (locationFilters.isRostelecomCellular) {
     //   params = params.append('cellular-operators', httpParamsConstants.IdRtk);
     // }
-    params = params.append('location', locationFilters.location);
+    // params = params.append('location', locationFilters.location);
+    if(typeof locationFilters.location === 'string'){
+      params = params.append('locationName', locationFilters.location);
+    }
+    else {
+      for (let i = 0; i < locationFilters.location.length; i++){
+        params = params.append('locationName', locationFilters.location[i]);
+      }
+    }
     // params = params.append('parent', locationFilters.parent);
     // params = params.append('is-logical-or', `${locationFilters.isLogicalOr}`);
     return params;

@@ -14,9 +14,11 @@ export class LFISFullPreloaded implements LocationsFullInformationService {
   private readonly filtration: LocationsFiltration;
   private lastFilters: LocationFilters;
 
-  constructor(origin: LocationsFullInformationService,
-              private readonly api: LocationDetailApi,
-              filtration: LocationsFiltration) {
+  constructor(
+    origin: LocationsFullInformationService,
+    private readonly api: LocationDetailApi,
+    filtration: LocationsFiltration
+  ) {
     this.origin = origin;
     this.filtration = filtration;
   }

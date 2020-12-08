@@ -29,7 +29,7 @@ const LOCATIONS_ALL = `${environment.API_BASE_URL}/api/location/`;
 
 interface LocationWithContractsFilters {
   order: OrderingFilter;
-  location: Location;
+  location: Location | Location[];
   type: OrganizationType;
   smo: SmoType;
   parent: number[];
@@ -45,7 +45,7 @@ interface LocationWithContractsFilters {
 
 interface LocationWithOrganizationAccessPointsFilters {
   order: string[];
-  location: Location;
+  location: Location | Location[];
   type: OrganizationType;
   smo: SmoType;
   parent: number[];
@@ -127,6 +127,7 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
   }
 
   filter(filters: LocationWithContractsFilters) {
+    this.params = new HttpParams();
     this.filters = filters;
     this.setOrder(filters.order);
     this.setLocation('location', filters.location);
@@ -173,11 +174,16 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     }
   }
 
-  private setLocation(field: string, value: Location) {
-    if (value) {
-      this.params = this.params.set(field, value.id.toString());
-    } else {
-      this.params = this.params.delete(field);
+  private setLocation(field: string, value: Location | Location[]) {
+    if (!value) {return}
+
+    if(Array.isArray(value)){
+      for (let i = 0; i < value.length; i++){
+        this.params = this.params.append(field, value[i].id.toString());
+      }
+    }
+    else {
+      this.params = this.params.append(field, value.id.toString());
     }
   }
 
@@ -269,6 +275,7 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
   }
 
   filter(filters: LocationWithOrganizationAccessPointsFilters) {
+    this.params = new HttpParams();
     this.filters = filters;
     this.setOrder(filters.order);
     this.setLocation('location', filters.location);
@@ -329,11 +336,16 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     }
   }
 
-  private setLocation(field: string, value: Location) {
-    if (value) {
-      this.params = this.params.set(field, value.id.toString());
-    } else {
-      this.params = this.params.delete(field);
+  private setLocation(field: string, value: Location[] | Location) {
+    if (!value) {return}
+
+    if(Array.isArray(value)){
+      for (let i = 0; i < value.length; i++){
+        this.params = this.params.append(field, value[i].id.toString());
+      }
+    }
+    else {
+      this.params = this.params.append(field, value.id.toString());
     }
   }
 
