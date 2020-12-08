@@ -1,7 +1,7 @@
 {
   "/api/*": {
     "secure": false,
-    "target": "http://localhost:8080/api",
+    "target": "http://telecom-it.cifra-k.ru/api",
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
@@ -18,7 +18,7 @@
     }
   },
   "/media/*": {
-    "target": "http://localhost:8080/media",
+    "target": "http://telecom-it.cifra-k.ru/media",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
@@ -27,7 +27,7 @@
     }
   },
   "/auth/*": {
-    "target": "http://localhost:8080/auth",
+    "target": "http://telecom-it.cifra-k.ru/auth",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
@@ -36,7 +36,7 @@
     }
   },
   "/esia-auth/*": {
-    "target": "http://localhost:8080/auth",
+    "target": "http://telecom-it.cifra-k.ru/auth",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,

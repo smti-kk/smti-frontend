@@ -231,3 +231,14 @@ input[type="checkbox" i] {
 @import "leaflet";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "old";
+
+
+mat-accordion {
+  mat-accordion {
+    .mat-expansion-panel-body,
+    .mat-expansion-panel-header {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
