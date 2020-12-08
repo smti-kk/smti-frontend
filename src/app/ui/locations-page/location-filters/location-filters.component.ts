@@ -21,12 +21,15 @@ export class LocationFiltersComponent implements OnInit {
   OrderingDirection = OrderingDirection;
   govYears: number[];
   @Output() filters: EventEmitter<LocationFilters>;
+  @Output() init: EventEmitter<LocationFilters> = new EventEmitter<LocationFilters>();
   @Output() exportExcel: EventEmitter<void>;
 
-  constructor(private readonly filterFormBuilder: LocationFilterFormBuilder,
-              private readonly apiLocationDetail: LocationDetailApi,
-              private readonly selectAreasService: SelectAreasService,
-              private readonly govProgramService: GovProgramService) {
+  constructor(
+    private readonly filterFormBuilder: LocationFilterFormBuilder,
+    private readonly apiLocationDetail: LocationDetailApi,
+    private readonly selectAreasService: SelectAreasService,
+    private readonly govProgramService: GovProgramService
+  ) {
     this.exportExcel = new EventEmitter<void>();
     this.filtersIsOpened = false;
     forkJoin([
@@ -39,16 +42,16 @@ export class LocationFiltersComponent implements OnInit {
       this.programs = programs;
       this.govYears = govYears;
       this.filterForm.valueChanges
-        // .pipe(debounceTime(1000))
-        .subscribe(value => {
-          this.filters.emit(value);
-        });
+      .subscribe(value => {
+        this.filters.emit(value);
+      });
+      console.log(this.filterForm.value);
+      this.init.emit(this.filterForm.value);
     });
     this.filters = new EventEmitter<LocationFilters>();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   filterValue(): LocationFilters {
     return this.filterForm.value;
