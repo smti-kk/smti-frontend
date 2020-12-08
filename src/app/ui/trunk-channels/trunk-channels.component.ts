@@ -14,7 +14,8 @@ import {MatPaginator} from '@angular/material/paginator';
 })
 export class TrunkChannelsComponent implements OnInit {
   displayedColumns: string[] = ['locationStart', 'locationEnd', 'operator', 'typeTrunkChannel', 'commissioning', 'decommissioning', 'program', 'completed', 'select'];
-  dataSource: MatTableDataSource<TrunkChannel>;
+  // dataSource: MatTableDataSource<TrunkChannel>;
+  dataSource: TrunkChannel[];
   baseStations: TrunkChannel[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -23,13 +24,14 @@ export class TrunkChannelsComponent implements OnInit {
     private readonly cdr: ChangeDetectorRef,
     private readonly dialog: MatDialog
   ) {
-    this.dataSource = new MatTableDataSource<TrunkChannel>(this.baseStations);
+    // this.dataSource = new MatTableDataSource<TrunkChannel>(this.baseStations);
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.api.list().subscribe(bs => {
-      this.dataSource.data = bs;
+      // this.dataSource.data = bs;
+      this.dataSource = bs;
     });
   }
 
@@ -40,7 +42,7 @@ export class TrunkChannelsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.api.create(result).subscribe(baseStation => {
-          this.dataSource.data = [...this.dataSource.data, baseStation];
+          this.dataSource = [...this.dataSource, baseStation];
         });
       }
     });
@@ -54,7 +56,7 @@ export class TrunkChannelsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {
         this.api.remove(row.id).subscribe(() => {
-          this.dataSource.data = this.dataSource.data.filter(bs => bs.id !== row.id);
+          this.dataSource = this.dataSource.filter(bs => bs.id !== row.id);
         });
       }
     });
@@ -68,9 +70,9 @@ export class TrunkChannelsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(bs => {
       if (bs) {
         this.api.update(bs).subscribe(() => {
-          const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
-          this.dataSource.data[index] = bs;
-          this.dataSource.data = [...this.dataSource.data];
+          const index = this.dataSource.findIndex(bst => bst.id === row.id);
+          this.dataSource[index] = bs;
+          this.dataSource = [...this.dataSource];
         });
       }
     });
