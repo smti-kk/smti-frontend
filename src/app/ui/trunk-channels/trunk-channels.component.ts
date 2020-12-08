@@ -13,16 +13,16 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./trunk-channels.component.scss']
 })
 export class TrunkChannelsComponent implements OnInit {
-
   displayedColumns: string[] = ['locationStart', 'locationEnd', 'operator', 'typeTrunkChannel', 'commissioning', 'decommissioning', 'program', 'completed', 'select'];
   dataSource: MatTableDataSource<TrunkChannel>;
   baseStations: TrunkChannel[];
-
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private readonly api: TrunkChannelsApi,
-              private readonly cdr: ChangeDetectorRef,
-              private readonly dialog: MatDialog) {
+  constructor(
+    private readonly api: TrunkChannelsApi,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly dialog: MatDialog
+  ) {
     this.dataSource = new MatTableDataSource<TrunkChannel>(this.baseStations);
   }
 
@@ -75,4 +75,21 @@ export class TrunkChannelsComponent implements OnInit {
       }
     });
   }
+
+  onScrollDown() {
+    console.log('onScrollDown')
+  }
+
+  // onScrollDown(): void {
+  //   this.page++;
+  //   this.isLoading = true;
+  //   this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, this.filters)
+  //     .subscribe(response => {
+  //       this.locations = [...this.locations, ...response.content];
+  //       this.totalElements = response.totalElements;
+  //       this.isLoading = false;
+  //     }, () => {
+  //       this.isLoading = false;
+  //     });
+  // }
 }

@@ -1,6 +1,12 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8"
+  infinite-scroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollUpDistance]="2"
+  [infiniteScrollThrottle]="300"
+  [scrollWindow]="false"
+  (scrolled)="onScrollDown()"
+>
   <table mat-table [dataSource]="dataSource">
-
     <!-- Position Column -->
     <ng-container matColumnDef="locationStart">
       <th mat-header-cell *matHeaderCellDef> Начало канала </th>
