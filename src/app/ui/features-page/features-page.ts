@@ -71,6 +71,7 @@ export class FeaturesPage implements OnInit {
   }
 
   filter(filters: LocationFilters): void {
+    console.log(filters)
     this.page = 0;
     this.size = 20;
     this.filters = filters;

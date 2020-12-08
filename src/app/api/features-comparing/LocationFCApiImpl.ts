@@ -35,17 +35,19 @@ export class LocationFCApiImpl implements LocationFCApi {
     return this.http.post<void>(LOCATION_FC_API + `/${locationId}/${featureId}/activation`, {});
   }
 
-  locationsFiltered(page: number,
-                    size: number,
-                    type: TechnicalCapabilityType,
-                    ordering?: LocationOrdering,
-                    parentIds?: number[],
-                    locationName?: string,
-                    operators?: number[],
-                    connectionTypes?: number[],
-                    govProgram?: number,
-                    govProgramYear?: number,
-                    hasAnyInternet?: boolean): Observable<Pageable<LocationFC[]>> {
+  locationsFiltered(
+    page: number,
+    size: number,
+    type: TechnicalCapabilityType,
+    ordering?: LocationOrdering,
+    parentIds?: number[],
+    locationName?: string | string[],
+    operators?: number[],
+    connectionTypes?: number[],
+    govProgram?: number,
+    govProgramYear?: number,
+    hasAnyInternet?: boolean
+  ): Observable<Pageable<LocationFC[]>> {
     let params = this.filterParams(
       ordering,
       parentIds,
@@ -93,7 +95,7 @@ export class LocationFCApiImpl implements LocationFCApi {
   private filterParams(
     ordering?: LocationOrdering,
     parentIds?: number[],
-    locationName?: string,
+    locationName?: string | string[],
     operators?: number[],
     connectionTypes?: number[],
     govProgram?: number,
@@ -108,7 +110,14 @@ export class LocationFCApiImpl implements LocationFCApi {
       params = params.append('parents', parentIds.join(','));
     }
     if (locationName && locationName.length > 0) {
-      params = params.append('locationName', locationName);
+      if(typeof locationName === 'string'){
+        params = params.append('locationName', locationName);
+      }
+      else {
+        for (let i = 0; i < locationName.length; i++){
+          params = params.append('locationName', locationName[i]);
+        }
+      }
     }
     if (operators && operators.length > 0) {
       params = params.append('operators', operators.join(','));

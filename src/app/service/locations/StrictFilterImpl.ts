@@ -118,11 +118,20 @@ export class StrictFilterImpl extends StrictFilter {
     }
   }
 
-  includesLocationName(location: LocationTableItem, locationName: string): boolean {
-    if (locationName === null || locationName === '') {
+  includesLocationName(location: LocationTableItem, locationName: string | string[]): boolean {
+    if (locationName === null || locationName === '' || !locationName.length) {
       return this.defaultFilterResponse;
     }
-    return location.name.toLowerCase().includes(locationName.toLowerCase());
+    if(typeof locationName === 'string'){
+      return location.name.toLowerCase().includes(locationName.toLowerCase());
+    }
+    else {
+      for(let i = 0; i < locationName.length; i++){
+        if(location.name.toLowerCase().indexOf(locationName[i].toLowerCase()) !== -1){
+          return true;
+        }
+      }
+    }
   }
 
   hasESPD(location: LocationTableItem, filters: LocationFilters): boolean {

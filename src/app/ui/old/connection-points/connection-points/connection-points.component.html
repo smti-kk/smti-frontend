@@ -23,24 +23,18 @@
         <div class="filter-body" [class.filter-body-active]="isVisibleFilter">
           <div class="filter-container">
             <nz-form-item>
-              <nz-form-label>Населенный пункт</nz-form-label>
-              <nz-form-control>
-                <nz-select
-                  nzShowSearch
-                  nzAllowClear
-                  nzPlaceHolder=""
-                  formControlName="location"
-                  [nzSuffixIcon]="suffixIconSelect"
-                >
-                  <nz-option
-                    *ngFor="let item of fLocations$ | async"
-                    [nzLabel]="item?.fullName + '(' + item?.parent + ')'"
-                    [nzValue]="item"
-                  >
-                  </nz-option>
-                </nz-select>
-              </nz-form-control>
+              <mat-select formControlName="location" placeholder="Населенный пункт" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
+                <mat-option>
+                  <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
+                </mat-option>
+                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
+                  <mat-option *cdkVirtualFor="let item of fLocations$ | async | filter:'fullName':locationFilter.value" [value]="item">
+                    {{ item.fullName }}
+                  </mat-option>
+                </cdk-virtual-scroll-viewport>
+              </mat-select>
             </nz-form-item>
+
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
@@ -57,32 +51,18 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item class="rowspan2">
-              <nz-form-label>Район</nz-form-label>
-              <nz-form-control>
-                <div [formGroup]="form">
-                  <nz-select
-                    formControlName="parent"
-                    nzShowSearch
-                    nzAllowClear
-                    [nzMaxTagCount]="10"
-                    [nzMaxTagPlaceholder]="tagPlaceHolder"
-                    nzPlaceHolder=""
-                    [nzSuffixIcon]="suffixIconSelect"
-                    nzMode="multiple"
-                  >
-                    <nz-option
-                      *ngFor="let item of fParents$ | async"
-                      [nzLabel]="item?.name"
-                      [nzValue]="item?.id"
-                    >
-                    </nz-option>
-                  </nz-select>
-                  <ng-template #tagPlaceHolder let-selectedList>
-                    и еще {{ selectedList.length }}
-                  </ng-template>
-                </div>
-              </nz-form-control>
+
+            <nz-form-item class="rowspan2" [formGroup]="form">
+              <mat-select formControlName="parent" placeholder="Район" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
+                <mat-option>
+                  <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #regionFilter></ngx-mat-select-search>
+                </mat-option>
+                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
+                  <mat-option *cdkVirtualFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item?.id">
+                    {{ item?.type }} {{ item?.name }}
+                  </mat-option>
+                </cdk-virtual-scroll-viewport>
+              </mat-select>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label>Тип организации</nz-form-label>
@@ -146,7 +126,7 @@
             </div>
           </div>
           <div class="filter-result">
-            Результатов поиска: <span>{{points.count}}</span>
+            Результатов поиска: <span>{{points?.count}}</span>
           </div>
           <!--          <div class="filter-search">-->
           <!--            <nz-input-group [nzSuffix]="suffixIconSearch">-->
@@ -177,7 +157,7 @@
          [infiniteScrollThrottle]="300"
          (scrolled)="onPageChange(this.pageNumber + 1)"
     >
-      <ng-container *ngFor="let point of points.results">
+      <ng-container *ngFor="let point of points?.results">
         <div class="container-wrap">
           <div class="container-wrap1">
             <div>
