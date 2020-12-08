@@ -108,6 +108,9 @@ import {TypeSmoComponent} from './type-smo/type-smo.component';
 import {CreateTypeSmoComponent} from './type-smo/create/create-type-smo.component';
 import {GovProgramComponent} from './gov-programs/gov-program.component';
 import {CreateGovProgramComponent} from './gov-programs/create/create-gov-program.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
+import {SharedModule} from "@shared/shared.module";
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
 
 registerLocaleData(ru);
 
@@ -217,9 +220,12 @@ registerLocaleData(ru);
     MatSnackBarModule,
     MatMenuModule,
     NgxMatSelectSearchModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    ScrollingModule,
+    SharedModule
   ],
   providers: [
+    LocationServiceOrganizationAccessPointsWithFilterParams,
     {
       provide: LoaderService,
       useClass: LoaderServiceImpl

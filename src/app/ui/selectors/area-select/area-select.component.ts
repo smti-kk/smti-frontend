@@ -14,7 +14,7 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-area-select',
+  selector: ' app-area-select',
   templateUrl: './area-select.component.html',
   styleUrls: ['./area-select.component.scss'],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]

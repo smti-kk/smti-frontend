@@ -2,12 +2,14 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {LocationFilters} from './LocationFilters';
 import {LocationFilterFormBuilder} from '@service/locations/LocationFilterForm';
-import {forkJoin} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {SelectAreasService} from '@service/area/SelectAreasService';
 import {GovProgramService} from '@service/gov-program/GovProgramService';
 import {GovProgram} from '@api/dto/GovProgram';
 import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
+import {Location} from "@core/models";
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
 
 @Component({
   selector: 'location-filters',
@@ -20,13 +22,19 @@ export class LocationFiltersComponent implements OnInit {
   filtersIsOpened: boolean;
   OrderingDirection = OrderingDirection;
   govYears: number[];
+
+  fLocations$: Observable<Location[]>;
+
   @Output() filters: EventEmitter<LocationFilters>;
   @Output() exportExcel: EventEmitter<void>;
 
-  constructor(private readonly filterFormBuilder: LocationFilterFormBuilder,
-              private readonly apiLocationDetail: LocationDetailApi,
-              private readonly selectAreasService: SelectAreasService,
-              private readonly govProgramService: GovProgramService) {
+  constructor(
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
+    private readonly filterFormBuilder: LocationFilterFormBuilder,
+    private readonly apiLocationDetail: LocationDetailApi,
+    private readonly selectAreasService: SelectAreasService,
+    private readonly govProgramService: GovProgramService
+  ) {
     this.exportExcel = new EventEmitter<void>();
     this.filtersIsOpened = false;
     forkJoin([
@@ -48,6 +56,7 @@ export class LocationFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fLocations$ = this.serviceLocation.listSimpleLocations();
   }
 
   filterValue(): LocationFilters {

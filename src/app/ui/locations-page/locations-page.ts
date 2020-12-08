@@ -83,6 +83,7 @@ export class LocationsPage implements OnInit {
   filter(filters: LocationFilters): void {
     this.page = 0;
     this.filters = filters;
+
     this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, filters)
       .subscribe(locations => {
         this.locations = locations.content;

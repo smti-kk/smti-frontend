@@ -15,29 +15,28 @@
   <div class="filters" *ngIf="filtersIsOpened">
     <div class="d-flex">
       <div class="filters__column filters__column-1">
-        <div class="filter">
-          <mat-form-field appearance="standard" class="location-filter">
-            <mat-label>Населенный пункт</mat-label>
-            <input matInput formControlName="location">
-          </mat-form-field>
-        </div>
+        <mat-select formControlName="location" placeholder="Населенный пункт" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
+          <mat-option>
+            <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
+          </mat-option>
+            <mat-option *ngFor="let item of fLocations$ | async | filter:'name':locationFilter.value" [value]="item.name">
+              {{ item?.type }} {{ item?.name }}
+            </mat-option>
+        </mat-select>
         <div class="filter">
           <div class="filters__column-label">
             <div class="filters__column-label-text">Почта:</div>
           </div>
-          <mat-checkbox [formControl]="control.get('isSelected')"
-                        *ngFor="let control of postTypeControls().controls"
-                        class="with-bottom-margin-5px">
+          <mat-checkbox
+            [formControl]="control.get('isSelected')"
+            *ngFor="let control of postTypeControls().controls"
+            class="with-bottom-margin-5px"
+          >
             {{control.get('label').value}}
           </mat-checkbox>
         </div>
         <div class="filter">
           <app-area-select formControlName="parent"></app-area-select>
-          <!--        <ng-select class="area-filter" placeholder="Район" [multiple]="true" formControlName="parent">-->
-          <!--          <ng-option >-->
-          <!--            {{area.label}}-->
-          <!--          </ng-option>-->
-          <!--        </ng-select>-->
         </div>
         <div class="filter">
           <div class="filters__column-label">
