@@ -11,7 +11,7 @@
     <div class="features-table__header">
       <div class="features-table__header-column">Район</div>
       <div class="features-table__header-column">Населенный пункт</div>
-      <div class="features-table__header-column">Население, чел.</div>
+      <div class="features-table__header-column _center"><span class="material-icons" matTooltip="Численность">people</span></div>
       <div class="features-table__header-column">Архив {{currentYear - 1}}</div>
       <div class="features-table__header-column">Текущие {{currentYear}}</div>
       <div class="features-table__header-column">План {{currentYear}}</div>
@@ -26,13 +26,13 @@
          (scrolled)="onScrollDown()"
     >
       <div class="features-table__row" *ngFor="let feature of features" routerLink="/locations/{{feature.id}}">
-        <div class="features-table__column features-table__location">
+        <div class="features-table__column">
           <div class="features-table__location-info">{{feature.locationParent?.type}} {{feature.locationParent?.name}}</div>
         </div>
-        <div class="features-table__column features-table__location">
+        <div class="features-table__column">
           <div class="features-table__location-info">{{feature.type}} {{feature.name}}</div>
         </div>
-        <div class="features-table__column features-table__location">
+        <div class="features-table__column _center">
           <div class="features-table__location-info">{{feature.population}}</div>
         </div>
         <div class="features-table__column features-table__archive-column">
