@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {CreateTrunkChannelComponent} from './create-trunk-channel/create-trunk-channel.component';
 import {TrunkChannel} from '@api/dto/TrunkChannel';
 import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.component';
-import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 import {MatPaginator} from '@angular/material/paginator';
@@ -14,24 +13,29 @@ import {MatPaginator} from '@angular/material/paginator';
 })
 export class TrunkChannelsComponent implements OnInit {
   displayedColumns: string[] = ['locationStart', 'locationEnd', 'operator', 'typeTrunkChannel', 'commissioning', 'decommissioning', 'program', 'completed', 'select'];
-  // dataSource: MatTableDataSource<TrunkChannel>;
   dataSource: TrunkChannel[];
   baseStations: TrunkChannel[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  totalCount: number;
+  pageSize: number = 20;
+  totalPage: number;
+  currentPage = 0;
+  isLoading = false;
 
   constructor(
     private readonly api: TrunkChannelsApi,
     private readonly cdr: ChangeDetectorRef,
     private readonly dialog: MatDialog
-  ) {
-    // this.dataSource = new MatTableDataSource<TrunkChannel>(this.baseStations);
-  }
+  ) {}
 
   ngOnInit(): void {
-    // this.dataSource.paginator = this.paginator;
     this.api.list().subscribe(bs => {
-      // this.dataSource.data = bs;
       this.dataSource = bs;
+      this.totalCount = this.dataSource.length;
+      this.totalPage = Math.ceil(this.dataSource.length / this.pageSize);
+
+      this.baseStations = this.getItems();
     });
   }
 
@@ -78,20 +82,20 @@ export class TrunkChannelsComponent implements OnInit {
     });
   }
 
-  onScrollDown() {
-    console.log('onScrollDown')
+  onNextPage(){
+    if(this.isLoading){return;}
+    if((this.totalPage - 1) <= this.currentPage){return;}
+    this.isLoading = true;
+    this.currentPage++;
+
+    setTimeout(() => {
+      this.baseStations = this.getItems();
+      this.isLoading = false;
+    }, 200);
   }
 
-  // onScrollDown(): void {
-  //   this.page++;
-  //   this.isLoading = true;
-  //   this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, this.filters)
-  //     .subscribe(response => {
-  //       this.locations = [...this.locations, ...response.content];
-  //       this.totalElements = response.totalElements;
-  //       this.isLoading = false;
-  //     }, () => {
-  //       this.isLoading = false;
-  //     });
-  // }
+  getItems(){
+    const viewItemsCount = this.pageSize * (this.currentPage + 1);
+    return this.dataSource.slice(0, viewItemsCount);
+  }
 }

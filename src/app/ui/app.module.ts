@@ -111,6 +111,7 @@ import {CreateGovProgramComponent} from './gov-programs/create/create-gov-progra
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {SharedModule} from "@shared/shared.module";
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
+import {ObserverDirective} from "./directives/observer.directive";
 
 registerLocaleData(ru);
 
@@ -182,7 +183,8 @@ registerLocaleData(ru);
     TypeSmoComponent,
     CreateTypeSmoComponent,
     GovProgramComponent,
-    CreateGovProgramComponent
+    CreateGovProgramComponent,
+    ObserverDirective
   ],
   imports: [
     BrowserModule,
