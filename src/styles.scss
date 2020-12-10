@@ -233,7 +233,8 @@ input[type="checkbox" i] {
 @import "old";
 
 .cdk-overlay-container .mat-select-panel {max-height: 288px;}
-
+.mat-header-cell {font-size: 14px;}
+.mat-form-field-appearance-fill .mat-form-field-flex {padding-left: 0!important;}
 input.mat-input-element {
   width: 100%;
   box-sizing: border-box;
