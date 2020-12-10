@@ -254,11 +254,12 @@ nz-form-item .mat-select-filter{}
     }
 }
 .mat-select-value {
-  color: #9da0a1;
+  color: #747578;
   font-weight: 600;
   font-family: "Segoe UI", sans-serif;
   font-size: 14px;
 }
+.mat-form-field-label {color: rgba(0, 0, 0, 0.42);}
 
 .ant-form-item-label > label {
   font-family: "Segoe UI", sans-serif;

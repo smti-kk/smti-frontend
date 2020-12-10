@@ -42,6 +42,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {FilterPipe} from "../../directives/filter.pipe";
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     FormOrganizationComponent,
     FormAccessPointComponent,
     FomMonitoringWizardComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -110,6 +112,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     SimpleSelectComponent,
     GroupSelectComponent,
     FormOrganizationComponent,
+    FilterPipe
   ],
 })
 export class SharedModule {}

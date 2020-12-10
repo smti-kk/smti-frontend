@@ -18,7 +18,7 @@
         <mat-option>
           <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
         </mat-option>
-          <mat-option *ngFor="let item of fLocations$ | async | filter:'name':locationFilter.value" [value]="item.name">
+          <mat-option *ngFor="let item of fLocations$ | async | filter:'name':locationFilter.value" [value]="item?.name">
             {{ item?.type }} {{ item?.name }}
           </mat-option>
       </mat-select>

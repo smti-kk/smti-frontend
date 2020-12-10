@@ -112,7 +112,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
 import {ObserverDirective} from "./directives/observer.directive";
 import {SortDirective} from "./directives/sort.directive";
-import {FilterPipe} from "./directives/filter.pipe";
+import {CoreModule} from "@core/core.module";
+import {SharedModule} from "@shared/shared.module";
 
 registerLocaleData(ru);
 
@@ -187,7 +188,6 @@ registerLocaleData(ru);
     CreateGovProgramComponent,
     ObserverDirective,
     SortDirective,
-    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -227,10 +227,13 @@ registerLocaleData(ru);
     NgxMatSelectSearchModule,
     MatFileUploadModule,
     ScrollingModule,
+    CoreModule,
+    SharedModule
   ],
   exports: [
-    FilterPipe,
-    SortDirective
+    SortDirective,
+    CoreModule,
+    SharedModule
   ],
   providers: [
     LocationServiceOrganizationAccessPointsWithFilterParams,
