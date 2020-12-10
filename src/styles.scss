@@ -289,17 +289,16 @@ mat-accordion {
       margin-left: auto;
     }
   }
-  &.is-reverse {
-    &__inner:after {content: '\f160';}
-  }
-  &.is-active {
-    background: #efefef;
-    color: #454544;
-  }
   @media(min-width: 1280px){
     &:hover {
       background: #f9f9f9;
       color: #454544;
     }
+  }
+
+  &.is-reverse &__inner:after {content: '\f160';}
+  &.is-active {
+    background: #efefef;
+    color: #454544;
   }
 }
