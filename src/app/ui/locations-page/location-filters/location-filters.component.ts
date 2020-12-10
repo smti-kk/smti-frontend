@@ -6,7 +6,6 @@ import {forkJoin, Observable} from 'rxjs';
 import {SelectAreasService} from '@service/area/SelectAreasService';
 import {GovProgramService} from '@service/gov-program/GovProgramService';
 import {GovProgram} from '@api/dto/GovProgram';
-import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {Location} from "@core/models";
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
@@ -20,7 +19,6 @@ export class LocationFiltersComponent implements OnInit {
   filterForm: FormGroup;
   programs: GovProgram[];
   filtersIsOpened: boolean;
-  OrderingDirection = OrderingDirection;
   govYears: number[];
 
   fLocations$: Observable<Location[]>;

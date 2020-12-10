@@ -21,17 +21,19 @@ export class FeaturesPage implements OnInit {
   page = 0;
   size = 20;
   filters: LocationFilters;
+
   totalElements: number;
 
-  constructor(private readonly featuresService: FeaturesComparingService,
-              private readonly currentYearService: CurrentYearService,
-              public dialog: MatDialog) {
+  constructor(
+    private readonly featuresService: FeaturesComparingService,
+    private readonly currentYearService: CurrentYearService,
+    public dialog: MatDialog
+  ) {
     this.currentYear = currentYearService.currentYear();
     this.reloadFeatures(this.type);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   showDialog(tc: FCTechnicalCapability, locationId: number): void {
     const dialogRef = this.dialog.open(MoveToArchiveDialog, {
@@ -71,7 +73,6 @@ export class FeaturesPage implements OnInit {
   }
 
   filter(filters: LocationFilters): void {
-    console.log(filters)
     this.page = 0;
     this.size = 20;
     this.filters = filters;
@@ -84,5 +85,14 @@ export class FeaturesPage implements OnInit {
   exportExcel(): void {
     this.featuresService.featuresComparingExportExcel(this.type, this.filters).subscribe(() => {
     });
+  }
+
+  onSort(ordering) {
+    this.filters.ordering = ordering;
+    this.filter(this.filters);
+  }
+
+  onFilterInit(filterValue) {
+    this.filters = filterValue;
   }
 }

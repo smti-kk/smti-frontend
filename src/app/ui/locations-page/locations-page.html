@@ -16,18 +16,16 @@
 >
   <div class="sticky-table-container">
     <table mat-table [dataSource]="locations">
-<!--      <cdk-virtual-scroll-viewport itemSize="50">-->
         <ng-container matColumnDef="areaName">
-          <th class="align-left c-filter-button"
+          <th class="align-left sort-cell-button"
               mat-header-cell
               *matHeaderCellDef
-              (click)="onSort('parent')"
-              [ngClass]="{
-                'is-active': sortBy == 'parent',
-                'u-back-sort': sortBy == 'parent' && sortInverse
-              }"
+              appSortButton
+              sortBy="parent"
+              [currentSort]="filters?.ordering?.name"
+              (onSortChange)="onSort($event)"
           >
-            Район
+            <div class="sort-cell-button__inner">Район</div>
           </th>
           <td class="align-left whitespace-nowrap" mat-cell *matCellDef="let location"> {{location.area.name}} </td>
         </ng-container>
@@ -35,16 +33,15 @@
       <div *ngIf="user && user.isOperatorOrAdmin(); else not_click_location">
         <ng-container matColumnDef="name">
           <th
-            class="c-filter-button"
+            class="sort-cell-button"
             mat-header-cell
             *matHeaderCellDef
-            (click)="onSort('name')"
-            [ngClass]="{
-                'is-active': sortBy == 'name',
-                'u-back-sort': sortBy == 'name' && sortInverse
-            }"
+              appSortButton
+              sortBy="name"
+              [currentSort]="filters?.ordering?.name"
+              (onSortChange)="onSort($event)"
           >
-            Населенный пункт
+            <div class="sort-cell-button__inner">Населенный пункт</div>
           </th>
           <td
             mat-cell
@@ -57,16 +54,15 @@
       <ng-template #not_click_location>
         <ng-container matColumnDef="name">
           <th
-            class="c-filter-button"
+            class="sort-cell-button"
             mat-header-cell
             *matHeaderCellDef
-            (click)="onSort('name')"
-            [ngClass]="{
-                'is-active': sortBy == 'name',
-                'u-back-sort': sortBy == 'name' && sortInverse
-            }"
+              appSortButton
+              sortBy="name"
+              [currentSort]="filters?.ordering?.name"
+              (onSortChange)="onSort($event)"
           >
-            Населенный пункт
+            <div class="sort-cell-button__inner">Населенный пункт</div>
           </th>
           <td
             mat-cell
@@ -78,16 +74,17 @@
 
         <ng-container matColumnDef="population">
           <th
-            class="c-filter-button"
+            class="sort-cell-button"
             mat-header-cell
             *matHeaderCellDef
-            (click)="onSort('people_count')"
-            [ngClass]="{
-                'is-active': sortBy == 'people_count',
-                'u-back-sort': sortBy == 'people_count' && sortInverse
-            }"
+            appSortButton
+            sortBy="people_count"
+            [currentSort]="filters?.ordering?.name"
+            (onSortChange)="onSort($event)"
           >
-            <span class="material-icons" matTooltip="Численность">people</span>
+            <div class="sort-cell-button__inner">
+              <span class="material-icons" matTooltip="Численность">people</span>
+            </div>
           </th>
           <td class="text-align-center" mat-cell *matCellDef="let location"> {{location.population}} </td>
         </ng-container>
@@ -279,7 +276,6 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-<!--      </cdk-virtual-scroll-viewport>-->
     </table>
   </div>
   <div class="spinner-container">

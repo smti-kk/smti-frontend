@@ -6,12 +6,6 @@ import {LoaderService} from '../loader/LoaderService';
 import {AccountService} from '@service/account/AccountService';
 import {Account} from '@service/account/Account';
 
-export enum OrderingDirection {
-  ASC,
-  DSC,
-  UNDEFINED,
-}
-
 @Component({
   selector: 'locations-page',
   templateUrl: './locations-page.html',
@@ -46,11 +40,7 @@ export class LocationsPage implements OnInit {
   countPerPage: number;
   isLoading: boolean;
   user: Account;
-  private filters: LocationFilters;
-
-  sortBy: string = '';
-  sortInverse: boolean = false;
-  sortDirection = OrderingDirection.UNDEFINED;
+  filters: LocationFilters;
 
   constructor(
     private readonly locationsFullInformationService: LocationsFullInformationService,
@@ -107,37 +97,9 @@ export class LocationsPage implements OnInit {
     this.locationsFullInformationService.exportExcel();
   }
 
-  onSort(name: string) {
-    this.getSortParams(name);
-    this.setSortParams();
-  }
-
-  setSortParams(){
-    const ordering = {
-      name: this.sortBy,
-      orderingDirection: this.sortDirection,
-    }
+  onSort(ordering) {
     this.filters.ordering = ordering;
     this.filter(this.filters);
-  }
-
-  getSortParams(name: string){
-    if(name === this.sortBy){
-      if(this.sortInverse){
-        this.sortInverse = false;
-        this.sortDirection = OrderingDirection.UNDEFINED;
-        this.sortBy = '';
-        return;
-      }
-
-      this.sortDirection = OrderingDirection.DSC;
-      this.sortInverse = true;
-      return;
-    }
-
-    this.sortDirection = OrderingDirection.ASC;
-    this.sortInverse = false;
-    this.sortBy = name;
   }
 
   onFilterInit(filterValue) {

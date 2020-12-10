@@ -94,14 +94,14 @@ import {BaseStationInfoBarComponent} from './map-page/base-station-info-bar/base
 import {ReportMonitoringComponent} from './report-monitoring/report-monitoring.component';
 import {JoinorgPipe} from './users/pipe-organizations/joinorg.pipe';
 import {ImportBaseStationComponent} from './import-base-station/import-base-station.component';
-import { AppealComponent } from './appeal/appeal.component';
-import { CreateAppealComponent } from './appeal/create-appeal/create-appeal.component';
+import {AppealComponent} from './appeal/appeal.component';
+import {CreateAppealComponent} from './appeal/create-appeal/create-appeal.component';
 import {MatFileUploadModule} from 'mat-file-upload';
-import { OperatorsComponent } from './operators/operators.component';
-import { CreateOperatorsComponent } from './operators/create-operators/create-operators.component';
-import { FormCreateUserComponent } from './users/form-create-user/form-create-user.component';
+import {OperatorsComponent} from './operators/operators.component';
+import {CreateOperatorsComponent} from './operators/create-operators/create-operators.component';
+import {FormCreateUserComponent} from './users/form-create-user/form-create-user.component';
 import {BaseStationsFiltersComponent} from './base-stations/base-stations-filters/base-stations-filters.component';
-import { FormResetPasswordComponent } from './users/form-reset-password/form-reset-password.component';
+import {FormResetPasswordComponent} from './users/form-reset-password/form-reset-password.component';
 import {TypeOrganizationComponent} from './type-organization/type-organization.component';
 import {CreateTypeOrganizationComponent} from './type-organization/create/create-type-organization.component';
 import {TypeSmoComponent} from './type-smo/type-smo.component';
@@ -109,9 +109,10 @@ import {CreateTypeSmoComponent} from './type-smo/create/create-type-smo.componen
 import {GovProgramComponent} from './gov-programs/gov-program.component';
 import {CreateGovProgramComponent} from './gov-programs/create/create-gov-program.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
-import {SharedModule} from "@shared/shared.module";
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
 import {ObserverDirective} from "./directives/observer.directive";
+import {SortDirective} from "./directives/sort.directive";
+import {FilterPipe} from "./directives/filter.pipe";
 
 registerLocaleData(ru);
 
@@ -184,7 +185,9 @@ registerLocaleData(ru);
     CreateTypeSmoComponent,
     GovProgramComponent,
     CreateGovProgramComponent,
-    ObserverDirective
+    ObserverDirective,
+    SortDirective,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -224,7 +227,10 @@ registerLocaleData(ru);
     NgxMatSelectSearchModule,
     MatFileUploadModule,
     ScrollingModule,
-    SharedModule
+  ],
+  exports: [
+    FilterPipe,
+    SortDirective
   ],
   providers: [
     LocationServiceOrganizationAccessPointsWithFilterParams,

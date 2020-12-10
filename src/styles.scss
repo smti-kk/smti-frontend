@@ -273,3 +273,33 @@ mat-accordion {
     }
   }
 }
+
+.sort-cell-button {
+  cursor: pointer;
+  user-select: none;
+  transition: color .25s ease-out,
+              background .25s ease-out;
+  &__inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    &:after {
+      content: '\f884';
+      display: block;
+      margin-left: auto;
+    }
+  }
+  &.is-reverse {
+    &__inner:after {content: '\f160';}
+  }
+  &.is-active {
+    background: #efefef;
+    color: #454544;
+  }
+  @media(min-width: 1280px){
+    &:hover {
+      background: #f9f9f9;
+      color: #454544;
+    }
+  }
+}

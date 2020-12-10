@@ -7,7 +7,6 @@ import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {SelectAreasService} from '@service/area/SelectAreasService';
 import {GovProgramService} from '@service/gov-program/GovProgramService';
 import {forkJoin, Observable} from 'rxjs';
-import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
 import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
 import {Location} from "@core/models";
@@ -18,14 +17,13 @@ import {Location} from "@core/models";
   styleUrls: ['./location-comparing-filters.component.scss']
 })
 export class LocationComparingFiltersComponent implements OnInit {
-
   filterForm: FormGroup;
   programs: GovProgram[];
   filtersIsOpened: boolean;
-  OrderingDirection = OrderingDirection;
   govYears: number[];
   fLocations$: Observable<Location[]>;
   @Output() filters: EventEmitter<LocationFilters>;
+  @Output() init: EventEmitter<LocationFilters> = new EventEmitter<LocationFilters>();
   @Output() exportExcel: EventEmitter<void>;
   @Input() type: TechnicalCapabilityType;
 
@@ -49,8 +47,8 @@ export class LocationComparingFiltersComponent implements OnInit {
       this.govYears = govYears;
       this.filterForm.valueChanges.subscribe(value => {
         this.filters.emit(value);
-        console.log(value);
       });
+      this.init.emit(this.filterForm.value);
     });
     this.filters = new EventEmitter<LocationFilters>();
   }
