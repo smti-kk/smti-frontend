@@ -304,3 +304,84 @@ mat-accordion {
     color: #454544;
   }
 }
+
+
+.capabilities-card {
+  font-family: "Segoe UI", sans-serif;
+  &__head {margin-bottom: 20px;}
+    &__title {font-weight: 600;}
+  &__row {
+    align-items: center;
+    display: flex;
+  }
+  &__row + &__row {margin-top: 10px;}
+    &__type {
+      flex: none;
+      width: 120px;
+    }
+    &__properties {
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      width: 100%;
+      padding-bottom: 5px;
+
+      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+      box-sizing: border-box;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 5px;
+        left: 0;
+        border-left: 1px solid rgba(0, 0, 0, 0.42);
+      }
+    }
+      &__property {
+        padding-left: 8px;
+        box-sizing: border-box;
+        &._checks {
+          align-self: center;
+          margin-right: auto;
+        }
+        &._quality {
+          width: 90 / 480 * 100%;
+        }
+        &._year {
+          width: 48 / 480 * 100%;
+        }
+        &._programm {
+          width: 187 / 480 * 100%;
+        }
+      }
+
+  mat-radio-group {display: flex;}
+  mat-radio-button + mat-radio-button {margin-left: 12px;}
+  mat-checkbox + mat-checkbox {margin-left: 12px;}
+  .mat-radio-container,
+  .mat-radio-inner-circle,
+  .mat-radio-outer-circle {
+    width: 14px;
+    height: 14px;
+  }
+  .mat-radio-label-content {
+    padding-left: 4px;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  .mat-form-field-wrapper {margin-bottom: -1.25em;}
+  .mat-form-field {display: block;}
+  .mat-form-field-infix {
+    width: 100%;
+    padding: 0.2375em 0;
+    border-top-width: 0.44375em;
+  }
+
+  .mat-select-value {font-weight: 500;}
+  .mat-select-arrow {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid;
+    margin: 0;
+  }
+}
