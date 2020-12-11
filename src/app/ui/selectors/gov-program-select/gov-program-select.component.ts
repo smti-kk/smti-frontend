@@ -14,9 +14,9 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   selector: 'gov-program-select',
   template: `
     <mat-form-field>
-      <mat-label>Государственная программа</mat-label>
+      <mat-label>Гос. программа</mat-label>
       <mat-select [formControl]="formControl">
-        <mat-option [value]="null">Государственная программа</mat-option>
+        <mat-option [value]="null">Гос. программа</mat-option>
         <mat-option *ngFor="let gp of govPrograms$ | async" [value]="gp.id">{{gp.name}}</mat-option>
       </mat-select>
     </mat-form-field>
