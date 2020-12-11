@@ -18,6 +18,8 @@ import {SharedModule} from '@shared/shared.module';
 import {OrganizationsOnlyComponent} from './organizations-only/organizations-only.component';
 import {OrganizationOnlyDetailComponent} from './organization-only-detail/organization-only-detail.component';
 import {CoreModule} from '@core/core.module';
+import {MatSelectModule} from "@angular/material/select";
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 
 const routes: Routes = [
   {
@@ -55,7 +57,9 @@ const routes: Routes = [
     CoreModule,
     NzCheckboxModule,
     NzButtonModule,
-    NzModalModule
+    NzModalModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   providers: [],
 })

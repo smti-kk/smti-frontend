@@ -6,7 +6,7 @@ import {OrganizationsService} from './organizations.service';
 
 interface OrganizationFilters {
   order: string[];
-  location: Location;
+  location: Location | Location[];
   type: OrganizationType;
   smo: SmoType;
   parent: number[];
@@ -28,6 +28,7 @@ export class OrganizationServiceWithFilterParams extends OrganizationsService {
   }
 
   filter(filters: OrganizationFilters) {
+    this.params = new HttpParams();
     this.filters = filters;
     this.setOrder(filters.order);
     this.setLocation('location', filters.location);
@@ -94,11 +95,16 @@ export class OrganizationServiceWithFilterParams extends OrganizationsService {
     }
   */
 
-  private setLocation(field: string, value: Location) {
-    if (value) {
-      this.params = this.params.set(field, value.id.toString());
-    } else {
-      this.params = this.params.delete(field);
+  private setLocation(field: string, value: Location | Location[]) {
+    if (!value) {return}
+
+    if(Array.isArray(value)){
+      for (let i = 0; i < value.length; i++){
+        this.params = this.params.append(field, value[i].id.toString());
+      }
+    }
+    else {
+      this.params = this.params.append(field, value.id.toString());
     }
   }
 
