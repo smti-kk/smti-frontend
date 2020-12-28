@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {CreateTrunkChannelComponent} from './create-trunk-channel/create-trunk-channel.component';
 import {TrunkChannel} from '@api/dto/TrunkChannel';
 import {AreYouSureComponent} from '../dialogs/are-you-sure/are-you-sure.component';
-import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {TrunkChannelsApi} from '@api/trunk-channels/TrunkChannelsApi';
 import {MatPaginator} from '@angular/material/paginator';
@@ -13,23 +12,30 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./trunk-channels.component.scss']
 })
 export class TrunkChannelsComponent implements OnInit {
-
   displayedColumns: string[] = ['locationStart', 'locationEnd', 'operator', 'typeTrunkChannel', 'commissioning', 'decommissioning', 'program', 'completed', 'select'];
-  dataSource: MatTableDataSource<TrunkChannel>;
+  dataSource: TrunkChannel[];
   baseStations: TrunkChannel[];
-
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private readonly api: TrunkChannelsApi,
-              private readonly cdr: ChangeDetectorRef,
-              private readonly dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource<TrunkChannel>(this.baseStations);
-  }
+  totalCount: number;
+  pageSize: number = 20;
+  totalPage: number;
+  currentPage = 0;
+  isLoading = false;
+
+  constructor(
+    private readonly api: TrunkChannelsApi,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
     this.api.list().subscribe(bs => {
-      this.dataSource.data = bs;
+      this.dataSource = bs;
+      this.totalCount = this.dataSource.length;
+      this.totalPage = Math.ceil(this.dataSource.length / this.pageSize);
+
+      this.baseStations = this.getItems();
     });
   }
 
@@ -40,7 +46,7 @@ export class TrunkChannelsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.api.create(result).subscribe(baseStation => {
-          this.dataSource.data = [...this.dataSource.data, baseStation];
+          this.dataSource = [...this.dataSource, baseStation];
         });
       }
     });
@@ -54,7 +60,7 @@ export class TrunkChannelsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(isAccepted => {
       if (isAccepted) {
         this.api.remove(row.id).subscribe(() => {
-          this.dataSource.data = this.dataSource.data.filter(bs => bs.id !== row.id);
+          this.dataSource = this.dataSource.filter(bs => bs.id !== row.id);
         });
       }
     });
@@ -68,11 +74,28 @@ export class TrunkChannelsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(bs => {
       if (bs) {
         this.api.update(bs).subscribe(() => {
-          const index = this.dataSource.data.findIndex(bst => bst.id === row.id);
-          this.dataSource.data[index] = bs;
-          this.dataSource.data = [...this.dataSource.data];
+          const index = this.dataSource.findIndex(bst => bst.id === row.id);
+          this.dataSource[index] = bs;
+          this.dataSource = [...this.dataSource];
         });
       }
     });
+  }
+
+  onNextPage(){
+    if(this.isLoading){return;}
+    if((this.totalPage - 1) <= this.currentPage){return;}
+    this.isLoading = true;
+    this.currentPage++;
+
+    setTimeout(() => {
+      this.baseStations = this.getItems();
+      this.isLoading = false;
+    }, 200);
+  }
+
+  getItems(){
+    const viewItemsCount = this.pageSize * (this.currentPage + 1);
+    return this.dataSource.slice(0, viewItemsCount);
   }
 }

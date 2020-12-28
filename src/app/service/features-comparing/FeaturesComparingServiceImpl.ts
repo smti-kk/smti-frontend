@@ -29,10 +29,12 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
     );
   }
 
-  featuresComparingFiltered(page: number,
-                            size: number,
-                            type: TechnicalCapabilityType,
-                            filters: LocationFilters): Observable<Pageable<FeaturesComparing[]>> {
+  featuresComparingFiltered(
+    page: number,
+    size: number,
+    type: TechnicalCapabilityType,
+    filters: LocationFilters
+  ): Observable<Pageable<FeaturesComparing[]>> {
     if (!filters) {
       return this.featuresComparing(page, size, type);
     }

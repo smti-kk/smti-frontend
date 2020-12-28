@@ -1,9 +1,9 @@
 :host * {
-  color: #747578;
+  //color: rgba(0, 0, 0, 0.42);
   font-family: "Segoe UI", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 19px;
+  line-height: 22px;
 }
 
 .filter {
@@ -126,7 +126,7 @@
   }
 
   &__column-label-text {
-    color: #95989a;
+    color: rgba(0, 0, 0, 0.42);
     font-size: 14px;
     font-weight: 600;
     line-height: 19px;

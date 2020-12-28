@@ -56,7 +56,10 @@ export class CreateTrunkChannelComponent implements OnInit {
           return -1;
         }
       }))
-    ).subscribe(locations => this.locations = locations);
+    ).subscribe(locations => {
+      this.locations = locations;
+      this.locations.map(location => location.complexName = location.type + ' ' + location.name + ' (' + location.parent?.type + ' ' + location.parent?.name + ')')
+    });
   }
 
   ngOnInit(): void {
@@ -70,11 +73,11 @@ export class CreateTrunkChannelComponent implements OnInit {
   }
 
   compareById(station1: { id: number }, station2: { id: number }): boolean {
+    if (!station1 || !station2) {
+      return false;
+    }
     if (station1 === station2) {
       return true;
-    }
-    if (station1 === null || station2 === null) {
-      return false;
     }
     if (station1.id === station2.id) {
       return true;

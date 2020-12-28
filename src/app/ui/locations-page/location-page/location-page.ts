@@ -26,6 +26,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
 import {SelectAreaItem} from '@service/dto/SelectAreaItem';
 
+
 @Component({
   selector: 'location-page',
   templateUrl: 'location-page.html',
@@ -52,19 +53,21 @@ export class LocationPage implements OnInit, OnDestroy {
   isLocationEdition = false;
   selectAreaItem: SelectAreaItem;
 
-  constructor(private mobileTypeApi: MobileTypeApi,
-              private activatedRoute: ActivatedRoute,
-              private trunkChannelTypeApi: TrunkChannelTypeApi,
-              private accountService: AccountService,
-              private readonly featuresService: FeaturesComparingService,
-              public dialog: MatDialog,
-              public httpClient: HttpClient,
-              private tvTypeApi: TvTypeApi,
-              private postTypeApi: PostTypeApi,
-              private operatorsApi: OperatorsApi,
-              private readonly requestsService: ApiFeaturesRequests,
-              private snackBar: MatSnackBar,
-              private detailLocations: DetailLocations) {
+  constructor(
+    private mobileTypeApi: MobileTypeApi,
+    private activatedRoute: ActivatedRoute,
+    private trunkChannelTypeApi: TrunkChannelTypeApi,
+    private accountService: AccountService,
+    private readonly featuresService: FeaturesComparingService,
+    public dialog: MatDialog,
+    public httpClient: HttpClient,
+    private tvTypeApi: TvTypeApi,
+    private postTypeApi: PostTypeApi,
+    private operatorsApi: OperatorsApi,
+    private readonly requestsService: ApiFeaturesRequests,
+    private snackBar: MatSnackBar,
+    private detailLocations: DetailLocations
+  ) {
     this.locationId = parseInt(activatedRoute.snapshot.params.id, 10);
     this.isEdition = true;
     this.subscription = forkJoin([

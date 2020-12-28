@@ -231,3 +231,157 @@ input[type="checkbox" i] {
 @import "leaflet";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "old";
+
+.cdk-overlay-container .mat-select-panel {max-height: 288px;}
+.mat-header-cell {font-size: 14px;}
+.mat-form-field-appearance-fill .mat-form-field-flex {padding-left: 0!important;}
+input.mat-input-element {
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+nz-form-item .mat-select-filter{}
+.mat-select-filter {
+  height: 63px;
+  margin-top: 0 !important;
+  border-bottom: 1px solid #e0e0e0;
+  .mat-select-trigger {
+    vertical-align: middle;
+    height: 100%;
+    color: #9da0a1;
+  }
+    .mat-select-value {
+      vertical-align: middle;
+    }
+}
+.mat-select-value {
+  color: #747578;
+  font-weight: 600;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+}
+.mat-form-field-label {color: rgba(0, 0, 0, 0.42);}
+
+.ant-form-item-label > label {
+  font-family: "Segoe UI", sans-serif;
+}
+
+mat-accordion {
+  mat-accordion {
+    .mat-expansion-panel-body,
+    .mat-expansion-panel-header {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.sort-cell-button {
+  cursor: pointer;
+  user-select: none;
+  transition: color .25s ease-out,
+              background .25s ease-out;
+  &__inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    &:after {
+      content: '\f884';
+      display: block;
+      margin-left: auto;
+    }
+  }
+  @media(min-width: 1280px){
+    &:hover {
+      background: #f9f9f9;
+      color: #454544;
+    }
+  }
+
+  &.is-reverse &__inner:after {content: '\f160';}
+  &.is-active {
+    background: #efefef;
+    color: #454544;
+  }
+}
+
+
+.capabilities-card {
+  font-family: "Segoe UI", sans-serif;
+  &__head {margin-bottom: 20px;}
+    &__title {font-weight: 600;}
+  &__row {
+    align-items: center;
+    display: flex;
+  }
+  &__row + &__row {margin-top: 10px;}
+    &__type {
+      flex: none;
+      width: 120px;
+    }
+    &__properties {
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      width: 100%;
+      padding-bottom: 5px;
+
+      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+      box-sizing: border-box;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 5px;
+        left: 0;
+        border-left: 1px solid rgba(0, 0, 0, 0.42);
+      }
+    }
+      &__property {
+        padding-left: 8px;
+        box-sizing: border-box;
+        &._checks {
+          align-self: center;
+          margin-right: auto;
+        }
+        &._quality {
+          width: 90 / 480 * 100%;
+        }
+        &._year {
+          width: 63 / 480 * 100%;
+        }
+        &._programm {
+          width: 172 / 480 * 100%;
+        }
+      }
+
+  mat-radio-group {display: flex;}
+  mat-radio-button + mat-radio-button {margin-left: 12px;}
+  mat-checkbox + mat-checkbox {margin-left: 12px;}
+  .mat-radio-container,
+  .mat-radio-inner-circle,
+  .mat-radio-outer-circle {
+    width: 14px;
+    height: 14px;
+  }
+  .mat-radio-label-content {
+    padding-left: 4px;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  .mat-form-field-wrapper {margin-bottom: -1.25em;}
+  .mat-form-field {display: block;}
+  .mat-form-field-infix {
+    width: 100%;
+    padding: 0.2375em 0;
+    border-top-width: 0.44375em;
+  }
+
+  .mat-select-value {font-weight: 500;}
+  .mat-select-arrow {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid;
+    margin: 0;
+  }
+}

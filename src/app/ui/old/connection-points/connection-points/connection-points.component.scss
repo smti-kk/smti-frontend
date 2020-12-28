@@ -207,3 +207,16 @@ a.btn:hover {
   color: #ffffff;
   transform: rotate(-90deg);
 }
+
+mat-select {
+  color: rgba(0, 0, 0, 0.42);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+  margin-top: 22px;
+
+  & ::ng-deep .mat-select-placeholder {
+    color: rgba(0, 0, 0, 0.42);
+  }
+}

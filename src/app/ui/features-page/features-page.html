@@ -1,18 +1,51 @@
 <div class="location-features-container">
-  <app-location-comparing-filters (exportExcel)="exportExcel()" [type]="type" (filters)="filter($event)"></app-location-comparing-filters>
+  <app-location-comparing-filters (exportExcel)="exportExcel()" (init)="onFilterInit($event)" [type]="type" (filters)="filter($event)"></app-location-comparing-filters>
+
   <div class="filter-result-count">
     Результатов поиска: {{totalElements}}
   </div>
+
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (change)="onChangeType($event)" class="type-select">
     <mat-button-toggle [checked]="this.type === 'INET'" value="INET">Интернет</mat-button-toggle>
     <mat-button-toggle value="MOBILE">Сотовая связь</mat-button-toggle>
   </mat-button-toggle-group>
   <div class="features-table" *ngIf="features">
     <div class="features-table__header">
-      <div class="features-table__header-column">Населенный пункт</div>
+      <div class="features-table__header-column sort-cell-button"
+        appSortButton
+        sortBy="parent"
+        [currentSort]="filters?.ordering?.name"
+        (onSortChange)="onSort($event)"
+      >
+        <div class="sort-cell-button__inner">
+          Район
+        </div>
+      </div>
+      <div class="features-table__header-column sort-cell-button"
+        appSortButton
+        sortBy="name"
+        [currentSort]="filters?.ordering?.name"
+        (onSortChange)="onSort($event)"
+      >
+        <div class="sort-cell-button__inner">
+          Населенный пункт
+        </div>
+      </div>
+      <div class="features-table__header-column _center sort-cell-button"
+        appSortButton
+        sortBy="people_count"
+        [currentSort]="filters?.ordering?.name"
+        (onSortChange)="onSort($event)"
+      >
+        <div class="sort-cell-button__inner">
+          <span class="material-icons" matTooltip="Численность">people</span>
+        </div>
+      </div>
+
       <div class="features-table__header-column">Архив {{currentYear - 1}}</div>
       <div class="features-table__header-column">Текущие {{currentYear}}</div>
       <div class="features-table__header-column">План {{currentYear}}</div>
+
       <div class="features-table__header-column">План {{currentYear + 1}}</div>
       <div class="features-table__header-column">План {{currentYear + 2}}</div>
     </div>
@@ -23,16 +56,15 @@
          [infiniteScrollThrottle]="300"
          (scrolled)="onScrollDown()"
     >
-      <div class="features-table__row" *ngFor="let feature of features">
-        <div class="features-table__column features-table__location">
-          <div class="features-table__location-info">
-            {{feature.type}} {{feature.name}}<br>
-            {{feature.locationParent?.type}} {{feature.locationParent?.name}}<br>
-            {{feature.population}} чел.
-          </div>
-          <div class="features-table__location-detail" routerLink="/locations/{{feature.id}}">
-            Подробнее
-          </div>
+      <div class="features-table__row" *ngFor="let feature of features" routerLink="/locations/{{feature.id}}">
+        <div class="features-table__column">
+          <div class="features-table__location-info">{{feature.locationParent?.type}} {{feature.locationParent?.name}}</div>
+        </div>
+        <div class="features-table__column">
+          <div class="features-table__location-info">{{feature.type}} {{feature.name}}</div>
+        </div>
+        <div class="features-table__column _center">
+          <div class="features-table__location-info">{{feature.population}}</div>
         </div>
         <div class="features-table__column features-table__archive-column">
           <div class="features-table__operator" *ngFor="let tc of feature.archive">

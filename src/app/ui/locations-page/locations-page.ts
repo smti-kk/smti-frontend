@@ -40,11 +40,13 @@ export class LocationsPage implements OnInit {
   countPerPage: number;
   isLoading: boolean;
   user: Account;
-  private filters: LocationFilters;
+  filters: LocationFilters;
 
-  constructor(private readonly locationsFullInformationService: LocationsFullInformationService,
-              private readonly accountService: AccountService,
-              private readonly loaderService: LoaderService) {
+  constructor(
+    private readonly locationsFullInformationService: LocationsFullInformationService,
+    private readonly accountService: AccountService,
+    private readonly loaderService: LoaderService
+  ) {
     accountService.get().subscribe(user => {
       this.user = user;
     });
@@ -83,6 +85,7 @@ export class LocationsPage implements OnInit {
   filter(filters: LocationFilters): void {
     this.page = 0;
     this.filters = filters;
+
     this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, filters)
       .subscribe(locations => {
         this.locations = locations.content;
@@ -93,4 +96,14 @@ export class LocationsPage implements OnInit {
   exportExcel(): void {
     this.locationsFullInformationService.exportExcel();
   }
+
+  onSort(ordering) {
+    this.filters.ordering = ordering;
+    this.filter(this.filters);
+  }
+
+  onFilterInit(filterValue) {
+    this.filters = filterValue;
+  }
 }
+

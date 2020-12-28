@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-  NzAutocompleteModule, NzCheckboxModule,
+  NzAutocompleteModule,
+  NzCheckboxModule,
   NzFormModule,
   NzIconModule,
   NzInputModule,
@@ -29,11 +30,11 @@ import {GovernmentProgramComponent} from './layout/value-accessors/government-pr
 import {MobileGenerationComponent} from './layout/value-accessors/mobile-generation.component';
 import {PayphoneFeatureComponent} from './components/providers-row/payphone/payphone-feature.component';
 import {AtsFeatureComponent} from './components/providers-row/ats/ats-feature.component';
-import { SimpleSelectComponent } from './layout/simple-select/simple-select.component';
-import { GroupSelectComponent } from './layout/group-select/group-select.component';
-import { FormOrganizationComponent } from './components/form-organization/form-organization.component';
-import { FormAccessPointComponent } from './components/form-access-point/form-access-point.component';
-import { FomMonitoringWizardComponent } from './components/fom-monitoring-wizard/fom-monitoring-wizard.component';
+import {SimpleSelectComponent} from './layout/simple-select/simple-select.component';
+import {GroupSelectComponent} from './layout/group-select/group-select.component';
+import {FormOrganizationComponent} from './components/form-organization/form-organization.component';
+import {FormAccessPointComponent} from './components/form-access-point/form-access-point.component';
+import {FomMonitoringWizardComponent} from './components/fom-monitoring-wizard/fom-monitoring-wizard.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -41,6 +42,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {FilterPipe} from "../../directives/filter.pipe";
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     FormOrganizationComponent,
     FormAccessPointComponent,
     FomMonitoringWizardComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -109,6 +112,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     SimpleSelectComponent,
     GroupSelectComponent,
     FormOrganizationComponent,
+    FilterPipe
   ],
 })
 export class SharedModule {}

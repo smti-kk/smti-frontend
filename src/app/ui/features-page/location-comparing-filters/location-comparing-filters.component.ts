@@ -6,9 +6,10 @@ import {LocationFilterFormBuilder} from '@service/locations';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {SelectAreasService} from '@service/area/SelectAreasService';
 import {GovProgramService} from '@service/gov-program/GovProgramService';
-import {forkJoin} from 'rxjs';
-import {OrderingDirection} from '../../buttons/filter-btn/filter-btn.component';
+import {forkJoin, Observable} from 'rxjs';
 import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
+import {Location} from "@core/models";
 
 @Component({
   selector: 'app-location-comparing-filters',
@@ -16,20 +17,23 @@ import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
   styleUrls: ['./location-comparing-filters.component.scss']
 })
 export class LocationComparingFiltersComponent implements OnInit {
-
   filterForm: FormGroup;
   programs: GovProgram[];
   filtersIsOpened: boolean;
-  OrderingDirection = OrderingDirection;
   govYears: number[];
+  fLocations$: Observable<Location[]>;
   @Output() filters: EventEmitter<LocationFilters>;
+  @Output() init: EventEmitter<LocationFilters> = new EventEmitter<LocationFilters>();
   @Output() exportExcel: EventEmitter<void>;
   @Input() type: TechnicalCapabilityType;
 
-  constructor(private readonly filterFormBuilder: LocationFilterFormBuilder,
-              private readonly apiLocationDetail: LocationDetailApi,
-              private readonly selectAreasService: SelectAreasService,
-              private readonly govProgramService: GovProgramService) {
+  constructor(
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
+    private readonly filterFormBuilder: LocationFilterFormBuilder,
+    private readonly apiLocationDetail: LocationDetailApi,
+    private readonly selectAreasService: SelectAreasService,
+    private readonly govProgramService: GovProgramService
+  ) {
     this.exportExcel = new EventEmitter<void>();
     this.filtersIsOpened = false;
     forkJoin([
@@ -43,13 +47,14 @@ export class LocationComparingFiltersComponent implements OnInit {
       this.govYears = govYears;
       this.filterForm.valueChanges.subscribe(value => {
         this.filters.emit(value);
-        console.log(value);
       });
+      this.init.emit(this.filterForm.value);
     });
     this.filters = new EventEmitter<LocationFilters>();
   }
 
   ngOnInit(): void {
+    this.fLocations$ = this.serviceLocation.listSimpleLocations();
   }
 
   filterValue(): LocationFilters {
