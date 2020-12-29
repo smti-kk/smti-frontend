@@ -69,6 +69,10 @@
     background-color: #efefef;
     &._center {text-align: center;}
   }
+  &__archive-column {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 
   &__operator {
     margin-right: 8px;
