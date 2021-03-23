@@ -138,7 +138,7 @@
   <h1>Мои заявки (архив)</h1>
   <ng-container
     *ngFor="let request of archiveRequests">
-    <div class="card-container">
+    <div class="card-container" *ngIf="request.featureEdits && request.featureEdits.length">
       <div class="card">
         <div class="card-body">
           <span class="card-number">№{{request.id}}</span> от
