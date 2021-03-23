@@ -21,7 +21,7 @@ export const qualityToString = (quality: Quality): string => {
     case Quality.ABSENT:
       return 'Отсутствует';
     case Quality.GOOD:
-      return 'Хорошо';
+      return 'Хорошее';
     case Quality.NORMAL:
       return 'Удовлетворительно';
     case null:

@@ -13,8 +13,8 @@ const VALUE_ACCESSOR: Provider = {
   selector: 'app-quality',
   template: `
     <select [formControl]="quality">
-      <option [ngValue]="Quality.GOOD">Хорошее качество</option>
-      <option [ngValue]="Quality.NORMAL">Удовлетворительное качество</option>
+      <option [ngValue]="Quality.GOOD">Хорошее</option>
+      <option [ngValue]="Quality.NORMAL">Удовлетворительно</option>
       <option [ngValue]="Quality.ABSENT">Отсутствует</option>
     </select>
   `,
