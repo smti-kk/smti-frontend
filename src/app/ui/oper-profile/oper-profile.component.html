@@ -7,7 +7,7 @@
 >
   <h1 *ngIf="!isJournal()">Мои заявки (архив)</h1>
   <ng-container *ngFor="let request of archiveRequests">
-    <div class="card-container">
+    <div class="card-container" *ngIf="request.featureEdits && request.featureEdits.length">
       <div class="card">
         <div class="card-body">
           <ng-container *ngIf="!isJournal()">
