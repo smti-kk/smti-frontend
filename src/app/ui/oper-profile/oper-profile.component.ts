@@ -70,9 +70,9 @@ export class OperProfileComponent implements OnInit {
   qualityToString(quality: Quality): string {
     switch (quality) {
       case 'GOOD':
-        return 'Хорошее качество';
+        return 'Хорошее';
       case 'NORMAL':
-        return 'Нормальное качество';
+        return 'Удовлетворительно';
       case 'ABSENT':
         return 'Отсутствует';
     }
