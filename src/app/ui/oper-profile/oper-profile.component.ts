@@ -72,7 +72,7 @@ export class OperProfileComponent implements OnInit {
       case 'GOOD':
         return 'Хорошее качество';
       case 'NORMAL':
-        return 'Нормальное качество';
+        return 'Удовлетворительное качество';
       case 'ABSENT':
         return 'Отсутствует';
     }
