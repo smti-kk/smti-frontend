@@ -48,7 +48,8 @@
                   <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #regionFilter></ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item.id">
-                  {{ item?.name }}
+                  <div *ngIf="item?.type === 'р-н' || item?.type === 'округ'">{{ item?.name }} {{ item?.type }}</div>
+                  <div *ngIf="item?.type !== 'р-н' && item?.type !== 'округ'">{{ item?.type }} {{ item?.name }}</div>
                 </mat-option>
               </mat-select>
 

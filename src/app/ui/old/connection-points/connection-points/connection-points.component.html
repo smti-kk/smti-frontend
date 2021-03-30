@@ -59,7 +59,8 @@
                 </mat-option>
                 <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
                   <mat-option *cdkVirtualFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item?.id">
-                    {{ item?.type }} {{ item?.name }}
+                    <div *ngIf="item?.type === 'р-н' || item?.type === 'округ'">{{ item?.name }} {{ item?.type }}</div>
+                    <div *ngIf="item?.type !== 'р-н' && item?.type !== 'округ'">{{ item?.type }} {{ item?.name }}</div>
                   </mat-option>
                 </cdk-virtual-scroll-viewport>
               </mat-select>
