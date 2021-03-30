@@ -17,7 +17,7 @@ export class SelectAreasServiceImpl implements SelectAreasService {
         return areas.map(area => {
           return {
             id: area.id,
-            label: area.type + ' ' + area.name
+            label: area.type === 'р-н' || area.type === 'округ' ? area.name + ' ' + area.type : area.type + ' ' + area.name
           };
         });
       })
