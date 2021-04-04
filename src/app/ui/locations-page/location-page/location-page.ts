@@ -26,6 +26,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
 import {SelectAreaItem} from '@service/dto/SelectAreaItem';
 
+const KRASNOYARSK_REGION_ID = 4;
 
 @Component({
   selector: 'location-page',
@@ -47,6 +48,7 @@ export class LocationPage implements OnInit, OnDestroy {
   pageArchive = 0;
   pagePlan = 0;
   size = 10;
+  krasnoyarskRegionId = KRASNOYARSK_REGION_ID;
 
   private subscription: Subscription;
   isPlanEdition = false;

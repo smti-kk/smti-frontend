@@ -7,8 +7,9 @@
         <ng-container *ngIf="tcs.locationParent && !isLocationEdition">
           <div class="font-size">{{selectAreaItem.label}}</div>
         </ng-container>
-        <ng-container *ngIf="isLocationEdition">
+        <ng-container *ngIf="isLocationEdition && tcs.locationParent.id != krasnoyarskRegionId">
           <app-area-select [isMulti]="false" [(ngModel)]="selectAreaItem.id"></app-area-select>
+          <div class="error-parent" *ngIf="selectAreaItem.id == tcs.id">Нельзя выбрать принадлежность самому себе</div>
         </ng-container>
       </div>
     </div>
