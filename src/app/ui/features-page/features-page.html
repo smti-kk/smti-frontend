@@ -56,12 +56,14 @@
          [infiniteScrollThrottle]="300"
          (scrolled)="onScrollDown()"
     >
-      <div class="features-table__row" *ngFor="let feature of features" routerLink="/locations/{{feature.id}}">
+      <div class="features-table__row" *ngFor="let feature of features">
         <div class="features-table__column">
           <div class="features-table__location-info">{{feature.locationParent?.type}} {{feature.locationParent?.name}}</div>
         </div>
         <div class="features-table__column">
-          <div class="features-table__location-info">{{feature.type}} {{feature.name}}</div>
+          <div class="features-table__location-info">
+            <a target="_blank" class="location-link" routerLink="/locations/{{ feature.id }}">{{feature.type}} {{feature.name}}</a>
+          </div>
         </div>
         <div class="features-table__column _center">
           <div class="features-table__location-info">{{feature.population}}</div>
