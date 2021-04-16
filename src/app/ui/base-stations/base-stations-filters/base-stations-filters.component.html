@@ -4,10 +4,13 @@
       <img src="/assets/filter-icon.svg" alt="">
       <span>Фильтр</span>
     </div>
+
     <div class="filter__header-icons">
-      <img class="search-icon" src="/assets/search-icon.svg" alt="">
       <img [class.arrow-reversed]="filtersIsOpened" class="arrow-icon" src="/assets/arrow-bottom.svg" alt="">
     </div>
+  </div>
+  <div class="filter-export">
+    <button class="filter-export-button" (click)="resetFilters()">Сбросить фильтр</button>
   </div>
 </div>
 <form *ngIf="filterForm && filtersIsOpened" [formGroup]="filterForm" class="filters">
@@ -29,9 +32,6 @@
           <mat-label>Адрес</mat-label>
           <input matInput formControlName="address">
         </mat-form-field>
-      </div>
-      <div class="filter">
-        <button mat-button style="height: 36px" (click)="resetFilters()">Сбросить фильтры</button>
       </div>
 <!--      <div class="filter">-->
 <!--        <mat-form-field class="date-picker" appearance="fill">-->
