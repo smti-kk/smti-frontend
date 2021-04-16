@@ -49,29 +49,29 @@
           </mat-checkbox>
         </div>
 <!--        todo: сказали скрыть пока что сброс фильтров, чтобы потом как-нибудь включить(ха-ха)-->
-<!--        <div class="filter">-->
-<!--          <button mat-button style="height: 36px" (click)="resetFilters()">Сбросить фильтры</button>-->
-<!--        </div>-->
+        <div class="filter">
+          <button mat-button style="height: 36px" (click)="resetFilters()">Сбросить фильтры</button>
+        </div>
       </div>
       <div class="i-dont-know-what-is-it-but-ok">
         <three-state-button formControlName="hasATS">
-          <img src="/assets/table-phone.svg" alt="">
+          <img matTooltip="АТС" src="/assets/table-phone.svg" alt="">
         </three-state-button>
         <three-state-button formControlName="hasPayphone">
-          <img src="/assets/table-phone-2.svg" alt="">
+          <img matTooltip="Таксофоны" src="/assets/table-phone-2.svg" alt="">
         </three-state-button>
         <three-state-button formControlName="hasInfomat">
-          <img src="/assets/table-phone-3.svg" alt="">
+          <img matTooltip="Инфомат" src="/assets/table-phone-3.svg" alt="">
         </three-state-button>
         <three-state-button formControlName="hasRadio">
-          <img src="/assets/table-micro.svg" alt="">
+          <img matTooltip="Радио" src="/assets/table-micro.svg" alt="">
         </three-state-button>
       </div>
       <div class="filters__column filters__column-2">
         <div class="filter">
           <div class="filters__column-label with-icon">
             <div>
-              <three-state-button formControlName="hasCellular">
+              <three-state-button formControlName="hasCellular" matTooltip="Сотовая связь">
                 <img src="/assets/table-phone-4.svg" alt="">
               </three-state-button>
             </div>
@@ -109,19 +109,19 @@
         </div>
         <div class="filter">
           <div class="filter__ap-type-container">
-            <div class="imageable-checkbox connection-points">
+            <div class="imageable-checkbox connection-points" matTooltip="ЕСПД">
               <input type="checkbox" formControlName="hasESPD">
               <img src="/assets/table-computer.svg" alt="">
             </div>
-            <div class="imageable-checkbox connection-points">
+            <div class="imageable-checkbox connection-points" matTooltip="СЗО">
               <input type="checkbox" formControlName="hasSMO">
               <img src="/assets/table-house.svg" alt="">
             </div>
-            <div class="imageable-checkbox connection-points">
+            <div class="imageable-checkbox connection-points" matTooltip="РСЗО">
               <input type="checkbox" formControlName="hasZSPD">
               <img src="/assets/table-sputnik.svg" alt="">
             </div>
-            <div class="imageable-checkbox connection-points">
+            <div class="imageable-checkbox connection-points" matTooltip="ЗСПД">
               <input type="checkbox" formControlName="hasRSZO">
               <img src="/assets/table-radio.svg" alt="">
             </div>
@@ -132,7 +132,7 @@
             <div class="filters__column-label-text">Оператор (сотовый):</div>
           </div>
           <div class="filters__filter-block">
-            <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
+            <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls" matTooltip="{{ operator.get('name').value }}">
               <input type="checkbox" [formControl]="operator.get('isSelected')">
               <img [src]="'/media/' + operator.get('label').value" alt="">
             </div>
@@ -143,7 +143,7 @@
             <div class="filters__column-label-text">Оператор (интернет):</div>
           </div>
           <div class="filters__filter-block">
-            <div class="imageable-checkbox" *ngFor="let control of internetOperatorsControls().controls">
+            <div class="imageable-checkbox" *ngFor="let control of internetOperatorsControls().controls" matTooltip="{{ control.get('name').value }}">
               <input type="checkbox" [formControl]="control.get('isSelected')">
               <img [src]="'/media/' + control.get('label').value" alt="">
             </div>

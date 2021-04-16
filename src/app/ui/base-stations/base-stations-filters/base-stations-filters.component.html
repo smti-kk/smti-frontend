@@ -48,7 +48,7 @@
           <div class="filters__column-label-text">Оператор:</div>
         </div>
         <div class="filters__filter-block">
-          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
+          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls" matTooltip="{{ operator.get('name').value }}">
             <input type="checkbox" [formControl]="operator.get('isSelected')">
             <img [src]="'/media/' + operator.get('label').value" alt="">
           </div>

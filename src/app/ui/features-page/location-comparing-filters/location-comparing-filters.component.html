@@ -62,7 +62,7 @@
           <div class="filters__column-label-text">Оператор (сотовый):</div>
         </div>
         <div class="filters__filter-block">
-          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
+          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls" matTooltip="{{ operator.get('name').value }}">
             <input type="checkbox" [formControl]="operator.get('isSelected')">
             <img [src]="'/media/' + operator.get('label').value" alt="">
           </div>
@@ -73,7 +73,7 @@
           <div class="filters__column-label-text">Оператор (интернет):</div>
         </div>
         <div class="filters__filter-block">
-          <div class="imageable-checkbox" *ngFor="let control of internetOperatorsControls().controls">
+          <div class="imageable-checkbox" *ngFor="let control of internetOperatorsControls().controls" matTooltip="{{ control.get('name').value }}">
             <input type="checkbox" [formControl]="control.get('isSelected')">
             <img [src]="'/media/' + control.get('label').value" alt="">
           </div>
