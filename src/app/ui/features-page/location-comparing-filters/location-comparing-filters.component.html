@@ -25,6 +25,9 @@
       <div class="filter">
         <app-area-select formControlName="parent"></app-area-select>
       </div>
+      <div class="filter">
+        <button mat-button style="height: 36px" (click)="resetFilters()">Сбросить фильтры</button>
+      </div>
     </div>
     <div class="filters__column filters__column-2">
       <div class="filter" *ngIf="type === 'MOBILE'">
