@@ -38,8 +38,14 @@ export class LocationsFullInformationServiceImpl implements LocationsFullInforma
             .sort((l1, l2) => {
               if (l1.area.name > l2.area.name) {
                 return 1;
-              } else {
+              } else if (l1.area.name < l2.area.name) {
                 return -1;
+              } else {
+                if (l1.name > l2.name) {
+                  return 1;
+                } else {
+                  return -1;
+                }
               }
             }),
           totalElements: locations.totalElements
