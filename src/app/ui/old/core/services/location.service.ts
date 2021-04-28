@@ -56,6 +56,7 @@ interface LocationWithOrganizationAccessPointsFilters {
   populationStart: number;
   populationEnd: number;
   point: string[];
+  address?: string;
 }
 
 @Injectable()
@@ -289,6 +290,15 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
     this.setPoint('ap', filters.point);
+    this.setAddress('address', filters.address);
+  }
+
+  setAddress(field: string, value: string | null) {
+    if (value !== null && value.length !== 0) {
+      this.params = this.params.set(field, value.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   setPoint(field: string, value: string[] | null) {

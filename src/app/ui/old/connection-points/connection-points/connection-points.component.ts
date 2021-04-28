@@ -36,6 +36,7 @@ export class ConnectionPointsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
   isVisibleFilter = false;
   setLocation: any;
+  filterTimeout;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
@@ -80,13 +81,17 @@ export class ConnectionPointsComponent implements OnInit {
       populationStart: null,
       populationEnd: null,
       point: null,
+      address: null
     });
     this.form.valueChanges.subscribe(v => {
-      this.serviceLocation.filter(v);
-      this.pageNumber = 1;
-      this.loadPagedLocationWithOrganizationAccessPoints().subscribe(response => {
-        this.points = response;
-      });
+      clearTimeout(this.filterTimeout);
+      this.filterTimeout = setTimeout(() => {
+        this.serviceLocation.filter(v);
+        this.pageNumber = 1;
+        this.loadPagedLocationWithOrganizationAccessPoints().subscribe(response => {
+          this.points = response;
+        });
+      }, 300);
     });
   }
 
