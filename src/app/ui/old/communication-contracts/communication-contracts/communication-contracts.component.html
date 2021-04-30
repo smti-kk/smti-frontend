@@ -27,9 +27,11 @@
                 <mat-option>
                   <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
                 </mat-option>
-                  <mat-option *ngFor="let item of fLocations$ | async | filter:'fullName':locationFilter.value" [value]="item">
+                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
+                  <mat-option *cdkVirtualFor="let item of fLocations$ | async | filter:'fullName':locationFilter.value" [value]="item">
                     {{ item.fullName }}
                   </mat-option>
+                </cdk-virtual-scroll-viewport>
               </mat-select>
             </nz-form-item>
             <nz-form-item>
@@ -54,10 +56,12 @@
                 <mat-option>
                   <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #regionFilter></ngx-mat-select-search>
                 </mat-option>
-                  <mat-option *ngFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item?.id">
+                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
+                  <mat-option *cdkVirtualFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item?.id">
                     <div *ngIf="item?.type === 'р-н' || item?.type === 'округ'">{{ item?.name }} {{ item?.type }}</div>
                     <div *ngIf="item?.type !== 'р-н' && item?.type !== 'округ'">{{ item?.type }} {{ item?.name }}</div>
                   </mat-option>
+                </cdk-virtual-scroll-viewport>
               </mat-select>
             </nz-form-item>
 
