@@ -19,10 +19,13 @@
           <mat-option>
             <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
           </mat-option>
-            <mat-option *ngFor="let item of fLocations$ | async | filter:'name':locationFilter.value" [value]="item?.name">
+          <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
+            <mat-option *cdkVirtualFor="let item of fLocations$ | async | filter:'name':locationFilter.value" [value]="item?.name">
               {{ item?.type }} {{ item?.name }}
             </mat-option>
+          </cdk-virtual-scroll-viewport>
         </mat-select>
+
         <div class="filter">
           <div class="filters__column-label">
             <div class="filters__column-label-text">Почта:</div>
