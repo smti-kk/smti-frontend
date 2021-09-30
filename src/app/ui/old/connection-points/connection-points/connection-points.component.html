@@ -7,12 +7,17 @@
           <div class="filter-title" (click)="showFilterBody()">
             <span><i class="fas fa-filter"></i>Фильтр</span>
             <span style="font-size: 1.5rem; color: #ff5700">
+              <i nz-icon nzType="search"></i>
               <i nz-icon nzType="caret-down" nzTheme="outline"></i>
             </span>
           </div>
           <div class="filter-export">
-            <button class="filter-export-button" (click)="resetFilters()">Очистить фильтр</button>
-            <button class="filter-export-button" (click)="serviceLocation.exportExcel()" type="button">Выгрузить в Excel</button>
+            <button
+              (click)="serviceLocation.exportExcel()"
+              type="button"
+              class="filter-export-button"
+            >Выгрузить в Excel
+            </button>
           </div>
         </div>
         <div class="filter-body" [class.filter-body-active]="isVisibleFilter">
@@ -76,7 +81,6 @@
                 <input nz-input formControlName="contractor" type="text"/>
               </nz-form-control>
             </nz-form-item>
-
             <nz-form-item>
               <nz-form-label>Тип СЗО</nz-form-label>
               <nz-form-control>

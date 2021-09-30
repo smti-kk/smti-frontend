@@ -17,10 +17,6 @@
     display: flex;
     width: 100%;
     align-items: center;
-    .mat-raised-button + .mat-raised-button {margin-left: 16px;}
-    .mat-raised-button {
-      padding: 14px 22px;
-    }
   }
 
   &__header {
@@ -109,7 +105,7 @@
 
   &__column-1 {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 3fr 1fr;
     grid-template-rows: 72px 72px;
     grid-column-gap: 16px;
   }

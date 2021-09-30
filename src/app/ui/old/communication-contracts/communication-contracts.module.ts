@@ -15,7 +15,6 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {ScrollingModule} from "@angular/cdk/scrolling";
-import {MatButtonModule} from "@angular/material/button";
 
 const routes: Routes = [
   {
@@ -45,8 +44,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
-    ScrollingModule,
-    MatButtonModule
+    ScrollingModule
   ],
 })
 export class CommunicationContractsModule {}

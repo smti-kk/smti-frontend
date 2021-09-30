@@ -96,8 +96,4 @@ export class CommunicationContractsComponent implements OnInit {
   showFilterBody(): void {
     this.isVisibleFilter = !this.isVisibleFilter;
   }
-
-  resetFilters(): void {
-    this.form.reset();
-  }
 }

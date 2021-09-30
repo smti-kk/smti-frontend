@@ -56,21 +56,19 @@
          [infiniteScrollThrottle]="300"
          (scrolled)="onScrollDown()"
     >
-      <div class="features-table__row" *ngFor="let feature of features">
+      <div class="features-table__row" *ngFor="let feature of features" routerLink="/locations/{{feature.id}}">
         <div class="features-table__column">
           <div class="features-table__location-info">{{feature.locationParent?.type}} {{feature.locationParent?.name}}</div>
         </div>
         <div class="features-table__column">
-          <div class="features-table__location-info">
-            <a target="_blank" class="location-link" routerLink="/locations/{{ feature.id }}">{{feature.type}} {{feature.name}}</a>
-          </div>
+          <div class="features-table__location-info">{{feature.type}} {{feature.name}}</div>
         </div>
         <div class="features-table__column _center">
           <div class="features-table__location-info">{{feature.population}}</div>
         </div>
         <div class="features-table__column features-table__archive-column">
           <div class="features-table__operator" *ngFor="let tc of feature.archive">
-            <div class="features-table__operator-icon" matTooltip="{{ tc.operator.name }}">
+            <div class="features-table__operator-icon">
               <img [src]="'/media/' + tc.operator.icon" alt="">
             </div>
             <div class="features-table__feature-type" *ngIf="tc.type === 'INET' && tc.trunkChannel">
@@ -83,7 +81,7 @@
         </div>
         <div class="features-table__column features-table__archive-column">
           <div class="features-table__operator" *ngFor="let tc of feature.active">
-            <div class="features-table__operator-icon" matTooltip="{{ tc.operator.name }}">
+            <div class="features-table__operator-icon">
               <img [src]="'/media/' + tc.operator.icon" alt="">
             </div>
             <div class="features-table__feature-type" *ngIf="tc.type === 'INET' && tc.trunkChannel">
@@ -96,7 +94,7 @@
         </div>
         <div class="features-table__column">
           <div class="features-table__plan-row" *ngFor="let tc of feature.planYear" (click)="showDialog(tc, feature.id)">
-            <img [src]="'/media/' + tc.operator.icon" alt="" matTooltip="{{ tc.operator.name }}">
+            <img [src]="'/media/' + tc.operator.icon" alt="">
             <span *ngIf="tc.type === 'INET' && tc.trunkChannel">
               {{tc.trunkChannel.name}}
             </span>
@@ -108,7 +106,7 @@
         </div>
         <div class="features-table__column">
           <div class="features-table__plan-row" (click)="showDialog(tc, feature.id)" *ngFor="let tc of feature.planTwoYear">
-            <img [src]="'/media/' + tc.operator.icon" alt="" matTooltip="{{ tc.operator.name }}">
+            <img [src]="'/media/' + tc.operator.icon" alt="">
             <span *ngIf="tc.type === 'INET' && tc.trunkChannel">
               {{tc.trunkChannel.name}}
             </span>
@@ -120,7 +118,7 @@
         </div>
         <div class="features-table__column">
           <div class="features-table__plan-row" *ngFor="let tc of feature.planThreeYear" (click)="showDialog(tc, feature.id)">
-            <img [src]="'/media/' + tc.operator.icon" alt="" matTooltip="{{ tc.operator.name }}">
+            <img [src]="'/media/' + tc.operator.icon" alt="">
             <span *ngIf="tc.type === 'INET' && tc.trunkChannel">
               {{tc.trunkChannel.name}}
             </span>

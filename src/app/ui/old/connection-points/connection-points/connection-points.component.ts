@@ -112,8 +112,4 @@ export class ConnectionPointsComponent implements OnInit {
       nzFooter: null,
     });
   }
-
-  resetFilters(): void {
-    this.form.reset();
-  }
 }

@@ -7,11 +7,11 @@
           <div class="filter-title" (click)="showFilterBody()">
             <span><i class="fas fa-filter"></i>Фильтр</span>
             <span style="font-size: 1.5rem; color: #ff5700">
+              <i nz-icon nzType="search"></i>
               <i nz-icon nzType="caret-down" nzTheme="outline"></i>
             </span>
           </div>
           <div class="filter-export">
-            <button class="filter-export-button" (click)="resetFilters()">Очистить фильтр</button>
             <button
               (click)="serviceLocation.exportExcel()"
               type="button"
@@ -27,11 +27,9 @@
                 <mat-option>
                   <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
                 </mat-option>
-                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
-                  <mat-option *cdkVirtualFor="let item of fLocations$ | async | filter:'fullName':locationFilter.value" [value]="item">
+                  <mat-option *ngFor="let item of fLocations$ | async | filter:'fullName':locationFilter.value" [value]="item">
                     {{ item.fullName }}
                   </mat-option>
-                </cdk-virtual-scroll-viewport>
               </mat-select>
             </nz-form-item>
             <nz-form-item>
@@ -56,12 +54,10 @@
                 <mat-option>
                   <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #regionFilter></ngx-mat-select-search>
                 </mat-option>
-                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
-                  <mat-option *cdkVirtualFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item?.id">
+                  <mat-option *ngFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item?.id">
                     <div *ngIf="item?.type === 'р-н' || item?.type === 'округ'">{{ item?.name }} {{ item?.type }}</div>
                     <div *ngIf="item?.type !== 'р-н' && item?.type !== 'округ'">{{ item?.type }} {{ item?.name }}</div>
                   </mat-option>
-                </cdk-virtual-scroll-viewport>
               </mat-select>
             </nz-form-item>
 
@@ -81,7 +77,6 @@
                 <input nz-input formControlName="contractor" type="text"/>
               </nz-form-control>
             </nz-form-item>
-
             <nz-form-item>
               <nz-form-label>Тип СЗО</nz-form-label>
               <nz-form-control>

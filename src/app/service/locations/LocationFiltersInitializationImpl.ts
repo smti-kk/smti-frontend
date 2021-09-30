@@ -46,16 +46,14 @@ export class LocationFiltersInitializationImpl implements LocationFiltersInitial
             return {
               id: value.id,
               isSelected: false,
-              label: value.icon,
-              name: value.name
+              label: value.icon
             };
           }),
           internetOperators: operators.internet.map(value => {
             return {
               id: value.id,
               isSelected: false,
-              label: value.icon,
-              name: value.name
+              label: value.icon
             };
           }),
           location: '',

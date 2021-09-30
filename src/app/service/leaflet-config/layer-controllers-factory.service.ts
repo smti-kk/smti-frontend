@@ -31,8 +31,6 @@ import {TrunkChannel} from '@api/dto/TrunkChannel';
 import {MapAccessPointsApi} from '@api/access-points/MapAccessPointsApi';
 import {MapLocationsApiWithCellular} from '@api/locations/MapLocationsApiWithCellular';
 import {MapLocationsApiWithoutCellular} from '@api/locations/MapLocationsApiWithoutCellular';
-import {ZSPDPointsService} from "@service/access-points/ZSPDPointsService";
-import {ZSPDIconFromState} from "@service/access-points/ZSPDIconFromState";
 
 export class LayerControllersFactory {
   private readonly mapAccessPointApi: MapAccessPointsApi;
@@ -115,32 +113,6 @@ export class LayerControllersFactory {
               new PointUniquenessFilterImpl()
             ),
             'smo'
-          )
-        )
-      ),
-      2000
-    );
-  }
-
-  zspdLayerLayerController(): PointLayerController {
-    return new PLCWithReloadInterval(
-      new PointLayerControllerImpl(
-        new PLClickable(
-          new LayerWithState(
-            new PSWithUniqueResponseParts(
-              new ZSPDPointsService(
-                new MAPAWithModificationsOnlyAndIgnoreBounds(
-                  this.mapAccessPointApi,
-                  new AccessPointsModificationsApiImpl(this.httpClient),
-                  new DateConverterImpl()
-                ),
-                new AccessPointsConverter(
-                  new ZSPDIconFromState()
-                )
-              ),
-              new PointUniquenessFilterImpl()
-            ),
-            'zspd'
           )
         )
       ),
