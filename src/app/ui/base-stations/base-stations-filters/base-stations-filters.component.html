@@ -4,10 +4,13 @@
       <img src="/assets/filter-icon.svg" alt="">
       <span>Фильтр</span>
     </div>
+
     <div class="filter__header-icons">
-      <img class="search-icon" src="/assets/search-icon.svg" alt="">
       <img [class.arrow-reversed]="filtersIsOpened" class="arrow-icon" src="/assets/arrow-bottom.svg" alt="">
     </div>
+  </div>
+  <div class="filter-export">
+    <button class="filter-export-button" (click)="resetFilters()">Очистить фильтр</button>
   </div>
 </div>
 <form *ngIf="filterForm && filtersIsOpened" [formGroup]="filterForm" class="filters">
@@ -48,7 +51,7 @@
           <div class="filters__column-label-text">Оператор:</div>
         </div>
         <div class="filters__filter-block">
-          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls">
+          <div class="imageable-checkbox" *ngFor="let operator of cellularOperatorsControls().controls" matTooltip="{{ operator.get('name').value }}">
             <input type="checkbox" [formControl]="operator.get('isSelected')">
             <img [src]="'/media/' + operator.get('label').value" alt="">
           </div>

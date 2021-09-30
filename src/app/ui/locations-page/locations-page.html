@@ -47,8 +47,9 @@
             mat-cell
             class="align-left location-link"
             *matCellDef="let location"
-            [routerLink]="[location.id]"
-          > {{location.name}} </td>
+          >
+            <a href="" target="_blank" routerLink="{{ location.id }}">{{location.name}}</a>
+          </td>
         </ng-container>
       </div>
       <ng-template #not_click_location>

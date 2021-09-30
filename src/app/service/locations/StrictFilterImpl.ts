@@ -129,11 +129,11 @@ export class StrictFilterImpl extends StrictFilter {
       return this.defaultFilterResponse;
     }
     if(typeof locationName === 'string'){
-      return location.name.toLowerCase().includes(locationName.toLowerCase());
+      return location.name.toLowerCase().replace(/\./g, "") == locationName.toLowerCase().replace(/\./g, "");
     }
     else {
       for(let i = 0; i < locationName.length; i++){
-        if(location.name.toLowerCase().indexOf(locationName[i].toLowerCase()) !== -1){
+        if(location.name.toLowerCase().replace(/\./g, "") == locationName[i].toLowerCase().replace(/\./g, "")){
           return true;
         }
       }

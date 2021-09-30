@@ -48,7 +48,8 @@ export class LocationFilterFormBuilderImpl implements LocationFilterFormBuilder 
         return new FormGroup({
           id: new FormControl(sl.id),
           isSelected: new FormControl(sl.isSelected),
-          label: new FormControl(sl.label)
+          label: new FormControl(sl.label),
+          name: new FormControl(sl.name)
         });
       })
     );
