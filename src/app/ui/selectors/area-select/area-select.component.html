@@ -1,8 +1,10 @@
 <mat-select [formControl]="bankMultiCtrl" placeholder="Районы" [multiple]="isMulti" #multiSelect>
   <mat-option>
-    <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+    <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
   </mat-option>
-  <mat-option *ngFor="let area of filteredAreas | async" [value]="area.id">
-    {{area.label}}
-  </mat-option>
+  <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
+    <mat-option *cdkVirtualFor="let area of filteredAreas | async | filter:'label':locationFilter.value" [value]="area.id">
+      {{ area.label }}
+    </mat-option>
+  </cdk-virtual-scroll-viewport>
 </mat-select>

@@ -93,17 +93,12 @@ td {
   height: calc(100vh - 144px);
 }
 
-.location-link {
-  cursor: pointer;
-}
-
-.location-link:hover {
-  text-decoration: underline;
-}
-
-.location-row {
-  //transition: all 1s;
-  //animation: showRow 0.5s;
+.location-link a {
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+    color: inherit;
+  }
 }
 
 .hide-locations {
@@ -131,13 +126,8 @@ td {
 }
 
 @keyframes showRow {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
 
 .normal-q {

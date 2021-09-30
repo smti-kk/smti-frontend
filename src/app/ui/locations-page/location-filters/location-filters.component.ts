@@ -86,6 +86,10 @@ export class LocationFiltersComponent implements OnInit {
     return this.filterForm.get('cellularOperators') as FormArray;
   }
 
+  getLocationTypeAndName(value: Location) {
+    return `${value?.name} ${value?.type}`
+  }
+
   exportExcelClick(): void {
     this.exportExcel.emit();
   }
