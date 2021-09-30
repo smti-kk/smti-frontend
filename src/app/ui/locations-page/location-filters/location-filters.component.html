@@ -8,7 +8,7 @@
       <img [class.arrow-reversed]="filtersIsOpened" class="arrow-icon" src="/assets/arrow-bottom.svg" alt="">
     </div>
   </div>
-  <button class="export-button" (click)="resetFilters()" mat-raised-button>Сбросить фильтр</button>
+  <button class="export-button" (click)="resetFilters()" mat-raised-button>Очистить фильтр</button>
   <button class="export-button" (click)="exportExcelClick()" mat-raised-button>Выгрузить в Excel</button>
 </div>
 <form *ngIf="filterForm" [formGroup]="filterForm">
