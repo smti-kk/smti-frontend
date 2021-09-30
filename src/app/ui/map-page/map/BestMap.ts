@@ -34,12 +34,11 @@ export class BestMap implements OnInit, OnDestroy {
   layersChecked = {
     SMO: false,
     ESPD: false,
+    ZSPD: false,
     trunkChannelsLayer: false,
     locations: true
   };
-  selectedMobileTypes: {
-    [key: string]: boolean
-  } = {
+  selectedMobileTypes: {[key: string]: boolean } = {
     '2G': false,
     '3G': false,
     '4G': false
@@ -47,12 +46,14 @@ export class BestMap implements OnInit, OnDestroy {
   hasCellularControl: FormControl;
   currentCellularState: boolean | null = null;
 
-  constructor(private layersFactory: LayerControllersFactory,
-              private locationsService: LocationsService,
-              private leafletOptionsConfigurator: LeafletOptionsConfigurator,
-              private municipalitiesLayer: MunicipalitiesLayer,
-              private trunkChannelsApi: TrunkChannelsApi,
-              private readonly loaderService: LoaderService) {
+  constructor(
+    private layersFactory: LayerControllersFactory,
+    private locationsService: LocationsService,
+    private leafletOptionsConfigurator: LeafletOptionsConfigurator,
+    private municipalitiesLayer: MunicipalitiesLayer,
+    private trunkChannelsApi: TrunkChannelsApi,
+    private readonly loaderService: LoaderService
+  ) {
     this.hasCellularControl = new FormControl();
     this.leafletOptions$ = this.leafletOptionsConfigurator.configure().pipe(
       tap(() => this.loaderService.stopLoader())
@@ -63,6 +64,7 @@ export class BestMap implements OnInit, OnDestroy {
       locationsWithoutCellular: this.layersFactory.locationsLayerControllerWithoutCellular(),
       ESPD: this.layersFactory.espdLayerController(),
       SMO: this.layersFactory.smoLayerLayerController(),
+      ZSPD: this.layersFactory.zspdLayerLayerController(),
     };
     this.locationClick = new EventEmitter<number>();
     this.pointsLayers.locations.onPointClick().subscribe(id => {

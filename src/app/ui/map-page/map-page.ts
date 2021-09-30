@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LocationInfoBarValue} from '@service/dto/LocationInfoBarValue';
 import {Observable} from 'rxjs';
 import {LocationsService} from '@service/locations/LocationsService';
@@ -19,7 +19,7 @@ import {Pageable} from '@api/dto/Pageable';
   templateUrl: './map-page.html',
   styleUrls: ['./map-page.scss'],
 })
-export class MapPage {
+export class MapPage implements OnInit {
   location: LocationInfoBarValue;
   isLoading: boolean;
   centeredLocation: {value: number};
@@ -29,6 +29,7 @@ export class MapPage {
   organizations$: Observable<Pageable<ApiOrganizationResponse[]>>;
   isOpenAccessPoint: { value: boolean, type: string; id: number; };
   station: BaseStation;
+  defaultAreaId: number = 4;
   @ViewChild(BestMap) bestMap: BestMap;
 
   constructor(private locationsService: LocationsService,
@@ -39,6 +40,14 @@ export class MapPage {
               private readonly apiOrganization: ApiOrganization) {
     this.isLoading = false;
     this.barIsOpened = true;
+  }
+
+  ngOnInit() {
+    this.isLoading = true;
+    this.locationDetails.locationProvidingInfo(this.defaultAreaId).subscribe(info => {
+      this.locationProvidingInfo = info;
+      this.isLoading = false;
+    });
   }
 
   /**

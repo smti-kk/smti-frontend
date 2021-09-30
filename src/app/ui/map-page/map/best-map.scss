@@ -24,7 +24,13 @@
     white-space: nowrap;
     margin-right: 12px;
     margin-bottom: 5px;
+
+    &--zspd {
+      display: none;
+    }
   }
+
+
 }
 
 .layers-selection-top {
