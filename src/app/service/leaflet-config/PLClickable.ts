@@ -25,10 +25,12 @@ export class PLClickable implements PointsLayer {
   reloadByBounds(bounds: LatLngBounds): Observable<MonitoringPoint[]> {
     return this.origin.reloadByBounds(bounds).pipe(
       tap(points => {
-        points.forEach(p => p.addEventListener(
-          'click',
-          () => this.onMarkerClick.emit(p.getId())
-        ));
+        points.forEach(p => {
+          p.addEventListener(
+            'click',
+            () => this.onMarkerClick.emit(p.getId())
+          )
+        });
       })
     );
   }

@@ -60,4 +60,10 @@ export class BaseStationsFiltersComponent implements OnInit {
   exportExcelClick(): void {
     this.exportExcel.emit();
   }
+
+  resetFilters(): void {
+    this.filterFormBuilder.build().subscribe(form => {
+      this.filterForm.setValue(form.value);
+    });
+  }
 }
