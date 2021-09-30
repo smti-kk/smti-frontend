@@ -37,8 +37,7 @@ export class BaseStationFilterFormBuilder {
         return new FormGroup({
           id: new FormControl(sl.id),
           isSelected: new FormControl(sl.isSelected),
-          label: new FormControl(sl.label),
-          name: new FormControl(sl.name)
+          label: new FormControl(sl.label)
         });
       })
     );

@@ -20,6 +20,7 @@
     </label>
   </div>
   <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+
     <label class="checkbox-label">
       <input
         type="checkbox"
@@ -27,16 +28,6 @@
         (change)="removeOrAddLayer('SMO', $event)"
       >
       <span class="checkbox-text smo">СЗО</span>
-    </label>
-  </div>
-  <div class="layers-selection__item layers-selection__item--zspd" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        [checked]="layersChecked['ZSPD']"
-        (change)="removeOrAddLayer('ZSPD', $event)"
-      >
-      <span class="checkbox-text smo">ЗСПД</span>
     </label>
   </div>
   <div class="layers-selection__item" *ngIf="layersChecked['locations']">

@@ -89,9 +89,4 @@ export class LocationComparingFiltersComponent implements OnInit {
     this.exportExcel.emit();
   }
 
-  resetFilters(): void {
-    this.filterFormBuilder.build().subscribe(form => {
-      this.filterForm.setValue(form.value);
-    });
-  }
 }

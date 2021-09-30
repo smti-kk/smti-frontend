@@ -17,10 +17,6 @@
     display: flex;
     width: 100%;
     align-items: center;
-    .mat-raised-button + .mat-raised-button {margin-left: 16px;}
-    .mat-raised-button {
-      padding: 14px 22px;
-    }
   }
 
   &__header {

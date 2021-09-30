@@ -19,7 +19,7 @@
                [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
                [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                *ngFor="let operator of location.cellular">
-            <img [src]="operator.iconUrl" alt="" matTooltip="{{ operator.name }}">
+            <img [src]="operator.iconUrl" alt="">
             <div class="feature__icon-type" *ngIf="operator.type != 'UNDEFINED'">
               {{operator.type}}
             </div>
@@ -33,7 +33,7 @@
                [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
                [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                *ngFor="let operator of location.internet">
-            <img [src]="operator.iconUrl" alt="" matTooltip="{{ operator.name }}">
+            <img [src]="operator.iconUrl" alt="">
             <img *ngIf="operator.type != 'Неопределено'"
                  [matTooltip]="operator.type"
                  class="feature__internet-type-icon"
@@ -48,7 +48,7 @@
                [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
                [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                *ngFor="let operator of location.tv">
-            <img [src]="operator.iconUrl" alt="" matTooltip="{{ operator.name }}">
+            <img [src]="operator.iconUrl" alt="">
             <div class="feature__icon-type with-signal" *ngIf="operator.type">
               {{operator.signalsToString()}}
             </div>
@@ -62,7 +62,7 @@
                [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
                [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                *ngFor="let operator of location.payphone">
-            <img [src]="operator.iconUrl" alt="" matTooltip="{{ operator.name }}">
+            <img [src]="operator.iconUrl" alt="">
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@
                [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
                [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                *ngFor="let operator of location.telephone">
-            <img [src]="operator.iconUrl" alt="" matTooltip="{{ operator.name }}">
+            <img [src]="operator.iconUrl" alt="">
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@
                [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
                [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                *ngFor="let operator of location.radio">
-            <img [src]="operator.iconUrl" alt="" matTooltip="{{ operator.name }}">
+            <img [src]="operator.iconUrl" alt="">
             <div class="feature__icon-type with-signal" *ngIf="operator.type">
               {{operator.signalsToString()}}
             </div>
@@ -99,7 +99,7 @@
                  [class.disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
                  [class.normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
                  *ngFor="let operator of location.mail">
-              <img [src]="operator.iconUrl" alt="" matTooltip="{{ operator.name }}">
+              <img [src]="operator.iconUrl" alt="">
               <div class="feature__icon-type with-signal" *ngIf="operator.postType">
                 {{operator.postType.name}}
               </div>

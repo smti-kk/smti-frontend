@@ -5,7 +5,6 @@ export interface LocationFilter {
   label: string;
   id: number;
   isSelected: boolean;
-  name?: string;
 }
 
 export interface LocationFilters {
