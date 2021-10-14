@@ -189,29 +189,29 @@
               <div class="container-info">
                 <div class="container-info-icon">
                   <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
-                    <img src="/assets/img/icon/espd.png"/>
+                    <img  matTooltip="ЕСПД" src="/assets/img/icon/espd.png"/>
                   </ng-container>
                   <ng-template #smoIcon>
-                    <img src="/assets/img/icon/smo.png"/>
+                    <img matTooltip="СЗО" src="/assets/img/icon/smo.png"/>
                   </ng-template>
                 </div>
                 <span>{{ point.address ? point.address : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/img/icon/contractor.png"/>
+                  <img matTooltip="Подрядчик" src="/assets/img/icon/contractor.png"/>
                 </div>
                 <span>{{ point.contractor ? point.contractor : '----' }}</span>
               </div>
               <div class="container-info">
-                <div class="container-info-icon">
-                  <img src="/assets/img/icon/connection.png"/>
+                <div class="container-info-icon" matTooltip="Интернет">
+                  <img  src="/assets/img/icon/connection.png"/>
                 </div>
                 <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/img/icon/declaredSpeed.png"/>
+                  <img matTooltip="Скорость" src="/assets/img/icon/declaredSpeed.png"/>
                 </div>
                 <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
               </div>
