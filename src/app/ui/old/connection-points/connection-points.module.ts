@@ -23,6 +23,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 const routes: Routes = [
   {
@@ -62,6 +64,7 @@ const routes: Routes = [
     NzButtonModule,
     NzModalModule,
     InfiniteScrollModule,
+    MatTooltipModule,
     MatButtonModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
