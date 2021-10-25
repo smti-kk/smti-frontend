@@ -13,6 +13,7 @@ export const DORGANIZATION_BASE_API = API_VERSION + '/organization/base/';
 export const TRUNK_CHANNEL_TYPES_API = API_VERSION + '/type/trunk-channel/';
 export const MOBILE_TYPES_API = API_VERSION + '/type/mobile/';
 export const POST_TYPES_API = API_VERSION + '/type/post/';
+export const ADDRESS_AUTOCOMPLETE = API_VERSION + '/autocomplit';
 export const TV_TYPES_API = API_VERSION + '/type/tv/';
 export const LOCATION_AREAS_API = API_VERSION + '/detail-locations/parents';
 export const GOV_PROGRAM_API = API_VERSION + '/gov-program';
