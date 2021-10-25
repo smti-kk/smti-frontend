@@ -18,12 +18,32 @@
         <div class="filter-body" [class.filter-body-active]="isVisibleFilter">
           <div class="filter-container">
             <nz-form-item>
-              <mat-select formControlName="location" placeholder="Населенный пункт" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
+              <mat-select
+                formControlName="location"
+                placeholder="Населенный пункт"
+                class="mat-select-filter"
+                disableOptionCentering="true"
+                [multiple]="true"
+              >
                 <mat-option>
-                  <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #locationFilter></ngx-mat-select-search>
+                  <ngx-mat-select-search
+                    noEntriesFoundLabel="Ничего не найдено"
+                    placeholderLabel="Поиск..."
+                    #locationFilter
+                  ></ngx-mat-select-search>
                 </mat-option>
-                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
-                  <mat-option *cdkVirtualFor="let item of fLocations$ | async | filter:'fullName':locationFilter.value" [value]="item">
+                <cdk-virtual-scroll-viewport
+                  [itemSize]="48"
+                  [style.height.px]="5 * 48"
+                  minBufferPx="400"
+                  maxBufferPx="800"
+                >
+                  <mat-option
+                    *cdkVirtualFor="
+                      let item of fLocations$ | async | filter: 'fullName':locationFilter.value
+                    "
+                    [value]="item"
+                  >
                     {{ item.fullName }}
                   </mat-option>
                 </cdk-virtual-scroll-viewport>
@@ -33,7 +53,7 @@
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input nz-input formControlName="organization" type="text"/>
+                <input nz-input formControlName="organization" type="text" />
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -47,15 +67,39 @@
               </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item class="rowspan2" [formGroup]="form">
-              <mat-select formControlName="parent" placeholder="Район" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
+            <nz-form-item [formGroup]="form">
+              <mat-select
+                formControlName="parent"
+                placeholder="Район"
+                class="mat-select-filter"
+                disableOptionCentering="true"
+                [multiple]="true"
+              >
                 <mat-option>
-                  <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #regionFilter></ngx-mat-select-search>
+                  <ngx-mat-select-search
+                    noEntriesFoundLabel="Ничего не найдено"
+                    placeholderLabel="Поиск..."
+                    #regionFilter
+                  ></ngx-mat-select-search>
                 </mat-option>
-                <cdk-virtual-scroll-viewport [itemSize]="48" [style.height.px]=5*48 minBufferPx="400" maxBufferPx="800">
-                  <mat-option *cdkVirtualFor="let item of fParents$ | async | filter:'name':regionFilter.value" [value]="item?.id">
-                    <div *ngIf="item?.type === 'р-н' || item?.type === 'округ'">{{ item?.name }} {{ item?.type }}</div>
-                    <div *ngIf="item?.type !== 'р-н' && item?.type !== 'округ'">{{ item?.type }} {{ item?.name }}</div>
+                <cdk-virtual-scroll-viewport
+                  [itemSize]="48"
+                  [style.height.px]="5 * 48"
+                  minBufferPx="400"
+                  maxBufferPx="800"
+                >
+                  <mat-option
+                    *cdkVirtualFor="
+                      let item of fParents$ | async | filter: 'name':regionFilter.value
+                    "
+                    [value]="item?.id"
+                  >
+                    <div *ngIf="item?.type === 'р-н' || item?.type === 'округ'">
+                      {{ item?.name }} {{ item?.type }}
+                    </div>
+                    <div *ngIf="item?.type !== 'р-н' && item?.type !== 'округ'">
+                      {{ item?.type }} {{ item?.name }}
+                    </div>
                   </mat-option>
                 </cdk-virtual-scroll-viewport>
               </mat-select>
@@ -73,7 +117,16 @@
             <nz-form-item>
               <nz-form-label>Оператор связи</nz-form-label>
               <nz-form-control>
-                <input nz-input formControlName="contractor" type="text"/>
+                <input nz-input formControlName="contractor" type="text" />
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label>Адрес</nz-form-label>
+              <nz-form-control>
+                <app-search-address #searchAddress
+                  (selectAddress)="onSelectAddress($event)"
+                ></app-search-address>
               </nz-form-control>
             </nz-form-item>
 
@@ -108,22 +161,38 @@
             <app-filter-btn
               formControlName="order"
               [orderings]="[
-                      {name: 'Нас.пункт', value: 'organization.location.name', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Район', value: 'organization.location.parent.name', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Организация', value: 'organization.name', orderingDirection: OrderingDirection.UNDEFINED },
-                      {name: 'Численность', value: 'organization.location.population', orderingDirection: OrderingDirection.UNDEFINED }
-                  ]"
+                {
+                  name: 'Нас.пункт',
+                  value: 'organization.location.name',
+                  orderingDirection: OrderingDirection.UNDEFINED
+                },
+                {
+                  name: 'Район',
+                  value: 'organization.location.parent.name',
+                  orderingDirection: OrderingDirection.UNDEFINED
+                },
+                {
+                  name: 'Организация',
+                  value: 'organization.name',
+                  orderingDirection: OrderingDirection.UNDEFINED
+                },
+                {
+                  name: 'Численность',
+                  value: 'organization.location.population',
+                  orderingDirection: OrderingDirection.UNDEFINED
+                }
+              ]"
             >
             </app-filter-btn>
             <div class="filter-sort-population">
               <span>от</span>
-              <input nz-input formControlName="populationStart">
+              <input nz-input formControlName="populationStart" />
               <span>до</span>
-              <input nz-input formControlName="populationEnd">
+              <input nz-input formControlName="populationEnd" />
             </div>
           </div>
           <div class="filter-result">
-            Результатов поиска: <span>{{points?.count}}</span>
+            Результатов поиска: <span>{{ points?.count }}</span>
           </div>
           <!--          <div class="filter-search">-->
           <!--            <nz-input-group [nzSuffix]="suffixIconSearch">-->
@@ -140,19 +209,20 @@
       </ng-template>
     </form>
 
-<!--    <button class="btn" (click)="openModal()">Добавить организацию</button>-->
+    <!--    <button class="btn" (click)="openModal()">Добавить организацию</button>-->
 
     <div class="container-header">
       <div>Населенный пункт</div>
       <div>Организация</div>
       <div>Адрес</div>
     </div>
-    <div class="container-list"
-         infinite-scroll
-         [infiniteScrollDistance]="1"
-         [infiniteScrollUpDistance]="2"
-         [infiniteScrollThrottle]="300"
-         (scrolled)="onPageChange(this.pageNumber + 1)"
+    <div
+      class="container-list"
+      infinite-scroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollUpDistance]="2"
+      [infiniteScrollThrottle]="300"
+      (scrolled)="onPageChange(this.pageNumber + 1)"
     >
       <ng-container *ngFor="let point of points?.results">
         <div class="container-wrap">
@@ -172,7 +242,7 @@
                 <span>{{ point?.organization?.name }}</span>
               </a>
             </div>
-            <hr>
+            <hr />
             <div class="container-wrap4">
               <div>
                 <span class="">Тип организации:</span>
@@ -189,29 +259,29 @@
               <div class="container-info">
                 <div class="container-info-icon">
                   <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
-                    <img src="/assets/img/icon/espd.png"/>
+                    <img src="/assets/img/icon/espd.png" />
                   </ng-container>
                   <ng-template #smoIcon>
-                    <img src="/assets/img/icon/smo.png"/>
+                    <img src="/assets/img/icon/smo.png" />
                   </ng-template>
                 </div>
                 <span>{{ point.address ? point.address : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/img/icon/contractor.png"/>
+                  <img src="/assets/img/icon/contractor.png" />
                 </div>
                 <span>{{ point.contractor ? point.contractor : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/img/icon/connection.png"/>
+                  <img src="/assets/img/icon/connection.png" />
                 </div>
                 <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
               </div>
               <div class="container-info">
                 <div class="container-info-icon">
-                  <img src="/assets/img/icon/declaredSpeed.png"/>
+                  <img src="/assets/img/icon/declaredSpeed.png" />
                 </div>
                 <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
               </div>
@@ -230,5 +300,5 @@
   type="ball-atom"
   class="spinner"
   [fullScreen]="true"
->Загрузка. . .
+  >Загрузка. . .
 </ngx-spinner>

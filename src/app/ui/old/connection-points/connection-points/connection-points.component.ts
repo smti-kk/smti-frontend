@@ -1,10 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {share} from 'rxjs/operators';
+import {debounceTime, share} from 'rxjs/operators';
 
-import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
+import {
+  GovernmentProgram,
+  InternetAccessType,
+  Location,
+  OrganizationType,
+  SmoType,
+} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
@@ -15,6 +21,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
 import {AccessPointTypeService} from '../../core/services/accesspoint-type.service';
 import {AccessPointType} from '../../core/models/accesspoint-type';
+import {SearchAddressComponent} from 'src/app/ui/old/connection-points/connection-points/search-address/search-address.component';
 
 @Component({
   selector: 'app-connection-points',
@@ -36,6 +43,9 @@ export class ConnectionPointsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
   isVisibleFilter = false;
   setLocation: any;
+  filterTimeout;
+
+  @ViewChild('searchAddress') searchAddress: SearchAddressComponent;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
@@ -45,13 +55,12 @@ export class ConnectionPointsComponent implements OnInit {
     private serviceAccessPointTypeService: AccessPointTypeService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private modal: NzModalService
-  ) {
-  }
+    private modal: NzModalService,
+  ) {}
 
   ngOnInit(): void {
     this.spinner.show();
-    this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).subscribe(response => {
+    this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).subscribe((response) => {
       this.points = response;
       this.spinner.hide();
     });
@@ -80,11 +89,12 @@ export class ConnectionPointsComponent implements OnInit {
       populationStart: null,
       populationEnd: null,
       point: null,
+      address: null,
     });
-    this.form.valueChanges.subscribe(v => {
+    this.form.valueChanges.pipe(debounceTime(300)).subscribe((v) => {
       this.serviceLocation.filter(v);
       this.pageNumber = 1;
-      this.loadPagedLocationWithOrganizationAccessPoints().subscribe(response => {
+      this.loadPagedLocationWithOrganizationAccessPoints().subscribe((response) => {
         this.points = response;
       });
     });
@@ -92,7 +102,7 @@ export class ConnectionPointsComponent implements OnInit {
 
   onPageChange(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    this.loadPagedLocationWithOrganizationAccessPoints().subscribe(response => {
+    this.loadPagedLocationWithOrganizationAccessPoints().subscribe((response) => {
       this.points.results = [...this.points.results, ...response.results];
     });
   }
@@ -113,7 +123,12 @@ export class ConnectionPointsComponent implements OnInit {
     });
   }
 
+  onSelectAddress(event: string) {
+    this.form.controls['address'].setValue(event);
+  }
+
   resetFilters(): void {
     this.form.reset();
+    this.searchAddress.searchControl.reset();
   }
 }

@@ -23,6 +23,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SearchAddressComponent } from './connection-points/search-address/search-address.component';
 
 const routes: Routes = [
   {
@@ -40,7 +42,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ConnectionPointsComponent, OrganizationDetailComponent],
+  declarations: [ConnectionPointsComponent, OrganizationDetailComponent, SearchAddressComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -64,6 +66,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     MatButtonModule,
     MatSelectModule,
+    MatAutocompleteModule,
     NgxMatSelectSearchModule,
     ScrollingModule,
   ],
