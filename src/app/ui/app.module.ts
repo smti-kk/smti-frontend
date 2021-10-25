@@ -114,6 +114,8 @@ import {ObserverDirective} from "./directives/observer.directive";
 import {SortDirective} from "./directives/sort.directive";
 import {CoreModule} from "@core/core.module";
 import {SharedModule} from "@shared/shared.module";
+import {JournalComponent} from "./journal/journal.component";
+import {NzDatePickerModule, NzFormModule} from "ng-zorro-antd";
 
 registerLocaleData(ru);
 
@@ -175,6 +177,7 @@ registerLocaleData(ru);
     AppealComponent,
     CreateAppealComponent,
     OperatorsComponent,
+    JournalComponent,
     CreateOperatorsComponent,
     CreateAppealComponent,
     FormCreateUserComponent,
@@ -228,7 +231,9 @@ registerLocaleData(ru);
     MatFileUploadModule,
     ScrollingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    NzFormModule,
+    NzDatePickerModule
   ],
   exports: [
     SortDirective,
