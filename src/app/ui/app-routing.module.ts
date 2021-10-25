@@ -30,6 +30,7 @@ import {OperatorsComponent} from './operators/operators.component';
 import {TypeOrganizationComponent} from './type-organization/type-organization.component';
 import {TypeSmoComponent} from './type-smo/type-smo.component';
 import {GovProgramComponent} from './gov-programs/gov-program.component';
+import {JournalComponent} from "./journal/journal.component";
 
 
 const routes: Routes = [
@@ -160,7 +161,7 @@ const routes: Routes = [
     data: {
       permissions: ['ADMIN']
     },
-    component: OperProfileComponent
+    component: JournalComponent
   },
   {
     path: 'import-location',

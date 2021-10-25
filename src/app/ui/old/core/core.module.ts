@@ -1,3 +1,5 @@
+import {ActionTypeService} from './services/action-type.service';
+import {UserService} from './services/user.service';
 import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NgModule} from '@angular/core';
@@ -35,6 +37,8 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
     LocationServiceOrganizationAccessPointsWithFilterParams,
     AccessPointTypeService,
     NgZorroAntdModule,
+    UserService,
+    ActionTypeService,
     {
       provide: HTTP_INTERCEPTORS,
       useFactory: () => new AuthInterceptor(
