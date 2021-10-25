@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {debounceTime, distinctUntilChanged, filter, switchMap, tap} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {debounceTime, switchMap} from 'rxjs/operators';
 import {SearchAddressService} from './search-address.service';
 
 @Component({
@@ -13,22 +14,23 @@ export class SearchAddressComponent implements OnInit {
   readonly searchControl: FormControl;
   addresses$: Observable<string[]>;
 
-  @Input() control: FormControl;
-
   @Output() selectAddress: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private searchAddressService: SearchAddressService) {}
-
-  ngOnInit(): void {
-    this.addresses$ = this.control.valueChanges.pipe(
-      filter((data) => data.trim().length > 0),
-      debounceTime(500),
-      switchMap((searchString: string) => this.searchAddressService.search(searchString)),
-    );
+  constructor(private searchAddressService: SearchAddressService) {
+    this.searchControl = new FormControl();
   }
 
-  setAddressField(value: any) {
-    this.control.setValue(value);
+  ngOnInit(): void {
+    this.addresses$ = this.searchControl.valueChanges.pipe(
+      debounceTime(500),
+      switchMap((searchString: string) => {
+        if (!searchString) {
+          this.selectAddress.emit('');
+          return of(null);
+        }
+        return this.searchAddressService.search(searchString);
+      }),
+    );
   }
 
   onSelect(event: MatAutocompleteSelectedEvent): void {

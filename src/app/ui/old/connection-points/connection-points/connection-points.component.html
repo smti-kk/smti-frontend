@@ -130,8 +130,7 @@
             <nz-form-item>
               <nz-form-label>Адрес</nz-form-label>
               <nz-form-control>
-                <app-search-address
-                  [control]="form.get('address')"
+                <app-search-address #searchAddress
                   (selectAddress)="onSelectAddress($event)"
                 ></app-search-address>
               </nz-form-control>

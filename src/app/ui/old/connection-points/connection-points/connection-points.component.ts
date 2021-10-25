@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
@@ -21,6 +21,7 @@ import {NzModalService} from 'ng-zorro-antd';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
 import {AccessPointTypeService} from '../../core/services/accesspoint-type.service';
 import {AccessPointType} from '../../core/models/accesspoint-type';
+import {SearchAddressComponent} from 'src/app/ui/old/connection-points/connection-points/search-address/search-address.component';
 
 @Component({
   selector: 'app-connection-points',
@@ -43,6 +44,8 @@ export class ConnectionPointsComponent implements OnInit {
   isVisibleFilter = false;
   setLocation: any;
   filterTimeout;
+
+  @ViewChild('searchAddress') searchAddress: SearchAddressComponent;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
@@ -126,5 +129,6 @@ export class ConnectionPointsComponent implements OnInit {
 
   resetFilters(): void {
     this.form.reset();
+    this.searchAddress.searchControl.reset();
   }
 }

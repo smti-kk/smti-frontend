@@ -2,11 +2,11 @@
   <input
     nz-input
     type="text"
-    [formControl]="control"
+    [formControl]="searchControl"
     class="search-input"
     [matAutocomplete]="auto"
   />
 </div>
 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelect($event)">
-  <mat-option *ngFor="let option of addresses$ | async" [value]="option" (click)="$event.stopPropagation()"> {{option}}</mat-option>
+  <mat-option *ngFor="let address of addresses$ | async" [value]="address" (click)="$event.stopPropagation()"> {{address}}</mat-option>
 </mat-autocomplete>
