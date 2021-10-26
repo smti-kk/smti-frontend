@@ -68,13 +68,7 @@
             </nz-form-item>
 
             <nz-form-item [formGroup]="form">
-              <mat-select
-                formControlName="parent"
-                placeholder="Район"
-                class="mat-select-filter"
-                disableOptionCentering="true"
-                [multiple]="true"
-              >
+              <mat-select formControlName="parent" placeholder="Район" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
                 <mat-option>
                   <ngx-mat-select-search
                     noEntriesFoundLabel="Ничего не найдено"
@@ -128,6 +122,13 @@
                   (selectAddress)="onSelectAddress($event)"
                 ></app-search-address>
               </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <mat-select formControlName="logicalCondition" placeholder="Условие" class="mat-select-filter" disableOptionCentering="true">
+                <mat-option value="OR">ИЛИ</mat-option>
+                <mat-option value="AND">И</mat-option>
+              </mat-select>
             </nz-form-item>
 
             <nz-form-item>

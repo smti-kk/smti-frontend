@@ -15,6 +15,7 @@ export interface BaseStationFilters {
   actionDateFrom?: string;
   actionDateTo?: string;
   address?: string;
+  logicalCondition?: string;
 }
 
 export class BaseStationsApi {
@@ -71,6 +72,9 @@ export class BaseStationsApi {
     }
     if (filters.propHeightRightBorder !== null && filters.propHeightRightBorder !== undefined) {
       params = params.set('propHeightRightBorder', filters.propHeightRightBorder.toString());
+    }
+    if (filters.logicalCondition) {
+      params = params.set('logicalCondition', filters.logicalCondition);
     }
     if (filters.operatorIds) {
       const operatorIds = filters.operatorIds

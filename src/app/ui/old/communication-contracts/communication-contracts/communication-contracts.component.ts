@@ -71,6 +71,7 @@ export class CommunicationContractsComponent implements OnInit {
       contractEnd: null,
       populationStart: null,
       populationEnd: null,
+      logicalCondition: null,
     });
 
     this.form.valueChanges.subscribe(v => {

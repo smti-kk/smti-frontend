@@ -46,7 +46,8 @@ export class LocationFCApiImpl implements LocationFCApi {
     connectionTypes?: number[],
     govProgram?: number,
     govProgramYear?: number,
-    hasAnyInternet?: boolean
+    hasAnyInternet?: boolean,
+    logicalCondition?: string
   ): Observable<Pageable<LocationFC[]>> {
     let params = this.filterParams(
       ordering,
@@ -56,7 +57,8 @@ export class LocationFCApiImpl implements LocationFCApi {
       connectionTypes,
       govProgram,
       govProgramYear,
-      hasAnyInternet
+      hasAnyInternet,
+      logicalCondition
     );
     params = params
       .set('page', page.toString())
@@ -100,7 +102,8 @@ export class LocationFCApiImpl implements LocationFCApi {
     connectionTypes?: number[],
     govProgram?: number,
     govProgramYear?: number,
-    hasAnyInternet?: boolean
+    hasAnyInternet?: boolean,
+    logicalCondition?: string
   ): HttpParams {
     let params = new HttpParams();
     if (ordering) {
@@ -133,6 +136,9 @@ export class LocationFCApiImpl implements LocationFCApi {
     }
     if (hasAnyInternet !== null && hasAnyInternet !== undefined) {
       params = params.append('hasAnyInternet', hasAnyInternet === true ? 'true' : 'false');
+    }
+    if (logicalCondition) {
+      params = params.append('logicalCondition', logicalCondition);
     }
     return params;
   }

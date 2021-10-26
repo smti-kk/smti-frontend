@@ -104,6 +104,12 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
+            <nz-form-item>
+              <mat-select formControlName="logicalCondition" placeholder="Условие" class="mat-select-filter" disableOptionCentering="true">
+                <mat-option value="OR">ИЛИ</mat-option>
+                <mat-option value="AND">И</mat-option>
+              </mat-select>
+            </nz-form-item>
 <!--            <nz-form-item>-->
 <!--              <nz-form-label>Тип точки</nz-form-label>-->
 <!--              <nz-form-control>-->

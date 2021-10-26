@@ -67,6 +67,7 @@ export class JournalComponent implements OnInit {
       contractEnd: null,
       action: null,
       user: null,
+      logicalCondition: null,
     });
 
     this.form.valueChanges.subscribe(() => {

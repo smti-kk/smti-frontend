@@ -99,6 +99,15 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <div class="filter">
+        <mat-form-field appearance="fill" class="location-filter">
+          <mat-label>Условие</mat-label>
+          <mat-select formControlName="logicalCondition">
+            <mat-option [value]="'OR'">ИЛИ</mat-option>
+            <mat-option [value]="'AND'">И</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </div>
 </form>
