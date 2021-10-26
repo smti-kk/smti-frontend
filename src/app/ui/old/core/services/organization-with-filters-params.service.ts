@@ -13,6 +13,7 @@ interface OrganizationFilters {
   organization: string;
   populationStart: number;
   populationEnd: number;
+  logicalCondition?: string;
 }
 
 @Injectable()
@@ -41,6 +42,7 @@ export class OrganizationServiceWithFilterParams extends OrganizationsService {
     // this.setContractType('contract', filters.contractType);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
+    this.setLogicalCondition('logicalCondition', filters.logicalCondition);
     // this.setPoint('ap', filters.point);
   }
 
@@ -66,6 +68,14 @@ export class OrganizationServiceWithFilterParams extends OrganizationsService {
   setSmo(field: string, value: SmoType) {
     if (value) {
       this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  setLogicalCondition(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
     } else {
       this.params = this.params.delete(field);
     }

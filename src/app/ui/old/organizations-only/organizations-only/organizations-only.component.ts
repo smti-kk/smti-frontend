@@ -95,6 +95,7 @@ export class OrganizationsOnlyComponent implements OnInit {
       parent: null,
       populationStart: null,
       populationEnd: null,
+      logicalCondition: null,
     });
     // contract: null,
     //   contractor: null,

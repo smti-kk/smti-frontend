@@ -90,6 +90,7 @@ export class ConnectionPointsComponent implements OnInit {
       populationEnd: null,
       point: null,
       address: null,
+      logicalCondition: null,
     });
     this.form.valueChanges.pipe(debounceTime(300)).subscribe((v) => {
       this.serviceLocation.filter(v);

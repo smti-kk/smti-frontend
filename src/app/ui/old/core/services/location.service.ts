@@ -1,17 +1,11 @@
-/* eslint-disable */ // todo: refactor file
+/* eslint-disable */  // todo: refactor file
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
 
-import {
-  Location,
-  InternetAccessType,
-  OrganizationType,
-  SmoType,
-  GovernmentProgram, Organization,
-} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType,} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 
@@ -41,6 +35,7 @@ interface LocationWithContractsFilters {
   contractEnd: string;
   populationStart: number;
   populationEnd: number;
+  logicalCondition?: string;
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
@@ -57,6 +52,7 @@ interface LocationWithOrganizationAccessPointsFilters {
   populationEnd: number;
   point: string[];
   address?: string;
+  logicalCondition?: string
 }
 
 @Injectable()
@@ -143,10 +139,19 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setContractEnd('contract-end', filters.contractEnd);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
+    this.setLogicalCondition('logicalCondition', filters.logicalCondition);
   }
 
   exportExcel() {
     window.location.href = `${LOCATIONS_WITH_CONTRACTS}export/?${this.params.toString()}`;
+  }
+
+  setLogicalCondition(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   setType(field: string, value: OrganizationType) {
@@ -291,11 +296,21 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.populationEnd('population-end', filters.populationEnd);
     this.setPoint('ap', filters.point);
     this.setAddress('address', filters.address);
+    this.setLogicalCondition('logicalCondition', filters.logicalCondition);
+
   }
 
   setAddress(field: string, value: string | null) {
     if (value !== null && value.length !== 0) {
       this.params = this.params.set(field, value.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  setLogicalCondition(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
     } else {
       this.params = this.params.delete(field);
     }
