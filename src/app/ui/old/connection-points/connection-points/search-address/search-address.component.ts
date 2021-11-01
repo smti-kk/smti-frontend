@@ -25,7 +25,7 @@ export class SearchAddressComponent implements OnInit {
       debounceTime(500),
       switchMap((searchString: string) => {
         if (!searchString) {
-          this.selectAddress.emit('');
+          this.selectAddress.emit(null);
           return of(null);
         }
         return this.searchAddressService.search(searchString);

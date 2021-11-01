@@ -1,30 +1,34 @@
-import {NgModule} from '@angular/core';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {NgxSpinnerModule} from 'ngx-spinner';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgxPaginationModule} from 'ngx-pagination';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import {RouterModule, Routes} from '@angular/router';
+import {CoreModule} from '@core/core.module';
+import {SharedModule} from '@shared/shared.module';
 import {
-  NzAutocompleteModule, NzButtonModule, NzCheckboxModule, NzDatePickerModule,
+  NzAutocompleteModule,
+  NzButtonModule,
+  NzCheckboxModule,
+  NzDatePickerModule,
   NzDrawerModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule, NzModalModule, NzSelectModule,
-  NzTimelineModule,
+  NzInputModule,
+  NzModalModule,
+  NzSelectModule,
+  NzTimelineModule
 } from 'ng-zorro-antd';
-
-import {SharedModule} from '@shared/shared.module';
-
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {NgxSpinnerModule} from 'ngx-spinner';
 import {ConnectionPointsComponent} from './connection-points/connection-points.component';
+import {SearchAddressComponent} from './connection-points/search-address/search-address.component';
+import {CustomSubmitDirective} from './directives/custom-submit.directive';
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
-import {CoreModule} from '@core/core.module';
-import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from "@angular/material/select";
-import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
-import {ScrollingModule} from "@angular/cdk/scrolling";
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { SearchAddressComponent } from './connection-points/search-address/search-address.component';
 
 const routes: Routes = [
   {
@@ -42,7 +46,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ConnectionPointsComponent, OrganizationDetailComponent, SearchAddressComponent],
+  declarations: [
+    ConnectionPointsComponent,
+    OrganizationDetailComponent,
+    SearchAddressComponent,
+    CustomSubmitDirective,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

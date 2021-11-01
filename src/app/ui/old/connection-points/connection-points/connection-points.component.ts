@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {debounceTime, share} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, share} from 'rxjs/operators';
 
 import {
   GovernmentProgram,
@@ -46,6 +46,8 @@ export class ConnectionPointsComponent implements OnInit {
   filterTimeout;
 
   @ViewChild('searchAddress') searchAddress: SearchAddressComponent;
+  @ViewChild('populationStart') populationStart: ElementRef;
+  @ViewChild('populationEnd') populationEnd: ElementRef;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
@@ -92,13 +94,22 @@ export class ConnectionPointsComponent implements OnInit {
       address: null,
       logicalCondition: null,
     });
-    this.form.valueChanges.pipe(debounceTime(300)).subscribe((v) => {
-      this.serviceLocation.filter(v);
-      this.pageNumber = 1;
-      this.loadPagedLocationWithOrganizationAccessPoints().subscribe((response) => {
-        this.points = response;
+    this.form.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(
+          (prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)
+        )
+      )
+      .subscribe((v) => {
+        this.serviceLocation.filter(v);
+        this.pageNumber = 1;
+        this.loadPagedLocationWithOrganizationAccessPoints().subscribe(
+          (response) => {
+            this.points = response;
+          }
+        );
       });
-    });
   }
 
   onPageChange(pageNumber: number): void {
@@ -131,5 +142,11 @@ export class ConnectionPointsComponent implements OnInit {
   resetFilters(): void {
     this.form.reset();
     this.searchAddress.searchControl.reset();
+    this.populationStart.nativeElement.value = null;
+    this.populationEnd.nativeElement.value = null;
+  }
+
+  modifyControlValue(value: string, key: string) {
+    this.form.controls[key].setValue(value);
   }
 }
