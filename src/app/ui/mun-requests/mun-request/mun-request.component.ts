@@ -1,26 +1,25 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {MobileType} from '@api/dto/MobileType';
-import {TrunkChannelType} from '@api/dto/TrunkChannelType';
-import {Operators} from '@api/dto/Operators';
-import {TcEdition, TechnicalCapabilityEdition} from '@service/dto/TechnicalCapabilityEdition';
-import {Signal} from '@api/dto/Signal';
-import {PostType} from '@api/dto/PostType';
-import {Account} from '@service/account/Account';
-import {LocationFeatureEditingRequest} from '@api/dto/LocationFeatureEditingRequest';
-import {forkJoin, Subscription} from 'rxjs';
-import {MobileTypeApi} from '@api/mobile-type/MobileTypeApi';
-import {ActivatedRoute} from '@angular/router';
-import {TrunkChannelTypeApi} from '@api/trunk-channel/TrunkChannelTypeApi';
-import {AccountService} from '@service/account/AccountService';
-import {TvTypeApi} from '@api/tv-type/TvTypeApi';
-import {PostTypeApi} from '@api/post-type/PostTypeApi';
-import {OperatorsApi} from '@api/operators/OperatorsApi';
-import {ApiFeaturesRequests} from '@api/features-requests/ApiFeaturesRequests';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {DetailLocations} from '@service/locations/DetailLocations';
+import {FormControl} from '@angular/forms';
 import {MatCheckboxChange} from '@angular/material/checkbox';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormControl, Validators} from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ActivatedRoute} from '@angular/router';
+import {LocationFeatureEditingRequest} from '@api/dto/LocationFeatureEditingRequest';
+import {MobileType} from '@api/dto/MobileType';
+import {Operators} from '@api/dto/Operators';
+import {PostType} from '@api/dto/PostType';
+import {Signal} from '@api/dto/Signal';
+import {TrunkChannelType} from '@api/dto/TrunkChannelType';
+import {MobileTypeApi} from '@api/mobile-type/MobileTypeApi';
+import {OperatorsApi} from '@api/operators/OperatorsApi';
+import {PostTypeApi} from '@api/post-type/PostTypeApi';
+import {TrunkChannelTypeApi} from '@api/trunk-channel/TrunkChannelTypeApi';
+import {TvTypeApi} from '@api/tv-type/TvTypeApi';
+import {Account} from '@service/account/Account';
+import {AccountService} from '@service/account/AccountService';
+import {TcEdition, TechnicalCapabilityEdition} from '@service/dto/TechnicalCapabilityEdition';
+import {DetailLocations} from '@service/locations/DetailLocations';
+import {forkJoin, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-mun-request',
@@ -34,12 +33,13 @@ export class MunRequestComponent implements OnInit, OnDestroy {
   internetTypes: TrunkChannelType[];
   operators: Operators;
   tcs: TechnicalCapabilityEdition;
-  comm = new FormControl();
   tvTypes: Signal[];
   postTypes: PostType[];
   locationId: number;
   account$: Observable<Account>;
   archiveRequests: LocationFeatureEditingRequest[];
+  comm = new FormControl();
+  
   private subscription: Subscription;
 
   constructor(private mobileTypeApi: MobileTypeApi,

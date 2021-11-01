@@ -6,23 +6,20 @@
 .page-header {
   display: flex;
   justify-content: flex-start;
-
   margin: 20px 0 30px 10px;
-
-  font-weight: 600;
   font-size: 16px;
+  font-weight: 600;
 }
 
 .page-header-item {
   display: flex;
   align-items: center;
-
   padding-right: 2rem;
 }
 
 .font-size {
-  font-weight: 400;
   font-size: 13px;
+  font-weight: 400;
 }
 
 .page-header-item .material-icons {
@@ -35,7 +32,6 @@
 
 .page-header-item:last-child {
   padding-left: 2rem;
-
   border-left: 1px solid #BCBCBC;
 }
 
@@ -45,12 +41,12 @@
 
 .tab-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .tc-item {
-  padding: 12px 10px 0 10px;
+  padding: 12px 10px 0;
 }
 
 .tc-item + .tc-item {
@@ -58,18 +54,17 @@
 }
 
 .tc-label {
-  font-weight: 600;
   font-size: 16px;
+  font-weight: 600;
 }
 
 .operator-block {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-column-gap: 2rem;
-  grid-row-gap: 0.5rem;
-
   padding-top: 11px;
   padding-bottom: 11px;
+  grid-column-gap: 2rem;
+  grid-row-gap: 0.5rem;
+  grid-template-columns: 200px 1fr;
 }
 
 .operator-block-name {
@@ -78,98 +73,83 @@
 
 .operator-block-wrap {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ccc;
   grid-column-gap: 2rem;
   grid-row-gap: 0.5rem;
-
-  padding-bottom: 12px;
-
-  border-bottom: 1px solid #ccc;
+  grid-template-columns: 3fr 1fr;
 }
 
 .operator-block:last-child .operator-block-wrap{
   padding-bottom: 0;
-
-  border-bottom: none;
+  border-bottom: 0;
 }
 
 .tc-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
-  grid-gap: 10px;
-
-  margin-top: 11px;
   padding: 0 2rem;
-
-  border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  margin-top: 11px;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
 }
 
 .some-buttons {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1px;
-
   width: 400px;
+  grid-gap: 1px;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .tc-button {
-  grid-column: -1/-2;
-
   width: 24px;
   height: 24px;
   padding: 0;
-
-  color: #BCBCBC;
-
   border: 1px solid #BCBCBC;
   background-color: #fff;
+  color: #BCBCBC;
+  grid-column: -1/-2;
 }
 
 .tc-button:hover {
-  cursor: pointer;
-
-  color: #FF5700;
-
   border: 1px solid #FF5700;
+  color: #FF5700;
+  cursor: pointer;
 }
 
 .tc-button.active {
-  color: #fff;
-
   border: 1px solid #FF5700;
   background-color: #FF5700;
+  color: #fff;
 }
 
 .tc-button .material-icons {
-  vertical-align: middle;
-
   font-size: 18px;
+  vertical-align: middle;
 }
 
 .tc-comment {
-  grid-column: 1/-1;
   display: grid;
-  grid-template-columns: 1fr 26px;
+  grid-column: 1/-1;
   grid-gap: 2rem;
+  grid-template-columns: 1fr 26px;
 }
 
 .tc-comment textarea {
   padding: 10px 16px 8px;
-
   background: #F6F6F6;
 }
 
 .tc-btn-group {
   display: flex;
   justify-content: flex-end;
-
   padding: 10px 10px 20px;
 }
 
 button.custom-btn {
-  border-radius: 0;
   background-color: #707070;
+  border-radius: 0;
 }
 
 .color {
@@ -181,29 +161,25 @@ button.custom-btn {
 }
 
 .card {
-  margin-bottom: 10px;
   padding: 12px 16px;
-
   border: 1px solid #BCBCBC;
+  margin-bottom: 10px;
 }
 
 .card-date {
   color: #35A5F9;
-
   font-size: 15px;
 }
 
 .card-number {
   color: #35A5F9;
-
-  font-weight: 600;
   font-size: 15px;
+  font-weight: 600;
 }
 
 .card-list {
-  margin: 0;
   padding-left: 32px;
-
+  margin: 0;
   font-size: 14px;
 }
 

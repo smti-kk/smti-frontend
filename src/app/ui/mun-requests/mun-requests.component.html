@@ -1,26 +1,23 @@
-<div class="mun-wrapper"
-     infinite-scroll
-     [infiniteScrollDistance]="1"
-     [infiniteScrollUpDistance]="2"
-     [infiniteScrollThrottle]="300"
-     (scrolled)="onScrollDown()"
-     *ngIf="locations">
-  <div
-    class="top-bar"
-    *ngFor="let location of locations"
-  >
+<div
+  class="mun-wrapper"
+  *ngIf="locations"
+>
+  <mun-requests-filters (filters)="setFilter($event)" #filtersComponent></mun-requests-filters>
+
+  <div class="top-bar" *ngFor="let location of filteredLocations | paginate
+  : {itemsPerPage: itemsPerPage, currentPage: currentPage}">
     <div class="top-bar-item">
       <div class="location-wrap">
         <div class="location-info">
           <span class="material-icons">account_balance</span>
           <div>
-            <div class="whitespace-nowrap">{{location.name}}</div>
-            <div class="font-size">{{location.area?.name}}</div>
+            <div class="whitespace-nowrap">{{ location.name }}</div>
+            <div class="font-size">{{ location.area?.name }}</div>
           </div>
         </div>
         <div class="location-info">
           <span class="material-icons custom">people</span>
-          <span>{{location.population}} человек</span>
+          <span>{{ location.population }} человек</span>
         </div>
       </div>
     </div>
@@ -28,31 +25,42 @@
       <div class="block">
         <div class="block-name">Инфомат:</div>
         <div class="block-list">
-          <img *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive"
-               src="/assets/table-ok.svg" alt="">
+          <img
+            *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive"
+            src="/assets/table-ok.svg"
+            alt=""
+          />
           <span
-            *ngIf="!(location.infomat && location.infomat.length > 0 && location.infomat[0].isActive)">Отсутствует</span>
+            *ngIf="
+              !(location.infomat && location.infomat.length > 0 && location.infomat[0].isActive)
+            "
+            >Отсутствует</span
+          >
         </div>
       </div>
       <div class="block">
         <div class="block-name">Телефон:</div>
         <div class="block-list">
-          <div class="feature__icon"
-               [class.disabled]="!operator.isActive"
-               *ngFor="let operator of location.ats">
-            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+          <div
+            class="feature__icon"
+            [class.disabled]="!operator.isActive"
+            *ngFor="let operator of location.ats"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
           </div>
         </div>
       </div>
       <div class="block">
         <div class="block-name">Таксофон:</div>
         <div class="block-list">
-          <div class="feature__icon"
-               [class.disabled]="!operator.isActive"
-               *ngFor="let operator of location.payphone">
-            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+          <div
+            class="feature__icon"
+            [class.disabled]="!operator.isActive"
+            *ngFor="let operator of location.payphone"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
             <div class="feature__icon-type" *ngIf="operator.payphones">
-              {{operator.payphones}}
+              {{ operator.payphones }}
             </div>
           </div>
         </div>
@@ -62,12 +70,14 @@
       <div class="block">
         <div class="block-name">Радио:</div>
         <div class="block-list">
-          <div class="feature__icon"
-               [class.disabled]="!operator.isActive"
-               *ngFor="let operator of location.radio">
-            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+          <div
+            class="feature__icon"
+            [class.disabled]="!operator.isActive"
+            *ngFor="let operator of location.radio"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
             <div class="feature__icon-type" *ngIf="operator.type != 'UNDEFINED'">
-              {{operator.signalsToString()}}
+              {{ operator.signalsToString() }}
             </div>
           </div>
         </div>
@@ -75,12 +85,14 @@
       <div class="block">
         <div class="block-name">ТВ:</div>
         <div class="block-list">
-          <div class="feature__icon"
-               [class.disabled]="!operator.isActive"
-               *ngFor="let operator of location.television">
-            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+          <div
+            class="feature__icon"
+            [class.disabled]="!operator.isActive"
+            *ngFor="let operator of location.television"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
             <div class="feature__icon-type" *ngIf="operator.type != 'UNDEFINED'">
-              {{operator.signalsToString()}}
+              {{ operator.signalsToString() }}
             </div>
           </div>
         </div>
@@ -88,12 +100,14 @@
       <div class="block">
         <div class="block-name">Почта:</div>
         <div class="block-list">
-          <div class="feature__icon"
-               [class.disabled]="!operator.isActive"
-               *ngFor="let operator of location.post">
-            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+          <div
+            class="feature__icon"
+            [class.disabled]="!operator.isActive"
+            *ngFor="let operator of location.post"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
             <div class="feature__icon-type" *ngIf="operator.postType != 'UNDEFINED'">
-              {{operator.postType?.name}}
+              {{ operator.postType?.name }}
             </div>
           </div>
         </div>
@@ -103,12 +117,14 @@
       <div class="block">
         <div class="block-name">Сотовая связь:</div>
         <div class="block-list">
-          <div class="feature__icon"
-               [class.disabled]="!operator.isActive"
-               *ngFor="let operator of location.cellular">
-            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
+          <div
+            class="feature__icon"
+            [class.disabled]="!operator.isActive"
+            *ngFor="let operator of location.cellular"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
             <div class="feature__icon-type" *ngIf="operator.type != 'UNDEFINED'">
-              {{operator.type}}
+              {{ operator.type }}
             </div>
           </div>
         </div>
@@ -116,182 +132,61 @@
       <div class="block">
         <div class="block-name">Интернет:</div>
         <div class="block-list">
-          <div class="feature__icon"
-               [class.disabled]="!operator.isActive"
-               *ngFor="let operator of location.internet">
-            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name">
-            <img *ngIf="operator.type != 'Неопределено'"
-                 [matTooltip]="operator.type"
-                 class="feature__internet-type-icon"
-                 [src]="operator.typeIcon" alt="">
+          <div
+            class="feature__icon"
+            [class.disabled]="!operator.isActive"
+            *ngFor="let operator of location.internet"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+            <img
+              *ngIf="operator.type != 'Неопределено'"
+              [matTooltip]="operator.type"
+              class="feature__internet-type-icon"
+              [src]="operator.typeIcon"
+              alt=""
+            />
           </div>
         </div>
       </div>
     </div>
     <div class="top-bar-item">
       <div>Информация не актуальна?</div>
-      <button mat-flat-button color="primary" (click)="sendRequest(location.id)" class="custom-btn">Подать уточняющую
-        заявку
+      <button mat-flat-button color="primary" (click)="sendRequest(location.id)" class="custom-btn">
+        Подать уточняющую заявку
       </button>
     </div>
   </div>
-  <h1>Мои заявки (архив)</h1>
-  <ng-container
-    *ngFor="let request of archiveRequests">
-    <div class="card-container" *ngIf="request.featureEdits && request.featureEdits.length">
-      <div class="card">
-        <div class="card-body">
-          <span class="card-number">№{{request.id}}</span> от
-          <span class="card-date">{{request.created | date: 'dd.MM.yyyy'}}</span>
-          <p>{{request.location.type}} {{request.location.name}} ({{request.location.locationParent.type}} {{request.location.locationParent.name}})</p>
-          <p>Внесенные изменения:</p>
-          <ng-container *ngFor="let edit of request.featureEdits">
-            <ul class="card-list" [ngSwitch]="edit.tc.type">
-              <li class="card-list-item" *ngSwitchCase="'ATS'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">АТС:</span> Подключен {{edit.tc.operator.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">АТС:</span> Отключен {{edit.tc.operator.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
-                  </ng-container>
-                </ng-container>
-              </li>
-              <li class="card-list-item" *ngSwitchCase="'PAYPHONE'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">Таксофоны:</span> Подключен {{edit.tc.operator.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">Таксофоны:</span> Отключен {{edit.tc.operator.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <span class="underline">Таксофоны:</span> Количество {{edit.tc.payphones}} -> {{edit.newValue.payphones}}
-                    <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
-                  </ng-container>
-                </ng-container>
-              </li>
-              <li class="card-list-item" *ngSwitchCase="'INFOMAT'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">Инфомат:</span> Подключен
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">Инфомат:</span> Отключен
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <!--                        <span class="underline">АТС:</span> Обновлен АТС: {{edit.tc.operator.name}}-->
-                  </ng-container>
-                </ng-container>
-              </li>
-              <li class="card-list-item" *ngSwitchCase="'INET'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">Интернет:</span>
-                    Подключен {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">Интернет:</span>
-                    Отключен {{edit.tc.operator.name}} {{edit.tc.trunkChannel.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <span class="underline">Интернет ({{edit.tc.operator.name}}):</span>
-                    <ng-container *ngIf="edit.tc.trunkChannel.id !== edit.newValue.trunkChannel.id">
-                      Изменен тип подключения с {{edit.tc.trunkChannel.name}} на {{edit.newValue.trunkChannel.name}}
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </li>
-              <li class="card-list-item" *ngSwitchCase="'MOBILE'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">Мобильная связь:</span>
-                    Подключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">Мобильная связь:</span>
-                    Отключен {{edit.tc.operator.name}} {{edit.tc.typeMobile.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <span class="underline">Мобильная связь ({{edit.tc.operator.name}}):</span>
-                    <ng-container *ngIf="edit.tc.typeMobile.id !== edit.newValue.typeMobile.id">
-                      Изменен тип сотовой связи с {{edit.tc.typeMobile.name}} на {{edit.newValue.typeMobile.name}}
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </li>
-              <li class="card-list-item" *ngSwitchCase="'POST'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">Почта:</span>
-                    Подключен {{edit.tc.operator.name}} {{edit.tc.typePost.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">Почта:</span>
-                    Отключен {{edit.tc.operator.name}} {{edit.tc.typePost.name}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <span class="underline">Почта ({{edit.tc.operator.name}}):</span>
-                    <ng-container
-                      *ngIf="edit.tc.typePost && edit.newValue.typePost && edit.tc.typePost.id !== edit.newValue.typePost.id">
-                      Изменен тип почты с {{edit.tc.typePost.name}} на {{edit.newValue.typePost.name}}
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </li>
-              <li class="card-list-item" *ngSwitchCase="'RADIO'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">Радио:</span>
-                    Подключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">Радио:</span>
-                    Отключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <span class="underline">Радио ({{edit.tc.operator.name}}):</span>
-                    <ng-container>
-                      Изменен тип радио с {{signalsToString(edit.tc.tvOrRadioTypes)}}
-                      на {{signalsToString(edit.newValue.tvOrRadioTypes)}}
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </li>
-              <li class="card-list-item" *ngSwitchCase="'TV'">
-                <ng-container [ngSwitch]="edit.action">
-                  <ng-container *ngSwitchCase="'CREATE'">
-                    <span class="underline">ТВ:</span>
-                    Подключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'DELETE'">
-                    <span class="underline">ТВ:</span>
-                    Отключен {{edit.tc.operator.name}} {{signalsToString(edit.tc.tvOrRadioTypes)}}
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'UPDATE'">
-                    <span class="underline">ТВ ({{edit.tc.operator.name}}):</span>
-                    <ng-container>
-                      Изменен тип тв с {{signalsToString(edit.tc.tvOrRadioTypes)}}
-                      на {{signalsToString(edit.newValue.tvOrRadioTypes)}}
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </li>
-            </ul>
-          </ng-container>
-        </div>
-        <div class="card-status orange" *ngIf="request.status === 'WAIT_FOR_STATE_TO_BE_SET'">на рассмотрении</div>
-        <div class="card-status green" *ngIf="request.status === 'ACCEPTED'">Принята</div>
-        <div class="card-status red" *ngIf="request.status === 'DECLINED'">
-          <div>
-            Отклонена
-            <div class="decline-comment" (click)="showDeclineComment(request.declineComment)">Причина</div>
-          </div>
-        </div>
-      </div>
+  <div style="display: flex; justify-content: flex-end">
+    <div class="pagination-count">
+      <div style="margin-right: 13px">Количество строк на странице:</div>
+      <input
+        class="pagination-count-button"
+        [class.active]="itemsPerPage === 10"
+        type="button"
+        (click)="itemsPerPage = 10"
+        value="10"
+      />
+      <input
+        class="pagination-count-button"
+        [class.active]="itemsPerPage === 20"
+        type="button"
+        (click)="itemsPerPage = 20;"
+        value="20"
+      />
+      <input
+        class="pagination-count-button"
+        [class.active]="itemsPerPage === 100"
+        type="button"
+        (click)="itemsPerPage = 100;"
+        value="100"
+      />
     </div>
-  </ng-container>
+  </div>
+  <pagination-controls
+    class="pagination-controls"
+    nextLabel="Следующая страница"
+    previousLabel="Предыдущая страница"
+    (pageChange)="currentPage = $event"
+  >
+  </pagination-controls>
 </div>

@@ -1,10 +1,11 @@
-import {Observable} from 'rxjs';
-import {LocationFeatureEditingRequest, LocationFeatureEditingRequestFull} from '../dto/LocationFeatureEditingRequest';
-import {ApiFeaturesRequests} from './ApiFeaturesRequests';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {API_FEATURES_REQUESTS} from '../../../environments/api.routes';
-import {map} from 'rxjs/operators';
 import {Pageable} from '@api/dto/Pageable';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {API_FEATURES_REQUESTS} from '../../../environments/api.routes';
+import {LocationFeatureEditingRequest, LocationFeatureEditingRequestFull} from '../dto/LocationFeatureEditingRequest';
+import {MunFilters} from './../../ui/mun-requests/mun-requests-filters/MunFilters';
+import {ApiFeaturesRequests} from './ApiFeaturesRequests';
 
 export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
 
@@ -75,14 +76,29 @@ export class ApiFeaturesRequestsImpl implements ApiFeaturesRequests {
     );
   }
 
-  requestsByUser(page: number, size: number): Observable<Pageable<LocationFeatureEditingRequest[]>> {
-    const params = new HttpParams({
+  requestsByUser(
+    page: number,
+    size: number,
+    filters?: MunFilters
+  ): Observable<Pageable<LocationFeatureEditingRequest[]>> {
+    let params = new HttpParams({
       fromObject: {
         page: page.toString(),
-        size: size.toString()
-      }
+        size: size.toString(),
+      },
     });
-    return this.http.get<Pageable<LocationFeatureEditingRequest[]>>(`${API_FEATURES_REQUESTS}/by-user`, {params});
+    if (filters) {
+      let keys = Object.keys(filters);
+      keys.forEach((key) => {
+        if (filters[key]) {
+          params = params.append(key, filters[key]);
+        }
+      });
+    }
+    return this.http.get<Pageable<LocationFeatureEditingRequest[]>>(
+      `${API_FEATURES_REQUESTS}/by-user`,
+      {params}
+    );
   }
 
   accept(reqId: number): Observable<void> {
