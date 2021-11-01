@@ -1,0 +1,92 @@
+.mun-wrapper {
+  padding: 17px 32px;
+}
+
+h1 {
+  margin-bottom: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+p {
+  margin: 6px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header-container {
+  margin: 2rem 0;
+}
+
+.card-container {
+  margin-top: 16px;
+}
+
+.card {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  flex-grow: 1;
+  padding: 12px 16px;
+  border: 1px solid #bcbcbc;
+  border-right: 0;
+}
+
+.card-date {
+  color: #35a5f9;
+  font-size: 15px;
+}
+
+.card-number {
+  color: #35a5f9;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.card-list {
+  padding-left: 32px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.card-list-item {
+  padding: 5px 0;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.card-status {
+  display: flex;
+  width: 160px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.card-status.orange {
+  border: 1px solid #ffd860;
+  background-color: #ffd860;
+}
+
+.card-status.green {
+  border: 1px solid #35a584;
+  background-color: #35a584;
+}
+
+.card-status.red {
+  border: red;
+  background-color: red;
+}
+
+// TODO удалить после реализации вывода данных в шаблон
+.decline-comment {
+  cursor: pointer;
+  text-decoration: underline;
+}

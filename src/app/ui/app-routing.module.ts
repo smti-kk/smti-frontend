@@ -31,6 +31,7 @@ import {TypeOrganizationComponent} from './type-organization/type-organization.c
 import {TypeSmoComponent} from './type-smo/type-smo.component';
 import {GovProgramComponent} from './gov-programs/gov-program.component';
 import {JournalComponent} from "./journal/journal.component";
+import {MunRequestsArchiveComponent} from 'src/app/ui/mun-requests/mun-requests-archive/mun-requests-archive.component';
 
 
 const routes: Routes = [
@@ -138,6 +139,14 @@ const routes: Routes = [
       permissions: ['MUNICIPALITY']
     },
     component: MunRequestsComponent
+  },
+  {
+    path: 'mun-requests/archive',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['MUNICIPALITY']
+    },
+    component: MunRequestsArchiveComponent
   },
   {
     path: 'oper-profile',

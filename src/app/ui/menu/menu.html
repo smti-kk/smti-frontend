@@ -7,6 +7,7 @@
   <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
   <button class="link mat-menu-select" mat-button *permissions="['ADMIN']" [matMenuTriggerFor]="menuImport">Импорт</button>
   <button class="link mat-menu-select" mat-button *permissions="['ADMIN']" [matMenuTriggerFor]="bookMenu">Справочник</button>
+  <button class="link mat-menu-select" mat-button *permissions="['MUNICIPALITY']" [matMenuTriggerFor]="requestsMenu">Заявки</button>
   <mat-menu #menu="matMenu">
     <div class="link"
          routerLink="/features"
@@ -109,10 +110,24 @@
          routerLink="/type-smo"
          [class.active]="currentRouteIs('/type-smo')"><span>Типы СЗО</span></div>
   </mat-menu>
-  <div class="link root-link"
+
+  <mat-menu #requestsMenu="matMenu">
+    <div class="link root-link"
+         *permissions="['MUNICIPALITY']"
+         routerLink="/mun-requests"
+         [class.active]="currentRouteIs('/mun-requests')">
+         <span>Подать</span></div>
+    <div class="link root-link"
+         *permissions="['MUNICIPALITY']"
+         routerLink="/mun-requests/archive"
+         [class.active]="currentRouteIs('/mun-requests/archive')">
+         <span>Архив</span></div>
+  </mat-menu>
+
+  <!-- <div class="link root-link"
        *permissions="['MUNICIPALITY']"
        routerLink="/mun-requests"
-       [class.active]="currentRouteIs('/mun-requests')"><span>Заявки</span></div>
+       [class.active]="currentRouteIs('/mun-requests')"><span>Заявки</span></div> -->
   <div class="link root-link"
        *permissions="['OPERATOR']"
        routerLink="/oper-profile"

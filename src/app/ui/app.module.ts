@@ -116,6 +116,9 @@ import {CoreModule} from "@core/core.module";
 import {SharedModule} from "@shared/shared.module";
 import {JournalComponent} from "./journal/journal.component";
 import {NzDatePickerModule, NzFormModule} from "ng-zorro-antd";
+import {MunRequestsArchiveComponent} from './mun-requests/mun-requests-archive/mun-requests-archive.component';
+import {MunRequestsFiltersComponent} from './mun-requests/mun-requests-filters/mun-requests-filters.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 registerLocaleData(ru);
 
@@ -191,6 +194,8 @@ registerLocaleData(ru);
     CreateGovProgramComponent,
     ObserverDirective,
     SortDirective,
+    MunRequestsArchiveComponent,
+    MunRequestsFiltersComponent,
   ],
   imports: [
     BrowserModule,
@@ -205,6 +210,7 @@ registerLocaleData(ru);
     MatButtonModule,
     MatDialogModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
@@ -244,7 +250,7 @@ registerLocaleData(ru);
     LocationServiceOrganizationAccessPointsWithFilterParams,
     {
       provide: LoaderService,
-      useClass: LoaderServiceImpl
+      useClass: LoaderServiceImpl,
     },
     {provide: NZ_I18N, useValue: ru_RU},
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
@@ -252,7 +258,6 @@ registerLocaleData(ru);
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
