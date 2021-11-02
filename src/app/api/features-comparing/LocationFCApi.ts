@@ -18,6 +18,8 @@ export abstract class LocationFCApi {
                              govProgram?: number,
                              govProgramYear?: number,
                              hasAnyInternet?: boolean,
+                             hasCellular?: boolean,
+
                              logicalCondition?: string): Observable<Pageable<LocationFC[]>>;
 
   abstract locationsExportExcel(type: TechnicalCapabilityType,
@@ -28,7 +30,9 @@ export abstract class LocationFCApi {
                                 connectionTypes?: number[],
                                 govProgram?: number,
                                 govProgramYear?: number,
-                                hasAnyInternet?: boolean): Observable<void>;
+                                hasAnyInternet?: boolean,
+                                hasCellular?: boolean,
+                                ): Observable<void>;
 
   abstract makeItActive(locationId: number, featureId: number): Observable<void>;
 }

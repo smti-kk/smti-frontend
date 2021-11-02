@@ -61,6 +61,7 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
       filters.govProgram,
       filters.govYear,
       filters.hasInternet,
+      filters.hasCellular,
       filters.logicalCondition
     ).pipe(
       map(locations => {
@@ -94,7 +95,8 @@ export class FeaturesComparingServiceImpl implements FeaturesComparingService {
       connectionTypes,
       filters.govProgram,
       filters.govYear,
-      filters.hasInternet
+      filters.hasInternet,
+      filters.hasCellular,
     );
   }
 

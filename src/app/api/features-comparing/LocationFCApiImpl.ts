@@ -47,6 +47,8 @@ export class LocationFCApiImpl implements LocationFCApi {
     govProgram?: number,
     govProgramYear?: number,
     hasAnyInternet?: boolean,
+    hasCellular?: boolean,
+
     logicalCondition?: string
   ): Observable<Pageable<LocationFC[]>> {
     let params = this.filterParams(
@@ -58,6 +60,7 @@ export class LocationFCApiImpl implements LocationFCApi {
       govProgram,
       govProgramYear,
       hasAnyInternet,
+      hasCellular,
       logicalCondition
     );
     params = params
@@ -74,7 +77,8 @@ export class LocationFCApiImpl implements LocationFCApi {
                        connectionTypes?: number[],
                        govProgram?: number,
                        govProgramYear?: number,
-                       hasAnyInternet?: boolean): Observable<void> {
+                       hasAnyInternet?: boolean,
+                       hasCellular?: boolean): Observable<void> {
     const params = this.filterParams(
       ordering,
       parentIds,
@@ -83,7 +87,8 @@ export class LocationFCApiImpl implements LocationFCApi {
       connectionTypes,
       govProgram,
       govProgramYear,
-      hasAnyInternet
+      hasAnyInternet,
+      hasCellular
     );
     return this.http.get(LOCATION_FC_API + '/' + type + '/export-excel', {params, observe: 'response', responseType: 'blob'})
       .pipe(
@@ -103,6 +108,7 @@ export class LocationFCApiImpl implements LocationFCApi {
     govProgram?: number,
     govProgramYear?: number,
     hasAnyInternet?: boolean,
+    hasCellular?: boolean,
     logicalCondition?: string
   ): HttpParams {
     let params = new HttpParams();
@@ -134,8 +140,8 @@ export class LocationFCApiImpl implements LocationFCApi {
     if (govProgramYear) {
       params = params.append('govProgramYear', govProgramYear.toString());
     }
-    if (hasAnyInternet !== null && hasAnyInternet !== undefined) {
-      params = params.append('hasAnyInternet', hasAnyInternet === true ? 'true' : 'false');
+    if (hasAnyInternet || hasCellular) {
+      params = params.append('hasAny', 'true');
     }
     if (logicalCondition) {
       params = params.append('logicalCondition', logicalCondition);
