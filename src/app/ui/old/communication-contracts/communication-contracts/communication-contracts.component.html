@@ -1,7 +1,7 @@
 <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <main class="main">
   <div class="wrapper">
-    <form [formGroup]="form" nz-form>
+    <form (keydown.enter)="$event.preventDefault()" [formGroup]="form" nz-form>
       <div class="filter">
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
           <div class="filter-title" (click)="showFilterBody()">
@@ -103,7 +103,7 @@
               <nz-form-item>
                 <nz-form-label>№ контракта</nz-form-label>
                 <nz-form-control>
-                  <input nz-input formControlName="contract" type="text"/>
+                  <input #contract nz-input customSubmit (controlUpdate)="modifyControlValue($event, 'contract')" type="text"/>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
@@ -142,9 +142,9 @@
             </app-filter-btn>
             <div class="filter-sort-population">
               <span>от</span>
-              <input nz-input formControlName="populationStart">
+              <input type="number" #populationStart nz-input customSubmit (controlUpdate)="modifyControlValue($event, 'populationStart')">
               <span>до</span>
-              <input nz-input formControlName="populationEnd">
+              <input type="number" #populationEnd nz-input customSubmit (controlUpdate)="modifyControlValue($event, 'populationEnd')">
             </div>
           </div>
           <div class="filter-result">

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {share} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, share} from 'rxjs/operators';
 
 import {InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
@@ -32,6 +32,10 @@ export class CommunicationContractsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
   isVisibleFilter = false;
   dateFormat = 'dd.MM.yyyy';
+
+  @ViewChild('populationStart') populationStart: ElementRef;
+  @ViewChild('populationEnd') populationEnd: ElementRef;
+  @ViewChild('contract') contract: ElementRef;
 
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,
@@ -74,13 +78,20 @@ export class CommunicationContractsComponent implements OnInit {
       logicalCondition: null,
     });
 
-    this.form.valueChanges.subscribe(v => {
-      this.serviceLocation.filter(v);
-      this.pageNumber = FIRST_PAGE;
-      this.loadPagedLocationWithContracts().subscribe(response => {
-        this.contracts = response;
+    this.form.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(
+          (prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)
+        )
+      )
+      .subscribe(v => {
+        this.serviceLocation.filter(v);
+        this.pageNumber = FIRST_PAGE;
+        this.loadPagedLocationWithContracts().subscribe(response => {
+          this.contracts = response;
+        });
       });
-    });
   }
 
   onPageChange(pageNumber: number): void {
@@ -100,5 +111,12 @@ export class CommunicationContractsComponent implements OnInit {
 
   resetFilters(): void {
     this.form.reset();
+    this.populationStart.nativeElement.value = null;
+    this.populationEnd.nativeElement.value = null;
+    this.contract.nativeElement.value = null;
+  }
+
+  modifyControlValue(value: string, key: string) {
+    this.form.controls[key].setValue(value);
   }
 }

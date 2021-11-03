@@ -27,7 +27,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ConnectionPointsComponent} from './connection-points/connection-points.component';
 import {SearchAddressComponent} from './connection-points/search-address/search-address.component';
-import {CustomSubmitDirective} from './directives/custom-submit.directive';
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
 
 const routes: Routes = [
@@ -50,7 +49,6 @@ const routes: Routes = [
     ConnectionPointsComponent,
     OrganizationDetailComponent,
     SearchAddressComponent,
-    CustomSubmitDirective,
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,10 @@
-import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
+import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Directive({
   selector: '[customSubmit]',
 })
+
+// Submit only on pressing 'Enter' or when triggering onChange event
 export class CustomSubmitDirective {
   @Output() controlUpdate = new EventEmitter<string>();
 
