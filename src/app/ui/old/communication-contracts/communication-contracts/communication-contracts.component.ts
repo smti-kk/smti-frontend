@@ -29,6 +29,7 @@ export class CommunicationContractsComponent implements OnInit {
   pageNumber = FIRST_PAGE;
   itemsPerPage = 10;
   form: FormGroup;
+  initialValues;
   OrderingDirection = OrderingDirection;
   isVisibleFilter = false;
   dateFormat = 'dd.MM.yyyy';
@@ -75,8 +76,9 @@ export class CommunicationContractsComponent implements OnInit {
       contractEnd: null,
       populationStart: null,
       populationEnd: null,
-      logicalCondition: null,
+      logicalCondition: 'AND',
     });
+    this.initialValues = this.form.value
 
     this.form.valueChanges
       .pipe(
@@ -110,7 +112,7 @@ export class CommunicationContractsComponent implements OnInit {
   }
 
   resetFilters(): void {
-    this.form.reset();
+    this.form.reset(this.initialValues);
     this.populationStart.nativeElement.value = null;
     this.populationEnd.nativeElement.value = null;
     this.contract.nativeElement.value = null;

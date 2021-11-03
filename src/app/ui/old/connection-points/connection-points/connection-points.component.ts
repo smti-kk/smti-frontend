@@ -44,6 +44,7 @@ export class ConnectionPointsComponent implements OnInit {
   isVisibleFilter = false;
   setLocation: any;
   filterTimeout;
+  initialValues;
 
   @ViewChild('searchAddress') searchAddress: SearchAddressComponent;
   @ViewChild('populationStart') populationStart: ElementRef;
@@ -92,8 +93,9 @@ export class ConnectionPointsComponent implements OnInit {
       populationEnd: null,
       point: null,
       address: null,
-      logicalCondition: null,
+      logicalCondition: 'AND',
     });
+    this.initialValues = this.form.value
     this.form.valueChanges
       .pipe(
         debounceTime(300),
@@ -140,7 +142,7 @@ export class ConnectionPointsComponent implements OnInit {
   }
 
   resetFilters(): void {
-    this.form.reset();
+    this.form.reset(this.initialValues);
     this.searchAddress.searchControl.reset();
     this.populationStart.nativeElement.value = null;
     this.populationEnd.nativeElement.value = null;

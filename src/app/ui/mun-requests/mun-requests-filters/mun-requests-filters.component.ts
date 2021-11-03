@@ -14,6 +14,7 @@ import {removeEmpty} from './../../old/core/utils/removeEmpty';
 export class MunRequestsFiltersComponent implements OnInit {
   filterForm: FormGroup;
   filtersIsOpened: boolean;
+  initialValues;
   locations$: Observable<LocationTableItem[]>;
 
   @Input() showStatus?: boolean;
@@ -32,8 +33,9 @@ export class MunRequestsFiltersComponent implements OnInit {
       status: null,
       locationName: null,
       parents: null,
-      logicalCondition: null,
+      logicalCondition: 'AND',
     });
+    this.initialValues = this.filterForm.value
   }
 
   ngOnInit(): void {
@@ -51,6 +53,6 @@ export class MunRequestsFiltersComponent implements OnInit {
   }
 
   resetFilters(): void {
-    this.filterForm.reset();
+    this.filterForm.reset(this.initialValues);
   }
 }

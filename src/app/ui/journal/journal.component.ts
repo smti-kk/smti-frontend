@@ -38,6 +38,7 @@ export class JournalComponent implements OnInit {
 
   form: FormGroup;
   isVisibleFilter = false;
+  initialValues;
 
   ordering: OrderingFilter;
 
@@ -67,8 +68,10 @@ export class JournalComponent implements OnInit {
       contractEnd: null,
       action: null,
       user: null,
-      logicalCondition: null,
+      logicalCondition: 'AND',
     });
+
+    this.initialValues = this.form.value;
 
     this.form.valueChanges.subscribe(() => {
       let filterData = this.form.value;
@@ -200,6 +203,6 @@ export class JournalComponent implements OnInit {
   }
 
   resetFilters(): void {
-    this.form.reset();
+    this.form.reset(this.initialValues);
   }
 }
