@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {EditingRequestStatus} from 'src/app/api/dto/LocationFeatureEditingRequest';
-import {LocationTableItem} from './../../../service/dto/LocationTableItem';
-import {MunFilters} from './../mun-requests-filters/MunFilters';
+import { Injectable } from '@angular/core';
+import { EditingRequestStatus } from 'src/app/api/dto/LocationFeatureEditingRequest';
+import { LocationTableItem } from './../../../service/dto/LocationTableItem';
+import { MunFilters } from './../mun-requests-filters/MunFilters';
 
 type LocationTableItemWithFilters = LocationTableItem & {
   status?: EditingRequestStatus;
@@ -29,7 +29,12 @@ export class MunRequestsFilterService {
     filters: MunFilters
   ): LocationTableItemWithFilters[] {
     this.filters = filters;
-    if (this.isFilterEmpty(filters)) {
+    const isFilterEmpty =
+      (Object.values(filters).filter((f) => f).length === 1 &&
+        filters?.logicalCondition) ||
+      this.filterEmptyProps(filters);
+
+    if (isFilterEmpty) {
       return locations;
     }
     return this.filter(locations);
@@ -66,7 +71,7 @@ export class MunRequestsFilterService {
     return locationFilterItem.includes(locationParentId);
   }
 
-  isFilterEmpty(filter: MunFilters): boolean {
+  filterEmptyProps(filter: MunFilters): boolean {
     return Object.values(filter).every(
       (x: any | any[]) => x === null || x === '' || !x?.length
     );
