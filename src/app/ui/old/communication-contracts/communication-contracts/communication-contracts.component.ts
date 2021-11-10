@@ -37,6 +37,7 @@ export class CommunicationContractsComponent implements OnInit {
   @ViewChild('populationStart') populationStart: ElementRef;
   @ViewChild('populationEnd') populationEnd: ElementRef;
   @ViewChild('contract') contract: ElementRef;
+  @ViewChild('organization') organization: ElementRef;
 
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,
@@ -116,6 +117,7 @@ export class CommunicationContractsComponent implements OnInit {
     this.populationStart.nativeElement.value = null;
     this.populationEnd.nativeElement.value = null;
     this.contract.nativeElement.value = null;
+    this.organization.nativeElement.value = null; 
   }
 
   modifyControlValue(value: string, key: string) {

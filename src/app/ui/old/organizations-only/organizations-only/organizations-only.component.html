@@ -28,7 +28,8 @@
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input nz-input formControlName="organization" type="text"/>
+                <input #organization nz-input customSubmit
+                (controlUpdate)="modifyControlValue($event, 'organization')" type="text" />
               </nz-form-control>
             </nz-form-item>
 <!--            <nz-form-item>-->

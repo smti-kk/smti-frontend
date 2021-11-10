@@ -49,6 +49,7 @@ export class ConnectionPointsComponent implements OnInit {
   @ViewChild('searchAddress') searchAddress: SearchAddressComponent;
   @ViewChild('populationStart') populationStart: ElementRef;
   @ViewChild('populationEnd') populationEnd: ElementRef;
+  @ViewChild('organization') organization: ElementRef;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
@@ -138,7 +139,7 @@ export class ConnectionPointsComponent implements OnInit {
   }
 
   onSelectAddress(event: string) {
-    this.form.controls['address'].setValue(event);
+    this.form.controls.address.setValue(event);
   }
 
   resetFilters(): void {
@@ -146,6 +147,7 @@ export class ConnectionPointsComponent implements OnInit {
     this.searchAddress.searchControl.reset();
     this.populationStart.nativeElement.value = null;
     this.populationEnd.nativeElement.value = null;
+    this.organization.nativeElement.value = null; 
   }
 
   modifyControlValue(value: string, key: string) {
