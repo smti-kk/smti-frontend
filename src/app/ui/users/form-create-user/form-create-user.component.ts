@@ -8,6 +8,9 @@ import {DLocationBase} from '@api/dto/DLocationBase';
 import {DOrganizationBase} from '@api/dto/DOrganizationBase';
 import {DOrganizationsService} from '@service/organizations/DOrganizationsService';
 import {DLocationsService} from '@service/locations/DLocationsService';
+import {UserRole} from '@service/account/UserRole';
+
+type Roles = Record<UserRole, string>;
 
 @Component({
   selector: 'app-form-create-user',
@@ -19,7 +22,7 @@ export class FormCreateUserComponent implements OnInit {
   viewPasswordControls = false;
 
   form: FormGroup;
-  roles: { [key: string]: string };
+  roles: Roles
   action: 'EDIT' | 'CREATE';
   passwordControl: FormControl;
   repeatControl: FormControl;
@@ -40,10 +43,11 @@ export class FormCreateUserComponent implements OnInit {
     } else {
       this.action = 'CREATE';
     }
-    this.roles = {};
+    this.roles = {} as Roles;
     this.roles.ADMIN = 'Администратор';
     this.roles.GUEST = 'Посетитель';
     this.roles.MUNICIPALITY = 'Муниципалитет';
+    this.roles.CONTRACTOR = 'Подрядчик'
     this.roles.ORGANIZATION = 'Оператор - Организации';
     this.roles.OPERATOR = 'Оператор - Локации';
     this.dLocationService = dLocationService;
