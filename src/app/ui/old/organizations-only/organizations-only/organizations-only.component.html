@@ -28,8 +28,7 @@
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input #organization nz-input customSubmit
-                (controlUpdate)="modifyControlValue($event, 'organization')" type="text" />
+                <input nz-input customSubmit [control]="form.get('organization')" type="text" />
               </nz-form-control>
             </nz-form-item>
 <!--            <nz-form-item>-->
@@ -141,13 +140,11 @@
             </app-filter-btn>
             <div class="filter-sort-population">
               <span>от</span>
-              <input nz-input  customSubmit
-              type="number"
-              (controlUpdate)="modifyControlValue($event, 'populationStart')">
+              <input nz-input customSubmit
+              type="number" [control]="form.get('populationStart')"
+              >
               <span>до</span>
-              <input nz-input  customSubmit
-              type="number"
-              (controlUpdate)="modifyControlValue($event, 'populationEnd')">
+              <input nz-input customSubmit type="number" [control]="form.get('populationEnd')">
             </div>
           </div>
           <div class="filter-result">

@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
+import {Directive, ElementRef, HostListener, Input} from '@angular/core';
 
 @Directive({
   selector: '[customSubmit]',
@@ -6,19 +6,27 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 // Submit only on pressing 'Enter' or when triggering onChange event
 export class CustomSubmitDirective {
-  @Output() controlUpdate = new EventEmitter<string>();
+  @Input() control!: FormControl;
 
-  constructor() {}
+  constructor(private el: ElementRef) {}
+
+  ngOnInit() {
+    this.control?.valueChanges
+      .subscribe((value) => {
+        if (value === null && this.el.nativeElement.value) {
+          this.el.nativeElement.value = '';
+        }
+      });
+  }
 
   @HostListener('keydown', ['$event'])
   onKeydown(e: KeyboardEvent) {
     if (e.key == 'Enter') {
-      this.controlUpdate.emit((e.target as HTMLInputElement).value);
-      return;
+      this.control.setValue((e.target as HTMLInputElement).value);
     }
   }
   @HostListener('change', ['$event'])
   onChange(e: Event) {
-    this.controlUpdate.emit((e.target as HTMLInputElement).value);
+    this.control.setValue((e.target as HTMLInputElement).value);
   }
 }

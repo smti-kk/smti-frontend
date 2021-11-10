@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
@@ -47,9 +47,6 @@ export class ConnectionPointsComponent implements OnInit {
   initialValues;
 
   @ViewChild('searchAddress') searchAddress: SearchAddressComponent;
-  @ViewChild('populationStart') populationStart: ElementRef;
-  @ViewChild('populationEnd') populationEnd: ElementRef;
-  @ViewChild('organization') organization: ElementRef;
 
   constructor(
     public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
@@ -145,12 +142,5 @@ export class ConnectionPointsComponent implements OnInit {
   resetFilters(): void {
     this.form.reset(this.initialValues);
     this.searchAddress.searchControl.reset();
-    this.populationStart.nativeElement.value = null;
-    this.populationEnd.nativeElement.value = null;
-    this.organization.nativeElement.value = null; 
-  }
-
-  modifyControlValue(value: string, key: string) {
-    this.form.controls[key].setValue(value);
   }
 }

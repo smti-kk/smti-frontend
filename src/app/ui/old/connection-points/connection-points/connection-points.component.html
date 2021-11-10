@@ -1,7 +1,7 @@
 <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <main class="main">
   <div class="wrapper">
-    <form [formGroup]="form" (keydown.enter)="$event.preventDefault()">
+    <form [formGroup]="form" (keydown.enter)="$event.preventDefault()" [formGroup]="form">
       <div class="filter">
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
           <div class="filter-title" (click)="showFilterBody()">
@@ -53,8 +53,8 @@
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input #organization nz-input customSubmit
-                (controlUpdate)="modifyControlValue($event, 'organization')" type="text" />
+                <input nz-input customSubmit
+                [control]="form.get('organization')" type="text" />
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -189,19 +189,17 @@
             <div class="filter-sort-population">
               <span>от</span>
               <input
-              #populationStart
               type="number"
               nz-input
               customSubmit
-              (controlUpdate)="modifyControlValue($event, 'populationStart')"
+              [control]="form.get('populationStart')"
             />
               <span>до</span>
               <input
-              #populationEnd
                 customSubmit
                 type="number"
                 nz-input
-                (controlUpdate)="modifyControlValue($event, 'populationEnd')"
+                [control]="form.get('populationEnd')"
               />
             </div>
           </div>

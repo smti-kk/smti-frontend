@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
@@ -34,10 +34,6 @@ export class CommunicationContractsComponent implements OnInit {
   isVisibleFilter = false;
   dateFormat = 'dd.MM.yyyy';
 
-  @ViewChild('populationStart') populationStart: ElementRef;
-  @ViewChild('populationEnd') populationEnd: ElementRef;
-  @ViewChild('contract') contract: ElementRef;
-  @ViewChild('organization') organization: ElementRef;
 
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,
@@ -114,13 +110,6 @@ export class CommunicationContractsComponent implements OnInit {
 
   resetFilters(): void {
     this.form.reset(this.initialValues);
-    this.populationStart.nativeElement.value = null;
-    this.populationEnd.nativeElement.value = null;
-    this.contract.nativeElement.value = null;
-    this.organization.nativeElement.value = null; 
   }
 
-  modifyControlValue(value: string, key: string) {
-    this.form.controls[key].setValue(value);
-  }
 }

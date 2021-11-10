@@ -37,8 +37,7 @@
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input #organization nz-input customSubmit
-                (controlUpdate)="modifyControlValue($event, 'organization')" type="text" />
+                <input nz-input customSubmit [control]="form.get('organization')" type="text" />
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -104,7 +103,7 @@
               <nz-form-item>
                 <nz-form-label>№ контракта</nz-form-label>
                 <nz-form-control>
-                  <input #contract nz-input customSubmit (controlUpdate)="modifyControlValue($event, 'contract')" type="text"/>
+                  <input #contract nz-input customSubmit  [control]="form.get('contract')" type="text"/>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
@@ -143,9 +142,9 @@
             </app-filter-btn>
             <div class="filter-sort-population">
               <span>от</span>
-              <input type="number" #populationStart nz-input customSubmit (controlUpdate)="modifyControlValue($event, 'populationStart')">
+              <input type="number" nz-input customSubmit [control]="form.get('populationStart')">
               <span>до</span>
-              <input type="number" #populationEnd nz-input customSubmit (controlUpdate)="modifyControlValue($event, 'populationEnd')">
+              <input type="number" nz-input customSubmit [control]="form.get('populationEnd')">
             </div>
           </div>
           <div class="filter-result">

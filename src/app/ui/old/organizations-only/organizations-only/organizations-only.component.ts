@@ -137,7 +137,4 @@ export class OrganizationsOnlyComponent implements OnInit {
     });
   }
 
-  modifyControlValue(value: string, key: string) {
-    this.form.controls[key].setValue(value);
-  }
 }
