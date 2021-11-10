@@ -118,7 +118,7 @@ const routes: Routes = [
     path: 'connection-points',
     canActivate: [RouteProxyService],
     data: {
-      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION']
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']
     },
     loadChildren: () => import('./old/connection-points/connection-points.module')
       .then(module => module.ConnectionPointsModule),
