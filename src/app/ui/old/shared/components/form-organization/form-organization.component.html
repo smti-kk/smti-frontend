@@ -150,13 +150,15 @@
           value="Отмена"
           (click)="cancelEdit()"
         />
-        <input
-          *ngIf="formGroupOrganization.disabled"
-          type="button"
-          class="btn"
-          value="Редактировать"
-          (click)="enableForm()"
-        />
+        <ng-container *permissions="['ADMIN', 'ORGANIZATION']">
+          <input
+            *ngIf="formGroupOrganization.disabled"
+            type="button"
+            class="btn"
+            value="Редактировать"
+            (click)="enableForm()"
+          />
+        </ng-container>
         <input
           *ngIf="formGroupOrganization.disabled && canEdit"
           type="button"

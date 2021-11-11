@@ -21,7 +21,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PermissionsDirective} from './directives/permissions.directive';
 import {FeaturesPage} from './features-page/features-page';
 import {OrganizationsPage} from './organizations-page/organizations-page';
 import {ContractsPage} from './contracts-page/contracts-page';
@@ -133,7 +132,6 @@ registerLocaleData(ru);
     BestMap,
     LocationsPage,
     Authorization,
-    PermissionsDirective,
     FeaturesPage,
     OrganizationsPage,
     ContractsPage,

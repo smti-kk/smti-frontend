@@ -43,6 +43,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FilterPipe} from "../../directives/filter.pipe";
+import {PermissionsDirective} from './../../directives/permissions.directive';
 import {CustomSubmitDirective} from './../../directives/custom-submit.directive';
 
 @NgModule({
@@ -70,6 +71,7 @@ import {CustomSubmitDirective} from './../../directives/custom-submit.directive'
     FormAccessPointComponent,
     FomMonitoringWizardComponent,
     FilterPipe,
+    PermissionsDirective,
     CustomSubmitDirective
   ],
   imports: [
@@ -115,6 +117,7 @@ import {CustomSubmitDirective} from './../../directives/custom-submit.directive'
     GroupSelectComponent,
     FormOrganizationComponent,
     FilterPipe,
+    PermissionsDirective,
     CustomSubmitDirective
   ],
 })
