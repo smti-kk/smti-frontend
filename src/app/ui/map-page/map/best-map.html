@@ -9,7 +9,7 @@
       <span class="checkbox-text locations"><span>Населённые пункты</span></span>
     </label>
   </div>
-  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
     <label class="checkbox-label">
       <input
         type="checkbox"
@@ -19,7 +19,7 @@
       <span class="checkbox-text espd">ЕСПД</span>
     </label>
   </div>
-  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
     <label class="checkbox-label">
       <input
         type="checkbox"
@@ -29,7 +29,7 @@
       <span class="checkbox-text smo">СЗО</span>
     </label>
   </div>
-  <div class="layers-selection__item layers-selection__item--zspd" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+  <div class="layers-selection__item layers-selection__item--zspd" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
     <label class="checkbox-label">
       <input
         type="checkbox"
@@ -46,7 +46,7 @@
   </div>
 </div>
 
-<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
   <div class="layers-selection layers-selection-right" *ngIf="map">
     <div class="layers-selection__item">
       <label class="checkbox-label">
@@ -81,7 +81,7 @@
   </div>
 </ng-container>
 
-<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
   <div class="layers-selection layers-selection-bottom" *ngIf="map">
     <div class="d-flex">
       <div class="layers-selection__item">
