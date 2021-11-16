@@ -243,10 +243,12 @@
       <div>Организация</div>
       <div>Адрес</div>
       <ng-container *ngIf="isContractor()">
-        <div>Дата постановки</div>
         <div>Мониторинг</div>
+        <div>Дата постановки</div>
         <div>Статус</div>
         <div>Трафик (за день)</div>
+        <div>Важность</div>
+        <div>Описание проблемы</div>
       </ng-container>
     </div>
     <div
@@ -288,51 +290,51 @@
             </div>
           </div>
           <div class="container-wrap3">
-            <div class="container-point">
+            <div class="container-point" [ngClass]="{'is-contractor': isContractor()}">
               <div class="container-info">
-                <div class="container-info-icon">
+                <div class="container-info-icon" >
                   <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
-                    <img src="/assets/img/icon/espd.png" />
+                    <img src="/assets/img/icon/espd.png" matTooltip="ЕСПД" />
                   </ng-container>
                   <ng-template #smoIcon>
-                    <img src="/assets/img/icon/smo.png" />
+                    <img src="/assets/img/icon/smo.png" matTooltip="СЗО" />
                   </ng-template>
                 </div>
                 <span>{{ point.address ? point.address : '----' }}</span>
               </div>
-              <div class="container-info">
-                <div class="container-info-icon">
-                  <img src="/assets/img/icon/contractor.png" />
+              <div class="container-info" >
+                <div class="container-info-icon" >
+                  <img src="/assets/img/icon/contractor.png" matTooltip="Подрядчик" />
                 </div>
                 <span>{{ point.contractor ? point.contractor : '----' }}</span>
               </div>
               <div class="container-info">
-                <div class="container-info-icon">
-                  <img src="/assets/img/icon/connection.png" />
+                <div class="container-info-icon" >
+                  <img src="/assets/img/icon/connection.png" matTooltip="Интернет" />
                 </div>
                 <span>{{ point.connectionType ? point.connectionType.name : '----' }}</span>
               </div>
               <div class="container-info">
-                <div class="container-info-icon">
-                  <img src="/assets/img/icon/declaredSpeed.png" />
+                <div class="container-info-icon" >
+                  <img src="/assets/img/icon/declaredSpeed.png" matTooltip="Скорость" />
                 </div>
                 <span>{{ point.declaredSpeed ? point.declaredSpeed : '----' }}</span>
               </div>
             </div>
           </div>
            <ng-container *ngIf="isContractor()">
-            <div class="container-wrap5">
-              <div>
-                <span class="is-bold">
-                  {{ point?.createDate | date: 'dd/MM/yyyy' }}
-                </span>
+             <div class="container-wrap5">
+               <div>
+                 <span> <mat-checkbox [checked]="point?.connectionState !== apState.NotMonitored" disabled></mat-checkbox></span>
+                </div>
               </div>
-            </div>
-            <div class="container-wrap6">
-              <div>
-                <span> <mat-checkbox [checked]="point?.connectionState !== apState.NotMonitored" disabled></mat-checkbox></span>
+              <div class="container-wrap6">
+                <div>
+                  <span class="is-bold">
+                    {{ point?.createDate | date: 'dd/MM/yyyy' }}
+                  </span>
+                </div>
               </div>
-            </div>
             <div class="container-wrap7">
               <div>
                 <span>{{stateToString(point?.connectionState)}}</span>
@@ -341,6 +343,16 @@
             <div class="container-wrap8">
               <div>
                 <span>{{ point?.dayTraffic }}</span>
+              </div>
+            </div>
+            <div class="container-wrap9">
+              <div>
+                <span>Высокая (TEMP)</span>
+              </div>
+            </div>
+            <div class="container-wrap10">
+              <div>
+                <span>{{ point?.problemDefinition || 'High ICMP ping loss. High ICMP ping response time' }}</span>
               </div>
             </div>
           </ng-container>

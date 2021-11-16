@@ -22,7 +22,7 @@
 .container-header.is-contractor,
 .container-wrap.is-contractor
  {
-  grid-template-columns: 200px 0.7fr 1fr repeat(4, 0.2fr);
+  grid-template-columns: 170px 0.4fr 1fr 100px 100px repeat(3, 0.2fr) 0.4fr;
 }
 
 .container-wrap1 {
@@ -70,11 +70,26 @@
   background: #f2f2f6;
 }
 
+.container-wrap9 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
+.container-wrap10 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
 .container-point {
   display: grid;
   grid-template-columns: 2fr 1fr 160px 100px;
   grid-column-gap: 1.5rem;
   grid-row-gap: 1rem;
+}
+
+.container-point.is-contractor {
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 1rem;
 }
 
 .container-point + .container-point {
