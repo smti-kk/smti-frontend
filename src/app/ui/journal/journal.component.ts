@@ -91,7 +91,6 @@ export class JournalComponent implements OnInit {
   }
 
   onScrollDown(): void {
-    this.page = this.page + 1;
     this.journalService.next();
   }
 

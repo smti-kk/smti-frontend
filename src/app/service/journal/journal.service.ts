@@ -16,7 +16,6 @@ export class JournalService {
   private filterParams: any = {};
   private sortParams: any = {};
 
-  pageSize = 10;
   defaultDate = '1970-01-01';
 
   private _journalList: BehaviorSubject<LocationFeatureEditingRequestFull[]> = new BehaviorSubject(
@@ -38,7 +37,7 @@ export class JournalService {
       params = params.append('page', this.page.toString());
     }
 
-    if (this.size !== this.pageSize) {
+    if (this.size) {
       params = params.append('size', this.size.toString());
     }
 
@@ -52,10 +51,12 @@ export class JournalService {
   }
 
   next() {
-    if (this.page == this.totalElements) {
+    const nextPage = this.page + 1;
+    if ((nextPage * this.size) + 1 > this.totalElements) {
       return;
     }
-    this.page++;
+
+    this.page = nextPage;
     this.loadContent(true);
   }
 
@@ -76,6 +77,7 @@ export class JournalService {
   }
 
   sort(ordering) {
+    this.page = 0;
     this.sortParams = this.getConvertOrdering(ordering);
     this.loadContent();
   }
@@ -98,7 +100,7 @@ export class JournalService {
   private loadContent(isStack: boolean = false) {
     this.getJournalList().subscribe((response) => {
       if (isStack) {
-        this._journalList.next(this._journalList.getValue().concat(response.content));
+        this._journalList.next([...this._journalList.getValue(), ...response.content]);
       } else {
         this._journalList.next(response.content);
       }
