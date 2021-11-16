@@ -25,6 +25,7 @@ export const INTERNET_PROVIDER = `${environment.API_BASE_URL}/api/operator/inter
 export const MOBILE_PROVIDER = `${environment.API_BASE_URL}/api/operator/mobile`;
 
 export const ACCESS_POINT_TYPE = 'api/type/access-point/';
+export const ACCESS_POINT_MONITORING = 'api/report/organization/ap-all/monitoring/';
 
 export const IMPORT_LOCATION = '/api/import/location';
 export const IMPORT_TC_INTERNET = '/api/import/tc-internet';
