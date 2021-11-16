@@ -145,8 +145,14 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setLogicalCondition('logicalCondition', filters.logicalCondition);
   }
 
-  exportExcel() {
-    window.location.href = `${LOCATIONS_WITH_CONTRACTS}export/?${this.params.toString()}`;
+  exportExcel(): Observable<any> {
+    return this.httpClient.get(`${LOCATIONS_WITH_CONTRACTS}export/`, {params: this.params, responseType: 'blob', observe: 'response'})
+      .pipe(
+        tap(response => {
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
+        })
+      );
   }
 
   setLogicalCondition(field: string, value: string) {

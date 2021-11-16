@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, share} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, finalize, share} from 'rxjs/operators';
 
 import {InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
@@ -33,6 +33,7 @@ export class CommunicationContractsComponent implements OnInit {
   OrderingDirection = OrderingDirection;
   isVisibleFilter = false;
   dateFormat = 'dd.MM.yyyy';
+  isLoading: boolean;
 
 
   constructor(
@@ -111,5 +112,15 @@ export class CommunicationContractsComponent implements OnInit {
   resetFilters(): void {
     this.form.reset(this.initialValues);
   }
+
+  exportExcel(): void {
+    this.isLoading = true;
+
+    this.serviceLocation
+      .exportExcel()
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe();
+  }
+
 
 }

@@ -13,7 +13,7 @@
           <div class="filter-export">
             <button class="filter-export-button" (click)="resetFilters()">Очистить фильтр</button>
             <button
-              (click)="serviceLocation.exportExcel()"
+              (click)="exportExcel()"
               type="button"
               class="filter-export-button"
             >Выгрузить в Excel
@@ -255,3 +255,8 @@
   [fullScreen]="true"
 >Загрузка. . .
 </ngx-spinner>
+
+
+<div class="spinner-container-excel" *ngIf="isLoading">
+  <mat-spinner color='warn' diameter="70"></mat-spinner>
+</div>

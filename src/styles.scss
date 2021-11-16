@@ -133,6 +133,14 @@ input[type="checkbox" i] {
   justify-content: center;
 }
 
+.spinner-container-excel {
+  position: fixed;
+  z-index: 20;
+  left: 10px;
+  bottom: 0;
+  margin-bottom: 1rem;
+}
+
 .c-filter-button {
   position: relative;
   margin-bottom: 5px;
