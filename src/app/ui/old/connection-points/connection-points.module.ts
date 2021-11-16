@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule, Routes} from '@angular/router';
 import {CoreModule} from '@core/core.module';
@@ -73,6 +74,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     MatButtonModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatAutocompleteModule,
     NgxMatSelectSearchModule,
     ScrollingModule,

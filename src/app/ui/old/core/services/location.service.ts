@@ -2,7 +2,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
 
 import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType,} from '@core/models';
@@ -14,6 +14,8 @@ import {OrderingDirection} from './tc-pivots.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Contract} from '@core/models/contract';
 import {formatDate} from '@angular/common';
+import {APStateType} from 'src/app/ui/old/connection-points/connection-points/connection-points.component';
+import {saveAs} from 'file-saver';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
@@ -52,12 +54,13 @@ interface LocationWithOrganizationAccessPointsFilters {
   populationEnd: number;
   point: string[];
   address?: string;
-  logicalCondition?: string
+  state?: APStateType;
+  logicalCondition?: string;
 }
 
 @Injectable()
 export class LocationService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(protected httpClient: HttpClient) {}
 
   getLocationByName(name: string): Observable<Location[]> {
 
@@ -297,6 +300,7 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setPoint('ap', filters.point);
     this.setAddress('address', filters.address);
     this.setLogicalCondition('logicalCondition', filters.logicalCondition);
+    this.setAccessPointState('state',filters.state);
 
   }
 
@@ -309,6 +313,14 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
   }
 
   setLogicalCondition(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  setAccessPointState(field: string, value: string) {
     if (value) {
       this.params = this.params.set(field, value);
     } else {
@@ -349,8 +361,14 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     }
   }
 
-  exportExcel() {
-    window.location.href = `${LOCATIONS_WITH_CONNECTION_POINTS}export/?${this.params.toString()}`;
+  exportExcel(): Observable<any> {
+    return this.httpClient.get(`${LOCATIONS_WITH_CONNECTION_POINTS}export/`, {params: this.params, responseType: 'blob', observe: 'response'})
+      .pipe(
+        tap(response => {
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
+        })
+      );
   }
 
   private setOrder(order?: string[]) {

@@ -50,14 +50,23 @@ export class Reaccesspoint extends MonitoringPoint {
   @deserializeAs(LOCATION_DESERIALIZER, 'organization')
   private readonly _locationId: number;
 
+  @autoserializeAs('connectionState')
+  private readonly _connectionState: string;
+  
   @autoserializeAs('contractor')
   private readonly _contractor: string;
 
   @autoserializeAs(Date, 'created_at')
   private readonly _createdAt: Date;
 
+  @autoserializeAs(Date, 'createDate')
+  private readonly _createDate: Date;
+
   @autoserializeAs('customer')
   private readonly _customer: string;
+
+  @autoserializeAs('dayTraffic')
+  private readonly _dayTraffic: number;
 
   @autoserializeAs('declaredSpeed')
   private readonly _declaredSpeed: string;
@@ -89,6 +98,9 @@ export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs(Operator, 'operator')
   private readonly _operator: Operator;
+
+  @autoserializeAs(Operator, 'problemDefinition')
+  private readonly _problemDefinition: string;
 
   @autoserializeAs(Quality, 'quality')
   private readonly _quality: Quality;
@@ -144,6 +156,13 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._completed;
   }
 
+  get createDate(): Date {
+    return this._createDate;
+  }
+
+  get connectionState(): string {
+    return this._connectionState;
+  }
   get connectionType(): InternetAccessType {
     return this._connectionType;
   }
@@ -154,6 +173,10 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get customer(): string {
     return this._customer;
+  }
+
+  get dayTraffic(): number {
+    return this._dayTraffic;
   }
 
   get declaredSpeed(): string {
@@ -186,6 +209,10 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get operator(): Operator {
     return this._operator;
+  }
+
+  get problemDefinition(): string {
+    return this._problemDefinition;
   }
 
   get quality(): Quality {

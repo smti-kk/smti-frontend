@@ -7,7 +7,7 @@ import {InternetAccessTypeService} from '@core/services/internet-access-type.ser
 import {Observable} from 'rxjs';
 import {GovernmentProgram, InternetAccessType, Organization, Quality, qualityToString, participationStatusToString} from '@core/models';
 import {AccessPointType} from '@core/models/accesspoint-type';
-import {AccessPointTypeService} from '@core/services/accesspoint-type.service';
+import {AccessPointService} from '@core/services/accesspoint-type.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ParticipationStatus} from '../../../core/models';
 
@@ -36,7 +36,7 @@ export class FormAccessPointComponent implements OnInit {
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private serviceOrganizations: OrganizationsService,
-    private serviceAccessPointType: AccessPointTypeService,
+    private serviceAccessPointType: AccessPointService,
     private formBuilder: FormBuilder,
     private readonly _snackBar: MatSnackBar
   ) {

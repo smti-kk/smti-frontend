@@ -19,6 +19,12 @@
 
 }
 
+.container-header.is-contractor,
+.container-wrap.is-contractor
+ {
+  grid-template-columns: 200px 0.7fr 1fr repeat(4, 0.2fr);
+}
+
 .container-wrap1 {
   display: flex;
   flex-direction: column;
@@ -42,6 +48,26 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 0.5rem;
+}
+
+.container-wrap5 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
+.container-wrap6 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
+.container-wrap7 {
+  padding: 1.2rem 1rem;
+  background: #f2f2f6;
+}
+
+.container-wrap8 {
+  padding: 1.2rem;
+  background: #f2f2f6;
 }
 
 .container-point {
@@ -194,6 +220,10 @@ a.btn:hover {
 .filter {
 }
 
+.is-bold {
+  font-weight: 600;
+}
+
 .filter-button {
   position: fixed;
   top: 35%;
@@ -209,6 +239,41 @@ a.btn:hover {
 }
 .filter-export {
   button + button {margin-left: 16px;}
+}
+
+.status {
+  font-family: sans-serif;
+  font-weight: 600;
+  padding: 0 1.5rem;
+  min-width: 175px;
+  transition: all 0.2s;
+}
+
+.status:active,
+.status.is-active {
+  transform: scale(0.98);
+}
+
+.status.is-working {
+  background-color: #4caf50;
+}
+
+.status.is-problem {
+  background-color: orange;
+}
+
+.status.is-not-working {
+  background-color: red;
+}
+
+.status.is-not-connected {
+  background-color: lightgray;
+}
+
+.status-container {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
 }
 
 mat-select {

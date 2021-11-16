@@ -13,7 +13,7 @@ import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {NzModalService} from 'ng-zorro-antd';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
-import {AccessPointTypeService} from '../../core/services/accesspoint-type.service';
+import {AccessPointService} from '../../core/services/accesspoint-type.service';
 import {AccessPointType} from '../../core/models/accesspoint-type';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import {GovernmentProgramService, OrganizationServiceWithFilterParams} from '../../core/services';
@@ -59,7 +59,7 @@ export class OrganizationsOnlyComponent implements OnInit {
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private serviceOrganizations: OrganizationServiceWithFilterParams,
-    private serviceAccessPointTypeService: AccessPointTypeService,
+    private serviceAccessPointTypeService: AccessPointService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private modal: NzModalService
