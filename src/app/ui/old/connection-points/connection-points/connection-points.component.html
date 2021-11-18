@@ -330,9 +330,7 @@
               </div>
               <div class="container-wrap6">
                 <div>
-                  <span class="is-bold">
-                    {{ point?.createDate | date: 'dd/MM/yyyy' }}
-                  </span>
+                  <span class="is-bold">{{ point?.createDate | date: 'dd/MM/yyyy' }}</span>
                 </div>
               </div>
             <div class="container-wrap7">
@@ -352,7 +350,7 @@
             </div>
             <div class="container-wrap10">
               <div>
-                <span>{{ point?.problemDefinition || 'High ICMP ping loss. High ICMP ping response time' }}</span>
+                <span>{{ point?.problemDefinition }}</span>
               </div>
             </div>
           </ng-container>
