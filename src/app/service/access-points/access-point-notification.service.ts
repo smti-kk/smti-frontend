@@ -7,8 +7,6 @@ import {
 } from '../../ui/old/core/services/new-accesspoint-notification.service';
 
 
-
-
 @Injectable({
   providedIn: 'root',
 })
@@ -37,6 +35,8 @@ export class AccessPointNotificationService {
               (n: APNotification) =>
                 `<div>Точка подключена к системам мониторинга:</div> <div>${n.organizationName},</div> <div>${n.organizationAddress}</div>`
             );
+          } else {
+            return [];
           }
         })
       )
