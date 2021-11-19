@@ -38,6 +38,7 @@
     "ngx-mat-select-search": "^3.0.3",
     "ngx-pagination": "^5.0.0",
     "ngx-spinner": "^9.0.2",
+    "ngx-toastr": "^13.2.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

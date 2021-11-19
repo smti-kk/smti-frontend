@@ -118,8 +118,15 @@ import {NzDatePickerModule, NzFormModule} from "ng-zorro-antd";
 import {MunRequestsArchiveComponent} from './mun-requests/mun-requests-archive/mun-requests-archive.component';
 import {MunRequestsFiltersComponent} from './mun-requests/mun-requests-filters/mun-requests-filters.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {NotificationListComponent} from './notification-list/notification-list.component';
+import {ToastrModule} from 'ngx-toastr';
 
 registerLocaleData(ru);
+
+const toastrConfig = {
+  positionClass: 'toast-bottom-right',
+  maxOpened: 3
+}
 
 @NgModule({
   declarations: [
@@ -194,6 +201,7 @@ registerLocaleData(ru);
     SortDirective,
     MunRequestsArchiveComponent,
     MunRequestsFiltersComponent,
+    NotificationListComponent,
   ],
   imports: [
     BrowserModule,
@@ -237,7 +245,8 @@ registerLocaleData(ru);
     CoreModule,
     SharedModule,
     NzFormModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    ToastrModule.forRoot(toastrConfig),
   ],
   exports: [
     SortDirective,

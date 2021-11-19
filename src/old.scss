@@ -1428,3 +1428,18 @@ input[type='radio']:checked + .c-radiobox-text:after {
 .icon {
   width: 24px;
 }
+
+
+.ap-notification {
+  font-family: "Segoe UI", sans-serif !important;
+  background-color: #75343c !important;
+  width: 350px !important;
+}
+
+.ap-notification-title {
+  font-size: 18px;
+}
+
+.ap-notification-message {
+  margin-top: 0.3rem;
+}
