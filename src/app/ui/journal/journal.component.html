@@ -289,8 +289,9 @@
         class="features-table__body"
         infinite-scroll
         [infiniteScrollDistance]="1"
+        [alwaysCallback]="true"
         [infiniteScrollUpDistance]="2"
-        [infiniteScrollThrottle]="300"
+        [infiniteScrollThrottle]="0"
         (scrolled)="onScrollDown()"
       >
         <div class="features-table__row" *ngFor="let request of journalList">

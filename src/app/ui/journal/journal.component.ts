@@ -40,6 +40,9 @@ export class JournalComponent implements OnInit {
   isVisibleFilter = false;
   initialValues;
 
+  loadingOnScroll = false;
+  loadingThrottle = 300;
+
   ordering: OrderingFilter;
 
   constructor(
@@ -91,7 +94,15 @@ export class JournalComponent implements OnInit {
   }
 
   onScrollDown(): void {
-    this.journalService.next();
+  //багфикс: используем кастомный throttle вместо встроенного в 'infinite-scroller' для 100% вызова события
+
+    if (!this.loadingOnScroll) {
+      this.loadingOnScroll = true;
+      window.setTimeout(() => {
+        this.journalService.next();
+        this.loadingOnScroll = false;
+      }, this.loadingThrottle);
+   }
   }
 
   onSort(ordering) {
