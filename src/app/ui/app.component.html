@@ -1,5 +1,5 @@
 <menu></menu>
-<app-notification-list *permissions="['CONTRACTOR', 'OPERATOR']"></app-notification-list>
+<app-notification-list *permissions="['CONTRACTOR', 'OPERATOR', 'ORGANIZATION']"></app-notification-list>
 
 <loader *ngIf="loaderService.isLoading()"></loader>
 <div class="container" [class.before-load-hide]="loaderService.isLoading()">
