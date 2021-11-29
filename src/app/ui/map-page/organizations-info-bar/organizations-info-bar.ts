@@ -52,7 +52,6 @@ export class OrganizationsInfoBar implements OnInit, AfterViewChecked {
 
   @Input()
   set organizations(value: Pageable<ApiOrganizationResponse[]>) {
-    this.page = 0;
     this.iOrganizations = value;
     this.currentAp = null;
     if (!value) {
