@@ -91,7 +91,6 @@ export class FormAccessPointComponent implements OnInit {
       _softType: null
     });
 
-    this.formGroupAccessPoints.valueChanges.subscribe(v => console.log(v));
 
     if (point) {
       this.formGroupAccessPoints.patchValue(point);
