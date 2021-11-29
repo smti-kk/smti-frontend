@@ -111,6 +111,12 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('ucn')
   private readonly _ucn: number;
 
+  @autoserializeAs('equipment')
+  private readonly _equipment: string;
+
+  @autoserializeAs('softType')
+  private readonly _softType: string;
+
   @autoserializeAs(Date, 'updated_at')
   private readonly _updatedAt: Date;
 
@@ -237,6 +243,13 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get avstatus(): Avstatus {
     return this._avstatus;
+  }
+
+  get equipment(): string {
+    return this._equipment;
+  }
+  get softType(): string {
+    return this._softType;
   }
 
   get connectionTypeString(): string {

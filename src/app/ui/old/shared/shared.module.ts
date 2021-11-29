@@ -7,7 +7,7 @@ import {
   NzCheckboxModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule,
+  NzInputModule, NzRadioModule,
   NzSelectModule,
   NzTreeSelectModule,
 } from 'ng-zorro-antd';
@@ -93,6 +93,7 @@ import {CustomSubmitDirective} from './../../directives/custom-submit.directive'
     MatCardModule,
     MatGridListModule,
     MatCheckboxModule,
+    NzRadioModule,
   ],
   providers: [],
   exports: [

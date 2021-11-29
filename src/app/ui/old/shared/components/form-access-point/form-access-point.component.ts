@@ -86,7 +86,9 @@ export class FormAccessPointComponent implements OnInit {
       _visible: true,
       _type: [null, Validators.required],
       _amount: null,
-      _number: null
+      _number: null,
+      _equipment: null,
+      _softType: null
     });
 
     this.formGroupAccessPoints.valueChanges.subscribe(v => console.log(v));
