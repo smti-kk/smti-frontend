@@ -3,13 +3,13 @@
     <nz-form-label>Тип точки</nz-form-label>
     <nz-form-control>
       <nz-select
-              formControlName="_type"
-              [nzSuffixIcon]="suffixIconSelect"
+        formControlName="_type"
+        [nzSuffixIcon]="suffixIconSelect"
       >
         <nz-option
-                *ngFor="let item of accessPointType$ | async"
-                [nzValue]="item.name"
-                [nzLabel]="item.desc"
+          *ngFor="let item of accessPointType$ | async"
+          [nzValue]="item.name"
+          [nzLabel]="item.desc"
         ></nz-option>
       </nz-select>
       <div class="error-required"
@@ -18,6 +18,23 @@
       </div>
     </nz-form-control>
   </nz-form-item>
+
+  <nz-form-item class="form-item-offset" *ngIf="formGroupAccessPoints.get('_type').value == 'ZSPD'">
+    <nz-form-label>Оборудование</nz-form-label>
+    <nz-radio-group formControlName="_equipment">
+      <label nz-radio nzValue="hardware">Аппаратный клиент</label>
+      <label nz-radio nzValue="software">Программный клиент</label>
+    </nz-radio-group>
+  </nz-form-item>
+
+  <nz-form-item class="form-item-offset" *ngIf="formGroupAccessPoints.get('_type').value == 'ZSPD' && formGroupAccessPoints.get('_equipment').value == 'software'">
+    <nz-form-label>Тип ПО</nz-form-label>
+    <nz-radio-group formControlName="_softType">
+      <label nz-radio nzValue="kontinent">Континент</label>
+      <label nz-radio nzValue="vipNet">Vip Net</label>
+    </nz-radio-group>
+  </nz-form-item>
+
   <nz-form-item>
     <nz-form-label>Адрес</nz-form-label>
     <nz-form-control>
