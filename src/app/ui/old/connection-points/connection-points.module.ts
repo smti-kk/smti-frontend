@@ -73,6 +73,7 @@ const routes: Routes = [
     NzButtonModule,
     NzModalModule,
     InfiniteScrollModule,
+    MatTooltipModule,
     MatButtonModule,
     MatSelectModule,
     MatCheckboxModule,
