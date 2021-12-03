@@ -178,6 +178,17 @@ export class ConnectionPointsComponent implements OnInit {
     }
   }
 
+  importanceToString(importance: 'HIGH' | 'MIDDLE' | 'LOW'): string {
+    switch (importance) {
+      case 'HIGH':
+        return 'Высокая';
+      case 'MIDDLE':
+        return 'Средняя';
+      case 'LOW':
+        return 'Низкая';
+    }
+  }
+
   onSelectAddress(event: string) {
     this.form.controls.address.setValue(event);
   }

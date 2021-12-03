@@ -129,6 +129,9 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('number')
   private readonly _number: string;
 
+  @autoserializeAs('importance')
+  private readonly _importance: string;
+
   @autoserializeAs('amount')
   private readonly _amount: number;
 
@@ -179,6 +182,10 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get customer(): string {
     return this._customer;
+  }
+
+  get importance(): string {
+    return this._importance;
   }
 
   get dayTraffic(): number {
