@@ -5,12 +5,10 @@ import { LocationFilters } from 'src/app/ui/locations-page/location-filters/Loca
 import { FormEditLocationComponent } from 'src/app/ui/old/locations-book/components/form-edit-location/form-edit-location.component';
 import { LocationsGeoModalComponent } from 'src/app/ui/old/locations-book/components/locations-geo-modal/locations-geo-modal.component';
 import { LocationTypeDescription } from 'src/app/ui/old/locations-book/enums/locations-book.enum';
-import {
-  LocationsContent,
-} from 'src/app/ui/old/locations-book/interfaces/locations-book.interface';
+import { LocationsContent } from 'src/app/ui/old/locations-book/interfaces/locations-book.interface';
 import { LocationsBookService } from './../../services/locations-book.service';
 import { MatPaginatorEvent } from './../../../core/models/base-interfaces';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './locality-book.component.html',
@@ -42,7 +40,6 @@ export class LocalityBookPageComponent implements OnInit {
     private locationBookService: LocationsBookService,
     private readonly modalService: MatDialog,
     private readonly snackBar: MatSnackBar
-
   ) {
     this.dataSource = new MatTableDataSource<LocationsContent>(this.items);
   }
@@ -65,25 +62,27 @@ export class LocalityBookPageComponent implements OnInit {
           population: row.population,
           parent: row.locationParent.id,
         },
-        headerContent: 'Редактирование населенного пункта'
+        headerContent: 'Редактирование населенного пункта',
       },
     });
 
     dialogRef.afterClosed().subscribe((formData) => {
       if (formData) {
-        this.locationBookService.editLocation(id, formData).subscribe(() => {
-          const index = this.dataSource.data.findIndex(
-            (location) => location.id === id
-          );
-          const rowData = { ...this.dataSource.data[index] };
-          this.dataSource.data[index] = { ...rowData, ...formData };
-          this.dataSource.data = [...this.dataSource.data];
+        this.locationBookService.editLocation(id, formData).subscribe({
+          next: () => {
+            const index = this.dataSource.data.findIndex(
+              (location) => location.id === id
+            );
+            const rowData = { ...this.dataSource.data[index] };
+            this.dataSource.data[index] = { ...rowData, ...formData };
+            this.dataSource.data = [...this.dataSource.data];
+          },
+          error: (err) => {
+            if (Array.isArray(err.error)) {
+              this.snackBar.open(err.error[0], 'Закрыть');
+            }
+          },
         });
-      }
-    }, (err) => {
-      if (Array.isArray(err.error)) {
-        this.snackBar.open(err.error[0], 'Закрыть');
-
       }
     });
   }
@@ -91,7 +90,7 @@ export class LocalityBookPageComponent implements OnInit {
   displayCoord(data: [[number, number]]): void {
     const dialogRef = this.modalService.open(LocationsGeoModalComponent, {
       width: '520px',
-      data
+      data,
     });
   }
 
@@ -104,7 +103,6 @@ export class LocalityBookPageComponent implements OnInit {
       })
       .subscribe((value) => {
         this.dataSource.data = value.content;
-        this.length = value.content.length
       });
   }
   d;
@@ -119,6 +117,7 @@ export class LocalityBookPageComponent implements OnInit {
       })
       .subscribe((data) => {
         this.dataSource.data = data.content;
+        this.length = data.totalElements;
       });
   }
 
