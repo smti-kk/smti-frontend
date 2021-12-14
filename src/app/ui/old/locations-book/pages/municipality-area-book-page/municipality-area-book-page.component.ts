@@ -122,7 +122,7 @@ export class MunicipalityAreaBookPageComponent implements OnInit {
       })
       .subscribe((data) => {
         this.dataSource.data = data.content;
-        this.length = data.content.length
+        this.length = data.totalElements;
       });
   }
 

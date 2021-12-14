@@ -53,7 +53,7 @@ export class LocationsBookService {
     return this.httpClient.get<LocationCategories[]>(LOCATION_TYPE);
   }
 
-  editLocation(id: number, body: LocationEdit): Observable<[]> {
+  editLocation(id: number, body: LocationEdit): Observable<any[]> {
     let params = new HttpParams();
 
     if (body) {
