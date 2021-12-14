@@ -1,4 +1,3 @@
-import { AccessPointHelperService } from './services/access-point-helper.service';
 import {
   Component,
   EventEmitter,
@@ -64,7 +63,6 @@ export class BestMap implements OnInit, OnDestroy {
   currentCellularState: boolean | null = null;
 
   constructor(
-    private apHelperService: AccessPointHelperService,
     private layersFactory: LayerControllersFactory,
     private leafletOptionsConfigurator: LeafletOptionsConfigurator,
     private locationsService: LocationsService,
