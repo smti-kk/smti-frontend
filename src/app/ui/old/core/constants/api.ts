@@ -40,3 +40,7 @@ export const IMPORT_TRUNK_CHANNEL = '/api/import/trunk-channel';
 export const IMPORT_TC_ATS = '/api/import/tc-ats';
 export const IMPORT_TC_INFOMAT = '/api/import/tc-infomat';
 export const IMPORT_BASE_STATION = '/api/import/base-station';
+
+export const LOCATION_LIST = '/api/location/location-reference/filtered/'
+export const LOCATION_TYPE = '/api/simple/type-locations/'
+export const LOCATION_EDIT = '/api/location/location-reference/update/:id/'

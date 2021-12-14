@@ -40,6 +40,7 @@ export class UsersPage implements OnInit {
 
   ngOnInit(): void {
     this.api.pageList(this.page, this.size, this.filters).subscribe(value => {
+      
       this.dataSource.data = value.content;
     });
   }

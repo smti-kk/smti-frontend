@@ -4,3 +4,11 @@ export interface PaginatedListBackend {
   previous: string;
   results: {}[];
 }
+
+
+export interface MatPaginatorEvent {
+  previousPageIndex: number;
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+}

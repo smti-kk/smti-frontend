@@ -72,7 +72,7 @@ import {CustomSubmitDirective} from './../../directives/custom-submit.directive'
     FomMonitoringWizardComponent,
     FilterPipe,
     PermissionsDirective,
-    CustomSubmitDirective
+    CustomSubmitDirective,
   ],
   imports: [
     CommonModule,

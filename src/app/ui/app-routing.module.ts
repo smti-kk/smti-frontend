@@ -32,7 +32,8 @@ import {TypeSmoComponent} from './type-smo/type-smo.component';
 import {GovProgramComponent} from './gov-programs/gov-program.component';
 import {JournalComponent} from "./journal/journal.component";
 import {MunRequestsArchiveComponent} from 'src/app/ui/mun-requests/mun-requests-archive/mun-requests-archive.component';
-
+import { LocalityBookPageComponent } from './old/locations-book/pages/locality-book-page/locality-book.component';
+import {MunicipalityAreaBookPageComponent} from 'src/app/ui/old/locations-book/pages/municipality-area-book-page/municipality-area-book-page.component';
 
 const routes: Routes = [
   {
@@ -303,6 +304,22 @@ const routes: Routes = [
   {
     path: 'type-smo',
     component: TypeSmoComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'locations-book',
+    component: LocalityBookPageComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'municip-book',
+    component: MunicipalityAreaBookPageComponent,
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN']

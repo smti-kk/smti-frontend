@@ -109,6 +109,14 @@
          *permissions="['ADMIN']"
          routerLink="/type-smo"
          [class.active]="currentRouteIs('/type-smo')"><span>Типы СЗО</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
+         routerLink="/locations-book"
+         [class.active]="currentRouteIs('/locations-book')"><span>Населённые пункты</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
+         routerLink="/municip-book"
+         [class.active]="currentRouteIs('/municip-book')"><span>Муниципальные образования</span></div>
   </mat-menu>
 
   <mat-menu #requestsMenu="matMenu">
