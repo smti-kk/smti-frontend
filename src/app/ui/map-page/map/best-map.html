@@ -5,48 +5,72 @@
         type="checkbox"
         [checked]="layersChecked['locations']"
         (change)="removeOrAddLayer('locations', $event)"
+      />
+      <span class="checkbox-text locations"
+        ><span>Населённые пункты</span></span
       >
-      <span class="checkbox-text locations"><span>Населённые пункты</span></span>
     </label>
+    <div *ngIf="layersChecked['locations']">
+      <three-state-button [formControl]="hasCellularControl">
+        <img src="/assets/table-phone-4.svg" alt="" />
+      </three-state-button>
+    </div>
   </div>
-  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
+
+  <div
+    class="layers-selection__item"
+    *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']"
+  >
     <label class="checkbox-label">
       <input
         type="checkbox"
         [checked]="layersChecked['ESPD']"
         (change)="removeOrAddLayer('ESPD', $event)"
-      >
+      />
       <span class="checkbox-text espd">ЕСПД</span>
     </label>
+    <div *ngIf="layersChecked['ESPD']">
+      <three-state-button [isExtended]="true" [formControl]="hasEspdControl" >
+        <img class="selection-item__btn" src="/assets/table-computer.svg" alt="" />
+      </three-state-button>
+    </div>
   </div>
-  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
+  <div
+    class="layers-selection__item"
+    *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']"
+  >
     <label class="checkbox-label">
       <input
         type="checkbox"
         [checked]="layersChecked['SMO']"
         (change)="removeOrAddLayer('SMO', $event)"
-      >
+      />
       <span class="checkbox-text smo">СЗО</span>
     </label>
   </div>
-  <div class="layers-selection__item" *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
+  <div
+    class="layers-selection__item"
+    *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']"
+  >
     <label class="checkbox-label">
       <input
         type="checkbox"
         [checked]="layersChecked['ZSPD']"
         (change)="removeOrAddLayer('ZSPD', $event)"
-      >
+      />
       <span class="checkbox-text smo">ЗСПД</span>
     </label>
-  </div>
-  <div class="layers-selection__item" *ngIf="layersChecked['locations']">
-    <three-state-button [formControl]="hasCellularControl">
-      <img src="/assets/table-phone-4.svg" alt="">
-    </three-state-button>
+    <div *ngIf="layersChecked['ZSPD']">
+      <three-state-button [isExtended]="true" [formControl]="hasZspdControl">
+        <img class="selection-item__btn" src="/assets/table-radio.svg" alt="" />
+      </three-state-button>
+    </div>
   </div>
 </div>
 
-<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
+<ng-container
+  *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']"
+>
   <div class="layers-selection layers-selection-right" *ngIf="map">
     <div class="layers-selection__item">
       <label class="checkbox-label">
@@ -54,7 +78,7 @@
           type="checkbox"
           (change)="updateBaseStations()"
           [(ngModel)]="selectedMobileTypes['4G']"
-        >
+        />
         <span class="checkbox-text column g4">4G</span>
       </label>
     </div>
@@ -64,7 +88,7 @@
           type="checkbox"
           (change)="updateBaseStations()"
           [(ngModel)]="selectedMobileTypes['3G']"
-        >
+        />
         <span class="checkbox-text column g3">3G</span>
       </label>
     </div>
@@ -74,28 +98,33 @@
           type="checkbox"
           (change)="updateBaseStations()"
           [(ngModel)]="selectedMobileTypes['2G']"
-        >
+        />
         <span class="checkbox-text column g2">2G</span>
       </label>
     </div>
   </div>
 </ng-container>
 
-<ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']">
+<ng-container
+  *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']"
+>
   <div class="layers-selection layers-selection-bottom" *ngIf="map">
     <div class="d-flex">
-      <div class="layers-selection__item">
-        Магистральные каналы:
-      </div>
+      <div class="layers-selection__item">Магистральные каналы:</div>
       <div class="d-flex flex-wrap">
-        <div *ngIf="(existedTrunkChannelType | keyvalue).length === 0">отсутствуют</div>
-        <div class="layers-selection__item" *ngFor="let channel of existedTrunkChannelType | keyvalue">
+        <div *ngIf="(existedTrunkChannelType | keyvalue).length === 0">
+          отсутствуют
+        </div>
+        <div
+          class="layers-selection__item"
+          *ngFor="let channel of existedTrunkChannelType | keyvalue"
+        >
           <label class="checkbox-label">
             <input
               type="checkbox"
               [(ngModel)]="existedTrunkChannelType[channel.key]"
               (change)="updateTrunkChannelsLayer()"
-            >
+            />
             <span class="checkbox-text vols">{{channel.key}}</span>
           </label>
         </div>
@@ -103,18 +132,25 @@
     </div>
     <div class="d-flex">
       <div class="layers-selection__item">
-        <img src="assets/ethernet.png" alt="">
+        <img src="assets/ethernet.png" alt="" />
       </div>
       <div class="d-flex flex-wrap">
-        <div *ngIf="(existedTrunkChannelOperators | keyvalue).length === 0"></div>
-        <div class="layers-selection__item" *ngFor="let operator of existedTrunkChannelOperators | keyvalue">
+        <div
+          *ngIf="(existedTrunkChannelOperators | keyvalue).length === 0"
+        ></div>
+        <div
+          class="layers-selection__item"
+          *ngFor="let operator of existedTrunkChannelOperators | keyvalue"
+        >
           <label class="checkbox-label">
             <input
               type="checkbox"
               [(ngModel)]="existedTrunkChannelOperators[operator.key]"
               (change)="updateTrunkChannelsLayer()"
+            />
+            <span [class]="'checkbox-text ' + operator.key"
+              >{{operator.key}}</span
             >
-            <span [class]="'checkbox-text ' + operator.key">{{operator.key}}</span>
           </label>
         </div>
       </div>
@@ -122,10 +158,10 @@
   </div>
 </ng-container>
 
-<div class="leaflet-map"
-     *ngIf="leafletOptions$ | async as leafletOptions"
-     leaflet
-     [leafletOptions]="leafletOptions"
-     (leafletMapReady)="initializeMap($event)">
-</div>
-
+<div
+  class="leaflet-map"
+  *ngIf="leafletOptions$ | async as leafletOptions"
+  leaflet
+  [leafletOptions]="leafletOptions"
+  (leafletMapReady)="initializeMap($event)"
+></div>

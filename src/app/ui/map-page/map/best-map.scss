@@ -21,6 +21,8 @@
   background-color: rgba(251, 251, 251, 0.5);
 
   &__item {
+    display: flex;
+    gap: 7px;
     white-space: nowrap;
     margin-right: 12px;
     margin-bottom: 5px;
@@ -208,3 +210,8 @@ three-state-button ::ng-deep .state {
 three-state-button {
   user-select: none;
 }
+ .selection-item__btn {
+    width: 16px;
+    height: 20px;
+
+ }
