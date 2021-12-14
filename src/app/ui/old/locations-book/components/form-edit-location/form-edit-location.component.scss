@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1 0 auto;
+}
+
+
+
+
+::ng-deep .location-form-edit {
+  .mat-dialog-container {
+    overflow: visible;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  form {
+    overflow: visible;
+  }
+
+}

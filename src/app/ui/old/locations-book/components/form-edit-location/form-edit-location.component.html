@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>
+  {{data?.headerContent}}
+</h1>
+<form mat-dialog-content [formGroup]="form">
+  <div>
+    <mat-label>Привязка к нас.пункту</mat-label>
+    <ng-select   [searchable]="false" formControlName="parent" [bindLabel]="''">
+      <ng-container *ngIf="fParents">
+        <ng-option
+        *ngFor="let location of fParents" [value]="location.id">
+          {{location.name}}
+        </ng-option>
+      </ng-container>
+    </ng-select>
+  </div>
+
+
+  <div>
+    <mat-label>Тип МО</mat-label>
+    <ng-select [searchable]="false" formControlName="type">
+      <ng-container *ngIf="flocationCategoriesFiltered && flocationCategoriesFiltered?.length > 0">
+          <ng-option
+          *ngFor="let category of flocationCategoriesFiltered" [value]="category.shorted">
+            {{category.description}}
+          </ng-option>
+      </ng-container>
+    </ng-select>
+  </div>
+
+
+
+
+  <div >
+    <mat-form-field>
+      <mat-label>Население</mat-label>
+      <input  matInput type="number" formControlName="population">
+    </mat-form-field>
+  </div>
+
+
+</form>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()" cdkFocusInitial>Отмена</button>
+  <button mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">Сохранить</button>
+</div>

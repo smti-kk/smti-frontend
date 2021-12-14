@@ -120,6 +120,13 @@ import {MunRequestsFiltersComponent} from './mun-requests/mun-requests-filters/m
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NotificationListComponent} from './notification-list/notification-list.component';
 import {ToastrModule} from 'ngx-toastr';
+import {FormEditLocationComponent} from './old/locations-book/components/form-edit-location/form-edit-location.component';
+import {MunicipalityAreaBookPageComponent } from './old/locations-book/pages/municipality-area-book-page/municipality-area-book-page.component';
+import { LocalityBookPageComponent} from './old/locations-book/pages/locality-book-page/locality-book.component';
+import {LocationsGeoModalComponent} from 'src/app/ui/old/locations-book/components/locations-geo-modal/locations-geo-modal.component';
+import {LocationsBookFilterComponent} from './old/locations-book/components/locations-book-filter/locations-book-filter.component';
+import {MatPaginatorIntl } from "@angular/material/paginator";
+import {MatCustomPaginatorIntl} from './old/shared/components/mate-paginator-intl/mat-paginator-intl'
 
 registerLocaleData(ru);
 
@@ -202,6 +209,11 @@ const toastrConfig = {
     MunRequestsArchiveComponent,
     MunRequestsFiltersComponent,
     NotificationListComponent,
+    FormEditLocationComponent,
+    LocalityBookPageComponent,
+    LocationsGeoModalComponent,
+    MunicipalityAreaBookPageComponent,
+    LocationsBookFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -264,6 +276,7 @@ const toastrConfig = {
     {provide: StorageService, useClass: LocalStorageService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
+    {provide: MatPaginatorIntl, useValue: MatCustomPaginatorIntl()}
   ],
   bootstrap: [AppComponent],
 })
