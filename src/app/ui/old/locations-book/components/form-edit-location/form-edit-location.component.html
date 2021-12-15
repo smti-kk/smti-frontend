@@ -2,8 +2,12 @@
   {{data?.headerContent}}
 </h1>
 <form mat-dialog-content [formGroup]="form">
-  <div>
-    <mat-label>Привязка к нас.пункту</mat-label>
+  <mat-form-field >
+    <mat-label>Наименование</mat-label>
+    <input matInput [value]="data.row.name" [disabled]="true">
+  </mat-form-field >
+  <div *ngIf="!data.canBeParent">
+    <mat-label>Привязка к МО</mat-label>
     <ng-select   [searchable]="false" formControlName="parent" [bindLabel]="''">
       <ng-container *ngIf="fParents">
         <ng-option
@@ -16,7 +20,7 @@
 
 
   <div>
-    <mat-label>Тип МО</mat-label>
+    <mat-label>Тип {{data.canBeParent ? 'МО' : 'населенного пункта'}}</mat-label>
     <ng-select [searchable]="false" formControlName="type">
       <ng-container *ngIf="flocationCategoriesFiltered && flocationCategoriesFiltered?.length > 0">
           <ng-option

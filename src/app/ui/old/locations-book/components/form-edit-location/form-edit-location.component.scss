@@ -25,6 +25,14 @@ form {
     width: 100%;
   }
 
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
+
+  .mat-form-field-underline {
+    bottom: 0;
+}
+
   form {
     overflow: visible;
   }
