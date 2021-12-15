@@ -30,6 +30,7 @@ export class FormEditLocationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      name: null,
       type: null,
       population: [{value: null, disabled: this.data.canBeParent}],
       parent: [{value: null, disabled: this.data.canBeParent}],
@@ -43,13 +44,12 @@ export class FormEditLocationComponent implements OnInit, OnDestroy {
 
           // вручную добавляем Красноярский край
           this.fParents = [...res.locationParents, KrskState];
-          if (this.data.canBeParent) {
+
             this.flocationCategoriesFiltered = this.flocationCategories.filter(
-              (item) => item.canBeParent
+              (item) => this.data.canBeParent ? item.canBeParent : !item.canBeParent
             );
-          } else {
-            this.flocationCategoriesFiltered = this.flocationCategories;
-          }
+
+
         }
       });
 

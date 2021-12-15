@@ -54,10 +54,10 @@ export class LocalityBookPageComponent implements OnInit {
     const { id } = row;
     const dialogRef = this.modalService.open(FormEditLocationComponent, {
       panelClass: 'location-form-edit',
-      height: '350px',
       width: '500px',
       data: {
         row: {
+          name: row.name,
           type: row.type,
           population: row.population,
           parent: row.locationParent.id,
