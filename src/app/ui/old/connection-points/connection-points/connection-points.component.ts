@@ -133,6 +133,7 @@ export class ConnectionPointsComponent implements OnInit {
             this.points = response;
           }
         );
+       this.fAccessPointsState$ = this.serviceLocation.getAPStateWithFilters()
       });
   }
 
@@ -198,10 +199,6 @@ export class ConnectionPointsComponent implements OnInit {
     this.searchAddress.searchControl.reset();
   }
 
-  isContractor() {
-    return this.user.includes('CONTRACTOR');
-  }
-
   setAccessPointFilterState(state: string): void {
     const currentState = this.form.get('state') as FormControl;
 
@@ -215,6 +212,10 @@ export class ConnectionPointsComponent implements OnInit {
 
   get state() {
     return this.form.value.state;
+  }
+
+  get isContractor() {
+    return this.user.includes('CONTRACTOR');
   }
 
   trackByIds(index, item) {

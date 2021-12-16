@@ -14,7 +14,8 @@ export class AccessPointService {
     return this.httpClient.get<AccessPointType[]>(ACCESS_POINT_TYPE);
   }
 
-  getAccessPointsState(): Observable<AccessPointState> {
-    return this.httpClient.get<AccessPointState>(ACCESS_POINT_MONITORING);
+  getAccessPointsState(params?: any): Observable<AccessPointState> {
+    return this.httpClient.get<AccessPointState>(ACCESS_POINT_MONITORING, {params});
+    
   }
 }

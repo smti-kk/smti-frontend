@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule, Routes} from '@angular/router';
@@ -74,6 +75,7 @@ const routes: Routes = [
     NzModalModule,
     InfiniteScrollModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatSelectModule,
     MatCheckboxModule,
