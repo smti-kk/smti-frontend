@@ -16,6 +16,7 @@ import {Contract} from '@core/models/contract';
 import {formatDate} from '@angular/common';
 import {APStateType} from 'src/app/ui/old/connection-points/connection-points/connection-points.component';
 import {saveAs} from 'file-saver';
+import {AccessPointService} from '@core/services/accesspoint-type.service';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
@@ -283,10 +284,18 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
 
   protected filters: LocationWithOrganizationAccessPointsFilters;
 
+  constructor(protected httpClient: HttpClient,private apService: AccessPointService) {
+    super(httpClient)
+  }
+
   paginatedList(page: number, pageSize: number): Observable<PaginatedList<Reaccesspoint>> {
     return super.listLocationsWithConnectionPoints(
       this.params.set('page', page.toString()).set('size', pageSize.toString())
     );
+  }
+
+  getAPStateWithFilters() {
+    return this.apService.getAccessPointsState(this.params);
   }
 
   filter(filters: LocationWithOrganizationAccessPointsFilters) {

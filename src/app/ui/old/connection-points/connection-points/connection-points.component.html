@@ -223,8 +223,9 @@
 
     <!--    <button class="btn" (click)="openModal()">Добавить организацию</button>-->
 
-    <ng-container *ngIf="isContractor()" >
-      <div class="status-container" *ngIf="fAccessPointsState$ | async as pointsState">
+    <ng-container *ngIf="isContractor" >
+
+      <div class="status-container" *ngIf="fAccessPointsState$ | async as pointsState; else apStatesLoading">
         <button mat-flat-button disableRipple (click)="setAccessPointFilterState(apState.Active)" class="status is-working"
           [class.is-active]="state == apState.Active">Работают: {{pointsState[apState.Active]}}</button>
         <button mat-flat-button disableRipple (click)="setAccessPointFilterState(apState.Problem)" class="status is-problem"
@@ -238,11 +239,11 @@
       </div>
     </ng-container>
 
-    <div class="container-header" [ngClass]="{'is-contractor': isContractor()}">
+    <div class="container-header" [ngClass]="{'is-contractor': isContractor}">
       <div>Населенный пункт</div>
       <div>Организация</div>
       <div>Адрес</div>
-      <ng-container *ngIf="isContractor()">
+      <ng-container *ngIf="isContractor">
         <div>Мониторинг</div>
         <div>Дата постановки</div>
         <div>Статус</div>
@@ -260,7 +261,7 @@
       (scrolled)="onPageChange(this.pageNumber + 1)"
     >
       <ng-container *ngFor="let point of points?.results; trackBy:trackByIds">
-        <div class="container-wrap" [ngClass]="{'is-contractor': isContractor()}" >
+        <div class="container-wrap" [ngClass]="{'is-contractor': isContractor}" >
           <div class="container-wrap1">
             <div>
               <div>{{ point?.organization?.location.name }}</div>
@@ -290,7 +291,7 @@
             </div>
           </div>
           <div class="container-wrap3">
-            <div class="container-point" [ngClass]="{'is-contractor': isContractor()}">
+            <div class="container-point" [ngClass]="{'is-contractor': isContractor}">
               <div class="container-info">
                 <div class="container-info-icon" >
                   <ng-container *ngIf="point.type === 'ESPD'; else smoIcon">
@@ -322,7 +323,7 @@
               </div>
             </div>
           </div>
-           <ng-container *ngIf="isContractor()">
+           <ng-container *ngIf="isContractor">
              <div class="container-wrap5">
                <div>
                  <span> <mat-checkbox [checked]="point?.connectionState !== apState.NotMonitored" disabled></mat-checkbox></span>
@@ -342,7 +343,7 @@
             <div class="container-wrap8">
               <div>
                 <span *ngIf="point?.connectionState === apState.NotMonitored; else showTraffic">----</span>
-                <ng-template #showTraffic> 
+                <ng-template #showTraffic>
                   <span>{{ point?.dayTraffic }}</span>
                 </ng-template>
               </div>
@@ -385,3 +386,13 @@
   <p style="font-size: 20px; color: white">В процессе...</p>
 </ngx-spinner>
 
+
+<ng-template #apStatesLoading>
+
+  <div class="spinner">
+
+    <mat-spinner diameter="30"></mat-spinner> <span>Загрузка состояний точек подключения..</span>
+  </div>
+
+
+</ng-template>

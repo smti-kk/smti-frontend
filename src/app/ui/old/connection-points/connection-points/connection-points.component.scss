@@ -302,3 +302,10 @@ mat-select {
     color: rgba(0, 0, 0, 0.42);
   }
 }
+
+.spinner {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 10px;
+  align-items: center;
+}
