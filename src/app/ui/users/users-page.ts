@@ -36,11 +36,11 @@ export class UsersPage implements OnInit {
     this.roles.MUNICIPALITY = 'Муниципалитет';
     this.roles.ORGANIZATION = 'Оператор - Организации';
     this.roles.OPERATOR = 'Оператор - Локации';
+    this.roles.CONTRACTOR = 'Подрядчик';
   }
 
   ngOnInit(): void {
     this.api.pageList(this.page, this.size, this.filters).subscribe(value => {
-      
       this.dataSource.data = value.content;
     });
   }
