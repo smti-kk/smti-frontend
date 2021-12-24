@@ -7,7 +7,6 @@ import { LocationsGeoModalComponent } from 'src/app/ui/old/locations-book/compon
 import { LocationTypeDescription } from 'src/app/ui/old/locations-book/enums/locations-book.enum';
 import { LocationsContent } from 'src/app/ui/old/locations-book/interfaces/locations-book.interface';
 import { LocationsBookService } from './../../services/locations-book.service';
-import { MatPaginatorEvent } from './../../../core/models/base-interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -94,18 +93,22 @@ export class LocalityBookPageComponent implements OnInit {
     });
   }
 
-  onPageChange(e: MatPaginatorEvent) {
+
+  onScrollDown(): void {
+    this.page++;
     this.locationBookService
       .getLocationsList({
-        page: e.pageIndex,
+        page: this.page,
         size: this.size,
         filters: this.filters,
       })
-      .subscribe((value) => {
-        this.dataSource.data = value.content;
+      .subscribe(response => {
+        this.dataSource.data = [...this.dataSource.data, ...response.content]
+      }, () => {
+
       });
   }
-  d;
+  
   setFilter(filters: any): void {
     this.filters = filters;
     this.page = 0;

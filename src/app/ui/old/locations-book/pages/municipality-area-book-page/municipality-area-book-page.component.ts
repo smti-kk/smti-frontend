@@ -10,7 +10,6 @@ import {
   LocationsContent,
 } from 'src/app/ui/old/locations-book/interfaces/locations-book.interface';
 import { LocationsBookService } from 'src/app/ui/old/locations-book/services/locations-book.service';
-import { MatPaginatorEvent } from './../../../core/models/base-interfaces';
 
 @Component({
   templateUrl: './municipality-area-book-page.component.html',
@@ -99,16 +98,18 @@ export class MunicipalityAreaBookPageComponent implements OnInit {
     });
   }
 
-
-  onPageChange(e: MatPaginatorEvent) {
+  onScrollDown(): void {
+    this.page++;
     this.locationBookService
       .getLocationsList({
-        page: e.pageIndex,
+        page: this.page,
         size: this.size,
         filters: this.filters,
       })
-      .subscribe((value) => {
-        this.dataSource.data = value.content;
+      .subscribe(response => {
+        this.dataSource.data = [...this.dataSource.data, ...response.content]
+      }, () => {
+
       });
   }
   setFilter(filters: any): void {
