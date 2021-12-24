@@ -44,7 +44,7 @@ export class LocalityBookPageComponent implements OnInit {
     this.dataSource = new MatTableDataSource<LocationsContent>(this.items);
   }
   ngOnInit(): void {
-    this.locationBookService.getLocationsList().subscribe((value) => {
+    this.locationBookService.getLocationsList({page: this.page, size: this.size}).subscribe((value) => {
       this.length = value.totalElements;
       this.dataSource.data = value.content;
     });
