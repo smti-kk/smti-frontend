@@ -25,6 +25,8 @@ export const INTERNET_PROVIDER = `${environment.API_BASE_URL}/api/operator/inter
 export const MOBILE_PROVIDER = `${environment.API_BASE_URL}/api/operator/mobile`;
 
 export const ACCESS_POINT_TYPE = 'api/type/access-point/';
+export const ACCESS_POINT_MONITORING = 'api/report/organization/ap-all/monitoring/';
+export const ACCESS_POINT_NOTIFICATIONS = 'api/monitoring-notification';
 
 export const IMPORT_LOCATION = '/api/import/location';
 export const IMPORT_TC_INTERNET = '/api/import/tc-internet';
@@ -38,3 +40,7 @@ export const IMPORT_TRUNK_CHANNEL = '/api/import/trunk-channel';
 export const IMPORT_TC_ATS = '/api/import/tc-ats';
 export const IMPORT_TC_INFOMAT = '/api/import/tc-infomat';
 export const IMPORT_BASE_STATION = '/api/import/base-station';
+
+export const LOCATION_LIST = '/api/location/location-reference/filtered/'
+export const LOCATION_TYPE = '/api/simple/type-locations/'
+export const LOCATION_EDIT = '/api/location/location-reference/update/:id/'

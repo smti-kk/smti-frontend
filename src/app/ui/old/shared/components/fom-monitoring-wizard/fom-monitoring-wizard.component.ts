@@ -37,22 +37,22 @@ export class FomMonitoringWizardComponent implements OnInit {
       device: this._formBuilder.group({
         hostName: ['', Validators.required],
         ip: ['', Validators.required],
-        groupid: '34',
+        groupid: '15',
         tag: 'project',
         tagValue: 'telecom-it',
-        templateid: '10233',
+        templateid: '12854',
         macro: '{$SNMP_COMMUNITY}',
         macroValue: 'ESPD_monitor'
       }),
       sensor: this._formBuilder.group({
         hostName: ['', Validators.required],
         ip: ['', Validators.required],
-        groupid: '34',
+        groupid: '16',
         tag: 'project',
         tagValue: 'telecom-it',
-        templateid: '10233',
-        macro: '{$SNMP_COMMUNITY}',
-        macroValue: 'ESPD_monitor'
+        templateid: '10279',
+        macro: '{$SNMP_COMMUNITY_ERD}',
+        macroValue: 'ESPD_mon'
       })
     });
     this.monitoringFormGroupZabbix.get('sensor').disable();

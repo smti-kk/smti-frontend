@@ -36,6 +36,7 @@ export class UsersPage implements OnInit {
     this.roles.MUNICIPALITY = 'Муниципалитет';
     this.roles.ORGANIZATION = 'Оператор - Организации';
     this.roles.OPERATOR = 'Оператор - Локации';
+    this.roles.CONTRACTOR = 'Подрядчик';
   }
 
   ngOnInit(): void {

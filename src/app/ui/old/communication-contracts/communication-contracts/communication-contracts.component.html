@@ -1,7 +1,7 @@
 <!--suppress HtmlFormInputWithoutLabel, HtmlUnknownAttribute -->
 <main class="main">
   <div class="wrapper">
-    <form [formGroup]="form" nz-form>
+    <form (keydown.enter)="$event.preventDefault()" [formGroup]="form" nz-form>
       <div class="filter">
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
           <div class="filter-title" (click)="showFilterBody()">
@@ -13,7 +13,7 @@
           <div class="filter-export">
             <button class="filter-export-button" (click)="resetFilters()">Очистить фильтр</button>
             <button
-              (click)="serviceLocation.exportExcel()"
+              (click)="exportExcel()"
               type="button"
               class="filter-export-button"
             >Выгрузить в Excel
@@ -37,7 +37,7 @@
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input nz-input formControlName="organization" type="text"/>
+                <input nz-input customSubmit [control]="form.get('organization')" type="text" />
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -51,7 +51,7 @@
               </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item class="rowspan2" [formGroup]="form">
+            <nz-form-item [formGroup]="form">
               <mat-select formControlName="parent" placeholder="Район" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
                 <mat-option>
                   <ngx-mat-select-search noEntriesFoundLabel="Ничего не найдено" placeholderLabel="Поиск..." #regionFilter></ngx-mat-select-search>
@@ -83,6 +83,13 @@
             </nz-form-item>
 
             <nz-form-item>
+              <mat-select formControlName="logicalCondition" placeholder="Условие" class="mat-select-filter" disableOptionCentering="true">
+                <mat-option value="OR">ИЛИ</mat-option>
+                <mat-option value="AND">И</mat-option>
+              </mat-select>
+            </nz-form-item>
+
+            <nz-form-item>
               <nz-form-label>Тип СЗО</nz-form-label>
               <nz-form-control>
                 <app-simple-select
@@ -96,7 +103,7 @@
               <nz-form-item>
                 <nz-form-label>№ контракта</nz-form-label>
                 <nz-form-control>
-                  <input nz-input formControlName="contract" type="text"/>
+                  <input #contract nz-input customSubmit  [control]="form.get('contract')" type="text"/>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
@@ -135,9 +142,9 @@
             </app-filter-btn>
             <div class="filter-sort-population">
               <span>от</span>
-              <input nz-input formControlName="populationStart">
+              <input type="number" nz-input customSubmit [control]="form.get('populationStart')">
               <span>до</span>
-              <input nz-input formControlName="populationEnd">
+              <input type="number" nz-input customSubmit [control]="form.get('populationEnd')">
             </div>
           </div>
           <div class="filter-result">
@@ -248,3 +255,8 @@
   [fullScreen]="true"
 >Загрузка. . .
 </ngx-spinner>
+
+
+<div class="spinner-container-excel" *ngIf="isLoading">
+  <mat-spinner color='warn' diameter="70"></mat-spinner>
+</div>

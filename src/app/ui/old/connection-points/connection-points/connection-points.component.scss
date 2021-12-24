@@ -19,6 +19,12 @@
 
 }
 
+.container-header.is-contractor,
+.container-wrap.is-contractor
+ {
+  grid-template-columns: 170px 250px 1fr 100px 110px 110px repeat(2, 0.2fr) 0.4fr;
+}
+
 .container-wrap1 {
   display: flex;
   flex-direction: column;
@@ -44,11 +50,45 @@
   grid-gap: 0.5rem;
 }
 
+.container-wrap5 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
+.container-wrap6 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
+.container-wrap7 {
+  padding: 1.2rem 1rem;
+  background: #f2f2f6;
+}
+
+.container-wrap8 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
+.container-wrap9 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
+.container-wrap10 {
+  padding: 1.2rem;
+  background: #f2f2f6;
+}
+
 .container-point {
   display: grid;
   grid-template-columns: 2fr 1fr 160px 100px;
   grid-column-gap: 1.5rem;
   grid-row-gap: 1rem;
+}
+
+.container-point.is-contractor {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .container-point + .container-point {
@@ -194,6 +234,10 @@ a.btn:hover {
 .filter {
 }
 
+.is-bold {
+  font-weight: 600;
+}
+
 .filter-button {
   position: fixed;
   top: 35%;
@@ -211,6 +255,41 @@ a.btn:hover {
   button + button {margin-left: 16px;}
 }
 
+.status {
+  font-family: sans-serif;
+  font-weight: 600;
+  padding: 0 1.5rem;
+  min-width: 175px;
+  transition: all 0.2s;
+}
+
+.status:active,
+.status.is-active {
+  transform: scale(0.98);
+}
+
+.status.is-working {
+  background-color: #4caf50;
+}
+
+.status.is-problem {
+  background-color: orange;
+}
+
+.status.is-not-working {
+  background-color: red;
+}
+
+.status.is-not-connected {
+  background-color: lightgray;
+}
+
+.status-container {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
 mat-select {
   color: rgba(0, 0, 0, 0.42);
   font-family: "Segoe UI", sans-serif;
@@ -222,4 +301,11 @@ mat-select {
   & ::ng-deep .mat-select-placeholder {
     color: rgba(0, 0, 0, 0.42);
   }
+}
+
+.spinner {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 10px;
+  align-items: center;
 }

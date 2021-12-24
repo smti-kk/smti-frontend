@@ -16,6 +16,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatButtonModule} from "@angular/material/button";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
     CoreModule,
     NgxPaginationModule,
     NgxSpinnerModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     NzSelectModule,
     NzInputModule,

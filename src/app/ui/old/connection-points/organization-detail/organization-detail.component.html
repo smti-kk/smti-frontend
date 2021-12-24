@@ -274,27 +274,27 @@
             </table>
             <div class="btn-group">
               <button
-                      mat-raised-button
-                      [disabled]="ap.utm5 && ap.zabbix"
-                      type="button"
-                      (click)="initMonitoringAccessPoint(ap)"
+                mat-raised-button
+                [disabled]="ap.utm5 && ap.zabbix"
+                type="button"
+                (click)="initMonitoringAccessPoint(ap)"
               >
                 Подключить к мониторингу
               </button>
               <button
-                      mat-raised-button
-                      type="button"
-                      (click)="editAccessPoint(ap)"
+                mat-raised-button
+                type="button"
+                (click)="editAccessPoint(ap)"
               >
                 Редактировать точку
               </button>
             </div>
           </div>
           <div
-                  *ngIf="ap"
-                  [formGroup]="formGroupAccessPoints"
-                  class="wip-organization-access-points"
-                  style="grid-column: span 2"
+            *ngIf="ap"
+            [formGroup]="formGroupAccessPoints"
+            class="wip-organization-access-points"
+            style="grid-column: span 2"
           >
             <table style="margin-top: 58px">
               <tr>
@@ -313,14 +313,14 @@
                 <td>Тип</td>
                 <td>
                   <nz-select
-                          formControlName="_connectionType"
-                          [compareWith]="compareFn"
-                          [nzSuffixIcon]="suffixIconSelect"
+                    formControlName="_connectionType"
+                    [compareWith]="compareFn"
+                    [nzSuffixIcon]="suffixIconSelect"
                   >
                     <nz-option
-                            *ngFor="let item of fInternetAccessTypes$ | async"
-                            [nzValue]="item"
-                            [nzLabel]="item.name"
+                      *ngFor="let item of fInternetAccessTypes$ | async"
+                      [nzValue]="item"
+                      [nzLabel]="item.name"
                     ></nz-option>
                   </nz-select>
                 </td>
@@ -333,8 +333,8 @@
                 <td>Качество связи</td>
                 <td>
                   <nz-select
-                          formControlName="_quality"
-                          [nzSuffixIcon]="suffixIconSelect"
+                    formControlName="_quality"
+                    [nzSuffixIcon]="suffixIconSelect"
                   >
                     <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошее"></nz-option>
                     <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
@@ -350,13 +350,13 @@
                 <td>Государственная программа</td>
                 <td>
                   <nz-select
-                          formControlName="_governmentProgram"
-                          [nzSuffixIcon]="suffixIconSelect"
+                    formControlName="_governmentProgram"
+                    [nzSuffixIcon]="suffixIconSelect"
                   >
                     <nz-option
-                            *ngFor="let item of fGovernmentPrograms$ | async"
-                            [nzValue]="item"
-                            [nzLabel]="item.name"
+                      *ngFor="let item of fGovernmentPrograms$ | async"
+                      [nzValue]="item"
+                      [nzLabel]="item.name"
                     ></nz-option>
                   </nz-select>
                 </td>
@@ -374,10 +374,10 @@
         </div>
         <div class="btn-group">
           <button
-                  type="button"
-                  class="btn"
-                  (click)="addNewAccessPoint()"
-                  *ngIf="!ap && organization.id"
+            type="button"
+            class="btn"
+            (click)="addNewAccessPoint()"
+            *ngIf="!ap && organization.id"
           >
             Добавить точку подключения
           </button>

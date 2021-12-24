@@ -1,4 +1,4 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component, forwardRef, Input} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -17,8 +17,15 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 })
 export class ThreeStateButton implements ControlValueAccessor {
 
+  @Input() set isExtended( value : boolean | string) {
+    if (value) {
+      this.states = [null, true, false, '0', '1'];
+    }
+
+  };
+
   private onChange: (state) => {};
-  private readonly states = [null, true, false];
+  private states: (string|boolean)[] = [null, true, false];
   stateIndex = 0;
 
   registerOnChange(fn: (state: number) => {}): void {
@@ -42,7 +49,8 @@ export class ThreeStateButton implements ControlValueAccessor {
   }
 
   incrementIndexState(): void {
-    if (this.stateIndex === 2) {
+    const lastIdx = this.states.length === 3 ? 2 : 4;
+    if (this.stateIndex === lastIdx) {
       this.stateIndex = 0;
     } else {
       this.stateIndex++;

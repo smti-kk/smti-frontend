@@ -4,9 +4,10 @@
   </div>
   <div class="link root-link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
   <div class="link root-link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
-  <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
+  <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
   <button class="link mat-menu-select" mat-button *permissions="['ADMIN']" [matMenuTriggerFor]="menuImport">Импорт</button>
   <button class="link mat-menu-select" mat-button *permissions="['ADMIN']" [matMenuTriggerFor]="bookMenu">Справочник</button>
+  <button class="link mat-menu-select" mat-button *permissions="['MUNICIPALITY']" [matMenuTriggerFor]="requestsMenu">Заявки</button>
   <mat-menu #menu="matMenu">
     <div class="link"
          routerLink="/features"
@@ -14,7 +15,7 @@
          [class.active]="currentRouteIs('/features')"><span>Технические возможности</span></div>
     <div class="link"
          routerLink="/connection-points"
-         *permissions="['ADMIN', 'ORGANIZATION']"
+         *permissions="['ADMIN', 'ORGANIZATION', 'CONTRACTOR']"
          [class.active]="currentRouteIs('/connection-points')"><span>Точки подключения</span></div>
     <div class="link"
          routerLink="/communication-contracts"
@@ -89,7 +90,7 @@
          routerLink="/appeals"
          [class.active]="currentRouteIs('/appeals')"><span>Обращения</span></div>
     <div class="link root-link"
-         *permissions="['ADMIN', 'ORGANIZATION']"
+         *permissions="['ADMIN', 'ORGANIZATION', 'CONTRACTOR']"
          routerLink="/organizations-only"
          [class.active]="currentRouteIs('/organizations-only')"><span>Организации</span></div>
     <div class="link root-link"
@@ -108,11 +109,33 @@
          *permissions="['ADMIN']"
          routerLink="/type-smo"
          [class.active]="currentRouteIs('/type-smo')"><span>Типы СЗО</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
+         routerLink="/locations-book"
+         [class.active]="currentRouteIs('/locations-book')"><span>Населённые пункты</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
+         routerLink="/municip-book"
+         [class.active]="currentRouteIs('/municip-book')"><span>Муниципальные образования</span></div>
   </mat-menu>
-  <div class="link root-link"
+
+  <mat-menu #requestsMenu="matMenu">
+    <div class="link root-link"
+         *permissions="['MUNICIPALITY']"
+         routerLink="/mun-requests"
+         [class.active]="currentRouteIs('/mun-requests')">
+         <span>Подать</span></div>
+    <div class="link root-link"
+         *permissions="['MUNICIPALITY']"
+         routerLink="/mun-requests/archive"
+         [class.active]="currentRouteIs('/mun-requests/archive')">
+         <span>Архив</span></div>
+  </mat-menu>
+
+  <!-- <div class="link root-link"
        *permissions="['MUNICIPALITY']"
        routerLink="/mun-requests"
-       [class.active]="currentRouteIs('/mun-requests')"><span>Заявки</span></div>
+       [class.active]="currentRouteIs('/mun-requests')"><span>Заявки</span></div> -->
   <div class="link root-link"
        *permissions="['OPERATOR']"
        routerLink="/oper-profile"

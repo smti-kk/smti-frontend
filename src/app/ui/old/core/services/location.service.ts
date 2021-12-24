@@ -1,17 +1,11 @@
-/* eslint-disable */ // todo: refactor file
+/* eslint-disable */  // todo: refactor file
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {Deserialize} from 'cerialize';
 
-import {
-  Location,
-  InternetAccessType,
-  OrganizationType,
-  SmoType,
-  GovernmentProgram, Organization,
-} from '@core/models';
+import {GovernmentProgram, InternetAccessType, Location, OrganizationType, SmoType,} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
 import {OrderingFilter} from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 
@@ -20,6 +14,9 @@ import {OrderingDirection} from './tc-pivots.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Contract} from '@core/models/contract';
 import {formatDate} from '@angular/common';
+import {APStateType} from 'src/app/ui/old/connection-points/connection-points/connection-points.component';
+import {saveAs} from 'file-saver';
+import {AccessPointService} from '@core/services/accesspoint-type.service';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
@@ -41,6 +38,7 @@ interface LocationWithContractsFilters {
   contractEnd: string;
   populationStart: number;
   populationEnd: number;
+  logicalCondition?: string;
 }
 
 interface LocationWithOrganizationAccessPointsFilters {
@@ -56,11 +54,14 @@ interface LocationWithOrganizationAccessPointsFilters {
   populationStart: number;
   populationEnd: number;
   point: string[];
+  address?: string;
+  state?: APStateType;
+  logicalCondition?: string;
 }
 
 @Injectable()
 export class LocationService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(protected httpClient: HttpClient) {}
 
   getLocationByName(name: string): Observable<Location[]> {
 
@@ -142,10 +143,25 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     this.setContractEnd('contract-end', filters.contractEnd);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
+    this.setLogicalCondition('logicalCondition', filters.logicalCondition);
   }
 
-  exportExcel() {
-    window.location.href = `${LOCATIONS_WITH_CONTRACTS}export/?${this.params.toString()}`;
+  exportExcel(): Observable<any> {
+    return this.httpClient.get(`${LOCATIONS_WITH_CONTRACTS}export/`, {params: this.params, responseType: 'blob', observe: 'response'})
+      .pipe(
+        tap(response => {
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
+        })
+      );
+  }
+
+  setLogicalCondition(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   setType(field: string, value: OrganizationType) {
@@ -268,10 +284,18 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
 
   protected filters: LocationWithOrganizationAccessPointsFilters;
 
+  constructor(protected httpClient: HttpClient,private apService: AccessPointService) {
+    super(httpClient)
+  }
+
   paginatedList(page: number, pageSize: number): Observable<PaginatedList<Reaccesspoint>> {
     return super.listLocationsWithConnectionPoints(
       this.params.set('page', page.toString()).set('size', pageSize.toString())
     );
+  }
+
+  getAPStateWithFilters() {
+    return this.apService.getAccessPointsState(this.params);
   }
 
   filter(filters: LocationWithOrganizationAccessPointsFilters) {
@@ -289,6 +313,34 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
     this.setPoint('ap', filters.point);
+    this.setAddress('address', filters.address);
+    this.setLogicalCondition('logicalCondition', filters.logicalCondition);
+    this.setAccessPointState('state',filters.state);
+
+  }
+
+  setAddress(field: string, value: string | null) {
+    if (value !== null && value.length !== 0) {
+      this.params = this.params.set(field, value.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  setLogicalCondition(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
+  setAccessPointState(field: string, value: string) {
+    if (value) {
+      this.params = this.params.set(field, value);
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   setPoint(field: string, value: string[] | null) {
@@ -324,8 +376,14 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     }
   }
 
-  exportExcel() {
-    window.location.href = `${LOCATIONS_WITH_CONNECTION_POINTS}export/?${this.params.toString()}`;
+  exportExcel(): Observable<any> {
+    return this.httpClient.get(`${LOCATIONS_WITH_CONNECTION_POINTS}export/`, {params: this.params, responseType: 'blob', observe: 'response'})
+      .pipe(
+        tap(response => {
+          const result: string = response.headers.get('Content-Disposition').match(/\"(.*)\"/)[1];
+          saveAs(response.body, decodeURI(result));
+        })
+      );
   }
 
   private setOrder(order?: string[]) {
