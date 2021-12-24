@@ -49,7 +49,7 @@ export class MunicipalityAreaBookPageComponent implements OnInit {
   }
   ngOnInit(): void {
     this.locationBookService
-      .getLocationsList({ filters: this.filters })
+      .getLocationsList({ filters: this.filters, page: this.page, size: this.size})
       .subscribe((value) => {
         this.length = value.totalElements;
         this.dataSource.data = value.content;
