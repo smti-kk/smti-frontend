@@ -1,4 +1,4 @@
-import {LogicalCondition} from '@service/dto/LogicalCondition';
+  import {LogicalCondition} from '@service/dto/LogicalCondition';
 import {OrderingFilter} from '../../buttons/filter-btn/filter-btn.component';
 
 export interface LocationFilter {

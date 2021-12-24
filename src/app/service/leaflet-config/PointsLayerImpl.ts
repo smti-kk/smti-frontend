@@ -71,7 +71,7 @@ export class PointsLayerImpl extends MarkerClusterGroup implements PointsLayer {
               this.removeLayer(this.existedPoints[point.getId()]);
             }
             this.existedPoints[point.getId()] = point;
-            this.addLayer(point);
+              this.addLayer(point);
           });
         })
       );

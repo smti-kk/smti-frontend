@@ -1,0 +1,31 @@
+ .wrapper {
+  padding: 17px 32px;
+}
+
+.locations-container {
+  padding: 15px 0;
+}
+
+:host {
+  display: block;
+}
+
+table {
+  width: 100%;
+}
+
+.edit-button {
+  cursor: pointer;
+}
+
+
+.geo-button {
+  cursor: pointer;
+  display: block;
+  margin: auto;
+}
+
+
+.filter-result {
+  margin-top: 0.8rem;
+}

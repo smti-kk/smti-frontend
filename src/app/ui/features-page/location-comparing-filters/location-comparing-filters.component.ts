@@ -10,11 +10,12 @@ import {forkJoin, Observable} from 'rxjs';
 import {TechnicalCapabilityType} from '@api/dto/TechnicalCapabilityType';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
 import {Location} from "@core/models";
+import {distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-location-comparing-filters',
   templateUrl: './location-comparing-filters.component.html',
-  styleUrls: ['./location-comparing-filters.component.scss']
+  styleUrls: ['./location-comparing-filters.component.scss'],
 })
 export class LocationComparingFiltersComponent implements OnInit {
   filterForm: FormGroup;
@@ -23,7 +24,8 @@ export class LocationComparingFiltersComponent implements OnInit {
   govYears: number[];
   fLocations$: Observable<Location[]>;
   @Output() filters: EventEmitter<LocationFilters>;
-  @Output() init: EventEmitter<LocationFilters> = new EventEmitter<LocationFilters>();
+  @Output() init: EventEmitter<LocationFilters> =
+    new EventEmitter<LocationFilters>();
   @Output() exportExcel: EventEmitter<void>;
   @Input() type: TechnicalCapabilityType;
 
@@ -45,9 +47,15 @@ export class LocationComparingFiltersComponent implements OnInit {
       this.filterForm = form;
       this.programs = programs;
       this.govYears = govYears;
-      this.filterForm.valueChanges.subscribe(value => {
-        this.filters.emit(value);
-      });
+      this.filterForm.valueChanges
+        .pipe(
+          distinctUntilChanged(
+            (prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)
+          )
+        )
+        .subscribe((value) => {
+          this.filters.emit(value);
+        });
       this.init.emit(this.filterForm.value);
     });
     this.filters = new EventEmitter<LocationFilters>();
@@ -90,7 +98,7 @@ export class LocationComparingFiltersComponent implements OnInit {
   }
 
   resetFilters(): void {
-    this.filterFormBuilder.build().subscribe(form => {
+    this.filterFormBuilder.build().subscribe((form) => {
       this.filterForm.setValue(form.value);
     });
   }

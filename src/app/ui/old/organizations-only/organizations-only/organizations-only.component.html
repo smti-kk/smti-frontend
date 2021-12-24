@@ -3,7 +3,7 @@
   <div class="wrapper">
     <h1>Справочник организаций</h1>
 
-    <form [formGroup]="form">
+    <form (keydown.enter)="$event.preventDefault()" [formGroup]="form">
       <div class="filter">
         <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
           <div class="filter-title" (click)="showFilterBody()">
@@ -28,7 +28,7 @@
             <nz-form-item>
               <nz-form-label>Наим. организации</nz-form-label>
               <nz-form-control>
-                <input nz-input formControlName="organization" type="text"/>
+                <input nz-input customSubmit [control]="form.get('organization')" type="text" />
               </nz-form-control>
             </nz-form-item>
 <!--            <nz-form-item>-->
@@ -104,6 +104,12 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
+            <nz-form-item>
+              <mat-select formControlName="logicalCondition" placeholder="Условие" class="mat-select-filter" disableOptionCentering="true">
+                <mat-option value="OR">ИЛИ</mat-option>
+                <mat-option value="AND">И</mat-option>
+              </mat-select>
+            </nz-form-item>
 <!--            <nz-form-item>-->
 <!--              <nz-form-label>Тип точки</nz-form-label>-->
 <!--              <nz-form-control>-->
@@ -134,9 +140,11 @@
             </app-filter-btn>
             <div class="filter-sort-population">
               <span>от</span>
-              <input nz-input formControlName="populationStart">
+              <input nz-input customSubmit
+              type="number" [control]="form.get('populationStart')"
+              >
               <span>до</span>
-              <input nz-input formControlName="populationEnd">
+              <input nz-input customSubmit type="number" [control]="form.get('populationEnd')">
             </div>
           </div>
           <div class="filter-result">

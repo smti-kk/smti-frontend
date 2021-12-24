@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {share} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, finalize, share} from 'rxjs/operators';
 
 import {InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
@@ -29,9 +29,12 @@ export class CommunicationContractsComponent implements OnInit {
   pageNumber = FIRST_PAGE;
   itemsPerPage = 10;
   form: FormGroup;
+  initialValues;
   OrderingDirection = OrderingDirection;
   isVisibleFilter = false;
   dateFormat = 'dd.MM.yyyy';
+  isLoading: boolean;
+
 
   constructor(
     public serviceLocation: LocationServiceContractsWithFilterParams,
@@ -71,15 +74,24 @@ export class CommunicationContractsComponent implements OnInit {
       contractEnd: null,
       populationStart: null,
       populationEnd: null,
+      logicalCondition: 'AND',
     });
+    this.initialValues = this.form.value
 
-    this.form.valueChanges.subscribe(v => {
-      this.serviceLocation.filter(v);
-      this.pageNumber = FIRST_PAGE;
-      this.loadPagedLocationWithContracts().subscribe(response => {
-        this.contracts = response;
+    this.form.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(
+          (prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)
+        )
+      )
+      .subscribe(v => {
+        this.serviceLocation.filter(v);
+        this.pageNumber = FIRST_PAGE;
+        this.loadPagedLocationWithContracts().subscribe(response => {
+          this.contracts = response;
+        });
       });
-    });
   }
 
   onPageChange(pageNumber: number): void {
@@ -98,6 +110,17 @@ export class CommunicationContractsComponent implements OnInit {
   }
 
   resetFilters(): void {
-    this.form.reset();
+    this.form.reset(this.initialValues);
   }
+
+  exportExcel(): void {
+    this.isLoading = true;
+
+    this.serviceLocation
+      .exportExcel()
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe();
+  }
+
+
 }

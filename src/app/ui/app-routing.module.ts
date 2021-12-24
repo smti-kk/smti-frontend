@@ -30,7 +30,10 @@ import {OperatorsComponent} from './operators/operators.component';
 import {TypeOrganizationComponent} from './type-organization/type-organization.component';
 import {TypeSmoComponent} from './type-smo/type-smo.component';
 import {GovProgramComponent} from './gov-programs/gov-program.component';
-
+import {JournalComponent} from "./journal/journal.component";
+import {MunRequestsArchiveComponent} from 'src/app/ui/mun-requests/mun-requests-archive/mun-requests-archive.component';
+import { LocalityBookPageComponent } from './old/locations-book/pages/locality-book-page/locality-book.component';
+import {MunicipalityAreaBookPageComponent} from 'src/app/ui/old/locations-book/pages/municipality-area-book-page/municipality-area-book-page.component';
 
 const routes: Routes = [
   {
@@ -116,7 +119,7 @@ const routes: Routes = [
     path: 'connection-points',
     canActivate: [RouteProxyService],
     data: {
-      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION']
+      permissions: ['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']
     },
     loadChildren: () => import('./old/connection-points/connection-points.module')
       .then(module => module.ConnectionPointsModule),
@@ -137,6 +140,14 @@ const routes: Routes = [
       permissions: ['MUNICIPALITY']
     },
     component: MunRequestsComponent
+  },
+  {
+    path: 'mun-requests/archive',
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['MUNICIPALITY']
+    },
+    component: MunRequestsArchiveComponent
   },
   {
     path: 'oper-profile',
@@ -160,7 +171,7 @@ const routes: Routes = [
     data: {
       permissions: ['ADMIN']
     },
-    component: OperProfileComponent
+    component: JournalComponent
   },
   {
     path: 'import-location',
@@ -293,6 +304,22 @@ const routes: Routes = [
   {
     path: 'type-smo',
     component: TypeSmoComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'locations-book',
+    component: LocalityBookPageComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'municip-book',
+    component: MunicipalityAreaBookPageComponent,
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN']

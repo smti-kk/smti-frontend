@@ -1,0 +1,453 @@
+<div class="main">
+  <div class="wrapper">
+    <form [formGroup]="form">
+      <div class="filter">
+        <div class="filter-header" [class.filter-header-active]="isVisibleFilter">
+          <div class="filter-title" (click)="showFilterBody()">
+            <span><i class="fas fa-filter"></i>Фильтр</span>
+            <span style="font-size: 1.5rem; color: #ff5700">
+              <i nz-icon nzType="caret-down" nzTheme="outline"></i>
+            </span>
+            <div class="filter__header-icons">
+              <img class="search-icon" src="/assets/search-icon.svg" alt="" />
+              <img
+                [class.arrow-reversed]="isVisibleFilter"
+                class="arrow-icon"
+                src="/assets/arrow-bottom.svg"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="filter-export">
+            <button class="filter-export-button" type="button" (click)="resetFilters()">
+              Очистить фильтр
+            </button>
+            <button class="filter-export-button" (click)="exportExcel()" type="button">
+              Выгрузить в Excel
+            </button>
+          </div>
+        </div>
+        <div class="filter-body" [class.filter-body-active]="isVisibleFilter">
+          <div class="filter-container">
+            <nz-form-item>
+              <mat-select
+                formControlName="location"
+                placeholder="Населенный пункт"
+                class="mat-select-filter"
+                disableOptionCentering="true"
+                [multiple]="true"
+              >
+                <mat-option>
+                  <ngx-mat-select-search
+                    noEntriesFoundLabel="Ничего не найдено"
+                    placeholderLabel="Поиск..."
+                    #locationFilter
+                  ></ngx-mat-select-search>
+                </mat-option>
+                <cdk-virtual-scroll-viewport
+                  [itemSize]="48"
+                  [style.height.px]="5 * 48"
+                  minBufferPx="400"
+                  maxBufferPx="800"
+                >
+                  <mat-option
+                    *cdkVirtualFor="
+                      let item of fLocations$ | async | filter: 'fullName':locationFilter.value
+                    "
+                    [value]="item.id"
+                  >
+                    {{ item.fullName }}
+                  </mat-option>
+                </cdk-virtual-scroll-viewport>
+              </mat-select>
+            </nz-form-item>
+
+            <nz-form-item class="rowspan2" [formGroup]="form">
+              <mat-select
+                formControlName="parent"
+                placeholder="Район"
+                class="mat-select-filter"
+                disableOptionCentering="true"
+                [multiple]="true"
+              >
+                <mat-option>
+                  <ngx-mat-select-search
+                    noEntriesFoundLabel="Ничего не найдено"
+                    placeholderLabel="Поиск..."
+                    #regionFilter
+                  ></ngx-mat-select-search>
+                </mat-option>
+                <cdk-virtual-scroll-viewport
+                  [itemSize]="48"
+                  [style.height.px]="5 * 48"
+                  minBufferPx="400"
+                  maxBufferPx="800"
+                >
+                  <mat-option
+                    *cdkVirtualFor="
+                      let item of fParents$ | async | filter: 'name':regionFilter.value
+                    "
+                    [value]="item?.id"
+                  >
+                    <div *ngIf="item?.type === 'р-н' || item?.type === 'округ'">
+                      {{ item?.name }} {{ item?.type }}
+                    </div>
+                    <div *ngIf="item?.type !== 'р-н' && item?.type !== 'округ'">
+                      {{ item?.type }} {{ item?.name }}
+                    </div>
+                  </mat-option>
+                </cdk-virtual-scroll-viewport>
+              </mat-select>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label>Дата</nz-form-label>
+              <nz-form-control>
+                <div class="wrapper-date-picker">
+                  <span>c</span>
+                  <nz-date-picker
+                    [nzFormat]="'dd.MM.yyyy'"
+                    formControlName="contractStart"
+                  ></nz-date-picker>
+                  <span>по</span>
+                  <nz-date-picker
+                    [nzFormat]="'dd.MM.yyyy'"
+                    formControlName="contractEnd"
+                  ></nz-date-picker>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <mat-select
+                formControlName="action"
+                placeholder="Действие"
+                class="mat-select-filter"
+                disableOptionCentering="true"
+                [multiple]="true"
+              >
+                <mat-option>
+                  <ngx-mat-select-search
+                    noEntriesFoundLabel="Ничего не найдено"
+                    placeholderLabel="Поиск..."
+                    #actionFilter
+                  ></ngx-mat-select-search>
+                </mat-option>
+                <cdk-virtual-scroll-viewport
+                  [itemSize]="48"
+                  [style.height.px]="5 * 48"
+                  minBufferPx="400"
+                  maxBufferPx="800"
+                >
+                  <mat-option
+                    *cdkVirtualFor="
+                      let action of factions$ | async | filter: 'action':actionFilter.value
+                    "
+                    [value]="action"
+                  >
+                    {{ getFeatureAction(action) }}
+                  </mat-option>
+                </cdk-virtual-scroll-viewport>
+              </mat-select>
+            </nz-form-item>
+
+            <nz-form-item>
+              <mat-select
+                formControlName="user"
+                placeholder="Пользователь"
+                class="mat-select-filter"
+                disableOptionCentering="true"
+                [multiple]="true"
+              >
+                <mat-option>
+                  <ngx-mat-select-search
+                    noEntriesFoundLabel="Ничего не найдено"
+                    placeholderLabel="Поиск..."
+                    #userFilter
+                  ></ngx-mat-select-search>
+                </mat-option>
+                <cdk-virtual-scroll-viewport
+                  [itemSize]="48"
+                  [style.height.px]="5 * 48"
+                  minBufferPx="400"
+                  maxBufferPx="800"
+                >
+                  <mat-option
+                    *cdkVirtualFor="
+                      let user of fusers$ | async | filter: 'fullName':userFilter.value
+                    "
+                    [value]="user.id"
+                  >
+                    {{ user.fullName }}
+                  </mat-option>
+                </cdk-virtual-scroll-viewport>
+              </mat-select>
+            </nz-form-item>
+
+            <nz-form-item>
+              <mat-select formControlName="logicalCondition" placeholder="Условие" class="mat-select-filter" disableOptionCentering="true">
+                <mat-option value="OR">ИЛИ</mat-option>
+                <mat-option value="AND">И</mat-option>
+              </mat-select>
+            </nz-form-item>
+          </div>
+
+        </div>
+        <div class="filter-footer" [class.filter-footer-active]="isVisibleFilter">
+          <div class="filter-result">
+            <!--            Результатов поиска: <span>{{points?.count}}</span>-->
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="features-table" *ngIf="journalList$ | async as journalList">
+      <div class="features-table__header">
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="id"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">№</div>
+        </div>
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="created"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">Дата/время изменения</div>
+        </div>
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="source"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">Источник</div>
+        </div>
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="action"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">Действие</div>
+        </div>
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="user"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">Пользователь</div>
+        </div>
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="userName"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">ФИО</div>
+        </div>
+
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="location"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">Населённый пункт</div>
+        </div>
+
+        <div
+          class="features-table__header-column sort-cell-button"
+          appSortButton
+          sortBy="locationParent"
+          [currentSort]="ordering?.name"
+          (onSortChange)="onSort($event)"
+        >
+          <div class="sort-cell-button__inner">Район</div>
+        </div>
+
+        <div
+          class="features-table__header-column sort-cell-button"
+        >
+          <div>Внесенные изменения</div>
+        </div>
+      </div>
+
+      <div
+        class="features-table__body"
+        infinite-scroll
+        [infiniteScrollDistance]="1"
+        [alwaysCallback]="true"
+        [infiniteScrollUpDistance]="2"
+        [infiniteScrollThrottle]="0"
+        (scrolled)="onScrollDown()"
+      >
+        <div class="features-table__row" *ngFor="let request of journalList">
+          <div class="features-table__column">
+            <div class="features-table__text">{{ request.id }}</div>
+          </div>
+          <div class="features-table__column">
+            <div class="features-table__text">
+              {{ datePlus7(request.created) | date: 'dd.MM.yyyy' }} <br />
+              {{ datePlus7(request.created) | date: 'HH:mm' }}
+            </div>
+          </div>
+          <div class="features-table__column">
+            <div class="features-table__text">{{ changeSourceLabel(request.changeSource) }}</div>
+          </div>
+          <div class="features-table__column">
+            <div class="features-table__text">{{ actions(request.featureEdits) }}</div>
+          </div>
+          <div class="features-table__column">
+            <div class="features-table__text">{{ request.user?.username }}</div>
+          </div>
+          <div class="features-table__column">
+            <div class="features-table__text">
+              {{ request.user?.lastName }} <br />
+              {{ request.user?.firstName }} <br />
+              {{ request.user?.patronymicName }}
+            </div>
+          </div>
+
+          <div class="features-table__column">
+            <div class="features-table__text">
+              {{ request.location.type }}
+              {{ request.location.name }}
+            </div>
+          </div>
+
+          <div class="features-table__column">
+            <div class="features-table__text">
+              {{ request.location.locationParent.type }}
+              {{ request.location.locationParent.name }}
+            </div>
+          </div>
+
+          <div class="features-table__column">
+            <ul class="card-list">
+              <li class="card-list-item" *ngFor="let edit of request.featureEdits">
+                <ng-container *ngIf="edit.action !== 'UPDATE'">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      switchStatusText;
+                      context: {
+                        action: edit.action,
+                        type: edit.tc.type,
+                        text:
+                          edit.tc.operator.name +
+                          ' ' +
+                          (edit.tc.trunkChannel ? edit.tc.trunkChannel?.name : '') +
+                          (edit.tc.typeMobile
+                            ? edit.tc.typeMobile.name +
+                              ' (' +
+                              qualityToString(edit.tc?.quality) +
+                              ')'
+                            : '') +
+                          (edit.tc.typePost ? edit.tc.typePost.name : '') +
+                          (edit.tc.tvOrRadioTypes ? signalsToString(edit.tc.tvOrRadioTypes) : '')
+                      }
+                    "
+                  >
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="edit.action == 'UPDATE'">
+                  {{ edit.tc.tvOrRadioTypes ? signalsToString(edit.tc.tvOrRadioTypes) : '--' }}
+                  <ng-container
+                    *ngTemplateOutlet="
+                      updateStatus;
+                      context: {
+                        name: edit.tc.operator.name,
+                        type: edit.tc.type,
+                        beforeText:
+                          (edit.tc.payphones ? edit.tc.payphones : '') +
+                          (edit.tc?.trunkChannel
+                            ? edit.tc?.trunkChannel?.name +
+                              ' (' +
+                              qualityToString(edit.tc?.quality) +
+                              ')'
+                            : '') +
+                          (edit.tc?.typeMobile
+                            ? edit.tc?.typeMobile?.name +
+                              ' (' +
+                              qualityToString(edit.tc?.quality) +
+                              ')'
+                            : '') +
+                          (edit.tc.typePost ? edit.tc.typePost?.name : '') +
+                          (edit.tc.tvOrRadioTypes ? signalsToString(edit.tc.tvOrRadioTypes) : ''),
+                        lastText:
+                          (edit.newValue.payphones ? edit.newValue.payphones : '') +
+                          (edit.newValue?.trunkChannel
+                            ? edit.newValue?.trunkChannel?.name +
+                              ' (' +
+                              qualityToString(edit.newValue?.quality) +
+                              ')'
+                            : '') +
+                          (edit.newValue?.typeMobile
+                            ? edit.newValue?.typeMobile?.name +
+                              ' (' +
+                              qualityToString(edit.newValue?.quality) +
+                              ')'
+                            : '') +
+                          (edit.newValue.typePost ? edit.newValue.typePost.name : '') +
+                          (edit.newValue.tvOrRadioTypes
+                            ? signalsToString(edit.newValue.tvOrRadioTypes)
+                            : '')
+                      }
+                    "
+                  ></ng-container>
+                </ng-container>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #switchStatusText let-action="action" let-type="type" let-text="text">
+      <span class="underline">{{ getType(type) }}:</span>
+      {{ getAction(action) }} {{ text }}
+    </ng-template>
+
+    <ng-template
+      #updateStatus
+      let-name="name"
+      let-type="type"
+      let-beforeText="beforeText"
+      let-lastText="lastText"
+    >
+      <span class="underline">{{ getType(type) }} {{ name }}:</span>
+      <ng-container *ngIf="type == 'PAYPHONE'">
+        Количество {{ beforeText }} -> {{ lastText }}
+      </ng-container>
+      <ng-container *ngIf="type == 'INET'">
+        Изменен тип подключения с {{ beforeText }} на {{ lastText }}
+      </ng-container>
+      <ng-container *ngIf="type == 'MOBILE'">
+        Изменен тип сотовой связи с {{ beforeText }} на {{ lastText }}
+      </ng-container>
+      <ng-container *ngIf="type == 'POST'">
+        Изменен тип почты с {{ beforeText }} на {{ lastText }}
+      </ng-container>
+      <ng-container *ngIf="type == 'RADIO'">
+        Изменен тип радио с {{ beforeText }} на {{ lastText }}
+      </ng-container>
+    </ng-template>
+  </div>
+</div>
+
+<div class="spinner-container-excel" *ngIf="isLoading">
+  <mat-spinner color='warn' diameter="70"></mat-spinner>
+</div>

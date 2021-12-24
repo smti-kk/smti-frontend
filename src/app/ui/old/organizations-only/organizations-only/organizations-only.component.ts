@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Observable} from 'rxjs';
-import {share, tap} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, share, tap} from 'rxjs/operators';
 
 import {GovernmentProgram, InternetAccessType, Location, Organization, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
@@ -13,7 +13,7 @@ import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {NzModalService} from 'ng-zorro-antd';
 import {FormOrganizationComponent} from '@shared/components/form-organization/form-organization.component';
-import {AccessPointTypeService} from '../../core/services/accesspoint-type.service';
+import {AccessPointService} from '../../core/services/accesspoint-type.service';
 import {AccessPointType} from '../../core/models/accesspoint-type';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import {GovernmentProgramService, OrganizationServiceWithFilterParams} from '../../core/services';
@@ -59,7 +59,7 @@ export class OrganizationsOnlyComponent implements OnInit {
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceGovernmentProgram: GovernmentProgramService,
     private serviceOrganizations: OrganizationServiceWithFilterParams,
-    private serviceAccessPointTypeService: AccessPointTypeService,
+    private serviceAccessPointTypeService: AccessPointService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private modal: NzModalService
@@ -95,6 +95,7 @@ export class OrganizationsOnlyComponent implements OnInit {
       parent: null,
       populationStart: null,
       populationEnd: null,
+      logicalCondition: 'AND',
     });
     // contract: null,
     //   contractor: null,
@@ -102,7 +103,12 @@ export class OrganizationsOnlyComponent implements OnInit {
     //   contractType: null,
     //   point: null,
 
-    this.form.valueChanges.subscribe(v => {
+    this.form.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(
+        (prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)
+      )
+    ).subscribe(v => {
       this.serviceOrganizations.filter(v);
       this.organizations$ = this.loadPagedLocationWithOrganization();
     });
@@ -130,4 +136,5 @@ export class OrganizationsOnlyComponent implements OnInit {
       nzFooter: null,
     });
   }
+
 }

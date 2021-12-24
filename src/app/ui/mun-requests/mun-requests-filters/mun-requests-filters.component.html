@@ -1,0 +1,88 @@
+<div class="filter__header-container">
+  <div class="filter__header" (click)="filtersIsOpened = !filtersIsOpened">
+    <div class="filter__title">
+      <img src="/assets/filter-icon.svg" alt="" />
+      <span>Фильтр</span>
+    </div>
+    <div class="filter__header-icons">
+      <img
+        [class.arrow-reversed]="filtersIsOpened"
+        class="arrow-icon"
+        src="/assets/arrow-bottom.svg"
+        alt=""
+      />
+    </div>
+  </div>
+  <button class="clear-button" (click)="resetFilters()" mat-raised-button>
+    Очистить фильтр
+  </button>
+</div>
+
+<form *ngIf="filterForm" [formGroup]="filterForm">
+  <div class="filters" *ngIf="filtersIsOpened">
+    <div class="d-flex">
+      <div class="filters__column filters__column-1">
+        <mat-select
+          formControlName="locationName"
+          placeholder="Населенный пункт"
+          [multiple]="true"
+          class="mat-select-filter"
+          disableOptionCentering="true"
+        >
+          <mat-option>
+            <ngx-mat-select-search
+              noEntriesFoundLabel="Ничего не найдено"
+              placeholderLabel="Поиск..."
+              #munFilter
+            >
+            </ngx-mat-select-search>
+          </mat-option>
+          <cdk-virtual-scroll-viewport
+            [itemSize]="48"
+            [style.height.px]="5 * 48"
+            minBufferPx="400"
+            maxBufferPx="800"
+          >
+            <mat-option
+              *cdkVirtualFor="
+                let item of locations$ | async | filter: 'name':munFilter.value
+              "
+              [value]="item?.id"
+            >
+             {{ item?.name }}
+            </mat-option>
+          </cdk-virtual-scroll-viewport>
+        </mat-select>
+
+        <app-area-select
+          class="mat-select-filter mat-select-filter__location-parent"
+          formControlName="parents"
+        ></app-area-select>
+
+        <mat-select
+          formControlName="status"
+          [multiple]="true"
+          *ngIf="showStatus"
+          class="mat-select-filter"
+          disableOptionCentering="true"
+          placeholder="Статус"
+        >
+          <mat-option [value]="'ACCEPTED'">Принята</mat-option>
+          <mat-option [value]="'DECLINED'">Отклонена</mat-option>
+          <mat-option [value]="'WAIT_FOR_STATE_TO_BE_SET'"
+            >На рассмотрении</mat-option
+          >
+        </mat-select>
+
+        <mat-select
+          class="mat-select-filter"
+          placeholder="Условие"
+          formControlName="logicalCondition"
+        >
+          <mat-option [value]="'OR'">ИЛИ</mat-option>
+          <mat-option [value]="'AND'">И</mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </div>
+</form>

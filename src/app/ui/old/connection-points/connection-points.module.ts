@@ -1,30 +1,36 @@
-import {NgModule} from '@angular/core';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {NgxSpinnerModule} from 'ngx-spinner';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgxPaginationModule} from 'ngx-pagination';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {RouterModule, Routes} from '@angular/router';
+import {CoreModule} from '@core/core.module';
+import {SharedModule} from '@shared/shared.module';
 import {
-  NzAutocompleteModule, NzButtonModule, NzCheckboxModule, NzDatePickerModule,
+  NzAutocompleteModule,
+  NzButtonModule,
+  NzCheckboxModule,
+  NzDatePickerModule,
   NzDrawerModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule, NzModalModule, NzSelectModule,
-  NzTimelineModule,
+  NzInputModule,
+  NzModalModule,
+  NzSelectModule,
+  NzTimelineModule
 } from 'ng-zorro-antd';
-
-import {SharedModule} from '@shared/shared.module';
-
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {NgxSpinnerModule} from 'ngx-spinner';
 import {ConnectionPointsComponent} from './connection-points/connection-points.component';
+import {SearchAddressComponent} from './connection-points/search-address/search-address.component';
 import {OrganizationDetailComponent} from './organization-detail/organization-detail.component';
-import {CoreModule} from '@core/core.module';
-import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from "@angular/material/select";
-import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
-import {ScrollingModule} from "@angular/cdk/scrolling";
-import {MatTooltipModule} from '@angular/material/tooltip';
-
 
 const routes: Routes = [
   {
@@ -42,7 +48,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ConnectionPointsComponent, OrganizationDetailComponent],
+  declarations: [
+    ConnectionPointsComponent,
+    OrganizationDetailComponent,
+    SearchAddressComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -65,8 +75,15 @@ const routes: Routes = [
     NzModalModule,
     InfiniteScrollModule,
     MatTooltipModule,
+<<<<<<< HEAD
+=======
+    MatProgressSpinnerModule,
+>>>>>>> 9e309dd0e01d7a1997990a54fdcf03ecb267bead
     MatButtonModule,
     MatSelectModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatAutocompleteModule,
     NgxMatSelectSearchModule,
     ScrollingModule,
   ],

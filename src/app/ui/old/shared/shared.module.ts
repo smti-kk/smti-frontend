@@ -7,7 +7,7 @@ import {
   NzCheckboxModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule,
+  NzInputModule, NzRadioModule,
   NzSelectModule,
   NzTreeSelectModule,
 } from 'ng-zorro-antd';
@@ -43,6 +43,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FilterPipe} from "../../directives/filter.pipe";
+import {PermissionsDirective} from './../../directives/permissions.directive';
+import {CustomSubmitDirective} from './../../directives/custom-submit.directive';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import {FilterPipe} from "../../directives/filter.pipe";
     FormOrganizationComponent,
     FormAccessPointComponent,
     FomMonitoringWizardComponent,
-    FilterPipe
+    FilterPipe,
+    PermissionsDirective,
+    CustomSubmitDirective,
   ],
   imports: [
     CommonModule,
@@ -89,6 +93,7 @@ import {FilterPipe} from "../../directives/filter.pipe";
     MatCardModule,
     MatGridListModule,
     MatCheckboxModule,
+    NzRadioModule,
   ],
   providers: [],
   exports: [
@@ -112,7 +117,9 @@ import {FilterPipe} from "../../directives/filter.pipe";
     SimpleSelectComponent,
     GroupSelectComponent,
     FormOrganizationComponent,
-    FilterPipe
+    FilterPipe,
+    PermissionsDirective,
+    CustomSubmitDirective
   ],
 })
 export class SharedModule {}

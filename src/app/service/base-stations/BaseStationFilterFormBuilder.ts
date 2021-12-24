@@ -26,6 +26,7 @@ export class BaseStationFilterFormBuilder {
             propHeightRightBorder: new FormControl(null),
             actionDateFrom: new FormControl(null),
             actionDateTo: new FormControl(null),
+            logicalCondition: new FormControl(filters.logicalCondition),
           });
         }
       ));

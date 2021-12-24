@@ -1,3 +1,5 @@
+import {ActionTypeService} from './services/action-type.service';
+import {UserService} from './services/user.service';
 import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NgModule} from '@angular/core';
@@ -17,7 +19,7 @@ import {SharedModule} from '@shared/shared.module';
 import {InternetAccessTypeService} from './services/internet-access-type.service';
 import {AuthInterceptor} from '../../../api/auth.interceptor';
 import {LocalStorageService} from '../../../storage/local-storage.service';
-import {AccessPointTypeService} from './services/accesspoint-type.service';
+import {AccessPointService} from './services/accesspoint-type.service';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 @NgModule({
@@ -33,8 +35,10 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
     LocationService,
     LocationServiceContractsWithFilterParams,
     LocationServiceOrganizationAccessPointsWithFilterParams,
-    AccessPointTypeService,
+    AccessPointService,
     NgZorroAntdModule,
+    UserService,
+    ActionTypeService,
     {
       provide: HTTP_INTERCEPTORS,
       useFactory: () => new AuthInterceptor(

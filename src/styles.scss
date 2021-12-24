@@ -133,6 +133,14 @@ input[type="checkbox" i] {
   justify-content: center;
 }
 
+.spinner-container-excel {
+  position: fixed;
+  z-index: 20;
+  left: 10px;
+  bottom: 0;
+  margin-bottom: 1rem;
+}
+
 .c-filter-button {
   position: relative;
   margin-bottom: 5px;
@@ -231,6 +239,7 @@ input[type="checkbox" i] {
 @import "leaflet";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "old";
+@import 'node_modules/ngx-toastr/toastr';
 
 .cdk-overlay-container .mat-select-panel {max-height: 288px;}
 .mat-header-cell {font-size: 14px;}

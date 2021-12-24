@@ -1,3 +1,4 @@
+import { PointState } from './../points/PointState';
 import {LocationsPointsService} from '../locations/LocationsPointsService';
 import {HttpClient} from '@angular/common/http';
 import {LocationPointsConverter} from '@service/locations';
@@ -35,7 +36,7 @@ import {ZSPDPointsService} from "@service/access-points/ZSPDPointsService";
 import {ZSPDIconFromState} from "@service/access-points/ZSPDIconFromState";
 
 export class LayerControllersFactory {
-  private readonly mapAccessPointApi: MapAccessPointsApi;
+  private readonly mapAccessPointApi: MapAccessPointsApi & {filter? : PointState} ;
 
   constructor(private httpClient: HttpClient) {
     this.mapAccessPointApi = new MapAccessPointsApiImpl(
@@ -70,7 +71,7 @@ export class LayerControllersFactory {
     );
   }
 
-  espdLayerController(): PointLayerController {
+  espdLayerController(pointState?: PointState): PointLayerController {
     return new PLCWithReloadInterval(
       new PointLayerControllerImpl(
         new PLClickable(
@@ -80,7 +81,8 @@ export class LayerControllersFactory {
                 new MAPAWithModificationsOnlyAndIgnoreBounds(
                   this.mapAccessPointApi,
                   new AccessPointsModificationsApiImpl(this.httpClient),
-                  new DateConverterImpl()
+                  new DateConverterImpl(),
+                  pointState,
                 ),
                 new AccessPointsConverter(
                   new ESPDIconFromState()
@@ -122,7 +124,7 @@ export class LayerControllersFactory {
     );
   }
 
-  zspdLayerLayerController(): PointLayerController {
+  zspdLayerLayerController(pointState?: PointState): PointLayerController {
     return new PLCWithReloadInterval(
       new PointLayerControllerImpl(
         new PLClickable(
@@ -132,7 +134,8 @@ export class LayerControllersFactory {
                 new MAPAWithModificationsOnlyAndIgnoreBounds(
                   this.mapAccessPointApi,
                   new AccessPointsModificationsApiImpl(this.httpClient),
-                  new DateConverterImpl()
+                  new DateConverterImpl(),
+                  pointState,
                 ),
                 new AccessPointsConverter(
                   new ZSPDIconFromState()
