@@ -75,10 +75,7 @@ const routes: Routes = [
     NzModalModule,
     InfiniteScrollModule,
     MatTooltipModule,
-<<<<<<< HEAD
-=======
     MatProgressSpinnerModule,
->>>>>>> 9e309dd0e01d7a1997990a54fdcf03ecb267bead
     MatButtonModule,
     MatSelectModule,
     MatCheckboxModule,
