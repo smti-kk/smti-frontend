@@ -69,7 +69,7 @@
             </nz-form-item>
 
             <nz-form-item [formGroup]="form">
-              <mat-select formControlName="parent" placeholder="Район" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
+              <mat-select formControlName="parent" placeholder="Муниципальное образование" class="mat-select-filter" disableOptionCentering="true" [multiple]="true">
                 <mat-option>
                   <ngx-mat-select-search
                     noEntriesFoundLabel="Ничего не найдено"
@@ -169,7 +169,7 @@
                   orderingDirection: OrderingDirection.UNDEFINED
                 },
                 {
-                  name: 'Район',
+                  name: 'Муниципальное образование',
                   value: 'organization.location.parent.name',
                   orderingDirection: OrderingDirection.UNDEFINED
                 },
