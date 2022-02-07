@@ -1,6 +1,6 @@
 .filter-button-group {
   display: grid;
-  grid-template-columns: repeat(4, 120px);
+  grid-template-columns: repeat(4, minmax(120px,auto));
   grid-gap: 0.5rem;
 }
 

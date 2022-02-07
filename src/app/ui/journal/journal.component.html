@@ -65,7 +65,7 @@
             <nz-form-item class="rowspan2" [formGroup]="form">
               <mat-select
                 formControlName="parent"
-                placeholder="Район"
+                placeholder="Муниципальное образование"
                 class="mat-select-filter"
                 disableOptionCentering="true"
                 [multiple]="true"
@@ -275,7 +275,7 @@
           [currentSort]="ordering?.name"
           (onSortChange)="onSort($event)"
         >
-          <div class="sort-cell-button__inner">Район</div>
+          <div class="sort-cell-button__inner">Муниципальное образование</div>
         </div>
 
         <div
