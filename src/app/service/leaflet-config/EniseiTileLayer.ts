@@ -2,11 +2,11 @@ import {CRS, TileLayer} from 'leaflet';
 
 export class EniseiTileLayer extends TileLayer.WMS {
   constructor() {
-    super('https://map.24bpd.ru/geowebcache/service/wms?tiled=true', {
+    super('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       layers: 'egis_wld_light',
       format: 'image/png',
       transparent: false,
-      attribution: '© <a href="https://24bpd.ru/">Енисей-ГИС</a>',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       crossOrigin: 'anonymous',
       crs: CRS.EPSG3857,
     });
