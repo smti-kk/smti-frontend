@@ -37,8 +37,7 @@ export class StrictFilterImpl extends StrictFilter {
             this.hasSMO(l, locationFilters) ||
             this.hasRSZO(l, locationFilters) ||
             this.hasZSPD(l, locationFilters) ||
-            this.hasGovProgram(l, locationFilters.govProgram) ||
-            this.hasGovYearComplete(l, locationFilters.govYear) ||
+            this.hasGovProgramAndGovYearComplete(l, locationFilters.govProgram, locationFilters.govYear) ||
             this.hasParents(l, locationFilters.parent) ||
             this.hasSignalsAndOperators(l, cellularOperators, signals) ||
             this.hasTrunkChannelAndOperators(l, internetOperators, channels) ||
@@ -61,8 +60,7 @@ export class StrictFilterImpl extends StrictFilter {
             this.hasSMO(l, locationFilters) &&
             this.hasRSZO(l, locationFilters) &&
             this.hasZSPD(l, locationFilters) &&
-            this.hasGovProgram(l, locationFilters.govProgram) &&
-            this.hasGovYearComplete(l, locationFilters.govYear) &&
+            this.hasGovProgramAndGovYearComplete(l, locationFilters.govProgram, locationFilters.govYear) &&
             this.hasParents(l, locationFilters.parent) &&
             this.hasSignalsAndOperators(l, cellularOperators, signals) &&
             this.hasTrunkChannelAndOperators(l, internetOperators, channels) &&
@@ -168,18 +166,15 @@ export class StrictFilterImpl extends StrictFilter {
     return location.hasZSPD;
   }
 
-  hasGovProgram(location: LocationTableItem, govProgramId: number): boolean {
-    if (govProgramId === null) {
+  hasGovProgramAndGovYearComplete(location: LocationTableItem, govProgramId: number, year: number): boolean {
+    if (govProgramId === null && year === null) {
       return this.defaultFilterResponse;
+    } else if (govProgramId === null) {
+      return !!location.contract.find(c => c.govYearComplete === year);
+    } else if (year === null) {
+      return !!location.contract.find(c => govProgramId === c.id);
     }
-    return !!location.contract.find(gp => govProgramId === gp.id);
-  }
-
-  hasGovYearComplete(location: LocationTableItem, year: number): boolean {
-    if (year === null) {
-      return this.defaultFilterResponse;
-    }
-    return !!location.contract.find(c => c.govYearComplete === year);
+    return !!location.contract.find(c => govProgramId === c.id && year === c.govYearComplete);
   }
 
   hasParents(location: LocationTableItem, parents: number[]): boolean {
