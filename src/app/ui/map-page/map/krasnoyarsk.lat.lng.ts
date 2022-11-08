@@ -2,6 +2,6 @@ import {LatLng} from 'leaflet';
 
 export class KrasnoyarskLatLng extends LatLng {
   constructor() {
-    super(53.0125, 158.6508);
+    super(56.0184, 92.8672);
   }
 }
