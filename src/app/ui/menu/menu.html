@@ -16,11 +16,11 @@
     <div class="link"
          routerLink="/connection-points"
          *permissions="['ADMIN', 'ORGANIZATION', 'CONTRACTOR']"
-         [class.active]="currentRouteIs('/connection-points')"><span>Точки подключения</span></div>
+         [class.active]="currentRouteIs('/connection-points')"><span>ЕСПД</span></div>
     <div class="link"
          routerLink="/communication-contracts"
          *permissions="['ADMIN', 'ORGANIZATION']"
-         [class.active]="currentRouteIs('/communication-contracts')"><span>Контракты услуг связи</span></div>
+         [class.active]="currentRouteIs('/communication-contracts')"><span>СЗО</span></div>
     <div class="link"
          *permissions="['ADMIN', 'OPERATOR']"
          routerLink="/base-stations"
