@@ -21,14 +21,6 @@
          routerLink="/communication-contracts"
          *permissions="['ADMIN', 'ORGANIZATION']"
          [class.active]="currentRouteIs('/communication-contracts')"><span>СЗО</span></div>
-    <div class="link"
-         *permissions="['ADMIN', 'OPERATOR']"
-         routerLink="/base-stations"
-         [class.active]="currentRouteIs('/base-stations')"><span>Базовые станции</span></div>
-    <div class="link"
-         *permissions="['ADMIN', 'OPERATOR']"
-         routerLink="/trunk-channels"
-         [class.active]="currentRouteIs('/trunk-channels')"><span>Магистральные каналы</span></div>
   </mat-menu>
   <mat-menu #menuImport="matMenu">
       <div class="link"
