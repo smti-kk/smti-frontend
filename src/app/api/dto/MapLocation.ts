@@ -13,3 +13,8 @@ export interface MapLocation {
   };
   geoData: GeoData;
 }
+
+export interface MapLocationWithQuality {
+  location: MapLocation;
+  quality: 'GOOD' | 'NORMAL' | 'ABSENT';
+}
