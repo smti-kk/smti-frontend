@@ -25,7 +25,6 @@ export class LocationFilterFormBuilderImpl implements LocationFilterFormBuilder 
             hasESPD: new FormControl(filters.hasESPD),
             hasSMO: new FormControl(filters.hasSMO),
             hasZSPD: new FormControl(filters.hasZSPD),
-            hasRSZO: new FormControl(filters.hasRSZO),
             logicalCondition: new FormControl(filters.logicalCondition),
             hasATS: new FormControl(filters.hasATS),
             hasPayphone: new FormControl(filters.hasPayphone),

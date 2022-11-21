@@ -108,15 +108,6 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="hasRSZO">
-          <th mat-header-cell *matHeaderCellDef>
-            <img src="/assets/table-sputnik.svg" matTooltip="РСЗО" alt="">
-          </th>
-          <td class="text-align-center" mat-cell *matCellDef="let location">
-            <img *ngIf="location.hasRSZO" src="/assets/table-ok.svg" alt="">
-          </td>
-        </ng-container>
-
         <ng-container matColumnDef="hasZSPD">
           <th class="text-align-center" mat-header-cell *matHeaderCellDef>
             <img src="/assets/table-radio.svg" matTooltip="ЗСПД" alt="">

@@ -35,7 +35,6 @@ export class StrictFilterImpl extends StrictFilter {
           return this.includesLocationName(l, locationFilters.location) ||
             this.hasESPD(l, locationFilters) ||
             this.hasSMO(l, locationFilters) ||
-            this.hasRSZO(l, locationFilters) ||
             this.hasZSPD(l, locationFilters) ||
             this.hasGovProgramAndGovYearComplete(l, locationFilters.govProgram, locationFilters.govYear) ||
             this.hasParents(l, locationFilters.parent) ||
@@ -58,7 +57,6 @@ export class StrictFilterImpl extends StrictFilter {
           return this.includesLocationName(l, locationFilters.location) &&
             this.hasESPD(l, locationFilters) &&
             this.hasSMO(l, locationFilters) &&
-            this.hasRSZO(l, locationFilters) &&
             this.hasZSPD(l, locationFilters) &&
             this.hasGovProgramAndGovYearComplete(l, locationFilters.govProgram, locationFilters.govYear) &&
             this.hasParents(l, locationFilters.parent) &&
@@ -150,13 +148,6 @@ export class StrictFilterImpl extends StrictFilter {
       return this.defaultFilterResponse;
     }
     return location.hasSMO;
-  }
-
-  hasRSZO(location: LocationTableItem, filters: LocationFilters): boolean {
-    if (!filters.hasRSZO) {
-      return this.defaultFilterResponse;
-    }
-    return location.hasRSZO;
   }
 
   hasZSPD(location: LocationTableItem, filters: LocationFilters): boolean {
@@ -387,7 +378,6 @@ export class StrictFilterImpl extends StrictFilter {
     return filters.hasESPD ||
       filters.hasSMO ||
       filters.hasZSPD ||
-      filters.hasRSZO ||
       (filters.location !== null && filters.location.length > 0) ||
       filters.parent.length > 0 ||
       filters.govProgram !== null ||
