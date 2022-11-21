@@ -5,6 +5,7 @@ export interface MapLocation {
   type: string;
   id: number;
   complexName?: string,
+  quality?: string;
   parent: {
     id: number,
     name: string,

@@ -193,7 +193,7 @@ export class LayerControllersFactory {
                       this.httpClient,
                       new BoundsToStringConverter()
                     ),
-                    new LocationPointsConverter()
+                    new LocationPointsConverter({ pointsColor: 'red' })
                   )
                 ),
                 new PointUniquenessFilterImpl()
@@ -219,7 +219,7 @@ export class LayerControllersFactory {
                       this.httpClient,
                       new BoundsToStringConverter()
                     ),
-                    new LocationPointsConverter()
+                    new LocationPointsConverter({ pointsColor: 'green' })
                   )
                 ),
                 new PointUniquenessFilterImpl()

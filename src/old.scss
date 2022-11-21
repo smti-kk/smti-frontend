@@ -1380,6 +1380,27 @@ input[type='radio']:checked + .c-radiobox-text:after {
   & div {
     background-color: rgb(0, 157, 211, 1);
   }
+
+  &_red {
+    background-color: rgba(240, 128, 128, 0.6);
+    & div {
+      background-color: rgba(240, 128, 128, 1);
+    }
+  }
+
+  &_green {
+    background-color: rgba(144, 238, 144, 0.6);
+    & div {
+      background-color: rgba(144, 238, 144, 1);
+    }
+  }
+
+  &_yellow {
+    background-color: rgba(255, 255, 148, 0.6);
+    & div {
+      background-color: rgb(255, 255, 148);
+    }
+  }
 }
 
 .pagination-controls {
