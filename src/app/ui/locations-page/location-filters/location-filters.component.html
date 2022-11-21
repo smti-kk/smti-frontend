@@ -106,8 +106,8 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="filter">
-          <div class="filter__ap-type-container">
+        <div class="filter" [ngClass]="{ filter_empty: isGuest }">
+          <div class="filter__ap-type-container" *ngIf="!isGuest">
             <div class="imageable-checkbox connection-points" matTooltip="ЕСПД">
               <input type="checkbox" formControlName="hasESPD">
               <img src="/assets/table-computer.svg" alt="">

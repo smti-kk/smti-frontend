@@ -9,6 +9,8 @@ import {GovProgram} from '@api/dto/GovProgram';
 import {LocationDetailApi} from '@api/locations/LocationDetailApi';
 import {Location} from "@core/models";
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from "@core/services/location.service";
+import { AccountService } from '@service/account/AccountService';
+import { Account } from '@service/account/Account';
 
 @Component({
   selector: 'location-filters',
@@ -22,6 +24,7 @@ export class LocationFiltersComponent implements OnInit {
   govYears: number[];
 
   fLocations$: Observable<Location[]>;
+  user: Account;
 
   @Output() filters: EventEmitter<LocationFilters>;
   @Output() init: EventEmitter<LocationFilters> = new EventEmitter<LocationFilters>();
@@ -32,8 +35,12 @@ export class LocationFiltersComponent implements OnInit {
     private readonly filterFormBuilder: LocationFilterFormBuilder,
     private readonly apiLocationDetail: LocationDetailApi,
     private readonly selectAreasService: SelectAreasService,
-    private readonly govProgramService: GovProgramService
+    private readonly govProgramService: GovProgramService,
+    private readonly accountService: AccountService,
   ) {
+    accountService.get().subscribe(user => {
+      this.user = user;
+    });
     this.exportExcel = new EventEmitter<void>();
     this.filtersIsOpened = false;
     forkJoin([
@@ -52,6 +59,10 @@ export class LocationFiltersComponent implements OnInit {
       this.init.emit(this.filterForm.value);
     });
     this.filters = new EventEmitter<LocationFilters>();
+  }
+
+  get isGuest() {
+    return !this.user || this.user.getRole().indexOf('GUEST') !== -1
   }
 
   ngOnInit(): void {

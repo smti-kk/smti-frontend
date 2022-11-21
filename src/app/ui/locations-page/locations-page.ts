@@ -48,6 +48,20 @@ export class LocationsPage implements OnInit {
   ) {
     accountService.get().subscribe(user => {
       this.user = user;
+      if (!user || user.getRole().indexOf('GUEST') !== -1) {
+        this.displayedColumns.splice(
+          this.displayedColumns.indexOf('hasESPD'),
+          1
+        );
+        this.displayedColumns.splice(
+          this.displayedColumns.indexOf('hasSMO'),
+          1
+        );
+        this.displayedColumns.splice(
+          this.displayedColumns.indexOf('hasZSPD'),
+          1
+        );
+      }
     });
     this.loaderService = loaderService;
     this.page = 0;
