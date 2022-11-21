@@ -90,7 +90,6 @@ export class LocationFiltersInitializationImpl implements LocationFiltersInitial
           }),
           govProgram: null,
           hasZSPD: false,
-          hasRSZO: false,
           hasSMO: false,
           hasESPD: false,
           logicalCondition: 'AND',

@@ -21,7 +21,6 @@ export interface LocationFilters {
   hasESPD: boolean;
   hasSMO: boolean;
   hasZSPD: boolean;
-  hasRSZO: boolean;
   logicalCondition: LogicalCondition;
   hasATS: boolean;
   hasPayphone: boolean;

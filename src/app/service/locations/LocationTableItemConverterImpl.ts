@@ -31,7 +31,6 @@ export class LocationTableItemConverterImpl implements LocationTableItemConverte
       television: this.operatorIconsFactory.tvOrRadioIcons(operators.television, location.technicalCapabilities, 'TV'),
       contract: this.contracts(location),
       hasZSPD: false,
-      hasRSZO: false,
       hasSMO: this.hasSMO(location),
       hasESPD: this.hasEspd(location),
     };

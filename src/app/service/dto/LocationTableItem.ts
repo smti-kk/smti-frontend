@@ -27,6 +27,5 @@ export interface LocationTableItem {
   contract: GovProgram[];
   hasESPD: boolean;
   hasSMO: boolean;
-  hasRSZO: boolean;
   hasZSPD: boolean;
 }
