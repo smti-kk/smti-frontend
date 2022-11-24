@@ -45,11 +45,6 @@ export class LocationPointsConverter implements PointsConverter<MapLocation> {
     } else {
       quality = 'ABSENT';
     }
-    console.log(location.id + ' - ' +location.name + ' ' + quality);
-    if (location.id === 2471) {
-      console.log(location);
-
-    }
     switch (quality) {
       case 'GOOD':
         ICON_URL = this.ICON_GREEN_URL;
