@@ -14,21 +14,21 @@ export class LocationsLayer extends PointsLayerImpl {
   private static iconCreateFunction(cluster: MarkerCluster): DivIcon {
     const markers = cluster.getAllChildMarkers() as MonitoringPoint[];
 
-    const allGood = markers.every((marker) => {
-      const { quality } = marker.getOrigin<MapLocation>();
-      return quality === 'GOOD'
+    const allGreen = markers.every((marker) => {
+      const iconClassName = marker.getIconClassName()
+      return iconClassName.includes('marker_green')
     })
-    const allAbsent = markers.every((marker) => {
-      const { quality } = marker.getOrigin<MapLocation>();
-      return quality === 'ABSENT'
+    const allRed = markers.every((marker) => {
+      const iconClassName = marker.getIconClassName()
+      return iconClassName.includes('marker_red')
     })
 
     let color = '';
-    if (allGood) {
+    if (allGreen) {
       color = '_green';
-    } else if (allAbsent) {
+    } else if (allRed) {
       color = '_red';
-    } else if (!allGood && !allAbsent) {
+    } else if (!allGreen && !allRed) {
       color = '_yellow';
     }
 

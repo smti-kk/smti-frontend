@@ -34,7 +34,23 @@ export class LocationPointsConverter implements PointsConverter<MapLocation> {
         ICON_DEFAULT_URL = this.ICON_DEFAULT_URL;
         break;
     }
-    switch (location.quality) {
+    const qualities = location?.qualities ?? [];
+    let quality = '';
+    if (qualities.length > 0) {
+      quality = qualities.every((q) => q === 'GOOD')
+        ? 'GOOD'
+        : qualities.every((q) => q === 'ABSENT')
+        ? 'ABSENT'
+        : 'NORMAL';
+    } else {
+      quality = 'ABSENT';
+    }
+    console.log(location.id + ' - ' +location.name + ' ' + quality);
+    if (location.id === 2471) {
+      console.log(location);
+
+    }
+    switch (quality) {
       case 'GOOD':
         ICON_URL = this.ICON_GREEN_URL;
         colorName = 'green';
@@ -64,7 +80,7 @@ export class LocationPointsConverter implements PointsConverter<MapLocation> {
           shadowUrl: this.ICON_SHADOW_URL,
           shadowSize: [30, 41],
           shadowAnchor: [15, 9],
-          className: `marker_${colorName}`
+          className: `marker_${colorName}`,
         }),
       },
       location
