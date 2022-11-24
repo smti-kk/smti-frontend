@@ -163,6 +163,17 @@
           </mat-form-field>
         </div>
         <div class="filter">
+          <div class="filters__column-label">
+            <div class="filters__column-label-text">Качество связи:</div>
+          </div>
+          <div class="filters__filter-block">
+            <div class="imageable-checkbox" *ngFor="let quality of cellularQuality().controls" matTooltip="{{ quality.get('label').value }}">
+              <input type="checkbox" [formControl]="quality.get('isSelected')">
+              <img [src]="'../../../../assets/cellular-' + quality.get('name').value + '.svg'" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="filter">
           <mat-form-field appearance="fill" class="location-filter">
             <mat-label>Численность(от)</mat-label>
             <input matInput type="number" formControlName="populationLeftBorder">

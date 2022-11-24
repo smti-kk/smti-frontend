@@ -36,6 +36,7 @@ export class LocationFilterFormBuilderImpl implements LocationFilterFormBuilder 
             govYear: new FormControl(filters.govYear),
             populationLeftBorder: new FormControl(filters.populationLeftBorder),
             populationRightBorder: new FormControl(filters.populationRightBorder),
+            quality: this.buildFormArray(filters.quality),
           });
         }
       ));

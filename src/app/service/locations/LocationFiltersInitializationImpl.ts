@@ -102,7 +102,30 @@ export class LocationFiltersInitializationImpl implements LocationFiltersInitial
           ordering: null,
           govYear: null,
           populationRightBorder: null,
-          populationLeftBorder: null
+          populationLeftBorder: null,
+          quality: [
+            {
+              id: 1,
+              label: 'Хорошее',
+              name: 'good',
+              value: 'GOOD',
+              isSelected: false,
+            },
+            {
+              id: 2,
+              label: 'Удовлетворительное',
+              name: 'normal',
+              value: 'NORMAL',
+              isSelected: false,
+            },
+            {
+              id: 3,
+              label: 'Нет',
+              name: 'absent',
+              value: 'ABSENT',
+              isSelected: false,
+            }
+          ]
         };
       })
     );

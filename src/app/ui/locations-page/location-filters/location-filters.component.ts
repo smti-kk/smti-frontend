@@ -97,6 +97,10 @@ export class LocationFiltersComponent implements OnInit {
     return this.filterForm.get('cellularOperators') as FormArray;
   }
 
+  cellularQuality(): FormArray {
+    return this.filterForm.get('quality') as FormArray;
+  }
+
   getLocationTypeAndName(value: Location) {
     return `${value?.name} ${value?.type}`
   }
