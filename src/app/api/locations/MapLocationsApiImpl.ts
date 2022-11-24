@@ -23,8 +23,8 @@ export class MapLocationsApiImpl implements MapLocationsApi {
       .get<MapLocationWithQuality[]>(MAP_LOCATIONS_API + '/with-quality', {params})
       .pipe(
         map((locations) =>
-          locations.map(({location, quality}) => {
-            return { ...location, quality }
+          locations.map(({location, qualities}) => {
+            return { ...location, qualities }
           })
         )
       );
@@ -35,8 +35,8 @@ export class MapLocationsApiImpl implements MapLocationsApi {
       .get<MapLocationWithQuality[]>(MAP_LOCATIONS_API + '/with-quality')
       .pipe(
         map((locations) =>
-          locations.map(({location, quality}) => {
-            return { ...location, quality }
+          locations.map(({location, qualities}) => {
+            return { ...location, qualities }
           })
         )
       );

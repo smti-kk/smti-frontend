@@ -1,11 +1,12 @@
 import {GeoData} from '@api/dto/GeoData';
+import { Quality } from '@api/dto/Quality';
 
 export interface MapLocation {
   name: string;
   type: string;
   id: number;
   complexName?: string,
-  quality?: string;
+  qualities?: Quality[];
   parent: {
     id: number,
     name: string,
@@ -16,5 +17,5 @@ export interface MapLocation {
 
 export interface MapLocationWithQuality {
   location: MapLocation;
-  quality: 'GOOD' | 'NORMAL' | 'ABSENT';
+  qualities: Quality[];
 }
