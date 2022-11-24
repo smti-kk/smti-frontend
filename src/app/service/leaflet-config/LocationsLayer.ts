@@ -22,12 +22,18 @@ export class LocationsLayer extends PointsLayerImpl {
       const iconClassName = marker.getIconClassName()
       return iconClassName.includes('marker_red')
     })
+    const allDefault = markers.every((marker) => {
+      const iconClassName = marker.getIconClassName()
+      return iconClassName.includes('marker_default')
+    })
 
     let color = '';
     if (allGreen) {
       color = '_green';
     } else if (allRed) {
       color = '_red';
+    } else if (allDefault) {
+      color = '';
     } else if (!allGreen && !allRed) {
       color = '_yellow';
     }

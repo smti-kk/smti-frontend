@@ -60,7 +60,7 @@ export class BestMap implements OnInit, OnDestroy {
   hasCellularControl: FormControl;
   hasEspdControl: FormControl;
   hasZspdControl: FormControl;
-  currentCellularState: boolean | null = null;
+  currentCellularState: 'state_1' | 'state_2' | 'state_3' | null = null;
 
   constructor(
     private layersFactory: LayerControllersFactory,
@@ -78,6 +78,7 @@ export class BestMap implements OnInit, OnDestroy {
       .pipe(tap(() => this.loaderService.stopLoader()));
     this.pointsLayers = {
       locations: this.layersFactory.locationLayerController(),
+      locationsWithQuality: this.layersFactory.locationsLayerControllerWithQuality(),
       locationsWithCellular:
         this.layersFactory.locationsLayerControllerWithCellular(),
       locationsWithoutCellular:
@@ -251,9 +252,11 @@ export class BestMap implements OnInit, OnDestroy {
   currentLocationsLayer(): PointLayerController {
     if (this.currentCellularState === null) {
       return this.pointsLayers.locations;
-    } else if (this.currentCellularState === true) {
+    } else if (this.currentCellularState === 'state_1') {
       return this.pointsLayers.locationsWithCellular;
-    } else {
+    } else if (this.currentCellularState === 'state_2') {
+      return this.pointsLayers.locationsWithQuality;
+    } else if (this.currentCellularState === 'state_3') {
       return this.pointsLayers.locationsWithoutCellular;
     }
   }

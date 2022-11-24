@@ -47,6 +47,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {SelectorsModule} from './selectors/SelectorsModule';
 import {ThreeStateButton} from './buttons/three-state-button/ThreeStateButton';
+import {FourStateButton} from './buttons/four-state-button/FourStateButton';
 import {FilterBtnComponent} from './buttons/filter-btn/filter-btn.component';
 import {MatIconModule} from '@angular/material/icon';
 import {SignalControl} from './buttons/signal-control/SignalControl';
@@ -159,6 +160,7 @@ const toastrConfig = {
     Loader,
     LocationPage,
     ThreeStateButton,
+    FourStateButton,
     FilterBtnComponent,
     SignalControl,
     PlanPage,

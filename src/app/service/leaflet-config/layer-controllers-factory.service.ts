@@ -3,6 +3,7 @@ import {LocationsPointsService} from '../locations/LocationsPointsService';
 import {HttpClient} from '@angular/common/http';
 import {LocationPointsConverter} from '@service/locations';
 import {MapLocationsApiImpl} from '@api/locations/MapLocationsApiImpl';
+import {MapLocationsApiImplWithQuality} from '@api/locations/MapLocationsApiImplWithQuality';
 import {BoundsToStringConverter} from '@api/util/bounds.to.string.converter';
 import {PSWithUniqueResponseParts} from '../points/PSWithUniqueResponseParts';
 import {PSFullPreloaded} from '../points/PSFullPreloaded';
@@ -220,6 +221,32 @@ export class LayerControllersFactory {
                       new BoundsToStringConverter()
                     ),
                     new LocationPointsConverter({ pointsColor: 'green' })
+                  )
+                ),
+                new PointUniquenessFilterImpl()
+              )
+            )
+          )
+        )
+      ),
+      500 // dont touch me
+    );
+  }
+
+  locationsLayerControllerWithQuality(): PointLayerController {
+    return new PLCWithReloadInterval(
+      new PointLayerControllerImpl(
+        new PLClickable(
+          new PLWithLoader(
+            new LocationsLayer(
+              new PSWithUniqueResponseParts(
+                new PSFullPreloaded(
+                  new LocationsPointsService(
+                    new MapLocationsApiImplWithQuality(
+                      this.httpClient,
+                      new BoundsToStringConverter()
+                    ),
+                    new LocationPointsConverter()
                   )
                 ),
                 new PointUniquenessFilterImpl()

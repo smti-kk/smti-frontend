@@ -34,17 +34,20 @@ export class LocationPointsConverter implements PointsConverter<MapLocation> {
         ICON_DEFAULT_URL = this.ICON_DEFAULT_URL;
         break;
     }
-    const qualities = location?.qualities ?? [];
-    let quality = '';
-    if (qualities.length > 0) {
-      quality = qualities.every((q) => q === 'GOOD')
-        ? 'GOOD'
-        : qualities.every((q) => q === 'ABSENT')
-        ? 'ABSENT'
-        : 'NORMAL';
-    } else {
-      quality = 'ABSENT';
+    const qualities = location?.qualities;
+    let quality = undefined;
+    if (qualities) {
+      if (qualities.length > 0) {
+        quality = qualities.every((q) => q === 'GOOD')
+          ? 'GOOD'
+          : qualities.every((q) => q === 'ABSENT')
+          ? 'ABSENT'
+          : 'NORMAL';
+      } else {
+        quality = 'ABSENT';
+      }
     }
+
     switch (quality) {
       case 'GOOD':
         ICON_URL = this.ICON_GREEN_URL;
