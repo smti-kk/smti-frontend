@@ -8,6 +8,8 @@ import {
   sortStringDescCompareFn,
   sortStringDescCompareFn2
 } from '@service/util/sort';
+import { Quality } from '@api/dto/Quality';
+import { CellularIcon } from '@service/dto/CellularIcon';
 
 export class StrictFilterImpl extends StrictFilter {
   private defaultFilterResponse: boolean;
@@ -19,13 +21,18 @@ export class StrictFilterImpl extends StrictFilter {
     const channels = locationFilters.connectionType.filter(ct => ct.isSelected);
     const postTypes = locationFilters.postType.filter(pt => pt.isSelected);
     const tvTypes = locationFilters.tvType.filter(pt => pt.isSelected);
+    const cellularAllowQuality = locationFilters.quality
+      .filter((q) => q.isSelected)
+      .map((q) => q.name.toUpperCase() as Quality);
+
     if (!this.anyOneFilterSelected(locationFilters,
       cellularOperators,
       internetOperators,
       signals,
       channels,
       postTypes,
-      tvTypes)) {
+      tvTypes,
+      cellularAllowQuality)) {
       return this.sort(locations, locationFilters.ordering, locationFilters.parent);
     }
     switch (locationFilters.logicalCondition) {
@@ -38,7 +45,7 @@ export class StrictFilterImpl extends StrictFilter {
             this.hasZSPD(l, locationFilters) ||
             this.hasGovProgramAndGovYearComplete(l, locationFilters.govProgram, locationFilters.govYear) ||
             this.hasParents(l, locationFilters.parent) ||
-            this.hasSignalsAndOperators(l, cellularOperators, signals) ||
+            this.hasCellularOperatorsAndSignalsAndQualities(l, cellularOperators, signals, cellularAllowQuality) ||
             this.hasTrunkChannelAndOperators(l, internetOperators, channels) ||
             this.hasPostTypes(l, postTypes) ||
             this.hasTvSignals(l, tvTypes) ||
@@ -60,7 +67,7 @@ export class StrictFilterImpl extends StrictFilter {
             this.hasZSPD(l, locationFilters) &&
             this.hasGovProgramAndGovYearComplete(l, locationFilters.govProgram, locationFilters.govYear) &&
             this.hasParents(l, locationFilters.parent) &&
-            this.hasSignalsAndOperators(l, cellularOperators, signals) &&
+            this.hasCellularOperatorsAndSignalsAndQualities(l, cellularOperators, signals, cellularAllowQuality) &&
             this.hasTrunkChannelAndOperators(l, internetOperators, channels) &&
             this.hasPostTypes(l, postTypes) &&
             this.hasTvSignals(l, tvTypes) &&
@@ -175,38 +182,50 @@ export class StrictFilterImpl extends StrictFilter {
     return parents.indexOf(location.area.id) !== -1;
   }
 
-  hasSignalsAndOperators(location: LocationTableItem,
-                         operators: LocationFilter[],
-                         signals: LocationFilter[]): boolean {
-    if (signals.length < 1 && operators.length < 1) {
+  hasCellularOperatorsAndSignalsAndQualities(
+    location: LocationTableItem,
+    operators: LocationFilter[],
+    signals: LocationFilter[],
+    allowQuality: Quality[]
+  ): boolean {
+    if (signals.length < 1 && operators.length < 1 && allowQuality.length < 1) {
       return this.defaultFilterResponse;
     }
-    if (!(signals.length > 0 && operators.length > 0)) {
-      if (signals.length > 0) {
-        return this.hasSignals(location, signals);
-      } else if (operators.length > 0) {
-        return this.hasCellularOperators(location, operators);
-      }
+
+    const isAllowQuality = (c: CellularIcon) =>
+      allowQuality.includes(c.tc && c.isActive ? c.tc.quality : 'ABSENT');
+
+    let cellular = location.cellular;
+    if (operators.length > 0) {
+      cellular = cellular.filter(
+        (c) => c.isActive && !!operators.find((o) => o.id === c.id)
+      );
     }
-    const existedOperators = location.cellular.filter(c => {
-      const operatorIncludedInFilterOperators = operators.find(o => o.id === c.id);
-      return !!operatorIncludedInFilterOperators;
-    });
-    if (existedOperators.length === 0) {
-      return false;
+    if (signals.length > 0) {
+      cellular = cellular.filter(
+        (c) => signals.length < 1 || !!signals.find((s) => s.label === c.type)
+      );
     }
-    const existedCellular = existedOperators.find(cellularOperator => {
-      if (cellularOperator) {
-        const existedSignal = signals.find(signal => {
-          return cellularOperator.type === signal.label;
-        });
-        if (existedSignal) {
-          return true;
+    if (allowQuality.length > 0) {
+      const cellularQuality = cellular.reduce((acc, c) => {
+        if (isAllowQuality(c)) {
+          acc.push(c);
         }
-      }
-      return false;
-    });
-    return !!existedCellular;
+        return acc;
+      }, [] as CellularIcon[]);
+
+      const isAllTCinAllowQuality = cellularQuality.length === cellular.length;
+      const isSomeTCisGood = cellularQuality
+        .map((cq) => cq?.tc?.quality ?? 'ABSENT')
+        .includes('GOOD');
+
+      cellular =
+        isAllTCinAllowQuality ||
+        (isSomeTCisGood && allowQuality.includes('GOOD'))
+          ? cellularQuality
+          : [];
+    }
+    return cellular.length > 0;
   }
 
   hasTrunkChannelAndOperators(location: LocationTableItem,
@@ -374,7 +393,8 @@ export class StrictFilterImpl extends StrictFilter {
                        signals: any[],
                        channels: any[],
                        postTypes: any[],
-                       tvTypes: any[]): boolean {
+                       tvTypes: any[],
+                       cellularQuality: any[]): boolean {
     return filters.hasESPD ||
       filters.hasSMO ||
       filters.hasZSPD ||
@@ -395,6 +415,22 @@ export class StrictFilterImpl extends StrictFilter {
       cellularOperators.length > 0 ||
       channels.length > 0 ||
       internetOperators.length > 0 ||
-      signals.length > 0;
+      signals.length > 0 ||
+      cellularQuality.length > 0;
+  }
+
+  hasCellularQuality(location: LocationTableItem,
+                     quality: LocationFilter[]) : boolean {
+    if (quality.length < 1) {
+      return this.defaultFilterResponse;
+    }
+    const allowQuality = quality.map(q => q.name.toUpperCase())
+    return location.cellular.every(({tc}) => {
+      if (!tc) {
+        return allowQuality.includes('ABSENT')
+      } else {
+        allowQuality.includes(tc.quality)
+      }
+    })
   }
 }

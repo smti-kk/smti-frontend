@@ -32,4 +32,5 @@ export interface LocationFilters {
   populationRightBorder: number;
   govYear: number;
   ordering: OrderingFilter;
+  quality: LocationFilter[]
 }
