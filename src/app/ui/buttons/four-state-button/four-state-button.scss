@@ -1,0 +1,26 @@
+:host {
+  cursor: pointer;
+}
+
+.state {
+  border: 1px solid lightblue;
+  padding: 0 5px 5px;
+  border-radius: 7px;
+
+
+  &_0 {
+    background-color: transparent;
+  }
+
+  &_1 {
+    background-color: lightgreen;
+  }
+
+  &_2 {
+    background-color: lightgoldenrodyellow;
+  }
+
+  &_3 {
+    background-color: lightcoral;
+  }
+}
