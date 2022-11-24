@@ -255,9 +255,9 @@ export class BestMap implements OnInit, OnDestroy {
     } else if (this.currentCellularState === 'state_1') {
       return this.pointsLayers.locationsWithCellular;
     } else if (this.currentCellularState === 'state_2') {
-      return this.pointsLayers.locationsWithQuality;
-    } else if (this.currentCellularState === 'state_3') {
       return this.pointsLayers.locationsWithoutCellular;
+    } else if (this.currentCellularState === 'state_3') {
+      return this.pointsLayers.locationsWithQuality;
     }
   }
 
