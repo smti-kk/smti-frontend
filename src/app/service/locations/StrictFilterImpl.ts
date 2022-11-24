@@ -212,9 +212,18 @@ export class StrictFilterImpl extends StrictFilter {
           acc.push(c);
         }
         return acc;
-      }, []);
+      }, [] as CellularIcon[]);
+
+      const isAllTCinAllowQuality = cellularQuality.length === cellular.length;
+      const isSomeTCisGood = cellularQuality
+        .map((cq) => cq?.tc?.quality ?? 'ABSENT')
+        .includes('GOOD');
+
       cellular =
-        cellularQuality.length !== cellular.length ? [] : cellularQuality;
+        isAllTCinAllowQuality ||
+        (isSomeTCisGood && allowQuality.includes('GOOD'))
+          ? cellularQuality
+          : [];
     }
     return cellular.length > 0;
   }
