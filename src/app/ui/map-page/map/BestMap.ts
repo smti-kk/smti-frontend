@@ -99,6 +99,11 @@ export class BestMap implements OnInit, OnDestroy {
       .subscribe((id) => {
         this.locationClick.emit(id);
       });
+    this.pointsLayers.locationsWithQuality
+      .onPointClick()
+      .subscribe((id) => {
+        this.locationClick.emit(id);
+      });
     this.areaClick = this.municipalitiesLayer.onMunicipalityClick;
     this.baseStationClick = new EventEmitter<number>();
     this.accessPointClick = new EventEmitter<{ type: string; id: number }>();
