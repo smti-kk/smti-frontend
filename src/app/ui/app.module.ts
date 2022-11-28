@@ -127,14 +127,21 @@ import { LocalityBookPageComponent} from './old/locations-book/pages/locality-bo
 import {LocationsGeoModalComponent} from 'src/app/ui/old/locations-book/components/locations-geo-modal/locations-geo-modal.component';
 import {LocationsBookFilterComponent} from './old/locations-book/components/locations-book-filter/locations-book-filter.component';
 import {MatPaginatorIntl } from "@angular/material/paginator";
-import {MatCustomPaginatorIntl} from './old/shared/components/mate-paginator-intl/mat-paginator-intl'
-
+import {MatCustomPaginatorIntl} from './old/shared/components/mate-paginator-intl/mat-paginator-intl';
+import {NZ_ICONS, NzIconModule} from 'ng-zorro-antd/icon';
+import * as AllIcons from '@ant-design/icons-angular/icons';
+import { IconDefinition } from '@ant-design/icons-angular';
 registerLocaleData(ru);
 
 const toastrConfig = {
   positionClass: 'toast-bottom-right',
   maxOpened: 3,
 };
+
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
 
 @NgModule({
   declarations: [
@@ -261,6 +268,7 @@ const toastrConfig = {
     NzFormModule,
     NzDatePickerModule,
     ToastrModule.forRoot(toastrConfig),
+    NzIconModule,
   ],
   exports: [SortDirective, CoreModule, SharedModule],
   providers: [
@@ -274,7 +282,8 @@ const toastrConfig = {
     {provide: StorageService, useClass: LocalStorageService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
-    {provide: MatPaginatorIntl, useValue: MatCustomPaginatorIntl()}
+    {provide: MatPaginatorIntl, useValue: MatCustomPaginatorIntl()},
+    {provide: NZ_ICONS, useValue: icons }
   ],
   bootstrap: [AppComponent],
 })

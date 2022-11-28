@@ -1,7 +1,7 @@
-<div class="links">
-  <div class="logo" routerLink="">
-    <img src="../../../assets/logo.png" alt="Логотип" style="width: 44px;">
-  </div>
+<div class="logo" routerLink="">
+  <img src="../../../assets/logo.png" alt="Логотип" style="width: 44px;">
+</div>
+<div class="links" [ngClass]="{links_show: isShowMenu, links_mobile: isMobile}">
   <div class="link root-link" routerLink="/map" [class.active]="currentRouteIs('/map')"><span>Карта</span></div>
   <div class="link root-link" routerLink="/locations" [class.active]="currentRouteIs('/locations')"><span>Населённые пункты</span></div>
   <button class="link mat-menu-select" mat-button *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']" [matMenuTriggerFor]="menu">Сводные таблицы</button>
@@ -140,8 +140,14 @@
        *permissions="['ADMIN', 'OPERATOR']"
        routerLink="/report-monitoring"
        [class.active]="currentRouteIs('/report-monitoring')"><span>Отчёт</span></div>
+  <div class="spacer" *ngIf="!isMobile"></div>
+  <div class="link td-underline root-link" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
+  <div class="link root-link logout" *ngIf="account">
+    <span>{{account.getName()}} <img class="logout-image" src="../../../assets/exit.png" alt="Выход" (click)="logout()"></span>
+  </div>
 </div>
-<div class="link td-underline root-link" *ngIf="!account" (click)="showAuthForm()"><span>Авторизация</span></div>
-<div class="link root-link logout" *ngIf="account">
-  <span>{{account.getName()}} <img class="logout-image" src="../../../assets/exit.png" alt="Выход" (click)="logout()"></span>
+<div class="spacer" *ngIf="isMobile"></div>
+<div class="burger" *ngIf="isMobile" (click)="onBurgerClick($event);">
+  <span nz-icon [nzType]="isShowMenu ? 'close' : 'menu'" nzTheme="outline" class="burger__icon"></span>
 </div>
+
