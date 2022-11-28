@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LocationsPage } from './locations-page/locations-page';
+import { LocationsPageDesktop } from './locations-page/locations-page-desktop/locations-page-desktop';
 import { ServiceModule } from '@service/service.module';
 import { Authorization } from './authorization/authorization';
 import { MatInputModule } from '@angular/material/input';
@@ -128,6 +129,8 @@ import {LocationsGeoModalComponent} from 'src/app/ui/old/locations-book/componen
 import {LocationsBookFilterComponent} from './old/locations-book/components/locations-book-filter/locations-book-filter.component';
 import {MatPaginatorIntl } from "@angular/material/paginator";
 import {MatCustomPaginatorIntl} from './old/shared/components/mate-paginator-intl/mat-paginator-intl';
+import {LocationsPageMobile} from './locations-page/locations-page-mobile/locations-page-mobile'
+import {NzCollapseModule} from 'ng-zorro-antd/collapse';
 import {NZ_ICONS, NzIconModule} from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -153,6 +156,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     OrganizationsInfoBar,
     BestMap,
     LocationsPage,
+    LocationsPageDesktop,
     Authorization,
     FeaturesPage,
     OrganizationsPage,
@@ -223,6 +227,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     LocationsGeoModalComponent,
     MunicipalityAreaBookPageComponent,
     LocationsBookFilterComponent,
+    LocationsPageMobile,
   ],
   imports: [
     BrowserModule,
@@ -268,6 +273,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzFormModule,
     NzDatePickerModule,
     ToastrModule.forRoot(toastrConfig),
+    NzCollapseModule,
     NzIconModule,
   ],
   exports: [SortDirective, CoreModule, SharedModule],

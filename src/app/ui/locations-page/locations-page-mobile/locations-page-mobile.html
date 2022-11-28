@@ -1,0 +1,64 @@
+<div
+  class="content"
+  infinite-scroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollUpDistance]="2"
+  [infiniteScrollThrottle]="300"
+  [scrollWindow]="false"
+  (scrolled)="onScrollDown()"
+>
+  <div class="filter-result-count" *ngIf="totalElements">
+    Результатов поиска: {{totalElements}}
+  </div>
+  <!-- <div class="filter-result-count" *ngIf="!totalElements">
+    Результатов поиска: 0
+  </div> -->
+  <div class="sort">
+    <div class="sort__head">Сортировать по:</div>
+    <div class="sort__actions">
+      <div class="sort__button">
+        Населенные пункты
+      </div>
+      <div class="sort__button">
+        Муниципальные образования
+      </div>
+      <div class="sort__button sort__button_active">
+        Численность
+      </div>
+    </div>
+  </div>
+  <nz-collapse nzExpandIconPosition="right">
+    <nz-collapse-panel
+      #p
+      *ngFor="let location of locations"
+      [nzHeader]="header"
+      [nzActive]="location.active"
+      [nzDisabled]="location.disabled"
+      [nzExpandedIcon]="expandedIcon"
+    >
+      <ng-template #header>
+        <div class="panel-header">
+          <div>{{location.area.name}}</div>
+          <div>{{location.name}}</div>
+        </div>
+      </ng-template>
+      <div style="margin: 0">
+        A dog is a type of domesticated animal. Known for its loyalty and
+        faithfulness, it can be found as a welcome guest in many households
+        across the world.
+      </div>
+      <ng-template #expandedIcon let-active>
+        {{ active }}
+        <span
+          nz-icon
+          nzType="caret-right"
+          class="ant-collapse-arrow"
+          [nzRotate]="p.nzActive ? 90 : -90"
+        ></span>
+      </ng-template>
+    </nz-collapse-panel>
+  </nz-collapse>
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner ></mat-spinner>
+  </div>
+</div>
