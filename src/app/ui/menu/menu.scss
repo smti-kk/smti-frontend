@@ -3,8 +3,6 @@
   padding: 0;
   background-color: #d9d9d9;
   display: flex;
-  justify-content: space-between;
-  //position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -20,8 +18,12 @@
   cursor: pointer;
 }
 
+.spacer {
+  flex-grow: 1;
+}
+
 .link {
-  font-family: 'GolosTextWebVF', sans-serif;
+  font-family: "GolosTextWebVF", sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #131212;
@@ -35,23 +37,57 @@
 }
 
 .link.active {
-  font-family: 'GolosTextWebVF', sans-serif;
+  font-family: "GolosTextWebVF", sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #131212;
   background-color: #fff;
 }
 
+.mat-menu-select {
+  padding: 10px 14px 18px 14px;
+}
+
 .links {
   display: flex;
+  flex-grow: 1;
+
+  &_mobile {
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+    z-index: 1001;
+    top: calc(56px + 8px);
+    left: 8px;
+    right: 8px;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+
+    .mat-menu-select {
+      padding: 19px 14px;
+    }
+    .mat-button {
+      line-height: normal;
+      text-align: left;
+    }
+
+    .link.active {
+      border-radius: 8px;
+    }
+  }
+
+  &_show {
+    display: flex;
+  }
+}
+
+::ng-deep .cdk-overlay-container {
+  z-index: 1002;
 }
 
 .td-underline {
   text-decoration: underline;
-}
-
-.mat-menu-select {
-  padding: 10px 14px 18px 14px;
 }
 
 .link.root-link.logout {
@@ -59,5 +95,22 @@
 
   & span {
     white-space: nowrap;
+  }
+}
+
+.burger {
+  display: none;
+  margin-right: 32px;
+
+  &__icon {
+    font-size: 24px;
+    padding: 4px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .burger {
+    display: flex;
+    align-items: center;
   }
 }

@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LocationsPage } from './locations-page/locations-page';
+import { LocationsPageDesktop } from './locations-page/locations-page-desktop/locations-page-desktop';
 import { ServiceModule } from '@service/service.module';
 import { Authorization } from './authorization/authorization';
 import { MatInputModule } from '@angular/material/input';
@@ -127,14 +128,24 @@ import { LocalityBookPageComponent} from './old/locations-book/pages/locality-bo
 import {LocationsGeoModalComponent} from 'src/app/ui/old/locations-book/components/locations-geo-modal/locations-geo-modal.component';
 import {LocationsBookFilterComponent} from './old/locations-book/components/locations-book-filter/locations-book-filter.component';
 import {MatPaginatorIntl } from "@angular/material/paginator";
-import {MatCustomPaginatorIntl} from './old/shared/components/mate-paginator-intl/mat-paginator-intl'
-
+import {MatCustomPaginatorIntl} from './old/shared/components/mate-paginator-intl/mat-paginator-intl';
+import {LocationsPageMobile} from './locations-page/locations-page-mobile/locations-page-mobile'
+import {NzCollapseModule} from 'ng-zorro-antd/collapse';
+import {NZ_ICONS, NzIconModule} from 'ng-zorro-antd/icon';
+import * as AllIcons from '@ant-design/icons-angular/icons';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { LocationsFilterMobileComponent } from './locations-page/locations-filter-mobile/locations-filter-mobile.component';
 registerLocaleData(ru);
 
 const toastrConfig = {
   positionClass: 'toast-bottom-right',
   maxOpened: 3,
 };
+
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
 
 @NgModule({
   declarations: [
@@ -146,6 +157,7 @@ const toastrConfig = {
     OrganizationsInfoBar,
     BestMap,
     LocationsPage,
+    LocationsPageDesktop,
     Authorization,
     FeaturesPage,
     OrganizationsPage,
@@ -216,6 +228,8 @@ const toastrConfig = {
     LocationsGeoModalComponent,
     MunicipalityAreaBookPageComponent,
     LocationsBookFilterComponent,
+    LocationsPageMobile,
+    LocationsFilterMobileComponent,
   ],
   imports: [
     BrowserModule,
@@ -261,6 +275,8 @@ const toastrConfig = {
     NzFormModule,
     NzDatePickerModule,
     ToastrModule.forRoot(toastrConfig),
+    NzCollapseModule,
+    NzIconModule,
   ],
   exports: [SortDirective, CoreModule, SharedModule],
   providers: [
@@ -274,7 +290,8 @@ const toastrConfig = {
     {provide: StorageService, useClass: LocalStorageService},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
-    {provide: MatPaginatorIntl, useValue: MatCustomPaginatorIntl()}
+    {provide: MatPaginatorIntl, useValue: MatCustomPaginatorIntl()},
+    {provide: NZ_ICONS, useValue: icons }
   ],
   bootstrap: [AppComponent],
 })

@@ -1,122 +1,55 @@
-import {Component, OnInit} from '@angular/core';
-import {LocationsFullInformationService} from '@service/locations/LocationsFullInformationService';
-import {LocationTableItem} from '@service/dto/LocationTableItem';
-import {LocationFilters} from './location-filters/LocationFilters';
-import {LoaderService} from '../loader/LoaderService';
-import {AccountService} from '@service/account/AccountService';
-import {Account} from '@service/account/Account';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import { AccountService } from '@service/account/AccountService';
 
 @Component({
   selector: 'locations-page',
-  templateUrl: './locations-page.html',
+  template: `
+    <ng-container *ngIf="isMobileAndGuest">
+      <locations-page-mobile></locations-page-mobile>
+    </ng-container>
+    <ng-container *ngIf="!isMobileAndGuest">
+      <locations-page-desktop></locations-page-desktop>
+    </ng-container>
+  `,
   styleUrls: ['./locations-page.scss'],
 })
 export class LocationsPage implements OnInit {
-  TABLE_HEIGHT_WHEN_NOT_OPENED_FILTERS = 'calc(100vh - 194px)';
-  TABLE_HEIGHT_WHEN_OPENED_FILTERS = 'calc(100vh - 396px)';
-
-  displayedColumns = [
-    'areaName',
-    'name',
-    'population',
-    'hasESPD',
-    'hasSMO',
-    'hasZSPD',
-    'ats',
-    'payphone',
-    'infomat',
-    'post',
-    'television',
-    'radio',
-    'cellular',
-    'internet',
-    'contract',
-  ];
-
-  locations: LocationTableItem[];
-  totalElements: number;
-  page: number;
-  countPerPage: number;
-  isLoading: boolean;
-  user: Account;
-  filters: LocationFilters;
+  private _mobile = false;
+  private _guest = true;
 
   constructor(
-    private readonly locationsFullInformationService: LocationsFullInformationService,
     private readonly accountService: AccountService,
-    private readonly loaderService: LoaderService
+    private breakpointObserver: BreakpointObserver,
   ) {
-    accountService.get().subscribe(user => {
-      this.user = user;
-      if (!user || user.getRole().indexOf('GUEST') !== -1) {
-        this.displayedColumns.splice(
-          this.displayedColumns.indexOf('hasESPD'),
-          1
-        );
-        this.displayedColumns.splice(
-          this.displayedColumns.indexOf('hasSMO'),
-          1
-        );
-        this.displayedColumns.splice(
-          this.displayedColumns.indexOf('hasZSPD'),
-          1
-        );
+    accountService.get().subscribe((user) => {
+      if (user && user.getRole().indexOf('GUEST') === -1) {
+        this._guest = false;
       }
     });
-    this.loaderService = loaderService;
-    this.page = 0;
-    this.countPerPage = 30;
-    this.isLoading = false;
+  }
+
+  get isMobileAndGuest() {
+    return this._mobile && this._guest;
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, this.filters)
-      .subscribe(response => {
-        this.locations = response.content;
-        this.totalElements = response.totalElements;
-        this.isLoading = false;
-        this.loaderService.stopLoader();
-      }, error => {
-        this.isLoading = false;
-      });
-  }
+    this.breakpointObserver.observe(['(max-width: 768px)']).subscribe({
+      next: (res) => {
+        this._mobile = res.matches;
+      }
+    })
 
-  onScrollDown(): void {
-    this.page++;
-    this.isLoading = true;
-    this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, this.filters)
-      .subscribe(response => {
-        this.locations = [...this.locations, ...response.content];
-        this.totalElements = response.totalElements;
-        this.isLoading = false;
-      }, () => {
-        this.isLoading = false;
-      });
-  }
+    // const mql = window.matchMedia('(max-width: 768px)');
+    // console.log(mql);
 
-  filter(filters: LocationFilters): void {
-    this.page = 0;
-    this.filters = filters;
-
-    this.locationsFullInformationService.filteredLocations(this.page, this.countPerPage, filters)
-      .subscribe(locations => {
-        this.locations = locations.content;
-        this.totalElements = locations.totalElements;
-      });
-  }
-
-  exportExcel(): void {
-    this.locationsFullInformationService.exportExcel();
-  }
-
-  onSort(ordering) {
-    this.filters.ordering = ordering;
-    this.filter(this.filters);
-  }
-
-  onFilterInit(filterValue) {
-    this.filters = filterValue;
+    // if (mql.matches) {
+    //   this._mobile = true;
+    // } else {
+    //   this._meta.removeTag('name = "viewport"');
+    // }
+    // mql.addEventListener('change', (ev) => {
+    //   this._mobile = ev.matches;
+    // });
   }
 }
-

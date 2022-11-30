@@ -1,0 +1,151 @@
+:host {
+  display: block;
+}
+
+location-filters {
+  display: block;
+  //position: sticky;
+  top: 56px;
+  background: white;
+  z-index: 1000;
+  padding: 12px 32px;
+}
+
+table {
+  width: 100%;
+  border-collapse: unset;
+  border-spacing: 2px 2px !important;
+  padding: 0px 14px;
+}
+
+th {
+  margin-left: 1px;
+  padding: 0 8px !important;
+
+  color: #95989a;
+
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+
+  text-align: center !important;
+
+  border-width: 0 !important;
+
+  &.align-left {
+    text-align: left !important;
+  }
+
+  & img {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+td {
+  padding: 8px 2px !important;
+
+  color: #454544;
+
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+
+  background-color: #efefef;
+  text-align: center;
+  border-width: 0 !important;
+
+  & img {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.align-left {
+    text-align: left !important;
+    padding-left: 8px !important;
+  }
+}
+
+.filter-result-count {
+  color: #000000;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0.09px;
+  margin-left: 31px;
+}
+
+.td-container {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.search-results {
+  margin-top: 32px;
+  overflow-y: auto;
+  height: calc(100vh - 144px);
+}
+
+.location-link a {
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+    color: inherit;
+  }
+}
+
+.hide-locations {
+  animation: hideRow 0.5s;
+}
+
+.feature__icon {
+  margin-right: 8px;
+  margin-bottom: 2px;
+}
+
+.feature__icon-type {
+  position: unset;
+  margin-left: 14px;
+  margin-top: -5px;
+}
+
+.feature__icon-type.with-signal {
+  margin-left: 4px !important;
+}
+
+.feature__internet-type-icon {
+  position: unset;
+  margin-top: -3px;
+}
+
+@keyframes showRow {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.normal-q {
+  opacity: 0.6 !important;
+  filter: grayscale(0) !important;
+}
+
+th.mat-header-cell.c-filter-button {
+  padding-right: 20px !important;
+  user-select: none;
+  .material-icons {
+    vertical-align: middle;
+    line-height: 15px;
+    margin-top: -2px;
+  }
+
+  &::after {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
