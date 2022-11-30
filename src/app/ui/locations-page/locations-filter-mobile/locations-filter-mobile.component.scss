@@ -1,0 +1,207 @@
+:host {
+  display: block;
+  top: 56px;
+  background: white;
+  z-index: 1000;
+  padding: 16px 0;
+}
+
+:host * {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  gap: 12px;
+  row-gap: 8px;
+  align-items: baseline;
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+  min-width: 180px;
+  padding-bottom: 4px;
+
+  &__header-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+  }
+
+  &__header {
+    padding: 16px 0;
+    margin-right: 16px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__actions {
+    display: flex;
+    max-width: 100%;
+    gap: 16px;
+  }
+
+  &__title {
+    color: #747578;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    & img {
+      margin-left: 1px;
+      width: 15px;
+      height: 16px;
+    }
+
+    & span {
+      margin-left: 17px;
+      margin-bottom: 1px;
+      display: block;
+      margin-top: -5px;
+    }
+  }
+
+  &__header-icons {
+    display: flex;
+
+    & img {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+    &_arrow-reversed {
+      transform: rotateX(180deg);
+    }
+  }
+
+  &__ap-type-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 26px;
+  }
+
+  &__ap-type {
+    width: 19px;
+    padding: 3px;
+  }
+
+  &_empty {
+    border: none;
+  }
+
+  &__column-label {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+  }
+
+  &__column-label-text {
+    color: rgba(0, 0, 0, 0.42);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+  }
+
+  &__filter-block {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.imageable-checkbox {
+  & input {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    width: 16px;
+    height: 16px;
+
+    &:checked + img {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+  }
+
+  &.connection-points img {
+    width: 18px;
+    height: 18px;
+  }
+
+  & img {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    margin-left: -19px;
+    margin-top: -11px;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.export-button {
+  color: #686868;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 14px;
+  padding: 12px 24px;
+  background-color: #d9d9d9;
+  height: 48px;
+  box-shadow: unset;
+  border-radius: unset;
+}
+
+@media screen and (max-width: 375px) {
+  .export-button {
+    padding: 12px 14px;
+  }
+  .filter {
+    justify-content: space-between;
+  }
+}
+
+.filter-set {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  &_two-col {
+    & > * {
+      width: 48%;
+    }
+  }
+
+  &_three-col {
+    & > * {
+      width: 30%;
+    }
+  }
+}
+
+mat-form-field.mat-form-field {
+  display: block;
+  flex-grow: 1;
+  margin-bottom: -1.34375em;
+  ::ng-deep .mat-form-field-flex {
+    padding: 0;
+  }
+  ::ng-deep .mat-form-field-underline {
+    background-color: #e0e0e0;
+  }
+}

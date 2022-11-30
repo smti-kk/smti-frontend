@@ -1,0 +1,267 @@
+<div class="filter__header-container">
+  <div class="filter__header" (click)="filtersIsOpened = !filtersIsOpened">
+    <div class="filter__title">
+      <img src="/assets/filter-icon.svg" alt="" />
+      <span>Фильтр</span>
+    </div>
+    <div class="filter__header-icons">
+      <img
+        [class.filter__header-icons_arrow-reversed]="filtersIsOpened"
+        class="arrow-icon"
+        src="/assets/arrow-bottom.svg"
+        alt=""
+      />
+    </div>
+  </div>
+  <div class="filter__actions">
+    <button class="export-button" (click)="resetFilters()" mat-raised-button>
+      Очистить фильтр
+    </button>
+    <button
+      class="export-button"
+      (click)="exportExcelClick()"
+      mat-raised-button
+    >
+      Выгрузить в Excel
+    </button>
+  </div>
+</div>
+<form *ngIf="filtersIsOpened && filterForm" [formGroup]="filterForm">
+  <div class="filter-set filter-set_two-col">
+    <mat-form-field appearance="standard">
+      <mat-label>Муниципальные образования</mat-label>
+      <mat-select
+        formControlName="parent"
+        disableOptionCentering="true"
+        [multiple]="true"
+      >
+        <mat-option>
+          <ngx-mat-select-search
+            noEntriesFoundLabel="Ничего не найдено"
+            placeholderLabel="Поиск..."
+            #parentFilter
+          ></ngx-mat-select-search>
+        </mat-option>
+        <cdk-virtual-scroll-viewport
+          [itemSize]="48"
+          [style.height.px]="5 * 48"
+          minBufferPx="400"
+          maxBufferPx="800"
+        >
+          <mat-option
+            *cdkVirtualFor="
+              let item of fAreas$ | async | filter: 'label':parentFilter.value
+            "
+            [value]="item.id"
+          >
+            {{ item?.label }}
+          </mat-option>
+        </cdk-virtual-scroll-viewport>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Населенный пункт</mat-label>
+      <mat-select
+        formControlName="location"
+        disableOptionCentering="true"
+        [multiple]="true"
+      >
+        <mat-option>
+          <ngx-mat-select-search
+            noEntriesFoundLabel="Ничего не найдено"
+            placeholderLabel="Поиск..."
+            #locationFilter
+          ></ngx-mat-select-search>
+        </mat-option>
+        <cdk-virtual-scroll-viewport
+          [itemSize]="48"
+          [style.height.px]="5 * 48"
+          minBufferPx="400"
+          maxBufferPx="800"
+        >
+          <mat-option
+            *cdkVirtualFor="
+              let item of fLocations$
+                | async
+                | filter: 'name':locationFilter.value
+            "
+            [value]="getLocationTypeAndName(item)"
+          >
+            {{ item?.type }} {{ item?.name }}
+          </mat-option>
+        </cdk-virtual-scroll-viewport>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="filter-set filter-set_two-col">
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text">Почта:</div>
+      </div>
+      <mat-checkbox
+        [formControl]="control.get('isSelected')"
+        *ngFor="let control of postTypeControls().controls"
+        class="with-bottom-margin-5px"
+      >
+        {{ control.get("label").value }}
+      </mat-checkbox>
+    </div>
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text">ТВ:</div>
+      </div>
+      <mat-checkbox
+        [formControl]="control.get('isSelected')"
+        *ngFor="let control of tvTypeControls().controls"
+      >
+        {{ control.get("label").value }}
+      </mat-checkbox>
+    </div>
+  </div>
+  <div class="filter-set filter-set_two-col">
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text">Уровень сигнала:</div>
+      </div>
+      <div class="filter__filter-block" formArrayName="signalLevel">
+        <mat-checkbox
+          [formControl]="control.get('isSelected')"
+          *ngFor="let control of signalTypeControls().controls"
+        >
+          {{ control.get("label").value }}
+        </mat-checkbox>
+      </div>
+      <three-state-button
+        class="labe-icon"
+        formControlName="hasCellular"
+        matTooltip="Сотовая связь"
+      >
+        <img src="/assets/table-phone-4.svg" alt="" />
+      </three-state-button>
+    </div>
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text">Тип подключения:</div>
+      </div>
+      <div class="filter__filter-block">
+        <mat-checkbox
+          [formControl]="control.get('isSelected')"
+          *ngFor="let control of connectionTypeControls().controls"
+        >
+          {{ control.get("label").value }}
+        </mat-checkbox>
+      </div>
+      <three-state-button formControlName="hasInternet" matTooltip="Интернет">
+        <img src="/assets/connection-type.svg" alt="" />
+      </three-state-button>
+    </div>
+  </div>
+  <div class="filter-set filter-set_three-col">
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text"></div>
+      </div>
+      <three-state-button formControlName="hasATS">
+        <img matTooltip="АТС" src="/assets/table-phone.svg" alt="" />
+      </three-state-button>
+      <three-state-button formControlName="hasPayphone">
+        <img matTooltip="Таксофоны" src="/assets/table-phone-2.svg" alt="" />
+      </three-state-button>
+      <three-state-button formControlName="hasInfomat">
+        <img matTooltip="Инфомат" src="/assets/table-phone-3.svg" alt="" />
+      </three-state-button>
+      <three-state-button formControlName="hasRadio">
+        <img matTooltip="Радио" src="/assets/table-micro.svg" alt="" />
+      </three-state-button>
+    </div>
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text">Оператор (сотовый):</div>
+      </div>
+      <div class="filter__filter-block">
+        <div
+          class="imageable-checkbox"
+          *ngFor="let operator of cellularOperatorsControls().controls"
+          matTooltip="{{ operator.get('name').value }}"
+        >
+          <input type="checkbox" [formControl]="operator.get('isSelected')" />
+          <img [src]="'/media/' + operator.get('label').value" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text">Оператор (интернет):</div>
+      </div>
+      <div class="filter__filter-block">
+        <div
+          class="imageable-checkbox"
+          *ngFor="let control of internetOperatorsControls().controls"
+          matTooltip="{{ control.get('name').value }}"
+        >
+          <input type="checkbox" [formControl]="control.get('isSelected')" />
+          <img [src]="'/media/' + control.get('label').value" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="filter-set filter-set_three-col">
+    <mat-form-field appearance="fill" class="location-filter">
+      <mat-label>Условие</mat-label>
+      <mat-select formControlName="logicalCondition">
+        <mat-option [value]="'OR'">ИЛИ</mat-option>
+        <mat-option [value]="'AND'">И</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="location-filter">
+      <mat-label>Программа</mat-label>
+      <mat-select formControlName="govProgram">
+        <mat-option [value]="null">Программа</mat-option>
+        <mat-option *ngFor="let program of programs" [value]="program.id">{{
+          program.acronym
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="location-filter">
+      <mat-label>Год</mat-label>
+      <mat-select formControlName="govYear">
+        <mat-option [value]="null">Год</mat-option>
+        <mat-option *ngFor="let year of govYears" [value]="year">{{
+          year
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="filter-set filter-set_three-col">
+    <div class="filter">
+      <div class="filter__column-label">
+        <div class="filter__column-label-text">Качество связи:</div>
+      </div>
+      <div class="filter__filter-block">
+        <div
+          class="imageable-checkbox"
+          *ngFor="let quality of cellularQuality().controls"
+          matTooltip="{{ quality.get('label').value }}"
+        >
+          <input type="checkbox" [formControl]="quality.get('isSelected')" />
+          <img
+            [src]="
+              '../../../../assets/cellular-' +
+              quality.get('name').value +
+              '.svg'
+            "
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+    <mat-form-field appearance="fill" class="location-filter">
+      <mat-label>Численность(от)</mat-label>
+      <input matInput type="number" formControlName="populationLeftBorder" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="location-filter">
+      <mat-label>Численность(до)</mat-label>
+      <input matInput type="number" formControlName="populationRightBorder" />
+    </mat-form-field>
+  </div>
+</form>

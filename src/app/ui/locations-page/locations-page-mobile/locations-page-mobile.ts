@@ -10,6 +10,7 @@ import { LocationFilters } from 'src/app/ui/locations-page/location-filters/Loca
 
 type SortBtn = {
   name: string;
+  value: 'parent' | 'name' | 'people_count';
   order: OrderingDirection;
 };
 
@@ -33,14 +34,17 @@ export class LocationsPageMobile implements OnInit {
   sortBtn: SortBtn[] = [
     {
       name: 'Населенные пункты',
+      value: 'name',
       order: OrderingDirection.UNDEFINED,
     },
     {
       name: 'Муниципальные образования',
+      value: 'parent',
       order: OrderingDirection.UNDEFINED,
     },
     {
       name: 'Численность',
+      value: 'people_count',
       order: OrderingDirection.UNDEFINED,
     },
   ];
@@ -112,8 +116,8 @@ export class LocationsPageMobile implements OnInit {
     return btn.order === OrderingDirection.DSC;
   }
 
-  onClickSortBtn(btnName: string) {
-    const crnBtn = this.sortBtn.find(({ name }) => name === btnName)!;
+  onClickSortBtn(btnValue: string) {
+    const crnBtn = this.sortBtn.find(({ value }) => value === btnValue)!;
 
     switch (crnBtn.order) {
       case OrderingDirection.UNDEFINED:
@@ -135,5 +139,30 @@ export class LocationsPageMobile implements OnInit {
       }
       btn.order = OrderingDirection.UNDEFINED;
     });
+    this.filters.ordering = {
+      name: crnBtn.value,
+      orderingDirection: crnBtn.order
+    };
+    this.filter(this.filters);
+  }
+
+  filter(filters: LocationFilters): void {
+    this.page = 0;
+    this.filters = filters;
+
+    this.locationsFullInformationService
+      .filteredLocations(this.page, this.countPerPage, filters)
+      .subscribe((locations) => {
+        this.locations = locations.content.map(addPanelControl);
+        this.totalElements = locations.totalElements;
+      });
+  }
+
+  onFilterInit(filterValue) {
+    this.filters = filterValue;
+  }
+
+  exportExcel(): void {
+    this.locationsFullInformationService.exportExcel();
   }
 }

@@ -134,6 +134,7 @@ import {NzCollapseModule} from 'ng-zorro-antd/collapse';
 import {NZ_ICONS, NzIconModule} from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
+import { LocationsFilterMobileComponent } from './locations-page/locations-filter-mobile/locations-filter-mobile.component';
 registerLocaleData(ru);
 
 const toastrConfig = {
@@ -228,6 +229,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     MunicipalityAreaBookPageComponent,
     LocationsBookFilterComponent,
     LocationsPageMobile,
+    LocationsFilterMobileComponent,
   ],
   imports: [
     BrowserModule,

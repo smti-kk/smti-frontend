@@ -7,7 +7,13 @@
   [scrollWindow]="false"
   (scrolled)="onScrollDown()"
 >
-  <div class="filter-result-count" *ngIf="totalElements">
+  <location-filters-mobile
+    #filtersComponent
+    (filters)="filter($event)"
+    (init)="onFilterInit($event)"
+    (exportExcel)="exportExcel()"
+  ></location-filters-mobile>
+  <div class="filter-result-count" >
     Результатов поиска: {{totalElements}}
   </div>
   <div class="sort">
@@ -20,7 +26,7 @@
           sort__button_active: isActive(btn),
           sort__button_reverse: isDSC(btn)
         }"
-        (click)="onClickSortBtn(btn.name)"
+        (click)="onClickSortBtn(btn.value)"
       >
         {{btn.name}}
       </div>
