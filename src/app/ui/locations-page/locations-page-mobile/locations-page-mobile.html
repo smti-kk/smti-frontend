@@ -10,24 +10,24 @@
   <div class="filter-result-count" *ngIf="totalElements">
     Результатов поиска: {{totalElements}}
   </div>
-  <!-- <div class="filter-result-count" *ngIf="!totalElements">
-    Результатов поиска: 0
-  </div> -->
   <div class="sort">
     <div class="sort__head">Сортировать по:</div>
     <div class="sort__actions">
-      <div class="sort__button">
-        Населенные пункты
-      </div>
-      <div class="sort__button">
-        Муниципальные образования
-      </div>
-      <div class="sort__button sort__button_active">
-        Численность
+      <div
+        *ngFor="let btn of sortBtn"
+        class="sort__button"
+        [ngClass]="{
+          sort__button_active: isActive(btn),
+          sort__button_reverse: isDSC(btn)
+        }"
+        (click)="onClickSortBtn(btn.name)"
+      >
+        {{btn.name}}
       </div>
     </div>
   </div>
   <nz-collapse nzExpandIconPosition="right">
+    <ng-template #empty>-</ng-template>
     <nz-collapse-panel
       #p
       *ngFor="let location of locations"
@@ -38,15 +38,233 @@
     >
       <ng-template #header>
         <div class="panel-header">
-          <div>{{location.area.name}}</div>
+          <!-- <div>Населенный пункт</div> -->
           <div>{{location.name}}</div>
         </div>
       </ng-template>
-      <div style="margin: 0">
-        A dog is a type of domesticated animal. Known for its loyalty and
-        faithfulness, it can be found as a welcome guest in many households
-        across the world.
+
+      <div class="panel-content">
+        <div class="panel-content__name">Муниципальное образование</div>
+        <div class="panel-content__value">{{location.area.name}}</div>
       </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Численность
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/users.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">{{location.population}}</div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          АТС
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/phone-call.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div
+            class="panel-content__feature"
+            [class.panel-content__feature_disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+            [class.panel-content__feature_normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
+            *ngFor="let operator of location.ats"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Телефоны
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/payphone.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div
+            class="panel-content__feature"
+            [class.panel-content__feature_disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+            [class.panel-content__feature_normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
+            *ngFor="let operator of location.payphone"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Инфомат
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/table-phone.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <img
+            *ngIf="location.infomat && location.infomat.length > 0 && location.infomat[0].isActive;else empty"
+            src="/assets/table-ok.svg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Почта
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/table-mail.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div
+            class="panel-content__feature"
+            [class.panel-content__feature_disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+            [class.panel-content__feature_normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
+            *ngFor="let operator of location.post"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+            <div *ngIf="operator.postType">
+              <span *ngIf="operator.postType.id === 'POST'">ПС</span>
+              <span *ngIf="operator.postType.id !== 'POST'"
+                >{{operator.postType.name}}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          ТВ
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/table-television.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div
+            class="panel-content__feature"
+            [class.panel-content__feature_disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+            [class.panel-content__feature_normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
+            *ngFor="let operator of location.television"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+            <div *ngIf="operator.type">{{operator.signalsToString()}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Радио
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/microphone.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div
+            class="panel-content__feature"
+            [class.panel-content__feature_disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+            [class.panel-content__feature_normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
+            *ngFor="let operator of location.radio"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+            <div *ngIf="operator.type">{{operator.signalsToString()}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Сотовая связь
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/table-phone-4.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div
+            class="panel-content__feature"
+            [class.panel-content__feature_disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+            [class.panel-content__feature_normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
+            *ngFor="let operator of location.cellular"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+            <div *ngIf="operator.type != 'UNDEFINED'">{{operator.type}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Интернет
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/table-internet.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div
+            class="panel-content__feature"
+            [class.panel-content__feature_disabled]="!operator.isActive || (operator.tc ? operator.tc.quality === 'ABSENT' : false)"
+            [class.panel-content__feature_normal-q]="operator.tc ? operator.tc.quality === 'NORMAL' : false"
+            *ngFor="let operator of location.internet"
+          >
+            <img [src]="operator.iconUrl" alt="" [matTooltip]="operator.name" />
+            <img
+              *ngIf="operator.type != 'Неопределено'"
+              [matTooltip]="operator.type"
+              [src]="operator.typeIcon"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">
+          Программа
+          <img
+            class="panel-content__icon"
+            src="/assets/mobile/icons/table-contract.svg"
+            alt=""
+          />
+        </div>
+        <div class="panel-content__value">
+          <div *ngIf="!location.contract || location.contract.length < 1">
+            -
+          </div>
+          <div
+            *ngFor="let contract of location.contract"
+            style="white-space: nowrap"
+          >
+            {{contract.acronym}}
+            <span *ngIf="contract.govYearComplete">
+              {{contract.govYearComplete}}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <ng-template #expandedIcon let-active>
         {{ active }}
         <span
@@ -59,6 +277,6 @@
     </nz-collapse-panel>
   </nz-collapse>
   <div *ngIf="isLoading" class="spinner-container">
-    <mat-spinner ></mat-spinner>
+    <mat-spinner></mat-spinner>
   </div>
 </div>

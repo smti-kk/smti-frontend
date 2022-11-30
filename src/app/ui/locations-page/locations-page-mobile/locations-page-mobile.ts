@@ -2,9 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '@service/account/AccountService';
 import { LocationTableItem } from '@service/dto/LocationTableItem';
 import { LocationsFullInformationService } from '@service/locations';
+import { OrderingFilter } from '@shared/layout/value-accessors/filter-btn/filter-btn.component';
 import { map } from 'rxjs/operators';
+import { OrderingDirection } from 'src/app/ui/buttons/filter-btn/filter-btn.component';
 import { LoaderService } from 'src/app/ui/loader/LoaderService';
 import { LocationFilters } from 'src/app/ui/locations-page/location-filters/LocationFilters';
+
+type SortBtn = {
+  name: string;
+  order: OrderingDirection;
+};
 
 type LocationPanelItem = LocationTableItem & {
   active: boolean;
@@ -23,24 +30,18 @@ const addPanelControl = (location: LocationTableItem): LocationPanelItem => ({
   styleUrls: ['./locations-page-mobile.scss'],
 })
 export class LocationsPageMobile implements OnInit {
-  panels = [
+  sortBtn: SortBtn[] = [
     {
-      active: true,
-      disabled: false,
-      areaName: 'Абанский р-н',
-      name: 'Абан п.',
+      name: 'Населенные пункты',
+      order: OrderingDirection.UNDEFINED,
     },
     {
-      active: false,
-      disabled: false,
-      areaName: 'Абанский р-н',
-      name: '	Алексеевка д.',
+      name: 'Муниципальные образования',
+      order: OrderingDirection.UNDEFINED,
     },
     {
-      active: false,
-      disabled: false,
-      areaName: 'Абанский р-н',
-      name: 'Апано-Ключи с.',
+      name: 'Численность',
+      order: OrderingDirection.UNDEFINED,
     },
   ];
 
@@ -53,7 +54,6 @@ export class LocationsPageMobile implements OnInit {
 
   constructor(
     private readonly locationsFullInformationService: LocationsFullInformationService,
-    private readonly accountService: AccountService,
     private readonly loaderService: LoaderService
   ) {
     this.loaderService = loaderService;
@@ -73,17 +73,15 @@ export class LocationsPageMobile implements OnInit {
           this.isLoading = false;
           this.loaderService.stopLoader();
         },
-        (error) => {
+        () => {
           this.isLoading = false;
         }
       );
   }
 
   onScrollDown(): void {
-    console.log('onScrollDown');
-
     if (this.isLoading) {
-      return
+      return;
     }
 
     this.page++;
@@ -92,8 +90,6 @@ export class LocationsPageMobile implements OnInit {
       .filteredLocations(this.page, this.countPerPage, this.filters)
       .subscribe(
         (response) => {
-          console.log('response');
-
           this.locations = [
             ...this.locations,
             ...response.content.map(addPanelControl),
@@ -105,5 +101,39 @@ export class LocationsPageMobile implements OnInit {
           this.isLoading = false;
         }
       );
+  }
+
+  isActive(btn: SortBtn) {
+    return (
+      btn.order === OrderingDirection.ASC || btn.order === OrderingDirection.DSC
+    );
+  }
+  isDSC(btn: SortBtn) {
+    return btn.order === OrderingDirection.DSC;
+  }
+
+  onClickSortBtn(btnName: string) {
+    const crnBtn = this.sortBtn.find(({ name }) => name === btnName)!;
+
+    switch (crnBtn.order) {
+      case OrderingDirection.UNDEFINED:
+        crnBtn.order = OrderingDirection.ASC;
+        break;
+      case OrderingDirection.ASC:
+        crnBtn.order = OrderingDirection.DSC;
+        break;
+      case OrderingDirection.DSC:
+        crnBtn.order = OrderingDirection.UNDEFINED;
+        break;
+      default:
+        crnBtn.order = OrderingDirection.UNDEFINED;
+        break;
+    }
+    this.sortBtn.forEach((btn) => {
+      if (btn === crnBtn) {
+        return;
+      }
+      btn.order = OrderingDirection.UNDEFINED;
+    });
   }
 }

@@ -26,7 +26,6 @@ location-filters {
   font-weight: 400;
   line-height: 15px;
   letter-spacing: 0.09px;
-  margin-left: 31px;
 }
 
 .sort {
@@ -57,26 +56,20 @@ location-filters {
     display: flex;
     align-items: center;
     &:after {
-      content: '\f884';
+      content: "\f884";
       display: block;
       margin-left: 4px;
     }
 
     &_active {
-      color: #FF5700;
+      color: #ff5700;
     }
 
-    &_reverse {
-      content: '\f160';
+    &_reverse:after {
+      content: "\f160";
     }
   }
 }
-
-// .search-results {
-//   margin-top: 32px;
-//   overflow-y: auto;
-//   height: calc(100vh - 300px);
-// }
 
 .ant-collapse,
 .ant-collapse-icon-position-right {
@@ -95,7 +88,7 @@ location-filters {
 
       .panel-header {
         display: flex;
-        gap: 104px;
+        justify-content: space-between;
         font-family: "GolosTextWebVF", sans-serif;
         font-style: normal;
         font-weight: 500;
@@ -106,10 +99,52 @@ location-filters {
       }
     }
     ::ng-deep .ant-collapse-content {
-      color: blanchedalmond;
       border: none;
       border-left: 1px solid #e8e8e8;
       border-right: 1px solid #e8e8e8;
+      .ant-collapse-content-box {
+        padding: 0;
+      }
+      .panel-content {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        padding: 8px 16px;
+        border-bottom: 1px solid #d9d9d9;
+        &:last-child {
+          border-bottom: none;
+        }
+        &__name {
+          color: #9d9d9d;
+          display: flex;
+          align-items: center;
+        }
+        &__value {
+          margin-top: 4px;
+          display: flex;
+          gap: 24px;
+        }
+        &__icon {
+          margin-left: 8px;
+        }
+        &__feature {
+          display: flex;
+          gap: 8px;
+          img {
+            width: 16px;
+            height: 16px;
+          }
+          &_normal-q {
+            opacity: 0.6 !important;
+            filter: grayscale(0) !important;
+          }
+          &_disabled {
+            filter: grayscale(1);
+            opacity: 0.3;
+          }
+        }
+      }
     }
   }
 }

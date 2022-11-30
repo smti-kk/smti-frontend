@@ -66,12 +66,17 @@ export class Menu implements OnInit, OnDestroy {
   }
 
   hideMenu = (event: MouseEvent) => {
+    if (!this.isShowMenu) {
+      return
+    }
     const path = event.composedPath() as HTMLElement[];
 
     const isLinkClick = path.some(
       ({ tagName, classList }) =>
         tagName !== 'BUTTON' && classList?.contains('link')
     );
-    this.isShowMenu = !isLinkClick;
+    if (isLinkClick) {
+      this.isShowMenu = false;
+    }
   };
 }
