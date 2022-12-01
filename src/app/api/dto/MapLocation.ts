@@ -39,5 +39,5 @@ export interface MapLocationWithQuality {
     population: number;
     type: string
   };
-  qualities: string;
+  qualities: string | undefined;
 }
