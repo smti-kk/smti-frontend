@@ -12,7 +12,7 @@ const locationDT = ({id, location, qualities}: MapLocationWithQuality): MapLocat
   name: location.name,
   type: location.type,
   id: location.locationId,
-  qualities: qualities.split(', ') as Quality[],
+  qualities: qualities ? qualities.split(', ') as Quality[] : [] ,
   parent: {
     id: location.parent.parentId,
     name: location.parent.parentName,
