@@ -16,6 +16,28 @@ export interface MapLocation {
 }
 
 export interface MapLocationWithQuality {
-  location: MapLocation;
-  qualities: Quality[];
+  id: number;
+  location: {
+    fias:string;
+    geoData: {
+      geoId: number,
+      administrativeCenter: {
+        lng: number;
+        lat: number;
+      }
+    }
+    locationId: number;
+    name: string;
+    okato: string;
+    oktmo: string;
+    parent: {
+      parentId: number;
+      parentLevel: number;
+      parentName: string;
+      parentType: string;
+    };
+    population: number;
+    type: string
+  };
+  qualities: string;
 }
