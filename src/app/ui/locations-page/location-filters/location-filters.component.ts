@@ -61,10 +61,6 @@ export class LocationFiltersComponent implements OnInit {
     this.filters = new EventEmitter<LocationFilters>();
   }
 
-  get isGuest() {
-    return !this.user || this.user.getRole().indexOf('GUEST') !== -1
-  }
-
   ngOnInit(): void {
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
   }

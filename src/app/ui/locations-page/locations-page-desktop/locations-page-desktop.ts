@@ -19,9 +19,6 @@ export class LocationsPageDesktop implements OnInit {
     'areaName',
     'name',
     'population',
-    'hasESPD',
-    'hasSMO',
-    'hasZSPD',
     'ats',
     'payphone',
     'infomat',
@@ -48,20 +45,6 @@ export class LocationsPageDesktop implements OnInit {
   ) {
     accountService.get().subscribe((user) => {
       this.user = user;
-      if (!user || user.getRole().indexOf('GUEST') !== -1) {
-        this.displayedColumns.splice(
-          this.displayedColumns.indexOf('hasESPD'),
-          1
-        );
-        this.displayedColumns.splice(
-          this.displayedColumns.indexOf('hasSMO'),
-          1
-        );
-        this.displayedColumns.splice(
-          this.displayedColumns.indexOf('hasZSPD'),
-          1
-        );
-      }
     });
     this.loaderService = loaderService;
     this.page = 0;

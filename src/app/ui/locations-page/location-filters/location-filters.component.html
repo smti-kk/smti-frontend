@@ -106,22 +106,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="filter" [ngClass]="{ filter_empty: isGuest }">
-          <div class="filter__ap-type-container" *ngIf="!isGuest">
-            <div class="imageable-checkbox connection-points" matTooltip="ЕСПД">
-              <input type="checkbox" formControlName="hasESPD">
-              <img src="/assets/table-computer.svg" alt="">
-            </div>
-            <div class="imageable-checkbox connection-points" matTooltip="СЗО">
-              <input type="checkbox" formControlName="hasSMO">
-              <img src="/assets/table-house.svg" alt="">
-            </div>
-            <div class="imageable-checkbox connection-points" matTooltip="ЗСПД">
-              <input type="checkbox" formControlName="hasZSPD">
-              <img src="/assets/table-radio.svg" alt="">
-            </div>
-          </div>
-        </div>
+        <div class="filter filter_empty"></div>
         <div class="filter">
           <div class="filters__column-label">
             <div class="filters__column-label-text">Оператор (сотовый):</div>
