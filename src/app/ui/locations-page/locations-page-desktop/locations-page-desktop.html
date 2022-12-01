@@ -90,33 +90,6 @@
           <td class="text-align-center" mat-cell *matCellDef="let location"> {{location.population}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="hasESPD">
-          <th mat-header-cell *matHeaderCellDef>
-            <img src="/assets/table-computer.svg" matTooltip="ЕСПД" alt="">
-          </th>
-          <td mat-cell *matCellDef="let location">
-            <img *ngIf="location.hasESPD" src="/assets/table-ok.svg" alt="">
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="hasSMO">
-          <th mat-header-cell *matHeaderCellDef>
-            <img src="/assets/table-house.svg" matTooltip="СЗО" alt="">
-          </th>
-          <td class="text-align-center" mat-cell *matCellDef="let location">
-            <img *ngIf="location.hasSMO" src="/assets/table-ok.svg" alt="">
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="hasZSPD">
-          <th class="text-align-center" mat-header-cell *matHeaderCellDef>
-            <img src="/assets/table-radio.svg" matTooltip="ЗСПД" alt="">
-          </th>
-          <td mat-cell *matCellDef="let location">
-            <img *ngIf="location.hasZSPD" src="/assets/table-ok.svg" alt="">
-          </td>
-        </ng-container>
-
         <ng-container matColumnDef="ats">
           <th mat-header-cell *matHeaderCellDef>
             <img src="/assets/table-phone.svg" matTooltip="АТС" alt="">
