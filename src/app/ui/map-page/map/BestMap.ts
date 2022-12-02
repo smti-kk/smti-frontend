@@ -289,7 +289,8 @@ export class BestMap implements OnInit, OnDestroy {
           key !== 'locations' &&
           key !== 'locationsWithCellular' &&
           key !== 'locationsWithoutCellular' &&
-          key !== 'trunkChannels'
+          key !== 'trunkChannels' &&
+          key !== 'locationsWithQuality'
       )
       .forEach((key) => {
         this.pointsLayers[key]
