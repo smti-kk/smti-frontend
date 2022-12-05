@@ -344,19 +344,19 @@
                       switchStatusText;
                       context: {
                         action: edit.action,
-                        type: edit.tc.type,
+                        type: edit.tc?.type,
                         text:
-                          edit.tc.operator.name +
+                          edit.tc?.operator.name +
                           ' ' +
-                          (edit.tc.trunkChannel ? edit.tc.trunkChannel?.name : '') +
-                          (edit.tc.typeMobile
-                            ? edit.tc.typeMobile.name +
+                          (edit.tc?.trunkChannel ? edit.tc?.trunkChannel?.name : '') +
+                          (edit.tc?.typeMobile
+                            ? edit.tc?.typeMobile.name +
                               ' (' +
                               qualityToString(edit.tc?.quality) +
                               ')'
                             : '') +
-                          (edit.tc.typePost ? edit.tc.typePost.name : '') +
-                          (edit.tc.tvOrRadioTypes ? signalsToString(edit.tc.tvOrRadioTypes) : '')
+                          (edit.tc?.typePost ? edit.tc?.typePost.name : '') +
+                          (edit.tc?.tvOrRadioTypes ? signalsToString(edit.tc?.tvOrRadioTypes) : '')
                       }
                     "
                   >
@@ -364,15 +364,15 @@
                 </ng-container>
 
                 <ng-container *ngIf="edit.action == 'UPDATE'">
-                  {{ edit.tc.tvOrRadioTypes ? signalsToString(edit.tc.tvOrRadioTypes) : '--' }}
+                  {{ edit.tc?.tvOrRadioTypes ? signalsToString(edit.tc?.tvOrRadioTypes) : '--' }}
                   <ng-container
                     *ngTemplateOutlet="
                       updateStatus;
                       context: {
-                        name: edit.tc.operator.name,
-                        type: edit.tc.type,
+                        name: edit.tc?.operator.name,
+                        type: edit.tc?.type,
                         beforeText:
-                          (edit.tc.payphones ? edit.tc.payphones : '') +
+                          (edit.tc?.payphones ? edit.tc?.payphones : '') +
                           (edit.tc?.trunkChannel
                             ? edit.tc?.trunkChannel?.name +
                               ' (' +
@@ -385,12 +385,12 @@
                               qualityToString(edit.tc?.quality) +
                               ')'
                             : '') +
-                          (edit.tc.typePost ? edit.tc.typePost?.name : '') +
-                          (edit.tc.tvOrRadioTypes ? signalsToString(edit.tc.tvOrRadioTypes) : ''),
+                          (edit.tc?.typePost ? edit.tc?.typePost?.name : '') +
+                          (edit.tc?.tvOrRadioTypes ? signalsToString(edit.tc?.tvOrRadioTypes) : ''),
                         lastText:
-                          (edit.newValue.payphones ? edit.newValue.payphones : '') +
+                          (edit.newValue?.payphones ? edit.newValue?.payphones : '') +
                           (edit.newValue?.trunkChannel
-                            ? edit.newValue?.trunkChannel?.name +
+                            ? edit.newValue.trunkChannel?.name +
                               ' (' +
                               qualityToString(edit.newValue?.quality) +
                               ')'
@@ -401,9 +401,9 @@
                               qualityToString(edit.newValue?.quality) +
                               ')'
                             : '') +
-                          (edit.newValue.typePost ? edit.newValue.typePost.name : '') +
-                          (edit.newValue.tvOrRadioTypes
-                            ? signalsToString(edit.newValue.tvOrRadioTypes)
+                          (edit.newValue?.typePost ? edit.newValue?.typePost.name : '') +
+                          (edit.newValue?.tvOrRadioTypes
+                            ? signalsToString(edit.newValue?.tvOrRadioTypes)
                             : '')
                       }
                     "
