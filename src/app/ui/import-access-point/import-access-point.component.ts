@@ -1,15 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {IMPORT_ACCESS_POINT, IMPORT_LOCATION, IMPORT_TC_INTERNET, IMPORT_TC_PAYPHONE, IMPORT_TRUNK_CHANNEL} from '@core/constants/api';
-import {saveAs} from 'file-saver';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  IMPORT_ACCESS_POINT,
+  IMPORT_LOCATION,
+  IMPORT_TC_INTERNET,
+  IMPORT_TC_PAYPHONE,
+  IMPORT_TRUNK_CHANNEL,
+} from '@core/constants/api';
+import { saveAs } from 'file-saver';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'import-access-point-page',
   templateUrl: './import-access-point.component.html',
-  styleUrls: ['./import-access-point.component.scss']
+  styleUrls: ['./import-access-point.component.scss'],
 })
 export class ImportAccessPointComponent implements OnInit {
-
   public file: File;
 
   public fileError: File = null;
@@ -22,10 +28,22 @@ export class ImportAccessPointComponent implements OnInit {
 
   public importFailure = 0;
 
-  constructor(private readonly http: HttpClient) { }
+  public importAccessPointUrl = IMPORT_ACCESS_POINT;
 
-  ngOnInit(): void {
-  }
+  public buttons = [
+    {
+      label: 'ЕСПД',
+      value: 'ESPD'
+    },
+    {
+      label: 'СЗО',
+      value: 'SMO'
+    }
+  ]
+
+  constructor(private readonly http: HttpClient) {}
+
+  ngOnInit(): void {}
 
   public selectFile(event) {
     this.file = event.target.files[0];
@@ -43,13 +61,17 @@ export class ImportAccessPointComponent implements OnInit {
   }
 
   private sendFile(file: File) {
-    this.http.post(IMPORT_ACCESS_POINT, this.createForm(file), {responseType: 'blob'})
-      .subscribe(response => {
+    this.http
+      .post(IMPORT_ACCESS_POINT, this.createForm(file), {
+        responseType: 'blob',
+      })
+      .subscribe(
+        (response) => {
           this.answer = 'Импорт завершён успешно.';
           this.successImport = true;
           this.fileError = null;
         },
-        error => {
+        (error) => {
           if (error.headers.get('import-message') === 'error') {
             this.answer = 'Найдены ошибки в файле.';
             this.importSuccess = error.headers.get('import-success');
@@ -79,4 +101,33 @@ export class ImportAccessPointComponent implements OnInit {
   public getFileName() {
     return this.file ? this.file.name : null;
   }
+
+  getContext(files: NzUploadFile[]) {
+    const res =  files.map((file) => ({
+      name: file.name,
+      status: file.status,
+      answer: 'ok',
+      errors: {
+        importSuccess: 10,
+        importError: 20,
+        file: 'gg',
+      },
+    }));
+    console.log(res);
+    return res
+  }
+  hasErrorInFile(file: NzUploadFile) {
+    if (file.error instanceof HttpErrorResponse) {
+      console.log(file.error);
+
+      return {
+        importSuccess: 10,
+        importFailure: 20,
+        file: 'gg',
+      }
+    }
+    return null;
+  }
+
+  getAnswerMessage(file: NzUploadFile) {}
 }

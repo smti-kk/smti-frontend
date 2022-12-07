@@ -1,27 +1,48 @@
-<br>
-<div class="name-import">
-Импорт точек доступа и организаций
-</div>
-<br>
-<br>
-<br>
-<div class="select-file">
-  <input type="file" name="file" id="fileImport" class="input-file" (change)="selectFile($event)">
-  <label for="fileImport">Выберите файл для импорта</label>
-  <span>: {{getFileName()}}</span>
-</div>
-<br>
-<br>
-<br>
-<br>
-<div [ngClass]="successImport ? 'successImport' : 'errorImport'"
->{{answer}}</div>
-<br>
-<br>
-<div *ngIf="fileError !== null" class="select-file">
-  <div>Успешно импортировано строк: {{importSuccess}}</div>
-  <div>Строк с ошибками: {{importFailure}}</div>
-  <br>
-  <input type="button" name="fileError" id="fileImportError" class="input-file" (click)="saveFileError()">
-  <label for="fileImportError">Скачать файл с ошибками</label>
-</div>
+<ng-container *ngFor="let button of buttons">
+  <nz-form-item>
+    <nz-form-label>Импорт точек {{ button.label }}</nz-form-label>
+    <nz-form-control>
+      <nz-upload
+        [nzAction]="importAccessPointUrl"
+        [nzData]="{ apType: button.value }"
+        [nzFileListRender]="fileListRender"
+      >
+        <button nz-button class="import-btn">Выберите файл для импорта</button>
+        <ng-template #fileListRender let-files>
+          <ng-container *ngFor="let file of files">
+            <div class="file">
+              <div>
+                <span nz-icon nzType="paper-clip" nzTheme="outline"></span>
+                {{ file.name }}
+              </div>
+              <div
+                [ngClass]="
+                  file.status === 'success' ? 'successImport' : 'errorImport'
+                "
+              >
+                {{ file.answer }}
+              </div>
+              <div
+                *ngIf="hasErrorInFile(file) as importRes"
+                class="select-file"
+              >
+                <div>
+                  Успешно импортировано строк: {{ importRes.importSuccess }}
+                </div>
+                <div>Строк с ошибками: {{ importRes.importFailure }}</div>
+                <button
+                  (click)="saveFileError()"
+                  nz-tooltip
+                  nz-button
+                  nzTooltipTitle="Скачать файл с ошибками"
+                >
+                  <span nz-icon nzType="download" nzTheme="outline"></span>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-template>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+</ng-container>

@@ -40,3 +40,18 @@
   font-size: 16px;
   padding-left: 20px;
 }
+
+// :host {
+//   padding: 20px;
+//   display: block;
+// }
+
+.import-btn {
+  font-weight: 300;
+  font-size: 16px;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  background-color: lightgray;
+}

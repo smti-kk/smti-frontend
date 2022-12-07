@@ -116,7 +116,7 @@ import {SortDirective} from "./directives/sort.directive";
 import {CoreModule} from "@core/core.module";
 import {SharedModule} from "@shared/shared.module";
 import {JournalComponent} from "./journal/journal.component";
-import {NzDatePickerModule, NzFormModule} from "ng-zorro-antd";
+import {NzDatePickerModule, NzFormModule, NzToolTipModule} from "ng-zorro-antd";
 import {MunRequestsArchiveComponent} from './mun-requests/mun-requests-archive/mun-requests-archive.component';
 import {MunRequestsFiltersComponent} from './mun-requests/mun-requests-filters/mun-requests-filters.component';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -135,6 +135,7 @@ import {NZ_ICONS, NzIconModule} from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { LocationsFilterMobileComponent } from './locations-page/locations-filter-mobile/locations-filter-mobile.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 registerLocaleData(ru);
 
 const toastrConfig = {
@@ -277,6 +278,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     ToastrModule.forRoot(toastrConfig),
     NzCollapseModule,
     NzIconModule,
+    NzUploadModule,
+    NzToolTipModule,
   ],
   exports: [SortDirective, CoreModule, SharedModule],
   providers: [
