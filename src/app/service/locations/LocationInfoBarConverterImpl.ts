@@ -16,7 +16,7 @@ export class LocationInfoBarConverterImpl implements LocationInfoBarConverter {
       locationName: location.type + ' ' + location.name,
       population: location.population,
       mail: this.operatorIconsFactory.postIcons(operators.post, location.technicalCapability, 'POST'),
-      payphone: this.operatorIconsFactory.operatorIcons(operators.ats, location.technicalCapability, 'ATS'),
+      payphone: this.operatorIconsFactory.operatorIcons(operators.payphone, location.technicalCapability, 'PAYPHONE'),
       tv: this.operatorIconsFactory.tvOrRadioIcons(operators.television, location.technicalCapability, 'TV'),
       internet: this.operatorIconsFactory.internetIcons(operators.internet, location.technicalCapability, 'INET'),
       cellular: this.operatorIconsFactory.cellularIcons(operators.mobile, location.technicalCapability, 'MOBILE'),
