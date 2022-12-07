@@ -344,10 +344,10 @@
                       switchStatusText;
                       context: {
                         action: edit.action,
-                        type: edit.tc?.type,
+                        isTc: (edit.tc ? true : false),
+                        type: (edit.tc ? edit.tc?.type : edit.ap ? edit.ap?.type : ''),
                         text:
-                          edit.tc?.operator.name +
-                          ' ' +
+                          (edit.tc?.operator ? edit.tc?.operator.name + ' ' : '') +
                           (edit.tc?.trunkChannel ? edit.tc?.trunkChannel?.name : '') +
                           (edit.tc?.typeMobile
                             ? edit.tc?.typeMobile.name +
@@ -356,7 +356,10 @@
                               ')'
                             : '') +
                           (edit.tc?.typePost ? edit.tc?.typePost.name : '') +
-                          (edit.tc?.tvOrRadioTypes ? signalsToString(edit.tc?.tvOrRadioTypes) : '')
+                          (edit.tc?.tvOrRadioTypes ? signalsToString(edit.tc?.tvOrRadioTypes) : '') +
+
+                          (edit.ap ? 'по адресу ' : '') +
+                          (edit.ap?.address ? edit.ap.address : '')
                       }
                     "
                   >
@@ -364,13 +367,14 @@
                 </ng-container>
 
                 <ng-container *ngIf="edit.action == 'UPDATE'">
-                  {{ edit.tc?.tvOrRadioTypes ? signalsToString(edit.tc?.tvOrRadioTypes) : '--' }}
+                  {{ edit.ap ? '' : edit.tc?.tvOrRadioTypes ? signalsToString(edit.tc?.tvOrRadioTypes) : '--' }}
                   <ng-container
                     *ngTemplateOutlet="
                       updateStatus;
                       context: {
-                        name: edit.tc?.operator.name,
-                        type: edit.tc?.type,
+                        isTc: (edit.tc ? true : false),
+                        name: (edit.tc?.operator ? edit.tc?.operator.name : ''),
+                        type: (edit.tc ? edit.tc?.type : edit.ap ? edit.ap?.type : ''),
                         beforeText:
                           (edit.tc?.payphones ? edit.tc?.payphones : '') +
                           (edit.tc?.trunkChannel
@@ -404,7 +408,9 @@
                           (edit.newValue?.typePost ? edit.newValue?.typePost.name : '') +
                           (edit.newValue?.tvOrRadioTypes
                             ? signalsToString(edit.newValue?.tvOrRadioTypes)
-                            : '')
+                            : ''),
+                        ap: edit.ap,
+                        newAp: edit.newValueAp
                       }
                     "
                   ></ng-container>
@@ -416,9 +422,15 @@
       </div>
     </div>
 
-    <ng-template #switchStatusText let-action="action" let-type="type" let-text="text">
-      <span class="underline">{{ getType(type) }}:</span>
-      {{ getAction(action) }} {{ text }}
+    <ng-template #switchStatusText let-action="action" let-type="type" let-text="text" let-isTc="isTc">
+      <ng-container *ngIf="isTc">
+        <span class="underline">{{ getTcType(type) }}:</span>
+      {{ getAction(action, false) }} {{ text }}
+      </ng-container>
+      <ng-container *ngIf="!isTc">
+        <span class="underline">{{ getApType(type) }}:</span>
+      {{ getAction(action, true) }} {{ text }}
+      </ng-container>
     </ng-template>
 
     <ng-template
@@ -427,22 +439,32 @@
       let-type="type"
       let-beforeText="beforeText"
       let-lastText="lastText"
+      let-isTc="isTc"
+      let-ap="ap"
+      let-newAp="newAp"
     >
-      <span class="underline">{{ getType(type) }} {{ name }}:</span>
-      <ng-container *ngIf="type == 'PAYPHONE'">
-        Количество {{ beforeText }} -> {{ lastText }}
+      <ng-container *ngIf="isTc">
+        <span class="underline">{{ getTcType(type) }} {{ name }}:</span>
+        <ng-container *ngIf="type == 'PAYPHONE'">
+          Количество {{ beforeText }} -> {{ lastText }}
+        </ng-container>
+        <ng-container *ngIf="type == 'INET'">
+          Изменен тип подключения с {{ beforeText }} на {{ lastText }}
+        </ng-container>
+        <ng-container *ngIf="type == 'MOBILE'">
+          Изменен тип сотовой связи с {{ beforeText }} на {{ lastText }}
+        </ng-container>
+        <ng-container *ngIf="type == 'POST'">
+          Изменен тип почты с {{ beforeText }} на {{ lastText }}
+        </ng-container>
+        <ng-container *ngIf="type == 'RADIO'">
+          Изменен тип радио с {{ beforeText }} на {{ lastText }}
+        </ng-container>
       </ng-container>
-      <ng-container *ngIf="type == 'INET'">
-        Изменен тип подключения с {{ beforeText }} на {{ lastText }}
-      </ng-container>
-      <ng-container *ngIf="type == 'MOBILE'">
-        Изменен тип сотовой связи с {{ beforeText }} на {{ lastText }}
-      </ng-container>
-      <ng-container *ngIf="type == 'POST'">
-        Изменен тип почты с {{ beforeText }} на {{ lastText }}
-      </ng-container>
-      <ng-container *ngIf="type == 'RADIO'">
-        Изменен тип радио с {{ beforeText }} на {{ lastText }}
+      
+      <ng-container *ngIf="!isTc">
+        <span class="underline">{{ getApType(type) }}:</span>
+        {{ getChangesText(getChangesInAp(ap, newAp)) }}
       </ng-container>
     </ng-template>
   </div>
