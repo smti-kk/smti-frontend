@@ -1,50 +1,7 @@
-.name-import {
-  font-weight: 600;
-  font-size: 16px;
-  padding-left: 20px;
+:host {
+  padding: 20px;
+  display: block;
 }
-
-.select-file {
-  font-weight: 300;
-  font-size: 16px;
-  padding-left: 20px;
-
-  label {
-    cursor: pointer;
-    border-width: 1px;
-    border-style: solid;
-    padding: 10px;
-    background-color: lightgray;
-  }
-
-  .input-file {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-  }
-}
-
-.errorImport {
-  color: red;
-  font-weight: 300;
-  font-size: 16px;
-  padding-left: 20px;
-}
-
-.successImport {
-  color: green;
-  font-weight: 300;
-  font-size: 16px;
-  padding-left: 20px;
-}
-
-// :host {
-//   padding: 20px;
-//   display: block;
-// }
 
 .import-btn {
   font-weight: 300;
@@ -54,4 +11,25 @@
   border-style: solid;
   padding: 10px;
   background-color: lightgray;
+}
+.files-list {
+  padding: 8px;
+}
+
+.file {
+  font-weight: 300;
+  font-size: 16px;
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &_success {
+    color: green;
+  }
+
+  &_error {
+    color: red;
+  }
 }

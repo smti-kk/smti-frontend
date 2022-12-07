@@ -1,14 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import {
-  IMPORT_ACCESS_POINT,
-  IMPORT_LOCATION,
-  IMPORT_TC_INTERNET,
-  IMPORT_TC_PAYPHONE,
-  IMPORT_TRUNK_CHANNEL,
-} from '@core/constants/api';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { IMPORT_ACCESS_POINT } from '@core/constants/api';
 import { saveAs } from 'file-saver';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
+import { Subscription } from 'rxjs';
+
+enum errorType {
+  inFile = 'error',
+  format = 'format-error',
+  npp = 'npp-error',
+  unexpected = 'unexpected',
+  unknown = 'unknown',
+}
+
+interface CommonErrorUpload {
+  type: errorType;
+  message: string;
+}
+
+interface ErrorInUploadFile extends CommonErrorUpload {
+  type: errorType.inFile;
+  importSuccess: number;
+  importFailure: number;
+  file: File;
+}
+
+type ErrorUpload = ErrorInUploadFile | CommonErrorUpload;
 
 @Component({
   selector: 'import-access-point-page',
@@ -16,118 +33,96 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
   styleUrls: ['./import-access-point.component.scss'],
 })
 export class ImportAccessPointComponent implements OnInit {
-  public file: File;
-
-  public fileError: File = null;
-
-  public answer: string;
-
-  public successImport = false;
-
-  public importSuccess = 0;
-
-  public importFailure = 0;
-
   public importAccessPointUrl = IMPORT_ACCESS_POINT;
 
   public buttons = [
     {
       label: 'ЕСПД',
-      value: 'ESPD'
+      value: 'ESPD',
     },
     {
       label: 'СЗО',
-      value: 'SMO'
-    }
-  ]
+      value: 'SMO',
+    },
+  ];
 
   constructor(private readonly http: HttpClient) {}
 
   ngOnInit(): void {}
 
-  public selectFile(event) {
-    this.file = event.target.files[0];
-    this.sendFile(this.file);
+  public saveFileError(file: File) {
+    saveAs(file);
   }
 
-  public saveFileError() {
-    let name: string;
-    if (this.file === null) {
-      name = 'Ошибки импорта.xlsx';
-    } else {
-      name = this.file.name.replace('.xls', ' (ошибки).xls');
-    }
-    saveAs(this.fileError, decodeURI(name));
-  }
+  public isErrorInUploadFile = (
+    error: ErrorUpload | null
+  ): error is ErrorInUploadFile => {
+    return error?.type === 'error';
+  };
 
-  private sendFile(file: File) {
-    this.http
-      .post(IMPORT_ACCESS_POINT, this.createForm(file), {
-        responseType: 'blob',
-      })
-      .subscribe(
-        (response) => {
-          this.answer = 'Импорт завершён успешно.';
-          this.successImport = true;
-          this.fileError = null;
-        },
-        (error) => {
-          if (error.headers.get('import-message') === 'error') {
-            this.answer = 'Найдены ошибки в файле.';
-            this.importSuccess = error.headers.get('import-success');
-            this.importFailure = error.headers.get('import-failure');
-            this.fileError = error.error;
-          } else if (error.headers.get('import-message') === 'format-error') {
-            this.answer = 'Неправильный тип файла.';
-            this.fileError = null;
-          } else if (error.headers.get('import-message') === 'npp-error') {
-            this.answer = 'Не все "№ п/п" заполнены.';
-            this.fileError = null;
-          } else if (error.headers.get('import-message') === 'unexpected') {
-            this.answer = 'Непредвиденная ошибка.';
-            this.fileError = null;
-          }
-          this.successImport = false;
-        }
-      );
-  }
-
-  private createForm(file: File): FormData {
-    const form = new FormData();
-    form.append('file', file, file.name);
-    return form;
-  }
-
-  public getFileName() {
-    return this.file ? this.file.name : null;
-  }
-
-  getContext(files: NzUploadFile[]) {
-    const res =  files.map((file) => ({
-      name: file.name,
-      status: file.status,
-      answer: 'ok',
-      errors: {
-        importSuccess: 10,
-        importError: 20,
-        file: 'gg',
-      },
-    }));
-    console.log(res);
-    return res
-  }
-  hasErrorInFile(file: NzUploadFile) {
-    if (file.error instanceof HttpErrorResponse) {
-      console.log(file.error);
-
-      return {
-        importSuccess: 10,
-        importFailure: 20,
-        file: 'gg',
+  public uploadFile = (options: NzUploadXHRArgs): Subscription => {
+    const { data } = options;
+    const formData = new FormData();
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        const element = data[key];
+        formData.append(key, element);
       }
     }
-    return null;
-  }
+    formData.append('file', options.postFile as File, options.file.name);
+    return this.http
+      .post(IMPORT_ACCESS_POINT, formData, {
+        responseType: 'blob',
+      })
+      .subscribe({
+        next: (res) => options.onSuccess(res, options.file, null),
+        error: (error) => {
+          if (error instanceof HttpErrorResponse) {
+            const { headers, error: fileErrorDescription } = error;
+            let errorDescription: ErrorUpload | null = null;
 
-  getAnswerMessage(file: NzUploadFile) {}
+            switch (headers.get('import-message')) {
+              case errorType.inFile:
+                errorDescription = {
+                  type: errorType.inFile,
+                  importSuccess: parseInt(headers.get('import-success')) ?? 0,
+                  importFailure: parseInt(headers.get('import-failure')) ?? 0,
+                  file: new File(
+                    [fileErrorDescription],
+                    options.file.name.replace('.xls', ' (ошибки).xls')
+                  ),
+                  message: 'Найдены ошибки в файле.',
+                };
+                break;
+              case errorType.format:
+                errorDescription = {
+                  type: errorType.format,
+                  message: 'Неправильный тип файла.',
+                };
+                break;
+              case errorType.npp:
+                errorDescription = {
+                  type: errorType.npp,
+                  message: 'Не все "№ п/п" заполнены.',
+                };
+                break;
+              case errorType.unexpected:
+                errorDescription = {
+                  type: errorType.unexpected,
+                  message: 'Непредвиденная ошибка.',
+                };
+                break;
+              default:
+                errorDescription = {
+                  type: errorType.unknown,
+                  message: 'Неизвестная ошибка',
+                };
+                break;
+            }
+            return options.onError(errorDescription, options.file);
+          }
+          return options.onError(error, options.file);
+        },
+      });
+  };
 }
