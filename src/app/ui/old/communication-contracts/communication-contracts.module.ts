@@ -10,23 +10,28 @@ import {CoreModule} from '@core/core.module';
 import {SharedModule} from '@shared/shared.module';
 
 import {CommunicationContractsComponent} from './communication-contracts/communication-contracts.component';
-import {NzDatePickerModule, NzFormModule, NzIconModule, NzInputModule, NzModalModule, NzSelectModule} from 'ng-zorro-antd';
+import {NzCheckboxModule, NzDatePickerModule, NzFormModule, NzIconModule, NzInputModule, NzModalModule, NzSelectModule} from 'ng-zorro-antd';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatButtonModule} from "@angular/material/button";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ContractDetailComponent } from './contract-detail/contract-detail.component';
 
 const routes: Routes = [
   {
     path: '',
     component: CommunicationContractsComponent,
   },
+  {
+    path: ':id',
+    component: ContractDetailComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [CommunicationContractsComponent],
+  declarations: [CommunicationContractsComponent, ContractDetailComponent],
   imports: [
     HttpClientModule,
     CommonModule,
@@ -48,7 +53,8 @@ const routes: Routes = [
     MatSelectModule,
     NgxMatSelectSearchModule,
     ScrollingModule,
-    MatButtonModule
+    MatButtonModule,
+    NzCheckboxModule,
   ],
 })
 export class CommunicationContractsModule {}

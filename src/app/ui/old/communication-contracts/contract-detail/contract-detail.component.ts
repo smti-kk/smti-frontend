@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+import {NzModalService} from 'ng-zorro-antd';
 
-import {Location, Organization, participationStatusToString, qualityToString} from '@core/models';
 import {OrganizationsService} from '@core/services';
 import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
+import {Location, Organization, participationStatusToString, qualityToString} from '@core/models';
 import {Reaccesspoint} from '@core/models/reaccesspoint';
-import {NzModalService} from 'ng-zorro-antd';
 import {FormAccessPointComponent} from '@shared/components/form-access-point/form-access-point.component';
 import {FomMonitoringWizardComponent} from '@shared/components/fom-monitoring-wizard/fom-monitoring-wizard.component';
 
 @Component({
-  selector: 'app-organization-detail',
-  templateUrl: './organization-detail.component.html',
-  styleUrls: ['./organization-detail.component.scss'],
+  selector: 'app-contract-detail',
+  templateUrl: './contract-detail.component.html',
+  styleUrls: ['./contract-detail.component.scss']
 })
-export class OrganizationDetailComponent implements OnInit {
+export class ContractDetailComponent implements OnInit {
   organization: Organization;
 
   organizationParent: string;
@@ -64,7 +64,7 @@ export class OrganizationDetailComponent implements OnInit {
       nzComponentParams: {
         organization: this.organization,
         mode: 'CREATE',
-        type: 'ESPD'
+        type: 'SMO',
       },
     });
   }

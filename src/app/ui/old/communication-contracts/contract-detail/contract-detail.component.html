@@ -1,0 +1,201 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<main class="main" *ngIf="organization">
+  <div class="wrapper">
+    <div class="breadcrumbs">
+      <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-item">
+          <a class="breadcrumbs-link" href="#">Главная</a>
+        </li>
+        <li class="breadcrumbs-item">Сводные таблицы</li>
+        <li class="breadcrumbs-item">
+          <a class="breadcrumbs-link" routerLink="/communication-contracts"
+            >СЗО</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <h2>{{ organization.location.type }} {{ organization.location.name }}</h2>
+    <h2>{{ organization.location.parent }}</h2>
+    <div class="container">
+      <div>
+        <app-form-organization
+          [organizationForEditParent]="organizationParent"
+          [organizationForEdit]="organization"
+        ></app-form-organization>
+      </div>
+      <div class="wrapper-points">
+        <h2>Точки подключения</h2>
+        <div class="points">
+          <div *ngFor="let ap of points$ | async" class="point">
+            <div class="point-type" [ngSwitch]="ap.type">
+              <ng-container *ngSwitchCase="'SMO'">
+                <img
+                  src="assets/smo.png"
+                  alt="{{ ap?.type }}"
+                  class="point-img"
+                /><span>СЗО</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'ESPD'">
+                <img
+                  src="assets/espd.png"
+                  alt="{{ ap?.type }}"
+                  class="point-img"
+                /><span>ЕСПД</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'CONTRACT'">
+                <img
+                  src="assets/contract.png"
+                  alt="{{ ap?.type }}"
+                  class="point-img"
+                /><span>Контракт</span>
+              </ng-container>
+            </div>
+            <table>
+              <tr>
+                <td>Адрес</td>
+                <td>{{ ap.address }}</td>
+              </tr>
+              <tr>
+                <td>Широта</td>
+                <td>{{ ap.point.lat }}</td>
+              </tr>
+              <tr>
+                <td>Долгота</td>
+                <td>{{ ap.point.lng }}</td>
+              </tr>
+              <tr>
+                <td>Отображается</td>
+                <td>
+                  <label nz-checkbox disabled [(ngModel)]="ap.visible"></label>
+                </td>
+              </tr>
+              <tr>
+                <td>Тип подключения</td>
+                <td>{{ ap.connectionTypeString }}</td>
+              </tr>
+              <tr>
+                <td>Скорость подключения, Мбит/с</td>
+                <td>{{ ap.declaredSpeed }}</td>
+              </tr>
+              <ng-container *ngIf="ap.type === 'SMO'">
+                <tr>
+                  <td>Дата ввода в эксплуатацию</td>
+                  <td>{{ ap.dateCommissioning  | date:'dd/MM/yyyy' }}</td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td>ID (по контракту)</td>
+                <td>{{ ap.contractId }}</td>
+              </tr>
+              <ng-container *ngIf="ap.type === 'ESPD'">
+                <tr>
+                  <td>Белый IP ЕСПД</td>
+                  <td>{{ ap.espdWhileIp }}</td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td>Контакты</td>
+                <td>{{ ap.contacts }}</td>
+              </tr>
+              <tr>
+                <td>Изменение</td>
+                <td>{{ ap.change }}</td>
+              </tr>
+              <tr>
+                <td>Дата подключения / изменения</td>
+                <td>{{ ap.dateConnectionOrChange | date:'dd/MM/yyyy' }}</td>
+              </tr>
+              <tr>
+                <td>№ вх. письма от ведомства</td>
+                <td>{{ ap.numIncomingMessage }}</td>
+              </tr>
+              <ng-container *ngIf="ap.type === 'ESPD'">
+                <tr>
+                  <td>№ исх. письма на РТК</td>
+                  <td>{{ ap.numSourceEmailsRTK }}</td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td>Комментарии</td>
+                <td>{{ ap.commentary }}</td>
+              </tr>
+              <tr>
+                <td>Оператор связи</td>
+                <td>{{ ap.contractor }}</td>
+              </tr>
+              <ng-container *ngIf="ap.type === 'ESPD'">
+                <tr>
+                  <td>Разовый, руб. с НДС</td>
+                  <td>{{ ap.oneTimePay }}</td>
+                </tr>
+                <tr>
+                  <td>Ежемес., руб. с НДС</td>
+                  <td>{{ ap.monthlyPay }}</td>
+                </tr>
+                <tr>
+                  <td>контракт</td>
+                  <td>{{ ap.contract }}</td>
+                </tr>
+                <tr>
+                  <td>Белый IP ЗСПД</td>
+                  <td>{{ ap.zspdWhiteIp }}</td>
+                </tr>
+                <tr>
+                  <td>Наличие ЗСПД / способ подключения к ЗСПД</td>
+                  <td>{{ ap.availZspdOrMethodConToZspd }}</td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td colspan="2">Связь мониторинга</td>
+              </tr>
+              <tr>
+                <td>Связь с билингом</td>
+                <td>
+                  <label nz-checkbox disabled [(ngModel)]="ap.utm5"></label>
+                </td>
+              </tr>
+              <tr>
+                <td>Связь с мониторингом</td>
+                <td>
+                  <label nz-checkbox disabled [(ngModel)]="ap.zabbix"></label>
+                </td>
+              </tr>
+            </table>
+            <div class="btn-group">
+              <button
+                mat-raised-button
+                [disabled]="ap.utm5 && ap.zabbix"
+                type="button"
+                (click)="initMonitoringAccessPoint(ap)"
+              >
+                Подключить к мониторингу
+              </button>
+              <button
+                mat-raised-button
+                type="button"
+                (click)="editAccessPoint(ap)"
+              >
+                Редактировать точку
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn"
+            (click)="addNewAccessPoint()"
+            *ngIf="!ap && organization.id"
+          >
+            Добавить точку подключения
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<ng-template #suffixIconSelect>
+  <i nz-icon nzType="caret-down" nzTheme="outline" style="color: #ff5700"></i>
+</ng-template>

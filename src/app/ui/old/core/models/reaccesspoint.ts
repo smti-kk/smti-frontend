@@ -52,7 +52,7 @@ export class Reaccesspoint extends MonitoringPoint {
 
   @autoserializeAs('connectionState')
   private readonly _connectionState: string;
-  
+
   @autoserializeAs('contractor')
   private readonly _contractor: string;
 
@@ -144,6 +144,48 @@ export class Reaccesspoint extends MonitoringPoint {
   @deserializeAs(Organization, 'organization')
   @serializeAs('organization')
   private readonly _organization: Organization;
+
+  @autoserializeAs('zspdWhiteIp')
+  private readonly _zspdWhiteIp: string;
+
+  @autoserializeAs('contract')
+  private readonly _contract: string;
+
+   @autoserializeAs('numIncomingMessage')
+  private readonly _numIncomingMessage: string;
+
+   @autoserializeAs('numSourceEmailsRTK')
+  private readonly _numSourceEmailsRTK: string;
+
+   @autoserializeAs('mounthlyPay')
+  private readonly _monthlyPay: number;
+
+   @autoserializeAs('oneTimePay')
+  private readonly _oneTimePay: number;
+
+   @autoserializeAs('espdWhiteIp')
+  private readonly _espdWhiteIp: string;
+
+   @autoserializeAs('contractId')
+  private readonly _contractId: number;
+
+   @autoserializeAs('availZspdOrMethodConToZspd')
+  private readonly _availZspdOrMethodConToZspd: string;
+
+   @autoserializeAs('dateCommissioning')
+  private readonly _dateCommissioning: Date;
+
+  @autoserializeAs('commentary')
+  private readonly _commentary: string;
+
+  @autoserializeAs('contacts')
+  private readonly _contacts: string;
+
+  @autoserializeAs('change')
+  private readonly _change: string;
+
+  @autoserializeAs('dateConnectionOrChange')
+  private readonly _dateConnectionOrChange: Date;
 
   get organization(): Organization {
     return this._organization;
@@ -298,5 +340,61 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get zabbix(): boolean {
     return this._zabbix;
+  }
+
+  get zspdWhiteIp() {
+    return this._zspdWhiteIp;
+  }
+
+  get contract() {
+    return this._contract;
+  }
+
+  get numIncomingMessage() {
+    return this._numIncomingMessage;
+  }
+
+  get numSourceEmailsRTK() {
+    return this._numSourceEmailsRTK;
+  }
+
+  get monthlyPay() {
+    return this._monthlyPay;
+  }
+
+  get oneTimePay() {
+    return this._oneTimePay;
+  }
+
+  get espdWhiteIp() {
+    return this._espdWhiteIp;
+  }
+
+  get contractId() {
+    return this._contractId;
+  }
+
+  get availZspdOrMethodConToZspd() {
+    return this._availZspdOrMethodConToZspd;
+  }
+
+  get dateCommissioning() {
+    return this._dateCommissioning;
+  }
+
+  get commentary() {
+    return this._commentary;
+  }
+
+  get contacts() {
+    return this._contacts;
+  }
+
+  get change() {
+    return this._change;
+  }
+
+  get dateConnectionOrChange() {
+    return this._dateConnectionOrChange;
   }
 }

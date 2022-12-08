@@ -5,7 +5,7 @@
 .input-container {
   position: relative;
   &::before {
-    content: url('../../../../assets/search.png');
+    content: url('/assets/search.png');
     position: absolute;
     top: 3px;
     right: 1px;

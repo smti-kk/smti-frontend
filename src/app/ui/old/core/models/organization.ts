@@ -61,6 +61,9 @@ export class Organization {
   @deserializeAs(LOCATION_DESERIALIZER, 'organization')
   private readonly _locationId: number;
 
+  @autoserializeAs('funCustomer')
+  private readonly _fun_customer: number;
+
   // @autoserializeAs('ogrn')
   // private readonly ogrn: string;
 
