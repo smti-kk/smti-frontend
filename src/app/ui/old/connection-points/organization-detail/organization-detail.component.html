@@ -219,6 +219,14 @@
                 <td>{{ ap.address }}</td>
               </tr>
               <tr>
+                <td>Широта</td>
+                <td>{{ ap.point.lat }}</td>
+              </tr>
+              <tr>
+                <td>Долгота</td>
+                <td>{{ ap.point.lng }}</td>
+              </tr>
+              <tr>
                 <td>Отображается</td>
                 <td>
                   <label nz-checkbox disabled [(ngModel)]="ap.visible"></label>
@@ -233,40 +241,88 @@
                 <td>{{ ap.connectionTypeString }}</td>
               </tr>
               <tr>
+                <td>Скорость подключения, Мбит/с</td>
+                <td>{{ ap.declaredSpeed }}</td>
+              </tr>
+              <ng-container *ngIf="ap.type === 'SMO'">
+                <tr>
+                  <td>Дата ввода в эксплуатацию</td>
+                  <td>{{ ap.dataCommissioning }}</td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td>ID (по контракту)</td>
+                <td>{{ ap.contractId }}</td>
+              </tr>
+              <ng-container *ngIf="ap.type === 'ESPD'">
+                <tr>
+                  <td>Белый IP ЕСПД</td>
+                  <td>{{ ap.dataCommissioning }}</td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td>Контакты</td>
+                <td>{{ ap.contacts?.join(', ') }}</td>
+              </tr>
+              <tr>
+                <td>Изменение</td>
+                <td>{{ ap.change }}</td>
+              </tr>
+              <tr>
+                <td>Дата подключения / изменения</td>
+                <td>{{ ap.dateConnectionOrChange }}</td>
+              </tr>
+              <tr>
+                <td>№ вх. письма от ведомства</td>
+                <td>{{ ap.numIncomingMessage }}</td>
+              </tr>
+              <ng-container *ngIf="ap.type === 'ESPD'">
+                <tr>
+                  <td>№ исх. письма на РТК</td>
+                  <td>{{ ap.numSourceEmailsRTK }}</td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td>Комментарии</td>
+                <td>{{ ap.commentary }}</td>
+              </tr>
+              <tr>
                 <td>Оператор связи</td>
                 <td>{{ ap.contractor }}</td>
               </tr>
+              <ng-container *ngIf="ap.type === 'ESPD'">
+                <tr>
+                  <td>Разовый, руб. с НДС</td>
+                  <td>{{ ap.oneTimePay }}</td>
+                </tr>
+                <tr>
+                  <td>Ежемес., руб. с НДС</td>
+                  <td>{{ ap.monthlyPay }}</td>
+                </tr>
+                <tr>
+                  <td>контракт</td>
+                  <td>{{ ap.contract }}</td>
+                </tr>
+                <tr>
+                  <td>Белый IP ЗСПД</td>
+                  <td>{{ ap.zspdWhiteIp }}</td>
+                </tr>
+                <tr>
+                  <td>Наличие ЗСПД / способ подключения к ЗСПД</td>
+                  <td>{{ ap.availZspdOrMethodConToZspd }}</td>
+                </tr>
+              </ng-container>
               <tr>
-                <td>Скорость по контракту</td>
-                <td>{{ ap.declaredSpeed }}</td>
+                <td colspan="2">Связь мониторинга</td>
               </tr>
               <tr>
-                <td>Качество связи</td>
-                <td>{{ qualityToString(ap.quality) }}</td>
-              </tr>
-              <tr>
-                <td>Государственная программа</td>
-                <td>{{ ap.governmentProgram?.acronym }}</td>
-              </tr>
-              <tr>
-                <td>Год завершения гос.программы</td>
-                <td>{{ ap.completed }}</td>
-              </tr>
-              <tr>
-                <td>Статус по гос.программе</td>
-                <td>{{ participationStatusToString(ap.state) }}</td>
-              </tr>
-              <tr>
-                <td colspan="2">Системы мониторинга</td>
-              </tr>
-              <tr>
-                <td>Связь с Билингом</td>
+                <td>Связь с билингом</td>
                 <td>
                   <label nz-checkbox disabled [(ngModel)]="ap.utm5"></label>
                 </td>
               </tr>
               <tr>
-                <td>Связь с Мониторингом</td>
+                <td>Связь с мониторингом</td>
                 <td>
                   <label nz-checkbox disabled [(ngModel)]="ap.zabbix"></label>
                 </td>

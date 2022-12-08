@@ -47,7 +47,9 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label>Широта</nz-form-label>
-    <input nz-input type="number" formControlName="_lat"/>
+    <nz-form-control>
+      <input nz-input type="number" formControlName="_lat"/>
+    </nz-form-control>
     <div class="error-required"
          *ngIf="formGroupAccessPoints.get('_lat').invalid && (formGroupAccessPoints.get('_lat').touched || formGroupAccessPoints.get('_lat').dirty)">
       <span *ngIf="formGroupAccessPoints.get('_lat').errors?.required">Обязательное поле</span>
@@ -55,7 +57,9 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label>Долгота</nz-form-label>
-    <input nz-input type="number" formControlName="_lng"/>
+    <nz-form-control>
+      <input nz-input type="number" formControlName="_lng"/>
+    </nz-form-control>
     <div class="error-required"
          *ngIf="formGroupAccessPoints.get('_lng').invalid && (formGroupAccessPoints.get('_lng').touched || formGroupAccessPoints.get('_lng').dirty)">
       <span *ngIf="formGroupAccessPoints.get('_lng').errors?.required">Обязательное поле</span>
@@ -64,15 +68,13 @@
   <nz-form-item>
     <nz-form-label>Отображается</nz-form-label>
     <nz-form-control>
-      <label nz-checkbox formControlName="_visible"></label>
+      <!-- <label type="checkbox" nz-checkbox formControlName="_visible"></label> -->
+      <nz-radio-group formControlName="_visible">
+        <label nz-radio-button [nzValue]="true">Да</label>
+        <label nz-radio-button [nzValue]="false">Нет</label>
+      </nz-radio-group>
     </nz-form-control>
   </nz-form-item>
-  <!--  <nz-form-item>-->
-  <!--    <nz-form-label>Узел доступа</nz-form-label>-->
-  <!--    <nz-form-control>-->
-  <!--      <input nz-input type="text" formControlName="_node"/>-->
-  <!--    </nz-form-control>-->
-  <!--  </nz-form-item>-->
   <nz-form-item>
     <nz-form-label>Тип</nz-form-label>
     <nz-form-control>
@@ -93,78 +95,156 @@
       </div>
     </nz-form-control>
   </nz-form-item>
+  <ng-container *ngIf="!isESPD && !isSMO">
+    <nz-form-item>
+      <nz-form-label>Оператор связи</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="text" formControlName="_contractor"/>
+      </nz-form-control>
+      <div class="error-required"
+          *ngIf="formGroupAccessPoints.get('_contractor').invalid && (formGroupAccessPoints.get('_contractor').touched || formGroupAccessPoints.get('_contractor').dirty)">
+        <span *ngIf="formGroupAccessPoints.get('_contractor').errors?.required">Обязательное поле</span>
+      </div>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Качество связи</nz-form-label>
+      <nz-form-control>
+        <nz-select
+                formControlName="_quality"
+                [nzSuffixIcon]="suffixIconSelect"
+        >
+          <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошее"></nz-option>
+          <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
+          <nz-option [nzValue]="Quality.ABSENT" nzLabel="Отсутствует"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
   <nz-form-item>
-    <nz-form-label>Оператор связи</nz-form-label>
+    <nz-form-label>Скорость подключения, Мбит/с</nz-form-label>
     <nz-form-control>
-      <input nz-input type="text" formControlName="_contractor"/>
-    </nz-form-control>
-    <div class="error-required"
-         *ngIf="formGroupAccessPoints.get('_contractor').invalid && (formGroupAccessPoints.get('_contractor').touched || formGroupAccessPoints.get('_contractor').dirty)">
-      <span *ngIf="formGroupAccessPoints.get('_contractor').errors?.required">Обязательное поле</span>
-    </div>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>Качество связи</nz-form-label>
-    <nz-form-control>
-      <nz-select
-              formControlName="_quality"
-              [nzSuffixIcon]="suffixIconSelect"
-      >
-        <nz-option [nzValue]="Quality.GOOD" nzLabel="Хорошее"></nz-option>
-        <nz-option [nzValue]="Quality.NORMAL" nzLabel="Удовлетворительно"></nz-option>
-        <nz-option [nzValue]="Quality.ABSENT" nzLabel="Отсутствует"></nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>Скорость по контракту</nz-form-label>
-    <nz-form-control>
-      <input nz-input type="text" formControlName="_declaredSpeed"/>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>Государственная программа</nz-form-label>
-    <nz-form-control>
-      <nz-select
-              formControlName="_governmentProgram"
-              [nzSuffixIcon]="suffixIconSelect"
-      >
-        <nz-option
-                *ngFor="let item of fGovernmentPrograms$ | async"
-                [nzValue]="item"
-                [nzLabel]="item.name"
-        ></nz-option>
-      </nz-select>
+      <input nz-input type="number" formControlName="_declaredSpeed"/>
     </nz-form-control>
   </nz-form-item>
+  <ng-container *ngIf="!isESPD && !isSMO">
+    <nz-form-item>
+      <nz-form-label>Государственная программа</nz-form-label>
+      <nz-form-control>
+        <nz-select
+                formControlName="_governmentProgram"
+                [nzSuffixIcon]="suffixIconSelect"
+        >
+          <nz-option
+                  *ngFor="let item of fGovernmentPrograms$ | async"
+                  [nzValue]="item"
+                  [nzLabel]="item.name"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
 
-  <nz-form-item>
-    <nz-form-label>Год завершения гос.программы</nz-form-label>
-    <nz-form-control>
-      <input nz-input type="text" formControlName="_completed"/>
-    </nz-form-control>
-  </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Год завершения гос.программы</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="text" formControlName="_completed"/>
+      </nz-form-control>
+    </nz-form-item>
 
-  <nz-form-item>
-    <nz-form-label>Статус по гос.программа</nz-form-label>
-    <nz-form-control>
-      <nz-select formControlName="_state" [nzSuffixIcon]="suffixIconSelect">
-        <nz-option
-                [nzValue]="'DONE'"
-                [nzLabel]="participationStatusToString('DONE')"
-        ></nz-option>
-        <nz-option
-                [nzValue]="'NONE'"
-                [nzLabel]="participationStatusToString('NONE')"
-        ></nz-option>
-        <nz-option
-                [nzValue]="'PLAN'"
-                [nzLabel]="participationStatusToString('PLAN')"
-        ></nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-
+    <nz-form-item>
+      <nz-form-label>Статус по гос.программа</nz-form-label>
+      <nz-form-control>
+        <nz-select formControlName="_state" [nzSuffixIcon]="suffixIconSelect">
+          <nz-option
+                  [nzValue]="'DONE'"
+                  [nzLabel]="participationStatusToString('DONE')"
+          ></nz-option>
+          <nz-option
+                  [nzValue]="'NONE'"
+                  [nzLabel]="participationStatusToString('NONE')"
+          ></nz-option>
+          <nz-option
+                  [nzValue]="'PLAN'"
+                  [nzLabel]="participationStatusToString('PLAN')"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+  <ng-container *ngIf="isESPD">
+    <nz-form-item>
+      <nz-form-label>Белый IP ЕСПД</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="string" formControlName="_espdWhiteIp"/>
+      </nz-form-control>
+      <div class="error-required"
+          *ngIf="showErrors('_zspdWhiteIp')">
+        <span *ngIf="hasError('_zspdWhiteIp','pattern')">Введите корректный IP адрес</span>
+      </div>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Белый IP ЗСПД</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="string" formControlName="_zspdWhiteIp"/>
+      </nz-form-control>
+      <div class="error-required"
+          *ngIf="showErrors('_zspdWhiteIp')">
+        <span *ngIf="hasError('_zspdWhiteIp','pattern')">Введите корректный IP адрес</span>
+      </div>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Наличие ЗСПД / способ подключения к ЗСПД</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="string" formControlName="_availZspdOrMethodConToZspd"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Разовый, руб. с НДС</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="number" formControlName="_oneTimePay"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Емежес., руб. с НДС</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="number" formControlName="_monthlyPay"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>№ исх. письма на РТК</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="string" formControlName="_numSourceEmailsRTK"/>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+  <ng-container *ngIf="isESPD || isSMO">
+    <nz-form-item>
+      <nz-form-label>ID (по контракту)</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="number" formControlName="_contractId"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>№ вх. письма от ведомства</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="string" formControlName="_numIncomingMessage"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>Контракт</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="string" formControlName="_contract"/>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+  <ng-container *ngIf="isSMO">
+    <nz-form-item>
+      <nz-form-label>Дата ввода в эксплуатацию</nz-form-label>
+      <!-- <br /> -->
+      <nz-form-control>
+        <nz-date-picker [nzFormat]="'dd/MM/yyyy'" formControlName="_dataCommissioning"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
   <nz-form-item *ngIf="formGroupAccessPoints.get('_type')?.value === 'CONTRACT'">
     <nz-form-label>Номер контракта</nz-form-label>
     <nz-form-control>
@@ -175,6 +255,18 @@
     <nz-form-label>Сумма (в копейках)</nz-form-label>
     <nz-form-control>
       <input nz-input type="number" formControlName="_amount"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Контакт</nz-form-label>
+    <nz-form-control>
+      <textarea rows="2" nz-input formControlName="_contacts"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Комментарий</nz-form-label>
+    <nz-form-control>
+      <textarea rows="2" nz-input formControlName="_commentary"></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

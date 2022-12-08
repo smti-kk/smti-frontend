@@ -81,6 +81,7 @@ export class FormOrganizationComponent implements OnInit {
       ],
       _type: null,
       _smoType: null,
+      _fun_customer: null,
     });
 
     if (organization) {

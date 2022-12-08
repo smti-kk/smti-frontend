@@ -46,24 +46,6 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label>ИНН</nz-form-label>
-    <nz-form-control>
-      <input nz-input type="text" formControlName="_inn"/>
-      <div class="error-required" *ngIf="formGroupOrganization.get('_inn').invalid && (formGroupOrganization.get('_inn').touched || formGroupOrganization.get('_inn').dirty)">
-        <span *ngIf="formGroupOrganization.get('_inn').errors?.required">Обязательное поле</span>
-      </div>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>КПП</nz-form-label>
-    <nz-form-control>
-      <input nz-input type="text" formControlName="_kpp"/>
-      <div class="error-required" *ngIf="formGroupOrganization.get('_kpp').invalid && (formGroupOrganization.get('_kpp').touched || formGroupOrganization.get('_kpp').dirty)">
-        <span *ngIf="formGroupOrganization.get('_kpp').errors?.required">Обязательное поле</span>
-      </div>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
     <nz-form-label>ФИАС</nz-form-label>
     <nz-form-control>
       <input nz-input type="text" formControlName="_fias"/>
@@ -79,37 +61,9 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label>Тип</nz-form-label>
+    <nz-form-label>Функциональный заказчик:</nz-form-label>
     <nz-form-control>
-      <nz-select
-        nzAllowClear
-        formControlName="_type"
-        [compareWith]="compareFn"
-        [nzSuffixIcon]="suffixIconSelect"
-      >
-        <nz-option
-          *ngFor="let item of fOrganizationTypes$ | async"
-          [nzValue]="item"
-          [nzLabel]="item.name"
-        ></nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>СЗО</nz-form-label>
-    <nz-form-control>
-      <nz-select
-        formControlName="_smoType"
-        nzAllowClear
-        [nzSuffixIcon]="suffixIconSelect"
-        [compareWith]="compareFn"
-      >
-        <nz-option
-          *ngFor="let item of fOrganizationSMOTypes$ | async"
-          [nzValue]="item"
-          [nzLabel]="item.name"
-        ></nz-option>
-      </nz-select>
+      <input nz-input type="text" formControlName="_fun_customer"/>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   NzAutocompleteModule,
   NzCheckboxModule,
+  NzDatePickerModule,
   NzFormModule,
   NzIconModule,
   NzInputModule, NzRadioModule,
@@ -94,6 +95,7 @@ import {CustomSubmitDirective} from './../../directives/custom-submit.directive'
     MatGridListModule,
     MatCheckboxModule,
     NzRadioModule,
+    NzDatePickerModule,
   ],
   providers: [],
   exports: [
