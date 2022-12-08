@@ -100,7 +100,7 @@ export class FormAccessPointComponent implements OnInit {
       _numSourceEmailsRTK: null,
       _monthlyPay: null,
       _oneTimePay: null,
-      _espdWhiteIp: [null, Validators.pattern(IP_REGEXP)],
+      _espdWhiteIp: null,
       _contractId: null,
       _availZspdOrMethodConToZspd: null,
       _dataCommissioning: null,

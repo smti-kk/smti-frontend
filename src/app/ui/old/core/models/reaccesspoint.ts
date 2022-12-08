@@ -157,7 +157,7 @@ export class Reaccesspoint extends MonitoringPoint {
    @autoserializeAs('numSourceEmailsRTK')
   private readonly _numSourceEmailsRTK: string;
 
-   @autoserializeAs('monthlyPay')
+   @autoserializeAs('mounthlyPay')
   private readonly _monthlyPay: number;
 
    @autoserializeAs('oneTimePay')
@@ -172,14 +172,20 @@ export class Reaccesspoint extends MonitoringPoint {
    @autoserializeAs('availZspdOrMethodConToZspd')
   private readonly _availZspdOrMethodConToZspd: string;
 
-   @autoserializeAs('dataCommissioning')
-  private readonly _dataCommissioning: Date;
+   @autoserializeAs('dateCommissioning')
+  private readonly _dateCommissioning: Date;
 
   @autoserializeAs('commentary')
   private readonly _commentary: string;
 
   @autoserializeAs('contacts')
   private readonly _contacts: string;
+
+  @autoserializeAs('change')
+  private readonly _change: string;
+
+  @autoserializeAs('dateConnectionOrChange')
+  private readonly _dateConnectionOrChange: Date;
 
   get organization(): Organization {
     return this._organization;
@@ -372,8 +378,8 @@ export class Reaccesspoint extends MonitoringPoint {
     return this._availZspdOrMethodConToZspd;
   }
 
-  get dataCommissioning() {
-    return this._dataCommissioning;
+  get dateCommissioning() {
+    return this._dateCommissioning;
   }
 
   get commentary() {
@@ -382,5 +388,13 @@ export class Reaccesspoint extends MonitoringPoint {
 
   get contacts() {
     return this._contacts;
+  }
+
+  get change() {
+    return this._change;
+  }
+
+  get dateConnectionOrChange() {
+    return this._dateConnectionOrChange;
   }
 }

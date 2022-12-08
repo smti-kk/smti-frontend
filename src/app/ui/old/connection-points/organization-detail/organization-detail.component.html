@@ -252,12 +252,12 @@
               <ng-container *ngIf="ap.type === 'ESPD'">
                 <tr>
                   <td>Белый IP ЕСПД</td>
-                  <td>{{ ap.dataCommissioning }}</td>
+                  <td>{{ ap.espdWhiteIp }}</td>
                 </tr>
               </ng-container>
               <tr>
                 <td>Контакты</td>
-                <td>{{ ap.contacts?.join(', ') }}</td>
+                <td>{{ ap.contacts }}</td>
               </tr>
               <tr>
                 <td>Изменение</td>
@@ -265,7 +265,7 @@
               </tr>
               <tr>
                 <td>Дата подключения / изменения</td>
-                <td>{{ ap.dateConnectionOrChange }}</td>
+                <td>{{ ap.dateConnectionOrChange | date:'dd/MM/yyyy' }}</td>
               </tr>
               <tr>
                 <td>№ вх. письма от ведомства</td>
