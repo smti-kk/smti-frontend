@@ -68,8 +68,8 @@ export class FormOrganizationComponent implements OnInit {
       _name: [null, Validators.required],
       _acronym: [null, Validators.required],
       _address: [null, Validators.required],
-      _inn: [null, Validators.required],
-      _kpp: [null, Validators.required],
+      _inn: null,
+      _kpp: null,
       _fias: [
         null,
         [
@@ -110,6 +110,7 @@ export class FormOrganizationComponent implements OnInit {
       Object.keys(this.formGroupOrganization.controls).forEach(key => {
         this.formGroupOrganization.get(key).markAsDirty();
       });
+      console.log(this.formGroupOrganization);
     } else {
       this.serviceOrganizations.put(this.formGroupOrganization.value).subscribe(
         organization => {
@@ -135,6 +136,8 @@ export class FormOrganizationComponent implements OnInit {
       Object.keys(this.formGroupOrganization.controls).forEach(key => {
         this.formGroupOrganization.get(key).markAsDirty();
       });
+      console.log(this.formGroupOrganization);
+
     } else {
       this.serviceOrganizations.save(this.formGroupOrganization.value).subscribe(
         () => {
