@@ -192,40 +192,60 @@ export class StrictFilterImpl extends StrictFilter {
       return this.defaultFilterResponse;
     }
 
-    const isAllowQuality = (c: CellularIcon) =>
-      allowQuality.includes(c.tc && c.isActive ? c.tc.quality : 'ABSENT');
+    const cellularMap = location.cellular.map((c: CellularIcon) => ({
+      quality: c.tc && c.isActive ? c.tc.quality : 'ABSENT',
+      operatorId: c.isActive ? c.id : -1,
+      operatorName: c.name,
+      signalType: c.type,
+    }));
 
-    let cellular = location.cellular;
+    let cellular = [...cellularMap];
+
+    let hasQuality = true;
+    if (allowQuality.length > 0) {
+      const isSomeTCisGood = cellular.some((cq) => cq.quality === 'GOOD');
+      const isAllTCisAbsent = cellular.every((cq) => cq.quality === 'ABSENT');
+      const isAllTCisNormal = cellular.every((cq) => cq.quality === 'NORMAL');
+
+      hasQuality =
+        (isAllTCisNormal && allowQuality.includes('NORMAL')) ||
+        (isSomeTCisGood && allowQuality.includes('GOOD')) ||
+        (isAllTCisAbsent && allowQuality.includes('ABSENT'));
+    }
+
     if (operators.length > 0) {
       cellular = cellular.filter(
-        (c) => c.isActive && !!operators.find((o) => o.id === c.id)
+        ({ operatorId }) => !!operators.find(({ id }) => id === operatorId)
       );
     }
+
     if (signals.length > 0) {
       cellular = cellular.filter(
-        (c) => signals.length < 1 || !!signals.find((s) => s.label === c.type)
+        ({ signalType }) =>
+          signals.length < 1 ||
+          !!signals.find(({ label }) => label === signalType)
       );
     }
-    if (allowQuality.length > 0) {
-      const cellularQuality = cellular.reduce((acc, c) => {
-        if (isAllowQuality(c)) {
-          acc.push(c);
-        }
-        return acc;
-      }, [] as CellularIcon[]);
 
-      const isAllTCinAllowQuality = cellularQuality.length === cellular.length;
-      const isSomeTCisGood = cellularQuality
-        .map((cq) => cq?.tc?.quality ?? 'ABSENT')
-        .includes('GOOD');
+    const hasOperatorAndSignal = cellular.length > 0;
 
-      cellular =
-        isAllTCinAllowQuality ||
-        (isSomeTCisGood && allowQuality.includes('GOOD'))
-          ? cellularQuality
-          : [];
+    if (allowQuality.includes('NORMAL') && operators.length > 0) {
+      return (
+        hasOperatorAndSignal &&
+        cellular.every((cq) => cq.quality === 'NORMAL') &&
+        cellularMap
+          .filter(
+            ({ operatorId }) => !!operators.find(({ id }) => id !== operatorId)
+          )
+          .every((cq) => cq.quality === 'NORMAL' || cq.quality === 'ABSENT')
+      );
     }
-    return cellular.length > 0;
+
+    if (allowQuality.includes('ABSENT') && operators.length > 0) {
+      return hasQuality;
+    }
+
+    return hasQuality && hasOperatorAndSignal;
   }
 
   hasTrunkChannelAndOperators(location: LocationTableItem,
