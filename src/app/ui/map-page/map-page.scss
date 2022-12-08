@@ -23,9 +23,9 @@
   }
 
   .map {
+    flex-grow: 1;
+    flex-shrink: 0;
     height: 55vh;
-    min-height: 55vh;
-    max-height: 55vh;
   }
 
   .search-wrapper {
