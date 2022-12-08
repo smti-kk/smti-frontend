@@ -10,7 +10,7 @@ export class AreaInfoBarComponent implements OnInit {
 
   @Input() area: LocationProvidingInfo;
 
-  panelOpenState = true;
+  @Input() expanded: boolean = true;
 
   constructor() { }
 

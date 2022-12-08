@@ -10,6 +10,8 @@ export class LocationInfoBar implements OnInit {
   @Input()
   public location: LocationInfoBarValue;
 
+  @Input() expanded: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {

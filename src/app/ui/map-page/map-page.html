@@ -42,8 +42,8 @@
 ></best-map>
 
 <ng-container *ngIf="isMobileAndGuest">
-  <location-info-bar *ngIf="location" [location]="location"></location-info-bar>
-  <area-info-bar *ngIf="locationProvidingInfo" [area]="locationProvidingInfo"></area-info-bar>
+  <location-info-bar *ngIf="location" [location]="location" [expanded]="false"></location-info-bar>
+  <area-info-bar *ngIf="locationProvidingInfo" [area]="locationProvidingInfo" [expanded]="false"></area-info-bar>
   <div class="spinner-container" *ngIf="isLoading">
     <mat-spinner diameter="50"></mat-spinner>
   </div>
