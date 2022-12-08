@@ -1,27 +1,50 @@
-<info-bar (toggle)="onToggleBar($event)" [opened]="barIsOpened">
-  <search (selectLocation)="onSelectLocation($event)" (selectGroup)="onSelectGroup($event)" class="location-search"></search>
-  <location-info-bar *ngIf="location" [location]="location"></location-info-bar>
-  <area-info-bar *ngIf="locationProvidingInfo" [area]="locationProvidingInfo"></area-info-bar>
-  <ng-container *permissions="['ADMIN', 'OPERATOR']">
-    <app-base-station-info-bar *ngIf="station" [station]="station"></app-base-station-info-bar>
-  </ng-container>
-  <ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
-    <organizations-info-bar
-      *ngIf="organizationsCount$ && location"
-      [organizationsCount]="organizationsCount$ | async"
-      [organizations]="organizations$ | async"
-      [openAccessPoint]="isOpenAccessPoint"
-      (openBar)="onOpenOrganizationInfo(location)"
-      (openAccessPointBar)="onOpenAccessPointBar($event)"
-     ></organizations-info-bar>
-  </ng-container>
-  <div class="spinner-container" *ngIf="isLoading">
-    <mat-spinner diameter="50"></mat-spinner>
+<ng-container *ngIf="!isMobileAndGuest">
+  <info-bar (toggle)="onToggleBar($event)" [opened]="barIsOpened">
+    <search (selectLocation)="onSelectLocation($event)" (selectGroup)="onSelectGroup($event)" class="location-search"></search>
+    <location-info-bar *ngIf="location" [location]="location"></location-info-bar>
+    <area-info-bar *ngIf="locationProvidingInfo" [area]="locationProvidingInfo"></area-info-bar>
+    <ng-container *permissions="['ADMIN', 'OPERATOR']">
+      <app-base-station-info-bar *ngIf="station" [station]="station"></app-base-station-info-bar>
+    </ng-container>
+    <ng-container *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION']">
+      <organizations-info-bar
+        *ngIf="organizationsCount$ && location"
+        [organizationsCount]="organizationsCount$ | async"
+        [organizations]="organizations$ | async"
+        [openAccessPoint]="isOpenAccessPoint"
+        (openBar)="onOpenOrganizationInfo(location)"
+        (openAccessPointBar)="onOpenAccessPointBar($event)"
+       ></organizations-info-bar>
+    </ng-container>
+    <div class="spinner-container" *ngIf="isLoading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  </info-bar>
+</ng-container>
+
+<ng-container *ngIf="isMobileAndGuest">
+  <div class="search-wrapper">
+    <search (selectLocation)="onSelectLocation($event)" (selectGroup)="onSelectGroup($event)" class="location-search"></search>
+    <four-state-button [formControl]="hasCellularControl"  >
+      <img src="/assets/table-phone-4.svg" alt="" class="mobile-icon" />
+    </four-state-button>
   </div>
-</info-bar>
+
+</ng-container>
+
 <best-map [centredOnLocation]="centeredLocation"
+          [class.map]="isMobileAndGuest"
+          [hasCellularControlInput]="isMobileAndGuest ? hasCellularControl : undefined"
           (areaClick)="onAreaClick($event)"
           (accessPointClick)="onAccessPointClick($event)"
           (locationClick)="onSelectLocation($event)"
           (baseStationClick)="onSelectBaseStation($event)"
 ></best-map>
+
+<ng-container *ngIf="isMobileAndGuest">
+  <location-info-bar *ngIf="location" [location]="location"></location-info-bar>
+  <area-info-bar *ngIf="locationProvidingInfo" [area]="locationProvidingInfo"></area-info-bar>
+  <div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+</ng-container>

@@ -33,6 +33,7 @@ import {PointState} from '@service/points/PointState';
   styleUrls: ['./best-map.scss'],
 })
 export class BestMap implements OnInit, OnDestroy {
+  @Input() readonly hasCellularControlInput: FormControl;
   @Output() readonly locationClick: EventEmitter<number>;
   @Output() readonly areaClick: EventEmitter<MunicipalitiesLayerGeoJson>;
   @Output() readonly accessPointClick: EventEmitter<{
@@ -108,13 +109,6 @@ export class BestMap implements OnInit, OnDestroy {
     this.baseStationClick = new EventEmitter<number>();
     this.accessPointClick = new EventEmitter<{ type: string; id: number }>();
     this.initAccessPointEmitters();
-    this.hasCellularControl.valueChanges.subscribe((v) => {
-      const pointLayerController = this.currentLocationsLayer();
-      pointLayerController.removeFrom(this.map);
-      this.currentCellularState = v;
-      const pointLayerController1 = this.currentLocationsLayer();
-      pointLayerController1.addTo(this.map);
-    });
     this.hasEspdControl.valueChanges
       .pipe(map((v) => this.convertBtnStateToPoint(v)))
       .subscribe((v) => {
@@ -134,7 +128,19 @@ export class BestMap implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!!this.hasCellularControlInput) {
+      console.log('mobile');
+      this.hasCellularControl = this.hasCellularControlInput;
+    }
+    this.hasCellularControl.valueChanges.subscribe((v) => {
+      const pointLayerController = this.currentLocationsLayer();
+      pointLayerController.removeFrom(this.map);
+      this.currentCellularState = v;
+      const pointLayerController1 = this.currentLocationsLayer();
+      pointLayerController1.addTo(this.map);
+    });
+  }
 
   initializeMap(map: Map): void {
     setTimeout(() => {

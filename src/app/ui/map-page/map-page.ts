@@ -13,6 +13,9 @@ import {BaseStationsApi} from '@api/base-stations/BaseStationsApi';
 import {BaseStation} from '@api/dto/BaseStation';
 import {tap} from 'rxjs/operators';
 import {Pageable} from '@api/dto/Pageable';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { AccountService } from '@service/account/AccountService';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'map-page',
@@ -31,23 +34,43 @@ export class MapPage implements OnInit {
   station: BaseStation;
   defaultAreaId: number = 4;
   @ViewChild(BestMap) bestMap: BestMap;
+  private _mobile = false;
+  private _guest = true;
+  hasCellularControl: FormControl;
 
   constructor(private locationsService: LocationsService,
               private readonly locationDetails: LocationDetailApi,
               private readonly accessPointsApi: AccessPointsApi,
               private readonly municipalitiesLayer: MunicipalitiesLayer,
               private readonly baseStationApi: BaseStationsApi,
-              private readonly apiOrganization: ApiOrganization) {
+              private readonly apiOrganization: ApiOrganization,
+              private breakpointObserver: BreakpointObserver,
+              private readonly accountService: AccountService) {
     this.isLoading = false;
     this.barIsOpened = true;
+    accountService.get().subscribe((user) => {
+      if (user && user.getRole().indexOf('GUEST') === -1) {
+        this._guest = false;
+      }
+    });
+    this.hasCellularControl = new FormControl();
   }
 
   ngOnInit() {
+    this.breakpointObserver.observe(['(max-width: 768px)']).subscribe({
+      next: (res) => {
+        this._mobile = res.matches;
+      }
+    })
     this.isLoading = true;
     this.locationDetails.locationProvidingInfo(this.defaultAreaId).subscribe(info => {
       this.locationProvidingInfo = info;
       this.isLoading = false;
     });
+  }
+
+  get isMobileAndGuest() {
+    return this._mobile && this._guest;
   }
 
   /**

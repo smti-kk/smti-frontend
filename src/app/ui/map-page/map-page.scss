@@ -12,4 +12,33 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 768px) {
+  :host {
+    flex-direction: column;
+  }
+
+  .location-search {
+    flex-grow: 1;
+    padding: 0;
+  }
+
+  .map {
+    height: 55vh;
+    min-height: 55vh;
+    max-height: 55vh;
+  }
+
+  .search-wrapper {
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    gap: 16px;
+  }
+
+  four-state-button ::ng-deep .state {
+    display: block;
+    padding: 7px;
+  }
+}
+
 
