@@ -10,7 +10,7 @@
         ><span>Населённые пункты</span></span
       >
     </label>
-    <div *ngIf="layersChecked['locations']">
+    <div *ngIf="layersChecked['locations'] && !hasCellularControlInput">
       <four-state-button [formControl]="hasCellularControl">
         <img src="/assets/table-phone-4.svg" alt="" />
       </four-state-button>
