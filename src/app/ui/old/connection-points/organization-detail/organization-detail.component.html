@@ -242,7 +242,7 @@
               <ng-container *ngIf="ap.type === 'SMO'">
                 <tr>
                   <td>Дата ввода в эксплуатацию</td>
-                  <td>{{ ap.dateCommissioning }}</td>
+                  <td>{{ ap.dateCommissioning  | date:'dd/MM/yyyy' }}</td>
                 </tr>
               </ng-container>
               <tr>
