@@ -103,7 +103,7 @@ export class FormAccessPointComponent implements OnInit {
       _espdWhiteIp: null,
       _contractId: null,
       _availZspdOrMethodConToZspd: null,
-      _dataCommissioning: null,
+      _dateCommissioning: null,
       _commentary: null,
       _contacts: null,
     });
