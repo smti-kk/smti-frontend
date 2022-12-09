@@ -13,13 +13,6 @@
       class="point-img"
     /><span>ЕСПД</span>
   </ng-container>
-  <ng-container *ngSwitchCase="'CONTRACT'">
-    <img
-      src="assets/contract.png"
-      alt="{{ ap?.type }}"
-      class="point-img"
-    /><span>Контракт</span>
-  </ng-container>
 </div>
 <table>
   <tr>
@@ -61,7 +54,7 @@
   <ng-container *ngIf="ap.type === 'ESPD'">
     <tr>
       <td>Белый IP ЕСПД</td>
-      <td>{{ ap.espdWhileIp }}</td>
+      <td>{{ ap.espdWhiteIp }}</td>
     </tr>
   </ng-container>
   <tr>
@@ -90,10 +83,10 @@
     <td>Комментарии</td>
     <td>{{ ap.commentary }}</td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td>Оператор связи</td>
     <td>{{ ap.contractor }}</td>
-  </tr>
+  </tr> -->
   <ng-container *ngIf="ap.type === 'ESPD'">
     <tr>
       <td>Разовый, руб. с НДС</td>
@@ -104,7 +97,7 @@
       <td>{{ ap.monthlyPay }}</td>
     </tr>
     <tr>
-      <td>контракт</td>
+      <td>Контракт</td>
       <td>{{ ap.contract }}</td>
     </tr>
     <tr>
@@ -137,14 +130,14 @@
     mat-raised-button
     [disabled]="ap.utm5 && ap.zabbix"
     type="button"
-    (click)="initMonitoringAccessPoint(ap)"
+    (click)="initMonitoringAccessPoint()"
   >
     Подключить к мониторингу
   </button>
   <button
     mat-raised-button
     type="button"
-    (click)="editAccessPoint(ap)"
+    (click)="editAccessPoint()"
   >
     Редактировать точку
   </button>

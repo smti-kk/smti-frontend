@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { Organization } from '@core/models';
 import { Reaccesspoint } from '@core/models/reaccesspoint';
 import { FomMonitoringWizardComponent } from '@shared/components/fom-monitoring-wizard/fom-monitoring-wizard.component';
@@ -23,29 +23,35 @@ export class AccessPointDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  initMonitoringAccessPoint(point: Reaccesspoint): void {
+  initMonitoringAccessPoint(): void {
     this.modal.create({
       nzTitle: 'Подключить к системам мониторинга',
       nzContent: FomMonitoringWizardComponent,
       nzFooter: null,
       nzComponentParams: {
-        accessPointForEdit: point,
+        accessPointForEdit: this.ap,
         organization: this.organization,
       },
     });
   }
 
-  editAccessPoint(point: Reaccesspoint): void {
-    this.modal.create({
-      nzTitle: 'Редактирование точки доступа',
+  editAccessPoint(): void {
+    this.modal.create<FormAccessPointComponent, Reaccesspoint | undefined >({
+      nzTitle: `Редактирование точки доступа ${this.ap.id}`,
       nzContent: FormAccessPointComponent,
       nzFooter: null,
       nzComponentParams: {
-        accessPointForEdit: point,
+        accessPointForEdit: this.ap,
         organization: this.organization,
         mode: 'UPDATE'
       },
-    });
+    })
+    .afterClose
+      .subscribe((updatedAp) => {
+        if (!updatedAp) {
+          return
+        }
+        this.ap = updatedAp;
+      })
   }
-
 }
