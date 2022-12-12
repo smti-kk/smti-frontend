@@ -133,8 +133,6 @@ export class FormAccessPointComponent implements OnInit {
     }
     if (point) {
       const tmp = Serialize(this.accessPointForEdit, Reaccesspoint);
-      console.log('tmp', tmp);
-
       this.formGroupAccessPoints.patchValue(tmp);
     }
   }
