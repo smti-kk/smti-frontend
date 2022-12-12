@@ -464,7 +464,7 @@
       
       <ng-container *ngIf="!isTc">
         <span class="underline">{{ getApType(type) }}:</span>
-        {{ getChangesText(getChangesInAp(ap, newAp)) }}
+        <p *ngFor="let str of getChangesText(getChangesInAp(ap, newAp))">{{ str }}</p>
       </ng-container>
     </ng-template>
   </div>
