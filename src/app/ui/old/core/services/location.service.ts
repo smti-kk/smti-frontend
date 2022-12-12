@@ -17,6 +17,7 @@ import {formatDate} from '@angular/common';
 import {APStateType} from 'src/app/ui/old/connection-points/connection-points/connection-points.component';
 import {saveAs} from 'file-saver';
 import {AccessPointService} from '@core/services/accesspoint-type.service';
+import { FunCustomer } from '@core/models/funCustomer';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
@@ -24,39 +25,32 @@ const LOCATIONS_SIMPLE = `${environment.API_BASE_URL}/api/location/locations/`;
 const LOCATIONS_PARENTS = `${environment.API_BASE_URL}/api/location/parents/`;
 const LOCATIONS_ALL = `${environment.API_BASE_URL}/api/location/`;
 
-interface LocationWithContractsFilters {
-  order: OrderingFilter;
+
+interface LocationWithCommonFilters {
+  order: string[];
   location: Location | Location[];
   type: OrganizationType;
   smo: SmoType;
+  funCustomer: FunCustomer;
   parent: number[];
   organization: string;
-  contract: string;
   contractor: string;
   connectionType: InternetAccessType;
-  contractStart: string;
-  contractEnd: string;
   populationStart: number;
   populationEnd: number;
   logicalCondition?: string;
 }
 
-interface LocationWithOrganizationAccessPointsFilters {
-  order: string[];
-  location: Location | Location[];
-  type: OrganizationType;
-  smo: SmoType;
-  parent: number[];
-  organization: string;
-  contractor: string;
-  connectionType: InternetAccessType;
+interface LocationWithContractsFilters extends LocationWithCommonFilters {
+  contract: string;
+  contractStart: string;
+  contractEnd: string;
+}
+
+interface LocationWithOrganizationAccessPointsFilters extends LocationWithCommonFilters {
   contractType: GovernmentProgram; // possible
-  populationStart: number;
-  populationEnd: number;
-  point: string[];
   address?: string;
   state?: APStateType;
-  logicalCondition?: string;
 }
 
 @Injectable()
@@ -180,11 +174,9 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     }
   }
 
-  private setOrder(order?: OrderingFilter) {
-    if (order && order.orderingDirection === OrderingDirection.ASC) {
-      this.params = this.params.set('sort', order.name);
-    } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('sort', `-${order.name}`);
+  private setOrder(order?: string[]) {
+    if (order) {
+      this.params = this.params.set('sort', order.toString());
     } else {
       this.params = this.params.delete('sort');
     }
@@ -294,6 +286,24 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     );
   }
 
+  paginatedESPDList(page: number, pageSize: number): Observable<PaginatedList<Reaccesspoint>> {
+    return super.listLocationsWithConnectionPoints(
+      this.params
+        .set('page', page.toString())
+        .set('size', pageSize.toString())
+        .set('ap', 'ESPD')
+    );
+  }
+
+  paginatedSMOList(page: number, pageSize: number): Observable<PaginatedList<Reaccesspoint>> {
+    return super.listLocationsWithConnectionPoints(
+      this.params
+        .set('page', page.toString())
+        .set('size', pageSize.toString())
+        .set('ap', 'SMO')
+    );
+  }
+
   getAPStateWithFilters() {
     return this.apService.getAccessPointsState(this.params);
   }
@@ -309,18 +319,28 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setConnectionType('inet', filters.connectionType);
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
+    this.setFunCustomer('funCustomer', filters.funCustomer);
     this.setContractType('contract', filters.contractType);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
-    this.setPoint('ap', filters.point);
     this.setAddress('address', filters.address);
     this.setLogicalCondition('logicalCondition', filters.logicalCondition);
     this.setAccessPointState('state',filters.state);
 
   }
 
+  setFunCustomer(field: string, value: FunCustomer) {
+    console.log(value);
+
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
+  }
+
   setAddress(field: string, value: string | null) {
-    if (value !== null && value.length !== 0) {
+    if (value && value.length !== 0) {
       this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);

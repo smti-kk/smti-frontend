@@ -1,4 +1,3 @@
-<div class="test"></div>
 <ng-container *ngIf="organizationForEdit">
   <h2>Организация</h2>
 </ng-container>
@@ -53,11 +52,6 @@
         <span *ngIf="formGroupOrganization.get('_fias').errors?.required">Обязательное поле</span>
         <span *ngIf="formGroupOrganization.get('_fias').errors?.pattern">Должно соответствовать формату "00000000-0000-0000-0000-000000000000"</span>
       </div>
-<!--
-      <div class="error" *ngIf="formGroupOrganization.get('_fias').invalid">
-        Должно соответствовать формату "00000000-0000-0000-0000-000000000000"
-      </div>
--->
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -159,7 +153,6 @@
             (click)="saveNewOrganization()"
           />
         </div>
-        <!--        [disabled]="!formGroupOrganization.valid"-->
       </ng-template>
     </nz-form-control>
   </nz-form-item>

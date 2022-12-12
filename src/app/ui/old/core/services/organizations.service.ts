@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
-import {Deserialize, Serialize} from 'cerialize';
+import {Deserialize, GenericDeserialize, Serialize} from 'cerialize';
 import {saveAs} from 'file-saver';
 
 import {Organization, OrganizationType, PaginatedList, SmoType} from '@core/models';
@@ -102,18 +102,18 @@ export class OrganizationsService {
     return this.httpClient.post(ORGANIZATION_SAVE, orgSer);
   }
 
-  createAccessPoint(ap: Reaccesspoint): Observable<{}> {
+  createAccessPoint(ap: Reaccesspoint): Observable<Reaccesspoint> {
     // todo: Определить тип, параметр приходит не организация, а any
     const item = Serialize(ap, Reaccesspoint);
     const url = ORGANIZATION_CREATE_AP.replace(':id', ap.organizationId.toString());
-    return this.httpClient.post(url, item);
+    return this.httpClient.post(url, item).pipe(map((response) => GenericDeserialize(response, Reaccesspoint)));
   }
 
-  updateAccessPoint(ap: Reaccesspoint): Observable<{}> {
+  updateAccessPoint(ap: Reaccesspoint): Observable<Reaccesspoint> {
     // todo: Определить тип, параметр приходит не организация, а any
     const item = Serialize(ap, Reaccesspoint);
     const url = ORGANIZATION_CREATE_AP.replace(':id', ap.organizationId.toString());
-    return this.httpClient.put(url, item);
+    return this.httpClient.put(url, item).pipe(map((response) => GenericDeserialize(response, Reaccesspoint)));
   }
 
   initMonitoring(apid: number, orgid: number, foo: any): Observable<{}> {

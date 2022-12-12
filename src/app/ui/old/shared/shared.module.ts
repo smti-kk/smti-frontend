@@ -46,6 +46,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FilterPipe} from "../../directives/filter.pipe";
 import {PermissionsDirective} from './../../directives/permissions.directive';
 import {CustomSubmitDirective} from './../../directives/custom-submit.directive';
+import { AccessPointDetailComponent } from './components/access-point-detail/access-point-detail.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import {CustomSubmitDirective} from './../../directives/custom-submit.directive'
     FilterPipe,
     PermissionsDirective,
     CustomSubmitDirective,
+    AccessPointDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -121,7 +123,8 @@ import {CustomSubmitDirective} from './../../directives/custom-submit.directive'
     FormOrganizationComponent,
     FilterPipe,
     PermissionsDirective,
-    CustomSubmitDirective
+    CustomSubmitDirective,
+    AccessPointDetailComponent,
   ],
 })
 export class SharedModule {}

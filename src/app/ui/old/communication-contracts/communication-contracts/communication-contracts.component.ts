@@ -6,11 +6,13 @@ import {debounceTime, distinctUntilChanged, finalize, share} from 'rxjs/operator
 
 import {InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
-import {LocationServiceContractsWithFilterParams} from '@core/services/location.service';
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {OrganizationsService} from '@core/services';
-import {Contract} from '@core/models/contract';
+import { Reaccesspoint} from '@core/models/reaccesspoint';
+import { FunCustomer } from '@core/models/funCustomer';
+import { funCustomerService } from '@core/services/funCustomer.service';
 
 const FIRST_PAGE = 1;
 
@@ -20,12 +22,13 @@ const FIRST_PAGE = 1;
   styleUrls: ['./communication-contracts.component.scss'],
 })
 export class CommunicationContractsComponent implements OnInit {
-  contracts: PaginatedList<Contract>;
+  contracts: PaginatedList<Reaccesspoint>;
   fLocations$: Observable<Location[]>;
   fParents$: Observable<Location[]>;
   fOrganizationSMOTypes$: Observable<SmoType[]>;
   fOrganizationTypes$: Observable<OrganizationType[]>;
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
+  funCustomers$: Observable<FunCustomer[]>;
   pageNumber = FIRST_PAGE;
   itemsPerPage = 10;
   form: FormGroup;
@@ -37,23 +40,27 @@ export class CommunicationContractsComponent implements OnInit {
 
 
   constructor(
-    public serviceLocation: LocationServiceContractsWithFilterParams,
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceOrganizations: OrganizationsService,
     private spinner: NgxSpinnerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private funCustomerService: funCustomerService,
   ) {
   }
 
   ngOnInit(): void {
-    this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).subscribe(response => {
-      this.contracts = response;
-    });
+    this.serviceLocation
+      .paginatedSMOList(this.pageNumber, this.itemsPerPage)
+      .subscribe((response) => {
+        this.contracts = response;
+      });
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
+    this.funCustomers$ = this.funCustomerService.getCustomers();
     this.buildForm();
   }
 
@@ -63,6 +70,7 @@ export class CommunicationContractsComponent implements OnInit {
       location: null,
       type: null,
       smo: null,
+      funCustomer: null,
       organization: null,
       parent: null,
       contract: null,
@@ -101,8 +109,10 @@ export class CommunicationContractsComponent implements OnInit {
     });
   }
 
-  loadPagedLocationWithContracts(): Observable<PaginatedList<Contract>> {
-    return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
+  loadPagedLocationWithContracts(): Observable<PaginatedList<Reaccesspoint>> {
+    return this.serviceLocation
+      .paginatedSMOList(this.pageNumber, this.itemsPerPage)
+      .pipe(share());
   }
 
   showFilterBody(): void {

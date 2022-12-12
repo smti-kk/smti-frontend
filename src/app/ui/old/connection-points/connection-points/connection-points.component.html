@@ -133,27 +133,13 @@
             </nz-form-item>
 
             <nz-form-item>
-              <nz-form-label>Тип СЗО</nz-form-label>
+              <nz-form-label>Функциональный заказчик</nz-form-label>
               <nz-form-control>
                 <app-simple-select
-                  [items]="fOrganizationSMOTypes$ | async"
+                  [items]="funCustomers$ | async"
                   [form]="form"
-                  [iFormControl]="'smo'"
+                  [iFormControl]="'funCustomer'"
                 ></app-simple-select>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Тип точки</nz-form-label>
-              <nz-form-control>
-                <nz-select
-                  nzMode="multiple"
-                  [nzSuffixIcon]="suffixIconSelect"
-                  formControlName="point"
-                >
-                  <ng-container *ngFor="let item of fPoints$ | async; trackBy:trackByIds">
-                    <nz-option [nzLabel]="item.desc" [nzValue]="item.name"></nz-option>
-                  </ng-container>
-                </nz-select>
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -285,7 +271,7 @@
                 {{ point?.organization?.type ? point?.organization?.type.name : ' ' }}
               </div>
               <div>
-                <span class="">Тип СЗО:</span>
+                <span class="">Функциональный заказчик:</span>
                 {{ point?.organization?.smoType ? point?.organization?.smoType.name : ' ' }}
               </div>
             </div>

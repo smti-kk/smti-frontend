@@ -169,7 +169,6 @@ export class JournalComponent implements OnInit {
     }
 
     let result = {};
-    
     if (ap?.address !== newAp?.address || (!ap.hasOwnProperty('address') && newAp.hasOwnProperty('address'))) {
       result['address'] = ap?.address;
       result['newAddress'] = newAp.address;
