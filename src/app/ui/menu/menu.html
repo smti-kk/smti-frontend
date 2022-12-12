@@ -103,6 +103,10 @@
          [class.active]="currentRouteIs('/type-smo')"><span>Типы СЗО</span></div>
     <div class="link root-link"
          *permissions="['ADMIN']"
+         routerLink="/fun-customer"
+         [class.active]="currentRouteIs('/fun-customer')"><span>Функциональные заказчики</span></div>
+    <div class="link root-link"
+         *permissions="['ADMIN']"
          routerLink="/locations-book"
          [class.active]="currentRouteIs('/locations-book')"><span>Населённые пункты</span></div>
     <div class="link root-link"
