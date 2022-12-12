@@ -21,6 +21,7 @@ import {AuthInterceptor} from '../../../api/auth.interceptor';
 import {LocalStorageService} from '../../../storage/local-storage.service';
 import {AccessPointService} from './services/accesspoint-type.service';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {funCustomerService} from '@core/services/funCustomer.service';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ReactiveFormsModule],
@@ -39,6 +40,7 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
     NgZorroAntdModule,
     UserService,
     ActionTypeService,
+    funCustomerService,
     {
       provide: HTTP_INTERCEPTORS,
       useFactory: () => new AuthInterceptor(

@@ -178,7 +178,7 @@ export class JournalComponent implements OnInit {
       result['point'] = ap.point.lat + '-' + ap.point.lng;
       result['newPoint'] = newAp.point.lat + '-' + newAp.point.lng;
     }
-    if (ap?.funCustomer !== newAp?.funCustomer) {
+    if (ap.funCustomer !== newAp?.funCustomer) {
       result['funCustomer'] = ap.funCustomer;
       result['newFunCustomer'] = newAp.funCustomer;
     }
@@ -265,8 +265,8 @@ export class JournalComponent implements OnInit {
     if (changes['point']) {
       result += 'Изменены координаты с ' + changes['point'] + ' на ' + changes['newPoint'] + ';';
     }
-    if (changes['funCustomer']) {
-      result += 'Изменён функциональный заказчик с ' + changes['funCustomer'] + ' на ' + changes['newFunCustomer'] + ';';
+    if (changes['newFunCustomer']) {
+      result += 'Изменён функциональный заказчик с ' + (changes['funCustomer'] ?? '\'нет заказчика\'') + ' на ' + changes['newFunCustomer'] + ';';
     }
     if (changes['internetAccess']) {
       result += 'Изменён тип подключения с ' + changes['internetAccess'] + ' на ' + changes['newInternetAccess'] + ';';
