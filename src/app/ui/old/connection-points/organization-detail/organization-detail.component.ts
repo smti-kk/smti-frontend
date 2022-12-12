@@ -20,7 +20,7 @@ export class OrganizationDetailComponent implements OnInit {
 
   organizationParent: string;
 
-  points$: Observable<Reaccesspoint[]>;
+  points: Reaccesspoint[];
   fLocations$: Observable<Location[]>;
   qualityToString = qualityToString;
   participationStatusToString = participationStatusToString;
@@ -37,7 +37,9 @@ export class OrganizationDetailComponent implements OnInit {
     const organizationId = this.activatedRoute.snapshot.params.id;
     const locationId = parseInt(this.activatedRoute.snapshot.queryParams.locationId, 10);
 
-    this.points$ = this.serviceOrganizations.getPoints(organizationId);
+    this.serviceOrganizations.getPoints(organizationId).subscribe((res) => {
+      this.points = res;
+    })
 
     if (organizationId) {
       this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
@@ -57,7 +59,7 @@ export class OrganizationDetailComponent implements OnInit {
   }
 
   addNewAccessPoint(): void {
-    this.modal.create({
+    this.modal.create<FormAccessPointComponent, Reaccesspoint>({
       nzTitle: 'Добавление точки доступа',
       nzContent: FormAccessPointComponent,
       nzFooter: null,
@@ -66,11 +68,13 @@ export class OrganizationDetailComponent implements OnInit {
         mode: 'CREATE',
         type: 'ESPD'
       },
+    }).afterClose.subscribe((res) => {
+      this.points.push(res);
     });
   }
 
   editAccessPoint(point: Reaccesspoint): void {
-    this.modal.create({
+    this.modal.create<FormAccessPointComponent, Reaccesspoint>({
       nzTitle: 'Редактирование точки доступа',
       nzContent: FormAccessPointComponent,
       nzFooter: null,
@@ -79,6 +83,11 @@ export class OrganizationDetailComponent implements OnInit {
         organization: this.organization,
         mode: 'UPDATE'
       },
+    }).afterClose.subscribe((res) => {
+      const idx = this.points.findIndex((ap) => ap.id === res.id);
+      if (idx >= 0) {
+        this.points[idx] = res;
+      }
     });
   }
 

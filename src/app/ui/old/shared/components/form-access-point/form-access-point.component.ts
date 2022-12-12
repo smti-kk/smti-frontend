@@ -179,9 +179,7 @@ export class FormAccessPointComponent implements OnInit {
       }
       subscription.subscribe(
         (response) => {
-          // this._ref.close(response);
-          // this._ref.destroy(response);
-          window.location.reload();
+          this._ref.destroy(response);
           // todo: implement me
         },
         (error) => {

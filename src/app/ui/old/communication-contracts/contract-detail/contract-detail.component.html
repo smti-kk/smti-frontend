@@ -27,7 +27,7 @@
         <h2>Точки подключения</h2>
         <div class="points">
           <app-access-point-detail
-            *ngFor="let ap of points$ | async"
+            *ngFor="let ap of points"
             class="point"
             [ap]="ap"
             [organization]="organization">
