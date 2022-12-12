@@ -17,6 +17,7 @@ import {formatDate} from '@angular/common';
 import {APStateType} from 'src/app/ui/old/connection-points/connection-points/connection-points.component';
 import {saveAs} from 'file-saver';
 import {AccessPointService} from '@core/services/accesspoint-type.service';
+import { FunCustomer } from '@core/models/funCustomer';
 
 const LOCATIONS_WITH_CONTRACTS = `${environment.API_BASE_URL}/api/report/organization/ap-contract/`;
 const LOCATIONS_WITH_CONNECTION_POINTS = `${environment.API_BASE_URL}/api/report/organization/ap-all/`;
@@ -30,6 +31,7 @@ interface LocationWithCommonFilters {
   location: Location | Location[];
   type: OrganizationType;
   smo: SmoType;
+  funCustomer: FunCustomer;
   parent: number[];
   organization: string;
   contractor: string;
@@ -317,6 +319,7 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setConnectionType('inet', filters.connectionType);
     this.setType('type', filters.type);
     this.setSmo('smo', filters.smo);
+    this.setFunCustomer('funCustomer', filters.funCustomer);
     this.setContractType('contract', filters.contractType);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
@@ -324,6 +327,16 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setLogicalCondition('logicalCondition', filters.logicalCondition);
     this.setAccessPointState('state',filters.state);
 
+  }
+
+  setFunCustomer(field: string, value: FunCustomer) {
+    console.log(value);
+
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   setAddress(field: string, value: string | null) {

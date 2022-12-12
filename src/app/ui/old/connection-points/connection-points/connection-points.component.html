@@ -136,9 +136,9 @@
               <nz-form-label>Функциональный заказчик</nz-form-label>
               <nz-form-control>
                 <app-simple-select
-                  [items]="fOrganizationSMOTypes$ | async"
+                  [items]="funCustomers$ | async"
                   [form]="form"
-                  [iFormControl]="'smo'"
+                  [iFormControl]="'funCustomer'"
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>

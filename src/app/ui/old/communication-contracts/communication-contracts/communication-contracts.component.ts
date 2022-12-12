@@ -11,6 +11,8 @@ import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {OrganizationsService} from '@core/services';
 import { Reaccesspoint} from '@core/models/reaccesspoint';
+import { FunCustomer } from '@core/models/funCustomer';
+import { funCustomerService } from '@core/services/funCustomer.service';
 
 const FIRST_PAGE = 1;
 
@@ -26,6 +28,7 @@ export class CommunicationContractsComponent implements OnInit {
   fOrganizationSMOTypes$: Observable<SmoType[]>;
   fOrganizationTypes$: Observable<OrganizationType[]>;
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
+  funCustomers$: Observable<FunCustomer[]>;
   pageNumber = FIRST_PAGE;
   itemsPerPage = 10;
   form: FormGroup;
@@ -41,7 +44,8 @@ export class CommunicationContractsComponent implements OnInit {
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceOrganizations: OrganizationsService,
     private spinner: NgxSpinnerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private funCustomerService: funCustomerService,
   ) {
   }
 
@@ -56,6 +60,7 @@ export class CommunicationContractsComponent implements OnInit {
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
+    this.funCustomers$ = this.funCustomerService.getCustomers();
     this.buildForm();
   }
 
@@ -65,6 +70,7 @@ export class CommunicationContractsComponent implements OnInit {
       location: null,
       type: null,
       smo: null,
+      funCustomer: null,
       organization: null,
       parent: null,
       contract: null,
