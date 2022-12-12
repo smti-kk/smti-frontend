@@ -24,24 +24,8 @@ const LOCATIONS_SIMPLE = `${environment.API_BASE_URL}/api/location/locations/`;
 const LOCATIONS_PARENTS = `${environment.API_BASE_URL}/api/location/parents/`;
 const LOCATIONS_ALL = `${environment.API_BASE_URL}/api/location/`;
 
-interface LocationWithContractsFilters {
-  order: OrderingFilter;
-  location: Location | Location[];
-  type: OrganizationType;
-  smo: SmoType;
-  parent: number[];
-  organization: string;
-  contract: string;
-  contractor: string;
-  connectionType: InternetAccessType;
-  contractStart: string;
-  contractEnd: string;
-  populationStart: number;
-  populationEnd: number;
-  logicalCondition?: string;
-}
 
-interface LocationWithOrganizationAccessPointsFilters {
+interface LocationWithCommonFilters {
   order: string[];
   location: Location | Location[];
   type: OrganizationType;
@@ -50,13 +34,21 @@ interface LocationWithOrganizationAccessPointsFilters {
   organization: string;
   contractor: string;
   connectionType: InternetAccessType;
-  contractType: GovernmentProgram; // possible
   populationStart: number;
   populationEnd: number;
-  point: string[];
+  logicalCondition?: string;
+}
+
+interface LocationWithContractsFilters extends LocationWithCommonFilters {
+  contract: string;
+  contractStart: string;
+  contractEnd: string;
+}
+
+interface LocationWithOrganizationAccessPointsFilters extends LocationWithCommonFilters {
+  contractType: GovernmentProgram; // possible
   address?: string;
   state?: APStateType;
-  logicalCondition?: string;
 }
 
 @Injectable()
@@ -180,11 +172,9 @@ export class LocationServiceContractsWithFilterParams extends LocationService {
     }
   }
 
-  private setOrder(order?: OrderingFilter) {
-    if (order && order.orderingDirection === OrderingDirection.ASC) {
-      this.params = this.params.set('sort', order.name);
-    } else if (order && order.orderingDirection === OrderingDirection.DSC) {
-      this.params = this.params.set('sort', `-${order.name}`);
+  private setOrder(order?: string[]) {
+    if (order) {
+      this.params = this.params.set('sort', order.toString());
     } else {
       this.params = this.params.delete('sort');
     }
@@ -294,6 +284,24 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     );
   }
 
+  paginatedESPDList(page: number, pageSize: number): Observable<PaginatedList<Reaccesspoint>> {
+    return super.listLocationsWithConnectionPoints(
+      this.params
+        .set('page', page.toString())
+        .set('size', pageSize.toString())
+        .set('ap', 'ESPD')
+    );
+  }
+
+  paginatedSMOList(page: number, pageSize: number): Observable<PaginatedList<Reaccesspoint>> {
+    return super.listLocationsWithConnectionPoints(
+      this.params
+        .set('page', page.toString())
+        .set('size', pageSize.toString())
+        .set('ap', 'SMO')
+    );
+  }
+
   getAPStateWithFilters() {
     return this.apService.getAccessPointsState(this.params);
   }
@@ -312,7 +320,6 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
     this.setContractType('contract', filters.contractType);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
-    this.setPoint('ap', filters.point);
     this.setAddress('address', filters.address);
     this.setLogicalCondition('logicalCondition', filters.logicalCondition);
     this.setAccessPointState('state',filters.state);
@@ -320,7 +327,7 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
   }
 
   setAddress(field: string, value: string | null) {
-    if (value !== null && value.length !== 0) {
+    if (value && value.length !== 0) {
       this.params = this.params.set(field, value.toString());
     } else {
       this.params = this.params.delete(field);

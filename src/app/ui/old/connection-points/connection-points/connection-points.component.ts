@@ -77,7 +77,7 @@ export class ConnectionPointsComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     this.serviceLocation
-      .paginatedList(this.pageNumber, this.itemsPerPage)
+      .paginatedESPDList(this.pageNumber, this.itemsPerPage)
       .subscribe((response) => {
         this.points = response;
         this.spinner.hide();
@@ -150,7 +150,7 @@ export class ConnectionPointsComponent implements OnInit {
     PaginatedList<Reaccesspoint>
   > {
     return this.serviceLocation
-      .paginatedList(this.pageNumber, this.itemsPerPage)
+      .paginatedESPDList(this.pageNumber, this.itemsPerPage)
       .pipe(share());
   }
 

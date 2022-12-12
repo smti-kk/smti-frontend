@@ -142,20 +142,6 @@
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Тип точки</nz-form-label>
-              <nz-form-control>
-                <nz-select
-                  nzMode="multiple"
-                  [nzSuffixIcon]="suffixIconSelect"
-                  formControlName="point"
-                >
-                  <ng-container *ngFor="let item of fPoints$ | async; trackBy:trackByIds">
-                    <nz-option [nzLabel]="item.desc" [nzValue]="item.name"></nz-option>
-                  </ng-container>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
           </div>
         </div>
         <div class="filter-footer" [class.filter-footer-active]="isVisibleFilter">

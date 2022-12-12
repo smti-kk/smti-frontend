@@ -6,11 +6,11 @@ import {debounceTime, distinctUntilChanged, finalize, share} from 'rxjs/operator
 
 import {InternetAccessType, Location, OrganizationType, SmoType} from '@core/models';
 import {PaginatedList} from '@core/models/paginated-list';
-import {LocationServiceContractsWithFilterParams} from '@core/services/location.service';
+import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
 import {OrderingDirection} from '@core/services/tc-pivots.service';
 import {InternetAccessTypeService} from '@core/services/internet-access-type.service';
 import {OrganizationsService} from '@core/services';
-import {Contract} from '@core/models/contract';
+import { Reaccesspoint} from '@core/models/reaccesspoint';
 
 const FIRST_PAGE = 1;
 
@@ -20,7 +20,7 @@ const FIRST_PAGE = 1;
   styleUrls: ['./communication-contracts.component.scss'],
 })
 export class CommunicationContractsComponent implements OnInit {
-  contracts: PaginatedList<Contract>;
+  contracts: PaginatedList<Reaccesspoint>;
   fLocations$: Observable<Location[]>;
   fParents$: Observable<Location[]>;
   fOrganizationSMOTypes$: Observable<SmoType[]>;
@@ -37,7 +37,7 @@ export class CommunicationContractsComponent implements OnInit {
 
 
   constructor(
-    public serviceLocation: LocationServiceContractsWithFilterParams,
+    public serviceLocation: LocationServiceOrganizationAccessPointsWithFilterParams,
     private serviceInternetAccessType: InternetAccessTypeService,
     private serviceOrganizations: OrganizationsService,
     private spinner: NgxSpinnerService,
@@ -46,9 +46,11 @@ export class CommunicationContractsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).subscribe(response => {
-      this.contracts = response;
-    });
+    this.serviceLocation
+      .paginatedSMOList(this.pageNumber, this.itemsPerPage)
+      .subscribe((response) => {
+        this.contracts = response;
+      });
     this.fParents$ = this.serviceLocation.listParentLocations();
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
@@ -101,8 +103,10 @@ export class CommunicationContractsComponent implements OnInit {
     });
   }
 
-  loadPagedLocationWithContracts(): Observable<PaginatedList<Contract>> {
-    return this.serviceLocation.paginatedList(this.pageNumber, this.itemsPerPage).pipe(share());
+  loadPagedLocationWithContracts(): Observable<PaginatedList<Reaccesspoint>> {
+    return this.serviceLocation
+      .paginatedSMOList(this.pageNumber, this.itemsPerPage)
+      .pipe(share());
   }
 
   showFilterBody(): void {
