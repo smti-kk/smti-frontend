@@ -169,163 +169,164 @@ export class JournalComponent implements OnInit {
     }
 
     let result = {};
-    
-    if (ap?.address !== newAp?.address) {
-      result['address'] = ap.address;
+
+    if (ap?.address !== newAp?.address || (!ap.hasOwnProperty('address') && newAp.hasOwnProperty('address'))) {
+      result['address'] = ap?.address;
       result['newAddress'] = newAp.address;
     }
-    if (ap?.point?.lat !== newAp?.point?.lat || ap?.point?.lng !== newAp?.point?.lng) {
-      result['point'] = ap.point.lat + '-' + ap.point.lng;
+    if ((ap?.point?.lat !== newAp?.point?.lat || ap?.point?.lng !== newAp?.point?.lng) || (!ap.hasOwnProperty('point') && newAp.hasOwnProperty('point'))) {
+      result['point'] = ap?.point?.lat + '-' + ap?.point?.lng;
       result['newPoint'] = newAp.point.lat + '-' + newAp.point.lng;
     }
-    if (ap.funCustomer !== newAp?.funCustomer) {
-      result['funCustomer'] = ap.funCustomer;
+    if (ap.funCustomer !== newAp?.funCustomer || (!ap.hasOwnProperty('funCustomer') && newAp.hasOwnProperty('funCustomer'))) {
+      result['funCustomer'] = ap?.funCustomer;
       result['newFunCustomer'] = newAp.funCustomer;
     }
-    if (ap?.internetAccess?.id !== newAp?.internetAccess?.id) {
+    if (ap?.internetAccess?.id !== newAp?.internetAccess?.id || (!ap.hasOwnProperty('internetAccess') && newAp.hasOwnProperty('internetAccess'))) {
       result['internetAccess'] = ap.internetAccess.name;
       result['newInternetAccess'] = newAp.internetAccess.name;
     }
-    if (ap?.declaredSpeed !== newAp?.declaredSpeed) {
-      result['declaredSpeed'] = ap.declaredSpeed;
+    if (ap?.declaredSpeed !== newAp?.declaredSpeed || (!ap.hasOwnProperty('declaredSpeed') && newAp.hasOwnProperty('declaredSpeed'))) {
+      result['declaredSpeed'] = ap?.declaredSpeed;
       result['newDeclaredSpeed'] = newAp.declaredSpeed;
     }
-    if (ap?.contractId !== newAp?.contractId) {
-      result['contractId'] = ap.contractId;
+    if (ap?.contractId !== newAp?.contractId || (!ap.hasOwnProperty('contractId') && newAp.hasOwnProperty('contractId'))) {
+      result['contractId'] = ap?.contractId;
       result['newContractId'] = newAp.contractId;
     }
-    if (ap?.contract !== newAp?.contract) {
-      result['contract'] = ap.contract;
+    if (ap?.contract !== newAp?.contract || (!ap.hasOwnProperty('contract') && newAp.hasOwnProperty('contract'))) {
+      result['contract'] = ap?.contract;
       result['newContract'] = newAp.contract;
     }
-    if (ap?.contacts !== newAp?.contacts) {
-      result['contacts'] = ap.contacts;
+    if (ap?.contacts !== newAp?.contacts || (!ap.hasOwnProperty('contacts') && newAp.hasOwnProperty('contacts'))) {
+      result['contacts'] = ap?.contacts;
       result['newContacts'] = newAp.contacts;
     }
-    if (ap?.change !== newAp?.change) {
-      result['change'] = ap.change;
+    if (ap?.change !== newAp?.change || (!ap.hasOwnProperty('change') && newAp.hasOwnProperty('change'))) {
+      result['change'] = ap?.change;
       result['newChange'] = newAp.change;
     }
-    if (ap?.dateConnectionOrChange !== newAp?.dateConnectionOrChange) {
-      result['dateConnectionOrChange'] = ap.dateConnectionOrChange;
+    if (ap?.dateConnectionOrChange !== newAp?.dateConnectionOrChange || (!ap.hasOwnProperty('dateConnectionOrChange') && newAp.hasOwnProperty('dateConnectionOrChange'))) {
+      result['dateConnectionOrChange'] = ap?.dateConnectionOrChange;
       result['newDateConnectionOrChange'] = newAp.dateConnectionOrChange;
     }
-    if (ap?.numIncomingMessage !== newAp?.numIncomingMessage) {
-      result['numIncomingMessage'] = ap.numIncomingMessage;
+    if (ap?.numIncomingMessage !== newAp?.numIncomingMessage || (!ap.hasOwnProperty('numIncomingMessage') && newAp.hasOwnProperty('numIncomingMessage'))) {
+      result['numIncomingMessage'] = ap?.numIncomingMessage;
       result['newNumIncomingMessage'] = newAp.numIncomingMessage;
     }
-    if (ap?.commentary !== newAp?.commentary) {
-      result['commentary'] = ap.commentary;
+    if (ap?.commentary !== newAp?.commentary || (!ap.hasOwnProperty('commentary') && newAp.hasOwnProperty('commentary'))) {
+      result['commentary'] = ap?.commentary;
       result['newCommentary'] = newAp.commentary;
     }
-    if (ap?.organization?.id !== newAp?.organization?.id) {
-      result['organization'] = ap.organization.name;
-      result['fias'] = ap.organization.fias;
+    if (ap?.organization?.id !== newAp?.organization?.id || (!ap.hasOwnProperty('organization') && newAp.hasOwnProperty('organization'))) {
+      result['organization'] = ap?.organization.name;
+      result['fias'] = ap?.organization.fias;
       result['newOrganization'] = newAp.organization.name;
       result['newFias'] = newAp.organization.fias;
     }
-    if (ap?.espdWhiteIp !== newAp?.espdWhiteIp) {
-      result['espdWhiteIp'] = ap.espdWhiteIp;
+    if (ap?.espdWhiteIp !== newAp?.espdWhiteIp || (!ap.hasOwnProperty('espdWhiteIp') && newAp.hasOwnProperty('espdWhiteIp'))) {
+      result['espdWhiteIp'] = ap?.espdWhiteIp;
       result['newEspdWhiteIp'] = newAp.espdWhiteIp;
     }
-    if (ap?.numSourceEmailsRTK !== newAp?.numSourceEmailsRTK) {
-      result['numSourceEmailsRTK'] = ap.numSourceEmailsRTK;
+    if (ap?.numSourceEmailsRTK !== newAp?.numSourceEmailsRTK || (!ap.hasOwnProperty('numSourceEmailsRTK') && newAp.hasOwnProperty('numSourceEmailsRTK'))) {
+      result['numSourceEmailsRTK'] = ap?.numSourceEmailsRTK;
       result['newNumSourceEmailsRTK'] = newAp.numSourceEmailsRTK;
     }
-    if (ap?.oneTimePay !== newAp?.oneTimePay) {
-      result['oneTimePay'] = ap.oneTimePay;
+    if (ap?.oneTimePay !== newAp?.oneTimePay || (!ap.hasOwnProperty('oneTimePay') && newAp.hasOwnProperty('oneTimePay'))) {
+      result['oneTimePay'] = ap?.oneTimePay;
       result['newOneTimePay'] = newAp.oneTimePay;
     }
-    if (ap?.monthlyPay !== newAp?.monthlyPay) {
-      result['monthlyPay'] = ap.monthlyPay;
+    if (ap?.monthlyPay !== newAp?.monthlyPay || (!ap.hasOwnProperty('monthlyPay') && newAp.hasOwnProperty('monthlyPay'))) {
+      result['monthlyPay'] = ap?.monthlyPay;
       result['newMonthlyPay'] = newAp.monthlyPay;
     }
-    if (ap?.zspdWhiteIp !== newAp?.zspdWhiteIp) {
-      result['zspdWhiteIp'] = ap.zspdWhiteIp;
+    if (ap?.zspdWhiteIp !== newAp?.zspdWhiteIp || (!ap.hasOwnProperty('zspdWhiteIp') && newAp.hasOwnProperty('zspdWhiteIp'))) {
+      result['zspdWhiteIp'] = ap?.zspdWhiteIp;
       result['newZspdWhiteIp'] = newAp.zspdWhiteIp;
     }
-    if (ap?.availZspdOrMethodConToZspd !== newAp?.availZspdOrMethodConToZspd) {
-      result['availZspdOrMethodConToZspd'] = ap.availZspdOrMethodConToZspd;
+    if (ap?.availZspdOrMethodConToZspd !== newAp?.availZspdOrMethodConToZspd || (!ap.hasOwnProperty('availZspdOrMethodConToZspd') && newAp.hasOwnProperty('availZspdOrMethodConToZspd'))) {
+      result['availZspdOrMethodConToZspd'] = ap?.availZspdOrMethodConToZspd;
       result['newAvailZspdOrMethodConToZspd'] = newAp.availZspdOrMethodConToZspd;
     }
-    if (ap?.dateCommissioning !== newAp?.dateCommissioning) {
-      result['dateCommissioning'] = ap.dateCommissioning;
+    if (ap?.dateCommissioning !== newAp?.dateCommissioning || (!ap.hasOwnProperty('dateCommissioning') && newAp.hasOwnProperty('dateCommissioning'))) {
+      result['dateCommissioning'] = ap?.dateCommissioning;
       result['newDateCommissioning'] = newAp.dateCommissioning;
     }
 
     return result;
   }
 
-  getChangesText(changes : object) : string {
-    let result : string = '';
+  getChangesText(changes : object) : string[] {
+    let result : string[] = [];
 
-    if (changes['address']) {
-      result += 'Изменен адрес с ' + changes['address'] + ' на ' + changes['newAddress'] + ';';
+    if (changes['newAddress']) {
+      result.push('Изменен адрес с \"' + (changes['address'] ?? 'нет адреса') + '\" на \"' + changes['newAddress'] + '\";');
     }
-    if (changes['point']) {
-      result += 'Изменены координаты с ' + changes['point'] + ' на ' + changes['newPoint'] + ';';
+    if (changes['newPoint']) {
+      result.push('Изменены координаты с \"' + (changes['point'] ?? 'нет координат') + '\" на \"' + changes['newPoint'] + '\";');
     }
     if (changes['newFunCustomer']) {
-      result += 'Изменён функциональный заказчик с ' + (changes['funCustomer'] ?? '\'нет заказчика\'') + ' на ' + changes['newFunCustomer'] + ';';
+      result.push('Изменён функциональный заказчик с \"' + (changes['funCustomer'] ?? 'нет заказчика') + '\" на \"' + changes['newFunCustomer'] + '\";');
     }
-    if (changes['internetAccess']) {
-      result += 'Изменён тип подключения с ' + changes['internetAccess'] + ' на ' + changes['newInternetAccess'] + ';';
+    if (changes['newInternetAccess']) {
+      result.push('Изменён тип подключения с \"' + (changes['internetAccess'] ?? 'нет типа подключения') + '\" на \"' + changes['newInternetAccess'] + '\";');
     }
-    if (changes['declaredSpeed']) {
-      result += 'Изменена скорость подключения с ' + changes['declaredSpeed'] + ' на ' + changes['newDeclaredSpeed'] + ';';
+    if (changes['newDeclaredSpeed']) {
+      result.push('Изменена скорость подключения с \"' + (changes['declaredSpeed'] ?? 'нет скорости подключения') + '\" на \"' + changes['newDeclaredSpeed'] + '\";');
     }
-    if (changes['contractId']) {
-      result += 'Изменён ID по контракту с ' + changes['contractId'] + ' на ' + changes['newContractId'] + ';';
+    if (changes['newContractId']) {
+      result.push('Изменён ID по контракту с \"' + (changes['contractId'] ?? 'нет ID по контракту') + '\" на \"' + changes['newContractId'] + '\";');
     }
-    if (changes['contract']) {
-      result += 'Изменён контракт с ' + changes['contract'] + ' на ' + changes['newContract'] + ';';
+    if (changes['newContract']) {
+      result.push('Изменён контракт с \"' + (changes['contract'] ?? 'нет контракта') + '\" на \"' + changes['newContract'] + '\";');
     }
-    if (changes['contacts']) {
-      result += 'Изменена информация о контактах с \"' + changes['contacts'] + '\" на \"' + changes['newContacts'] + '\";';
+    if (changes['newContacts']) {
+      result.push('Изменена информация о контактах с \"' + (changes['contacts'] ?? 'нет контактов') + '\" на \"' + changes['newContacts'] + '\";');
     }
-    if (changes['change']) {
-      result += 'Изменён тип изменения с ' + changes['change'] + ' на ' + changes['newChange'] + ';';
+    if (changes['newChange']) {
+      result.push('Изменён тип изменения с \"' + (changes['change'] ?? 'нет типа изменения') + '\" на \"' + changes['newChange'] + '\";');
     }
-    if (changes['dateConnectionOrChange']) {
-      result += 'Изменена дата подключения/изменения с ' + changes['dateConnectionOrChange'] + ' на ' + changes['newDateConnectionOrChange'] + ';';
+    if (changes['newDateConnectionOrChange']) {
+      result.push('Изменена дата подключения/изменения с \"' + (changes['dateConnectionOrChange'] ?? 'нет даты подключения/изменения') + '\" на \"' + changes['newDateConnectionOrChange'] + '\";');
     }
-    if (changes['numIncomingMessage']) {
-      result += 'Изменён № вх. письма от ведомства с ' + changes['numIncomingMessage'] + ' на ' + changes['newNumIncomingMessage'] + ';';
+    if (changes['newNumIncomingMessage']) {
+      result.push('Изменён № вх. письма от ведомства с \"' + (changes['numIncomingMessage'] ?? 'нет номера') + '\" на \"' + changes['newNumIncomingMessage'] + '\";');
     }
-    if (changes['commentary']) {
-      result += 'Изменены комментарии с \"' + changes['commentary'] + '\" на \"' + changes['newCommentary'] + '\";';
+    if (changes['newCommentary']) {
+      result.push('Изменены комментарии с \"' + (changes['commentary'] ?? 'нет комментариев') + '\" на \"' + changes['newCommentary'] + '\";');
     }
-    if (changes['organization']) {
-      result += 'Изменено наименование организации с \"' + changes['organization'] + '\" на \"' + changes['newOrganization'] + '\";';
-      result += 'Изменён ФИАС организации с \"' + changes['fias'] + '\" на \"' + changes['newFias'] + '\";';
+    if (changes['newOrganization']) {
+      result.push('Изменено наименование организации с \"' + (changes['organization'] ?? 'нет наименования') + '\" на \"' + changes['newOrganization'] + '\";');
+      result.push('Изменён ФИАС организации с \"' + (changes['fias'] ?? 'нет ФИАСа') + '\" на \"' + changes['newFias'] + '\";');
     }
-    if (changes['espdWhiteIp']) {
-      result += 'Изменён белый IP ЕСПД с \"' + changes['espdWhiteIp'] + '\" на \"' + changes['newEspdWhiteIp'] + '\";';
+    if (changes['newEspdWhiteIp']) {
+      result.push('Изменён белый IP ЕСПД с \"' + (changes['espdWhiteIp'] ?? 'нет IP') + '\" на \"' + changes['newEspdWhiteIp'] + '\";');
     }
-    if (changes['numSourceEmailsRTK']) {
-      result += 'Изменён № исх. письма на РТК с \"' + changes['numSourceEmailsRTK'] + '\" на \"' + changes['newNumSourceEmailsRTK'] + '\";';
+    if (changes['newNumSourceEmailsRTK']) {
+      result.push('Изменён № исх. письма на РТК с \"' + (changes['numSourceEmailsRTK'] ?? 'нет номера') + '\" на \"' + changes['newNumSourceEmailsRTK'] + '\";');
     }
-    if (changes['oneTimePay']) {
-      result += 'Изменён разовый платёж с ' + changes['oneTimePay'] + ' на ' + changes['newOneTimePay'] + ';';
+    if (changes['newOneTimePay']) {
+      result.push('Изменён разовый платёж с \"' + (changes['oneTimePay'] ?? 'нет размера платежа') + '\" на \"' + changes['newOneTimePay'] + '\";');
     }
-    if (changes['monthlyPay']) {
-      result += 'Изменен ежемесячный платёж с ' + changes['monthlyPay'] + ' на ' + changes['newMonthlyPay'] + ';';
+    if (changes['newMonthlyPay']) {
+      result.push('Изменен ежемесячный платёж с \"' + (changes['monthlyPay'] ?? 'нет размера платежа') + '\" на \"' + changes['newMonthlyPay'] + '\";');
     }
-    if (changes['zspdWhiteIp']) {
-      result += 'Изменён белый IP ЗСПД с ' + changes['zspdWhiteIp'] + ' на ' + changes['newZspdWhiteIp'] + ';';
+    if (changes['newZspdWhiteIp']) {
+      result.push('Изменён белый IP ЗСПД с \"' + (changes['zspdWhiteIp'] ?? 'нет IP') + '\" на \"' + changes['newZspdWhiteIp'] + '\";');
     }
-    if (changes['availZspdOrMethodConToZspd']) {
-      result += 'Изменено наличие ЗСПД/способ подключения к ЗСПД с ' + changes['availZspdOrMethodConToZspd'] + ' на ' + changes['newAvailZspdOrMethodConToZspd'] + ';';
+    if (changes['newAvailZspdOrMethodConToZspd']) {
+      result.push('Изменено наличие ЗСПД/способ подключения к ЗСПД с \"' + (changes['availZspdOrMethodConToZspd'] ?? 'нет ЗСПД') + '\" на \"' + changes['newAvailZspdOrMethodConToZspd'] + '\";');
     }
-    if (changes['dateCommissioning']) {
-      result += 'Изменена дата ввода в эксплуатацию с ' + changes['dateCommissioning'] + ' на ' + changes['newDateCommissioning'] + ';';
-    }
-
-    if (result === '') {
-      result += 'Обновление, изменений нет;';
+    if (changes['newDateCommissioning']) {
+      result.push('Изменена дата ввода в эксплуатацию с \"' + (changes['dateCommissioning'] ?? 'нет даты ввода в эксплуатацию') + '\" на \"' + changes['newDateCommissioning'] + '\";');
     }
 
-    return result.substring(0, result.length - 1) + '.';
+    if (!result.length) {
+      result.push('Обновление, изменений нет;');
+    }
+
+    result[result.length - 1] = result[result.length - 1].slice(0, -1) + '.';
+    return result;
   }
 
   exportExcel() {

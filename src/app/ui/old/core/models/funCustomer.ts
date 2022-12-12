@@ -1,6 +1,11 @@
 import {autoserializeAs, deserializeAs, serializeAs} from 'cerialize';
 
-export class FunCustomer {
+export interface IFunCustomer {
+  id: number;
+  name: string;
+}
+
+export class FunCustomer implements IFunCustomer {
   @autoserializeAs('id')
   private readonly _id: number;
   public get id(): number {
