@@ -63,7 +63,20 @@
   <nz-form-item>
     <nz-form-label>Функциональный заказчик:</nz-form-label>
     <nz-form-control>
-      <input nz-input type="text" formControlName="_fun_customer"/>
+      <nz-select
+        nzAllowClear
+        formControlName="_fun_customer"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let funCustomer of funCustomers$ | async"
+          [nzValue]="funCustomer.name"
+          [nzLabel]="funCustomer.name"
+        ></nz-option>
+      </nz-select>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_fun_customer').invalid && (formGroupOrganization.get('_fun_customer').touched || formGroupOrganization.get('_fun_customer').dirty)">
+        <span *ngIf="formGroupOrganization.get('_fun_customer').errors?.required">Обязательное поле</span>
+      </div>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
