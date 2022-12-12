@@ -7,12 +7,13 @@ import {compareById} from '@core/utils/compare';
 import {LocationService} from '@core/services/location.service';
 import {Router} from '@angular/router';
 import {NzModalRef} from 'ng-zorro-antd';
-import {TrunkChannel} from '../../../../../api/dto/TrunkChannel';
 import {AreYouSureComponent} from '../../../../dialogs/are-you-sure/are-you-sure.component';
 import {MatDialog} from '@angular/material/dialog';
-import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
-import {TrunkChannelsApi} from '../../../../../api/trunk-channels/TrunkChannelsApi';
 import {ApiOrganization} from '../../../../../api/organizations/ApiOrganization';
+import { FunCustomer } from '@core/models/funCustomer';
+import { funCustomerService } from '@core/services/funCustomer.service';
+
+
 
 @Component({
   selector: 'app-form-organization',
@@ -37,6 +38,8 @@ export class FormOrganizationComponent implements OnInit {
 
   compareFn = compareById;
 
+  funCustomers$: Observable<FunCustomer[]>;
+
   constructor(
     private readonly api: ApiOrganization,
     private locationsService: LocationService,
@@ -44,13 +47,15 @@ export class FormOrganizationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     @Optional() private modalRef: NzModalRef,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly funCustomerService: funCustomerService,
   ) {
   }
 
   ngOnInit() {
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
+    this.funCustomers$ = this.funCustomerService.getCustomers();
 
     if (this.organizationForEdit) {
       this.buildForm(this.organizationForEdit);
