@@ -21,7 +21,7 @@
         <div class="points">
           <div >
             <app-access-point-detail
-              *ngFor="let ap of points$ | async"
+              *ngFor="let ap of points"
               class="point"
               [ap]="ap"
               [organization]="organization">
