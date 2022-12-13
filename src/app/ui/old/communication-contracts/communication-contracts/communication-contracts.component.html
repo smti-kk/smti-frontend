@@ -90,12 +90,12 @@
             </nz-form-item>
 
             <nz-form-item>
-              <nz-form-label>Тип СЗО</nz-form-label>
+              <nz-form-label>Функциональный заказчик</nz-form-label>
               <nz-form-control>
                 <app-simple-select
-                  [items]="fOrganizationSMOTypes$ | async"
+                  [items]="funCustomers$ | async"
                   [form]="form"
-                  [iFormControl]="'smo'"
+                  [iFormControl]="'funCustomer'"
                 ></app-simple-select>
               </nz-form-control>
             </nz-form-item>
@@ -195,7 +195,7 @@
                 {{ contract.organization.type ? contract.organization.type.name : ' ' }}
               </div>
               <div>
-                <span class="">Тип СЗО:</span>
+                <span class="">Функциональный заказчик:</span>
                 {{ contract.organization.smoType ? contract.organization.smoType.name : ' ' }}
               </div>
             </div>

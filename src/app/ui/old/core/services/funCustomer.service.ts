@@ -43,4 +43,36 @@ export class funCustomerService {
       )
     );
   }
+
+  create(name: string): Observable<FunCustomer> {
+    const newFunCustomer = {
+      id: funCustomers.length,
+      name,
+    };
+
+    return of(newFunCustomer).pipe(
+      map((funCustomer) =>
+        GenericDeserialize<FunCustomer>(funCustomer, FunCustomer)
+      )
+    );
+  }
+
+  update(id: number, newName: string): Observable<FunCustomer> {
+    const idx = funCustomers.findIndex((fc) => fc.id === id);
+
+    funCustomers[idx] = {...funCustomers[idx], name: newName};
+
+    return of(funCustomers[idx]).pipe(
+      map((funCustomer) =>
+        GenericDeserialize<FunCustomer>(funCustomer, FunCustomer)
+      )
+    );
+
+  }
+
+  delete(id: number) {
+    const idx = funCustomers.findIndex((fc) => fc.id === id);
+    funCustomers.splice(idx,1);
+    return of(true);
+  }
 }

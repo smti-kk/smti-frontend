@@ -34,6 +34,7 @@ import {JournalComponent} from "./journal/journal.component";
 import {MunRequestsArchiveComponent} from 'src/app/ui/mun-requests/mun-requests-archive/mun-requests-archive.component';
 import { LocalityBookPageComponent } from './old/locations-book/pages/locality-book-page/locality-book.component';
 import {MunicipalityAreaBookPageComponent} from 'src/app/ui/old/locations-book/pages/municipality-area-book-page/municipality-area-book-page.component';
+import { FunCustomerComponent } from 'src/app/ui/fun-customer/fun-customer.component';
 
 const routes: Routes = [
   {
@@ -304,6 +305,14 @@ const routes: Routes = [
   {
     path: 'type-smo',
     component: TypeSmoComponent,
+    canActivate: [RouteProxyService],
+    data: {
+      permissions: ['ADMIN']
+    },
+  },
+  {
+    path: 'fun-customer',
+    component: FunCustomerComponent,
     canActivate: [RouteProxyService],
     data: {
       permissions: ['ADMIN']

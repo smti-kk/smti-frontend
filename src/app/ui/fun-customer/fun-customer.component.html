@@ -1,0 +1,25 @@
+<div class="location-features-container">
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Имя </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <button class="add-base-station-button" mat-raised-button (click)="createStation()"><mat-icon>add</mat-icon></button>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon (click)="deleteStation(row)" class="delete-button">delete</mat-icon>
+          <mat-icon (click)="editStation(row)" class="edit-button">edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+

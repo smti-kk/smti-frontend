@@ -1,5 +1,5 @@
-import {autoserializeAs} from 'cerialize';
-import {Coordinate} from './coordinate';
+import { autoserializeAs } from 'cerialize';
+import { Coordinate } from './coordinate';
 
 export const COORDINATE_DESERIALIZER = {
   Deserialize(point: Coordinate): Coordinate {
@@ -11,13 +11,7 @@ export const COORDINATE_DESERIALIZER = {
     // Заглушка убрана:
     //   96.0456,
     //   56.6763888
-    return {
-      type: 'Point',
-      coordinates: [
-        point.lng,
-        point.lat
-      ]
-    };
+    return point;
   },
 };
 
@@ -50,7 +44,7 @@ export abstract class MonitoringPoint {
   // noinspection JSUnusedGlobalSymbols
   public static OnDeserialized(
     instance: MonitoringPoint,
-    json: {geo_data: Coordinate}
+    json: { geo_data: Coordinate }
   ): void {
     if (!instance._point && json.geo_data) {
       // eslint-disable-next-line no-param-reassign

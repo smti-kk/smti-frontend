@@ -136,6 +136,8 @@ import * as AllIcons from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { LocationsFilterMobileComponent } from './locations-page/locations-filter-mobile/locations-filter-mobile.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { FunCustomerComponent } from './fun-customer/fun-customer.component';
+import { FunCustomerViewComponent } from './fun-customer/fun-customer-view/fun-customer-view.component';
 registerLocaleData(ru);
 
 const toastrConfig = {
@@ -231,6 +233,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     LocationsBookFilterComponent,
     LocationsPageMobile,
     LocationsFilterMobileComponent,
+    FunCustomerComponent,
+    FunCustomerViewComponent,
   ],
   imports: [
     BrowserModule,

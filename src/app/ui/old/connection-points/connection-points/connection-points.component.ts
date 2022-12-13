@@ -24,6 +24,8 @@ import {AccessPointState, AccessPointType} from '../../core/models/accesspoint-t
 import {SearchAddressComponent} from 'src/app/ui/old/connection-points/connection-points/search-address/search-address.component';
 import {AccountService} from '@service/account/AccountService';
 import {UserRole} from '@service/account/UserRole';
+import { FunCustomer } from '@core/models/funCustomer';
+import { funCustomerService } from '@core/services/funCustomer.service';
 
 export const APState = {
   Active: 'ACTIVE',
@@ -46,6 +48,7 @@ export class ConnectionPointsComponent implements OnInit {
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
   fOrganizationTypes$: Observable<OrganizationType[]>;
   fOrganizationSMOTypes$: Observable<SmoType[]>;
+  funCustomers$: Observable<FunCustomer[]>;
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
   fPoints$: Observable<AccessPointType[]>;
   fAccessPointsState$: Observable<AccessPointState>;
@@ -71,13 +74,14 @@ export class ConnectionPointsComponent implements OnInit {
     private serviceAccessPointService: AccessPointService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private funCustomerService: funCustomerService,
   ) {}
 
   ngOnInit(): void {
     this.spinner.show();
     this.serviceLocation
-      .paginatedList(this.pageNumber, this.itemsPerPage)
+      .paginatedESPDList(this.pageNumber, this.itemsPerPage)
       .subscribe((response) => {
         this.points = response;
         this.spinner.hide();
@@ -88,6 +92,7 @@ export class ConnectionPointsComponent implements OnInit {
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
     this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
+    this.funCustomers$ = this.funCustomerService.getCustomers();
     this.fPoints$ = this.serviceAccessPointService.getAccessPointType();
     this.fAccessPointsState$ =
       this.serviceAccessPointService.getAccessPointsState();
@@ -104,6 +109,7 @@ export class ConnectionPointsComponent implements OnInit {
       location: null,
       type: null,
       smo: null,
+      funCustomer: null,
       organization: null,
       parent: null,
       contract: null,
@@ -150,7 +156,7 @@ export class ConnectionPointsComponent implements OnInit {
     PaginatedList<Reaccesspoint>
   > {
     return this.serviceLocation
-      .paginatedList(this.pageNumber, this.itemsPerPage)
+      .paginatedESPDList(this.pageNumber, this.itemsPerPage)
       .pipe(share());
   }
 
