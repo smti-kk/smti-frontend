@@ -184,7 +184,7 @@ export class JournalComponent implements OnInit {
     }
     if (ap?.internetAccess?.id !== newAp?.internetAccess?.id || (!ap.hasOwnProperty('internetAccess') && newAp.hasOwnProperty('internetAccess'))) {
       result['internetAccess'] = ap.internetAccess.name;
-      result['newInternetAccess'] = newAp.internetAccess.name;
+      result['newInternetAccess'] = newAp.internetAccess?.name;
     }
     if (ap?.declaredSpeed !== newAp?.declaredSpeed || (!ap.hasOwnProperty('declaredSpeed') && newAp.hasOwnProperty('declaredSpeed'))) {
       result['declaredSpeed'] = ap?.declaredSpeed;
