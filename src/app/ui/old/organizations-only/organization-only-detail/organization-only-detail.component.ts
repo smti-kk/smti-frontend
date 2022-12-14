@@ -20,7 +20,7 @@ export class OrganizationOnlyDetailComponent implements OnInit {
 
   organizationParent: string;
 
-  points$: Observable<Reaccesspoint[]>;
+  points: Reaccesspoint[];
 
   fLocations$: Observable<Location[]>;
 
@@ -38,7 +38,9 @@ export class OrganizationOnlyDetailComponent implements OnInit {
     const organizationId = this.activatedRoute.snapshot.params.id;
     const locationId = parseInt(this.activatedRoute.snapshot.queryParams.locationId, 10);
 
-    this.points$ = this.serviceOrganizations.getPoints(organizationId);
+    this.serviceOrganizations.getPoints(organizationId).subscribe((res) => {
+      this.points = res;
+    })
 
     if (organizationId) {
       this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
