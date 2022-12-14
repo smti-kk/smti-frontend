@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { compareById } from '@core/utils/compare';
 import { Reaccesspoint } from '@core/models/reaccesspoint';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -39,7 +39,7 @@ export class FormAccessPointComponent implements OnInit {
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
   accessPointType$: Observable<AccessPointType[]>;
   formGroupAccessPoints: FormGroup;
-  ap: Reaccesspoint;
+  ap: Reaccesspoint | null;
   Quality = Quality;
   qualityToString = qualityToString;
   compareFn = compareById;
@@ -53,7 +53,7 @@ export class FormAccessPointComponent implements OnInit {
     private serviceAccessPointType: AccessPointService,
     private formBuilder: FormBuilder,
     private readonly _snackBar: MatSnackBar,
-    private readonly _ref: NzModalRef
+    @Optional() private readonly _ref: NzModalRef
   ) {}
 
   ngOnInit(): void {
@@ -143,19 +143,10 @@ export class FormAccessPointComponent implements OnInit {
       Object.keys(this.formGroupAccessPoints.controls).forEach((key) => {
         this.formGroupAccessPoints.get(key).markAsDirty();
       });
-      Object.entries(this.formGroupAccessPoints.controls).forEach(
-        ([key, val]) => {
-          if (val.invalid) console.log(key, val.invalid);
-        }
-      );
-      console.log(this.formGroupAccessPoints.value);
     } else {
-      console.log('valid');
 
-      // const coords = {
-      //   lng: this.formGroupAccessPoints.get('lng').value,
-      //   lat: this.formGroupAccessPoints.get('lat').value};
-      const orig = Serialize(this.accessPointForEdit, Reaccesspoint);
+
+      const orig = Serialize(this.accessPointForEdit, Reaccesspoint) ?? {};
       this.ap = Deserialize(
         Object.assign(orig, {
           ...this.formGroupAccessPoints.value,
@@ -164,30 +155,27 @@ export class FormAccessPointComponent implements OnInit {
         }),
         Reaccesspoint
       );
-      console.log(this.ap);
-
-      //new Reaccesspoint(coords, null);
       let subscription: Observable<Reaccesspoint>;
       if (this.mode === 'CREATE') {
-        subscription = this.serviceOrganizations.createAccessPoint(
-          Object.assign(this.ap, this.formGroupAccessPoints.value)
-        );
+        subscription = this.serviceOrganizations.createAccessPoint(this.ap);
       } else if (this.mode === 'UPDATE') {
         subscription = this.serviceOrganizations.updateAccessPoint(this.ap);
       }
-      subscription.subscribe(
-        (response) => {
-          this._ref.destroy(response);
-          // todo: implement me
+      subscription.subscribe({
+        next: (response) => {
+          this.ap = response;
+          if (this._ref) {
+            this._ref.triggerOk()
+          }
         },
-        (error) => {
-          // todo: implement me
+        error: (error) => {
+          this.ap = null;
           this._snackBar.open(error.message, 'Ок');
           throw Error(
             `${error.message}\n${JSON.stringify(error.error, undefined, 2)}`
           );
         }
-      );
+      });
     }
   }
 

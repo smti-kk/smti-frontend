@@ -1,14 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
-import {Location, Organization, participationStatusToString, qualityToString} from '@core/models';
-import {OrganizationsService} from '@core/services';
-import {LocationServiceOrganizationAccessPointsWithFilterParams} from '@core/services/location.service';
-import {Reaccesspoint} from '@core/models/reaccesspoint';
-import {NzModalService} from 'ng-zorro-antd';
-import {FormAccessPointComponent} from '@shared/components/form-access-point/form-access-point.component';
-import {FomMonitoringWizardComponent} from '@shared/components/fom-monitoring-wizard/fom-monitoring-wizard.component';
+import {
+  Location,
+  Organization,
+  participationStatusToString,
+  qualityToString,
+} from '@core/models';
+import { OrganizationsService } from '@core/services';
+import { LocationServiceOrganizationAccessPointsWithFilterParams } from '@core/services/location.service';
+import { Reaccesspoint } from '@core/models/reaccesspoint';
+import { NzModalService } from 'ng-zorro-antd';
+import { FormAccessPointComponent } from '@shared/components/form-access-point/form-access-point.component';
+import { FomMonitoringWizardComponent } from '@shared/components/fom-monitoring-wizard/fom-monitoring-wizard.component';
 
 @Component({
   selector: 'app-organization-detail',
@@ -35,23 +40,30 @@ export class OrganizationDetailComponent implements OnInit {
   ngOnInit(): void {
     this.fLocations$ = this.serviceLocation.listSimpleLocations();
     const organizationId = this.activatedRoute.snapshot.params.id;
-    const locationId = parseInt(this.activatedRoute.snapshot.queryParams.locationId, 10);
+    const locationId = parseInt(
+      this.activatedRoute.snapshot.queryParams.locationId,
+      10
+    );
 
     this.serviceOrganizations.getPoints(organizationId).subscribe((res) => {
       this.points = res;
-    })
+    });
 
     if (organizationId) {
-      this.serviceOrganizations.getByIdentifier(organizationId).subscribe(organization => {
-        this.organization = organization;
-        if (this.organization.parent !== undefined) {
-          this.serviceOrganizations.getByIdentifier(String(this.organization.parent)).subscribe(organizationParent => {
-            this.organizationParent = organizationParent.name;
-          });
-        } else {
-          this.organizationParent = null;
-        }
-      });
+      this.serviceOrganizations
+        .getByIdentifier(organizationId)
+        .subscribe((organization) => {
+          this.organization = organization;
+          if (this.organization.parent !== undefined) {
+            this.serviceOrganizations
+              .getByIdentifier(String(this.organization.parent))
+              .subscribe((organizationParent) => {
+                this.organizationParent = organizationParent.name;
+              });
+          } else {
+            this.organizationParent = null;
+          }
+        });
     } else {
       const organization = new Organization(locationId);
       this.organization = organization;
@@ -59,17 +71,18 @@ export class OrganizationDetailComponent implements OnInit {
   }
 
   addNewAccessPoint(): void {
-    this.modal.create<FormAccessPointComponent, Reaccesspoint>({
+    this.modal.create<FormAccessPointComponent, Reaccesspoint | undefined>({
       nzTitle: 'Добавление точки доступа',
       nzContent: FormAccessPointComponent,
       nzFooter: null,
       nzComponentParams: {
         organization: this.organization,
         mode: 'CREATE',
-        type: 'ESPD'
+        type: 'ESPD',
       },
-    }).afterClose.subscribe((res) => {
-      this.points.push(res);
+      nzOnOk: ({ ap }) => {
+        this.points.push(ap);
+      },
     });
   }
 
@@ -81,13 +94,14 @@ export class OrganizationDetailComponent implements OnInit {
       nzComponentParams: {
         accessPointForEdit: point,
         organization: this.organization,
-        mode: 'UPDATE'
+        mode: 'UPDATE',
       },
-    }).afterClose.subscribe((res) => {
-      const idx = this.points.findIndex((ap) => ap.id === res.id);
-      if (idx >= 0) {
-        this.points[idx] = res;
-      }
+      nzOnOk: ({ ap }) => {
+        const idx = this.points.findIndex(({ id }) => id === ap.id);
+        if (idx >= 0) {
+          this.points[idx] = ap;
+        }
+      },
     });
   }
 

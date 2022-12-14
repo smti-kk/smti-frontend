@@ -19,14 +19,12 @@
       <div class="wrapper-points">
         <h2>Точки подключения</h2>
         <div class="points">
-          <div >
-            <app-access-point-detail
-              *ngFor="let ap of points"
-              class="point"
-              [ap]="ap"
-              [organization]="organization">
-            </app-access-point-detail>
-          </div>
+          <app-access-point-detail
+            *ngFor="let ap of points"
+            class="point"
+            [ap]="ap"
+            [organization]="organization">
+          </app-access-point-detail>
         </div>
         <div class="btn-group">
           <button

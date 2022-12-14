@@ -64,7 +64,7 @@
       >
         <nz-option
           *ngFor="let funCustomer of funCustomers$ | async"
-          [nzValue]="funCustomer.name"
+          [nzValue]="funCustomer.id"
           [nzLabel]="funCustomer.name"
         ></nz-option>
       </nz-select>
