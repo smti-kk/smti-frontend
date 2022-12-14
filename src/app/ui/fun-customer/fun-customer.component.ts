@@ -44,15 +44,16 @@ export class FunCustomerComponent implements OnInit {
   createStation(): void {
     const dialogRef = this.dialog.open<
       FunCustomerViewComponent,
-      Omit<IFunCustomer, 'id'>,
-      Omit<IFunCustomer, 'id'>
+      IFunCustomer,
+      IFunCustomer
     >(FunCustomerViewComponent, {
       width: '450px',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        delete result.id;
         this.funCustomerService
-          .create({...result, id: undefined})
+          .create(result)
           .subscribe((newFunCustomer) => {
             this.dataSource.data = [...this.dataSource.data, newFunCustomer];
           });
