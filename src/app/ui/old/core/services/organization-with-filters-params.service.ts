@@ -3,12 +3,13 @@ import {HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Location, Organization, OrganizationType, PaginatedList, SmoType} from '../models';
 import {OrganizationsService} from './organizations.service';
+import { FunCustomer } from '@core/models/funCustomer';
 
 interface OrganizationFilters {
   order: string[];
   location: Location | Location[];
   type: OrganizationType;
-  smo: SmoType;
+  funCustomer: FunCustomer
   parent: number[];
   organization: string;
   populationStart: number;
@@ -38,12 +39,19 @@ export class OrganizationServiceWithFilterParams extends OrganizationsService {
     // this.setContractor('contractor', filters.contractor);
     // this.setConnectionType('inet', filters.connectionType);
     this.setType('type', filters.type);
-    this.setSmo('smo', filters.smo);
+    this.setFunCustomer('funCustomer', filters.funCustomer);
     // this.setContractType('contract', filters.contractType);
     this.populationStart('population-start', filters.populationStart);
     this.populationEnd('population-end', filters.populationEnd);
     this.setLogicalCondition('logicalCondition', filters.logicalCondition);
     // this.setPoint('ap', filters.point);
+  }
+  setFunCustomer(field: string, value: any) {
+    if (value) {
+      this.params = this.params.set(field, value.id.toString());
+    } else {
+      this.params = this.params.delete(field);
+    }
   }
 
   /*

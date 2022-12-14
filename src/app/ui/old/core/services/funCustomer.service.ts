@@ -1,78 +1,54 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FunCustomer } from '@core/models/funCustomer';
+import {
+  ORGANIZATION_FUN_CUSTOMER,
+  ORGANIZATION_FUN_CUSTOMER_CREATE_UPDATE,
+  ORGANIZATION_FUN_CUSTOMER_LIST,
+} from '@core/constants/api';
+import {
+  FunCustomer,
+  IFunCustomer,
+} from '@core/models/funCustomer';
 import { GenericDeserialize } from 'cerialize';
-import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const funCustomers = [
-  { id: 1, name: 'МинСоцПол' },
-  { id: 2, name: 'МинСоцПолМинФин' },
-  { id: 3, name: 'Аг ГО и ЧИ' },
-  { id: 4, name: 'Аг Занятости' },
-  { id: 5, name: 'Аг Печати' },
-  { id: 6, name: 'ВетНадзор' },
-  { id: 7, name: 'ГТН' },
-  { id: 8, name: 'ЗАГС' },
-  { id: 9, name: 'ЗАГСМинФин' },
-  { id: 10, name: 'МинЗдрав' },
-  { id: 11, name: 'МинЗдравМинФин' },
-  { id: 12, name: 'МинКульт' },
-  { id: 13, name: 'МинЛес' },
-  { id: 14, name: 'МинОбр' },
-  { id: 15, name: 'МинСпорт' },
-  { id: 16, name: 'МинТранс' },
-  { id: 17, name: 'МинФИн' },
-  { id: 18, name: 'МирСуд' },
-  { id: 19, name: 'МЦР' },
-  { id: 20, name: 'МЭиРП' },
-  { id: 21, name: 'СтройНадзор' },
-  { id: 22, name: 'ЦИТ' },
-];
-
 @Injectable()
-export class funCustomerService {
+export class FunCustomerService {
   constructor(private readonly httpClient: HttpClient) {}
 
   getCustomers(): Observable<FunCustomer[]> {
-    return of(funCustomers).pipe(
-      map((rawCustomers) =>
-        rawCustomers.map((rawCustomer) =>
-          GenericDeserialize<FunCustomer>(rawCustomer, FunCustomer)
+    return this.httpClient
+      .get<IFunCustomer[]>(ORGANIZATION_FUN_CUSTOMER_LIST)
+      .pipe(
+        map((rawCustomers) =>
+          rawCustomers.map((rawCustomer) =>
+            GenericDeserialize<FunCustomer>(rawCustomer, FunCustomer)
+          )
         )
-      )
-    );
+      );
   }
 
-  create(name: string): Observable<FunCustomer> {
-    const newFunCustomer = {
-      id: funCustomers.length,
-      name,
-    };
+  create(newFunCustomer: Omit<IFunCustomer, 'id'>): Observable<FunCustomer> {
+    return this.httpClient
+      .post(ORGANIZATION_FUN_CUSTOMER_CREATE_UPDATE, newFunCustomer)
+      .pipe(
+        map((funCustomer) =>
+          GenericDeserialize<FunCustomer>(funCustomer, FunCustomer)
+        )
+      );
+  }
 
-    return of(newFunCustomer).pipe(
+  update(updatedFunCustomer: IFunCustomer): Observable<FunCustomer> {
+    return this.httpClient
+    .put(ORGANIZATION_FUN_CUSTOMER_CREATE_UPDATE, updatedFunCustomer).pipe(
       map((funCustomer) =>
         GenericDeserialize<FunCustomer>(funCustomer, FunCustomer)
       )
     );
-  }
-
-  update(id: number, newName: string): Observable<FunCustomer> {
-    const idx = funCustomers.findIndex((fc) => fc.id === id);
-
-    funCustomers[idx] = {...funCustomers[idx], name: newName};
-
-    return of(funCustomers[idx]).pipe(
-      map((funCustomer) =>
-        GenericDeserialize<FunCustomer>(funCustomer, FunCustomer)
-      )
-    );
-
   }
 
   delete(id: number) {
-    const idx = funCustomers.findIndex((fc) => fc.id === id);
-    funCustomers.splice(idx,1);
-    return of(true);
+    const url = ORGANIZATION_FUN_CUSTOMER.replace(':id', id.toString(10));
+    return this.httpClient.delete(url);
   }
 }
