@@ -6,6 +6,7 @@ import {Reaccesspoint} from '@core/models/reaccesspoint';
 import {Contract} from '@core/models/contract';
 import {ID_SERIALIZER} from '@core/utils/serializers';
 import {Location} from '@core/models/location';
+import { FunCustomer } from '@core/models/funCustomer';
 
 
 const LOCATION_DESERIALIZER = {
@@ -49,6 +50,10 @@ export class Organization {
   @deserializeAs(SmoType, 'smo')
   @serializeAs(ID_SERIALIZER, 'smo')
   private readonly _smoType: SmoType;
+
+  @deserializeAs(FunCustomer, 'funCustomer')
+  @serializeAs(ID_SERIALIZER, 'funCustomer')
+  private readonly _funCustomer: FunCustomer;
 
   // @autoserializeAs(Contract, 'contract_set')
   // private readonly _contracts: Contract[];
@@ -124,5 +129,9 @@ export class Organization {
 
   get smoType(): SmoType {
     return this._smoType;
+  }
+
+  get funCustomer(): FunCustomer {
+    return this._funCustomer;
   }
 }

@@ -61,7 +61,7 @@
         <span *ngIf="formGroupOrganization.get('_kpp').errors?.required">Обязательное поле</span>
       </div>
     </nz-form-control>
-  </nz-form-item>  
+  </nz-form-item>
   <nz-form-item>
     <nz-form-label>ФИАС</nz-form-label>
     <nz-form-control>
@@ -89,6 +89,23 @@
       <div class="error-required" *ngIf="formGroupOrganization.get('_fun_customer').invalid && (formGroupOrganization.get('_fun_customer').touched || formGroupOrganization.get('_fun_customer').dirty)">
         <span *ngIf="formGroupOrganization.get('_fun_customer').errors?.required">Обязательное поле</span>
       </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Тип</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        nzAllowClear
+        formControlName="_type"
+        [compareWith]="compareFn"
+        [nzSuffixIcon]="suffixIconSelect"
+      >
+        <nz-option
+          *ngFor="let item of fOrganizationTypes$ | async"
+          [nzValue]="item"
+          [nzLabel]="item.name"
+        ></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
