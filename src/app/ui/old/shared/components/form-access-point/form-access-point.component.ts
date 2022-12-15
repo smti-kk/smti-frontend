@@ -19,6 +19,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ParticipationStatus } from '../../../core/models';
 import { NzModalRef } from 'ng-zorro-antd';
 import { Deserialize, Serialize } from 'cerialize';
+import { APChangesService } from '@core/services/apChanges.service';
+import { APChanges } from '@core/models/apChanges';
 
 const IP_REGEXP =
   /^([01]?\d\d?|2[0-4]\d|25[0-5])(?:\.(?:[01]?\d\d?|2[0-4]\d|25[0-5])){3}(?:\/[0-2]\d|\/3[0-2])?$/gm;
@@ -38,8 +40,9 @@ export class FormAccessPointComponent implements OnInit {
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
   accessPointType$: Observable<AccessPointType[]>;
+  apChanges$: Observable<APChanges[]>;
   formGroupAccessPoints: FormGroup;
-  ap: Reaccesspoint | null;
+  ap: Reaccesspoint | null = null;
   Quality = Quality;
   qualityToString = qualityToString;
   compareFn = compareById;
@@ -53,13 +56,15 @@ export class FormAccessPointComponent implements OnInit {
     private serviceAccessPointType: AccessPointService,
     private formBuilder: FormBuilder,
     private readonly _snackBar: MatSnackBar,
-    @Optional() private readonly _ref: NzModalRef
+    @Optional() private readonly _ref: NzModalRef,
+    private readonly apChangesService: APChangesService
   ) {}
 
   ngOnInit(): void {
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
     this.accessPointType$ = this.serviceAccessPointType.getAccessPointType();
+    this.apChanges$ = this.apChangesService.getApChanges();
 
     if (this.accessPointForEdit) {
       this.buildForm(this.accessPointForEdit);
@@ -115,7 +120,7 @@ export class FormAccessPointComponent implements OnInit {
       contract: null,
       numIncomingMessage: null,
       numSourceEmailsRTK: null,
-      monthlyPay: null,
+      mounthlyPay: null,
       oneTimePay: null,
       espdWhiteIp: null,
       contractId: null,
@@ -134,6 +139,7 @@ export class FormAccessPointComponent implements OnInit {
     if (point) {
       const tmp = Serialize(this.accessPointForEdit, Reaccesspoint);
       this.formGroupAccessPoints.patchValue(tmp);
+      this.formGroupAccessPoints.get('connectionType').patchValue(point.connectionType);
     }
   }
 

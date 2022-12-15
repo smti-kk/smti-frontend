@@ -30,6 +30,7 @@ export const MOBILE_PROVIDER = `${environment.API_BASE_URL}/api/operator/mobile`
 export const ACCESS_POINT_TYPE = 'api/type/access-point/';
 export const ACCESS_POINT_MONITORING = 'api/report/organization/ap-all/monitoring/';
 export const ACCESS_POINT_NOTIFICATIONS = 'api/monitoring-notification';
+export const ACCESS_POINT_CHANGES_LIST = 'api/type/changes/list';
 
 export const IMPORT_LOCATION = '/api/import/location';
 export const IMPORT_TC_INTERNET = '/api/import/tc-internet';

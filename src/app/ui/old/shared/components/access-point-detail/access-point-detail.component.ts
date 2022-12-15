@@ -37,7 +37,7 @@ export class AccessPointDetailComponent implements OnInit {
 
   editAccessPoint(): void {
     this.modal.create<FormAccessPointComponent, Reaccesspoint | undefined >({
-      nzTitle: `Редактирование точки доступа ${this.ap.id}`,
+      nzTitle: 'Редактирование точки доступа',
       nzContent: FormAccessPointComponent,
       nzFooter: null,
       nzComponentParams: {
@@ -45,13 +45,9 @@ export class AccessPointDetailComponent implements OnInit {
         organization: this.organization,
         mode: 'UPDATE'
       },
-    })
-    .afterClose
-      .subscribe((updatedAp) => {
-        if (!updatedAp) {
-          return
-        }
-        this.ap = updatedAp;
+      nzOnOk: ({ ap }) => {
+        this.ap = ap;
+      },
       })
   }
 }
