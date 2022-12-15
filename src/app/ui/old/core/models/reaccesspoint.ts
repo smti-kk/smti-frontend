@@ -8,6 +8,7 @@ import {Avstatus} from '@core/models/avstatus';
 import {ID_SERIALIZER} from '@core/utils/serializers';
 import {Organization} from '@core/models/organization';
 import {MonitoringPoint} from './monitoring-point';
+import { APChanges } from '@core/models/apChanges';
 
 const ESPD_MARKER_ACTIVE = '../../../../assets/img/ap-ena-espd.svg';
 const ESPD_MARKER_UNDEFINED = '../../../../assets/img/ap-na-espd.svg';
@@ -181,8 +182,9 @@ export class Reaccesspoint extends MonitoringPoint {
   @autoserializeAs('contacts')
   private readonly _contacts: string;
 
-  @autoserializeAs('change')
-  private readonly _change: string;
+  @deserializeAs(APChanges, 'change')
+  @serializeAs(ID_SERIALIZER, 'change')
+  private readonly _change: APChanges;
 
   @autoserializeAs('dateConnectionOrChange')
   private readonly _dateConnectionOrChange: Date;

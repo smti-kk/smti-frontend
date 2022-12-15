@@ -191,11 +191,12 @@
       <nz-form-control>
         <nz-select
           formControlName="change"
+          [compareWith]="compareFn"
           [nzSuffixIcon]="suffixIconSelect"
         >
           <nz-option
             *ngFor="let item of apChanges$ | async"
-            [nzValue]="item.id"
+            [nzValue]="item"
             [nzLabel]="item.name"
           ></nz-option>
         </nz-select>
