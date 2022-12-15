@@ -45,6 +45,24 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
+  <nz-form-label>ИНН</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_inn"/>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_inn').invalid && (formGroupOrganization.get('_inn').touched || formGroupOrganization.get('_inn').dirty)">
+        <span *ngIf="formGroupOrganization.get('_inn').errors?.required">Обязательное поле</span>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>КПП</nz-form-label>
+    <nz-form-control>
+      <input nz-input type="text" formControlName="_kpp"/>
+      <div class="error-required" *ngIf="formGroupOrganization.get('_kpp').invalid && (formGroupOrganization.get('_kpp').touched || formGroupOrganization.get('_kpp').dirty)">
+        <span *ngIf="formGroupOrganization.get('_kpp').errors?.required">Обязательное поле</span>
+      </div>
+    </nz-form-control>
+  </nz-form-item>  
+  <nz-form-item>
     <nz-form-label>ФИАС</nz-form-label>
     <nz-form-control>
       <input nz-input type="text" formControlName="_fias"/>
