@@ -241,7 +241,19 @@ export class StrictFilterImpl extends StrictFilter {
       );
     }
 
-    if (allowQuality.includes('ABSENT') && operators.length > 0) {
+    if (allowQuality.includes('NORMAL') && signals.length > 0) {
+      return (
+        hasOperatorAndSignal &&
+        cellular.every((cq) => cq.quality === 'NORMAL') &&
+        cellularMap
+          .filter(
+            ({ signalType }) => !!signals.find(({ label }) => label !== signalType)
+          )
+          .every((cq) => cq.quality === 'NORMAL' || cq.quality === 'ABSENT')
+      );
+    }
+
+    if (allowQuality.includes('ABSENT') && (operators.length > 0 || signals.length > 0)) {
       return hasQuality;
     }
 
