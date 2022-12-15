@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { compareById } from '@core/utils/compare';
 import { Reaccesspoint } from '@core/models/reaccesspoint';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,6 +19,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ParticipationStatus } from '../../../core/models';
 import { NzModalRef } from 'ng-zorro-antd';
 import { Deserialize, Serialize } from 'cerialize';
+import { APChangesService } from '@core/services/apChanges.service';
+import { APChanges } from '@core/models/apChanges';
 
 const IP_REGEXP =
   /^([01]?\d\d?|2[0-4]\d|25[0-5])(?:\.(?:[01]?\d\d?|2[0-4]\d|25[0-5])){3}(?:\/[0-2]\d|\/3[0-2])?$/gm;
@@ -38,8 +40,9 @@ export class FormAccessPointComponent implements OnInit {
   fInternetAccessTypes$: Observable<InternetAccessType[]>;
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
   accessPointType$: Observable<AccessPointType[]>;
+  apChanges$: Observable<APChanges[]>;
   formGroupAccessPoints: FormGroup;
-  ap: Reaccesspoint;
+  ap: Reaccesspoint | null = null;
   Quality = Quality;
   qualityToString = qualityToString;
   compareFn = compareById;
@@ -53,13 +56,15 @@ export class FormAccessPointComponent implements OnInit {
     private serviceAccessPointType: AccessPointService,
     private formBuilder: FormBuilder,
     private readonly _snackBar: MatSnackBar,
-    private readonly _ref: NzModalRef
+    @Optional() private readonly _ref: NzModalRef,
+    private readonly apChangesService: APChangesService
   ) {}
 
   ngOnInit(): void {
     this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
     this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
     this.accessPointType$ = this.serviceAccessPointType.getAccessPointType();
+    this.apChanges$ = this.apChangesService.getApChanges();
 
     if (this.accessPointForEdit) {
       this.buildForm(this.accessPointForEdit);
@@ -115,7 +120,7 @@ export class FormAccessPointComponent implements OnInit {
       contract: null,
       numIncomingMessage: null,
       numSourceEmailsRTK: null,
-      monthlyPay: null,
+      mounthlyPay: null,
       oneTimePay: null,
       espdWhiteIp: null,
       contractId: null,
@@ -134,6 +139,7 @@ export class FormAccessPointComponent implements OnInit {
     if (point) {
       const tmp = Serialize(this.accessPointForEdit, Reaccesspoint);
       this.formGroupAccessPoints.patchValue(tmp);
+      this.formGroupAccessPoints.get('connectionType').patchValue(point.connectionType);
     }
   }
 
@@ -143,19 +149,10 @@ export class FormAccessPointComponent implements OnInit {
       Object.keys(this.formGroupAccessPoints.controls).forEach((key) => {
         this.formGroupAccessPoints.get(key).markAsDirty();
       });
-      Object.entries(this.formGroupAccessPoints.controls).forEach(
-        ([key, val]) => {
-          if (val.invalid) console.log(key, val.invalid);
-        }
-      );
-      console.log(this.formGroupAccessPoints.value);
     } else {
-      console.log('valid');
 
-      // const coords = {
-      //   lng: this.formGroupAccessPoints.get('lng').value,
-      //   lat: this.formGroupAccessPoints.get('lat').value};
-      const orig = Serialize(this.accessPointForEdit, Reaccesspoint);
+
+      const orig = Serialize(this.accessPointForEdit, Reaccesspoint) ?? {};
       this.ap = Deserialize(
         Object.assign(orig, {
           ...this.formGroupAccessPoints.value,
@@ -164,30 +161,27 @@ export class FormAccessPointComponent implements OnInit {
         }),
         Reaccesspoint
       );
-      console.log(this.ap);
-
-      //new Reaccesspoint(coords, null);
       let subscription: Observable<Reaccesspoint>;
       if (this.mode === 'CREATE') {
-        subscription = this.serviceOrganizations.createAccessPoint(
-          Object.assign(this.ap, this.formGroupAccessPoints.value)
-        );
+        subscription = this.serviceOrganizations.createAccessPoint(this.ap);
       } else if (this.mode === 'UPDATE') {
         subscription = this.serviceOrganizations.updateAccessPoint(this.ap);
       }
-      subscription.subscribe(
-        (response) => {
-          this._ref.destroy(response);
-          // todo: implement me
+      subscription.subscribe({
+        next: (response) => {
+          this.ap = response;
+          if (this._ref) {
+            this._ref.triggerOk()
+          }
         },
-        (error) => {
-          // todo: implement me
+        error: (error) => {
+          this.ap = null;
           this._snackBar.open(error.message, 'Ок');
           throw Error(
             `${error.message}\n${JSON.stringify(error.error, undefined, 2)}`
           );
         }
-      );
+      });
     }
   }
 

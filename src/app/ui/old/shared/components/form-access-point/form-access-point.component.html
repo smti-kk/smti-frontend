@@ -189,7 +189,20 @@
     <nz-form-item>
       <nz-form-label>Изменение</nz-form-label>
       <nz-form-control>
-        <input nz-input type="string" formControlName="change"/>
+        <nz-select
+          formControlName="change"
+          [nzSuffixIcon]="suffixIconSelect"
+        >
+          <nz-option
+            *ngFor="let item of apChanges$ | async"
+            [nzValue]="item.id"
+            [nzLabel]="item.name"
+          ></nz-option>
+        </nz-select>
+        <div class="error-required"
+             *ngIf="formGroupAccessPoints.get('change').invalid && (formGroupAccessPoints.get('change').touched || formGroupAccessPoints.get('change').dirty)">
+          <span *ngIf="formGroupAccessPoints.get('change').errors?.required">Обязательное поле</span>
+        </div>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -226,7 +239,7 @@
       <nz-form-item>
         <nz-form-label>Емежес., руб. с НДС</nz-form-label>
         <nz-form-control>
-          <input nz-input type="number" formControlName="monthlyPay"/>
+          <input nz-input type="number" formControlName="mounthlyPay"/>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>

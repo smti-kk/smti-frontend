@@ -25,7 +25,7 @@ import {SearchAddressComponent} from 'src/app/ui/old/connection-points/connectio
 import {AccountService} from '@service/account/AccountService';
 import {UserRole} from '@service/account/UserRole';
 import { FunCustomer } from '@core/models/funCustomer';
-import { funCustomerService } from '@core/services/funCustomer.service';
+import { FunCustomerService } from '@core/services/funCustomer.service';
 
 export const APState = {
   Active: 'ACTIVE',
@@ -75,7 +75,7 @@ export class ConnectionPointsComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private modal: NzModalService,
-    private funCustomerService: funCustomerService,
+    private funCustomerService: FunCustomerService,
   ) {}
 
   ngOnInit(): void {

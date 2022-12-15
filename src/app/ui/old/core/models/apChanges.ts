@@ -1,14 +1,13 @@
 import { autoserializeAs } from 'cerialize';
 
-export type FunCustomerApType = 'SMO' | 'ESPD' | 'GENERAL';
+export type APChangesApType = 'SMO' | 'ESPD' | 'GENERAL';
 
-export interface IFunCustomer {
+export interface IAPChanges {
   id: number;
   name: string;
-  apType: FunCustomerApType;
 }
 
-export class FunCustomer implements IFunCustomer {
+export class APChanges implements IAPChanges {
   @autoserializeAs('id')
   private readonly _id: number;
   public get id(): number {
@@ -22,8 +21,8 @@ export class FunCustomer implements IFunCustomer {
   }
 
   @autoserializeAs('apType')
-  private readonly _apType: FunCustomerApType;
-  public get apType(): FunCustomerApType {
+  private readonly _apType: APChangesApType;
+  public get apType(): APChangesApType {
     return this._apType;
   }
 }

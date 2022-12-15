@@ -330,8 +330,6 @@ export class LocationServiceOrganizationAccessPointsWithFilterParams extends Loc
   }
 
   setFunCustomer(field: string, value: FunCustomer) {
-    console.log(value);
-
     if (value) {
       this.params = this.params.set(field, value.id.toString());
     } else {

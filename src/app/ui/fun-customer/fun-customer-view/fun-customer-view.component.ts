@@ -22,6 +22,7 @@ export class FunCustomerViewComponent implements OnInit {
       this.funCustomer = {
         id: null,
         name: null,
+        apType: null,
       };
       this.action = 'CREATE';
     }

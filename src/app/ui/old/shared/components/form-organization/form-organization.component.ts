@@ -11,7 +11,7 @@ import {AreYouSureComponent} from '../../../../dialogs/are-you-sure/are-you-sure
 import {MatDialog} from '@angular/material/dialog';
 import {ApiOrganization} from '../../../../../api/organizations/ApiOrganization';
 import { FunCustomer } from '@core/models/funCustomer';
-import { funCustomerService } from '@core/services/funCustomer.service';
+import { FunCustomerService } from '@core/services/funCustomer.service';
 
 
 
@@ -48,7 +48,7 @@ export class FormOrganizationComponent implements OnInit {
     private router: Router,
     @Optional() private modalRef: NzModalRef,
     private readonly dialog: MatDialog,
-    private readonly funCustomerService: funCustomerService,
+    private readonly funCustomerService: FunCustomerService,
   ) {
   }
 

@@ -12,7 +12,7 @@ import {InternetAccessTypeService} from '@core/services/internet-access-type.ser
 import {OrganizationsService} from '@core/services';
 import { Reaccesspoint} from '@core/models/reaccesspoint';
 import { FunCustomer } from '@core/models/funCustomer';
-import { funCustomerService } from '@core/services/funCustomer.service';
+import { FunCustomerService } from '@core/services/funCustomer.service';
 
 const FIRST_PAGE = 1;
 
@@ -45,7 +45,7 @@ export class CommunicationContractsComponent implements OnInit {
     private serviceOrganizations: OrganizationsService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private funCustomerService: funCustomerService,
+    private funCustomerService: FunCustomerService,
   ) {
   }
 

@@ -17,6 +17,8 @@ import {AccessPointService} from '../../core/services/accesspoint-type.service';
 import {AccessPointType} from '../../core/models/accesspoint-type';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import {GovernmentProgramService, OrganizationServiceWithFilterParams} from '../../core/services';
+import { FunCustomer } from '@core/models/funCustomer';
+import { FunCustomerService } from '@core/services/funCustomer.service';
 
 @Component({
   selector: 'app-organizations-only',
@@ -37,6 +39,8 @@ export class OrganizationsOnlyComponent implements OnInit {
   fOrganizationTypes$: Observable<OrganizationType[]>;
 
   fOrganizationSMOTypes$: Observable<SmoType[]>;
+
+  funCustomers$: Observable<FunCustomer[]>;
 
   fGovernmentPrograms$: Observable<GovernmentProgram[]>;
 
@@ -62,7 +66,8 @@ export class OrganizationsOnlyComponent implements OnInit {
     private serviceAccessPointTypeService: AccessPointService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private funCustomerService: FunCustomerService,
   ) {
   }
 
@@ -79,7 +84,7 @@ export class OrganizationsOnlyComponent implements OnInit {
     // this.fInternetAccessTypes$ = this.serviceInternetAccessType.list();
     // this.fGovernmentPrograms$ = this.serviceGovernmentProgram.list();
     this.fOrganizationTypes$ = this.serviceOrganizations.getTypes();
-    this.fOrganizationSMOTypes$ = this.serviceOrganizations.getSMOTypes();
+    this.funCustomers$ = this.funCustomerService.getCustomers();
     // this.fPoints$ = this.serviceAccessPointTypeService.getAccessPointType();
 
     this.buildForm();
@@ -91,6 +96,7 @@ export class OrganizationsOnlyComponent implements OnInit {
       location: null,
       type: null,
       smo: null,
+      funCustomer: null,
       organization: null,
       parent: null,
       populationStart: null,

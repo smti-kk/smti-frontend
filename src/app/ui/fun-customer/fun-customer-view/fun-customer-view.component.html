@@ -5,6 +5,14 @@
     <mat-label>Имя</mat-label>
     <input cdkFocusInitial matInput type="text" [(ngModel)]="funCustomer.name" name="name" required>
   </mat-form-field>
+  <mat-form-field>
+    <mat-label>Тип</mat-label>
+    <mat-select [(ngModel)]="funCustomer.apType" name="apType" required>
+      <mat-option value="SMO">СЗО</mat-option>
+      <mat-option value="ESPD">ЕСПД</mat-option>
+      <mat-option value="GENERAL">ОБЩИЙ</mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Отмена</button>

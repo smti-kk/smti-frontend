@@ -39,10 +39,15 @@ input:disabled.save {
 }
 
 .points {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  grid-column-gap: 2rem;
-  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 1260px) {
+  .points {
+    justify-content: center;
+  }
 }
 
 .point-type {

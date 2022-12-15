@@ -11,6 +11,9 @@ export const ORGANIZATION_INIT_MONITORING_AP = '/api/organization/:id/ap/:apid/i
 export const ORGANIZATION_REPORT_MONITORING_TECH = '/api/report/organization/export/map/tech';
 export const ORGANIZATION_REPORT_MONITORING_AVAILABILITY = '/api/report/organization/export/map/availability';
 export const ORGANIZATION_REPORT_MONITORING_UNAVAILABILITY = '/api/report/organization/export/map/unavailability';
+export const ORGANIZATION_FUN_CUSTOMER = '/api/organization/fun-customer/:id';
+export const ORGANIZATION_FUN_CUSTOMER_LIST = '/api/organization/fun-customer/list';
+export const ORGANIZATION_FUN_CUSTOMER_CREATE_UPDATE = '/api/organization/fun-customer/';
 
 export const INTERNET_ACCESS_TYPES = '/api/type/internet-access/';
 
@@ -27,6 +30,7 @@ export const MOBILE_PROVIDER = `${environment.API_BASE_URL}/api/operator/mobile`
 export const ACCESS_POINT_TYPE = 'api/type/access-point/';
 export const ACCESS_POINT_MONITORING = 'api/report/organization/ap-all/monitoring/';
 export const ACCESS_POINT_NOTIFICATIONS = 'api/monitoring-notification';
+export const ACCESS_POINT_CHANGES_LIST = 'api/type/changes/list';
 
 export const IMPORT_LOCATION = '/api/import/location';
 export const IMPORT_TC_INTERNET = '/api/import/tc-internet';

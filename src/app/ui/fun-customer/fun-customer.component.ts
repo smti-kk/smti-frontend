@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { FunCustomer, IFunCustomer } from '@core/models/funCustomer';
-import { funCustomerService } from '@core/services/funCustomer.service';
+import { FunCustomer, FunCustomerApType, IFunCustomer } from '@core/models/funCustomer';
+import { FunCustomerService } from '@core/services/funCustomer.service';
 import { FunCustomerViewComponent } from './fun-customer-view/fun-customer-view.component';
 import { LocationFilters } from 'src/app/ui/locations-page/location-filters/LocationFilters';
 import { Serialize } from 'cerialize';
@@ -15,7 +15,7 @@ import { AreYouSureComponent } from 'src/app/ui/dialogs/are-you-sure/are-you-sur
   styleUrls: ['./fun-customer.component.scss'],
 })
 export class FunCustomerComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'select'];
+  displayedColumns: string[] = ['name', 'apType', 'select'];
   dataSource: MatTableDataSource<FunCustomer>;
   typeOrganizations: FunCustomer[];
 
@@ -25,7 +25,7 @@ export class FunCustomerComponent implements OnInit {
   filters: LocationFilters | any = {};
 
   constructor(
-    private readonly funCustomerService: funCustomerService,
+    private readonly funCustomerService: FunCustomerService,
     private readonly cdr: ChangeDetectorRef,
     private readonly dialog: MatDialog
   ) {
@@ -51,8 +51,9 @@ export class FunCustomerComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        delete result.id;
         this.funCustomerService
-          .create(result.name)
+          .create(result)
           .subscribe((newFunCustomer) => {
             this.dataSource.data = [...this.dataSource.data, newFunCustomer];
           });
@@ -72,7 +73,7 @@ export class FunCustomerComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.funCustomerService
-          .update(result.id, result.name)
+          .update(result)
           .subscribe((updatedFunCustomer) => {
             const idx = this.dataSource.data.findIndex(
               (fc) => fc.id === updatedFunCustomer.id
@@ -96,5 +97,16 @@ export class FunCustomerComponent implements OnInit {
         })
       }
     });
+  }
+
+  getApTypeName(apType: FunCustomerApType): string {
+    switch (apType) {
+      case 'SMO':
+        return 'СЗО';
+      case 'ESPD':
+        return 'ЕСПД';
+      default:
+        return 'ОБЩИЙ';
+    }
   }
 }
