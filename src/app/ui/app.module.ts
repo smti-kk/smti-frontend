@@ -138,6 +138,7 @@ import { LocationsFilterMobileComponent } from './locations-page/locations-filte
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { FunCustomerComponent } from './fun-customer/fun-customer.component';
 import { FunCustomerViewComponent } from './fun-customer/fun-customer-view/fun-customer-view.component';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 registerLocaleData(ru);
 
 const toastrConfig = {
@@ -284,6 +285,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzIconModule,
     NzUploadModule,
     NzToolTipModule,
+    NzTypographyModule,
   ],
   exports: [SortDirective, CoreModule, SharedModule],
   providers: [

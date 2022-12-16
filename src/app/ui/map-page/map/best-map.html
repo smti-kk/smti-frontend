@@ -68,43 +68,6 @@
   </div>
 </div>
 
-<ng-container
-  *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']"
->
-  <div class="layers-selection layers-selection-right" *ngIf="map">
-    <div class="layers-selection__item">
-      <label class="checkbox-label">
-        <input
-          type="checkbox"
-          (change)="updateBaseStations()"
-          [(ngModel)]="selectedMobileTypes['4G']"
-        />
-        <span class="checkbox-text column g4">4G</span>
-      </label>
-    </div>
-    <div class="layers-selection__item">
-      <label class="checkbox-label">
-        <input
-          type="checkbox"
-          (change)="updateBaseStations()"
-          [(ngModel)]="selectedMobileTypes['3G']"
-        />
-        <span class="checkbox-text column g3">3G</span>
-      </label>
-    </div>
-    <div class="layers-selection__item">
-      <label class="checkbox-label">
-        <input
-          type="checkbox"
-          (change)="updateBaseStations()"
-          [(ngModel)]="selectedMobileTypes['2G']"
-        />
-        <span class="checkbox-text column g2">2G</span>
-      </label>
-    </div>
-  </div>
-</ng-container>
-
 <!-- <ng-container
   *permissions="['ADMIN', 'OPERATOR', 'ORGANIZATION', 'CONTRACTOR']"
 >
