@@ -53,11 +53,6 @@ export class BestMap implements OnInit, OnDestroy {
     trunkChannelsLayer: false,
     locations: true,
   };
-  selectedMobileTypes: { [key: string]: boolean } = {
-    '2G': false,
-    '3G': false,
-    '4G': false,
-  };
   hasCellularControl: FormControl;
   hasEspdControl: FormControl;
   hasZspdControl: FormControl;
@@ -145,7 +140,6 @@ export class BestMap implements OnInit, OnDestroy {
   initializeMap(map: Map): void {
     setTimeout(() => {
       this.map = map;
-      // this.updateBaseStations();
       this.updateTrunkChannelsLayer();
       this.municipalitiesLayer.addTo(map);
       this.pointsLayers.locations.addTo(map);
@@ -200,21 +194,6 @@ export class BestMap implements OnInit, OnDestroy {
 
   moveToPoint(pointId: number, layerId: string): void {
     this.pointsLayers[layerId].moveTo(pointId);
-  }
-
-  updateBaseStations(): void {
-    if (this.pointsLayers.baseStations) {
-      this.pointsLayers.baseStations.removeFrom(this.map);
-    }
-    const mobileTypes = Object.keys(this.selectedMobileTypes).filter(
-      (mobileType) => this.selectedMobileTypes[mobileType] === true
-    ) as CellularType[];
-    this.pointsLayers.baseStations =
-      this.layersFactory.baseStationsLayerLayerController(mobileTypes);
-    this.pointsLayers.baseStations.addTo(this.map);
-    this.pointsLayers.baseStations
-      .onPointClick()
-      .subscribe((id) => this.baseStationClick.emit(id));
   }
 
   updateTrunkChannelsLayer(): void {
