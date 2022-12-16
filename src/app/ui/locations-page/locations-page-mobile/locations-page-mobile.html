@@ -44,14 +44,29 @@
     >
       <ng-template #header>
         <div class="panel-header">
-          <!-- <div>Населенный пункт</div> -->
-          <div>{{location.name}}</div>
+          <p
+            class="panel-header__text"
+            nz-typography
+            nzEllipsis
+            [nzContent]="location.area.name"
+          ></p>
+          <p
+            class="panel-header__text"
+            nz-typography
+            nzEllipsis
+            [nzContent]="location.name"
+          ></p>
         </div>
       </ng-template>
 
       <div class="panel-content">
         <div class="panel-content__name">Муниципальное образование</div>
         <div class="panel-content__value">{{location.area.name}}</div>
+      </div>
+
+      <div class="panel-content">
+        <div class="panel-content__name">Населенный пункт</div>
+        <div class="panel-content__value">{{location.name}}</div>
       </div>
 
       <div class="panel-content">

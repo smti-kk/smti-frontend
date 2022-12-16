@@ -72,7 +72,9 @@
       border-bottom: 1px solid #d9d9d9;
 
       .panel-header {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
         justify-content: space-between;
         font-family: "GolosTextWebVF", sans-serif;
         font-style: normal;
@@ -81,6 +83,10 @@
         line-height: 19px;
 
         color: #424242;
+
+        &__text {
+          margin: 0;
+        }
       }
     }
     ::ng-deep .ant-collapse-content {
